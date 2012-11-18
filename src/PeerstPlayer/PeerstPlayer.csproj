@@ -13,7 +13,8 @@
     <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <IsWebBootstrapper>false</IsWebBootstrapper>
-    <ApplicationIcon>PeerstPlayer2.ico</ApplicationIcon>
+    <ApplicationIcon>
+    </ApplicationIcon>
     <FileUpgradeFlags>
     </FileUpgradeFlags>
     <UpgradeBackupLocation>
@@ -84,9 +85,6 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="ThreadCaption.resx">
-      <DependentUpon>ThreadCaption.cs</DependentUpon>
-    </EmbeddedResource>
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
@@ -103,12 +101,6 @@
     </Compile>
     <Compile Include="ResBox.cs">
       <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="ThreadCaption.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="ThreadCaption.Designer.cs">
-      <DependentUpon>ThreadCaption.cs</DependentUpon>
     </Compile>
     <Compile Include="ToolStripEx.cs">
       <SubType>Component</SubType>
@@ -162,11 +154,6 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="index.html" />
-    <Content Include="PeerstPlayer.ico" />
-    <Content Include="PeerstPlayer2.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

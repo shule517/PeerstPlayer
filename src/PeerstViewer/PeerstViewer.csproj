@@ -72,7 +72,9 @@
     <Compile Include="ImageViewer.Designer.cs">
       <DependentUpon>ImageViewer.cs</DependentUpon>
     </Compile>
-    <Compile Include="InitFile.cs" />
+    <Compile Include="InitFile.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="LinkViewer.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -116,7 +118,6 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="Win32API.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="loading.png" />

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using PeerstViewer;
 using System.Text.RegularExpressions;
 using System.IO;
 using System.Windows.Forms;
@@ -16,33 +15,6 @@ namespace PeerstPlayer
 		{
 			this.mainForm = mainForm;
 		}
-
-		/// <summary>
-		/// アップデート更新完了
-		/// </summary>
-		public event EventHandler UpdateComp;
-		protected virtual void OnUpdateComp(EventArgs e)
-		{
-			if (UpdateComp != null)
-			{
-				UpdateComp(this, e);
-			}
-		}
-
-		/*
-		/// <summary>
-		/// HTTPスレッド
-		/// </summary>
-		System.Threading.Thread httpThread;
-
-		/// <summary>
-		/// HTTPスレッド関数
-		/// </summary>
-		void HttpThreadMethod()
-		{
-			html = HTTP.GetHtml(host, port_no, url, "utf-8");
-		}
-		 */
 
 		string host = "";
 		string port_no = "";
@@ -135,7 +107,6 @@ namespace PeerstPlayer
 			if (uRLData.Host == "" || uRLData.PortNo == "" || uRLData.ID == "")
 			{
 				FileName = uRLData.FileName;
-				OnUpdateComp(EventArgs.Empty);
 				return;
 			}
 
@@ -227,8 +198,6 @@ namespace PeerstPlayer
 					contactURL = "本スレ";
 				}
 			}
-
-			OnUpdateComp(EventArgs.Empty);
 		}
 
 		private string SelectGenre(string genre)

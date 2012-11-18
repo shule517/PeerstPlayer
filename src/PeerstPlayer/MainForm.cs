@@ -12,14 +12,11 @@ using System.Threading;
 using System.Text.RegularExpressions;
 using System.Drawing.Imaging;
 using Microsoft.Win32;
-using PeerstCaption;
 
 namespace PeerstPlayer
 {
 	public partial class MainForm : Form
 	{
-		ThreadCaption threadCaption = new ThreadCaption();
-
 		/// <summary>
 		/// チャンネル情報
 		/// </summary>
@@ -79,11 +76,6 @@ namespace PeerstPlayer
 		/// 前回書き込んだスレ番号
 		/// </summary>
 		string BeforeWriteThreadNo = "";
-
-		/// <summary>
-		/// スレッド内容を字幕表示するか
-		/// </summary>
-		bool ThreadCaption = true;
 
 		/// <summary>
 		/// レスボックスの操作
@@ -349,10 +341,6 @@ namespace PeerstPlayer
 			// 初期化
 			InitializeComponent();
 
-			// 字幕初期化
-			threadCaption.Show();
-			threadCaption.Visible = false;
-
 			ChannelInfo = new ChannelInfo(this);
 
 			// WMP初期化
@@ -364,7 +352,6 @@ namespace PeerstPlayer
 			wmp.VolumeChange += new EventHandler(wmp_VolumeChange);
 			wmp.Gesture += new EventHandlerString(wmp_Gesture);
 			wmp.DurationChange += new EventHandler(wmp_DurationChange);
-			ChannelInfo.UpdateComp += new EventHandler(ChannelInfo_UpdateComp);
 
 			// タイトルバー
 			TitleBar = false;
@@ -879,7 +866,7 @@ namespace PeerstPlayer
 				case "FitSizeMovie":
 					try
 					{
-						if (wmp.Height / (float)wmp.Width > wmp.AspectRate)
+						if ((wmp.Height / (float)wmp.Width) > wmp.AspectRate)
 						{
 							SetWidth(wmp.Width);
 						}
@@ -1118,7 +1105,6 @@ namespace PeerstPlayer
 
 			// WMP初期化
 			panelWMP.Controls.Add(wmp);
-
 			wmp.uiMode = "none";
 			wmp.stretchToFit = true;
 			wmp.Location = new Point(0, 0);
@@ -1126,31 +1112,8 @@ namespace PeerstPlayer
 			wmp.Volume = 50;
 			wmp.enableContextMenu = false;
 
-			/*
-			try
-			{
-				// WMP初期化
-				((System.ComponentModel.ISupportInitialize)(this.wmp)).BeginInit();
-	 			panelWMP.Controls.Add(wmp);
-				((System.ComponentModel.ISupportInitialize)(this.wmp)).EndInit();
-
-				wmp.uiMode = "none";
-				wmp.stretchToFit = true;
-				wmp.Location = new Point(0, 0);
-				wmp.Dock = DockStyle.Fill;
-				wmp.Volume = 50;
-				wmp.enableContextMenu = false;
-			}
-			catch
-			{
-			}
-			 */
-
 			OnPanelSizeChange();
 			
-			// test オーバーレイを切る？
-			// wmp.windowlessVideo = true;
-
 			// コマンドラインから再生
 			wmp.LoadCommandLine();
 
@@ -1231,7 +1194,7 @@ StatusLabel =True
 // フレームの表示
 // True ： 表示
 // False ： 表示しない
-Frame =False
+Frame =True
 
 // アスペクト比を維持
 // True : 維持する
@@ -1265,7 +1228,7 @@ ClickToResBoxClose =False
 // 終了時にリレーを切断するか
 // True　：　終了時にリレー切断
 // False ： 終了時にリレー切断しない
-RlayCutOnClose =True
+RlayCutOnClose =Flase
 
 // 終了時に位置を保存
 // True ： 保存する
@@ -1575,12 +1538,6 @@ H = Retry
 					string data = iniFile.ReadString("Player", keys[i]);
 					switch (keys[i])
 					{
-						// 字幕表示
-						case "ThreadCaption":
-							ThreadCaption = (data == "True");
-							threadCaption.Visible = (data == "True");
-							break;
-
 						// タイトルバー
 						case "TitleBar":
 							TitleBar = (data == "True");
@@ -1986,7 +1943,7 @@ H = Retry
 		/// <summary>
 		/// WMP:MouseMove
 		/// </summary>
-		void wmp_MouseMoveEvent(object sender, AxWMPLib._WMPOCXEvents_MouseMoveEvent e)
+        void wmp_MouseMoveEvent(object sender, AxWMPLib._WMPOCXEvents_MouseMoveEvent e)
 		{
 			// 右クリックしている時
 			if (e.nButton == 2)
@@ -2018,22 +1975,12 @@ H = Retry
 			{
 				toolStrip.Visible = false;
 			}
-
-			// ThreadCaptionの表示
-			if (e.fY < Height / 2)
-			{
-				threadCaption.MouseOver(true);
-			}
-			else
-			{
-				//threadCaption.MouseOver(false);
-			}
 		}
 
 		/// <summary>
 		/// 更新完了
 		/// </summary>
-		void ChannelInfo_UpdateComp(object sender, EventArgs e)
+		void ChannelInfo_UpdateComp()
 		{
 			Text = ChannelInfo.Name;
 			ChannelDetail = ChannelInfo.ToString();
@@ -2056,8 +2003,6 @@ H = Retry
 			{
 				labelDetail.Left = 3;
 			}
-
-			// toolTipDetail.SetToolTip(wmp, labelDetail.Text);
 		}
 
 		/// <summary>
@@ -2183,24 +2128,18 @@ H = Retry
 			channelInfoUpdateThread.Start();
 		}
 
-		delegate void ChannelInfoUpdateDelegate();
+        delegate void ChannelInfoUpdateDelegate();
 
+        /// <summary>
+        /// チャンネル情報更新(スレッド処理)
+        /// </summary>
 		void ChannelInfoUpdateWorker()
 		{
-			try
-			{
-				if (InvokeRequired)
-				{
-					Invoke(new ChannelInfoUpdateDelegate(ChannelInfoUpdateMethod));
-				}
-				else
-				{
-					ChannelInfoUpdateMethod();
-				}
-			}
-			catch
-			{
-			}
+            // チャンネル更新
+            ChannelInfoUpdateMethod();
+
+            // GUIの更新
+            Invoke(new ChannelInfoUpdateDelegate(ChannelInfo_UpdateComp));
 		}
 
 		/// <summary>
@@ -2218,24 +2157,18 @@ H = Retry
 		{
 			InitThreadSelected = false;
 
-			// デフォルト拡大率
-			if (DefaultScale != -1)
-			{
-				SetScale(DefaultScale);
-			}
-
-			// 動画サイズを合わせる
-			if (FitSizeMovie)
-			{
-				ExeCommand("FitSizeMovie");
-			}
+            // 動画サイズを合わせる
+            if (FitSizeMovie)
+            {
+                ExeCommand("FitSizeMovie");
+            }
 
 			if (labelVolume.Text == "-")
 			{
 				wmp.Mute = true;
 			}
 
-			// チャンネル情報を更新
+            // チャンネル情報を更新
 			ChannelInfoUpdate();
 		}
 
@@ -2473,12 +2406,6 @@ H = Retry
 				
 				// スレッドを変更
 				ThreadNo = ThreadList[comboBoxThreadList.SelectedIndex][0];
-
-				// 字幕更新
-				if (threadCaption.Visible)
-				{
-					threadCaption.OpenThread(KindOfBBS, BoadGenre, BoadNo, ThreadNo);
-				}
 			}
 		}
 
@@ -2862,8 +2789,6 @@ H = Retry
 		{
 			base.WndProc(ref m);
 
-			const int WM_SIZE = 0x0005;
-			const int WM_MOVE = 0x0003;
 			const int WM_MOVING = 0x0216;
 
 			// フレーム無し時にシステムメニューを表示
@@ -2906,38 +2831,9 @@ H = Retry
 					bool IsSetLeft = false;
 					bool IsSetTop = false;
 
-					#region  スクリーンに張り付く
-					Rectangle scr = System.Windows.Forms.Screen.GetBounds(this);
+                    #region ウィンドウに張り付く
 
-					if (!IsSetTop && Math.Abs(MousePosition.Y - wmp.ClickPoint.Y) <= ScreenMagnetDockDist)
-					{
-						top = scr.Top;
-						IsSetTop = true;
-					}
-
-					if (!IsSetLeft && Math.Abs(MousePosition.X - wmp.ClickPoint.X) <= ScreenMagnetDockDist)
-					{
-						left = scr.Left;
-						IsSetLeft = true;
-					}
-
-					if (!IsSetTop && Math.Abs(MousePosition.Y + Height - wmp.ClickPoint.Y - scr.Height) <= ScreenMagnetDockDist)
-					{
-						top = scr.Bottom - Height;
-						IsSetTop = true;
-					}
-
-					if (!IsSetLeft && Math.Abs(MousePosition.X + Width - wmp.ClickPoint.X - scr.Width) <= ScreenMagnetDockDist)
-					{
-						left = scr.Right - Width;
-						IsSetLeft = true;
-					}
-
-					#endregion
-
-					#region ウィンドウに張り付く
-
-					// 各辺に対する座標を取得
+                    // 各辺に対する座標を取得
 					POINT p1, p2, p3, p4;
 
 					// 上
@@ -3025,12 +2921,54 @@ H = Retry
 						}
 					}
 
-					#endregion
-
 					Marshal.WriteInt32(m.LParam, 0, left);
 					Marshal.WriteInt32(m.LParam, 4, top);
 					Marshal.WriteInt32(m.LParam, 8, left + Width);
 					Marshal.WriteInt32(m.LParam, 12, top + Height);
+
+					#endregion
+
+                    #region  スクリーンに張り付く
+
+                    Rectangle scr = System.Windows.Forms.Screen.GetBounds(this);
+
+                    if (!IsSetTop && Math.Abs(MousePosition.Y - wmp.ClickPoint.Y) <= ScreenMagnetDockDist)
+                    {
+                        top = scr.Top;
+                        IsSetTop = true;
+                    }
+
+                    if (!IsSetLeft && Math.Abs(MousePosition.X - wmp.ClickPoint.X) <= ScreenMagnetDockDist)
+                    {
+                        left = scr.Left;
+                        IsSetLeft = true;
+                    }
+
+                    if (!IsSetTop && Math.Abs(MousePosition.Y + Height - wmp.ClickPoint.Y - scr.Height) <= ScreenMagnetDockDist)
+                    {
+                        top = scr.Bottom - Height;
+                        IsSetTop = true;
+                    }
+
+                    // TODO 以下の処理があると、マルチディスプレイをまたぐとウィンドウが飛んでしまう
+                    /*
+                    if (!IsSetLeft && Math.Abs(MousePosition.X + Width - wmp.ClickPoint.X - scr.Width) <= ScreenMagnetDockDist)
+                    {
+                        left = scr.Right - Width;
+                        IsSetLeft = true;
+                    }
+                     */
+
+                    if (IsSetTop || IsSetLeft)
+                    {
+                        Marshal.WriteInt32(m.LParam, 0, left);
+                        Marshal.WriteInt32(m.LParam, 4, top);
+                        Marshal.WriteInt32(m.LParam, 8, left + Width);
+                        Marshal.WriteInt32(m.LParam, 12, top + Height);
+                        return;
+                    }
+
+                    #endregion
 
 					#endregion
 			}
@@ -4342,15 +4280,15 @@ H = Retry
 
 		private static string GetDefaultBrowserExePath()
 		{
-			return _GetDefaultExePath(@"http\shell\open\command");
+			return GetDefaultExePath(@"http\shell\open\command");
 		}
 
 		private static string GetDefaultMailerExePath()
 		{
-			return _GetDefaultExePath(@"mailto\shell\open\command");
+			return GetDefaultExePath(@"mailto\shell\open\command");
 		}
 
-		private static string _GetDefaultExePath(string keyPath)
+		private static string GetDefaultExePath(string keyPath)
 		{
 			string path = "";
 
@@ -4436,6 +4374,9 @@ H = Retry
 
 		private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
 		{
+            // フォーム非表示 → 終了処理をユーザに速く見せる.
+            Visible = false;
+
 			// 停止
 			wmp.Ctlcontrols.stop();
 
@@ -4507,66 +4448,6 @@ H = Retry
 			ExeCommand("ChannelInfoUpdate");
 		}
 
-		private void toolStripButtonCaption_Click(object sender, EventArgs e)
-		{
-			threadCaption.Visible = !threadCaption.Visible;
-			threadCaption.OpenThread(KindOfBBS, BoadGenre, BoadNo, ThreadNo);
-			/*
-			string fileName = "";
-			string threadUrl = "";
-			try
-			{
-				if (!ChannelInfo.IsInfo)
-				{
-					DialogResult result = MessageBox.Show("コンタクトURLが取得できていませんが\nスレッドビューワを開きますか？", "Message", MessageBoxButtons.YesNo);
-					if (result == DialogResult.No)
-					{
-						return;
-					}
-				}
-
-				/*
-				// スレッドブラウザが指定してあるか
-				if (File.Exists(ThreadBrowserAddress))
-				{
-					Process.Start(ThreadBrowserAddress, GetThreadUrl());
-				}
-				else
-				 *
-				{
-					/*
-					// 起動していたら終了
-					if (ThreadViewerProcess != null && !ThreadViewerProcess.HasExited)
-					{
-						// 終了
-						ThreadViewerProcess.CloseMainWindow();
-					}
-					 *
-
-					// スレビューワを開く
-					fileName = GetCurrentDirectory() + "\\PeerstCaption.exe";
-					threadUrl = GetThreadUrl();
-
-					/*ThreadViewerProcess = *System.Diagnostics.Process.Start(fileName, threadUrl + " " + ChannelInfo.Name);
-				}
-			}
-			catch
-			{
-				MessageBox.Show(fileName + "を開けませんでした。\nコマンドライン：" + threadUrl);
-			}
-			 */
-		}
-
-		private void MainForm_Move(object sender, EventArgs e)
-		{
-			threadCaption.Location = new Point(Location.X + 25, Location.Y + 25);
-		}
-
-		private void MainForm_Resize(object sender, EventArgs e)
-		{
-			threadCaption.Size = new Size(panelWMP.Size.Width - 50, panelWMP.Size.Height - 50);
-		}
-
 		#region ステータスバーコンテキストメニュー
 
 		/// <summary>
@@ -4604,10 +4485,5 @@ H = Retry
 		}
 
 		#endregion
-
-		private void バージョン情報ToolStripMenuItem_Click(object sender, EventArgs e)
-		{
-
-		}
 	}
 }

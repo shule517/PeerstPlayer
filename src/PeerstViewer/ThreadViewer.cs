@@ -915,120 +915,82 @@ text-decoration:underline;
 
 			try
 			{
-				// URLからデータを取得
-				string board_name = "";
+				// URLから各種データを取得
+                string board_name = "";
 				KindOfBBS kind_of_bbs = KindOfBBS.None;
 				string boad_genre = "";
 				string boad_no = "";
 				string thread_no = "";
-
 				BBS.GetDataFromUrl(ThreadURL, out board_name, out kind_of_bbs, out boad_genre, out boad_no, out thread_no);
 
-				// 取得できていなかったら 現在開いている板のスレ一覧を更新
-				if (kind_of_bbs == KindOfBBS.None || boad_genre == "" || boad_no == "")
-				{
-					webBrowser.Url = new Uri(comboBox.Text);
-					/*
-					if (KindOfBBS != KindOfBBS.None && BoadGenre != "" && BoadNo != "")
-					{
-						// スレッド一覧を取得
-						ThreadList = BBS.GetThreadList(KindOfBBS, BoadGenre, BoadNo);
+				// 取得できていなかったら、URLを直接ブラウザで開く
+                if ((kind_of_bbs == KindOfBBS.None) || (boad_genre == "") || (boad_no == ""))
+                {
+                    webBrowser.Url = new Uri(comboBox.Text);
+                }
+                // データ更新
+                else
+                {
+                    // 反映
+                    BoardName = board_name;
+                    KindOfBBS = kind_of_bbs;
+                    BoadGenre = boad_genre;
+                    BoadNo = boad_no;
+                    ThreadNo = thread_no;
 
-						// コンボボックスにセット
-						comboBox.Items.Clear();
-						for (int i = 0; i < ThreadList.Count; i++)
-						{
-							// スレタイ(レス数)
-							comboBox.Items.Add(ThreadList[i][1] + "(" + ThreadList[i][2] + ")");
-						}
-					}
+                    // タイトルバーに板名表示
+                    if (BoardName != "")
+                    {
+                        Text = BoardName;
+                    }
 
-					if (KindOfBBS != KindOfBBS.None && BoadGenre != "" && BoadNo != "" && ThreadNo != "")
-					{
-						// コンボボックスのスレッドを選択
-						int index = 0;
-						for (int i = 0; i < ThreadList.Count; i++)
-						{
-							if (ThreadNo == ThreadList[i][0])
-							{
-								index = i;
-							}
-						}
-						if (comboBox.Items.Count > index)
-						{
-							comboBox.SelectedIndex = index;
-						}
-					}
-					else
-					{
-						// １番上を選択
-						if (comboBox.Items.Count > 0)
-						{
-							comboBox.SelectedIndex = 0;
-						}
-					}
-					 */
-				}
-				// データが取得できていたら新しく開きなおす
-				else
-				{
-					// 反映
-					BoardName = board_name;
-					KindOfBBS = kind_of_bbs;
-					BoadGenre = boad_genre;
-					BoadNo = boad_no;
-					ThreadNo = thread_no;
+                    // スレッド一覧更新
+                    if ((KindOfBBS != KindOfBBS.None) && (BoadGenre != "") && (BoadNo != ""))
+                    {
+                        // スレッド一覧を取得
+                        ThreadList = BBS.GetThreadList(KindOfBBS, BoadGenre, BoadNo);
 
-					if (BoardName != "")
-					{
-						Text = BoardName;
-					}
+                        // コンボボックスにセット
+                        comboBox.Items.Clear();
+                        for (int i = 0; i < ThreadList.Count; i++)
+                        {
+                            // スレタイ(レス数)
+                            comboBox.Items.Add(ThreadList[i][1] + "(" + ThreadList[i][2] + ")");
+                        }
+                    }
 
-					if (KindOfBBS != KindOfBBS.None && BoadGenre != "" && BoadNo != "")
-					{
-						// スレッド一覧を取得
-						ThreadList = BBS.GetThreadList(KindOfBBS, BoadGenre, BoadNo);
+                    // 指定スレッドを選択する
+                    if ((KindOfBBS != KindOfBBS.None) && (BoadGenre != "") && (BoadNo != "") && (ThreadNo != ""))
+                    {
+                        // コンボボックスのスレッドを選択
+                        int index = 0;
 
-						// コンボボックスにセット
-						comboBox.Items.Clear();
-						for (int i = 0; i < ThreadList.Count; i++)
-						{
-							// スレタイ(レス数)
-							comboBox.Items.Add(ThreadList[i][1] + "(" + ThreadList[i][2] + ")");
-						}
+                        // 指定スレッドのindexを取得
+                        for (int i = 0; i < ThreadList.Count; i++)
+                        {
+                            if (ThreadNo == ThreadList[i][0])
+                            {
+                                index = i;
+                                break;
+                            }
+                        }
 
-						// ブラウザのフォント、背景色を設定
-						// webBrowser.DocumentText = @"<body bgcolor=""#E6EEF3"" style=""font-family:'ＭＳ Ｐゴシック','ＭＳＰゴシック','MSPゴシック','MS Pゴシック';font-size:14px;line-height:16px;"" ><br>↑スレッドを選択してください";
-					}
-
-					if (KindOfBBS != KindOfBBS.None && BoadGenre != "" && BoadNo != "" && ThreadNo != "")
-					{
-						// スレッド更新
-						//OpenUrl(BoardName, KindOfBBS, BoadGenre, BoadNo, ThreadNo);
-
-						// コンボボックスのスレッドを選択
-						int index = 0;
-						for (int i = 0; i < ThreadList.Count; i++)
-						{
-							if (ThreadNo == ThreadList[i][0])
-							{
-								index = i;
-							}
-						}
-						if (comboBox.Items.Count > index)
-						{
-							comboBox.SelectedIndex = index;
-						}
-					}
-					else
-					{
-						// １番上を選択
-						if (comboBox.Items.Count > 0)
-						{
-							comboBox.SelectedIndex = 0;
-						}
-					}
-				}
+                        // スレッドを選択
+                        if (comboBox.Items.Count > index)
+                        {
+                            comboBox.SelectedIndex = index;
+                        }
+                    }
+                    // スレッドの指定なし 
+                    else
+                    {
+                        // １番上を選択
+                        if (comboBox.Items.Count > 0)
+                        {
+                            comboBox.SelectedIndex = 0;
+                        }
+                    }
+                }
 			}
 			catch
 			{

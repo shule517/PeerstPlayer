@@ -5,7 +5,6 @@ using System.Windows.Forms;
 using System.Runtime.InteropServices;
 using System.Text.RegularExpressions;
 using System.Drawing;
-using PeerstViewer;
 
 namespace PeerstPlayer
 {
@@ -189,11 +188,6 @@ namespace PeerstPlayer
 				return receivedPacketsTime;
 			}
 		}
-
-		/// <summary>
-		/// 左クリックしているか
-		/// </summary>
-		bool LeftClick = false;
 
 		#region マウスジェスチャー
 
@@ -621,7 +615,6 @@ namespace PeerstPlayer
 			switch (e.nButton)
 			{
 				case 1: // Left
-					LeftClick = true;
 					break;
 				case 2: // Right
 					break;
@@ -1063,7 +1056,6 @@ namespace PeerstPlayer
 			{
 				case 1: // Left
 					OnGesture(gesture + "LeftClick");
-					LeftClick = true;
 					break;
 				case 2: // Right
 					OnGesture(gesture + "RightClick");
@@ -1254,8 +1246,6 @@ namespace PeerstPlayer
 		{
 			const int WM_MOUSEMOVE = 0x200;
 			const int WM_LBUTTONDOWN = 0x201;
-			const int WM_NCLBUTTONDOWN = 0x00A1;
-			const int HTCAPTION = 2;
 			const int WM_LBUTTONDBLCLK = 0x0203;
 			const int WM_RBUTTONDOWN = 0x0204;
 
@@ -1290,46 +1280,6 @@ namespace PeerstPlayer
 					}
 					break;
 
-					/*
-				case Win32API.WM_CONTEXTMENU:
-					break;
-				case 70:
-					break;
-				case 131:
-					break;
-				case 71:
-					break;
-				case 5:
-					break;
-				case 14:
-					break;
-				case 13:
-					break;
-				case 133:
-					break;
-				case 20:
-					break;
-				case 296:
-					break;
-				case 15:
-					break;
-				case 642:
-					break;
-				case 641:
-					break;
-				case 8:
-					break;
-				case 32:
-					break;
-				case 49764:
-					break;
-				case 675:
-					break;
-				case 528:
-					break;
-				case 33:
-					break;
-					 */
 				case WM_LBUTTONDBLCLK:
 					if (form.WindowsXP)
 					{

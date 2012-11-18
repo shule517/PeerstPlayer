@@ -6,7 +6,6 @@ using System.Net;
 using System.IO;
 using System.Windows.Forms;
 using System.Text.RegularExpressions;
-using PeerstViewer;
 
 namespace PeerstPlayer
 {
@@ -186,7 +185,7 @@ namespace PeerstPlayer
 
 			for (int i = 0; i < list.Length; i++)
 			{
-				Regex regex = new Regex(@"(h?ttp://[-_.!~*'()a-zA-Z0-9;/?:@&=+$,%#]+)");
+				Regex regex = new Regex(@"(h?ttps?://[-_.!~*'()a-zA-Z0-9;/?:@&=+$,%#]+)");
 				Match match = regex.Match(list[i]);
 
 				while (match.Groups.Count == 2)
@@ -377,7 +376,7 @@ namespace PeerstPlayer
 				BoadGenre = "yy25.60.kg";
 				BoadNo = "peercastjikkyou";
 				ThreadNo = "";
-				BoadName = GetBoadName("http://" + BoadGenre + "/" + BoadNo, "Shift_JIS"); // 板名を取得
+                BoadName = "今からpeercastでゲーム実況配信";
 
 				List<string[]> threadList = GetThreadList(KindOfBBS, BoadGenre, BoadNo);
 				for (int i = 0; i < threadList.Count; i++)
@@ -521,29 +520,16 @@ namespace PeerstPlayer
 		{
 			string BoardTitle = "";
 
-			/*
-			if (BoadNo == "peercastjikkyou")
-			{
-				BoardTitle = "今からpeercastでゲーム実況配信";
-			}
-			else if (BoadNo == "peercast")
-			{
-				BoardTitle = "今からPeerCast特設会場";
-			}
-			else
-			 */
-			{
-				// 板名を取得：<title>板名</title>
-				string html = HTTP.GetHtml(title_url, encode);
+            // 板名を取得：<title>板名</title>
+			string html = HTTP.GetHtml(title_url, encode);
 
-				int s = html.IndexOf("<title>");
-				int e = html.IndexOf("</title>");
+			int s = html.IndexOf("<title>");
+			int e = html.IndexOf("</title>");
 
-				if (s == -1 || e == -1)
-					return "";
+			if (s == -1 || e == -1)
+				return "";
 
-				BoardTitle = html.Substring(s + 7, e - s - 7);
-			}
+			BoardTitle = html.Substring(s + 7, e - s - 7);
 
 			return BoardTitle;
 			// Text = "板名：" + SelectedThread.BoadTitle;
