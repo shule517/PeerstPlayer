@@ -568,11 +568,6 @@
 			this.backgroundWorkerReload.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorkerReload_DoWork);
 			this.backgroundWorkerReload.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.backgroundWorkerReload_RunWorkerCompleted);
 			// 
-			// backgroundWorkerInit
-			// 
-			this.backgroundWorkerInit.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorkerInit_DoWork);
-			this.backgroundWorkerInit.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.backgroundWorkerInit_RunWorkerCompleted);
-			// 
 			// toolTip1
 			// 
 			this.toolTip1.AutoPopDelay = 5000;

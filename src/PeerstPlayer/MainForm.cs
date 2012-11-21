@@ -1015,10 +1015,10 @@ namespace PeerstPlayer
 			wmp.Refresh();
 
 			{
-				//スクリーン・キャプチャの範囲を設定
+				// スクリーン・キャプチャの範囲を設定
 				Rectangle myRectangle = wmp.RectangleToScreen(wmp.Bounds);
 
-				//Bitmapオブジェクトにスクリーン・キャプチャ
+				// Bitmapオブジェクトにスクリーン・キャプチャ
 				Bitmap myBmp = new Bitmap(myRectangle.Width, myRectangle.Height, PixelFormat.Format32bppArgb);
 
 				using (Graphics g = Graphics.FromImage(myBmp))
@@ -1027,7 +1027,7 @@ namespace PeerstPlayer
 					myRectangle.Size, CopyPixelOperation.SourceCopy);
 				}
 
-				//クリップボードにコピー
+				// クリップボードにコピー
 				Clipboard.SetDataObject(myBmp, false);
 
 				// クリップボードに格納された画像の取得
@@ -1943,7 +1943,7 @@ H = Retry
 		/// <summary>
 		/// WMP:MouseMove
 		/// </summary>
-        void wmp_MouseMoveEvent(object sender, AxWMPLib._WMPOCXEvents_MouseMoveEvent e)
+		void wmp_MouseMoveEvent(object sender, AxWMPLib._WMPOCXEvents_MouseMoveEvent e)
 		{
 			// 右クリックしている時
 			if (e.nButton == 2)
@@ -2128,18 +2128,18 @@ H = Retry
 			channelInfoUpdateThread.Start();
 		}
 
-        delegate void ChannelInfoUpdateDelegate();
+		delegate void ChannelInfoUpdateDelegate();
 
-        /// <summary>
-        /// チャンネル情報更新(スレッド処理)
-        /// </summary>
+		/// <summary>
+		/// チャンネル情報更新(スレッド処理)
+		/// </summary>
 		void ChannelInfoUpdateWorker()
 		{
-            // チャンネル更新
-            ChannelInfoUpdateMethod();
+			// チャンネル更新
+			ChannelInfoUpdateMethod();
 
-            // GUIの更新
-            Invoke(new ChannelInfoUpdateDelegate(ChannelInfo_UpdateComp));
+			// GUIの更新
+			Invoke(new ChannelInfoUpdateDelegate(ChannelInfo_UpdateComp));
 		}
 
 		/// <summary>
@@ -2157,18 +2157,18 @@ H = Retry
 		{
 			InitThreadSelected = false;
 
-            // 動画サイズを合わせる
-            if (FitSizeMovie)
-            {
-                ExeCommand("FitSizeMovie");
-            }
+			// 動画サイズを合わせる
+			if (FitSizeMovie)
+			{
+				ExeCommand("FitSizeMovie");
+			}
 
 			if (labelVolume.Text == "-")
 			{
 				wmp.Mute = true;
 			}
 
-            // チャンネル情報を更新
+			// チャンネル情報を更新
 			ChannelInfoUpdate();
 		}
 
@@ -2831,9 +2831,9 @@ H = Retry
 					bool IsSetLeft = false;
 					bool IsSetTop = false;
 
-                    #region ウィンドウに張り付く
+					#region ウィンドウに張り付く
 
-                    // 各辺に対する座標を取得
+					// 各辺に対する座標を取得
 					POINT p1, p2, p3, p4;
 
 					// 上
@@ -2928,47 +2928,48 @@ H = Retry
 
 					#endregion
 
-                    #region  スクリーンに張り付く
+					#region  スクリーンに張り付く
 
-                    Rectangle scr = System.Windows.Forms.Screen.GetBounds(this);
+					Rectangle scr = System.Windows.Forms.Screen.GetBounds(this);
 
-                    if (!IsSetTop && Math.Abs(MousePosition.Y - wmp.ClickPoint.Y) <= ScreenMagnetDockDist)
-                    {
-                        top = scr.Top;
-                        IsSetTop = true;
-                    }
+					if (!IsSetTop && Math.Abs(MousePosition.Y - wmp.ClickPoint.Y) <= ScreenMagnetDockDist)
+					{
+						top = scr.Top;
+						IsSetTop = true;
+					}
 
-                    if (!IsSetLeft && Math.Abs(MousePosition.X - wmp.ClickPoint.X) <= ScreenMagnetDockDist)
-                    {
-                        left = scr.Left;
-                        IsSetLeft = true;
-                    }
+					if (!IsSetLeft && Math.Abs(MousePosition.X - wmp.ClickPoint.X) <= ScreenMagnetDockDist)
+					{
+						left = scr.Left;
+						IsSetLeft = true;
+					}
 
-                    if (!IsSetTop && Math.Abs(MousePosition.Y + Height - wmp.ClickPoint.Y - scr.Height) <= ScreenMagnetDockDist)
-                    {
-                        top = scr.Bottom - Height;
-                        IsSetTop = true;
-                    }
+					if (!IsSetTop && Math.Abs(MousePosition.Y + Height - wmp.ClickPoint.Y - scr.Height) <= ScreenMagnetDockDist)
+					{
+						top = scr.Bottom - Height;
+						IsSetTop = true;
+					}
 
-                    // TODO 以下の処理があると、マルチディスプレイをまたぐとウィンドウが飛んでしまう
-                    /*
-                    if (!IsSetLeft && Math.Abs(MousePosition.X + Width - wmp.ClickPoint.X - scr.Width) <= ScreenMagnetDockDist)
-                    {
-                        left = scr.Right - Width;
-                        IsSetLeft = true;
-                    }
-                     */
 
-                    if (IsSetTop || IsSetLeft)
-                    {
-                        Marshal.WriteInt32(m.LParam, 0, left);
-                        Marshal.WriteInt32(m.LParam, 4, top);
-                        Marshal.WriteInt32(m.LParam, 8, left + Width);
-                        Marshal.WriteInt32(m.LParam, 12, top + Height);
-                        return;
-                    }
+					// TODO 以下の処理があると、マルチディスプレイをまたぐとウィンドウが飛んでしまう
+					/*
+					if (!IsSetLeft && Math.Abs(MousePosition.X + Width - wmp.ClickPoint.X - scr.Width) <= ScreenMagnetDockDist)
+					{
+						left = scr.Right - Width;
+						IsSetLeft = true;
+					}
+					*/
 
-                    #endregion
+					if (IsSetTop || IsSetLeft)
+					{
+						Marshal.WriteInt32(m.LParam, 0, left);
+						Marshal.WriteInt32(m.LParam, 4, top);
+						Marshal.WriteInt32(m.LParam, 8, left + Width);
+						Marshal.WriteInt32(m.LParam, 12, top + Height);
+						return;
+					}
+
+					#endregion
 
 					#endregion
 			}
@@ -4374,8 +4375,8 @@ H = Retry
 
 		private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
 		{
-            // フォーム非表示 → 終了処理をユーザに速く見せる.
-            Visible = false;
+			// フォーム非表示 → 終了処理をユーザに速く見せる.
+			Visible = false;
 
 			// 停止
 			wmp.Ctlcontrols.stop();

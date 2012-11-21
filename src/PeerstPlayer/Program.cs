@@ -13,18 +13,19 @@ namespace PeerstPlayer
 		[STAThread]
 		static void Main()
 		{
-            Application.SetCompatibleTextRenderingDefault(false);
-            AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler(CurrentDomain_UnhandledException);
+			Application.EnableVisualStyles();
+			Application.SetCompatibleTextRenderingDefault(false);
+			AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler(CurrentDomain_UnhandledException);
 
-            // フォームの表示
-            Form form = new MainForm();
-            form.Show();
+			// フォームの表示
+			Form form = new MainForm();
+			form.Show();
 
-            // メッセージループ
-            while (form.Created)
-            {
-                Application.DoEvents();
-            }
+			// メッセージループ
+			while (form.Created)
+			{
+				Application.DoEvents();
+			}
 		}
 
 		static void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)

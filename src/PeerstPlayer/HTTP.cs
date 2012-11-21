@@ -40,45 +40,45 @@ namespace PeerstPlayer
 		{
 			try
 			{
-				//文字コードを指定する
+				// 文字コードを指定する
 				System.Text.Encoding enc = System.Text.Encoding.UTF8;
 
-				//TcpClientを作成し、サーバーと接続する
+				// TcpClientを作成し、サーバーと接続する
 				System.Net.Sockets.TcpClient tcp = new System.Net.Sockets.TcpClient(host, int.Parse(port_no));
 
-				//NetworkStreamを取得する
+				// NetworkStreamを取得する
 				System.Net.Sockets.NetworkStream ns = tcp.GetStream();
 
-				//サーバーにデータを送信する
-				//送信するデータを入力
+				// サーバーにデータを送信する
+				// 送信するデータを入力
 				string sendMsg = "GET " + url + " HTTP/1.0\r\n\r\n";
 
-				//文字列をByte型配列に変換
+				// 文字列をByte型配列に変換
 				byte[] sendBytes = enc.GetBytes(sendMsg);
-				//データを送信する
+				// データを送信する
 				ns.Write(sendBytes, 0, sendBytes.Length);
 
-				//サーバーから送られたデータを受信する
+				// サーバーから送られたデータを受信する
 				System.IO.MemoryStream ms = new System.IO.MemoryStream();
 				byte[] resBytes = new byte[256];
 				int resSize;
 				do
 				{
-					//データの一部を受信する
+					// データの一部を受信する
 					resSize = ns.Read(resBytes, 0, resBytes.Length);
-					//Readが0を返した時はサーバーが切断したと判断
+					// Readが0を返した時はサーバーが切断したと判断
 					if (resSize == 0)
 					{
 						return "";
 					}
-					//受信したデータを蓄積する
+					// 受信したデータを蓄積する
 					ms.Write(resBytes, 0, resSize);
 				} while (ns.DataAvailable);
-				//受信したデータを文字列に変換
+				// 受信したデータを文字列に変換
 				string resMsg = enc.GetString(ms.ToArray());
 				ms.Close();
 
-				//閉じる
+				// 閉じる
 				tcp.Close();
 
 				resMsg = resMsg.Replace("\r\n", "\n");
@@ -100,45 +100,45 @@ namespace PeerstPlayer
 		{
 			try
 			{
-				//文字コードを指定する
+				// 文字コードを指定する
 				System.Text.Encoding enc = System.Text.Encoding.GetEncoding(encode);
 
-				//TcpClientを作成し、サーバーと接続する
+				// TcpClientを作成し、サーバーと接続する
 				System.Net.Sockets.TcpClient tcp = new System.Net.Sockets.TcpClient(host, int.Parse(port_no));
 
-				//NetworkStreamを取得する
+				// NetworkStreamを取得する
 				System.Net.Sockets.NetworkStream ns = tcp.GetStream();
 
-				//サーバーにデータを送信する
-				//送信するデータを入力
+				// サーバーにデータを送信する
+				// 送信するデータを入力
 				string sendMsg = "GET " + url + " HTTP/1.0\r\n\r\n";
 
-				//文字列をByte型配列に変換
+				// 文字列をByte型配列に変換
 				byte[] sendBytes = enc.GetBytes(sendMsg);
-				//データを送信する
+				// データを送信する
 				ns.Write(sendBytes, 0, sendBytes.Length);
 
-				//サーバーから送られたデータを受信する
+				// サーバーから送られたデータを受信する
 				System.IO.MemoryStream ms = new System.IO.MemoryStream();
 				byte[] resBytes = new byte[256];
 				int resSize;
 				do
 				{
-					//データの一部を受信する
+					// データの一部を受信する
 					resSize = ns.Read(resBytes, 0, resBytes.Length);
-					//Readが0を返した時はサーバーが切断したと判断
+					// Readが0を返した時はサーバーが切断したと判断
 					if (resSize == 0)
 					{
 						return "";
 					}
-					//受信したデータを蓄積する
+					// 受信したデータを蓄積する
 					ms.Write(resBytes, 0, resSize);
 				} while (ns.DataAvailable);
-				//受信したデータを文字列に変換
+				// 受信したデータを文字列に変換
 				string resMsg = enc.GetString(ms.ToArray());
 				ms.Close();
 
-				//閉じる
+				// 閉じる
 				tcp.Close();
 
 				resMsg = resMsg.Replace("\r\n", "\n");
@@ -157,22 +157,22 @@ namespace PeerstPlayer
 		{
 			try
 			{
-				//文字コードを指定する
+				// 文字コードを指定する
 				System.Text.Encoding enc = System.Text.Encoding.GetEncoding(encode);
 
-				//TcpClientを作成し、サーバーと接続する
+				// TcpClientを作成し、サーバーと接続する
 				System.Net.Sockets.TcpClient tcp = new System.Net.Sockets.TcpClient(host, int.Parse(port_no));
 
-				//NetworkStreamを取得する
+				// NetworkStreamを取得する
 				System.Net.Sockets.NetworkStream ns = tcp.GetStream();
 
-				//サーバーにデータを送信する
-				//送信するデータを入力
+				// サーバーにデータを送信する
+				// 送信するデータを入力
 				string sendMsg = "GET " + url + " HTTP/1.0\r\n\r\n";
 
-				//文字列をByte型配列に変換
+				// 文字列をByte型配列に変換
 				byte[] sendBytes = enc.GetBytes(sendMsg);
-				//データを送信する
+				// データを送信する
 				ns.Write(sendBytes, 0, sendBytes.Length);
 			}
 			catch

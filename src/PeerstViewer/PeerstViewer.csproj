@@ -64,8 +64,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BBS.cs" />
-    <Compile Include="HTTP.cs" />
     <Compile Include="ImageViewer.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -152,6 +150,12 @@
   <ItemGroup>
     <Content Include="PeerstPlayer2.ico" />
     <Content Include="PeerstViewer.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\PeerstPlayer\PeerstPlayer.csproj">
+      <Project>{420c2f43-b4b3-46b3-81fe-edfaf580129a}</Project>
+      <Name>PeerstPlayer</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

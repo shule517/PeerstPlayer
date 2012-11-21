@@ -1,6 +1,6 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 10.00
-# Visual C# Express 2008
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Express 2012 for Windows Desktop
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PeerstPlayer", "PeerstPlayer\PeerstPlayer.csproj", "{420C2F43-B4B3-46B3-81FE-EDFAF580129A}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PeerstViewer", "PeerstViewer\PeerstViewer.csproj", "{7D40F4D3-FB0E-484F-8BF7-B16C71155168}"

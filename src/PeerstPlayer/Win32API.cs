@@ -5,7 +5,7 @@ using System.Runtime.InteropServices;
 
 namespace PeerstPlayer
 {
-	class Win32API
+	public class Win32API
 	{
 		[StructLayout(LayoutKind.Sequential)]
 		public struct POINT
@@ -128,17 +128,13 @@ namespace PeerstPlayer
 		public const int WM_LBUTTONUP = 0x0202;
 		public const int WM_MOUSEHOVER = 0x02A1;
 
-
-
-
 		public const int HTTOP = 12;			// 可変枠の上辺境界線上にある
-		public const int HTBOTTOM = 15;		// 可変枠の下辺境界線上にある
+		public const int HTBOTTOM = 15;			// 可変枠の下辺境界線上にある
 		public const int HTLEFT = 10;			// 可変枠の左辺境界線上にある
 		public const int HTRIGHT = 11;			// 可変枠の右辺境界線上にある
 		public const int HTTOPLEFT = 13;		// 可変枠の左上隅にある
 		public const int HTTOPRIGHT = 14;		// 可変枠の右上隅にある
-		public const int HTBOTTOMLEFT = 16;	// 可変枠の左下隅にある
+		public const int HTBOTTOMLEFT = 16;		// 可変枠の左下隅にある
 		public const int HTBOTTOMRIGHT = 17;	// 可変枠の右下隅にある
-
 	}
 }

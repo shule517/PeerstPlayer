@@ -231,10 +231,10 @@ namespace PeerstPlayer
 					string html = HTTP.GetHtml(url, "EUC-JP");
 
 					// 本文の修正
-					//html = html.Replace("<a", @"<u><font color=""blue""");
-					//html = html.Replace("</a>", "</font></u>");
-					//html = html.Replace("<br>", "<br><DD>");
-					//html = html.Replace("<br>", "<br>");
+					// html = html.Replace("<a", @"<u><font color=""blue""");
+					// html = html.Replace("</a>", "</font></u>");
+					// html = html.Replace("<br>", "<br><DD>");
+					// html = html.Replace("<br>", "<br>");
 					html = html.Replace("<a", "<tt");
 					html = html.Replace("</a>", "</tt>");
 
@@ -376,7 +376,7 @@ namespace PeerstPlayer
 				BoadGenre = "yy25.60.kg";
 				BoadNo = "peercastjikkyou";
 				ThreadNo = "";
-                BoadName = "今からpeercastでゲーム実況配信";
+				BoadName = "今からpeercastでゲーム実況配信";
 
 				List<string[]> threadList = GetThreadList(KindOfBBS, BoadGenre, BoadNo);
 				for (int i = 0; i < threadList.Count; i++)
@@ -520,7 +520,7 @@ namespace PeerstPlayer
 		{
 			string BoardTitle = "";
 
-            // 板名を取得：<title>板名</title>
+			// 板名を取得：<title>板名</title>
 			string html = HTTP.GetHtml(title_url, encode);
 
 			int s = html.IndexOf("<title>");

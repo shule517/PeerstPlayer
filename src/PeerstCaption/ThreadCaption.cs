@@ -234,8 +234,8 @@ namespace PeerstCaption
 			{
 				int index = captionIndex + i;
 
-				if (ResList.Count != 0 &&
-					0 <= index && index <= ResList.Count - 1)
+				if ((ResList.Count != 0) &&
+					(0 <= index) && (index <= (ResList.Count - 1)))
 				{
 					text += (index + 1).ToString().PadLeft(4) + "  " + ResList[index][4] + "\n\n";
 				}
@@ -276,18 +276,7 @@ namespace PeerstCaption
 		private void DrawRichText(string text, Graphics graphics, Brush brush, float size, int x, int y)
 		{
 			try
-			{/*
-				graphics.DrawString(text, new Font("ＭＳ Ｐゴシック", size), Brushes.Black, new PointF(x - 1, y));
-				graphics.DrawString(text, new Font("ＭＳ Ｐゴシック", size), Brushes.Black, new PointF(x + 1, y));
-				graphics.DrawString(text, new Font("ＭＳ Ｐゴシック", size), Brushes.Black, new PointF(x, y - 1));
-				graphics.DrawString(text, new Font("ＭＳ Ｐゴシック", size), Brushes.Black, new PointF(x, y + 1));
-				graphics.DrawString(text, new Font("ＭＳ Ｐゴシック", size), Brushes.Black, new PointF(x - 1, y + 1));
-				graphics.DrawString(text, new Font("ＭＳ Ｐゴシック", size), Brushes.Black, new PointF(x + 1, y - 1));
-				graphics.DrawString(text, new Font("ＭＳ Ｐゴシック", size), Brushes.Black, new PointF(x - 1, y - 1));
-				graphics.DrawString(text, new Font("ＭＳ Ｐゴシック", size), Brushes.Black, new PointF(x + 1, y + 1));
-				graphics.DrawString(text, new Font("ＭＳ Ｐゴシック", size), brush, new PointF(x, y));
-			  */
-
+			{
 				for (int a = 0; a < 3; a++)
 				{
 					graphics.DrawString(text, new Font("ＭＳ Ｐゴシック", size), Brushes.Black, new PointF(x - a, y));
@@ -311,7 +300,7 @@ namespace PeerstCaption
 		/// </summary>
 		private void PeerstCaption_Paint(object sender, PaintEventArgs e)
 		{
-				e.Graphics.DrawRectangle(Pens.Red, 0, 0, Width - 1, Height - 1);
+			e.Graphics.DrawRectangle(Pens.Red, 0, 0, Width - 1, Height - 1);
 			DrawRichText(CaptionText, e.Graphics, Brushes.SpringGreen, CaptionSize, 0, 0);
 
 			if (IsMouseOver)
@@ -435,8 +424,8 @@ namespace PeerstCaption
 		/// </summary>
 		private void timerMouseCheck_Tick(object sender, EventArgs e)
 		{
-			if (Left < MousePosition.X && MousePosition.X < Right &&
-				Top < MousePosition.Y && MousePosition.Y < Bottom)
+			if ((Left < MousePosition.X) && (MousePosition.X < Right) &&
+				(Top < MousePosition.Y) && (MousePosition.Y < Bottom))
 			{
 				if (!IsMouseOver)
 				{

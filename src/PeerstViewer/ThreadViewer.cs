@@ -206,19 +206,9 @@ namespace PeerstViewer
 		ImageViewer imageViewer = new ImageViewer();
 
 		/// <summary>
-		/// リンクビューワ
-		/// </summary>
-		//LinkViewer linkViewer = new LinkViewer();
-
-		/// <summary>
 		/// オートリロードタイマー
 		/// </summary>
 		Timer timerAutoReload;
-
-		/// <summary>
-		/// HTTPスレッド
-		/// </summary>
-		System.Threading.Thread httpThread;
 
 		/// <summary>
 		/// 取得したスレッドデータ
@@ -425,121 +415,6 @@ text-decoration:underline;
 			// 実行
 			comboBox.Enabled = false;
 			backgroundWorkerReload.RunWorkerAsync();
-
-			/*
-			try
-			{
-				// スレッドデータを取得
-				if (ThreadData != null)
-				{
-					return;
-				}
-
-				//if (UseThread)
-				if (false)
-				{
-					// httpスレッド初期化
-					httpThread = new System.Threading.Thread(new System.Threading.ThreadStart(HttpThreadMethod));
-					httpThread.IsBackground = true;
-					httpThread.Start();
-					while (ThreadData == null)
-					{
-						Application.DoEvents();
-					}
-				}
-				else
-				{
-					ThreadData = BBS.ReadThread(KindOfBBS, BoadGenre, BoadNo, ThreadNo, ResNum);
-				}
-
-				// 新着を太文字から変更
-				string text = DocumentText.Replace("<b>", "").Replace("</b>", "");
-
-				// 新着変更なし
-				if (DocumentText == text)
-				{
-					// 新着レスなし & 前回に新着なし（太文字を消す）
-					if (ThreadData.Count == 0)
-					{
-						ThreadData = null;
-						return;
-					}
-				}
-				// 新着変更あり
-				else
-				{
-					DocumentText = text;
-				}
-
-				// レスごとにHTML作成
-				foreach (string[] data in ThreadData)
-				{
-					string document_text = "";
-
-					// レス番号
-					document_text += "<nobr><b><u><font color=#0000FF>" + ResNum + "</font></u></b>";
-					document_text += "<font color=#999999>";
-					document_text += " ： ";
-					// 名前 [
-					document_text += "<font color=#228B22>" + data[0] + "</font> ";
-
-					// メール欄
-					if (data[1] == "")
-					{
-						document_text += "[] ";
-					}
-					else if (data[1] == "sage")
-					{
-						document_text += "[sage] ";
-					}
-					else if (data[1] == "age")
-					{
-						document_text += "<font color = red>[age]</font> ";
-					}
-					else
-					{
-						document_text += "<font color = blue>[" + data[1] + "]</font> ";
-					}
-					
-					// ]日付
-					document_text += data[2];
-
-					// ID
-					if (data[3] != "")
-					{
-
-						document_text += @" <font color=""blue"">ID:<nobr></font>" + data[3] + "</nobr>";
-					}
-					document_text += "</font><br><DD>";
-					// 本文
-					document_text += data[4];
-
-					// ドキュメントに追加
-					DocumentText += document_text + "<br><hr></nobr>\n";
-
-					document_text = document_text.Replace("&gt;", ">");
-					document_text = document_text.Replace("<br>", "\n");
-					// タグ除去
-					Regex regex = new Regex("<.*?>", RegexOptions.Singleline);
-					document_text = regex.Replace(document_text, "");
-
-					// レスリストに追加
-					ResList.Add(document_text);
-
-					// レス数の更新
-					ResNum++;
-				}
-
-				// 実際にウェブを更新
-				webBrowser.DocumentText = DocumentText;
-
-				// スレッドデータ初期化
-				ThreadData = null;
-			}
-			catch
-			{
-			}
-			*/
 		}
 
 		/// <summary>
@@ -758,34 +633,7 @@ text-decoration:underline;
 
 							string text = GetIDRes(element.InnerText);
 
-							/*
-							//ToolTipを作成する
-							ToolTip ToolTip1 = new ToolTip(this.components);
-							//フォームにcomponentsがない場合
-							//ToolTip1 = new ToolTip();
-
-							ToolTip1.IsBalloon = true;
-							//ToolTipの設定を行う
-							//ToolTipが表示されるまでの時間
-							//ToolTip1.InitialDelay = 2000;
-							//ToolTipが表示されている時に、別のToolTipを表示するまでの時間
-							//ToolTip1.ReshowDelay = 1000;
-							//ToolTipを表示する時間
-							//ToolTip1.AutoPopDelay = 10000;
-							//フォームがアクティブでない時でもToolTipを表示する
-							//ToolTip1.ShowAlways = true;
-
-							ToolTip1.Show(text, this, 30000);
-
-							//Button1とButton2にToolTipが表示されるようにする
-							//ToolTip1.SetToolTip(webBrowser, text);
-							*/
 							Help.ShowPopup(webBrowser, text, MousePosition);
-
-							//toolTip1.IsBalloon = true;
-
-							//toolTip1.Show(text, this, 0, 0, 10000);
-							//toolTip1.SetToolTip(webBrowser, text);
 							return;
 						}
 						catch
@@ -916,7 +764,7 @@ text-decoration:underline;
 			try
 			{
 				// URLから各種データを取得
-                string board_name = "";
+				string board_name = "";
 				KindOfBBS kind_of_bbs = KindOfBBS.None;
 				string boad_genre = "";
 				string boad_no = "";
@@ -924,73 +772,73 @@ text-decoration:underline;
 				BBS.GetDataFromUrl(ThreadURL, out board_name, out kind_of_bbs, out boad_genre, out boad_no, out thread_no);
 
 				// 取得できていなかったら、URLを直接ブラウザで開く
-                if ((kind_of_bbs == KindOfBBS.None) || (boad_genre == "") || (boad_no == ""))
-                {
-                    webBrowser.Url = new Uri(comboBox.Text);
-                }
-                // データ更新
-                else
-                {
-                    // 反映
-                    BoardName = board_name;
-                    KindOfBBS = kind_of_bbs;
-                    BoadGenre = boad_genre;
-                    BoadNo = boad_no;
-                    ThreadNo = thread_no;
+				if ((kind_of_bbs == KindOfBBS.None) || (boad_genre == "") || (boad_no == ""))
+				{
+					webBrowser.Url = new Uri(comboBox.Text);
+				}
+				// データ更新
+				else
+				{
+					// 反映
+					BoardName = board_name;
+					KindOfBBS = kind_of_bbs;
+					BoadGenre = boad_genre;
+					BoadNo = boad_no;
+					ThreadNo = thread_no;
 
-                    // タイトルバーに板名表示
-                    if (BoardName != "")
-                    {
-                        Text = BoardName;
-                    }
+					// タイトルバーに板名表示
+					if (BoardName != "")
+					{
+						Text = BoardName;
+					}
 
-                    // スレッド一覧更新
-                    if ((KindOfBBS != KindOfBBS.None) && (BoadGenre != "") && (BoadNo != ""))
-                    {
-                        // スレッド一覧を取得
-                        ThreadList = BBS.GetThreadList(KindOfBBS, BoadGenre, BoadNo);
+					// スレッド一覧更新
+					if ((KindOfBBS != KindOfBBS.None) && (BoadGenre != "") && (BoadNo != ""))
+					{
+						// スレッド一覧を取得
+						ThreadList = BBS.GetThreadList(KindOfBBS, BoadGenre, BoadNo);
 
-                        // コンボボックスにセット
-                        comboBox.Items.Clear();
-                        for (int i = 0; i < ThreadList.Count; i++)
-                        {
-                            // スレタイ(レス数)
-                            comboBox.Items.Add(ThreadList[i][1] + "(" + ThreadList[i][2] + ")");
-                        }
-                    }
+						// コンボボックスにセット
+						comboBox.Items.Clear();
+						for (int i = 0; i < ThreadList.Count; i++)
+						{
+							// スレタイ(レス数)
+							comboBox.Items.Add(ThreadList[i][1] + "(" + ThreadList[i][2] + ")");
+						}
+					}
 
-                    // 指定スレッドを選択する
-                    if ((KindOfBBS != KindOfBBS.None) && (BoadGenre != "") && (BoadNo != "") && (ThreadNo != ""))
-                    {
-                        // コンボボックスのスレッドを選択
-                        int index = 0;
+					// 指定スレッドを選択する
+					if ((KindOfBBS != KindOfBBS.None) && (BoadGenre != "") && (BoadNo != "") && (ThreadNo != ""))
+					{
+						// コンボボックスのスレッドを選択
+						int index = 0;
 
-                        // 指定スレッドのindexを取得
-                        for (int i = 0; i < ThreadList.Count; i++)
-                        {
-                            if (ThreadNo == ThreadList[i][0])
-                            {
-                                index = i;
-                                break;
-                            }
-                        }
+						// 指定スレッドのindexを取得
+						for (int i = 0; i < ThreadList.Count; i++)
+						{
+							if (ThreadNo == ThreadList[i][0])
+							{
+								index = i;
+								break;
+							}
+						}
 
-                        // スレッドを選択
-                        if (comboBox.Items.Count > index)
-                        {
-                            comboBox.SelectedIndex = index;
-                        }
-                    }
-                    // スレッドの指定なし 
-                    else
-                    {
-                        // １番上を選択
-                        if (comboBox.Items.Count > 0)
-                        {
-                            comboBox.SelectedIndex = 0;
-                        }
-                    }
-                }
+						// スレッドを選択
+						if (comboBox.Items.Count > index)
+						{
+							comboBox.SelectedIndex = index;
+						}
+					}
+					// スレッドの指定なし 
+					else
+					{
+						// １番上を選択
+						if (comboBox.Items.Count > 0)
+						{
+							comboBox.SelectedIndex = 0;
+						}
+					}
+				}
 			}
 			catch
 			{
@@ -1056,6 +904,7 @@ text-decoration:underline;
 		}
 
 		#region コンテキストメニュー
+
 		private void アドレスをコピーToolStripMenuItem_Click(object sender, EventArgs e)
 		{
 			Clipboard.SetDataObject(OuterText, true);
@@ -1654,8 +1503,6 @@ H = Retry
 						document_text += "</font><ID>" + data[3] + "</ID></nobr>";
 					}
 					document_text += "</font><br><ul>";
-					//document_text += "</font><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
-					//document_text += "</font><br><DD>";
 					
 					// 本文
 					document_text += data[4];
@@ -1678,10 +1525,10 @@ H = Retry
 				}
 
 				webBrowser.Invoke(
-                    (MethodInvoker)delegate()
-                    {
-                        webBrowser.Visible = false;
-                    });
+					(MethodInvoker)delegate()
+					{
+						webBrowser.Visible = false;
+					});
 
 				// 実際にウェブを更新
 				webBrowser.DocumentText = DocumentText;
@@ -1697,26 +1544,7 @@ H = Retry
 		private void backgroundWorkerReload_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
 		{
 			comboBox.Enabled = true;
-
 			webBrowser.Visible = true;
-
-			/*
-			if (BeforeThreadNo != ThreadNo)
-			{
-				// 実行
-				backgroundWorkerReload.RunWorkerAsync();
-			}
-			 */
-		}
-
-		private void backgroundWorkerInit_DoWork(object sender, DoWorkEventArgs e)
-		{
-
-		}
-
-		private void backgroundWorkerInit_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
-		{
-
 		}
 
 		#region 設定

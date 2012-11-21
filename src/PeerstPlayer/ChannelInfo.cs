@@ -4,6 +4,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.IO;
 using System.Windows.Forms;
+using System.Web;
 
 namespace PeerstPlayer
 {
@@ -145,7 +146,7 @@ namespace PeerstPlayer
 				}
 			}
 			
-			// HTMLをエンコード
+			// HTMLをデコード
 			html = EncodeHtmlToText(html);
 
 			string[] info_list = html.Split('\n');
@@ -209,28 +210,6 @@ namespace PeerstPlayer
 			string s = m.Groups["genre"].Value;
 			string a = m.Value;
 
-			/*
-			genre = genre.Replace("cp", "");
-			genre = genre.Replace("xp", "");
-			genre = genre.Replace("rp", "");
-			genre = genre.Replace("tp", "");
-			genre = genre.Replace("hktv", "");
-			genre = genre.Replace("sp", "");
-			genre = genre.Replace("np", "");
-			genre = genre.Replace("op", "");
-			genre = genre.Replace("gp", "");
-			genre = genre.Replace("lp", "");
-			genre = genre.Replace("nm", "");
-			genre = genre.Replace("np", "");
-			genre = genre.Replace("twyp", "");
-			genre = genre.Replace(":", "");
-			genre = genre.Replace("?", "");
-			genre = genre.Replace("@", "");
-			genre = genre.Replace("+", "");
-			genre = genre.Replace("!", "");
-			genre = genre.Replace("$", "");
-			 */
-
 			return m.Groups["genre"].Value;
 		}
 
@@ -264,21 +243,13 @@ namespace PeerstPlayer
 		}
 
 		/// <summary>
-		/// HTMLをエンコードする
+		/// HTMLをデコードする
 		/// </summary>
 		/// <param name="str"></param>
 		/// <returns></returns>
 		private string EncodeHtmlToText(string str)
 		{
-			str = str.Replace("&quot;", "\"");
-			str = str.Replace("&amp;", "&");
-			str = str.Replace("&lt;", "<");
-			str = str.Replace("&gt;", ">");
-			str = str.Replace("&nbsp;", " ");
-			str = str.Replace("&copy;", "@");
-			str = str.Replace("&qute;", "\\");
-
-			return str;
+			return HttpUtility.HtmlDecode(str);
 		}
 
 		#endregion
