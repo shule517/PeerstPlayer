@@ -10,11 +10,8 @@ namespace PeerstPlayer
 {
 	public class ChannelInfo
 	{
-		MainForm mainForm;
-
-		public ChannelInfo(MainForm mainForm)
+		public ChannelInfo()
 		{
-			this.mainForm = mainForm;
 		}
 
 		string host = "";
@@ -100,8 +97,6 @@ namespace PeerstPlayer
 		#endregion
 
 		#region チャンネル情報をアップデート
-
-
 
 		public void Update(URLData uRLData)
 		{
@@ -295,33 +290,6 @@ namespace PeerstPlayer
 {$page.channel.track.album}
 {$page.channel.contactURL}
 {$page.channel.comment}";
-					/*
-					string html = @"{$page.channel.name}
-					{$page.channel.genre}
-					{$page.channel.desc}
-					{$page.channel.type}
-					{$page.channel.bitrate} kbps
-					{$page.channel.srcrate} kbps
-					{$page.channel.totalListeners}
-					{$page.channel.totalRelays}
-					{$page.channel.uptime}
-					{$page.channel.status}
-					{$page.channel.track.artist}
-					{$page.channel.track.title}
-					{$page.channel.track.album}
-					{$page.channel.contactURL}
-					{$page.channel.comment}
-					{$page.channel.localListeners}
-					{$page.channel.localRelays}
-					{$page.channel.id}
-					{$page.channel.sourceType}
-					{$page.channel.sourceProtocol}
-					{$page.channel.sourceURL}
-					{$page.channel.streamPos}
-					{$page.channel.headPos}
-					{$page.channel.headLen}
-					{$loop.channel.keep}";
-					*/
 					FileStream writer = new FileStream(path + "\\channel_info.html", FileMode.Create, FileAccess.Write);
 
 					//文字コードを指定する
