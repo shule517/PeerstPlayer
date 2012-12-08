@@ -5,6 +5,7 @@ using System.IO;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Windows.Forms;
+using Shule.Peerst.Util;
 
 namespace PeerstPlayer
 {

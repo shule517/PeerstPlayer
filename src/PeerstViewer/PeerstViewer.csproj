@@ -13,7 +13,8 @@
     <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <IsWebBootstrapper>false</IsWebBootstrapper>
-    <ApplicationIcon>PeerstViewer.ico</ApplicationIcon>
+    <ApplicationIcon>
+    </ApplicationIcon>
     <FileUpgradeFlags>
     </FileUpgradeFlags>
     <UpgradeBackupLocation>
@@ -70,9 +71,6 @@
     <Compile Include="ImageViewer.Designer.cs">
       <DependentUpon>ImageViewer.cs</DependentUpon>
     </Compile>
-    <Compile Include="InitFile.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="LinkViewer.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -124,9 +122,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="loading.png" />
-  </ItemGroup>
-  <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
       <Visible>False</Visible>
       <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
@@ -154,13 +149,13 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="PeerstPlayer2.ico" />
-    <Content Include="PeerstViewer.ico" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\PeerstPlayer\PeerstPlayer.csproj">
       <Project>{420c2f43-b4b3-46b3-81fe-edfaf580129a}</Project>
       <Name>PeerstPlayer</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Shule.Peerst\Shule.Peerst.csproj">
+      <Project>{f5b9b548-cb1c-4065-82cc-b4344da0c337}</Project>
+      <Name>Shule.Peerst</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -10,6 +10,7 @@ using System.IO;
 using PeerstPlayer;
 using System.Runtime.InteropServices;
 using System.Diagnostics;
+using Shule.Peerst.Util;
 
 namespace PeerstViewer
 {

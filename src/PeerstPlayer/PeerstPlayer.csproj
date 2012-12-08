@@ -80,7 +80,6 @@
     <Compile Include="HTTP.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="InitFile.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -159,6 +158,12 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Shule.Peerst\Shule.Peerst.csproj">
+      <Project>{f5b9b548-cb1c-4065-82cc-b4344da0c337}</Project>
+      <Name>Shule.Peerst</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

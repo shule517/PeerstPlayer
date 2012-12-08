@@ -1,13 +1,15 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Runtime.InteropServices;
+using System.Text;
 
-namespace PeerstPlayer
+namespace Shule.Peerst.Util
 {
-	class IniFile
+	/// <summary>
+	/// 初期化ファイル管理クラス
+	/// </summary>
+	public class IniFile
 	{
-		private String fileName;
+		private String iniFilePath; // INIファイルパス
 
 		#region 内部メソッド
 
@@ -28,9 +30,9 @@ namespace PeerstPlayer
 		/// <summary>
 		/// コンストラクタ
 		/// </summary>
-		public IniFile(String fileName)
+		public IniFile(String iniFilePath)
 		{
-			this.fileName = fileName;
+			this.iniFilePath = iniFilePath;
 		}
 
 		/// <summary>
@@ -38,26 +40,28 @@ namespace PeerstPlayer
 		/// </summary>
 		public void Write(string section, string key, string data)
 		{
-			WritePrivateProfileString(section, key, data, fileName);
+			WritePrivateProfileString(section, key, data, iniFilePath);
 		}
 
 		/// <summary>
-		/// 文字データを読み込む（データがなければ""を返す
+		/// 文字データを読み込む
+		/// データがなければ""を返す
 		/// </summary>
 		public string ReadString(string section, string key)
 		{
 			StringBuilder sb = new StringBuilder(1024);
-			GetPrivateProfileString(section, key, "", sb, (uint)sb.Capacity, fileName);
+			GetPrivateProfileString(section, key, "", sb, (uint)sb.Capacity, iniFilePath);
 
 			return sb.ToString();
 		}
 
 		/// <summary>
-		/// 整数データを読み込む（データがなければ-1を返す
+		/// 整数データを読み込む
+		/// データがなければ-1を返す
 		/// </summary>
 		public int ReadInt(string section, string key, int def)
 		{
-			return (int)GetPrivateProfileInt(section, key, def, fileName);
+			return (int)GetPrivateProfileInt(section, key, def, iniFilePath);
 		}
 
 		/// <summary>
@@ -65,7 +69,7 @@ namespace PeerstPlayer
 		/// </summary>
 		public void DeleteKey(string section, string key)
 		{
-			WritePrivateProfileString(section, key, null, fileName);
+			WritePrivateProfileString(section, key, null, iniFilePath);
 		}
 
 		/// <summary>
@@ -73,7 +77,7 @@ namespace PeerstPlayer
 		/// </summary>
 		public void DeleteSection(string section)
 		{
-			WritePrivateProfileString(section, null, null, fileName);
+			WritePrivateProfileString(section, null, null, iniFilePath);
 		}
 
 		/// <summary>
@@ -82,7 +86,7 @@ namespace PeerstPlayer
 		public string[] GetSections()
 		{
 			byte[] ar = new byte[1024];
-			uint resultSize = GetPrivateProfileStringByByteArray(null, null, "default", ar, (uint)ar.Length, fileName);
+			uint resultSize = GetPrivateProfileStringByByteArray(null, null, "default", ar, (uint)ar.Length, iniFilePath);
 			string result = Encoding.Default.GetString(ar, 0, (int)resultSize - 1);
 			return result.Split('\0');
 		}
@@ -93,7 +97,7 @@ namespace PeerstPlayer
 		public string[] GetKeys(string section)
 		{
 			byte[] ar = new byte[1024];
-			uint resultSize = GetPrivateProfileStringByByteArray(section, null, "default", ar, (uint)ar.Length, fileName);
+			uint resultSize = GetPrivateProfileStringByByteArray(section, null, "default", ar, (uint)ar.Length, iniFilePath);
 			string result = Encoding.Default.GetString(ar, 0, (int)resultSize - 1);
 			return result.Split('\0');
 		}
