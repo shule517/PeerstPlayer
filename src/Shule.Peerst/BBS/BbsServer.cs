@@ -3,10 +3,10 @@
 	/// <summary>
 	/// 掲示板サーバ
 	/// </summary>
-	enum BBSServerType
+	enum BbsServer
 	{
 		Shitaraba,	// したらば掲示板
-		Waiwai,		// わいわいKakiko
+		YYKakiko,	// わいわいKakiko
 		UnSupport	// 未対応サーバ
 	};
 }

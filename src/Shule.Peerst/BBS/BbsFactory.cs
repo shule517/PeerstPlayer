@@ -1,21 +1,24 @@
 ﻿namespace Shule.Peerst.BBS
 {
-	class BBSFactory
+	/// <summary>
+	/// 掲示板ファクトリー
+	/// </summary>
+	class BbsFactory
 	{
 		/// <summary>
 		/// 掲示板ストラテジを生成する
 		/// </summary>
 		/// <param name="url"></param>
 		/// <returns></returns>
-		public BBSStrategy Create(string url)
+		public BbsStrategy Create(string url)
 		{
-			BBSStrategy instance = null;
-			BBSServerType server = JudgeBBSServer(url);
+			BbsStrategy instance = null;
+			BbsServer server = JudgeBBSServer(url);
 
 			switch (server)
 			{
-				case BBSServerType.Shitaraba:
-					instance = new ShitarabaBBSStrategy();
+				case BbsServer.Shitaraba:
+					instance = new ShitarabaBbsStrategy();
 					break;
 			}
 
@@ -27,11 +30,11 @@
 		/// </summary>
 		/// <param name="url"></param>
 		/// <returns></returns>
-		private BBSServerType JudgeBBSServer(string url)
+		private BbsServer JudgeBBSServer(string url)
 		{
 			// TODO URLを解析して、サーバを指定する
 			// TODO 暫定で「したらばサーバ」を指定
-			return BBSServerType.Shitaraba;
+			return BbsServer.Shitaraba;
 		}
 	}
 }

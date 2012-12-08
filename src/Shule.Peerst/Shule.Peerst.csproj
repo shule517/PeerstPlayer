@@ -9,8 +9,9 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Shule.Peerst</RootNamespace>
     <AssemblyName>Shule.Peerst</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -31,24 +32,35 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BBS\BBSFactory.cs" />
-    <Compile Include="BBS\BBSServer.cs" />
-    <Compile Include="BBS\OperationBBS.cs" />
-    <Compile Include="BBS\Strategy\BBSStrategy.cs" />
-    <Compile Include="BBS\Strategy\ShitarabaBBSStrategy.cs" />
+    <Compile Include="BBS\BBSFactory.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="BBS\BBSServer.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="BBS\BbsUrl.cs" />
+    <Compile Include="BBS\OperationBBS.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="BBS\Strategy\BBSStrategy.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="BBS\Strategy\ShitarabaBBSStrategy.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="BBS\Strategy\YYKakikoBBSStrategy.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Util\InitFile.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="PeerCast\" />
-    <Folder Include="Util\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
