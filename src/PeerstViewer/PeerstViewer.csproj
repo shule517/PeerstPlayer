@@ -79,6 +79,12 @@
     <Compile Include="LinkViewer.Designer.cs">
       <DependentUpon>LinkViewer.cs</DependentUpon>
     </Compile>
+    <Compile Include="ThreadViewerEvent.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ThreadViewerToolStripEvent.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="ThreadViewer.cs">
       <SubType>Form</SubType>
     </Compile>
