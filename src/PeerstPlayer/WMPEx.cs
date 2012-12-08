@@ -1297,18 +1297,22 @@ namespace PeerstPlayer
 					}
 					break;
 				case Win32API.WM_LBUTTONUP: // ダブルクリック
-					if (!form.WindowsXP && !form.ToolStipVisile)
+					if ((!form.WindowsXP) && (!form.ToolStipVisile))
 					{
-						if (form.WindowState == FormWindowState.Maximized)
+						// 右→左クリックした時を除く
+						if (Win32API.GetAsyncKeyState(2) >= 0)
 						{
-							form.WindowState = FormWindowState.Normal;
-							form.OnPanelSizeChange(form.PanelWMPSize);
-						}
-						else
-						{
-							form.PanelWMPSize = form.WMPSize;
-							form.WindowState = FormWindowState.Maximized;
-							form.OnPanelSizeChange();
+							if (form.WindowState == FormWindowState.Maximized)
+							{
+								form.WindowState = FormWindowState.Normal;
+								form.OnPanelSizeChange(form.PanelWMPSize);
+							}
+							else
+							{
+								form.PanelWMPSize = form.WMPSize;
+								form.WindowState = FormWindowState.Maximized;
+								form.OnPanelSizeChange();
+							}
 						}
 					}
 					break;

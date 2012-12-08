@@ -1339,7 +1339,7 @@ Alt+W = ScreenSplitHeight=4
 Alt+E = ScreenSplitHeight=3
 Alt+R = ScreenSplitHeight=2
 Alt+LeftClick = Frame
-Right->LeftClick = Frame
+Right->LeftClick = Mute
 P = ScreenShot
 ↑ = ScreenShot
 L = OpenScreenShotFolder
@@ -2118,11 +2118,31 @@ H = Retry
 
 			if (KindOfBBS == KindOfBBS.JBBS)
 			{
-				threadUrl = "http://jbbs.livedoor.jp/bbs/read.cgi/" + BoadGenre + "/" + BoadNo + "/" + ThreadNo + "/";
+				if ((BoadGenre != "") && (BoadNo != ""))
+				{
+					if ((ThreadNo != ""))
+					{
+						threadUrl = "http://jbbs.livedoor.jp/bbs/read.cgi/" + BoadGenre + "/" + BoadNo + "/" + ThreadNo + "/";
+					}
+					else
+					{
+						threadUrl = "http://jbbs.livedoor.jp/bbs/read.cgi/" + BoadGenre + "/" + BoadNo + "/";
+					}
+				}
 			}
 			else if (KindOfBBS == KindOfBBS.YYKakiko)
 			{
-				threadUrl = "http://" + BoadGenre + "/test/read.cgi/" + BoadNo + "/" + ThreadNo + "/";
+				if ((BoadGenre != "") && (BoadNo != ""))
+				{
+					if ((ThreadNo != ""))
+					{
+						threadUrl = "http://" + BoadGenre + "/test/read.cgi/" + BoadNo + "/" + ThreadNo + "/";
+					}
+					else
+					{
+						threadUrl = "http://" + BoadGenre + "/test/read.cgi/" + BoadNo + "/";
+					}
+				}
 			}
 			else if (KindOfBBS == KindOfBBS.None)
 			{

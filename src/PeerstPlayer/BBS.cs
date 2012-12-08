@@ -252,16 +252,16 @@ namespace PeerstPlayer
 						string[] ResData = ResList[i].Split(split, StringSplitOptions.None);
 						if (ResData.Length == 7)
 						{
-							// 名前の太文字バグを除去
-							ResData[1] = ResData[1].Replace("<b>", "").Replace("</b>", "");
-							try
+							// 投稿者がレス番号か
+							int num = 0;
+							if (true == int.TryParse(ResData[1], out num))
 							{
-								int.Parse(ResData[1]);
 								ResData[1] = "<tt>" + ResData[1] + "</tt>";
 							}
-							catch
-							{
-							}
+
+							// したらばの名前太文字バグを対策
+							// 「名前</b>ID<b>」と取得されるので、<\b>を追加する
+							ResData[1] = ResData[1].Replace("<b>", "").Replace("</b>", "");
 
 							// データ作成
 							string[] data = new string[5];

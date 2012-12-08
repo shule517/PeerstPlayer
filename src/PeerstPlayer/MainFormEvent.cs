@@ -128,7 +128,7 @@ namespace PeerstPlayer
 			{
 				if (ResBoxType)
 				{
-					if (e.Shift)
+					if (e.Control)
 					{
 						// 書き込み確認
 						if (!CheckWrite())
@@ -155,7 +155,7 @@ namespace PeerstPlayer
 				}
 				else
 				{
-					if (!e.Shift)
+					if (!e.Control)
 					{
 						// 書き込み確認
 						if (!CheckWrite())
