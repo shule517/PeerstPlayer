@@ -30,13 +30,12 @@ namespace Shule.Peerst.BBS
 		}
 
 		/// <summary>
-		/// 掲示板タイトル取得
+		/// 掲示板名の取得
 		/// </summary>
 		/// <returns></returns>
-		public string GetBBSTitle()
+		public string GetBbsName()
 		{
-			// TODO 実際の掲示板タイトルを返すように修正する
-			return "掲示板タイトル";
+			return bbsStrategy.GetBbsName();
 		}
 
 		/// <summary>

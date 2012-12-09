@@ -134,5 +134,13 @@ namespace Shule.Peerst.BBS
 		{
 			return Encoding.GetEncoding("Shift_JIS");
 		}
+
+		/// <summary>
+		/// 板URLを取得
+		/// </summary>
+		protected override string GetBoadUrl()
+		{
+			return "http://" + bbsUrl.BoadGenre + "/" + bbsUrl.BoadNo + "/";
+		}
 	}
 }

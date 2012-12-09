@@ -119,5 +119,13 @@ namespace Shule.Peerst.BBS
 		{
 			return Encoding.GetEncoding("EUC-JP");
 		}
+
+		/// <summary>
+		/// 板URLを取得
+		/// </summary>
+		protected override string GetBoadUrl()
+		{
+			return "http://jbbs.livedoor.jp/" + bbsUrl.BoadGenre + "/" + bbsUrl.BoadNo + "/";
+		}
 	}
 }

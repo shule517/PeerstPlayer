@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Shule.Peerst.Web;
+using System.Collections.Generic;
 using System.IO;
 using System.Net;
 using System.Text;
@@ -161,5 +162,29 @@ namespace Shule.Peerst.BBS
 		/// 文字エンコードを取得
 		/// </summary>
 		protected abstract Encoding GetEncode();
+
+		/// <summary>
+		/// 掲示板名を取得
+		/// </summary>
+		public string GetBbsName()
+		{
+			// 板名を取得：<title>板名</title>
+			string html = HTTP.GetHtml(GetBoadUrl(), GetEncode());
+
+			int startPos = html.IndexOf("<title>");
+			int endPos = html.IndexOf("</title>");
+
+			if ((startPos == -1) || (endPos == -1))
+				return "";
+
+			int tagSize = "<title>".Length;
+
+			return html.Substring(startPos + tagSize, (endPos - startPos) - tagSize);
+		}
+
+		/// <summary>
+		/// 板URLを取得
+		/// </summary>
+		protected abstract string GetBoadUrl();
 	}
 }
