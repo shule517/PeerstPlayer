@@ -34,30 +34,34 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Web" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BBS\BBSFactory.cs">
+    <Compile Include="BBS\BbsFactory.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="BBS\BBSServer.cs">
+    <Compile Include="BBS\BbsServer.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="BBS\BbsUrl.cs" />
-    <Compile Include="BBS\OperationBBS.cs">
+    <Compile Include="BBS\BbsUrlAnalyzer.cs" />
+    <Compile Include="BBS\OperationBbs.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="BBS\Strategy\BBSStrategy.cs">
+    <Compile Include="BBS\Strategy\BbsStrategy.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="BBS\Strategy\ShitarabaBBSStrategy.cs">
+    <Compile Include="BBS\Strategy\ShitarabaBbsStrategy.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="BBS\Strategy\YYKakikoBBSStrategy.cs">
+    <Compile Include="BBS\Strategy\YYKakikoBbsStrategy.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="BBS\ThreadInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Util\InitFile.cs" />
+    <Compile Include="Web\HTTP.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="PeerCast\" />

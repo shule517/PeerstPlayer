@@ -1,5 +1,8 @@
-﻿using System.IO;
+﻿using System.Collections.Generic;
+using System.IO;
 using System.Net;
+using System.Text;
+using System.Windows.Forms;
 namespace Shule.Peerst.BBS
 {
 	/// <summary>
@@ -12,13 +15,9 @@ namespace Shule.Peerst.BBS
 		/// <summary>
 		/// コンストラクタ
 		/// </summary>
-		public BbsStrategy()
+		public BbsStrategy(BbsUrl bbsUrl)
 		{
-			bbsUrl = new BbsUrl();
-			// TODO URL情報を解析して設定する
-			bbsUrl.BoadGenre = "game";
-			bbsUrl.BoadNo = "45037";
-			bbsUrl.ThreadNo = "1340716570";
+			this.bbsUrl = bbsUrl;
 		}
 
 		/// <summary>
@@ -27,7 +26,7 @@ namespace Shule.Peerst.BBS
 		/// <param name="name">名前</param>
 		/// <param name="mail">メール欄</param>
 		/// <param name="message">本文</param>
-		public void Write(string name, string mail, string message)
+		public bool Write(string name, string mail, string message)
 		{
 			// POSTデータ作成
 			string requestUrl = GetRequestURL(); // リクエストURL
@@ -45,13 +44,13 @@ namespace Shule.Peerst.BBS
 			requestStream.Write(data, 0, data.Length);
 			requestStream.Close();
 
-			/*
-			// TODO エラーチェックを行う
+			// TODO エラーチェックを行うクラスへ移行する
+			// TODO エラーメッセージ表示をメッセージボックスから変更
 			// リクエスト受信
 			WebResponse response = request.GetResponse();
 			Stream responseStream = response.GetResponseStream();
 			StreamReader sr;
-			sr = new StreamReader(responseStream, encode);
+			sr = new StreamReader(responseStream, GetEncode());
 			string html = sr.ReadToEnd();
 			sr.Close();
 			responseStream.Close();
@@ -140,7 +139,6 @@ namespace Shule.Peerst.BBS
 			#endregion
 
 			return true;
-			*/
 		}
 
 
@@ -154,10 +152,14 @@ namespace Shule.Peerst.BBS
 		/// </summary>
 		protected abstract string GetRequestURL();
 
-		public void ReadThread()
-		{
-		}
-		protected abstract void ReadDat();
-		protected abstract void AnalyzeData();
+		/// <summary>
+		/// スレッド読み込み
+		/// </summary>
+		public abstract List<ThreadInfo> ReadThread(string threadNo);
+
+		/// <summary>
+		/// 文字エンコードを取得
+		/// </summary>
+		protected abstract Encoding GetEncode();
 	}
 }

@@ -144,7 +144,7 @@ namespace PeerstViewer
 						Panel2Height = splitContainer.Panel2.Height;
 						webBrowser.Document.Window.ScrollTo(ScrollPosX, ScrollPosY + splitContainer.Panel2.Height);
 					}
-					else
+					else if (webBrowser.Document != null)
 					{
 						webBrowser.Document.Window.ScrollTo(ScrollPosX, ScrollPosY - Panel2Height);
 					}

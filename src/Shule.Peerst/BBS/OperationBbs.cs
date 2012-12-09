@@ -1,4 +1,5 @@
-﻿namespace Shule.Peerst.BBS
+﻿using System.Collections.Generic;
+namespace Shule.Peerst.BBS
 {
 	/// <summary>
 	/// 掲示板操作クラス
@@ -49,6 +50,12 @@
 			bbsStrategy.Write(name, mail, message);
 		}
 
-		// TODO 掲示板操作のメソッドを追加していく
+		/// <summary>
+		/// スレッド情報読み込み
+		/// </summary>
+		public List<ThreadInfo> ReadThread(string threadNo)
+		{
+			return bbsStrategy.ReadThread(threadNo);
+		}
 	}
 }
