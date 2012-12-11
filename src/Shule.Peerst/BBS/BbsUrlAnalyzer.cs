@@ -6,13 +6,12 @@ namespace Shule.Peerst.BBS
 	/// </summary>
 	class BbsUrlAnalyzer
 	{
-		public void Analyze(string url, out BbsServer server, out BbsUrl bbsUrl)
+		public void Analyze(string url, out BbsUrl bbsUrl)
 		{
 			// 空白：本スレ
 			if (url == "本スレ")
 			{
-				server = BbsServer.YYKakiko;
-				bbsUrl = new BbsUrl("yy25.60.kg", "peercastjikkyou", "");
+				bbsUrl = new BbsUrl(BbsServer.YYKakiko, "yy25.60.kg", "peercastjikkyou", "");
 
 				/*
 				// TODO 本スレのスレッド番号を取得する
@@ -52,21 +51,18 @@ namespace Shule.Peerst.BBS
 			// スレッドURLかチェック
 			if (GetThreadDataFromThreadURL(url, BbsServer.Shitaraba, @"http://jbbs.livedoor.jp/bbs/read.cgi/(\w*)/(\w*)/(\w*)/", out bbsUrl))
 			{
-				server = BbsServer.Shitaraba;
 				return;
 			}
 
 			// 板URLかチェック
 			if (GetThreadDataFromBoardURL(url, BbsServer.Shitaraba, @"http://jbbs.livedoor.jp/(\w*)/(\w*)/", out bbsUrl))
 			{
-				server = BbsServer.Shitaraba;
 				return;
 			}
 
 			// 板URLかチェック
 			if (GetThreadDataFromBoardURL(url, BbsServer.Shitaraba, @"http://jbbs.livedoor.jp/bbs/read.cgi/(\w*)/(\w*)/", out bbsUrl))
 			{
-				server = BbsServer.Shitaraba;
 				return;
 			}
 
@@ -77,27 +73,23 @@ namespace Shule.Peerst.BBS
 			// スレッドURLかチェック
 			if (GetThreadDataFromThreadURL(url, BbsServer.YYKakiko, @"http://yy(\w*.*.*)/test/read.cgi/(\w*)/(\w*)/", out bbsUrl))
 			{
-				server = BbsServer.YYKakiko;
 				return;
 			}
 
 			// 板URLかチェック
 			if (GetThreadDataFromBoardURL(url, BbsServer.YYKakiko, @"http://yy(\w*.*.*)/test/read.cgi/(\w*)/", out bbsUrl))
 			{
-				server = BbsServer.YYKakiko;
 				return;
 			}
 
 			// 板URLかチェック
 			if (GetThreadDataFromBoardURL(url, BbsServer.YYKakiko, @"http://yy(\w*.*.*)/(\w*)/", out bbsUrl))
 			{
-				server = BbsServer.YYKakiko;
 				return;
 			}
 
 			// 掲示板非対応
-			server = BbsServer.UnSupport;
-			bbsUrl = null;
+			bbsUrl = new BbsUrl(BbsServer.UnSupport, string.Empty, string.Empty, string.Empty);
 		}
 
 		/// <summary>
@@ -124,7 +116,7 @@ namespace Shule.Peerst.BBS
 
 				string boadNo = match.Groups[2].Value;
 
-				bbsUrl = new BbsUrl(boadGenre, boadNo, "");
+				bbsUrl = new BbsUrl(bbsServer, boadGenre, boadNo, string.Empty);
 				return true;
 			}
 
@@ -158,7 +150,7 @@ namespace Shule.Peerst.BBS
 				string boadNo = match.Groups[2].Value;
 				string threadNo = match.Groups[3].Value;
 
-				bbsUrl = new BbsUrl(boadGenre, boadNo, threadNo);
+				bbsUrl = new BbsUrl(bbsServer, boadGenre, boadNo, threadNo);
 				return true;
 			}
 

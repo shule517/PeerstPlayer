@@ -3,7 +3,7 @@
 	/// <summary>
 	/// 掲示板サーバ
 	/// </summary>
-	enum BbsServer
+	public enum BbsServer
 	{
 		Shitaraba,	// したらば掲示板
 		YYKakiko,	// わいわいKakiko

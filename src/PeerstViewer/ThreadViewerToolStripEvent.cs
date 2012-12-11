@@ -18,7 +18,7 @@ namespace PeerstViewer
 			timerAutoReload.Stop();
 
 			// スレURLを更新
-			ThreadURL = this.comboBox.Text;
+			operationBbs.ChangeUrl(this.comboBox.Text);
 
 			// 更新
 			Reload(true);
@@ -101,7 +101,8 @@ namespace PeerstViewer
 			// スレッド一覧更新
 			if (url.Length > 0)
 			{
-				ThreadListUpdate(url);
+				operationBbs.ChangeUrl(url);
+				ThreadListUpdate();
 			}
 		}
 
@@ -112,7 +113,7 @@ namespace PeerstViewer
 		{
 			// クリップボードへコピー
 			// アプリケーション終了後もクリップボードにデータを残しておく
-			Clipboard.SetDataObject(ThreadURL, true);
+			Clipboard.SetDataObject(operationBbs.GetUrl(), true);
 		}
 
 		private void 折り返し表示ToolStripMenuItem_Click(object sender, EventArgs e)

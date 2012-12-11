@@ -14,14 +14,13 @@
 		{
 			BbsStrategy instance = null;
 			BbsUrl bbsUrl = null;
-			BbsServer server = BbsServer.UnSupport;
 
 			// 掲示板URL解析
 			BbsUrlAnalyzer analyzer = new BbsUrlAnalyzer();
-			analyzer.Analyze(url, out server, out bbsUrl);
+			analyzer.Analyze(url, out bbsUrl);
 
 			// 各ストラテジ生成
-			switch (server)
+			switch (bbsUrl.BBSServer)
 			{
 				case BbsServer.Shitaraba:
 					instance = new ShitarabaBbsStrategy(bbsUrl);

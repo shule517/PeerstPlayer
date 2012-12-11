@@ -50,8 +50,7 @@ namespace Shule.Peerst.BBS
 			// リクエスト受信
 			WebResponse response = request.GetResponse();
 			Stream responseStream = response.GetResponseStream();
-			StreamReader sr;
-			sr = new StreamReader(responseStream, GetEncode());
+			StreamReader sr = new StreamReader(responseStream, GetEncode());
 			string html = sr.ReadToEnd();
 			sr.Close();
 			responseStream.Close();
@@ -112,7 +111,7 @@ namespace Shule.Peerst.BBS
 					int s = html.IndexOf("ＥＲＲＯＲ -");
 					int e = html.IndexOf("しかたってない");
 
-					if (s == -1 || e == -1)
+					if ((s == -1) || (e == -1))
 					{
 						MessageBox.Show("書き込みエラー\n連投規制です。しばらくしてから書き込み直してください。", "Error!!");
 						return false;
@@ -186,5 +185,21 @@ namespace Shule.Peerst.BBS
 		/// 板URLを取得
 		/// </summary>
 		protected abstract string GetBoadUrl();
+
+		/// <summary>
+		/// スレッド変更
+		/// </summary>
+		public void ChangeThread(string threadNo)
+		{
+			bbsUrl.ThreadNo = threadNo;
+		}
+
+		/// <summary>
+		/// 掲示板URL取得
+		/// </summary>
+		public BbsUrl GetBbsUrl()
+		{
+			return bbsUrl;
+		}
 	}
 }

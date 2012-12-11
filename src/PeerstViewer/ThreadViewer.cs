@@ -11,35 +11,16 @@ using PeerstPlayer;
 using System.Runtime.InteropServices;
 using System.Diagnostics;
 using Shule.Peerst.Util;
+using Shule.Peerst.BBS;
 
 namespace PeerstViewer
 {
 	public partial class ThreadViewer : Form
 	{
 		/// <summary>
-		/// 掲示板の名前（板名）
+		/// 掲示板操作クラス
 		/// </summary>
-		string BoardName = "";
-
-		/// <summary>
-		/// 掲示板の種類
-		/// </summary>
-		KindOfBBS KindOfBBS = KindOfBBS.None;
-
-		/// <summary>
-		/// 板ジャンル
-		/// </summary>
-		string BoadGenre = "";
-
-		/// <summary>
-		/// 板番号
-		/// </summary>
-		string BoadNo = "";
-
-		/// <summary>
-		/// スレ番号
-		/// </summary>
-		string ThreadNo = "";
+		OperationBbs operationBbs = null;
 
 		/// <summary>
 		/// 現在取得している次のレス番号
@@ -95,11 +76,6 @@ namespace PeerstViewer
 		/// 現在のブラウザのHTML
 		/// </summary>
 		string DocumentText = "";
-
-		/// <summary>
-		/// 現在開いているスレURL
-		/// </summary>
-		string ThreadURL = "";
 
 		/// <summary>
 		/// レスのデータリスト
@@ -255,11 +231,17 @@ namespace PeerstViewer
 				// スレッドURL
 				String url = Environment.GetCommandLineArgs()[1].ToString();
 
+				// コンタクトURL設定有り
+				operationBbs = new OperationBbs(url);
+
 				// スレ一覧更新
-				ThreadListUpdate(url);
+				ThreadListUpdate();
 			}
 			else
 			{
+				// コンタクトURL設定なし
+				operationBbs = new OperationBbs("本スレ");
+
 				// ブラウザのフォント、背景色を設定
 				webBrowser.DocumentText = @"<body bgcolor=""#E6EEF3"" style=""font-family:'ＭＳ Ｐゴシック','ＭＳＰゴシック','MSPゴシック','MS Pゴシック';font-size:14px;line-height:16px;"" ><br>↑スレッド(板)URLを入力してください。";
 			}
@@ -268,25 +250,10 @@ namespace PeerstViewer
 		/// <summary>
 		/// スレッドビューワを開く
 		/// </summary>
-		public void OpenUrl(string ThreadTitle, KindOfBBS KindOfBBS, string BoadGenre, string BoadNo, string ThreadNo)
+		public void OpenUrl()
 		{
 			try
 			{
-				// データをコピー
-				this.KindOfBBS = KindOfBBS;
-				this.BoadGenre = BoadGenre;
-				this.BoadNo = BoadNo;
-				this.ThreadNo = ThreadNo;
-
-				if (ChannelName != "")
-				{
-					Text = ChannelName + "：" + ThreadTitle;
-				}
-				else
-				{
-					Text = ThreadTitle;
-				}
-
 				// ブラウザのフォント、背景色を設定
 				DocumentText = @"<head>
 <style type=""text/css"">
@@ -372,47 +339,27 @@ text-decoration:underline;
 		/// <summary>
 		/// コンボボックスに入力されたURLを更新 / 現在の板のスレッド一覧を取得
 		/// </summary>
-		void ThreadListUpdate(String url)
+		void ThreadListUpdate()
 		{
-			// スレッドURLの更新
-			ThreadURL = url;
-
+			BbsUrl bbsUrl = operationBbs.GetBbsUrl();
 			try
 			{
-				// URLから各種データを取得
-				string board_name = "";
-				KindOfBBS kind_of_bbs = KindOfBBS.None;
-				string boad_genre = "";
-				string boad_no = "";
-				string thread_no = "";
-				BBS.GetDataFromUrl(ThreadURL, out board_name, out kind_of_bbs, out boad_genre, out boad_no, out thread_no);
-
 				// 取得できていなかったら、URLを直接ブラウザで開く
-				if ((kind_of_bbs == KindOfBBS.None) || (boad_genre == "") || (boad_no == ""))
+				if ((bbsUrl.BBSServer == BbsServer.UnSupport) || (bbsUrl.BoadGenre == "") || (bbsUrl.BoadNo == ""))
 				{
 					webBrowser.Url = new Uri(comboBox.Text);
 				}
 				// データ更新
 				else
 				{
-					// 反映
-					BoardName = board_name;
-					KindOfBBS = kind_of_bbs;
-					BoadGenre = boad_genre;
-					BoadNo = boad_no;
-					ThreadNo = thread_no;
-
 					// タイトルバーに板名表示
-					if (BoardName != "")
-					{
-						Text = BoardName;
-					}
+					Text = operationBbs.GetBbsName();
 
 					// スレッド一覧更新
-					if ((KindOfBBS != KindOfBBS.None) && (BoadGenre != "") && (BoadNo != ""))
+					if ((bbsUrl.BBSServer != BbsServer.UnSupport) && (bbsUrl.BoadGenre != "") && (bbsUrl.BoadNo != ""))
 					{
 						// スレッド一覧を取得
-						ThreadList = BBS.GetThreadList(KindOfBBS, BoadGenre, BoadNo);
+						ThreadList = BBS.GetThreadList((KindOfBBS)bbsUrl.BBSServer, bbsUrl.BoadGenre, bbsUrl.BoadNo);
 
 						// コンボボックスにセット
 						comboBox.Items.Clear();
@@ -424,7 +371,7 @@ text-decoration:underline;
 					}
 
 					// 指定スレッドを選択する
-					if ((KindOfBBS != KindOfBBS.None) && (BoadGenre != "") && (BoadNo != "") && (ThreadNo != ""))
+					if ((bbsUrl.BBSServer != BbsServer.UnSupport) && (bbsUrl.BoadGenre != "") && (bbsUrl.BoadNo != "") && (bbsUrl.ThreadNo != ""))
 					{
 						// コンボボックスのスレッドを選択
 						int index = 0;
@@ -432,7 +379,7 @@ text-decoration:underline;
 						// 指定スレッドのindexを取得
 						for (int i = 0; i < ThreadList.Count; i++)
 						{
-							if (ThreadNo == ThreadList[i][0])
+							if (bbsUrl.ThreadNo == ThreadList[i][0])
 							{
 								index = i;
 								break;
@@ -459,26 +406,6 @@ text-decoration:underline;
 			catch
 			{
 			}
-		}
-
-		/// <summary>
-		/// 現在開いているスレッドURLを取得する
-		/// </summary>
-		private String GetThreadURL()
-		{
-			String url = "";
-
-			switch (KindOfBBS)
-			{
-				case PeerstPlayer.KindOfBBS.JBBS:
-					url = "http://jbbs.livedoor.jp/bbs/read.cgi/" + BoadGenre + "/" + BoadNo + "/" + ThreadNo + "/";
-					break;
-				case PeerstPlayer.KindOfBBS.YYKakiko:
-					url = "http://" + BoadGenre + "/test/read.cgi/" + BoadNo + "/" + ThreadNo + "/";
-					break;
-			}
-
-			return url;
 		}
 
 		/// <summary>

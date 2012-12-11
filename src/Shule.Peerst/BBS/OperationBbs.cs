@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Text.RegularExpressions;
 namespace Shule.Peerst.BBS
 {
 	/// <summary>
@@ -16,7 +17,7 @@ namespace Shule.Peerst.BBS
 		public OperationBbs(string url)
 		{
 			bbsFactory = new BbsFactory();
-			SetURL(url);
+			ChangeUrl(url);
 		}
 
 		/// <summary>
@@ -24,9 +25,29 @@ namespace Shule.Peerst.BBS
 		/// URLにあったストラテジに変更する
 		/// </summary>
 		/// <param name="url">掲示板URL</param>
-		public void SetURL(string url)
+		public void ChangeUrl(string url)
 		{
-			bbsStrategy = bbsFactory.Create(url);
+			Regex regex = new Regex(@"(h?ttps?://[-_.!~*'()a-zA-Z0-9;/?:@&=+$,%#]+)");
+			Match match = regex.Match(url);
+
+			if (match.Groups.Count == 2)
+			{
+				// ttpをhttpに変換
+				if (match.Groups[0].Value[0] == 't')
+					url = "h" + match.Groups[0].Value;
+				else
+					url = match.Groups[0].Value;
+
+				bbsStrategy = bbsFactory.Create(url);
+			}
+		}
+
+		/// <summary>
+		/// 掲示板URL取得
+		/// </summary>
+		public BbsUrl GetBbsUrl()
+		{
+			return bbsStrategy.GetBbsUrl();
 		}
 
 		/// <summary>
@@ -44,9 +65,9 @@ namespace Shule.Peerst.BBS
 		/// <param name="name">名前</param>
 		/// <param name="mail">メール欄</param>
 		/// <param name="message">本文</param>
-		public void Write(string name, string mail, string message)
+		public bool Write(string name, string mail, string message)
 		{
-			bbsStrategy.Write(name, mail, message);
+			return bbsStrategy.Write(name, mail, message);
 		}
 
 		/// <summary>
@@ -55,6 +76,22 @@ namespace Shule.Peerst.BBS
 		public List<ThreadInfo> ReadThread(string threadNo)
 		{
 			return bbsStrategy.ReadThread(threadNo);
+		}
+
+		/// <summary>
+		/// スレッド変更
+		/// </summary>
+		public void ChangeThread(string threadNo)
+		{
+			bbsStrategy.ChangeThread(threadNo);
+		}
+
+		/// <summary>
+		/// 掲示板URL取得
+		/// </summary>
+		public string GetUrl()
+		{
+			return bbsStrategy.GetBbsUrl().ToString();
 		}
 	}
 }

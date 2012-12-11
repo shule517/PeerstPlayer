@@ -9,6 +9,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using Shule.Peerst.Util;
+using Shule.Peerst.BBS;
 
 namespace PeerstViewer
 {
@@ -20,7 +21,10 @@ namespace PeerstViewer
 		private void buttonWrite_Click(object sender, EventArgs e)
 		{
 			textBoxMessage.ReadOnly = true;
-			if (BBS.Write(KindOfBBS, BoadGenre, BoadNo, ThreadNo, textBoxName.Text, textBoxMail.Text, textBoxMessage.Text))
+
+			// スレッド書き込み
+			bool isSuccess = operationBbs.Write(textBoxName.Text, textBoxMail.Text, textBoxMessage.Text);
+			if (isSuccess)
 			{
 				textBoxMessage.Text = "";
 				Reload(true);
@@ -290,7 +294,9 @@ namespace PeerstViewer
 			if (e.Shift && e.KeyCode == Keys.Enter)
 			{
 				textBoxMessage.ReadOnly = true;
-				if (BBS.Write(KindOfBBS, BoadGenre, BoadNo, ThreadNo, textBoxName.Text, textBoxMail.Text, textBoxMessage.Text))
+
+				BbsUrl url = operationBbs.GetBbsUrl();
+				if (BBS.Write((KindOfBBS)url.BBSServer, url.BoadGenre, url.BoadNo, url.ThreadNo, textBoxName.Text, textBoxMail.Text, textBoxMessage.Text))
 				{
 					textBoxMessage.Text = "";
 					Reload(true);
@@ -334,7 +340,8 @@ namespace PeerstViewer
 			if (e.KeyCode == Keys.Enter)
 			{
 				// コンボボックスに入力されたURLを更新 / 現在の板のスレッド一覧を取得
-				ThreadListUpdate(this.comboBox.Text);
+				operationBbs.ChangeUrl(this.comboBox.Text);
+				ThreadListUpdate();
 			}
 		}
 
@@ -346,11 +353,11 @@ namespace PeerstViewer
 			if (comboBox.SelectedIndex != -1 && ThreadList.Count > comboBox.SelectedIndex)
 			{
 				// スレッドを変更
-				ThreadNo = ThreadList[comboBox.SelectedIndex][0];
-				OpenUrl(BoardName, KindOfBBS, BoadGenre, BoadNo, ThreadNo);
+				string threadNo = ThreadList[comboBox.SelectedIndex][0];
+				operationBbs.ChangeThread(threadNo);
 
-				// スレッドURLを更新
-				ThreadURL = GetThreadURL();
+				// 更新
+				OpenUrl();
 			}
 		}
 
@@ -360,7 +367,8 @@ namespace PeerstViewer
 		private void buttonThreadListUpdate_Click(object sender, EventArgs e)
 		{
 			// コンボボックスに入力されたURLを更新 / 現在の板のスレッド一覧を取得
-			ThreadListUpdate(this.comboBox.Text);
+			operationBbs.ChangeUrl(this.comboBox.Text);
+			ThreadListUpdate();
 		}
 
 		#region コンテキストメニュー
@@ -387,7 +395,8 @@ namespace PeerstViewer
 		/// </summary>
 		private void backgroundWorkerReload_DoWork(object sender, DoWorkEventArgs e)
 		{
-			ThreadData = BBS.ReadThread(KindOfBBS, BoadGenre, BoadNo, ThreadNo, ResNum);
+			BbsUrl bbsUrl = operationBbs.GetBbsUrl();
+			ThreadData = BBS.ReadThread((KindOfBBS)bbsUrl.BBSServer, bbsUrl.BoadGenre, bbsUrl.BoadNo, bbsUrl.ThreadNo, ResNum);
 
 			try
 			{
