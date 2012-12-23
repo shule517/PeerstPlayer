@@ -27,6 +27,12 @@ namespace Shule.Peerst.BBS
 		/// <param name="url">掲示板URL</param>
 		public void ChangeUrl(string url)
 		{
+			if (url == "本スレ")
+			{
+				bbsStrategy = bbsFactory.Create(url);
+				return;
+			}
+
 			Regex regex = new Regex(@"(h?ttps?://[-_.!~*'()a-zA-Z0-9;/?:@&=+$,%#]+)");
 			Match match = regex.Match(url);
 
