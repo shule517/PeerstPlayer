@@ -52,6 +52,8 @@
     <Compile Include="BBS\Strategy\BbsStrategy.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="BBS\Strategy\IBbsStrategy.cs" />
+    <Compile Include="BBS\Strategy\NullBbsStrategy.cs" />
     <Compile Include="BBS\Strategy\ShitarabaBbsStrategy.cs">
       <SubType>Code</SubType>
     </Compile>

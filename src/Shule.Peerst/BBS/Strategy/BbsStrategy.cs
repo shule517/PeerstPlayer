@@ -9,7 +9,7 @@ namespace Shule.Peerst.BBS
 	/// <summary>
 	/// 掲示板ストラテジ抽象クラス
 	/// </summary>
-	abstract class BbsStrategy
+	abstract class BbsStrategy : IBbsStrategy
 	{
 		protected BbsUrl bbsUrl;	// 掲示板アドレス情報
 

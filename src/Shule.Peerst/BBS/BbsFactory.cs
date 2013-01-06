@@ -10,9 +10,9 @@
 		/// </summary>
 		/// <param name="url"></param>
 		/// <returns></returns>
-		public BbsStrategy Create(string url)
+		public IBbsStrategy Create(string url)
 		{
-			BbsStrategy instance = null;
+			IBbsStrategy instance = null;
 			BbsUrl bbsUrl = null;
 
 			// 掲示板URL解析
@@ -22,11 +22,17 @@
 			// 各ストラテジ生成
 			switch (bbsUrl.BBSServer)
 			{
+				// したらば掲示板
 				case BbsServer.Shitaraba:
 					instance = new ShitarabaBbsStrategy(bbsUrl);
 					break;
+				// わいわいkakiko
 				case BbsServer.YYKakiko:
 					instance = new YYKakikoBbsStrategy(bbsUrl);
+					break;
+				// 未対応(NULLオブジェクト)
+				default:
+					instance = new NullBbsStrategy();
 					break;
 			}
 

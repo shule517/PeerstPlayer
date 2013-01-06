@@ -8,7 +8,7 @@ namespace Shule.Peerst.BBS
 	public class OperationBbs
 	{
 		BbsFactory bbsFactory;		// 掲示板ストラテジを生成
-		BbsStrategy bbsStrategy;	// 掲示板URLに対応したストラテジを保持
+		IBbsStrategy bbsStrategy;	// 掲示板URLに対応したストラテジを保持
 
 		/// <summary>
 		/// コンストラクタ
@@ -40,9 +40,13 @@ namespace Shule.Peerst.BBS
 			{
 				// ttpをhttpに変換
 				if (match.Groups[0].Value[0] == 't')
+				{
 					url = "h" + match.Groups[0].Value;
+				}
 				else
+				{
 					url = match.Groups[0].Value;
+				}
 
 				bbsStrategy = bbsFactory.Create(url);
 			}
