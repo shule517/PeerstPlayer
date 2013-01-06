@@ -85,7 +85,7 @@ namespace PeerstViewer
 		/// <summary>
 		/// スレッドの一覧
 		/// </summary>
-		List<string[]> ThreadList = new List<string[]>();
+		List<ThreadInfo> threadList = new List<ThreadInfo>();
 
 		/// <summary>
 		/// Panel2の高さ：書き込み欄表示時のスクロール用
@@ -359,14 +359,15 @@ text-decoration:underline;
 					if ((bbsUrl.BBSServer != BbsServer.UnSupport) && (bbsUrl.BoadGenre != "") && (bbsUrl.BoadNo != ""))
 					{
 						// スレッド一覧を取得
-						ThreadList = BBS.GetThreadList((KindOfBBS)bbsUrl.BBSServer, bbsUrl.BoadGenre, bbsUrl.BoadNo);
+						threadList = operationBbs.GetThreadList();
+						//ThreadList = BBS.GetThreadList((KindOfBBS)bbsUrl.BBSServer, bbsUrl.BoadGenre, bbsUrl.BoadNo);
 
 						// コンボボックスにセット
 						comboBox.Items.Clear();
-						for (int i = 0; i < ThreadList.Count; i++)
+						for (int i = 0; i < threadList.Count; i++)
 						{
 							// スレタイ(レス数)
-							comboBox.Items.Add(ThreadList[i][1] + "(" + ThreadList[i][2] + ")");
+							comboBox.Items.Add("[speed:" + threadList[i].ThreadSpeed.ToString("F1") + "] " + threadList[i].Title + " (" + threadList[i].ResCount + ")");
 						}
 					}
 
@@ -377,9 +378,9 @@ text-decoration:underline;
 						int index = 0;
 
 						// 指定スレッドのindexを取得
-						for (int i = 0; i < ThreadList.Count; i++)
+						for (int i = 0; i < threadList.Count; i++)
 						{
-							if (bbsUrl.ThreadNo == ThreadList[i][0])
+							if (bbsUrl.ThreadNo == threadList[i].ThreadNo)
 							{
 								index = i;
 								break;

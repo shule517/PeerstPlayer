@@ -15,9 +15,14 @@ namespace Shule.Peerst.BBS
 		bool Write(string name, string mail, string message);
 
 		/// <summary>
-		/// スレッド読み込み
+		/// スレッド一覧の取得
 		/// </summary>
-		List<ThreadInfo> ReadThread(string threadNo);
+		List<ThreadInfo> GetThreadList();
+
+		/// <summary>
+		/// レス読み込み
+		/// </summary>
+		List<ResInfo> ReadThread(string threadNo);
 
 		/// <summary>
 		/// 掲示板名を取得

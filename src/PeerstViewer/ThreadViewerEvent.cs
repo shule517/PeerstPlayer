@@ -291,12 +291,11 @@ namespace PeerstViewer
 		private void textBoxMessage_KeyDown(object sender, KeyEventArgs e)
 		{
 			// 書き込み
-			if (e.Shift && e.KeyCode == Keys.Enter)
+			if (e.Control && (e.KeyCode == Keys.Enter))
 			{
 				textBoxMessage.ReadOnly = true;
 
-				BbsUrl url = operationBbs.GetBbsUrl();
-				if (BBS.Write((KindOfBBS)url.BBSServer, url.BoadGenre, url.BoadNo, url.ThreadNo, textBoxName.Text, textBoxMail.Text, textBoxMessage.Text))
+				if (operationBbs.Write(textBoxName.Text, textBoxMail.Text, textBoxMessage.Text))
 				{
 					textBoxMessage.Text = "";
 					Reload(true);
@@ -305,7 +304,7 @@ namespace PeerstViewer
 				textBoxMessage.ReadOnly = false;
 			}
 			// 全選択
-			else if (e.Control && e.KeyCode == Keys.A)
+			else if (e.Control && (e.KeyCode == Keys.A))
 			{
 				textBoxMessage.SelectAll();
 			}
@@ -350,10 +349,10 @@ namespace PeerstViewer
 		/// </summary>
 		private void comboBox_SelectedIndexChanged(object sender, EventArgs e)
 		{
-			if (comboBox.SelectedIndex != -1 && ThreadList.Count > comboBox.SelectedIndex)
+			if (comboBox.SelectedIndex != -1 && threadList.Count > comboBox.SelectedIndex)
 			{
 				// スレッドを変更
-				string threadNo = ThreadList[comboBox.SelectedIndex][0];
+				string threadNo = threadList[comboBox.SelectedIndex].ThreadNo;
 				operationBbs.ChangeThread(threadNo);
 
 				// 更新

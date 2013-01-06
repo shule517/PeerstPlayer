@@ -18,11 +18,19 @@ namespace Shule.Peerst.BBS
 		}
 
 		/// <summary>
-		/// スレッド読み込み
+		/// スレッド一覧の取得
 		/// </summary>
-		public List<ThreadInfo> ReadThread(string threadNo)
+		public List<ThreadInfo> GetThreadList()
 		{
 			return new List<ThreadInfo>();
+		}
+
+		/// <summary>
+		/// スレッド読み込み
+		/// </summary>
+		public List<ResInfo> ReadThread(string threadNo)
+		{
+			return new List<ResInfo>();
 		}
 
 		/// <summary>

@@ -1,4 +1,5 @@
 ﻿using Shule.Peerst.Web;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Net;
@@ -141,6 +142,42 @@ namespace Shule.Peerst.BBS
 			return true;
 		}
 
+		/// <summary>
+		/// スレッド一覧の取得
+		/// </summary>
+		public List<ThreadInfo> GetThreadList()
+		{
+			List<ThreadInfo> threadList = new List<ThreadInfo>();
+
+			// subject.txtを取得
+			string subject_html = HTTP.GetHtml(GetSubjectUrl(), GetEncode());
+
+			// 区切り文字作成
+			string[] separator = new string[2];
+			separator[0] = "\n";
+			separator[1] = GetSubjectSplit();
+
+			string[] list = subject_html.Split(separator, StringSplitOptions.None);
+
+			// TODO したらばの場合は、最下位のデータは読まない。
+			// TODO 最上位のデータと同じため
+
+			for (int i = 0; i < list.Length - 1; i += 2)
+			{
+				// スレッドデータ作成
+				string[] text = new string[3];
+				int index = list[i + 1].LastIndexOf('(');
+				string threadTitle = list[i + 1].Substring(0, index);
+				string resNum = list[i + 1].Substring(index + 1, list[i + 1].Length - index - 2);
+				string threadNo = list[i];
+				ThreadInfo thread = new ThreadInfo(threadTitle, threadNo, resNum);
+
+				// 追加
+				threadList.Add(thread);
+			}
+
+			return threadList;
+		}
 
 		/// <summary>
 		/// 掲示板書き込みリクエスト用データ作成
@@ -153,9 +190,19 @@ namespace Shule.Peerst.BBS
 		protected abstract string GetRequestURL();
 
 		/// <summary>
+		/// サブジェクトURL(スレッド一覧)の取得
+		/// </summary>
+		protected abstract string GetSubjectUrl();
+
+		/// <summary>
+		/// サブジェクトURLのスプリット文字の取得
+		/// </summary>
+		protected abstract string GetSubjectSplit();
+
+		/// <summary>
 		/// スレッド読み込み
 		/// </summary>
-		public abstract List<ThreadInfo> ReadThread(string threadNo);
+		public abstract List<ResInfo> ReadThread(string threadNo);
 
 		/// <summary>
 		/// 文字エンコードを取得

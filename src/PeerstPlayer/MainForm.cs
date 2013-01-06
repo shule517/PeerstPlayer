@@ -824,10 +824,7 @@ namespace PeerstPlayer
 					try
 					{
 						Visible = false;
-
-						toolStripButtonClose_Click(new object(), new EventArgs());
-						//Close();
-						//Application.Exit();
+						Close();
 					}
 					catch
 					{

@@ -1,9 +1,9 @@
 ﻿namespace Shule.Peerst.BBS
 {
 	/// <summary>
-	/// スレッド情報クラス
+	/// レス情報クラス
 	/// </summary>
-	public class ThreadInfo
+	public class ResInfo
 	{
 		public string Name { get; set; }	// 名前
 		public string Mail { get; set; }	// メール

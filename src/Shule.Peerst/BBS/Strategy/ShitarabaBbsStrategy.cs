@@ -51,12 +51,28 @@ namespace Shule.Peerst.BBS
 		}
 
 		/// <summary>
+		/// サブジェクトURL(スレッド一覧)の取得
+		/// </summary>
+		protected override string GetSubjectUrl()
+		{
+			return "http://jbbs.livedoor.jp/" + bbsUrl.BoadGenre + "/" + bbsUrl.BoadNo + "/subject.txt";
+		}
+
+		/// <summary>
+		/// サブジェクトURLのスプリット文字の取得
+		/// </summary>
+		protected override string GetSubjectSplit()
+		{
+			return ".cgi,";
+		}
+
+		/// <summary>
 		/// スレッド読み込み
 		/// </summary>
 		/// <returns>スレッド情報一覧</returns>
-		public override List<ThreadInfo> ReadThread(string threadNo)
+		public override List<ResInfo> ReadThread(string threadNo)
 		{
-			List<ThreadInfo> threadData = new List<ThreadInfo>();
+			List<ResInfo> threadData = new List<ResInfo>();
 
 			// datの取得
 			// http://jbbs.livedoor.jp/bbs/rawmode.cgi/game/41324/1260939060/930-
@@ -97,7 +113,7 @@ namespace Shule.Peerst.BBS
 					ResData[1] = ResData[1].Replace("<b>", "").Replace("</b>", "");
 
 					// データ作成
-					ThreadInfo data = new ThreadInfo();
+					ResInfo data = new ResInfo();
 					data.Name = ResData[1]; // 名前
 					data.Mail = ResData[2]; // メール
 					data.Date = ResData[3]; // 日付

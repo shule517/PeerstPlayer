@@ -50,12 +50,28 @@ namespace Shule.Peerst.BBS
 		}
 
 		/// <summary>
+		/// サブジェクトURL(スレッド一覧)の取得
+		/// </summary>
+		protected override string GetSubjectUrl()
+		{
+			return "http://" + bbsUrl.BoadGenre + "/" + bbsUrl.BoadNo + "/subject.txt";
+		}
+
+		/// <summary>
+		/// サブジェクトURLのスプリット文字の取得
+		/// </summary>
+		protected override string GetSubjectSplit()
+		{
+			return ".dat<>";
+		}
+
+		/// <summary>
 		/// スレッド読み込み
 		/// </summary>
 		/// <returns>スレッド情報一覧</returns>
-		public override List<ThreadInfo> ReadThread(string threadNo)
+		public override List<ResInfo> ReadThread(string threadNo)
 		{
-			List<ThreadInfo> threadData = new List<ThreadInfo>();
+			List<ResInfo> threadData = new List<ResInfo>();
 
 			// datの取得
 			// http://yy67.60.kg/ff11peca/dat/1263298996.dat
@@ -112,7 +128,7 @@ namespace Shule.Peerst.BBS
 					}
 
 					// データ作成
-					ThreadInfo data = new ThreadInfo();
+					ResInfo data = new ResInfo();
 					data.Name = ResData[0]; // 名前
 					data.Mail = ResData[1]; // メール
 					data.Date = date; // 日付
