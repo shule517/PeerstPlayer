@@ -148,19 +148,8 @@ namespace Shule.Peerst.BBS
 		public List<ThreadInfo> GetThreadList()
 		{
 			List<ThreadInfo> threadList = new List<ThreadInfo>();
-
-			// subject.txtを取得
-			string subject_html = HTTP.GetHtml(GetSubjectUrl(), GetEncode());
-
-			// 区切り文字作成
-			string[] separator = new string[2];
-			separator[0] = "\n";
-			separator[1] = GetSubjectSplit();
-
-			string[] list = subject_html.Split(separator, StringSplitOptions.None);
-
-			// TODO したらばの場合は、最下位のデータは読まない。
-			// TODO 最上位のデータと同じため
+			string[] list;
+			GetSubject(out list);
 
 			for (int i = 0; i < list.Length - 1; i += 2)
 			{
@@ -177,6 +166,49 @@ namespace Shule.Peerst.BBS
 			}
 
 			return threadList;
+		}
+
+		/// <summary>
+		/// スレッド一覧の取得
+		/// </summary>
+		public ThreadInfo GetThreadInfo(string threadNo)
+		{
+			string[] list;
+			GetSubject(out list);
+
+			for (int i = 0; i < list.Length - 1; i += 2)
+			{
+				// スレッドデータ作成
+				string thread = list[i];
+				if (threadNo == thread)
+				{
+					int index = list[i + 1].LastIndexOf('(');
+					string threadTitle = list[i + 1].Substring(0, index);
+					string resNum = list[i + 1].Substring(index + 1, list[i + 1].Length - index - 2);
+					return new ThreadInfo(threadTitle, thread, resNum);
+				}
+			}
+
+			return new ThreadInfo("", threadNo, "");
+		}
+	
+		/// <summary>
+		/// Subject.txtの取得
+		/// </summary>
+		private void GetSubject(out string[] list)
+		{
+			// subject.txtを取得
+			string subject_html = HTTP.GetHtml(GetSubjectUrl(), GetEncode());
+
+			// 区切り文字作成
+			string[] separator = new string[2];
+			separator[0] = "\n";
+			separator[1] = GetSubjectSplit();
+
+			list = subject_html.Split(separator, StringSplitOptions.None);
+
+			// TODO したらばの場合は、最下位のデータは読まない。
+			// TODO 最上位のデータと同じため
 		}
 
 		/// <summary>

@@ -26,6 +26,14 @@ namespace Shule.Peerst.BBS
 		}
 
 		/// <summary>
+		/// 指定スレッドの情報取得
+		/// </summary>
+		public ThreadInfo GetThreadInfo(string threadNo)
+		{
+			return new ThreadInfo("", threadNo, "");
+		}
+
+		/// <summary>
 		/// スレッド読み込み
 		/// </summary>
 		public List<ResInfo> ReadThread(string threadNo)

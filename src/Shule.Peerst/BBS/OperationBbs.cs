@@ -89,6 +89,14 @@ namespace Shule.Peerst.BBS
 		}
 
 		/// <summary>
+		/// スレッド情報の取得
+		/// </summary>
+		public ThreadInfo GetThreadInfo()
+		{
+			return bbsStrategy.GetThreadInfo(bbsStrategy.GetBbsUrl().ThreadNo);
+		}
+
+		/// <summary>
 		/// スレッド情報読み込み
 		/// </summary>
 		public List<ResInfo> ReadThread(string threadNo)

@@ -20,6 +20,11 @@ namespace Shule.Peerst.BBS
 		List<ThreadInfo> GetThreadList();
 
 		/// <summary>
+		/// 指定スレッドの情報取得
+		/// </summary>
+		ThreadInfo GetThreadInfo(string threadNo);
+
+		/// <summary>
 		/// レス読み込み
 		/// </summary>
 		List<ResInfo> ReadThread(string threadNo);

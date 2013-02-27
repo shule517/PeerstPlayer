@@ -1890,7 +1890,8 @@ H = Retry
 			labelThreadTitle.Text = "読み込み中...";
 
 			// TODO スレタイ/レス数を取得する
-			labelThreadTitle.Text = operationBbs.GetBbsUrl().ThreadNo + "(レス数)";
+			ThreadInfo thread = operationBbs.GetThreadInfo();
+			labelThreadTitle.Text = thread.Title + "(" + thread.ResCount + ")";
 		}
 
 		/// <summary>
@@ -2108,7 +2109,6 @@ H = Retry
 
 		#endregion
 
-
 		/// <summary>
 		/// 画面分割：幅
 		/// </summary>
@@ -2177,7 +2177,6 @@ H = Retry
 			panelWMP.Size = new Size((int)(wmp.ImageWidth * (scale / (float)100)), (int)(wmp.ImageHeight * (scale / (float)100)));
 			OnPanelSizeChange();
 		}
-
 
 		/// <summary>
 		/// 作業フォルダを取得
@@ -2323,7 +2322,6 @@ H = Retry
 		{
 			ScreenSplit(1);
 		}
-
 	
 		#region サイズ指定（幅）
 
@@ -2354,7 +2352,6 @@ H = Retry
 
 		#endregion
 
-
 		#region 画面分割メニュー（幅）
 
 		private void 幅5分の1ToolStripMenuItem_Click(object sender, EventArgs e)
@@ -2383,7 +2380,6 @@ H = Retry
 		}
 
 		#endregion
-
 
 		#region サイズ指定
 
@@ -2476,7 +2472,6 @@ H = Retry
 
 		#endregion
 
-
 		#region 画面分割メニュー
 
 		#region 画面分割メニュー（高さ）
@@ -2513,7 +2508,6 @@ H = Retry
 		#endregion
 
 		#endregion
-
 
 		/// <summary>
 		/// 最小化ボタン
@@ -2565,7 +2559,6 @@ H = Retry
 		{
 			ExeCommand("OpenThreadViewer");
 		}
-
 
 		/// <summary>
 		/// レスボックス：TextChange
@@ -2666,11 +2659,6 @@ H = Retry
 					}
 				}
 			}
-		}
-
-		private void comboBoxThreadList_MouseLeave(object sender, EventArgs e)
-		{
-
 		}
 	}
 }
