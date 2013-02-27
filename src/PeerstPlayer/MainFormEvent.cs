@@ -99,7 +99,7 @@ namespace PeerstPlayer
 				resBox.ThreadTitle = comboBoxThreadList.Items[comboBoxThreadList.SelectedIndex].ToString();
 
 				// スレッドを変更
-				ThreadNo = ThreadList[comboBoxThreadList.SelectedIndex][0];
+				ThreadNo = ThreadList[comboBoxThreadList.SelectedIndex].ThreadNo;
 			}
 		}
 
@@ -138,7 +138,7 @@ namespace PeerstPlayer
 						}
 
 						ResBoxText = resBox.Text;
-						if (BBS.Write(KindOfBBS, BoadGenre, BoadNo, ThreadNo, "", "sage", resBox.Text))
+						if (operationBbs.Write("", "sage", resBox.Text))
 						{
 							BeforeWriteThreadNo = ThreadNo;
 							resBox.Text = "";
@@ -164,7 +164,7 @@ namespace PeerstPlayer
 							return;
 						}
 
-						if (BBS.Write(KindOfBBS, BoadGenre, BoadNo, ThreadNo, "", "sage", resBox.Text))
+						if (operationBbs.Write("", "sage", resBox.Text))
 						{
 							BeforeWriteThreadNo = ThreadNo;
 							resBox.Text = "";

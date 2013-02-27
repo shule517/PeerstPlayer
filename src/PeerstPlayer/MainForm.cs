@@ -10,11 +10,17 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Windows.Forms;
 using Shule.Peerst.Util;
+using Shule.Peerst.BBS;
 
 namespace PeerstPlayer
 {
 	public partial class MainForm : Form
 	{
+		/// <summary>
+		/// 掲示板操作クラス
+		/// </summary>
+		OperationBbs operationBbs = null;
+
 		/// <summary>
 		/// チャンネル情報
 		/// </summary>
@@ -28,27 +34,7 @@ namespace PeerstPlayer
 		/// <summary>
 		/// スレッドの一覧
 		/// </summary>
-		List<string[]> ThreadList = new List<string[]>();
-
-		/// <summary>
-		/// 掲示板の名前（板名）
-		/// </summary>
-		string BoardName = "";
-
-		/// <summary>
-		/// 掲示板の種類
-		/// </summary>
-		KindOfBBS KindOfBBS = KindOfBBS.None;
-
-		/// <summary>
-		/// 板ジャンル
-		/// </summary>
-		string BoadGenre = "";
-
-		/// <summary>
-		/// 板番号
-		/// </summary>
-		string BoadNo = "";
+		List<ThreadInfo> ThreadList = new List<ThreadInfo>();
 
 		/// <summary>
 		/// スレ番号
@@ -1879,15 +1865,13 @@ H = Retry
 			// 初回だけスレ情報取得＋スレ移動
 			if (!InitThreadSelected)
 			{
-				BBS.GetDataFromUrl(ChannelInfo.ContactURL, out BoardName, out KindOfBBS, out BoadGenre, out BoadNo, out ThreadNo);
+				operationBbs = new OperationBbs(ChannelInfo.ContactURL);
+				
 				InitThreadSelected = true;
 			}
 
-			if ((KindOfBBS != KindOfBBS.None) && (BoadGenre != "") && (BoadNo != ""))
-			{
-				// スレッド一覧を取得(スレッド)
-				ThreadList = BBS.GetThreadList(KindOfBBS, BoadGenre, BoadNo);
-			}
+			// スレッド一覧を取得(スレッド)
+			ThreadList = operationBbs.GetThreadList();
 
 			if (comboBoxThreadList.InvokeRequired)
 			{
@@ -1904,24 +1888,22 @@ H = Retry
 		/// </summary>
 		void HttpGetThreadListMethod()
 		{
-			if ((KindOfBBS != KindOfBBS.None) && (BoadGenre != "") && (BoadNo != ""))
+			// コンボボックスにセット
+			comboBoxThreadList.Items.Clear();
+			for (int i = 0; i < ThreadList.Count; i++)
 			{
-				// コンボボックスにセット
-				comboBoxThreadList.Items.Clear();
-				for (int i = 0; i < ThreadList.Count; i++)
-				{
-					// スレタイ(レス数)
-					comboBoxThreadList.Items.Add(ThreadList[i][1] + "(" + ThreadList[i][2] + ")");
-				}
+				// スレタイ(レス数)
+				comboBoxThreadList.Items.Add(ThreadList[i].Title + "(" + ThreadList[i].ResCount + ")");
 			}
 
-			if ((KindOfBBS != KindOfBBS.None) && (BoadGenre != "") && (BoadNo != "") && (ThreadNo != ""))
+			// TODO スレッドURLが指定されている場合は、コンボボックスを選択
+			if (ThreadNo != "")
 			{
 				// コンボボックスのスレッドを選択
 				int index = 0;
 				for (int i = 0; i < ThreadList.Count; i++)
 				{
-					if (ThreadNo == ThreadList[i][0])
+					if (ThreadNo == ThreadList[i].ThreadNo)
 					{
 						index = i;
 					}
@@ -1931,6 +1913,7 @@ H = Retry
 					comboBoxThreadList.SelectedIndex = index;
 				}
 			}
+			// TODO スレッドURLが指定されていなかった場合は、1番上を選択
 			else
 			{
 				// １番上を選択
@@ -2090,7 +2073,7 @@ H = Retry
 		{
 			if (BeforeWriteThreadNo != ThreadNo)
 			{
-				string text = "板名：" + BoardName + "\nスレッド名：" + resBox.ThreadTitle + "\n書き込み内容：" + resBox.Text;
+				string text = "板名：" + operationBbs.GetBbsName() + "\nスレッド名：" + resBox.ThreadTitle + "\n書き込み内容：" + resBox.Text;
 				DialogResult result = MessageBox.Show(text, "書き込み確認", MessageBoxButtons.YesNo);
 
 				if (result == DialogResult.No)
@@ -2113,51 +2096,8 @@ H = Retry
 		/// </summary>
 		private string GetThreadUrl()
 		{
-			string threadUrl = "";
-
-			if (KindOfBBS == KindOfBBS.JBBS)
-			{
-				if ((BoadGenre != "") && (BoadNo != ""))
-				{
-					if ((ThreadNo != ""))
-					{
-						threadUrl = "http://jbbs.livedoor.jp/bbs/read.cgi/" + BoadGenre + "/" + BoadNo + "/" + ThreadNo + "/";
-					}
-					else
-					{
-						threadUrl = "http://jbbs.livedoor.jp/bbs/read.cgi/" + BoadGenre + "/" + BoadNo + "/";
-					}
-				}
-			}
-			else if (KindOfBBS == KindOfBBS.YYKakiko)
-			{
-				if ((BoadGenre != "") && (BoadNo != ""))
-				{
-					if ((ThreadNo != ""))
-					{
-						threadUrl = "http://" + BoadGenre + "/test/read.cgi/" + BoadNo + "/" + ThreadNo + "/";
-					}
-					else
-					{
-						threadUrl = "http://" + BoadGenre + "/test/read.cgi/" + BoadNo + "/";
-					}
-				}
-			}
-			else if (KindOfBBS == KindOfBBS.None)
-			{
-				if (ChannelInfo.ContactURL == "")
-				{
-					threadUrl = "本スレ";
-				}
-				else
-				{
-					threadUrl = ChannelInfo.ContactURL;
-				}
-			}
-
-			return threadUrl;
+			return operationBbs.GetUrl();
 		}
-
 
 		#region APIで使う構造体
 		[StructLayout(LayoutKind.Sequential)]

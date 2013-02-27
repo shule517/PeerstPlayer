@@ -1236,13 +1236,9 @@ namespace PeerstPlayer
 		{
 			if (e.KeyData == Keys.Enter)
 			{
-				BBS.GetDataFromUrl(toolStripTextBoxThreadURL.Text, out BoardName, out KindOfBBS, out BoadGenre, out BoadNo, out ThreadNo);
-
-				if ((KindOfBBS != KindOfBBS.None) && (BoadGenre != "") && (BoadNo != ""))
-				{
-					// スレッド一覧を取得(スレッド)
-					ThreadList = BBS.GetThreadList(KindOfBBS, BoadGenre, BoadNo);
-				}
+				// スレッド一覧を取得(スレッド)
+				operationBbs.ChangeUrl(toolStripTextBoxThreadURL.Text);
+				ThreadList = operationBbs.GetThreadList();
 
 				if (comboBoxThreadList.InvokeRequired)
 				{
