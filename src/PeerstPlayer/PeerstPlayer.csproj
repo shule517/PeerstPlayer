@@ -77,9 +77,6 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="ChannelInfo.cs" />
-    <Compile Include="HTTP.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>

@@ -604,14 +604,14 @@
 			this.panelResBox.Controls.Add(this.comboBoxThreadList);
 			this.panelResBox.Location = new System.Drawing.Point(0, 360);
 			this.panelResBox.Name = "panelResBox";
-			this.panelResBox.Size = new System.Drawing.Size(480, 38);
+			this.panelResBox.Size = new System.Drawing.Size(480, 20);
 			this.panelResBox.TabIndex = 4;
 			// 
 			// resBox
 			// 
 			this.resBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			this.resBox.Location = new System.Drawing.Point(0, 19);
+			this.resBox.Location = new System.Drawing.Point(0, 1);
 			this.resBox.Multiline = true;
 			this.resBox.Name = "resBox";
 			this.resBox.Selected = false;

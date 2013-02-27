@@ -6,6 +6,7 @@ using System.Net;
 using System.IO;
 using System.Windows.Forms;
 using System.Text.RegularExpressions;
+using Shule.Peerst.Web;
 
 namespace PeerstPlayer
 {
@@ -64,7 +65,7 @@ namespace PeerstPlayer
 					// datの取得
 					// http://jbbs.livedoor.jp/bbs/rawmode.cgi/game/41324/1260939060/930-
 					string url = "http://jbbs.livedoor.jp/bbs/rawmode.cgi/" + BoadGenre + "/" + BoadNo + "/" + ThreadNo + "/" + ResNum.ToString() + "-";
-					string html = HTTP.GetHtml(url, "EUC-JP");
+					string html = HTTP.GetHtml(url, Encoding.GetEncoding("EUC-JP"));
 
 					// 本文の修正
 					// html = html.Replace("<a", @"<u><font color=""blue""");
@@ -118,7 +119,7 @@ namespace PeerstPlayer
 					// datの取得
 					// http://yy67.60.kg/ff11peca/dat/1263298996.dat
 					string url = "http://" + BoadGenre + "/" + BoadNo + "/dat/" + ThreadNo + ".dat";
-					string html = HTTP.GetHtml(url, "Shift_JIS");
+					string html = HTTP.GetHtml(url, Encoding.GetEncoding("Shift_JIS"));
 
 					// 指定レス(ResNum)まで飛ばす
 					int find = 0;

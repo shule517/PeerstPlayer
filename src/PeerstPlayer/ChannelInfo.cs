@@ -5,6 +5,7 @@ using System.Text.RegularExpressions;
 using System.IO;
 using System.Windows.Forms;
 using System.Web;
+using Shule.Peerst.Web;
 
 namespace PeerstPlayer
 {
