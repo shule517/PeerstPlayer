@@ -829,7 +829,7 @@ namespace PeerstPlayer
 						panelResBox.Visible = true;
 						OnPanelSizeChange();
 					}
-					resBox.Selected = true;
+					resBox.Focus();
 					break;
 				case "Mini&Mute":
 					WindowState = FormWindowState.Minimized;
@@ -1858,7 +1858,7 @@ H = Retry
 		/// </summary>
 		System.Threading.Thread httpGetThreadList;
 
-		delegate void HttpGetThreadListDelegate();
+		delegate void UpdateThreadInfoDelegate();
 
 		void HttpGetThreadListWorker()
 		{
@@ -1870,65 +1870,27 @@ H = Retry
 				InitThreadSelected = true;
 			}
 
-			// スレッド一覧を取得(スレッド)
-			ThreadList = operationBbs.GetThreadList();
-
-			if (comboBoxThreadList.InvokeRequired)
+			// スレッド情報を更新
+			if (labelThreadTitle.InvokeRequired)
 			{
-				Invoke(new HttpGetThreadListDelegate(HttpGetThreadListMethod));
+				Invoke(new UpdateThreadInfoDelegate(UpdateThreadInfo));
 			}
 			else
 			{
-				HttpGetThreadListMethod();
+				UpdateThreadInfo();
 			}
 		}
 
 		/// <summary>
 		/// スレッド一覧取得（スレッド）
 		/// </summary>
-		void HttpGetThreadListMethod()
+		void UpdateThreadInfo()
 		{
-			// コンボボックスにセット
-			comboBoxThreadList.Items.Clear();
-			/*
-			for (int i = 0; i < ThreadList.Count; i++)
-			{
-				// スレタイ(レス数)
-				comboBoxThreadList.Items.Add(ThreadList[i].Title + "(" + ThreadList[i].ResCount + ")");
-			}
+			// TODO スレッド呼び出し前に「読み込み中...」と出す
+			labelThreadTitle.Text = "読み込み中...";
 
-			// TODO スレッドURLが指定されている場合は、コンボボックスを選択
-			if (ThreadNo != "")
-			{
-				// コンボボックスのスレッドを選択
-				int index = 0;
-				for (int i = 0; i < ThreadList.Count; i++)
-				{
-					if (ThreadNo == ThreadList[i].ThreadNo)
-					{
-						index = i;
-					}
-				}
-				if (comboBoxThreadList.Items.Count > index)
-				{
-					comboBoxThreadList.SelectedIndex = index;
-				}
-			}
-			// TODO スレッドURLが指定されていなかった場合は、1番上を選択
-			else
-			{
-				// １番上を選択
-				if (comboBoxThreadList.Items.Count > 0)
-				{
-					comboBoxThreadList.SelectedIndex = 0;
-				}
-			}
-			 */
-
-			if (resBox.Selected)
-			{
-				resBox.Text = ResBoxText;
-			}
+			// TODO スレタイ/レス数を取得する
+			labelThreadTitle.Text = operationBbs.GetBbsUrl().ThreadNo + "(レス数)";
 		}
 
 		/// <summary>
@@ -1936,10 +1898,6 @@ H = Retry
 		/// </summary>
 		private void ThreadListUpdate()
 		{
-			if (resBox.Selected)
-			{
-				ResBoxText = resBox.Text;
-			}
 			httpGetThreadList = new System.Threading.Thread(new System.Threading.ThreadStart(HttpGetThreadListWorker));
 			httpGetThreadList.IsBackground = true;
 			httpGetThreadList.Start();
@@ -2624,7 +2582,7 @@ H = Retry
 			}
 
 			// スクロールバーを表示
-			if (resBox.Width < resBox.PreferredSize.Width && resBox.Selected)
+			if (resBox.Width < resBox.PreferredSize.Width)
 			{
 				resBox.ScrollBars = ScrollBars.Horizontal;
 			}
@@ -2635,7 +2593,7 @@ H = Retry
 
 			// レスボックスの大きさを変更
 			resBox.Height = resBox.PreferredSize.Height;
-			panelResBox.Height = resBox.Height;
+			panelResBox.Height = 18 + resBox.Height;
 			OnPanelSizeChange();
 		}
 
@@ -2650,7 +2608,6 @@ H = Retry
 				if (resBox.Text == "")
 				{
 					panelResBox.Visible = !panelResBox.Visible;
-					resBox.Selected = false;
 					OnPanelSizeChange();
 					wmp.Select();
 				}
@@ -2711,22 +2668,9 @@ H = Retry
 			}
 		}
 
-		/// <summary>
-		/// レスボックス：MouseLeave
-		/// </summary>
 		private void comboBoxThreadList_MouseLeave(object sender, EventArgs e)
 		{
-			if (ResBoxAutoVisible)
-			{
-				// レスボックスを表示 / 非表示
-				if (!resBox.Selected)
-				{
-					panelResBox.Visible = false;
-					OnPanelSizeChange();
-					resBox.Selected = false;
-					panelResBox.Height = resBox.Height;
-				}
-			}
+
 		}
 	}
 }

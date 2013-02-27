@@ -8,10 +8,6 @@ namespace PeerstPlayer
 		/// </summary>
 		void wmp_MouseDownEvent(object sender, AxWMPLib._WMPOCXEvents_MouseDownEvent e)
 		{
-			if (resBox.Text == "")
-			{
-				resBox.Selected = false;
-			}
 		}
 
 		/// <summary>

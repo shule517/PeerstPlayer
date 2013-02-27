@@ -53,39 +53,6 @@ namespace PeerstPlayer
 		}
 
 		/// <summary>
-		/// レスボックス:MouseDown
-		/// </summary>
-		private void comboBoxThreadList_MouseDown(object sender, MouseEventArgs e)
-		{
-			if (e.Button == MouseButtons.Left)
-			{
-				// レスボックスを選択する
-				if (!resBox.AutoEnable(e.X))
-				{
-					// スレッド選択 → レスボックスから選択をはずす
-					resBox.Selected = false;
-				}
-			}
-		}
-
-		/// <summary>
-		/// レスボックス：SelectedIndexChange
-		/// </summary>
-		private void comboBoxThreadList_SelectedIndexChanged(object sender, EventArgs e)
-		{
-			if (comboBoxThreadList.SelectedIndex != -1 && ThreadList.Count > comboBoxThreadList.SelectedIndex)
-			{
-				Application.DoEvents();
-
-				// スレタイ変更
-				resBox.ThreadTitle = comboBoxThreadList.Items[comboBoxThreadList.SelectedIndex].ToString();
-
-				// スレッドを変更
-				ThreadNo = ThreadList[comboBoxThreadList.SelectedIndex].ThreadNo;
-			}
-		}
-
-		/// <summary>
 		/// TimerDetail
 		/// </summary>
 		private void timerDetail_Tick(object sender, EventArgs e)
@@ -541,15 +508,8 @@ namespace PeerstPlayer
 				if (!ResBoxAutoVisible || ClickToResBoxClose)
 				{
 					panelResBox.Visible = !panelResBox.Visible;
-					resBox.Selected = false;
+					resBox.Focus();
 					OnPanelSizeChange();
-				}
-				else
-				{
-					if (resBox.Text == "")
-					{
-						resBox.Selected = false;
-					}
 				}
 			}
 			else if (e.Button == MouseButtons.Right)

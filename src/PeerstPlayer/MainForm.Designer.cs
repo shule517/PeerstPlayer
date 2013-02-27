@@ -32,7 +32,7 @@
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
 			this.panelWMP = new System.Windows.Forms.Panel();
 			this.panelResBox = new System.Windows.Forms.Panel();
-			this.comboBoxThreadList = new System.Windows.Forms.ComboBox();
+			this.labelThreadTitle = new System.Windows.Forms.Label();
 			this.contextMenuStripResBox = new System.Windows.Forms.ContextMenuStrip(this.components);
 			this.スレッドビューワを開くToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.コンタクトＵＲＬをブラウザで開くToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -138,7 +138,6 @@
 			this.リレーを切断して終了するToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
 			this.wMPメニューToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.timerUpdate = new System.Windows.Forms.Timer(this.components);
-			this.labelThreadTitle = new System.Windows.Forms.Label();
 			this.resBox = new PeerstPlayer.ResBox();
 			this.toolStrip = new PeerstPlayer.ToolStripEx();
 			this.toolStripDropDownButtonDivide = new System.Windows.Forms.ToolStripDropDownButton();
@@ -211,26 +210,23 @@
 			// panelResBox
 			// 
 			this.panelResBox.Controls.Add(this.resBox);
-			this.panelResBox.Controls.Add(this.comboBoxThreadList);
 			this.panelResBox.Controls.Add(this.labelThreadTitle);
 			this.panelResBox.Location = new System.Drawing.Point(0, 360);
 			this.panelResBox.Name = "panelResBox";
-			this.panelResBox.Size = new System.Drawing.Size(480, 62);
+			this.panelResBox.Size = new System.Drawing.Size(480, 32);
 			this.panelResBox.TabIndex = 4;
 			// 
-			// comboBoxThreadList
+			// labelThreadTitle
 			// 
-			this.comboBoxThreadList.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-			this.comboBoxThreadList.ContextMenuStrip = this.contextMenuStripResBox;
-			this.comboBoxThreadList.FormattingEnabled = true;
-			this.comboBoxThreadList.Location = new System.Drawing.Point(5, 42);
-			this.comboBoxThreadList.Name = "comboBoxThreadList";
-			this.comboBoxThreadList.Size = new System.Drawing.Size(472, 20);
-			this.comboBoxThreadList.TabIndex = 0;
-			this.comboBoxThreadList.SelectedIndexChanged += new System.EventHandler(this.comboBoxThreadList_SelectedIndexChanged);
-			this.comboBoxThreadList.MouseDown += new System.Windows.Forms.MouseEventHandler(this.comboBoxThreadList_MouseDown);
-			this.comboBoxThreadList.MouseLeave += new System.EventHandler(this.comboBoxThreadList_MouseLeave);
+			this.labelThreadTitle.BackColor = System.Drawing.Color.Black;
+			this.labelThreadTitle.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.labelThreadTitle.ForeColor = System.Drawing.Color.SpringGreen;
+			this.labelThreadTitle.Location = new System.Drawing.Point(0, 0);
+			this.labelThreadTitle.Name = "labelThreadTitle";
+			this.labelThreadTitle.Size = new System.Drawing.Size(480, 32);
+			this.labelThreadTitle.TabIndex = 2;
+			this.labelThreadTitle.Text = "スレッドタイトル(レス数)";
+			this.labelThreadTitle.TextAlign = System.Drawing.ContentAlignment.TopCenter;
 			// 
 			// contextMenuStripResBox
 			// 
@@ -294,9 +290,9 @@
 			this.panelStatusLabel.Controls.Add(this.panelDetailRight);
 			this.panelStatusLabel.Controls.Add(this.labelDetail);
 			this.panelStatusLabel.Controls.Add(this.pictureBoxIcon);
-			this.panelStatusLabel.Location = new System.Drawing.Point(0, 482);
+			this.panelStatusLabel.Location = new System.Drawing.Point(0, 484);
 			this.panelStatusLabel.Name = "panelStatusLabel";
-			this.panelStatusLabel.Size = new System.Drawing.Size(480, 20);
+			this.panelStatusLabel.Size = new System.Drawing.Size(480, 16);
 			this.panelStatusLabel.TabIndex = 5;
 			this.panelStatusLabel.MouseDown += new System.Windows.Forms.MouseEventHandler(this.panelStatusLabel_MouseDown);
 			this.panelStatusLabel.MouseHover += new System.EventHandler(this.panelStatusLabel_MouseHover);
@@ -309,9 +305,8 @@
 			this.panelDetailRight.Controls.Add(this.labelDuration);
 			this.panelDetailRight.Location = new System.Drawing.Point(393, 0);
 			this.panelDetailRight.Name = "panelDetailRight";
-			this.panelDetailRight.Size = new System.Drawing.Size(87, 22);
+			this.panelDetailRight.Size = new System.Drawing.Size(87, 18);
 			this.panelDetailRight.TabIndex = 1;
-			this.panelDetailRight.MouseHover += new System.EventHandler(this.comboBoxThreadList_MouseLeave);
 			// 
 			// labelVolume
 			// 
@@ -1079,18 +1074,6 @@
 			this.timerUpdate.Interval = 600000;
 			this.timerUpdate.Tick += new System.EventHandler(this.timerUpdate_Tick);
 			// 
-			// labelThreadTitle
-			// 
-			this.labelThreadTitle.BackColor = System.Drawing.Color.Black;
-			this.labelThreadTitle.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.labelThreadTitle.ForeColor = System.Drawing.Color.SpringGreen;
-			this.labelThreadTitle.Location = new System.Drawing.Point(0, 0);
-			this.labelThreadTitle.Name = "labelThreadTitle";
-			this.labelThreadTitle.Size = new System.Drawing.Size(480, 62);
-			this.labelThreadTitle.TabIndex = 2;
-			this.labelThreadTitle.Text = "スレッドタイトル(レス数)";
-			this.labelThreadTitle.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-			// 
 			// resBox
 			// 
 			this.resBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
@@ -1098,15 +1081,12 @@
 			this.resBox.Location = new System.Drawing.Point(0, 13);
 			this.resBox.Multiline = true;
 			this.resBox.Name = "resBox";
-			this.resBox.Selected = false;
 			this.resBox.Size = new System.Drawing.Size(480, 19);
 			this.resBox.TabIndex = 1;
-			this.resBox.Text = "スレッドが選択されていません";
 			this.resBox.ThreadTitle = "";
 			this.resBox.WordWrap = false;
 			this.resBox.TextChanged += new System.EventHandler(this.resBox_TextChanged);
 			this.resBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.resBox_KeyDown);
-			this.resBox.MouseLeave += new System.EventHandler(this.comboBoxThreadList_MouseLeave);
 			// 
 			// toolStrip
 			// 
@@ -1537,7 +1517,6 @@
 
 		private System.Windows.Forms.Panel panelWMP;
 		private System.Windows.Forms.Panel panelResBox;
-		private System.Windows.Forms.ComboBox comboBoxThreadList;
 		private ToolStripEx toolStrip;
 		private System.Windows.Forms.ToolStripButton toolStripButtonMin;
 		private System.Windows.Forms.ToolStripButton toolStripButtonMax;

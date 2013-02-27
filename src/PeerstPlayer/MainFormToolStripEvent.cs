@@ -967,6 +967,7 @@ namespace PeerstPlayer
 			Clipboard.SetDataObject(GetThreadUrl(), true);
 		}
 
+
 		/// <summary>
 		/// URL入力後Enter
 		/// </summary>
@@ -976,15 +977,15 @@ namespace PeerstPlayer
 			{
 				// スレッド一覧を取得(スレッド)
 				operationBbs.ChangeUrl(toolStripTextBoxThreadURL.Text);
-				ThreadList = operationBbs.GetThreadList();
 
-				if (comboBoxThreadList.InvokeRequired)
+				// スレッド情報の更新
+				if (labelThreadTitle.InvokeRequired)
 				{
-					Invoke(new HttpGetThreadListDelegate(HttpGetThreadListMethod));
+					Invoke(new UpdateThreadInfoDelegate(UpdateThreadInfo));
 				}
 				else
 				{
-					HttpGetThreadListMethod();
+					UpdateThreadInfo();
 				}
 			}
 		}
