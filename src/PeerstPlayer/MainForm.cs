@@ -2338,5 +2338,393 @@ H = Retry
 		}
 
 		#endregion
+
+		private void 分割5X5ToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			ScreenSplit(5);
+		}
+
+		private void 分割4X4ToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			ScreenSplit(4);
+		}
+
+		private void 分割3X3ToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			ScreenSplit(3);
+		}
+
+		private void 分割2X2ToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			ScreenSplit(2);
+		}
+
+		private void 分割1X1ToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			ScreenSplit(1);
+		}
+
+	
+		#region サイズ指定（幅）
+
+		private void 幅160ToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			SetWidth(160);
+		}
+
+		private void 幅320ToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			SetWidth(320);
+		}
+
+		private void 幅480ToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			SetWidth(480);
+		}
+
+		private void 幅640ToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			SetWidth(640);
+		}
+
+		private void 幅800ToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			SetWidth(800);
+		}
+
+		#endregion
+
+
+		#region 画面分割メニュー（幅）
+
+		private void 幅5分の1ToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			ScreenSplitWidth(5);
+		}
+
+		private void 幅4分の1ToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			ScreenSplitWidth(4);
+		}
+
+		private void 幅3分の1ToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			ScreenSplitWidth(3);
+		}
+
+		private void 幅2分の1ToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			ScreenSplitWidth(2);
+		}
+
+		private void 幅1分の1ToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			ScreenSplitWidth(1);
+		}
+
+		#endregion
+
+
+		#region サイズ指定
+
+		#region サイズ指定（拡大率）
+
+		private void toolStripMenuItem50Per_Click(object sender, EventArgs e)
+		{
+			SetScale(50);
+		}
+
+		private void toolStripMenuItem75Per_Click(object sender, EventArgs e)
+		{
+			SetScale(75);
+		}
+
+		private void toolStripMenuItem100Per_Click(object sender, EventArgs e)
+		{
+			SetScale(100);
+		}
+
+		private void toolStripMenuItem150_Click(object sender, EventArgs e)
+		{
+			SetScale(150);
+		}
+
+		private void toolStripMenuItem200Per_Click(object sender, EventArgs e)
+		{
+			SetScale(200);
+		}
+
+		#endregion
+
+		#region サイズ指定（幅×高さ）
+
+		private void x120ToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			SetSize(160, 120);
+		}
+
+		private void x240ToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			SetSize(320, 240);
+		}
+
+		private void x360ToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			SetSize(480, 360);
+		}
+
+		private void x480ToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			SetSize(640, 480);
+		}
+
+		private void x600ToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			SetSize(800, 600);
+		}
+
+		#endregion
+
+		#region サイズ指定（高さ）
+
+		private void 高さ120ToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			SetHeight(120);
+		}
+
+		private void 高さ240ToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			SetHeight(240);
+		}
+
+		private void 高さ360ToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			SetHeight(360);
+		}
+
+		private void 高さ480ToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			SetHeight(480);
+		}
+
+		private void 高さ600ToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			SetHeight(600);
+		}
+
+		#endregion
+
+		#endregion
+
+
+		#region 画面分割メニュー
+
+		#region 画面分割メニュー（高さ）
+
+		private void 高さ5分の1ToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			ScreenSplitHeight(5);
+		}
+
+		private void 高さ4分の1ToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			ScreenSplitHeight(4);
+		}
+
+		private void 高さ3分の1ToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			ScreenSplitHeight(3);
+		}
+
+		private void 高さ2分の1ToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			ScreenSplitHeight(2);
+		}
+
+		private void 高さ1分の1ToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			ScreenSplitHeight(1);
+		}
+
+		#endregion
+
+		#region 画面分割メニュー（縦×横）
+
+		#endregion
+
+		#endregion
+
+
+		/// <summary>
+		/// 最小化ボタン
+		/// </summary>
+		private void toolStripButtonMin_Click(object sender, EventArgs e)
+		{
+			WindowState = FormWindowState.Minimized;
+		}
+
+		/// <summary>
+		/// 最大化ボタン
+		/// </summary>
+		private void toolStripButtonMax_Click(object sender, EventArgs e)
+		{
+			if (WindowState == FormWindowState.Maximized)
+			{
+				WindowState = FormWindowState.Normal;
+				OnPanelSizeChange(PanelWMPSize);
+			}
+			else
+			{
+				PanelWMPSize = WMPSize;
+				WindowState = FormWindowState.Maximized;
+			}
+
+			OnPanelSizeChange();
+		}
+
+		/// <summary>
+		/// 閉じるボタン
+		/// </summary>
+		private void toolStripButtonClose_Click(object sender, EventArgs e)
+		{
+			try
+			{
+				Visible = false;
+				Close();
+				//Application.Exit();
+			}
+			catch
+			{
+			}
+		}
+
+		/// <summary>
+		/// スレッドビューワを開く
+		/// </summary>
+		private void toolStripButton1_Click(object sender, EventArgs e)
+		{
+			ExeCommand("OpenThreadViewer");
+		}
+
+
+		/// <summary>
+		/// レスボックス：TextChange
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
+		private void resBox_TextChanged(object sender, EventArgs e)
+		{
+			// 書き込み完了
+			if (IsWriting)
+			{
+				resBox.Text = "";
+				IsWriting = false;
+			}
+
+			// スクロールバーを表示
+			if (resBox.Width < resBox.PreferredSize.Width && resBox.Selected)
+			{
+				resBox.ScrollBars = ScrollBars.Horizontal;
+			}
+			else
+			{
+				resBox.ScrollBars = ScrollBars.None;
+			}
+
+			// レスボックスの大きさを変更
+			resBox.Height = resBox.PreferredSize.Height;
+			panelResBox.Height = resBox.Height;
+			OnPanelSizeChange();
+		}
+
+		/// <summary>
+		/// レスボックス：KeyDown
+		/// </summary>
+		private void resBox_KeyDown(object sender, KeyEventArgs e)
+		{
+			// レスボックスをバックスペースで閉じる
+			if (CloseResBoxOnBackSpace && e.KeyCode == Keys.Back)
+			{
+				if (resBox.Text == "")
+				{
+					panelResBox.Visible = !panelResBox.Visible;
+					resBox.Selected = false;
+					OnPanelSizeChange();
+					wmp.Select();
+				}
+			}
+
+			if (e.Control && e.KeyCode == Keys.A)
+			{
+				resBox.SelectAll();
+			}
+
+			if (e.KeyCode == Keys.Enter)
+			{
+				if (ResBoxType)
+				{
+					if (e.Control)
+					{
+						// 書き込み確認
+						if (!CheckWrite())
+						{
+							return;
+						}
+
+						ResBoxText = resBox.Text;
+						if (operationBbs.Write("", "sage", resBox.Text))
+						{
+							BeforeWriteThreadNo = ThreadNo;
+							resBox.Text = "";
+							if (CloseResBoxOnWrite)
+							{
+								panelResBox.Visible = false;
+							}
+							IsWriting = true;
+						}
+						else
+						{
+							resBox.Text = ResBoxText;
+						}
+					}
+				}
+				else
+				{
+					if (!e.Control)
+					{
+						// 書き込み確認
+						if (!CheckWrite())
+						{
+							return;
+						}
+
+						if (operationBbs.Write("", "sage", resBox.Text))
+						{
+							BeforeWriteThreadNo = ThreadNo;
+							resBox.Text = "";
+						}
+						IsWriting = true;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// レスボックス：MouseLeave
+		/// </summary>
+		private void comboBoxThreadList_MouseLeave(object sender, EventArgs e)
+		{
+			if (ResBoxAutoVisible)
+			{
+				// レスボックスを表示 / 非表示
+				if (!resBox.Selected)
+				{
+					panelResBox.Visible = false;
+					OnPanelSizeChange();
+					resBox.Selected = false;
+					panelResBox.Height = resBox.Height;
+				}
+			}
+		}
 	}
 }

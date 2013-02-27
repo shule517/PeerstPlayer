@@ -615,7 +615,7 @@
 			this.resBox.Multiline = true;
 			this.resBox.Name = "resBox";
 			this.resBox.Selected = false;
-			this.resBox.Size = new System.Drawing.Size(480, 19);
+			this.resBox.Size = new System.Drawing.Size(465, 19);
 			this.resBox.TabIndex = 1;
 			this.resBox.Text = "スレッドが選択されていません";
 			this.resBox.ThreadTitle = "";

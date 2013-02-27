@@ -53,24 +53,6 @@ namespace PeerstPlayer
 		}
 
 		/// <summary>
-		/// レスボックス：MouseLeave
-		/// </summary>
-		private void comboBoxThreadList_MouseLeave(object sender, EventArgs e)
-		{
-			if (ResBoxAutoVisible)
-			{
-				// レスボックスを表示 / 非表示
-				if (!resBox.Selected)
-				{
-					panelResBox.Visible = false;
-					OnPanelSizeChange();
-					resBox.Selected = false;
-					panelResBox.Height = resBox.Height;
-				}
-			}
-		}
-
-		/// <summary>
 		/// レスボックス:MouseDown
 		/// </summary>
 		private void comboBoxThreadList_MouseDown(object sender, MouseEventArgs e)
@@ -101,108 +83,6 @@ namespace PeerstPlayer
 				// スレッドを変更
 				ThreadNo = ThreadList[comboBoxThreadList.SelectedIndex].ThreadNo;
 			}
-		}
-
-		/// <summary>
-		/// レスボックス：KeyDown
-		/// </summary>
-		private void resBox_KeyDown(object sender, KeyEventArgs e)
-		{
-			// レスボックスをバックスペースで閉じる
-			if (CloseResBoxOnBackSpace && e.KeyCode == Keys.Back)
-			{
-				if (resBox.Text == "")
-				{
-					panelResBox.Visible = !panelResBox.Visible;
-					resBox.Selected = false;
-					OnPanelSizeChange();
-					wmp.Select();
-				}
-			}
-
-			if (e.Control && e.KeyCode == Keys.A)
-			{
-				resBox.SelectAll();
-			}
-
-			if (e.KeyCode == Keys.Enter)
-			{
-				if (ResBoxType)
-				{
-					if (e.Control)
-					{
-						// 書き込み確認
-						if (!CheckWrite())
-						{
-							return;
-						}
-
-						ResBoxText = resBox.Text;
-						if (operationBbs.Write("", "sage", resBox.Text))
-						{
-							BeforeWriteThreadNo = ThreadNo;
-							resBox.Text = "";
-							if (CloseResBoxOnWrite)
-							{
-								panelResBox.Visible = false;
-							}
-							IsWriting = true;
-						}
-						else
-						{
-							resBox.Text = ResBoxText;
-						}
-					}
-				}
-				else
-				{
-					if (!e.Control)
-					{
-						// 書き込み確認
-						if (!CheckWrite())
-						{
-							return;
-						}
-
-						if (operationBbs.Write("", "sage", resBox.Text))
-						{
-							BeforeWriteThreadNo = ThreadNo;
-							resBox.Text = "";
-						}
-						IsWriting = true;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// レスボックス：TextChange
-		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
-		private void resBox_TextChanged(object sender, EventArgs e)
-		{
-			// 書き込み完了
-			if (IsWriting)
-			{
-				resBox.Text = "";
-				IsWriting = false;
-			}
-
-			// スクロールバーを表示
-			if (resBox.Width < resBox.PreferredSize.Width && resBox.Selected)
-			{
-				resBox.ScrollBars = ScrollBars.Horizontal;
-			}
-			else
-			{
-				resBox.ScrollBars = ScrollBars.None;
-			}
-
-			// レスボックスの大きさを変更
-			resBox.Height = resBox.PreferredSize.Height;
-			panelResBox.Height = resBox.Height;
-			OnPanelSizeChange();
 		}
 
 		/// <summary>
