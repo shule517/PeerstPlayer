@@ -1890,6 +1890,7 @@ H = Retry
 		{
 			// コンボボックスにセット
 			comboBoxThreadList.Items.Clear();
+			/*
 			for (int i = 0; i < ThreadList.Count; i++)
 			{
 				// スレタイ(レス数)
@@ -1922,6 +1923,7 @@ H = Retry
 					comboBoxThreadList.SelectedIndex = 0;
 				}
 			}
+			 */
 
 			if (resBox.Selected)
 			{
