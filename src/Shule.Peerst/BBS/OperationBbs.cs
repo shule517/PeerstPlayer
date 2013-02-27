@@ -47,9 +47,9 @@ namespace Shule.Peerst.BBS
 				{
 					url = match.Groups[0].Value;
 				}
-
-				bbsStrategy = bbsFactory.Create(url);
 			}
+
+			bbsStrategy = bbsFactory.Create(url);
 		}
 
 		/// <summary>

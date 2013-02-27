@@ -8,6 +8,13 @@ namespace Shule.Peerst.BBS
 	{
 		public void Analyze(string url, out BbsUrl bbsUrl)
 		{
+			if (url == "")
+			{
+				// 非対応
+				bbsUrl = new BbsUrl(BbsServer.UnSupport, string.Empty, string.Empty, string.Empty); ;
+				return;
+			}
+
 			// 空白：本スレ
 			if (url == "本スレ")
 			{
