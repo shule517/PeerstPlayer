@@ -31,7 +31,55 @@
 			this.components = new System.ComponentModel.Container();
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
 			this.panelWMP = new System.Windows.Forms.Panel();
+			this.toolStrip = new PeerstPlayer.ToolStripEx();
+			this.toolStripDropDownButtonDivide = new System.Windows.Forms.ToolStripDropDownButton();
+			this.幅5分の1ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.幅4分の1ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.幅3分の1ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.幅2分の1ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.幅1分の1ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.toolStripSeparatorDivid1 = new System.Windows.Forms.ToolStripSeparator();
+			this.高さ5分の1ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.高さ4分の1ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.高さ3分の1ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.高さ2分の1ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.高さ1分の1ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.toolStripSeparatorDivid2 = new System.Windows.Forms.ToolStripSeparator();
+			this.分割5X5ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.分割4X4ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.分割3X3ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.分割2X2ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.分割1X1ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.toolStripDropDownButtonSize = new System.Windows.Forms.ToolStripDropDownButton();
+			this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
+			this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
+			this.toolStripMenuItem4 = new System.Windows.Forms.ToolStripMenuItem();
+			this.toolStripMenuItem5 = new System.Windows.Forms.ToolStripMenuItem();
+			this.toolStripMenuItem6 = new System.Windows.Forms.ToolStripMenuItem();
+			this.toolStripSeparator6 = new System.Windows.Forms.ToolStripSeparator();
+			this.x120ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.x240ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.x360ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.x480ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.x600ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.toolStripSeparatorSize1 = new System.Windows.Forms.ToolStripSeparator();
+			this.幅160ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.幅320ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.幅480ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.幅640ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.幅800ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.toolStripSeparatorSize2 = new System.Windows.Forms.ToolStripSeparator();
+			this.高さ120ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.高さ240ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.高さ360ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.高さ480ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.高さ600ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.toolStripButtonOpenViewer = new System.Windows.Forms.ToolStripButton();
+			this.toolStripButtonMin = new System.Windows.Forms.ToolStripButton();
+			this.toolStripButtonMax = new System.Windows.Forms.ToolStripButton();
+			this.toolStripButtonClose = new System.Windows.Forms.ToolStripButton();
 			this.panelResBox = new System.Windows.Forms.Panel();
+			this.resBox = new PeerstPlayer.ResBox();
 			this.labelThreadTitle = new System.Windows.Forms.Label();
 			this.contextMenuStripResBox = new System.Windows.Forms.ContextMenuStrip(this.components);
 			this.スレッドビューワを開くToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -138,62 +186,14 @@
 			this.リレーを切断して終了するToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
 			this.wMPメニューToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.timerUpdate = new System.Windows.Forms.Timer(this.components);
-			this.resBox = new PeerstPlayer.ResBox();
-			this.toolStrip = new PeerstPlayer.ToolStripEx();
-			this.toolStripDropDownButtonDivide = new System.Windows.Forms.ToolStripDropDownButton();
-			this.幅5分の1ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.幅4分の1ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.幅3分の1ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.幅2分の1ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.幅1分の1ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.toolStripSeparatorDivid1 = new System.Windows.Forms.ToolStripSeparator();
-			this.高さ5分の1ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.高さ4分の1ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.高さ3分の1ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.高さ2分の1ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.高さ1分の1ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.toolStripSeparatorDivid2 = new System.Windows.Forms.ToolStripSeparator();
-			this.分割5X5ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.分割4X4ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.分割3X3ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.分割2X2ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.分割1X1ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.toolStripDropDownButtonSize = new System.Windows.Forms.ToolStripDropDownButton();
-			this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
-			this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
-			this.toolStripMenuItem4 = new System.Windows.Forms.ToolStripMenuItem();
-			this.toolStripMenuItem5 = new System.Windows.Forms.ToolStripMenuItem();
-			this.toolStripMenuItem6 = new System.Windows.Forms.ToolStripMenuItem();
-			this.toolStripSeparator6 = new System.Windows.Forms.ToolStripSeparator();
-			this.x120ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.x240ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.x360ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.x480ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.x600ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.toolStripSeparatorSize1 = new System.Windows.Forms.ToolStripSeparator();
-			this.幅160ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.幅320ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.幅480ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.幅640ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.幅800ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.toolStripSeparatorSize2 = new System.Windows.Forms.ToolStripSeparator();
-			this.高さ120ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.高さ240ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.高さ360ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.高さ480ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.高さ600ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.toolStripButtonOpenViewer = new System.Windows.Forms.ToolStripButton();
-			this.toolStripButtonMin = new System.Windows.Forms.ToolStripButton();
-			this.toolStripButtonMax = new System.Windows.Forms.ToolStripButton();
-			this.toolStripButtonClose = new System.Windows.Forms.ToolStripButton();
 			this.panelWMP.SuspendLayout();
+			this.toolStrip.SuspendLayout();
 			this.panelResBox.SuspendLayout();
 			this.contextMenuStripResBox.SuspendLayout();
 			this.panelStatusLabel.SuspendLayout();
 			this.panelDetailRight.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.pictureBoxIcon)).BeginInit();
 			this.contextMenuStripWMP.SuspendLayout();
-			this.toolStrip.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// panelWMP
@@ -207,6 +207,395 @@
 			this.panelWMP.Size = new System.Drawing.Size(480, 360);
 			this.panelWMP.TabIndex = 0;
 			// 
+			// toolStrip
+			// 
+			this.toolStrip.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.toolStrip.Dock = System.Windows.Forms.DockStyle.None;
+			this.toolStrip.EnableClickThrough = true;
+			this.toolStrip.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
+			this.toolStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripDropDownButtonDivide,
+            this.toolStripDropDownButtonSize,
+            this.toolStripButtonOpenViewer,
+            this.toolStripButtonMin,
+            this.toolStripButtonMax,
+            this.toolStripButtonClose});
+			this.toolStrip.Location = new System.Drawing.Point(327, 0);
+			this.toolStrip.Name = "toolStrip";
+			this.toolStrip.Size = new System.Drawing.Size(153, 25);
+			this.toolStrip.TabIndex = 5;
+			this.toolStrip.Visible = false;
+			// 
+			// toolStripDropDownButtonDivide
+			// 
+			this.toolStripDropDownButtonDivide.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+			this.toolStripDropDownButtonDivide.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.幅5分の1ToolStripMenuItem,
+            this.幅4分の1ToolStripMenuItem,
+            this.幅3分の1ToolStripMenuItem,
+            this.幅2分の1ToolStripMenuItem,
+            this.幅1分の1ToolStripMenuItem,
+            this.toolStripSeparatorDivid1,
+            this.高さ5分の1ToolStripMenuItem,
+            this.高さ4分の1ToolStripMenuItem,
+            this.高さ3分の1ToolStripMenuItem,
+            this.高さ2分の1ToolStripMenuItem,
+            this.高さ1分の1ToolStripMenuItem,
+            this.toolStripSeparatorDivid2,
+            this.分割5X5ToolStripMenuItem,
+            this.分割4X4ToolStripMenuItem,
+            this.分割3X3ToolStripMenuItem,
+            this.分割2X2ToolStripMenuItem,
+            this.分割1X1ToolStripMenuItem});
+			this.toolStripDropDownButtonDivide.Image = ((System.Drawing.Image)(resources.GetObject("toolStripDropDownButtonDivide.Image")));
+			this.toolStripDropDownButtonDivide.ImageTransparentColor = System.Drawing.Color.Magenta;
+			this.toolStripDropDownButtonDivide.Name = "toolStripDropDownButtonDivide";
+			this.toolStripDropDownButtonDivide.Size = new System.Drawing.Size(29, 22);
+			this.toolStripDropDownButtonDivide.Text = "画面分割";
+			// 
+			// 幅5分の1ToolStripMenuItem
+			// 
+			this.幅5分の1ToolStripMenuItem.Name = "幅5分の1ToolStripMenuItem";
+			this.幅5分の1ToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
+			this.幅5分の1ToolStripMenuItem.Text = "幅：5分の1";
+			this.幅5分の1ToolStripMenuItem.Click += new System.EventHandler(this.幅5分の1ToolStripMenuItem_Click);
+			// 
+			// 幅4分の1ToolStripMenuItem
+			// 
+			this.幅4分の1ToolStripMenuItem.Name = "幅4分の1ToolStripMenuItem";
+			this.幅4分の1ToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
+			this.幅4分の1ToolStripMenuItem.Text = "幅：4分の1";
+			this.幅4分の1ToolStripMenuItem.Click += new System.EventHandler(this.幅4分の1ToolStripMenuItem_Click);
+			// 
+			// 幅3分の1ToolStripMenuItem
+			// 
+			this.幅3分の1ToolStripMenuItem.Name = "幅3分の1ToolStripMenuItem";
+			this.幅3分の1ToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
+			this.幅3分の1ToolStripMenuItem.Text = "幅：3分の1";
+			this.幅3分の1ToolStripMenuItem.Click += new System.EventHandler(this.幅3分の1ToolStripMenuItem_Click);
+			// 
+			// 幅2分の1ToolStripMenuItem
+			// 
+			this.幅2分の1ToolStripMenuItem.Name = "幅2分の1ToolStripMenuItem";
+			this.幅2分の1ToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
+			this.幅2分の1ToolStripMenuItem.Text = "幅：2分の1";
+			this.幅2分の1ToolStripMenuItem.Click += new System.EventHandler(this.幅2分の1ToolStripMenuItem_Click);
+			// 
+			// 幅1分の1ToolStripMenuItem
+			// 
+			this.幅1分の1ToolStripMenuItem.Name = "幅1分の1ToolStripMenuItem";
+			this.幅1分の1ToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
+			this.幅1分の1ToolStripMenuItem.Text = "幅：1分の1";
+			this.幅1分の1ToolStripMenuItem.Click += new System.EventHandler(this.幅1分の1ToolStripMenuItem_Click);
+			// 
+			// toolStripSeparatorDivid1
+			// 
+			this.toolStripSeparatorDivid1.Name = "toolStripSeparatorDivid1";
+			this.toolStripSeparatorDivid1.Size = new System.Drawing.Size(147, 6);
+			// 
+			// 高さ5分の1ToolStripMenuItem
+			// 
+			this.高さ5分の1ToolStripMenuItem.Name = "高さ5分の1ToolStripMenuItem";
+			this.高さ5分の1ToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
+			this.高さ5分の1ToolStripMenuItem.Text = "高さ：5分の1";
+			this.高さ5分の1ToolStripMenuItem.Click += new System.EventHandler(this.高さ5分の1ToolStripMenuItem_Click);
+			// 
+			// 高さ4分の1ToolStripMenuItem
+			// 
+			this.高さ4分の1ToolStripMenuItem.Name = "高さ4分の1ToolStripMenuItem";
+			this.高さ4分の1ToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
+			this.高さ4分の1ToolStripMenuItem.Text = "高さ：4分の1";
+			this.高さ4分の1ToolStripMenuItem.Click += new System.EventHandler(this.高さ4分の1ToolStripMenuItem_Click);
+			// 
+			// 高さ3分の1ToolStripMenuItem
+			// 
+			this.高さ3分の1ToolStripMenuItem.Name = "高さ3分の1ToolStripMenuItem";
+			this.高さ3分の1ToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
+			this.高さ3分の1ToolStripMenuItem.Text = "高さ：3分の1";
+			this.高さ3分の1ToolStripMenuItem.Click += new System.EventHandler(this.高さ3分の1ToolStripMenuItem_Click);
+			// 
+			// 高さ2分の1ToolStripMenuItem
+			// 
+			this.高さ2分の1ToolStripMenuItem.Name = "高さ2分の1ToolStripMenuItem";
+			this.高さ2分の1ToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
+			this.高さ2分の1ToolStripMenuItem.Text = "高さ：2分の1";
+			this.高さ2分の1ToolStripMenuItem.Click += new System.EventHandler(this.高さ2分の1ToolStripMenuItem_Click);
+			// 
+			// 高さ1分の1ToolStripMenuItem
+			// 
+			this.高さ1分の1ToolStripMenuItem.Name = "高さ1分の1ToolStripMenuItem";
+			this.高さ1分の1ToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
+			this.高さ1分の1ToolStripMenuItem.Text = "高さ：1分の1";
+			this.高さ1分の1ToolStripMenuItem.Click += new System.EventHandler(this.高さ1分の1ToolStripMenuItem_Click);
+			// 
+			// toolStripSeparatorDivid2
+			// 
+			this.toolStripSeparatorDivid2.Name = "toolStripSeparatorDivid2";
+			this.toolStripSeparatorDivid2.Size = new System.Drawing.Size(147, 6);
+			// 
+			// 分割5X5ToolStripMenuItem
+			// 
+			this.分割5X5ToolStripMenuItem.Name = "分割5X5ToolStripMenuItem";
+			this.分割5X5ToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
+			this.分割5X5ToolStripMenuItem.Text = "分割：5 x 5";
+			this.分割5X5ToolStripMenuItem.Click += new System.EventHandler(this.分割5X5ToolStripMenuItem_Click);
+			// 
+			// 分割4X4ToolStripMenuItem
+			// 
+			this.分割4X4ToolStripMenuItem.Name = "分割4X4ToolStripMenuItem";
+			this.分割4X4ToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
+			this.分割4X4ToolStripMenuItem.Text = "分割：4 x 4";
+			this.分割4X4ToolStripMenuItem.Click += new System.EventHandler(this.分割4X4ToolStripMenuItem_Click);
+			// 
+			// 分割3X3ToolStripMenuItem
+			// 
+			this.分割3X3ToolStripMenuItem.Name = "分割3X3ToolStripMenuItem";
+			this.分割3X3ToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
+			this.分割3X3ToolStripMenuItem.Text = "分割：3 x 3";
+			this.分割3X3ToolStripMenuItem.Click += new System.EventHandler(this.分割3X3ToolStripMenuItem_Click);
+			// 
+			// 分割2X2ToolStripMenuItem
+			// 
+			this.分割2X2ToolStripMenuItem.Name = "分割2X2ToolStripMenuItem";
+			this.分割2X2ToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
+			this.分割2X2ToolStripMenuItem.Text = "分割：2 x 2";
+			this.分割2X2ToolStripMenuItem.Click += new System.EventHandler(this.分割2X2ToolStripMenuItem_Click);
+			// 
+			// 分割1X1ToolStripMenuItem
+			// 
+			this.分割1X1ToolStripMenuItem.Name = "分割1X1ToolStripMenuItem";
+			this.分割1X1ToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
+			this.分割1X1ToolStripMenuItem.Text = "分割：1 x 1";
+			this.分割1X1ToolStripMenuItem.Click += new System.EventHandler(this.分割1X1ToolStripMenuItem_Click);
+			// 
+			// toolStripDropDownButtonSize
+			// 
+			this.toolStripDropDownButtonSize.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+			this.toolStripDropDownButtonSize.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripMenuItem2,
+            this.toolStripMenuItem3,
+            this.toolStripMenuItem4,
+            this.toolStripMenuItem5,
+            this.toolStripMenuItem6,
+            this.toolStripSeparator6,
+            this.x120ToolStripMenuItem,
+            this.x240ToolStripMenuItem,
+            this.x360ToolStripMenuItem,
+            this.x480ToolStripMenuItem,
+            this.x600ToolStripMenuItem,
+            this.toolStripSeparatorSize1,
+            this.幅160ToolStripMenuItem,
+            this.幅320ToolStripMenuItem,
+            this.幅480ToolStripMenuItem,
+            this.幅640ToolStripMenuItem,
+            this.幅800ToolStripMenuItem,
+            this.toolStripSeparatorSize2,
+            this.高さ120ToolStripMenuItem,
+            this.高さ240ToolStripMenuItem,
+            this.高さ360ToolStripMenuItem,
+            this.高さ480ToolStripMenuItem,
+            this.高さ600ToolStripMenuItem});
+			this.toolStripDropDownButtonSize.Image = ((System.Drawing.Image)(resources.GetObject("toolStripDropDownButtonSize.Image")));
+			this.toolStripDropDownButtonSize.ImageTransparentColor = System.Drawing.Color.Magenta;
+			this.toolStripDropDownButtonSize.Name = "toolStripDropDownButtonSize";
+			this.toolStripDropDownButtonSize.Size = new System.Drawing.Size(29, 22);
+			this.toolStripDropDownButtonSize.Text = "サイズ";
+			// 
+			// toolStripMenuItem2
+			// 
+			this.toolStripMenuItem2.Name = "toolStripMenuItem2";
+			this.toolStripMenuItem2.Size = new System.Drawing.Size(133, 22);
+			this.toolStripMenuItem2.Text = "50%";
+			this.toolStripMenuItem2.Click += new System.EventHandler(this.toolStripMenuItem50Per_Click);
+			// 
+			// toolStripMenuItem3
+			// 
+			this.toolStripMenuItem3.Name = "toolStripMenuItem3";
+			this.toolStripMenuItem3.Size = new System.Drawing.Size(133, 22);
+			this.toolStripMenuItem3.Text = "75%";
+			this.toolStripMenuItem3.Click += new System.EventHandler(this.toolStripMenuItem75Per_Click);
+			// 
+			// toolStripMenuItem4
+			// 
+			this.toolStripMenuItem4.Name = "toolStripMenuItem4";
+			this.toolStripMenuItem4.Size = new System.Drawing.Size(133, 22);
+			this.toolStripMenuItem4.Text = "100%";
+			this.toolStripMenuItem4.Click += new System.EventHandler(this.toolStripMenuItem100Per_Click);
+			// 
+			// toolStripMenuItem5
+			// 
+			this.toolStripMenuItem5.Name = "toolStripMenuItem5";
+			this.toolStripMenuItem5.Size = new System.Drawing.Size(133, 22);
+			this.toolStripMenuItem5.Text = "150%";
+			this.toolStripMenuItem5.Click += new System.EventHandler(this.toolStripMenuItem150_Click);
+			// 
+			// toolStripMenuItem6
+			// 
+			this.toolStripMenuItem6.Name = "toolStripMenuItem6";
+			this.toolStripMenuItem6.Size = new System.Drawing.Size(133, 22);
+			this.toolStripMenuItem6.Text = "200%";
+			this.toolStripMenuItem6.Click += new System.EventHandler(this.toolStripMenuItem200Per_Click);
+			// 
+			// toolStripSeparator6
+			// 
+			this.toolStripSeparator6.Name = "toolStripSeparator6";
+			this.toolStripSeparator6.Size = new System.Drawing.Size(130, 6);
+			// 
+			// x120ToolStripMenuItem
+			// 
+			this.x120ToolStripMenuItem.Name = "x120ToolStripMenuItem";
+			this.x120ToolStripMenuItem.Size = new System.Drawing.Size(133, 22);
+			this.x120ToolStripMenuItem.Text = "160 x 120";
+			this.x120ToolStripMenuItem.Click += new System.EventHandler(this.x120ToolStripMenuItem_Click);
+			// 
+			// x240ToolStripMenuItem
+			// 
+			this.x240ToolStripMenuItem.Name = "x240ToolStripMenuItem";
+			this.x240ToolStripMenuItem.Size = new System.Drawing.Size(133, 22);
+			this.x240ToolStripMenuItem.Text = "320 x 240";
+			this.x240ToolStripMenuItem.Click += new System.EventHandler(this.x240ToolStripMenuItem_Click);
+			// 
+			// x360ToolStripMenuItem
+			// 
+			this.x360ToolStripMenuItem.Name = "x360ToolStripMenuItem";
+			this.x360ToolStripMenuItem.Size = new System.Drawing.Size(133, 22);
+			this.x360ToolStripMenuItem.Text = "480 x 360";
+			this.x360ToolStripMenuItem.Click += new System.EventHandler(this.x360ToolStripMenuItem_Click);
+			// 
+			// x480ToolStripMenuItem
+			// 
+			this.x480ToolStripMenuItem.Name = "x480ToolStripMenuItem";
+			this.x480ToolStripMenuItem.Size = new System.Drawing.Size(133, 22);
+			this.x480ToolStripMenuItem.Text = "640 x 480";
+			this.x480ToolStripMenuItem.Click += new System.EventHandler(this.x480ToolStripMenuItem_Click);
+			// 
+			// x600ToolStripMenuItem
+			// 
+			this.x600ToolStripMenuItem.Name = "x600ToolStripMenuItem";
+			this.x600ToolStripMenuItem.Size = new System.Drawing.Size(133, 22);
+			this.x600ToolStripMenuItem.Text = "800 x 600";
+			this.x600ToolStripMenuItem.Click += new System.EventHandler(this.x600ToolStripMenuItem_Click);
+			// 
+			// toolStripSeparatorSize1
+			// 
+			this.toolStripSeparatorSize1.Name = "toolStripSeparatorSize1";
+			this.toolStripSeparatorSize1.Size = new System.Drawing.Size(130, 6);
+			// 
+			// 幅160ToolStripMenuItem
+			// 
+			this.幅160ToolStripMenuItem.Name = "幅160ToolStripMenuItem";
+			this.幅160ToolStripMenuItem.Size = new System.Drawing.Size(133, 22);
+			this.幅160ToolStripMenuItem.Text = "幅：160";
+			this.幅160ToolStripMenuItem.Click += new System.EventHandler(this.幅160ToolStripMenuItem_Click);
+			// 
+			// 幅320ToolStripMenuItem
+			// 
+			this.幅320ToolStripMenuItem.Name = "幅320ToolStripMenuItem";
+			this.幅320ToolStripMenuItem.Size = new System.Drawing.Size(133, 22);
+			this.幅320ToolStripMenuItem.Text = "幅：320";
+			this.幅320ToolStripMenuItem.Click += new System.EventHandler(this.幅320ToolStripMenuItem_Click);
+			// 
+			// 幅480ToolStripMenuItem
+			// 
+			this.幅480ToolStripMenuItem.Name = "幅480ToolStripMenuItem";
+			this.幅480ToolStripMenuItem.Size = new System.Drawing.Size(133, 22);
+			this.幅480ToolStripMenuItem.Text = "幅：480";
+			this.幅480ToolStripMenuItem.Click += new System.EventHandler(this.幅480ToolStripMenuItem_Click);
+			// 
+			// 幅640ToolStripMenuItem
+			// 
+			this.幅640ToolStripMenuItem.Name = "幅640ToolStripMenuItem";
+			this.幅640ToolStripMenuItem.Size = new System.Drawing.Size(133, 22);
+			this.幅640ToolStripMenuItem.Text = "幅：640";
+			this.幅640ToolStripMenuItem.Click += new System.EventHandler(this.幅640ToolStripMenuItem_Click);
+			// 
+			// 幅800ToolStripMenuItem
+			// 
+			this.幅800ToolStripMenuItem.Name = "幅800ToolStripMenuItem";
+			this.幅800ToolStripMenuItem.Size = new System.Drawing.Size(133, 22);
+			this.幅800ToolStripMenuItem.Text = "幅：800";
+			this.幅800ToolStripMenuItem.Click += new System.EventHandler(this.幅800ToolStripMenuItem_Click);
+			// 
+			// toolStripSeparatorSize2
+			// 
+			this.toolStripSeparatorSize2.Name = "toolStripSeparatorSize2";
+			this.toolStripSeparatorSize2.Size = new System.Drawing.Size(130, 6);
+			// 
+			// 高さ120ToolStripMenuItem
+			// 
+			this.高さ120ToolStripMenuItem.Name = "高さ120ToolStripMenuItem";
+			this.高さ120ToolStripMenuItem.Size = new System.Drawing.Size(133, 22);
+			this.高さ120ToolStripMenuItem.Text = "高さ：120";
+			this.高さ120ToolStripMenuItem.Click += new System.EventHandler(this.高さ120ToolStripMenuItem_Click);
+			// 
+			// 高さ240ToolStripMenuItem
+			// 
+			this.高さ240ToolStripMenuItem.Name = "高さ240ToolStripMenuItem";
+			this.高さ240ToolStripMenuItem.Size = new System.Drawing.Size(133, 22);
+			this.高さ240ToolStripMenuItem.Text = "高さ：240";
+			this.高さ240ToolStripMenuItem.Click += new System.EventHandler(this.高さ240ToolStripMenuItem_Click);
+			// 
+			// 高さ360ToolStripMenuItem
+			// 
+			this.高さ360ToolStripMenuItem.Name = "高さ360ToolStripMenuItem";
+			this.高さ360ToolStripMenuItem.Size = new System.Drawing.Size(133, 22);
+			this.高さ360ToolStripMenuItem.Text = "高さ：360";
+			this.高さ360ToolStripMenuItem.Click += new System.EventHandler(this.高さ360ToolStripMenuItem_Click);
+			// 
+			// 高さ480ToolStripMenuItem
+			// 
+			this.高さ480ToolStripMenuItem.Name = "高さ480ToolStripMenuItem";
+			this.高さ480ToolStripMenuItem.Size = new System.Drawing.Size(133, 22);
+			this.高さ480ToolStripMenuItem.Text = "高さ：480";
+			this.高さ480ToolStripMenuItem.Click += new System.EventHandler(this.幅480ToolStripMenuItem_Click);
+			// 
+			// 高さ600ToolStripMenuItem
+			// 
+			this.高さ600ToolStripMenuItem.Name = "高さ600ToolStripMenuItem";
+			this.高さ600ToolStripMenuItem.Size = new System.Drawing.Size(133, 22);
+			this.高さ600ToolStripMenuItem.Text = "高さ：600";
+			this.高さ600ToolStripMenuItem.Click += new System.EventHandler(this.高さ600ToolStripMenuItem_Click);
+			// 
+			// toolStripButtonOpenViewer
+			// 
+			this.toolStripButtonOpenViewer.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+			this.toolStripButtonOpenViewer.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonOpenViewer.Image")));
+			this.toolStripButtonOpenViewer.ImageTransparentColor = System.Drawing.Color.Magenta;
+			this.toolStripButtonOpenViewer.Name = "toolStripButtonOpenViewer";
+			this.toolStripButtonOpenViewer.Size = new System.Drawing.Size(23, 22);
+			this.toolStripButtonOpenViewer.Text = "スレッドビューワを表示";
+			this.toolStripButtonOpenViewer.Click += new System.EventHandler(this.toolStripButton1_Click);
+			// 
+			// toolStripButtonMin
+			// 
+			this.toolStripButtonMin.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+			this.toolStripButtonMin.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonMin.Image")));
+			this.toolStripButtonMin.ImageTransparentColor = System.Drawing.Color.Magenta;
+			this.toolStripButtonMin.Name = "toolStripButtonMin";
+			this.toolStripButtonMin.Size = new System.Drawing.Size(23, 22);
+			this.toolStripButtonMin.Text = "最小化";
+			this.toolStripButtonMin.Click += new System.EventHandler(this.toolStripButtonMin_Click);
+			// 
+			// toolStripButtonMax
+			// 
+			this.toolStripButtonMax.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+			this.toolStripButtonMax.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonMax.Image")));
+			this.toolStripButtonMax.ImageTransparentColor = System.Drawing.Color.Magenta;
+			this.toolStripButtonMax.Name = "toolStripButtonMax";
+			this.toolStripButtonMax.Size = new System.Drawing.Size(23, 22);
+			this.toolStripButtonMax.Text = "最大化";
+			this.toolStripButtonMax.Click += new System.EventHandler(this.toolStripButtonMax_Click);
+			// 
+			// toolStripButtonClose
+			// 
+			this.toolStripButtonClose.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+			this.toolStripButtonClose.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonClose.Image")));
+			this.toolStripButtonClose.ImageTransparentColor = System.Drawing.Color.Magenta;
+			this.toolStripButtonClose.Name = "toolStripButtonClose";
+			this.toolStripButtonClose.Size = new System.Drawing.Size(23, 22);
+			this.toolStripButtonClose.Text = "閉じる";
+			this.toolStripButtonClose.Click += new System.EventHandler(this.toolStripButtonClose_Click);
+			// 
 			// panelResBox
 			// 
 			this.panelResBox.Controls.Add(this.resBox);
@@ -215,6 +604,20 @@
 			this.panelResBox.Name = "panelResBox";
 			this.panelResBox.Size = new System.Drawing.Size(480, 32);
 			this.panelResBox.TabIndex = 4;
+			// 
+			// resBox
+			// 
+			this.resBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.resBox.Location = new System.Drawing.Point(0, 13);
+			this.resBox.Multiline = true;
+			this.resBox.Name = "resBox";
+			this.resBox.Size = new System.Drawing.Size(480, 19);
+			this.resBox.TabIndex = 1;
+			this.resBox.ThreadTitle = "";
+			this.resBox.WordWrap = false;
+			this.resBox.TextChanged += new System.EventHandler(this.resBox_TextChanged);
+			this.resBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.resBox_KeyDown);
 			// 
 			// labelThreadTitle
 			// 
@@ -227,6 +630,7 @@
 			this.labelThreadTitle.TabIndex = 2;
 			this.labelThreadTitle.Text = "スレッドタイトル(レス数)";
 			this.labelThreadTitle.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+			this.labelThreadTitle.MouseDown += new System.Windows.Forms.MouseEventHandler(this.labelThreadTitle_MouseDown);
 			// 
 			// contextMenuStripResBox
 			// 
@@ -1074,409 +1478,6 @@
 			this.timerUpdate.Interval = 600000;
 			this.timerUpdate.Tick += new System.EventHandler(this.timerUpdate_Tick);
 			// 
-			// resBox
-			// 
-			this.resBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-			this.resBox.Location = new System.Drawing.Point(0, 13);
-			this.resBox.Multiline = true;
-			this.resBox.Name = "resBox";
-			this.resBox.Size = new System.Drawing.Size(480, 19);
-			this.resBox.TabIndex = 1;
-			this.resBox.ThreadTitle = "";
-			this.resBox.WordWrap = false;
-			this.resBox.TextChanged += new System.EventHandler(this.resBox_TextChanged);
-			this.resBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.resBox_KeyDown);
-			// 
-			// toolStrip
-			// 
-			this.toolStrip.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.toolStrip.Dock = System.Windows.Forms.DockStyle.None;
-			this.toolStrip.EnableClickThrough = true;
-			this.toolStrip.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
-			this.toolStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripDropDownButtonDivide,
-            this.toolStripDropDownButtonSize,
-            this.toolStripButtonOpenViewer,
-            this.toolStripButtonMin,
-            this.toolStripButtonMax,
-            this.toolStripButtonClose});
-			this.toolStrip.Location = new System.Drawing.Point(327, 0);
-			this.toolStrip.Name = "toolStrip";
-			this.toolStrip.Size = new System.Drawing.Size(153, 25);
-			this.toolStrip.TabIndex = 5;
-			this.toolStrip.Visible = false;
-			// 
-			// toolStripDropDownButtonDivide
-			// 
-			this.toolStripDropDownButtonDivide.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-			this.toolStripDropDownButtonDivide.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.幅5分の1ToolStripMenuItem,
-            this.幅4分の1ToolStripMenuItem,
-            this.幅3分の1ToolStripMenuItem,
-            this.幅2分の1ToolStripMenuItem,
-            this.幅1分の1ToolStripMenuItem,
-            this.toolStripSeparatorDivid1,
-            this.高さ5分の1ToolStripMenuItem,
-            this.高さ4分の1ToolStripMenuItem,
-            this.高さ3分の1ToolStripMenuItem,
-            this.高さ2分の1ToolStripMenuItem,
-            this.高さ1分の1ToolStripMenuItem,
-            this.toolStripSeparatorDivid2,
-            this.分割5X5ToolStripMenuItem,
-            this.分割4X4ToolStripMenuItem,
-            this.分割3X3ToolStripMenuItem,
-            this.分割2X2ToolStripMenuItem,
-            this.分割1X1ToolStripMenuItem});
-			this.toolStripDropDownButtonDivide.Image = ((System.Drawing.Image)(resources.GetObject("toolStripDropDownButtonDivide.Image")));
-			this.toolStripDropDownButtonDivide.ImageTransparentColor = System.Drawing.Color.Magenta;
-			this.toolStripDropDownButtonDivide.Name = "toolStripDropDownButtonDivide";
-			this.toolStripDropDownButtonDivide.Size = new System.Drawing.Size(29, 22);
-			this.toolStripDropDownButtonDivide.Text = "画面分割";
-			// 
-			// 幅5分の1ToolStripMenuItem
-			// 
-			this.幅5分の1ToolStripMenuItem.Name = "幅5分の1ToolStripMenuItem";
-			this.幅5分の1ToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
-			this.幅5分の1ToolStripMenuItem.Text = "幅：5分の1";
-			this.幅5分の1ToolStripMenuItem.Click += new System.EventHandler(this.幅5分の1ToolStripMenuItem_Click);
-			// 
-			// 幅4分の1ToolStripMenuItem
-			// 
-			this.幅4分の1ToolStripMenuItem.Name = "幅4分の1ToolStripMenuItem";
-			this.幅4分の1ToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
-			this.幅4分の1ToolStripMenuItem.Text = "幅：4分の1";
-			this.幅4分の1ToolStripMenuItem.Click += new System.EventHandler(this.幅4分の1ToolStripMenuItem_Click);
-			// 
-			// 幅3分の1ToolStripMenuItem
-			// 
-			this.幅3分の1ToolStripMenuItem.Name = "幅3分の1ToolStripMenuItem";
-			this.幅3分の1ToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
-			this.幅3分の1ToolStripMenuItem.Text = "幅：3分の1";
-			this.幅3分の1ToolStripMenuItem.Click += new System.EventHandler(this.幅3分の1ToolStripMenuItem_Click);
-			// 
-			// 幅2分の1ToolStripMenuItem
-			// 
-			this.幅2分の1ToolStripMenuItem.Name = "幅2分の1ToolStripMenuItem";
-			this.幅2分の1ToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
-			this.幅2分の1ToolStripMenuItem.Text = "幅：2分の1";
-			this.幅2分の1ToolStripMenuItem.Click += new System.EventHandler(this.幅2分の1ToolStripMenuItem_Click);
-			// 
-			// 幅1分の1ToolStripMenuItem
-			// 
-			this.幅1分の1ToolStripMenuItem.Name = "幅1分の1ToolStripMenuItem";
-			this.幅1分の1ToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
-			this.幅1分の1ToolStripMenuItem.Text = "幅：1分の1";
-			this.幅1分の1ToolStripMenuItem.Click += new System.EventHandler(this.幅1分の1ToolStripMenuItem_Click);
-			// 
-			// toolStripSeparatorDivid1
-			// 
-			this.toolStripSeparatorDivid1.Name = "toolStripSeparatorDivid1";
-			this.toolStripSeparatorDivid1.Size = new System.Drawing.Size(147, 6);
-			// 
-			// 高さ5分の1ToolStripMenuItem
-			// 
-			this.高さ5分の1ToolStripMenuItem.Name = "高さ5分の1ToolStripMenuItem";
-			this.高さ5分の1ToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
-			this.高さ5分の1ToolStripMenuItem.Text = "高さ：5分の1";
-			this.高さ5分の1ToolStripMenuItem.Click += new System.EventHandler(this.高さ5分の1ToolStripMenuItem_Click);
-			// 
-			// 高さ4分の1ToolStripMenuItem
-			// 
-			this.高さ4分の1ToolStripMenuItem.Name = "高さ4分の1ToolStripMenuItem";
-			this.高さ4分の1ToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
-			this.高さ4分の1ToolStripMenuItem.Text = "高さ：4分の1";
-			this.高さ4分の1ToolStripMenuItem.Click += new System.EventHandler(this.高さ4分の1ToolStripMenuItem_Click);
-			// 
-			// 高さ3分の1ToolStripMenuItem
-			// 
-			this.高さ3分の1ToolStripMenuItem.Name = "高さ3分の1ToolStripMenuItem";
-			this.高さ3分の1ToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
-			this.高さ3分の1ToolStripMenuItem.Text = "高さ：3分の1";
-			this.高さ3分の1ToolStripMenuItem.Click += new System.EventHandler(this.高さ3分の1ToolStripMenuItem_Click);
-			// 
-			// 高さ2分の1ToolStripMenuItem
-			// 
-			this.高さ2分の1ToolStripMenuItem.Name = "高さ2分の1ToolStripMenuItem";
-			this.高さ2分の1ToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
-			this.高さ2分の1ToolStripMenuItem.Text = "高さ：2分の1";
-			this.高さ2分の1ToolStripMenuItem.Click += new System.EventHandler(this.高さ2分の1ToolStripMenuItem_Click);
-			// 
-			// 高さ1分の1ToolStripMenuItem
-			// 
-			this.高さ1分の1ToolStripMenuItem.Name = "高さ1分の1ToolStripMenuItem";
-			this.高さ1分の1ToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
-			this.高さ1分の1ToolStripMenuItem.Text = "高さ：1分の1";
-			this.高さ1分の1ToolStripMenuItem.Click += new System.EventHandler(this.高さ1分の1ToolStripMenuItem_Click);
-			// 
-			// toolStripSeparatorDivid2
-			// 
-			this.toolStripSeparatorDivid2.Name = "toolStripSeparatorDivid2";
-			this.toolStripSeparatorDivid2.Size = new System.Drawing.Size(147, 6);
-			// 
-			// 分割5X5ToolStripMenuItem
-			// 
-			this.分割5X5ToolStripMenuItem.Name = "分割5X5ToolStripMenuItem";
-			this.分割5X5ToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
-			this.分割5X5ToolStripMenuItem.Text = "分割：5 x 5";
-			this.分割5X5ToolStripMenuItem.Click += new System.EventHandler(this.分割5X5ToolStripMenuItem_Click);
-			// 
-			// 分割4X4ToolStripMenuItem
-			// 
-			this.分割4X4ToolStripMenuItem.Name = "分割4X4ToolStripMenuItem";
-			this.分割4X4ToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
-			this.分割4X4ToolStripMenuItem.Text = "分割：4 x 4";
-			this.分割4X4ToolStripMenuItem.Click += new System.EventHandler(this.分割4X4ToolStripMenuItem_Click);
-			// 
-			// 分割3X3ToolStripMenuItem
-			// 
-			this.分割3X3ToolStripMenuItem.Name = "分割3X3ToolStripMenuItem";
-			this.分割3X3ToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
-			this.分割3X3ToolStripMenuItem.Text = "分割：3 x 3";
-			this.分割3X3ToolStripMenuItem.Click += new System.EventHandler(this.分割3X3ToolStripMenuItem_Click);
-			// 
-			// 分割2X2ToolStripMenuItem
-			// 
-			this.分割2X2ToolStripMenuItem.Name = "分割2X2ToolStripMenuItem";
-			this.分割2X2ToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
-			this.分割2X2ToolStripMenuItem.Text = "分割：2 x 2";
-			this.分割2X2ToolStripMenuItem.Click += new System.EventHandler(this.分割2X2ToolStripMenuItem_Click);
-			// 
-			// 分割1X1ToolStripMenuItem
-			// 
-			this.分割1X1ToolStripMenuItem.Name = "分割1X1ToolStripMenuItem";
-			this.分割1X1ToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
-			this.分割1X1ToolStripMenuItem.Text = "分割：1 x 1";
-			this.分割1X1ToolStripMenuItem.Click += new System.EventHandler(this.分割1X1ToolStripMenuItem_Click);
-			// 
-			// toolStripDropDownButtonSize
-			// 
-			this.toolStripDropDownButtonSize.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-			this.toolStripDropDownButtonSize.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripMenuItem2,
-            this.toolStripMenuItem3,
-            this.toolStripMenuItem4,
-            this.toolStripMenuItem5,
-            this.toolStripMenuItem6,
-            this.toolStripSeparator6,
-            this.x120ToolStripMenuItem,
-            this.x240ToolStripMenuItem,
-            this.x360ToolStripMenuItem,
-            this.x480ToolStripMenuItem,
-            this.x600ToolStripMenuItem,
-            this.toolStripSeparatorSize1,
-            this.幅160ToolStripMenuItem,
-            this.幅320ToolStripMenuItem,
-            this.幅480ToolStripMenuItem,
-            this.幅640ToolStripMenuItem,
-            this.幅800ToolStripMenuItem,
-            this.toolStripSeparatorSize2,
-            this.高さ120ToolStripMenuItem,
-            this.高さ240ToolStripMenuItem,
-            this.高さ360ToolStripMenuItem,
-            this.高さ480ToolStripMenuItem,
-            this.高さ600ToolStripMenuItem});
-			this.toolStripDropDownButtonSize.Image = ((System.Drawing.Image)(resources.GetObject("toolStripDropDownButtonSize.Image")));
-			this.toolStripDropDownButtonSize.ImageTransparentColor = System.Drawing.Color.Magenta;
-			this.toolStripDropDownButtonSize.Name = "toolStripDropDownButtonSize";
-			this.toolStripDropDownButtonSize.Size = new System.Drawing.Size(29, 22);
-			this.toolStripDropDownButtonSize.Text = "サイズ";
-			// 
-			// toolStripMenuItem2
-			// 
-			this.toolStripMenuItem2.Name = "toolStripMenuItem2";
-			this.toolStripMenuItem2.Size = new System.Drawing.Size(133, 22);
-			this.toolStripMenuItem2.Text = "50%";
-			this.toolStripMenuItem2.Click += new System.EventHandler(this.toolStripMenuItem50Per_Click);
-			// 
-			// toolStripMenuItem3
-			// 
-			this.toolStripMenuItem3.Name = "toolStripMenuItem3";
-			this.toolStripMenuItem3.Size = new System.Drawing.Size(133, 22);
-			this.toolStripMenuItem3.Text = "75%";
-			this.toolStripMenuItem3.Click += new System.EventHandler(this.toolStripMenuItem75Per_Click);
-			// 
-			// toolStripMenuItem4
-			// 
-			this.toolStripMenuItem4.Name = "toolStripMenuItem4";
-			this.toolStripMenuItem4.Size = new System.Drawing.Size(133, 22);
-			this.toolStripMenuItem4.Text = "100%";
-			this.toolStripMenuItem4.Click += new System.EventHandler(this.toolStripMenuItem100Per_Click);
-			// 
-			// toolStripMenuItem5
-			// 
-			this.toolStripMenuItem5.Name = "toolStripMenuItem5";
-			this.toolStripMenuItem5.Size = new System.Drawing.Size(133, 22);
-			this.toolStripMenuItem5.Text = "150%";
-			this.toolStripMenuItem5.Click += new System.EventHandler(this.toolStripMenuItem150_Click);
-			// 
-			// toolStripMenuItem6
-			// 
-			this.toolStripMenuItem6.Name = "toolStripMenuItem6";
-			this.toolStripMenuItem6.Size = new System.Drawing.Size(133, 22);
-			this.toolStripMenuItem6.Text = "200%";
-			this.toolStripMenuItem6.Click += new System.EventHandler(this.toolStripMenuItem200Per_Click);
-			// 
-			// toolStripSeparator6
-			// 
-			this.toolStripSeparator6.Name = "toolStripSeparator6";
-			this.toolStripSeparator6.Size = new System.Drawing.Size(130, 6);
-			// 
-			// x120ToolStripMenuItem
-			// 
-			this.x120ToolStripMenuItem.Name = "x120ToolStripMenuItem";
-			this.x120ToolStripMenuItem.Size = new System.Drawing.Size(133, 22);
-			this.x120ToolStripMenuItem.Text = "160 x 120";
-			this.x120ToolStripMenuItem.Click += new System.EventHandler(this.x120ToolStripMenuItem_Click);
-			// 
-			// x240ToolStripMenuItem
-			// 
-			this.x240ToolStripMenuItem.Name = "x240ToolStripMenuItem";
-			this.x240ToolStripMenuItem.Size = new System.Drawing.Size(133, 22);
-			this.x240ToolStripMenuItem.Text = "320 x 240";
-			this.x240ToolStripMenuItem.Click += new System.EventHandler(this.x240ToolStripMenuItem_Click);
-			// 
-			// x360ToolStripMenuItem
-			// 
-			this.x360ToolStripMenuItem.Name = "x360ToolStripMenuItem";
-			this.x360ToolStripMenuItem.Size = new System.Drawing.Size(133, 22);
-			this.x360ToolStripMenuItem.Text = "480 x 360";
-			this.x360ToolStripMenuItem.Click += new System.EventHandler(this.x360ToolStripMenuItem_Click);
-			// 
-			// x480ToolStripMenuItem
-			// 
-			this.x480ToolStripMenuItem.Name = "x480ToolStripMenuItem";
-			this.x480ToolStripMenuItem.Size = new System.Drawing.Size(133, 22);
-			this.x480ToolStripMenuItem.Text = "640 x 480";
-			this.x480ToolStripMenuItem.Click += new System.EventHandler(this.x480ToolStripMenuItem_Click);
-			// 
-			// x600ToolStripMenuItem
-			// 
-			this.x600ToolStripMenuItem.Name = "x600ToolStripMenuItem";
-			this.x600ToolStripMenuItem.Size = new System.Drawing.Size(133, 22);
-			this.x600ToolStripMenuItem.Text = "800 x 600";
-			this.x600ToolStripMenuItem.Click += new System.EventHandler(this.x600ToolStripMenuItem_Click);
-			// 
-			// toolStripSeparatorSize1
-			// 
-			this.toolStripSeparatorSize1.Name = "toolStripSeparatorSize1";
-			this.toolStripSeparatorSize1.Size = new System.Drawing.Size(130, 6);
-			// 
-			// 幅160ToolStripMenuItem
-			// 
-			this.幅160ToolStripMenuItem.Name = "幅160ToolStripMenuItem";
-			this.幅160ToolStripMenuItem.Size = new System.Drawing.Size(133, 22);
-			this.幅160ToolStripMenuItem.Text = "幅：160";
-			this.幅160ToolStripMenuItem.Click += new System.EventHandler(this.幅160ToolStripMenuItem_Click);
-			// 
-			// 幅320ToolStripMenuItem
-			// 
-			this.幅320ToolStripMenuItem.Name = "幅320ToolStripMenuItem";
-			this.幅320ToolStripMenuItem.Size = new System.Drawing.Size(133, 22);
-			this.幅320ToolStripMenuItem.Text = "幅：320";
-			this.幅320ToolStripMenuItem.Click += new System.EventHandler(this.幅320ToolStripMenuItem_Click);
-			// 
-			// 幅480ToolStripMenuItem
-			// 
-			this.幅480ToolStripMenuItem.Name = "幅480ToolStripMenuItem";
-			this.幅480ToolStripMenuItem.Size = new System.Drawing.Size(133, 22);
-			this.幅480ToolStripMenuItem.Text = "幅：480";
-			this.幅480ToolStripMenuItem.Click += new System.EventHandler(this.幅480ToolStripMenuItem_Click);
-			// 
-			// 幅640ToolStripMenuItem
-			// 
-			this.幅640ToolStripMenuItem.Name = "幅640ToolStripMenuItem";
-			this.幅640ToolStripMenuItem.Size = new System.Drawing.Size(133, 22);
-			this.幅640ToolStripMenuItem.Text = "幅：640";
-			this.幅640ToolStripMenuItem.Click += new System.EventHandler(this.幅640ToolStripMenuItem_Click);
-			// 
-			// 幅800ToolStripMenuItem
-			// 
-			this.幅800ToolStripMenuItem.Name = "幅800ToolStripMenuItem";
-			this.幅800ToolStripMenuItem.Size = new System.Drawing.Size(133, 22);
-			this.幅800ToolStripMenuItem.Text = "幅：800";
-			this.幅800ToolStripMenuItem.Click += new System.EventHandler(this.幅800ToolStripMenuItem_Click);
-			// 
-			// toolStripSeparatorSize2
-			// 
-			this.toolStripSeparatorSize2.Name = "toolStripSeparatorSize2";
-			this.toolStripSeparatorSize2.Size = new System.Drawing.Size(130, 6);
-			// 
-			// 高さ120ToolStripMenuItem
-			// 
-			this.高さ120ToolStripMenuItem.Name = "高さ120ToolStripMenuItem";
-			this.高さ120ToolStripMenuItem.Size = new System.Drawing.Size(133, 22);
-			this.高さ120ToolStripMenuItem.Text = "高さ：120";
-			this.高さ120ToolStripMenuItem.Click += new System.EventHandler(this.高さ120ToolStripMenuItem_Click);
-			// 
-			// 高さ240ToolStripMenuItem
-			// 
-			this.高さ240ToolStripMenuItem.Name = "高さ240ToolStripMenuItem";
-			this.高さ240ToolStripMenuItem.Size = new System.Drawing.Size(133, 22);
-			this.高さ240ToolStripMenuItem.Text = "高さ：240";
-			this.高さ240ToolStripMenuItem.Click += new System.EventHandler(this.高さ240ToolStripMenuItem_Click);
-			// 
-			// 高さ360ToolStripMenuItem
-			// 
-			this.高さ360ToolStripMenuItem.Name = "高さ360ToolStripMenuItem";
-			this.高さ360ToolStripMenuItem.Size = new System.Drawing.Size(133, 22);
-			this.高さ360ToolStripMenuItem.Text = "高さ：360";
-			this.高さ360ToolStripMenuItem.Click += new System.EventHandler(this.高さ360ToolStripMenuItem_Click);
-			// 
-			// 高さ480ToolStripMenuItem
-			// 
-			this.高さ480ToolStripMenuItem.Name = "高さ480ToolStripMenuItem";
-			this.高さ480ToolStripMenuItem.Size = new System.Drawing.Size(133, 22);
-			this.高さ480ToolStripMenuItem.Text = "高さ：480";
-			this.高さ480ToolStripMenuItem.Click += new System.EventHandler(this.幅480ToolStripMenuItem_Click);
-			// 
-			// 高さ600ToolStripMenuItem
-			// 
-			this.高さ600ToolStripMenuItem.Name = "高さ600ToolStripMenuItem";
-			this.高さ600ToolStripMenuItem.Size = new System.Drawing.Size(133, 22);
-			this.高さ600ToolStripMenuItem.Text = "高さ：600";
-			this.高さ600ToolStripMenuItem.Click += new System.EventHandler(this.高さ600ToolStripMenuItem_Click);
-			// 
-			// toolStripButtonOpenViewer
-			// 
-			this.toolStripButtonOpenViewer.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-			this.toolStripButtonOpenViewer.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonOpenViewer.Image")));
-			this.toolStripButtonOpenViewer.ImageTransparentColor = System.Drawing.Color.Magenta;
-			this.toolStripButtonOpenViewer.Name = "toolStripButtonOpenViewer";
-			this.toolStripButtonOpenViewer.Size = new System.Drawing.Size(23, 22);
-			this.toolStripButtonOpenViewer.Text = "スレッドビューワを表示";
-			this.toolStripButtonOpenViewer.Click += new System.EventHandler(this.toolStripButton1_Click);
-			// 
-			// toolStripButtonMin
-			// 
-			this.toolStripButtonMin.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-			this.toolStripButtonMin.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonMin.Image")));
-			this.toolStripButtonMin.ImageTransparentColor = System.Drawing.Color.Magenta;
-			this.toolStripButtonMin.Name = "toolStripButtonMin";
-			this.toolStripButtonMin.Size = new System.Drawing.Size(23, 22);
-			this.toolStripButtonMin.Text = "最小化";
-			this.toolStripButtonMin.Click += new System.EventHandler(this.toolStripButtonMin_Click);
-			// 
-			// toolStripButtonMax
-			// 
-			this.toolStripButtonMax.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-			this.toolStripButtonMax.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonMax.Image")));
-			this.toolStripButtonMax.ImageTransparentColor = System.Drawing.Color.Magenta;
-			this.toolStripButtonMax.Name = "toolStripButtonMax";
-			this.toolStripButtonMax.Size = new System.Drawing.Size(23, 22);
-			this.toolStripButtonMax.Text = "最大化";
-			this.toolStripButtonMax.Click += new System.EventHandler(this.toolStripButtonMax_Click);
-			// 
-			// toolStripButtonClose
-			// 
-			this.toolStripButtonClose.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-			this.toolStripButtonClose.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonClose.Image")));
-			this.toolStripButtonClose.ImageTransparentColor = System.Drawing.Color.Magenta;
-			this.toolStripButtonClose.Name = "toolStripButtonClose";
-			this.toolStripButtonClose.Size = new System.Drawing.Size(23, 22);
-			this.toolStripButtonClose.Text = "閉じる";
-			this.toolStripButtonClose.Click += new System.EventHandler(this.toolStripButtonClose_Click);
-			// 
 			// MainForm
 			// 
 			this.AllowDrop = true;
@@ -1497,6 +1498,8 @@
 			this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.MainForm_KeyDown);
 			this.panelWMP.ResumeLayout(false);
 			this.panelWMP.PerformLayout();
+			this.toolStrip.ResumeLayout(false);
+			this.toolStrip.PerformLayout();
 			this.panelResBox.ResumeLayout(false);
 			this.panelResBox.PerformLayout();
 			this.contextMenuStripResBox.ResumeLayout(false);
@@ -1507,8 +1510,6 @@
 			this.panelDetailRight.PerformLayout();
 			((System.ComponentModel.ISupportInitialize)(this.pictureBoxIcon)).EndInit();
 			this.contextMenuStripWMP.ResumeLayout(false);
-			this.toolStrip.ResumeLayout(false);
-			this.toolStrip.PerformLayout();
 			this.ResumeLayout(false);
 
 		}

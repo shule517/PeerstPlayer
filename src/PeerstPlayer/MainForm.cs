@@ -19,7 +19,7 @@ namespace PeerstPlayer
 		/// <summary>
 		/// 掲示板操作クラス
 		/// </summary>
-		OperationBbs operationBbs = null;
+		OperationBbs operationBbs = new OperationBbs();
 
 		/// <summary>
 		/// チャンネル情報
@@ -141,7 +141,7 @@ namespace PeerstPlayer
 		/// <summary>
 		/// 終了時に一緒にビューワも終了するか
 		/// </summary>
-		bool CloseViewerOnClose = true;
+		bool CloseViewerOnClose = false;
 
 		/// <summary>
 		/// 終了時のボリュームを保存するか
@@ -1860,17 +1860,21 @@ H = Retry
 
 		delegate void UpdateThreadInfoDelegate();
 
+		// TODO 変数名を修正する
+		ThreadInfo threadInfo = new ThreadInfo("", "", "");
+
 		void HttpGetThreadListWorker()
 		{
 			// 初回だけスレ情報取得＋スレ移動
 			if (!InitThreadSelected)
 			{
-				operationBbs = new OperationBbs(ChannelInfo.ContactURL);
+				operationBbs.ChangeUrl(ChannelInfo.ContactURL);
 				
 				InitThreadSelected = true;
 			}
 
 			// スレッド情報を更新
+			threadInfo = operationBbs.GetThreadInfo();
 			if (labelThreadTitle.InvokeRequired)
 			{
 				Invoke(new UpdateThreadInfoDelegate(UpdateThreadInfo));
@@ -1890,8 +1894,7 @@ H = Retry
 			labelThreadTitle.Text = "読み込み中...";
 
 			// TODO スレタイ/レス数を取得する
-			ThreadInfo thread = operationBbs.GetThreadInfo();
-			labelThreadTitle.Text = thread.Title + "(" + thread.ResCount + ")";
+			labelThreadTitle.Text = threadInfo.Title + "(" + threadInfo.ResCount + ")";
 		}
 
 		/// <summary>
@@ -2658,6 +2661,18 @@ H = Retry
 						IsWriting = true;
 					}
 				}
+			}
+		}
+
+		private void labelThreadTitle_MouseDown(object sender, MouseEventArgs e)
+		{
+			if (e.Button == System.Windows.Forms.MouseButtons.Left)
+			{
+				MessageBox.Show("TODO スレッド選択ダイアログを表示する");
+			}
+			else if (e.Button == System.Windows.Forms.MouseButtons.Right)
+			{
+				スレッドビューワを開くToolStripMenuItem_Click(this, EventArgs.Empty);
 			}
 		}
 	}

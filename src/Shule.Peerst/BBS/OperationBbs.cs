@@ -21,6 +21,16 @@ namespace Shule.Peerst.BBS
 		}
 
 		/// <summary>
+		/// コンストラクタ
+		/// </summary>
+		/// <param name="url">掲示板URL</param>
+		public OperationBbs()
+		{
+			bbsFactory = new BbsFactory();
+			bbsStrategy = new NullBbsStrategy();
+		}
+
+		/// <summary>
 		/// 掲示板URL変更
 		/// URLにあったストラテジに変更する
 		/// </summary>

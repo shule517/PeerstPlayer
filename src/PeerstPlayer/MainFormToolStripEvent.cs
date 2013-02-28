@@ -937,12 +937,14 @@ namespace PeerstPlayer
 				}
 				else
 				{
+					/*
 					// 起動していたら終了
 					if (ThreadViewerProcess != null && !ThreadViewerProcess.HasExited)
 					{
 						// 終了
 						ThreadViewerProcess.CloseMainWindow();
 					}
+					 */
 
 					// スレビューワを開く
 					fileName = GetCurrentDirectory() + "\\PeerstViewer.exe";
@@ -979,6 +981,7 @@ namespace PeerstPlayer
 				operationBbs.ChangeUrl(toolStripTextBoxThreadURL.Text);
 
 				// スレッド情報の更新
+				threadInfo = operationBbs.GetThreadInfo();
 				if (labelThreadTitle.InvokeRequired)
 				{
 					Invoke(new UpdateThreadInfoDelegate(UpdateThreadInfo));

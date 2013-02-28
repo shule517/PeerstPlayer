@@ -20,7 +20,7 @@ namespace PeerstViewer
 		/// <summary>
 		/// 掲示板操作クラス
 		/// </summary>
-		OperationBbs operationBbs = null;
+		OperationBbs operationBbs = new OperationBbs();
 
 		/// <summary>
 		/// 現在取得している次のレス番号
@@ -232,7 +232,7 @@ namespace PeerstViewer
 				String url = Environment.GetCommandLineArgs()[1].ToString();
 
 				// コンタクトURL設定有り
-				operationBbs = new OperationBbs(url);
+				operationBbs.ChangeUrl(url);
 
 				// スレ一覧更新
 				ThreadListUpdate();
@@ -240,7 +240,7 @@ namespace PeerstViewer
 			else
 			{
 				// コンタクトURL設定なし
-				operationBbs = new OperationBbs("本スレ");
+				operationBbs.ChangeUrl("本スレ");
 
 				// ブラウザのフォント、背景色を設定
 				webBrowser.DocumentText = @"<body bgcolor=""#E6EEF3"" style=""font-family:'ＭＳ Ｐゴシック','ＭＳＰゴシック','MSPゴシック','MS Pゴシック';font-size:14px;line-height:16px;"" ><br>↑スレッド(板)URLを入力してください。";
