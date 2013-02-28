@@ -1,4 +1,5 @@
-﻿namespace PeerstPlayer
+﻿using System.Windows.Forms;
+namespace PeerstPlayer
 {
 	partial class MainForm
 	{
@@ -79,7 +80,7 @@
 			this.toolStripButtonMax = new System.Windows.Forms.ToolStripButton();
 			this.toolStripButtonClose = new System.Windows.Forms.ToolStripButton();
 			this.panelResBox = new System.Windows.Forms.Panel();
-			this.resBox = new PeerstPlayer.ResBox();
+			this.resBox = new TextBox();
 			this.labelThreadTitle = new System.Windows.Forms.Label();
 			this.contextMenuStripResBox = new System.Windows.Forms.ContextMenuStrip(this.components);
 			this.スレッドビューワを開くToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -614,7 +615,6 @@
 			this.resBox.Name = "resBox";
 			this.resBox.Size = new System.Drawing.Size(480, 19);
 			this.resBox.TabIndex = 1;
-			this.resBox.ThreadTitle = "";
 			this.resBox.WordWrap = false;
 			this.resBox.TextChanged += new System.EventHandler(this.resBox_TextChanged);
 			this.resBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.resBox_KeyDown);
@@ -1528,7 +1528,7 @@
 		private System.Windows.Forms.Label labelDuration;
 		private System.Windows.Forms.Label labelDetail;
 		private System.Windows.Forms.PictureBox pictureBoxIcon;
-		private ResBox resBox;
+		private TextBox resBox;
 		private System.Windows.Forms.Timer timerDetail;
 		private System.Windows.Forms.ContextMenuStrip contextMenuStripResBox;
 		private System.Windows.Forms.ToolStripMenuItem スレッド一覧を更新ToolStripMenuItem;

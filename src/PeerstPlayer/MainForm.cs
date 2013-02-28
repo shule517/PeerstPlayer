@@ -2037,7 +2037,7 @@ H = Retry
 		{
 			if (BeforeWriteThreadNo != ThreadNo)
 			{
-				string text = "板名：" + operationBbs.GetBbsName() + "\nスレッド名：" + resBox.ThreadTitle + "\n書き込み内容：" + resBox.Text;
+				string text = "板名：" + operationBbs.GetBbsName() + "\nスレッド名：" + threadInfo.Title + "\n書き込み内容：" + resBox.Text;
 				DialogResult result = MessageBox.Show(text, "書き込み確認", MessageBoxButtons.YesNo);
 
 				if (result == DialogResult.No)

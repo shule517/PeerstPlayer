@@ -118,9 +118,6 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="ResBox.cs">
-      <SubType>Component</SubType>
-    </Compile>
     <Compile Include="ToolStripEx.cs">
       <SubType>Component</SubType>
     </Compile>
