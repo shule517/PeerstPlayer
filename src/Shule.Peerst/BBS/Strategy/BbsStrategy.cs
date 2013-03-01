@@ -148,17 +148,19 @@ namespace Shule.Peerst.BBS
 		public List<ThreadInfo> GetThreadList()
 		{
 			List<ThreadInfo> threadList = new List<ThreadInfo>();
-			string[] list;
-			GetSubject(out list);
+			string[] subjects;
 
-			for (int i = 0; i < list.Length - 1; i += 2)
+			// Subject.txtの取得
+			GetSubject(out subjects);
+
+			// スレッドデータ作成
+			for (int i = 0; i < subjects.Length - 1; i += 2)
 			{
-				// スレッドデータ作成
 				string[] text = new string[3];
-				int index = list[i + 1].LastIndexOf('(');
-				string threadTitle = list[i + 1].Substring(0, index);
-				string resNum = list[i + 1].Substring(index + 1, list[i + 1].Length - index - 2);
-				string threadNo = list[i];
+				int index = subjects[i + 1].LastIndexOf('(');
+				string threadTitle = subjects[i + 1].Substring(0, index);
+				string resNum = subjects[i + 1].Substring(index + 1, subjects[i + 1].Length - index - 2);
+				string threadNo = subjects[i];
 				ThreadInfo thread = new ThreadInfo(threadTitle, threadNo, resNum);
 
 				// 追加
@@ -195,7 +197,7 @@ namespace Shule.Peerst.BBS
 		/// <summary>
 		/// Subject.txtの取得
 		/// </summary>
-		private void GetSubject(out string[] list)
+		private void GetSubject(out string[] subjectArray)
 		{
 			// subject.txtを取得
 			string subject_html = HTTP.GetHtml(GetSubjectUrl(), GetEncode());
@@ -205,10 +207,14 @@ namespace Shule.Peerst.BBS
 			separator[0] = "\n";
 			separator[1] = GetSubjectSplit();
 
-			list = subject_html.Split(separator, StringSplitOptions.None);
+			subjectArray = subject_html.Split(separator, StringSplitOptions.None);
 
-			// TODO したらばの場合は、最下位のデータは読まない。
-			// TODO 最上位のデータと同じため
+			// したらばの場合は、最下位のデータは削除する
+			// 最上位のデータと同じため
+			if (bbsUrl.BBSServer == BbsServer.Shitaraba)
+			{
+				Array.Resize(ref subjectArray, subjectArray.Length - 3);
+			}
 		}
 
 		/// <summary>
