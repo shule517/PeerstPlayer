@@ -17,7 +17,7 @@ namespace PeerstPlayer
 		// スレッド選択監視
 		ThreadSelectObserver selectThreadObserver = null;
 
-		// TODO スレッドストップスレの表示/非表示を切替
+		// TODO スレッドストップスレの表示/非表示を切替(チェックボックス)
 		// TODO カラムクリックでソートを行う
 
 		/// <summary>
@@ -83,29 +83,6 @@ namespace PeerstPlayer
 		}
 
 		/// <summary>
-		/// ダブルクリック
-		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
-		private void listViewThread_DoubleClick(object sender, EventArgs e)
-		{
-			// 未選択チェック
-			if (listViewThread.SelectedItems.Count == 0)
-			{
-				return;
-			}
-
-			// MainFormのスレッド変更
-			string selectThreadNo = listViewThread.SelectedItems[0].Tag.ToString();
-
-			// スレッドURL更新通知
-			selectThreadObserver.UpdateThreadUrl(operationBbs.GetUrl(), selectThreadNo);
-
-			// 非表示
-			Visible = false;
-		}
-
-		/// <summary>
 		/// フォームを終了する
 		/// </summary>
 		/// <param name="sender"></param>
@@ -115,6 +92,33 @@ namespace PeerstPlayer
 			// 終了せずに、非表示とする
 			Visible = false;
 			e.Cancel = true;
+		}
+
+		/// <summary>
+		/// ダブルクリックイベント
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
+		private void listViewThread_MouseDoubleClick(object sender, MouseEventArgs e)
+		{
+			// 未選択チェック
+			if (listViewThread.SelectedItems.Count == 0)
+			{
+				return;
+			}
+
+			// 左クリック
+			if (e.Button == System.Windows.Forms.MouseButtons.Left)
+			{
+				// MainFormのスレッド変更
+				string selectThreadNo = listViewThread.SelectedItems[0].Tag.ToString();
+
+				// スレッドURL更新通知
+				selectThreadObserver.UpdateThreadUrl(operationBbs.GetUrl(), selectThreadNo);
+
+				// 非表示
+				Visible = false;
+			}
 		}
 	}
 }

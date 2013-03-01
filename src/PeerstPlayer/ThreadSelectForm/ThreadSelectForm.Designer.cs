@@ -78,7 +78,7 @@
 			this.listViewThread.TabIndex = 2;
 			this.listViewThread.UseCompatibleStateImageBehavior = false;
 			this.listViewThread.View = System.Windows.Forms.View.Details;
-			this.listViewThread.DoubleClick += new System.EventHandler(this.listViewThread_DoubleClick);
+			this.listViewThread.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.listViewThread_MouseDoubleClick);
 			// 
 			// columnHeaderNo
 			// 

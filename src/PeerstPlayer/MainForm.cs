@@ -2577,7 +2577,8 @@ H = Retry
 
 			// レスボックスの大きさを変更
 			resBox.Height = resBox.PreferredSize.Height;
-			panelResBox.Height = 18 + resBox.Height;
+			const int LABEL_THREAD_TITLE_HEIGHT = 13;
+			panelResBox.Height = LABEL_THREAD_TITLE_HEIGHT + resBox.Height;
 			OnPanelSizeChange();
 		}
 
