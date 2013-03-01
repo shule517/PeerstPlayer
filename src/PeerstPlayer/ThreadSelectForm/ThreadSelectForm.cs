@@ -15,13 +15,16 @@ namespace PeerstPlayer
 		OperationBbs operationBbs = new OperationBbs();
 
 		// スレッド選択監視
-		SelectThreadObserver selectThreadObserver = null;
+		ThreadSelectObserver selectThreadObserver = null;
+
+		// TODO スレッドストップスレの表示/非表示を切替
+		// TODO カラムクリックでソートを行う
 
 		/// <summary>
 		/// コンストラクタ
 		/// </summary>
 		/// <param name="operationBbs">MainFormのOperationBbs</param>
-		public ThreadSelectForm(SelectThreadObserver selectThreadObserver)
+		public ThreadSelectForm(ThreadSelectObserver selectThreadObserver)
 		{
 			InitializeComponent();
 			this.selectThreadObserver = selectThreadObserver;

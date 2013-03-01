@@ -5,7 +5,7 @@ using System.Text;
 
 namespace PeerstPlayer
 {
-	public interface SelectThreadObserver
+	public interface ThreadSelectObserver
 	{
 		void UpdateThreadUrl(string threadUrl, string threadName);
 	}

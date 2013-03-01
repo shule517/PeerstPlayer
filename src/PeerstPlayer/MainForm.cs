@@ -14,7 +14,7 @@ using Shule.Peerst.BBS;
 
 namespace PeerstPlayer
 {
-	public partial class MainForm : Form, SelectThreadObserver
+	public partial class MainForm : Form, ThreadSelectObserver
 	{
 		/// <summary>
 		/// 掲示板操作クラス
