@@ -6,6 +6,7 @@ using System.IO;
 using System.Windows.Forms;
 using System.Web;
 using Shule.Peerst.Web;
+using Shule.Peerst.PeerCast;
 
 namespace PeerstPlayer
 {
@@ -14,12 +15,6 @@ namespace PeerstPlayer
 		public ChannelInfo()
 		{
 		}
-
-		string host = "";
-		string port_no = "";
-		string id = "";
-		string url = "";
-		string html = "";
 
 		/// <summary>
 		/// チャンネル情報が取得されているか
@@ -99,6 +94,9 @@ namespace PeerstPlayer
 
 		#region チャンネル情報をアップデート
 
+		// PeerCastマネージャ
+		PeerCastManager pecaManager = null;
+
 		public void Update(URLData uRLData)
 		{
 			if (uRLData.Host == "" || uRLData.PortNo == "" || uRLData.ID == "")
@@ -108,93 +106,39 @@ namespace PeerstPlayer
 			}
 
 			FileName = "";
-			this.host = uRLData.Host;
-			this.port_no = uRLData.PortNo;
-			this.id = uRLData.ID;
 
-			url = "/html/peerst/channel_info.html?id=" + id;
+			// TODO 生成タイミングを変える
+			pecaManager = new PeerCastManager(uRLData.Host, uRLData.PortNo, uRLData.ID);
+			Shule.Peerst.PeerCast.ChannelInfo channelInfo = pecaManager.GetChannelInfo();
 
-			// httpスレッド初期化
-			html = "";
-			/*
-			httpThread = new System.Threading.Thread(new System.Threading.ThreadStart(HttpThreadMethod));
-			httpThread.Start();
-			while (html == "")
+			name = channelInfo.Name;
+			genre = channelInfo.Genre;
+
+			// アイコンURLを取得
+			iconURL = GetIconURL(genre);
+
+			// ジャンルからアイコンURLをはずす
+			if (iconURL != "")
 			{
-				Application.DoEvents();
+				genre = genre.Replace(iconURL, "");
 			}
-			 */
-			html = HTTP.GetHtml(host, port_no, url, "utf-8");
 
-			//string html = HTTP.GetHtml(host, port_no, url);
+			// ジャンル調整
+			genre = SelectGenre(genre);
 
-			// channel_info.htmlがあるか？
-			if (IsInfoHtml(html))
-			{
-				// なければ作ってもう一度取得
-				try
-				{
-					html = HTTP.GetHtml(host, port_no, url, "utf-8");
-				}
-				catch
-				{
-					return;
-				}
-			}
-			
-			// HTMLをデコード
-			html = EncodeHtmlToText(html);
+			// 詳細
+			desc = channelInfo.Desc;
+			bitrate = channelInfo.Bitrate;
+			totalListeners = channelInfo.Listeners;
+			totalRelays = channelInfo.Relays;
+			status = channelInfo.Status;
+			trackArtist = channelInfo.TrackArtist;
+			trackTitle = channelInfo.TrackTitle;
+			trackAlbum = channelInfo.TrackAlbum;
+			contactURL = channelInfo.Url;
+			comment = channelInfo.Comment;
 
-			string[] info_list = html.Split('\n');
-			if (info_list.Length == 12)
-			{
-				// 取得できたか判定
-				if (info_list[0] == "page.channel.name" || info_list[0] == "")// || info_list[6] == "ERROR")
-				{
-					// 取得失敗
-					return;
-				}
-				else
-				{
-					// 取得成功
-					IsInfo = true;
-				}
-
-				// チャンネル名
-				name = info_list[0];
-
-				// ジャンル
-				genre = info_list[1];
-
-				// アイコンURLを取得
-				iconURL = GetIconURL(genre);
-
-				// ジャンルからアイコンURLをはずす
-				if (iconURL != "")
-				{
-					genre = genre.Replace(iconURL, "");
-				}
-
-				// ジャンル調整
-				genre = SelectGenre(genre);
-
-				// 詳細
-				desc = info_list[2];
-				bitrate = info_list[3];
-				totalListeners = info_list[4];
-				totalRelays = info_list[5];
-				status = info_list[6];
-				trackArtist = info_list[7];
-				trackTitle = info_list[8];
-				trackAlbum = info_list[9];
-				contactURL = info_list[10];
-				comment = info_list[11];
-
-				if (contactURL == "")
-				{
-					contactURL = "本スレ";
-				}
-			}
+			// TODO 詳細に本スレがある場合は、コンタクトＵＲＬを本スレにする
 		}
 
 		private string SelectGenre(string genre)
@@ -246,69 +190,6 @@ namespace PeerstPlayer
 		private string EncodeHtmlToText(string str)
 		{
 			return HttpUtility.HtmlDecode(str);
-		}
-
-		#endregion
-
-		#region channel_info.htmlを作成
-
-		private bool IsInfoHtml(string text)
-		{
-			Regex regex = new Regex(@"Unable to open file : (.*)\\html");
-			Match match = regex.Match(text);
-
-			if (match.Groups.Count <= 1)
-			{
-				return false;
-			}
-			else
-			{
-				try
-				{
-					string info = HTTP.GetHtml(host, port_no, url, "shift_jis");
-					regex = new Regex(@"Unable to open file : (.*)\\html");
-					match = regex.Match(info);
-
-					string path = match.Groups[1].Value;
-
-					// peerstフォルダを作成
-					path += "\\html\\peerst";
-					if (!Directory.Exists(path))
-					{
-						Directory.CreateDirectory(path);
-					}
-
-					// channel_info.htmlを作成
-					string html = @"{$page.channel.name}
-{$page.channel.genre}
-{$page.channel.desc}
-{$page.channel.bitrate} kbps
-{$page.channel.totalListeners}
-{$page.channel.totalRelays}
-{$page.channel.status}
-{$page.channel.track.artist}
-{$page.channel.track.title}
-{$page.channel.track.album}
-{$page.channel.contactURL}
-{$page.channel.comment}";
-					FileStream writer = new FileStream(path + "\\channel_info.html", FileMode.Create, FileAccess.Write);
-
-					//文字コードを指定する
-					System.Text.Encoding enc = System.Text.Encoding.UTF8;
-
-					//文字列をByte型配列に変換
-					byte[] sendBytes = enc.GetBytes(html);
-
-					writer.Write(sendBytes, 0, sendBytes.Length);
-					writer.Close();
-
-					return true;
-				}
-				catch
-				{
-					return false;
-				}
-			}
 		}
 
 		#endregion

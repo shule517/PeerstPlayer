@@ -11,6 +11,7 @@ using System.Text;
 using System.Windows.Forms;
 using Shule.Peerst.Util;
 using Shule.Peerst.BBS;
+using Shule.Peerst.PeerCast;
 
 namespace PeerstPlayer
 {
