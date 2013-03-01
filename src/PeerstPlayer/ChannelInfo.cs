@@ -139,6 +139,9 @@ namespace PeerstPlayer
 			comment = channelInfo.Comment;
 
 			// TODO 詳細に本スレがある場合は、コンタクトＵＲＬを本スレにする
+
+			// チャンネル情報取得完了
+			IsInfo = true;
 		}
 
 		private string SelectGenre(string genre)
