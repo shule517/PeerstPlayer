@@ -73,9 +73,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BBS.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="ChannelInfo.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
