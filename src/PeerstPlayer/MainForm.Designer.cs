@@ -80,7 +80,7 @@ namespace PeerstPlayer
 			this.toolStripButtonMax = new System.Windows.Forms.ToolStripButton();
 			this.toolStripButtonClose = new System.Windows.Forms.ToolStripButton();
 			this.panelResBox = new System.Windows.Forms.Panel();
-			this.resBox = new TextBox();
+			this.resBox = new System.Windows.Forms.TextBox();
 			this.labelThreadTitle = new System.Windows.Forms.Label();
 			this.contextMenuStripResBox = new System.Windows.Forms.ContextMenuStrip(this.components);
 			this.スレッドビューワを開くToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -628,7 +628,7 @@ namespace PeerstPlayer
 			this.labelThreadTitle.Name = "labelThreadTitle";
 			this.labelThreadTitle.Size = new System.Drawing.Size(480, 32);
 			this.labelThreadTitle.TabIndex = 2;
-			this.labelThreadTitle.Text = "スレッドタイトル(レス数)";
+			this.labelThreadTitle.Text = "読み込み中...";
 			this.labelThreadTitle.TextAlign = System.Drawing.ContentAlignment.TopCenter;
 			this.labelThreadTitle.MouseDown += new System.Windows.Forms.MouseEventHandler(this.labelThreadTitle_MouseDown);
 			// 

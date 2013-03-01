@@ -129,5 +129,14 @@ namespace Shule.Peerst.BBS
 		{
 			return bbsStrategy.GetBbsUrl().ToString();
 		}
+
+		/// <summary>
+		/// スレッド番号の取得
+		/// </summary>
+		/// <returns>スレッド番号</returns>
+		public string GetThreadNo()
+		{
+			return GetBbsUrl().ThreadNo;
+		}
 	}
 }

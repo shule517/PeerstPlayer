@@ -19,6 +19,9 @@ namespace PeerstPlayer
 			// 初期化ファイルを読み込む
 			LoadInitFile();
 
+			// スレ選択フォーム
+			threadSelectForm = new ThreadSelectForm(this);
+
 			// WMP初期化
 			panelWMP.Controls.Add(wmp);
 			wmp.uiMode = "none";

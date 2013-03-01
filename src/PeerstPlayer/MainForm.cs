@@ -14,7 +14,7 @@ using Shule.Peerst.BBS;
 
 namespace PeerstPlayer
 {
-	public partial class MainForm : Form
+	public partial class MainForm : Form, SelectThreadObserver
 	{
 		/// <summary>
 		/// 掲示板操作クラス
@@ -1886,18 +1886,6 @@ H = Retry
 		}
 
 		/// <summary>
-		/// スレッド一覧取得（スレッド）
-		/// </summary>
-		void UpdateThreadInfo()
-		{
-			// TODO スレッド呼び出し前に「読み込み中...」と出す
-			labelThreadTitle.Text = "読み込み中...";
-
-			// TODO スレタイ/レス数を取得する
-			labelThreadTitle.Text = threadInfo.Title + "(" + threadInfo.ResCount + ")";
-		}
-
-		/// <summary>
 		/// スレッド一覧を更新
 		/// </summary>
 		private void ThreadListUpdate()
@@ -1910,7 +1898,7 @@ H = Retry
 		/// <summary>
 		/// スレッド一覧スレッド
 		/// </summary>
-		System.Threading.Thread channelInfoUpdateThread;
+		System.Threading.Thread channelInfoUpdateThread = null;
 
 		/// <summary>
 		/// チャンネル情報を更新
@@ -2664,15 +2652,82 @@ H = Retry
 			}
 		}
 
+		// スレッド選択フォーム
+		ThreadSelectForm threadSelectForm = null;
+
+		/// <summary>
+		/// スレッドタイトルをクリック
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
 		private void labelThreadTitle_MouseDown(object sender, MouseEventArgs e)
 		{
+			// 左クリック
 			if (e.Button == System.Windows.Forms.MouseButtons.Left)
 			{
-				MessageBox.Show("TODO スレッド選択ダイアログを表示する");
+				// TODO コンタクトＵＲＬが取得できる前に開く場合はどうするか
+				// スレッド選択フォームを開く
+				threadSelectForm.Update(operationBbs.GetUrl());
+				threadSelectForm.Show();
+				threadSelectForm.Focus();
 			}
+			// 右クリック
 			else if (e.Button == System.Windows.Forms.MouseButtons.Right)
 			{
+				// スレッドビューワを開く
 				スレッドビューワを開くToolStripMenuItem_Click(this, EventArgs.Empty);
+			}
+		}
+
+		/// <summary>
+		/// スレッド選択オブザーバ
+		/// </summary>
+		/// <param name="threadUrl"></param>
+		/// <param name="threadNo"></param>
+		public void UpdateThreadUrl(string threadUrl, string threadNo)
+		{
+			// スレッドURL変更
+			operationBbs.ChangeUrl(threadUrl);
+			operationBbs.ChangeThread(threadNo);
+
+			// TODO スレッド化
+			// スレッド情報を更新
+			threadInfo = operationBbs.GetThreadInfo();
+			if (labelThreadTitle.InvokeRequired)
+			{
+				Invoke(new UpdateThreadInfoDelegate(UpdateThreadInfo));
+			}
+			else
+			{
+				UpdateThreadInfo();
+			}
+		}
+
+		/// <summary>
+		/// スレッドタイトル表示
+		/// </summary>
+		void UpdateThreadInfo()
+		{
+			// スレッドタイトル表示
+			if (threadInfo.Title == "")
+			{
+				// 掲示板[板名] - スレッドを選択してください
+				labelThreadTitle.Text = "掲示板名[ " + operationBbs.GetBbsName() + " ] - スレッドを選択してください";
+			}
+			else
+			{
+				// スレタイ(レス数)
+				labelThreadTitle.Text = threadInfo.Title + "(" + threadInfo.ResCount + ")";
+
+				// 文字色の変更
+				if (int.Parse(threadInfo.ResCount) >= 1000)
+				{
+					labelThreadTitle.ForeColor = Color.Red;
+				}
+				else
+				{
+					labelThreadTitle.ForeColor = Color.SpringGreen;
+				}
 			}
 		}
 	}
