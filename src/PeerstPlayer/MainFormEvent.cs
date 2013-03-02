@@ -76,7 +76,12 @@ namespace PeerstPlayer
 			}
 
 			// ステータスバーにチャンネル詳細を表示
-			labelDetail.Text = channelInfo.ToString() +" " + wmp.FPS + "fps " + wmp.BandWidth + "kbps パケット:" + wmp.ReceivedPackets + " (" + wmp.Width + "x" + wmp.Height + ")";
+			string detail = channelInfo.ToString();
+			if (detail == "")
+			{
+				detail = GetChannelName() + " 取得中...";
+			}
+			labelDetail.Text = detail +" " + wmp.FPS + "fps " + wmp.BandWidth + "kbps パケット:" + wmp.ReceivedPackets + " (" + wmp.Width + "x" + wmp.Height + ")";
 		}
 
 		private void MainForm_KeyDown(object sender, KeyEventArgs e)
