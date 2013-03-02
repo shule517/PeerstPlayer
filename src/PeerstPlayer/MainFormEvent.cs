@@ -45,7 +45,7 @@ namespace PeerstPlayer
 			ChannelInfo channelInfo = pecaManager.GetChannelInfo();
 
 			// コマンドラインからチャンネル名を取得
-			ChannelDetail = GetChannelName();
+			labelDetail.Text = GetChannelName();
 		}
 
 		/// <summary>
@@ -92,7 +92,7 @@ namespace PeerstPlayer
 			// ステータスバーにチャンネル詳細を表示
 			if (CommandShowCount <= 0)
 			{
-				labelDetail.Text = ChannelDetail + " " + wmp.FPS + "fps " + wmp.BandWidth + "kbps パケット:" + wmp.ReceivedPackets + " (" + wmp.Width + "x" + wmp.Height + ")";
+				labelDetail.Text = channelInfo.ToString() +" " + wmp.FPS + "fps " + wmp.BandWidth + "kbps パケット:" + wmp.ReceivedPackets + " (" + wmp.Width + "x" + wmp.Height + ")";
 				CommandShowCount = 0;
 			}
 

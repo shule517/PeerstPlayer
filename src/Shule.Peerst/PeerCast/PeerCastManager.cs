@@ -1,7 +1,9 @@
 ﻿using Shule.Peerst.Web;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Xml;
 
 namespace Shule.Peerst.PeerCast
@@ -20,6 +22,75 @@ namespace Shule.Peerst.PeerCast
 		public bool IsInfo { get; set; }
 		public string Status { get; set; }
 		public string IconURL { get; set; }
+
+		public override string ToString()
+		{
+			if (IsInfo == false)
+			{
+				return "";
+			}
+
+			string text = "";
+
+			// チャンネル名
+			text += Name;
+
+			// [ジャンル - 詳細]
+			if (Genre != "")
+			{
+				if (Desc != "")
+				{
+					text += " [" + Genre + " - " + Desc + "]";
+				}
+				else
+				{
+					text += " [" + Genre + "]";
+				}
+			}
+			else
+			{
+				if (Desc != "")
+				{
+					text += " [" + Desc + "]";
+				}
+			}
+
+			/*
+			// アーティスト
+			if (TrackArtist != "")
+			{
+				text += " " + TrackArtist;
+			}
+
+			// タイトル
+			if (TrackTitle != "")
+			{
+				text += " " + TrackTitle;
+			}
+
+			// アルバム
+			if (TrackAlbum != "")
+			{
+				text += " " + TrackAlbum;
+			}
+			 */
+
+			// コメント
+			if (Comment != "")
+			{
+				text += " " + Comment;
+			}
+
+			/*
+			// ビットレート
+			if (Bitrate != "")
+			{
+				text += " <" + Bitrate + ">";
+			}
+			 */
+
+			return text;
+		}
 	}
 
 	public class PeerCastManager
@@ -68,6 +139,18 @@ namespace Shule.Peerst.PeerCast
 						// 取得結果をtrue
 						if (channelInfo.Name != "")
 						{
+							// アイコンURLを取得
+							channelInfo.IconURL = GetIconURL(channelInfo.Genre);
+
+							// ジャンルからアイコンURLをはずす
+							if (channelInfo.IconURL != "")
+							{
+								channelInfo.Genre = channelInfo.Genre.Replace(channelInfo.IconURL, "");
+							}
+
+							// ジャンル調整
+							channelInfo.Genre = SelectGenre(channelInfo.Genre);
+
 							channelInfo.IsInfo = true;
 						}
 						else
@@ -135,6 +218,54 @@ namespace Shule.Peerst.PeerCast
 				{
 					channelInfo.ContactUrl = reader.Value;
 				}
+			}
+		}
+
+		/// <summary>
+		/// ジャンルの抽出
+		/// </summary>
+		/// <param name="genre">ジャンル</param>
+		/// <returns></returns>
+		private string SelectGenre(string genre)
+		{
+			// リンクアドレスを抽出
+			Regex http = new Regex(@"(cp|xp|rp|tp|hktv|sp|np|op|gp|lp|nm|np|twyp)([:]*)([?]*)([@]*)([+]*)(?<genre>.*)");
+			Match m = http.Match(genre);
+
+			string s = m.Groups["genre"].Value;
+			string a = m.Value;
+
+			return m.Groups["genre"].Value;
+		}
+
+		/// <summary>
+		/// ジャンルからIconURLを取得
+		/// </summary>
+		/// <param name="genre">ジャンル</param>
+		/// <returns>IconURL</returns>
+		private string GetIconURL(string genre)
+		{
+			// リンクアドレスを抽出
+			Regex http = new Regex(@"http://(?<domain>[\w\.]*)/(?<path>[\w\./]*)");
+			Match m = http.Match(genre);
+			string Ext = Path.GetExtension(m.Value);
+
+			switch (Ext)
+			{
+				// 画像リンク
+				case ".ico":
+				case ".ICO":
+				case ".png":
+				case ".PNG":
+				case ".gif":
+				case ".GIF":
+				case ".jpg":
+				case ".JPG":
+				case ".bmp":
+				case ".BMP":
+					return m.Value;
+				default:
+					return "";
 			}
 		}
 	}

@@ -33,16 +33,6 @@ namespace PeerstPlayer
 		WMPEx wmp;
 
 		/// <summary>
-		/// スレ番号
-		/// </summary>
-		string ThreadNo = "";
-
-		/// <summary>
-		/// チャンネル詳細
-		/// </summary>
-		string ChannelDetail = "";
-
-		/// <summary>
 		/// ブラウザアドレス
 		/// </summary>
 		string BrowserAddress = "";
@@ -117,7 +107,7 @@ namespace PeerstPlayer
 		/// <summary>
 		/// 起動時に動画サイズを合わせる
 		/// </summary>
-		bool FitSizeMovie = true;
+		bool FitSizeMovie = false;
 
 		/// <summary>
 		/// スクリーン吸着距離
@@ -1822,8 +1812,7 @@ H = Retry
 		void ChannelInfo_UpdateComp()
 		{
 			Text = channelInfo.Name;
-			ChannelDetail = channelInfo.ToString();
-			labelDetail.Text = ChannelDetail;
+			labelDetail.Text = channelInfo.ToString();
 			ThreadListUpdate();
 
 			if (channelInfo.IconURL != "")
