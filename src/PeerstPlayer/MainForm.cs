@@ -161,11 +161,6 @@ namespace PeerstPlayer
 		public Size PanelWMPSize = new Size(320, 240);
 
 		/// <summary>
-		/// コマンド表示カウント
-		/// </summary>
-		int CommandShowCount = 0;
-
-		/// <summary>
 		/// 初回のスレ選択をしたか
 		/// </summary>
 		bool InitThreadSelected = false;
@@ -809,7 +804,6 @@ namespace PeerstPlayer
 					}
 					break;
 				case "OpenContextMenu":
-					CommandShowCount = 10;
 					labelDetail.Text = CommandToString(command) + value;
 					wmp.enableContextMenu = true;
 					Win32API.SendMessage(wmp.Handle, Win32API.WM_CONTEXTMENU, new IntPtr(MousePosition.X), new IntPtr(MousePosition.Y));
@@ -933,7 +927,6 @@ namespace PeerstPlayer
 
 			if (command != "OpenContextMenu")
 			{
-				CommandShowCount = 10;
 				labelDetail.Text = CommandToString(command) + value;
 			}
 		}
@@ -2687,6 +2680,15 @@ H = Retry
 					labelThreadTitle.ForeColor = Color.SpringGreen;
 				}
 			}
+		}
+
+		private void timerUpdate_Tick(object sender, EventArgs e)
+		{
+			// スレ一覧更新
+			ExeCommand("ThreadListUpdate");
+
+			// チャンネル情報更新
+			ExeCommand("ChannelInfoUpdate");
 		}
 	}
 }

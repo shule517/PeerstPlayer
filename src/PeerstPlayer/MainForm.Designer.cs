@@ -770,7 +770,7 @@ namespace PeerstPlayer
 			// timerDetail
 			// 
 			this.timerDetail.Enabled = true;
-			this.timerDetail.Interval = 1;
+			this.timerDetail.Interval = 1000;
 			this.timerDetail.Tick += new System.EventHandler(this.timerDetail_Tick);
 			// 
 			// timerLoadIni

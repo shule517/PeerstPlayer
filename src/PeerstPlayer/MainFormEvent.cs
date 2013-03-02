@@ -68,12 +68,6 @@ namespace PeerstPlayer
 		/// </summary>
 		private void timerDetail_Tick(object sender, EventArgs e)
 		{
-			// タイマーの間隔を設定
-			if (timerDetail.Interval == 1)
-			{
-				timerDetail.Interval = 200;
-			}
-
 			// 最小化ミュート解除
 			if (MiniMute && WindowState != FormWindowState.Minimized)
 			{
@@ -81,22 +75,8 @@ namespace PeerstPlayer
 				MiniMute = false;
 			}
 
-			/*
-			// ToolStripの非表示
-			if (MousePosition.Y - Top >= toolStrip.Height)
-			{
-				toolStrip.Visible = false;
-			}
-			 */
-
 			// ステータスバーにチャンネル詳細を表示
-			if (CommandShowCount <= 0)
-			{
-				labelDetail.Text = channelInfo.ToString() +" " + wmp.FPS + "fps " + wmp.BandWidth + "kbps パケット:" + wmp.ReceivedPackets + " (" + wmp.Width + "x" + wmp.Height + ")";
-				CommandShowCount = 0;
-			}
-
-			CommandShowCount--;
+			labelDetail.Text = channelInfo.ToString() +" " + wmp.FPS + "fps " + wmp.BandWidth + "kbps パケット:" + wmp.ReceivedPackets + " (" + wmp.Width + "x" + wmp.Height + ")";
 		}
 
 		private void MainForm_KeyDown(object sender, KeyEventArgs e)
@@ -169,15 +149,6 @@ namespace PeerstPlayer
 				{
 				}
 			}
-		}
-
-		private void timerUpdate_Tick(object sender, EventArgs e)
-		{
-			// スレ一覧更新
-			ExeCommand("ThreadListUpdate");
-
-			// チャンネル情報更新
-			ExeCommand("ChannelInfoUpdate");
 		}
 
 		#region ステータスバーコンテキストメニュー
