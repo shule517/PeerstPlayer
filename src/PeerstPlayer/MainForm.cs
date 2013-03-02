@@ -25,7 +25,20 @@ namespace PeerstPlayer
 		/// <summary>
 		/// チャンネル情報
 		/// </summary>
-		public ChannelInfo channelInfo;
+		public ChannelInfo channelInfo
+		{
+			get
+			{
+				if (pecaManager.ChannelInfo == null)
+				{
+					return new ChannelInfo();
+				}
+				else
+				{
+					return pecaManager.ChannelInfo;
+				}
+			}
+		}
 
 		/// <summary>
 		/// WMP
@@ -305,8 +318,6 @@ namespace PeerstPlayer
 		{
 			// 初期化
 			InitializeComponent();
-
-			channelInfo = new ChannelInfo();
 
 			// WMP初期化
 			wmp = new WMPEx(this);
@@ -613,12 +624,12 @@ namespace PeerstPlayer
 					value = " (" + wmp.Volume + ")";
 					break;
 				case "Bump":
-					wmp.Bump();
+					pecaManager.Bump();
 					break;
 				case "Close&RelayCut":
 					try
 					{
-						wmp.RelayCut();
+						pecaManager.DisconnectRelay();
 						Visible = false;
 						Close();
 						//Application.Exit();
@@ -1909,7 +1920,7 @@ H = Retry
 		/// </summary>
 		void ChannelInfoUpdateMethod()
 		{
-			channelInfo = pecaManager.GetChannelInfo();
+			pecaManager.GetChannelInfo();
 		}
 
 

@@ -20,7 +20,7 @@ namespace Shule.Peerst.PeerCast
 		public string ContactUrl { get; set; }
 
 		public bool IsInfo { get; set; }
-		public string Status { get; set; }
+		public string Status { get; set; }	// TODO ステータスの取得
 		public string IconURL { get; set; }
 
 		public override string ToString()
@@ -95,9 +95,10 @@ namespace Shule.Peerst.PeerCast
 
 	public class PeerCastManager
 	{
-		private string host;		// PeerCastアドレス
-		private string portNo;		// PeerCastポート番号
-		private string channelId;	// チャンネルID
+		private string host;									// PeerCastアドレス
+		private string portNo;									// PeerCastポート番号
+		private string channelId;								// チャンネルID
+		public ChannelInfo ChannelInfo { get; private set; }	// チャンネル情報
 
 		/// <summary>
 		/// コンストラクタ
@@ -116,7 +117,7 @@ namespace Shule.Peerst.PeerCast
 		/// チャンネル情報取得
 		/// </summary>
 		/// <returns>指定チャンネルのチャンネル情報</returns>
-		public ChannelInfo GetChannelInfo()
+		public void GetChannelInfo()
 		{
 			string xmlUrl = "http://" + host + ":" + portNo + "/admin?cmd=viewxml";
 			XmlTextReader reader = new XmlTextReader(xmlUrl);
@@ -158,7 +159,7 @@ namespace Shule.Peerst.PeerCast
 							channelInfo.IsInfo = false;
 						}
 
-						return channelInfo;
+						this.ChannelInfo = channelInfo;
 					}
 
 					// インデックスを要素に移動します
@@ -168,8 +169,6 @@ namespace Shule.Peerst.PeerCast
 
 			// XMLファイルを閉じる
 			reader.Close();
-
-			return null;
 		}
 
 		/// <summary>
@@ -268,5 +267,37 @@ namespace Shule.Peerst.PeerCast
 					return "";
 			}
 		}
+
+		/// <summary>
+		/// Bump
+		/// </summary>
+		public void Bump()
+		{
+			string url = "/admin?cmd=bump&id=" + channelId;
+			HTTP.SendCommand(host, portNo, url, "Shift_JIS");
+		}
+
+		/// <summary>
+		/// リレー切断
+		/// </summary>
+		public void DisconnectRelay()
+		{
+			// TODO 配信中でない場合は切断
+			//if (form.channelInfo.IsInfo && form.channelInfo.Status != "BROADCAST")
+			{
+				string url = "/admin?cmd=stop&id=" + channelId;
+				HTTP.SendCommand(host, portNo, url, "Shift_JIS");
+			}
+		}
+
+		/// <summary>
+		/// リレーキープ
+		/// </summary>
+		public void RelayKeep()
+		{
+			string url = "/admin?cmd=keep&id=" + channelId;
+			HTTP.SendCommand(host, portNo, url, "Shift_JIS");
+		}
+
 	}
 }

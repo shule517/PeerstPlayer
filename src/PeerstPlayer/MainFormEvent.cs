@@ -42,7 +42,7 @@ namespace PeerstPlayer
 
 			URLData urlData = wmp.URLData;
 			pecaManager = new PeerCastManager(urlData.Host, urlData.PortNo, urlData.ChannelId);
-			ChannelInfo channelInfo = pecaManager.GetChannelInfo();
+			pecaManager.GetChannelInfo();
 
 			// コマンドラインからチャンネル名を取得
 			labelDetail.Text = GetChannelName();
@@ -152,7 +152,7 @@ namespace PeerstPlayer
 			if (RlayCutOnClose)
 			{
 				// リレーを切断
-				wmp.RelayCut();
+				pecaManager.DisconnectRelay();
 			}
 
 			if (CloseViewerOnClose)

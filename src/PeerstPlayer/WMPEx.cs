@@ -604,8 +604,9 @@ namespace PeerstPlayer
 			retryCount = RetryTime;
 			beforeReceivedPackets = 0;
 
-			Ctlcontrols.stop();
-			Ctlcontrols.play();
+			// TODO 別のファイルを開いている場合に対応する
+			// URLを開き直す
+			LoadCommandLine();
 		}
 
 		/// <summary>
