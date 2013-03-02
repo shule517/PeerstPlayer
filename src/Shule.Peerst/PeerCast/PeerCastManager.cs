@@ -8,27 +8,14 @@ namespace Shule.Peerst.PeerCast
 {
 	public class ChannelInfo
 	{
-		public string Name { get; set; }
 		public string Id { get; set; }
+		public string Name { get; set; }
 		public string Bitrate { get; set; }
-		public string Type { get; set; }
-		public string Genre { get; set; }
-		public string Desc { get; set; }
-		public string Url { get; set; }
-		public string Uptime { get; set; }
 		public string Comment { get; set; }
-		public string Skips { get; set; }
-		public string Age { get; set; }
-		public string BcFlags { get; set; }
-		public string Listeners { get; set; }
-		public string Relays { get; set; }
-		public string Hosts { get; set; }
-		public string Status { get; set; }
-		public string TrackTitle { get; set; }
-		public string TrackArtist { get; set; }
-		public string TrackAlbum { get; set; }
-		public string TrackGenre { get; set; }
-		public string TrackContact { get; set; }
+		public string Desc { get; set; }
+		public string Genre { get; set; }
+		public string Type { get; set; }
+		public string Url { get; set; }
 	}
 
 	public class PeerCastManager
@@ -64,10 +51,9 @@ namespace Shule.Peerst.PeerCast
 			{
 				reader.MoveToContent();
 
-				//ノードに属性がある場合(例：<chr animal="熊">フィロ</chr>の「animal」)
+				// チャンネル情報を取得
 				if ((reader.NodeType == XmlNodeType.Element) && (reader.Name == "channel"))
 				{
-					// TODO リスナー情報などを取得する
 					ChannelInfo channelInfo = null;
 					readChannel(reader, out channelInfo);
 
@@ -77,11 +63,12 @@ namespace Shule.Peerst.PeerCast
 						return channelInfo;
 					}
 
-					//インデックスを要素に移動します
+					// インデックスを要素に移動します
 					reader.MoveToElement();
 				}
 			}
-			//XMLファイルを閉じる
+
+			// XMLファイルを閉じる
 			reader.Close();
 
 			return null;
@@ -96,58 +83,42 @@ namespace Shule.Peerst.PeerCast
 		{
 			channelInfo = new ChannelInfo();
 
-			//ノードの属性の数だけループ
+			// ノードの属性の数だけループ
 			for (int i = 0; i < reader.AttributeCount; i++)
 			{
-				//インデックスを属性に移動します
+				// インデックスを属性に移動
 				reader.MoveToAttribute(i);
-				if (reader.Name == "name")
-				{
-					channelInfo.Name = reader.Value;
-				}
-				else if (reader.Name == "id")
+				if (reader.Name == "id")
 				{
 					channelInfo.Id = reader.Value;
+				}
+				else if (reader.Name == "name")
+				{
+					channelInfo.Name = reader.Value;
 				}
 				else if (reader.Name == "bitrate")
 				{
 					channelInfo.Bitrate = reader.Value;
 				}
-				else if (reader.Name == "type")
+				else if (reader.Name == "comment")
 				{
-					channelInfo.Type = reader.Value;
-				}
-				else if (reader.Name == "genre")
-				{
-					channelInfo.Genre = reader.Value;
+					channelInfo.Comment = reader.Value;
 				}
 				else if (reader.Name == "desc")
 				{
 					channelInfo.Desc = reader.Value;
 				}
+				else if (reader.Name == "genre")
+				{
+					channelInfo.Genre = reader.Value;
+				}
+				else if (reader.Name == "type")
+				{
+					channelInfo.Type = reader.Value;
+				}
 				else if (reader.Name == "url")
 				{
 					channelInfo.Url = reader.Value;
-				}
-				else if (reader.Name == "uptime")
-				{
-					channelInfo.Uptime = reader.Value;
-				}
-				else if (reader.Name == "comment")
-				{
-					channelInfo.Comment = reader.Value;
-				}
-				else if (reader.Name == "skips")
-				{
-					channelInfo.Skips = reader.Value;
-				}
-				else if (reader.Name == "age")
-				{
-					channelInfo.Age = reader.Value;
-				}
-				else if (reader.Name == "bcflags")
-				{
-					channelInfo.BcFlags = reader.Value;
 				}
 			}
 		}

@@ -16,6 +16,8 @@ namespace PeerstPlayer
 		{
 		}
 
+		Shule.Peerst.PeerCast.ChannelInfo channelInfo = null;
+
 		/// <summary>
 		/// チャンネル情報が取得されているか
 		/// </summary>
@@ -25,65 +27,67 @@ namespace PeerstPlayer
 
 		public override string ToString()
 		{
-			if (FileName != "")
+			if (channelInfo == null)
 			{
-				return FileName;
+				return "";
 			}
 
 			string text = "";
 
 			// チャンネル名
-			text += Name;
+			text += channelInfo.Name;
 
 			// [ジャンル - 詳細]
-			if (Genre != "")
+			if (channelInfo.Genre != "")
 			{
-				if (Desc != "")
+				if (channelInfo.Desc != "")
 				{
-					text += " [" + Genre + " - " + Desc + "]";
+					text += " [" + channelInfo.Genre + " - " + channelInfo.Desc + "]";
 				}
 				else
 				{
-					text += " [" + Genre + "]";
+					text += " [" + channelInfo.Genre + "]";
 				}
 			}
 			else
 			{
-				if (Desc != "")
+				if (channelInfo.Desc != "")
 				{
-					text += " [" + Desc + "]";
+					text += " [" + channelInfo.Desc + "]";
 				}
 			}
 
+			/*
 			// アーティスト
-			if (TrackArtist != "")
+			if (channelInfo.TrackArtist != "")
 			{
-				text += " " + TrackArtist;
+				text += " " + channelInfo.TrackArtist;
 			}
 
 			// タイトル
-			if (TrackTitle != "")
+			if (channelInfo.TrackTitle != "")
 			{
-				text += " " + TrackTitle;
+				text += " " + channelInfo.TrackTitle;
 			}
 
 			// アルバム
-			if (TrackAlbum != "")
+			if (channelInfo.TrackAlbum != "")
 			{
-				text += " " + TrackAlbum;
+				text += " " + channelInfo.TrackAlbum;
 			}
+			 */
 
 			// コメント
-			if (Comment != "")
+			if (channelInfo.Comment != "")
 			{
-				text += " " + Comment;
+				text += " " + channelInfo.Comment;
 			}
 
 			/*
 			// ビットレート
 			if (Bitrate != "")
 			{
-				text += " <" + Bitrate + ">";
+				text += " <" + channelInfo.Bitrate + ">";
 			}
 			 */
 
@@ -101,18 +105,12 @@ namespace PeerstPlayer
 		{
 			if (uRLData.Host == "" || uRLData.PortNo == "" || uRLData.ID == "")
 			{
-				FileName = uRLData.FileName;
 				return;
 			}
 
-			FileName = "";
-
 			// TODO 生成タイミングを変える
 			pecaManager = new PeerCastManager(uRLData.Host, uRLData.PortNo, uRLData.ID);
-			Shule.Peerst.PeerCast.ChannelInfo channelInfo = pecaManager.GetChannelInfo();
-
-			name = channelInfo.Name;
-			genre = channelInfo.Genre;
+			channelInfo = pecaManager.GetChannelInfo();
 
 			// アイコンURLを取得
 			iconURL = GetIconURL(genre);
@@ -125,18 +123,6 @@ namespace PeerstPlayer
 
 			// ジャンル調整
 			genre = SelectGenre(genre);
-
-			// 詳細
-			desc = channelInfo.Desc;
-			bitrate = channelInfo.Bitrate;
-			totalListeners = channelInfo.Listeners;
-			totalRelays = channelInfo.Relays;
-			status = channelInfo.Status;
-			trackArtist = channelInfo.TrackArtist;
-			trackTitle = channelInfo.TrackTitle;
-			trackAlbum = channelInfo.TrackAlbum;
-			contactURL = channelInfo.Url;
-			comment = channelInfo.Comment;
 
 			// TODO 詳細に本スレがある場合は、コンタクトＵＲＬを本スレにする
 
@@ -200,19 +186,11 @@ namespace PeerstPlayer
 		#region データ
 
 		string iconURL = "";
-		string name = "";
 		string genre = "";
-		string desc = "";
-		string bitrate = "";
-		string totalListeners = "";
-		string totalRelays = "";
 		string status = "";
 		string trackArtist = "";
 		string trackTitle = "";
 		string trackAlbum = "";
-		string contactURL = "";
-		string comment = "";
-		string fileName = "";
 
 		public string IconURL
 		{
@@ -226,7 +204,7 @@ namespace PeerstPlayer
 		{
 			get
 			{
-				return name;
+				return channelInfo.Name;
 			}
 		}
 
@@ -234,7 +212,7 @@ namespace PeerstPlayer
 		{
 			get
 			{
-				return genre;
+				return channelInfo.Genre;
 			}
 		}
 
@@ -242,7 +220,7 @@ namespace PeerstPlayer
 		{
 			get
 			{
-				return desc;
+				return channelInfo.Desc;
 			}
 		}
 
@@ -250,23 +228,7 @@ namespace PeerstPlayer
 		{
 			get
 			{
-				return bitrate;
-			}
-		}
-
-		public string TotalListeners
-		{
-			get
-			{
-				return totalListeners;
-			}
-		}
-
-		public string TotalRelays
-		{
-			get
-			{
-				return totalRelays;
+				return channelInfo.Bitrate;
 			}
 		}
 
@@ -306,7 +268,7 @@ namespace PeerstPlayer
 		{
 			get
 			{
-				return contactURL;
+				return channelInfo.Url;
 			}
 		}
 
@@ -314,19 +276,7 @@ namespace PeerstPlayer
 		{
 			get
 			{
-				return comment;
-			}
-		}
-
-		public string FileName
-		{
-			get
-			{
-				return fileName;
-			}
-			set
-			{
-				fileName = value;
+				return channelInfo.Comment;
 			}
 		}
 
