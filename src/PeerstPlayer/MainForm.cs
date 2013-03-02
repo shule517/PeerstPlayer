@@ -2684,8 +2684,8 @@ H = Retry
 		/// <summary>
 		/// スレッド選択オブザーバ
 		/// </summary>
-		/// <param name="threadUrl"></param>
-		/// <param name="threadNo"></param>
+		/// <param name="threadUrl">スレッドURL</param>
+		/// <param name="threadNo">スレッド番号</param>
 		public void UpdateThreadUrl(string threadUrl, string threadNo)
 		{
 			// スレッドURL変更
