@@ -745,6 +745,8 @@ namespace PeerstPlayer
 			// 
 			// labelDetail
 			// 
+			this.labelDetail.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
 			this.labelDetail.AutoSize = true;
 			this.labelDetail.ForeColor = System.Drawing.Color.SpringGreen;
 			this.labelDetail.Location = new System.Drawing.Point(3, 4);
