@@ -15,7 +15,11 @@ namespace Shule.Peerst.PeerCast
 		public string Desc { get; set; }
 		public string Genre { get; set; }
 		public string Type { get; set; }
-		public string Url { get; set; }
+		public string ContactUrl { get; set; }
+
+		public bool IsInfo { get; set; }
+		public string Status { get; set; }
+		public string IconURL { get; set; }
 	}
 
 	public class PeerCastManager
@@ -46,7 +50,7 @@ namespace Shule.Peerst.PeerCast
 			string xmlUrl = "http://" + host + ":" + portNo + "/admin?cmd=viewxml";
 			XmlTextReader reader = new XmlTextReader(xmlUrl);
 
-			//XMLファイルを1ノードずつ読み込む
+			// XMLファイルを1ノードずつ読み込む
 			while (reader.Read())
 			{
 				reader.MoveToContent();
@@ -60,6 +64,17 @@ namespace Shule.Peerst.PeerCast
 					// 指定したチャンネルを返す
 					if (channelInfo.Id == channelId)
 					{
+						// TODO 
+						// 取得結果をtrue
+						if (channelInfo.Name != "")
+						{
+							channelInfo.IsInfo = true;
+						}
+						else
+						{
+							channelInfo.IsInfo = false;
+						}
+
 						return channelInfo;
 					}
 
@@ -118,7 +133,7 @@ namespace Shule.Peerst.PeerCast
 				}
 				else if (reader.Name == "url")
 				{
-					channelInfo.Url = reader.Value;
+					channelInfo.ContactUrl = reader.Value;
 				}
 			}
 		}

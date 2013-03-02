@@ -6,11 +6,15 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Windows.Forms;
 using Shule.Peerst.Util;
+using Shule.Peerst.PeerCast;
 
 namespace PeerstPlayer
 {
 	partial class MainForm
 	{
+		// PeerCast管理
+		PeerCastManager pecaManager = null;
+
 		/// <summary>
 		/// Load
 		/// </summary>
@@ -35,6 +39,10 @@ namespace PeerstPlayer
 
 			// コマンドラインから再生
 			wmp.LoadCommandLine();
+
+			URLData urlData = wmp.URLData;
+			pecaManager = new PeerCastManager(urlData.Host, urlData.PortNo, urlData.ChannelId);
+			ChannelInfo channelInfo = pecaManager.GetChannelInfo();
 
 			// コマンドラインからチャンネル名を取得
 			ChannelDetail = GetChannelName();

@@ -25,17 +25,12 @@ namespace PeerstPlayer
 		/// <summary>
 		/// チャンネル情報
 		/// </summary>
-		public ChannelInfo ChannelInfo;
+		public ChannelInfo channelInfo;
 
 		/// <summary>
 		/// WMP
 		/// </summary>
 		WMPEx wmp;
-
-		/// <summary>
-		/// スレッドの一覧
-		/// </summary>
-		List<ThreadInfo> ThreadList = new List<ThreadInfo>();
 
 		/// <summary>
 		/// スレ番号
@@ -56,11 +51,6 @@ namespace PeerstPlayer
 		/// スレッドブラウザアドレス
 		/// </summary>
 		string ThreadBrowserAddress = "";
-
-		/// <summary>
-		/// 前回書き込んだスレ番号
-		/// </summary>
-		string BeforeWriteThreadNo = "";
 
 		/// <summary>
 		/// レスボックスの操作
@@ -326,7 +316,7 @@ namespace PeerstPlayer
 			// 初期化
 			InitializeComponent();
 
-			ChannelInfo = new ChannelInfo();
+			channelInfo = new ChannelInfo();
 
 			// WMP初期化
 			wmp = new WMPEx(this);
@@ -979,7 +969,7 @@ namespace PeerstPlayer
 			// フォルダパス
 			string folderPath = GetCurrentDirectory() + "\\ScreenShot";
 			// ファイルパス
-			string fileName = "【" + ChannelInfo.Name + "】" + dtNow.Year + "／" + dtNow.Month.ToString().PadLeft(2, '0') + "／" + dtNow.Day.ToString().PadLeft(2, '0') + "（" + dtNow.Hour.ToString().PadLeft(2, '0') + "：" + dtNow.Minute.ToString().PadLeft(2, '0') + "：" + dtNow.Second.ToString().PadLeft(2, '0') + "." + dtNow.Millisecond.ToString().PadLeft(3, '0') + "）.jpg";
+			string fileName = "【" + channelInfo.Name + "】" + dtNow.Year + "／" + dtNow.Month.ToString().PadLeft(2, '0') + "／" + dtNow.Day.ToString().PadLeft(2, '0') + "（" + dtNow.Hour.ToString().PadLeft(2, '0') + "：" + dtNow.Minute.ToString().PadLeft(2, '0') + "：" + dtNow.Second.ToString().PadLeft(2, '0') + "." + dtNow.Millisecond.ToString().PadLeft(3, '0') + "）.jpg";
 			fileName = fileName.Replace('\\', ' ').Replace('/', ' ').Replace(':', ' ').Replace('*', ' ').Replace('?', ' ').Replace('"', ' ').Replace('<', ' ').Replace('>', ' ').Replace('|', ' ');
 			string filePath = folderPath + "\\" + fileName;
 
@@ -1831,16 +1821,16 @@ H = Retry
 		/// </summary>
 		void ChannelInfo_UpdateComp()
 		{
-			Text = ChannelInfo.Name;
-			ChannelDetail = ChannelInfo.ToString();
+			Text = channelInfo.Name;
+			ChannelDetail = channelInfo.ToString();
 			labelDetail.Text = ChannelDetail;
 			ThreadListUpdate();
 
-			if (ChannelInfo.IconURL != "")
+			if (channelInfo.IconURL != "")
 			{
 				try
 				{
-					pictureBoxIcon.Load(ChannelInfo.IconURL);
+					pictureBoxIcon.Load(channelInfo.IconURL);
 				}
 				catch
 				{
@@ -1869,7 +1859,7 @@ H = Retry
 			// 初回だけスレ情報取得＋スレ移動
 			if (!InitThreadSelected)
 			{
-				operationBbs.ChangeUrl(ChannelInfo.ContactURL);
+				operationBbs.ChangeUrl(channelInfo.ContactUrl);
 				
 				InitThreadSelected = true;
 			}
@@ -1930,7 +1920,7 @@ H = Retry
 		/// </summary>
 		void ChannelInfoUpdateMethod()
 		{
-			ChannelInfo.Update(wmp.URLData);
+			channelInfo = pecaManager.GetChannelInfo();
 		}
 
 
@@ -2020,26 +2010,6 @@ H = Retry
 				// アンカーを再設定
 				PanelAnchor = true;
 			}
-		}
-
-		private bool CheckWrite()
-		{
-			if (BeforeWriteThreadNo != ThreadNo)
-			{
-				string text = "板名：" + operationBbs.GetBbsName() + "\nスレッド名：" + threadInfo.Title + "\n書き込み内容：" + resBox.Text;
-				DialogResult result = MessageBox.Show(text, "書き込み確認", MessageBoxButtons.YesNo);
-
-				if (result == DialogResult.No)
-				{
-					return false;
-				}
-				else if (result == DialogResult.Yes)
-				{
-					return true;
-				}
-			}
-
-			return true;
 		}
 
 		bool IsWriting = false;
@@ -2610,16 +2580,9 @@ H = Retry
 				{
 					if (e.Control)
 					{
-						// 書き込み確認
-						if (!CheckWrite())
-						{
-							return;
-						}
-
 						ResBoxText = resBox.Text;
 						if (operationBbs.Write("", "sage", resBox.Text))
 						{
-							BeforeWriteThreadNo = ThreadNo;
 							resBox.Text = "";
 							if (CloseResBoxOnWrite)
 							{
@@ -2637,15 +2600,8 @@ H = Retry
 				{
 					if (!e.Control)
 					{
-						// 書き込み確認
-						if (!CheckWrite())
-						{
-							return;
-						}
-
 						if (operationBbs.Write("", "sage", resBox.Text))
 						{
-							BeforeWriteThreadNo = ThreadNo;
 							resBox.Text = "";
 						}
 						IsWriting = true;

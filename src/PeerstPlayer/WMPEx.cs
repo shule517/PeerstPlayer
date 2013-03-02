@@ -735,7 +735,7 @@ namespace PeerstPlayer
 			retryCount = RetryTime;
 			beforeReceivedPackets = 0;
 
-			string url = "/admin?cmd=bump&id=" + URLData.ID;
+			string url = "/admin?cmd=bump&id=" + URLData.ChannelId;
 			HTTP.SendCommand(URLData.Host, URLData.PortNo, url, "Shift_JIS");
 		}
 
@@ -745,9 +745,9 @@ namespace PeerstPlayer
 		public void RelayCut()
 		{
 			// 配信中じゃなければ
-			if (form.ChannelInfo.IsInfo && form.ChannelInfo.Status != "BROADCAST")
+			if (form.channelInfo.IsInfo && form.channelInfo.Status != "BROADCAST")
 			{
-				string url = "/admin?cmd=stop&id=" + URLData.ID;
+				string url = "/admin?cmd=stop&id=" + URLData.ChannelId;
 				HTTP.SendCommand(URLData.Host, URLData.PortNo, url, "Shift_JIS");
 			}
 		}
@@ -757,7 +757,7 @@ namespace PeerstPlayer
 		/// </summary>
 		public void RelayKeep()
 		{
-			string url = "/admin?cmd=keep&id=" + URLData.ID;
+			string url = "/admin?cmd=keep&id=" + URLData.ChannelId;
 			HTTP.SendCommand(URLData.Host, URLData.PortNo, url, "Shift_JIS");
 		}
 
@@ -1341,21 +1341,21 @@ namespace PeerstPlayer
 			{
 				Host = match.Groups[1].Value;
 				PortNo = match.Groups[2].Value;
-				ID = match.Groups[3].Value.Substring(0, match.Groups[3].Value.Length - 1);
+				ChannelId = match.Groups[3].Value.Substring(0, match.Groups[3].Value.Length - 1);
 				FileName = "";
 			}
 			else
 			{
 				Host = "";
 				PortNo = "";
-				ID = "";
+				ChannelId = "";
 				FileName = url;
 			}
 		}
 
 		public string Host = "";
 		public string PortNo = "";
-		public string ID = "";
+		public string ChannelId = "";
 		public string FileName = "";
 	}
 }

@@ -921,7 +921,7 @@ namespace PeerstPlayer
 			string threadUrl = "";
 			try
 			{
-				if (!ChannelInfo.IsInfo)
+				if (!channelInfo.IsInfo)
 				{
 					DialogResult result = MessageBox.Show("コンタクトURLが取得できていませんが\nスレッドビューワを開きますか？", "Message", MessageBoxButtons.YesNo);
 					if (result == DialogResult.No)
@@ -950,7 +950,7 @@ namespace PeerstPlayer
 					fileName = GetCurrentDirectory() + "\\PeerstViewer.exe";
 					threadUrl = GetThreadUrl();
 
-					ThreadViewerProcess = System.Diagnostics.Process.Start(fileName, threadUrl + " " + ChannelInfo.Name);
+					ThreadViewerProcess = System.Diagnostics.Process.Start(fileName, threadUrl + " " + channelInfo.Name);
 				}
 			}
 			catch

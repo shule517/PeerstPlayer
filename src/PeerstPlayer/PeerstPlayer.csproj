@@ -73,7 +73,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ChannelInfo.cs" />
+    <Compile Include="ChannelInfo1111.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
