@@ -128,6 +128,7 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Win32API.cs" />
+    <Compile Include="WindowSizeManager.cs" />
     <Compile Include="WMPEx.cs">
       <SubType>Component</SubType>
     </Compile>

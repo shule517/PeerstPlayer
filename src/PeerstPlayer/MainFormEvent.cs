@@ -37,6 +37,9 @@ namespace PeerstPlayer
 
 			OnPanelSizeChange();
 
+			// ウィンドウサイズ管理
+			windowSizeManager = new WindowSizeManager(this, wmp, this);
+
 			// コマンドラインから再生
 			wmp.LoadCommandLine();
 

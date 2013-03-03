@@ -15,12 +15,17 @@ using Shule.Peerst.PeerCast;
 
 namespace PeerstPlayer
 {
-	public partial class MainForm : Form, ThreadSelectObserver
+	public partial class MainForm : Form, ThreadSelectObserver, WindowSizeMediator
 	{
 		/// <summary>
 		/// 掲示板操作クラス
 		/// </summary>
 		OperationBbs operationBbs = new OperationBbs();
+
+		/// <summary>
+		/// ウィンドウサイズ管理
+		/// </summary>
+		WindowSizeManager windowSizeManager = null;
 
 		/// <summary>
 		/// チャンネル情報
@@ -615,6 +620,7 @@ namespace PeerstPlayer
 					{
 						pecaManager.DisconnectRelay();
 						Visible = false;
+						updateChannelInfoThread.Join();
 						Close();
 					}
 					catch
@@ -782,6 +788,7 @@ namespace PeerstPlayer
 					try
 					{
 						Visible = false;
+						updateChannelInfoThread.Join();
 						Close();
 					}
 					catch
@@ -1692,70 +1699,6 @@ H = Retry
 				}
 			}
 		}
-		/// <summary>
-		/// サイズチェンジ
-		/// </summary>
-		public void OnPanelSizeChange()
-		{
-			if (WindowState == FormWindowState.Normal)
-			{
-				// アンカーをNone
-				PanelAnchor = false;
-
-				// FormSize変更
-				int height = 0;
-				height += (panelWMP.Visible ? panelWMP.Height : 0);
-				height += (panelResBox.Visible ? panelResBox.Height : 0);
-				height += (panelStatusLabel.Visible ? panelStatusLabel.Height : 0);
-
-				Size frame = Size - ClientSize;
-				Size = new Size(frame.Width + panelWMP.Width, frame.Height + height);
-
-				// WMPパネル
-				height = 0;
-				panelWMP.Location = new Point(0, 0);
-				panelWMP.Width = ClientSize.Width;
-				height += (panelWMP.Visible ? panelWMP.Height : 0);
-
-				// レスボックスパネル
-				panelResBox.Location = new Point(0, height);
-				panelResBox.Width = ClientSize.Width;
-				height += (panelResBox.Visible ? panelResBox.Height : 0);
-
-				// ステータスラベルパネル
-				panelStatusLabel.Location = new Point(0, height);
-				panelStatusLabel.Width = ClientSize.Width;
-				height += (panelStatusLabel.Visible ? panelStatusLabel.Height : 0);
-
-				// アンカーを再設定
-				PanelAnchor = true;
-			}
-			else
-			{
-				// アンカーをNone
-				PanelAnchor = false;
-
-				int height = ClientSize.Height;
-				
-				// ステータスラベルパネル
-				height -= (panelStatusLabel.Visible ? panelStatusLabel.Height : 0);
-				panelStatusLabel.Location = new Point(0, height);
-				panelStatusLabel.Width = ClientSize.Width;
-
-				// レスボックスパネル
-				height -= (panelResBox.Visible ? panelResBox.Height : 0);
-				panelResBox.Location = new Point(0, height);
-				panelResBox.Width = ClientSize.Width;
-
-				// WMPパネル
-				panelWMP.Location = new Point(0, 0);
-				panelWMP.Size = new Size(Width, height);
-				panelWMP.Width = ClientSize.Width;
-
-				// アンカーを再設定
-				PanelAnchor = true;
-			}
-		}
 
 		bool IsWriting = false;
 
@@ -1854,8 +1797,7 @@ H = Retry
 		/// </summary>
 		void SetWidth(int width)
 		{
-			panelWMP.Size = new Size(width, (int)(wmp.AspectRate * width));
-			OnPanelSizeChange();
+			windowSizeManager.SetWidth(width);
 		}
 
 		/// <summary>
@@ -1863,8 +1805,7 @@ H = Retry
 		/// </summary>
 		void SetHeight(int height)
 		{
-			panelWMP.Size = new Size((int)(1 / wmp.AspectRate * height), height);
-			OnPanelSizeChange();
+			windowSizeManager.SetHeight(height);
 		}
 
 		/// <summary>
@@ -1872,8 +1813,7 @@ H = Retry
 		/// </summary>
 		void SetSize(int width, int height)
 		{
-			panelWMP.Size = new Size(width, height);
-			OnPanelSizeChange();
+			windowSizeManager.SetSize(width, height);
 		}
 
 		/// <summary>
@@ -1898,43 +1838,6 @@ H = Retry
 				return folder;
 			}
 			return "";
-		}
-
-		/// <summary>
-		/// 最大化から解除した時のパネルサイズ変更
-		/// </summary>
-		public void OnPanelSizeChange(Size PanelWMP)
-		{
-			// アンカーをNone
-			PanelAnchor = false;
-
-			// FormSize変更
-			int height = 0;
-			height += (panelWMP.Visible ? PanelWMP.Height : 0);
-			height += (panelResBox.Visible ? panelResBox.Height : 0);
-			height += (panelStatusLabel.Visible ? panelStatusLabel.Height : 0);
-
-			Size frame = Size - ClientSize;
-			Size = new Size(frame.Width + PanelWMP.Width, frame.Height + height);
-
-			// WMPパネル
-			height = 0;
-			panelWMP.Location = new Point(0, 0);
-			panelWMP.Size = PanelWMP;
-			height += (panelWMP.Visible ? PanelWMP.Height : 0);
-
-			// レスボックスパネル
-			panelResBox.Location = new Point(0, height);
-			panelResBox.Width = ClientSize.Width;
-			height += (panelResBox.Visible ? panelResBox.Height : 0);
-
-			// ステータスラベルパネル
-			panelStatusLabel.Location = new Point(0, height);
-			panelStatusLabel.Width = ClientSize.Width;
-			height += (panelStatusLabel.Visible ? panelStatusLabel.Height : 0);
-
-			// アンカーを再設定
-			PanelAnchor = true;
 		}
 		
 		#region 規定のブラウザを開く
@@ -2249,6 +2152,7 @@ H = Retry
 			try
 			{
 				Visible = false;
+				updateChannelInfoThread.Join();
 				Close();
 			}
 			catch
@@ -2505,5 +2409,118 @@ H = Retry
 		}
 
 		#endregion
+
+		/// <summary>
+		/// WMPサイズが変更された
+		/// </summary>
+		/// <param name="width">WMP幅</param>
+		/// <param name="height">WMP高さ</param>
+		void WindowSizeMediator.OnChangeWmpSize(int width, int height)
+		{
+			panelWMP.Size = new Size(width, height);
+			OnPanelSizeChange();
+		}
+
+		/// <summary>
+		/// サイズチェンジ
+		/// </summary>
+		public void OnPanelSizeChange()
+		{
+			if (WindowState == FormWindowState.Normal)
+			{
+				// アンカーをNone
+				PanelAnchor = false;
+
+				// FormSize変更
+				int height = 0;
+				height += (panelWMP.Visible ? panelWMP.Height : 0);
+				height += (panelResBox.Visible ? panelResBox.Height : 0);
+				height += (panelStatusLabel.Visible ? panelStatusLabel.Height : 0);
+
+				Size frame = Size - ClientSize;
+				Size = new Size(frame.Width + panelWMP.Width, frame.Height + height);
+
+				// WMPパネル
+				height = 0;
+				panelWMP.Location = new Point(0, 0);
+				panelWMP.Width = ClientSize.Width;
+				height += (panelWMP.Visible ? panelWMP.Height : 0);
+
+				// レスボックスパネル
+				panelResBox.Location = new Point(0, height);
+				panelResBox.Width = ClientSize.Width;
+				height += (panelResBox.Visible ? panelResBox.Height : 0);
+
+				// ステータスラベルパネル
+				panelStatusLabel.Location = new Point(0, height);
+				panelStatusLabel.Width = ClientSize.Width;
+				height += (panelStatusLabel.Visible ? panelStatusLabel.Height : 0);
+
+				// アンカーを再設定
+				PanelAnchor = true;
+			}
+			else
+			{
+				// アンカーをNone
+				PanelAnchor = false;
+
+				int height = ClientSize.Height;
+
+				// ステータスラベルパネル
+				height -= (panelStatusLabel.Visible ? panelStatusLabel.Height : 0);
+				panelStatusLabel.Location = new Point(0, height);
+				panelStatusLabel.Width = ClientSize.Width;
+
+				// レスボックスパネル
+				height -= (panelResBox.Visible ? panelResBox.Height : 0);
+				panelResBox.Location = new Point(0, height);
+				panelResBox.Width = ClientSize.Width;
+
+				// WMPパネル
+				panelWMP.Location = new Point(0, 0);
+				panelWMP.Size = new Size(Width, height);
+				panelWMP.Width = ClientSize.Width;
+
+				// アンカーを再設定
+				PanelAnchor = true;
+			}
+		}
+
+		/// <summary>
+		/// 最大化から解除した時のパネルサイズ変更
+		/// </summary>
+		public void OnPanelSizeChange(Size PanelWMP)
+		{
+			// アンカーをNone
+			PanelAnchor = false;
+
+			// FormSize変更
+			int height = 0;
+			height += (panelWMP.Visible ? PanelWMP.Height : 0);
+			height += (panelResBox.Visible ? panelResBox.Height : 0);
+			height += (panelStatusLabel.Visible ? panelStatusLabel.Height : 0);
+
+			Size frame = Size - ClientSize;
+			Size = new Size(frame.Width + PanelWMP.Width, frame.Height + height);
+
+			// WMPパネル
+			height = 0;
+			panelWMP.Location = new Point(0, 0);
+			panelWMP.Size = PanelWMP;
+			height += (panelWMP.Visible ? PanelWMP.Height : 0);
+
+			// レスボックスパネル
+			panelResBox.Location = new Point(0, height);
+			panelResBox.Width = ClientSize.Width;
+			height += (panelResBox.Visible ? panelResBox.Height : 0);
+
+			// ステータスラベルパネル
+			panelStatusLabel.Location = new Point(0, height);
+			panelStatusLabel.Width = ClientSize.Width;
+			height += (panelStatusLabel.Visible ? panelStatusLabel.Height : 0);
+
+			// アンカーを再設定
+			PanelAnchor = true;
+		}
 	}
 }
