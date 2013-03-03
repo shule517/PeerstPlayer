@@ -137,55 +137,65 @@ namespace Shule.Peerst.PeerCast
 		public void GetChannelInfo()
 		{
 			string xmlUrl = "http://" + host + ":" + portNo + "/admin?cmd=viewxml";
+
 			XmlTextReader reader = new XmlTextReader(xmlUrl);
 
-			// XMLファイルを1ノードずつ読み込む
-			while (reader.Read())
+			try
 			{
-				reader.MoveToContent();
-
-				// チャンネル情報を取得
-				if ((reader.NodeType == XmlNodeType.Element) && (reader.Name == "channel"))
+				// XMLファイルを1ノードずつ読み込む
+				while (reader.Read())
 				{
-					ChannelInfo channelInfo = null;
-					readChannel(reader, out channelInfo);
+					reader.MoveToContent();
 
-					// 指定したチャンネルを返す
-					if (channelInfo.Id == channelId)
+					// チャンネル情報を取得
+					if ((reader.NodeType == XmlNodeType.Element) && (reader.Name == "channel"))
 					{
-						// TODO 
-						// 取得結果をtrue
-						if (channelInfo.Name != "")
-						{
-							// アイコンURLを取得
-							channelInfo.IconURL = GetIconURL(channelInfo.Genre);
+						ChannelInfo channelInfo = null;
+						readChannel(reader, out channelInfo);
 
-							// ジャンルからアイコンURLをはずす
-							if (channelInfo.IconURL != "")
+						// 指定したチャンネルを返す
+						if (channelInfo.Id == channelId)
+						{
+							// TODO 
+							// 取得結果をtrue
+							if (channelInfo.Name != "")
 							{
-								channelInfo.Genre = channelInfo.Genre.Replace(channelInfo.IconURL, "");
+								// アイコンURLを取得
+								channelInfo.IconURL = GetIconURL(channelInfo.Genre);
+
+								// ジャンルからアイコンURLをはずす
+								if (channelInfo.IconURL != "")
+								{
+									channelInfo.Genre = channelInfo.Genre.Replace(channelInfo.IconURL, "");
+								}
+
+								// ジャンル調整
+								channelInfo.Genre = SelectGenre(channelInfo.Genre);
+
+								channelInfo.IsInfo = true;
+							}
+							else
+							{
+								channelInfo.IsInfo = false;
 							}
 
-							// ジャンル調整
-							channelInfo.Genre = SelectGenre(channelInfo.Genre);
-
-							channelInfo.IsInfo = true;
-						}
-						else
-						{
-							channelInfo.IsInfo = false;
+							this.ChannelInfo = channelInfo;
 						}
 
-						this.ChannelInfo = channelInfo;
+						// インデックスを要素に移動します
+						reader.MoveToElement();
 					}
-
-					// インデックスを要素に移動します
-					reader.MoveToElement();
 				}
 			}
-
-			// XMLファイルを閉じる
-			reader.Close();
+			catch (Exception)
+			{
+				// PeerCastの接続エラー
+			}
+			finally
+			{
+				// XMLファイルを閉じる
+				reader.Close();
+			}
 		}
 
 		/// <summary>

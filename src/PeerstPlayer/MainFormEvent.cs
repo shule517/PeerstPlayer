@@ -77,7 +77,7 @@ namespace PeerstPlayer
 			string detail = channelInfo.ToString();
 			if (detail == "")
 			{
-				detail = GetChannelName() + " 取得中...";
+				detail = GetChannelName() + " " + wmp.status;
 			}
 			labelDetail.Text = detail +" " + wmp.FPS + "fps " + wmp.BandWidth + "kbps パケット:" + wmp.ReceivedPackets + " (" + wmp.Width + "x" + wmp.Height + ")";
 		}
@@ -405,7 +405,6 @@ namespace PeerstPlayer
 					IsSetTop = true;
 				}
 
-
 				// TODO 以下の処理があると、マルチディスプレイをまたぐとウィンドウが飛んでしまう
 				/*
 				if (!IsSetLeft && Math.Abs(MousePosition.X + Width - wmp.ClickPoint.X - scr.Width) <= ScreenMagnetDockDist)
@@ -465,7 +464,6 @@ namespace PeerstPlayer
 							{
 								int panelHeight = height - (panelStatusLabel.Visible ? panelStatusLabel.Height : 0) - (panelResBox.Visible ? panelResBox.Height : 0) - (Size - ClientSize).Height;
 								R = L + (int)(panelHeight * (1 / wmp.AspectRate)) + dif.Width;
-								// R = L + (int)((height - (panelStatusLabel.Visible ? panelStatusLabel.Height : 0) - (panelResBox.Visible ? panelResBox.Height : 0)) * (1 / wmp.AspectRate));
 							}
 							break;
 					}

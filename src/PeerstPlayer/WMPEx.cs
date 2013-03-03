@@ -368,7 +368,6 @@ namespace PeerstPlayer
 			}
 		}
 
-
 		public string FPS
 		{
 			get
@@ -856,102 +855,11 @@ namespace PeerstPlayer
 		void WMPEx_KeyDownEvent(object sender, AxWMPLib._WMPOCXEvents_KeyDownEvent e)
 		{
 			OnKeyDown();
-			/*
-			// KeyDownイベント
-			string gesture = "";
-			switch (e.nShiftState)
-			{
-				case 1: // Shift
-					if (((Keys)e.nKeyCode) == Keys.ShiftKey)
-					{
-						gesture = "Shift";
-						OnGesture(gesture);
-						return;
-					}
-					else
-					{
-						gesture = "Shift+";
-					}
-					break;
-				case 2: // Control
-					if (((Keys)e.nKeyCode) == Keys.ControlKey)
-					{
-						gesture = "Control";
-						OnGesture(gesture);
-						return;
-					}
-					else
-					{
-						gesture = "Control+";
-					}
-					break;
-				case 4: // Alt
-					if (((Keys)e.nKeyCode) == Keys.Menu)
-					{
-						gesture = "Alt";
-						OnGesture(gesture);
-						return;
-					}
-					else
-					{
-						gesture = "Alt+";
-					}
-					break;
-			}
-			gesture += ((Keys)e.nKeyCode).ToString();
-			OnGesture(gesture);
-			 */
 		}
 
 		void form_KeyDown(object sender, KeyEventArgs e)
 		{
 			OnKeyDown();
-
-			/*
-			// KeyDownイベント
-			string gesture = "";
-			switch (e.Modifiers)
-			{
-				case Keys.Shift: // Shift
-					if (((Keys)e.KeyCode) == Keys.ShiftKey)
-					{
-						gesture = "Shift";
-						OnGesture(gesture);
-						return;
-					}
-					else
-					{
-						gesture = "Shift+";
-					}
-					break;
-				case Keys.Control: // Control
-					if (((Keys)e.KeyCode) == Keys.ControlKey)
-					{
-						gesture = "Control";
-						OnGesture(gesture);
-						return;
-					}
-					else
-					{
-						gesture = "Control+";
-					}
-					break;
-				case Keys.Alt: // Alt
-					if (((Keys)e.KeyCode) == Keys.Menu)
-					{
-						gesture = "Alt";
-						OnGesture(gesture);
-						return;
-					}
-					else
-					{
-						gesture = "Alt+";
-					}
-					break;
-			}
-			gesture += ((Keys)e.KeyCode).ToString();
-			OnGesture(gesture);
-			 */
 		}
 
 		/// <summary>
@@ -966,25 +874,6 @@ namespace PeerstPlayer
 
 			if (e.Delta > 0)
 			{
-				/*
-				// 左クリック + 上
-				if (e.Button == MouseButtons.Left)
-				{
-					gesture += "LeftClick+WheelUp";
-				}
-				// 右クリック + 上
-				else if (e.Button == MouseButtons.Right)
-				{
-					gesture += "RightClick+WheelUp";
-				}
-				// 中クリック + 上
-				else if (e.Button == MouseButtons.Right)
-				{
-					gesture += "Middle+WheelUp";
-				}
-				// 上
-				else
-				 */
 				short a = Win32API.GetAsyncKeyState(2);
 				if (Win32API.GetAsyncKeyState(1) < 0)
 				{
@@ -1001,25 +890,6 @@ namespace PeerstPlayer
 			}
 			else if (e.Delta < 0)
 			{
-				/*
-				// 左クリック + 下
-				if (e.Button == MouseButtons.Left)
-				{
-					gesture += "LeftClick+WheelDown";
-				}
-				// 右クリック + 下
-				else if (e.Button == MouseButtons.Right)
-				{
-					gesture += "RightClick+WheelDown";
-				}
-				// 右クリック + 下
-				else if (e.Button == MouseButtons.Middle)
-				{
-					gesture += "MiddleClick+WheelDown";
-				}
-				// 下
-				else
-				 */
 				short a = Win32API.GetAsyncKeyState(2);
 				if (Win32API.GetAsyncKeyState(1) < 0)
 				{

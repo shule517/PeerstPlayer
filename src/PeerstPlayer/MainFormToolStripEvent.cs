@@ -218,13 +218,6 @@ namespace PeerstPlayer
 						break;
 				}
 			}
-			/*
-			位置を保存するToolStripMenuItem.Checked = SaveLocationOnClose;
-			サイズを保存するToolStripMenuItem.Checked = SaveSizeOnClose;
-			音量を保存するToolStripMenuItem.Checked = SaveVolumeOnClose;
-			リレーを切断するToolStripMenuItem.Checked = RlayCutOnClose;
-			スレッドビューワを終了するToolStripMenuItem.Checked = CloseViewerOnClose;
-			 */
 		}
 
 		private void 位置を保存するToolStripMenuItem_Click(object sender, EventArgs e)
@@ -299,18 +292,8 @@ namespace PeerstPlayer
 					case "FitSizeMovie":
 						動画サイズに合わせるToolStripMenuItem1.Checked = (data == "True");
 						break;
-					case "ThreadCaption":
-						字幕表示ToolStripMenuItem.Checked = (data == "True");
-						break;
 				}
 			}
-			/*
-			最前列表示ToolStripMenuItem2.Checked = TopMost;
-			タイトルバーToolStripMenuItem2.Checked = TitleBar;
-			レスボックスToolStripMenuItem2.Checked = panelResBox.Visible;
-			ステータスバーToolStripMenuItem2.Checked = panelStatusLabel.Visible;
-			フレームToolStripMenuItem2.Checked = Frame;
-			 */
 		}
 
 		private void 最前列表示ToolStripMenuItem2_Click(object sender, EventArgs e)
@@ -348,12 +331,6 @@ namespace PeerstPlayer
 			OnPanelSizeChange();
 		}
 
-		private void 字幕表示ToolStripMenuItem_Click(object sender, EventArgs e)
-		{
-			IniFile iniFile = new IniFile(GetCurrentDirectory() + "\\PeerstPlayer.ini");
-			iniFile.Write("Player", "ThreadCaption", (!字幕表示ToolStripMenuItem.Checked).ToString());
-		}
-
 		/// <summary>
 		/// レスボックスの操作
 		/// </summary>
@@ -373,11 +350,6 @@ namespace PeerstPlayer
 						break;
 				}
 			}
-
-			/*
-			enter改行ShiftEnter書き込みToolStripMenuItem.Checked = ResBoxType;
-			enter書き込みShiftEnter改行ToolStripMenuItem.Checked = !ResBoxType;
-			 */
 		}
 
 		private void enter改行ShiftEnter書き込みToolStripMenuItem_Click(object sender, EventArgs e)
@@ -429,13 +401,6 @@ namespace PeerstPlayer
 						break;
 				}
 			}
-			/*
-			スクリーン吸着ToolStripMenuItem.Checked = UseScreenMagnet;
-			マウスジェスチャーToolStripMenuItem.Checked = UseMouseGesture;
-			書き込み時にレスボックスを非表示ToolStripMenuItem.Checked = CloseResBoxOnWrite;
-			レスボックスを自動的に隠すToolStripMenuItem.Checked = ResBoxAutoVisible;
-			アスペクト比を維持ToolStripMenuItem.Checked = AspectRate;
-			 */
 		}
 
 		private void スクリーン吸着ToolStripMenuItem_Click(object sender, EventArgs e)
@@ -925,15 +890,6 @@ namespace PeerstPlayer
 				}
 				else
 				{
-					/*
-					// 起動していたら終了
-					if (ThreadViewerProcess != null && !ThreadViewerProcess.HasExited)
-					{
-						// 終了
-						ThreadViewerProcess.CloseMainWindow();
-					}
-					 */
-
 					// スレビューワを開く
 					fileName = GetCurrentDirectory() + "\\PeerstViewer.exe";
 					threadUrl = GetThreadUrl();

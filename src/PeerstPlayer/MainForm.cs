@@ -291,10 +291,6 @@ namespace PeerstPlayer
 				}
 				else
 				{
-					/*
-					isBeforeTitleBar = TitleBar;
-					TitleBar = true;
-					 */
 					TitleBar = false;
 					FormBorderStyle = FormBorderStyle.None;
 				}
@@ -620,7 +616,6 @@ namespace PeerstPlayer
 						pecaManager.DisconnectRelay();
 						Visible = false;
 						Close();
-						//Application.Exit();
 					}
 					catch
 					{
@@ -860,57 +855,6 @@ namespace PeerstPlayer
 					ofd.ShowDialog();
 					wmp.URL = ofd.FileName;
 					break;
-
-				/*
-			case "Shift+Up":
-				panelWMP.Height -= 1;
-				OnPanelSizeChange();
-				break;
-			case "Shift+Down":
-				panelWMP.Height += 1;
-				OnPanelSizeChange();
-				break;
-			case "Shift+Right":
-				panelWMP.Width += 1;
-				OnPanelSizeChange();
-				break;
-			case "Shift+Left":
-				panelWMP.Width -= 1;
-				OnPanelSizeChange();
-				break;
-			case "Alt+Up":
-				panelWMP.Height -= 10;
-				OnPanelSizeChange();
-				break;
-			case "Alt+Down":
-				panelWMP.Height += 10;
-				OnPanelSizeChange();
-				break;
-			case "Alt+Right":
-				panelWMP.Width += 10;
-				OnPanelSizeChange();
-				break;
-			case "Alt+Left":
-				panelWMP.Width -= 10;
-				OnPanelSizeChange();
-				break;
-			case "Up":
-				panelWMP.Height -= 30;
-				OnPanelSizeChange();
-				break;
-			case "Down":
-				panelWMP.Height += 30;
-				OnPanelSizeChange();
-				break;
-			case "Right":
-				panelWMP.Width += 30;
-				OnPanelSizeChange();
-				break;
-			case "Left":
-				panelWMP.Width -= 30;
-				OnPanelSizeChange();
-				break;
-				 */
 				default:
 					return;
 			}
@@ -1052,11 +996,6 @@ namespace PeerstPlayer
 /* 全ての値は、デフォルト値となります
 /**************************************************************************/
 [Player]
-
-// スレッド内容を字幕表示するか
-// True ： 表示
-// False ： 表示しない
-ThreadCaption =True
 
 // タイトルバー
 // True ： 表示
@@ -1317,77 +1256,6 @@ H = Retry
 					writer.WriteByte(bytes[i]);
 				}
 				writer.Close();
-
-				/*
-
-				iniFile.Write("Player", "Frame", "False");
-
-				iniFile.Write("PlayerShortcut", "↓", "OpenThreadViewer");
-				iniFile.Write("PlayerShortcut", "↓↑", "ChannelInfoUpdate");
-				iniFile.Write("PlayerShortcut", "↓→", "Close");
-				iniFile.Write("PlayerShortcut", "←", "balance-10");
-				iniFile.Write("PlayerShortcut", "→", "balance+10");
-				iniFile.Write("PlayerShortcut", "MiddleClick", "Mini&Mute");
-				iniFile.Write("PlayerShortcut", "Shift+WheelUp", "Volume+1");
-				iniFile.Write("PlayerShortcut", "Shift+WheelDown", "Volume-1");
-				iniFile.Write("PlayerShortcut", "Control+WheelUp", "Volume+5");
-				iniFile.Write("PlayerShortcut", "Control+WheelDown", "Volume-5");
-				iniFile.Write("PlayerShortcut", "WheelUp", "Volume+10");
-				iniFile.Write("PlayerShortcut", "WheelDown", "Volume-10");
-				iniFile.Write("PlayerShortcut", "Up", "Volume+10");
-				iniFile.Write("PlayerShortcut", "Down", "Volume-10");
-				iniFile.Write("PlayerShortcut", "Alt+B", "Bump");
-				iniFile.Write("PlayerShortcut", "Alt+X", "Close&RelayCut");
-				iniFile.Write("PlayerShortcut", "Right", "VolumeBalance+10");
-				iniFile.Write("PlayerShortcut", "Left", "VolumeBalance-10");
-				iniFile.Write("PlayerShortcut", "Alt+Left", "VolumeBalanceLeft");
-				iniFile.Write("PlayerShortcut", "Alt+Right", "VolumeBalanceRight");
-				iniFile.Write("PlayerShortcut", "Alt+Down", "VolumeBalanceMiddle");
-				iniFile.Write("PlayerShortcut", "RightClick+WheelUp", "Size-10%");
-				iniFile.Write("PlayerShortcut", "RightClick+WheelDown", "Size+10%");
-				iniFile.Write("PlayerShortcut", "Shift+Up", "Size-10%");
-				iniFile.Write("PlayerShortcut", "Shift+Down", "Size+10%");
-				iniFile.Write("PlayerShortcut", "Control+Up", "Size-10");
-				iniFile.Write("PlayerShortcut", "Control+Down", "Size+10");
-				iniFile.Write("PlayerShortcut", "Space", "SelectResBox");
-				iniFile.Write("PlayerShortcut", "O", "OpenThreadViewer");
-				iniFile.Write("PlayerShortcut", "Escape", "Close");
-				iniFile.Write("PlayerShortcut", "T", "TopMost");
-				iniFile.Write("PlayerShortcut", "A", "ResBox");
-				iniFile.Write("PlayerShortcut", "S", "StatusLabel");
-				iniFile.Write("PlayerShortcut", "D", "Frame");
-				iniFile.Write("PlayerShortcut", "F", "TitleBar");
-				iniFile.Write("PlayerShortcut", "Z", "AspectRate");
-				iniFile.Write("PlayerShortcut", "Return", "OpenContextMenu");
-				iniFile.Write("PlayerShortcut", "Delete", "Mute");
-				iniFile.Write("PlayerShortcut", "Alt+Return", "FullScreen");
-				iniFile.Write("PlayerShortcut", "D1", "Size=50%");
-				iniFile.Write("PlayerShortcut", "D2", "Size=75%");
-				iniFile.Write("PlayerShortcut", "D3", "Size=100%");
-				iniFile.Write("PlayerShortcut", "D4", "Size=150%");
-				iniFile.Write("PlayerShortcut", "D5", "Size=200%");
-				iniFile.Write("PlayerShortcut", "Alt+D1", "ScreenSplit=5");
-				iniFile.Write("PlayerShortcut", "Alt+D2", "ScreenSplit=4");
-				iniFile.Write("PlayerShortcut", "Alt+D3", "ScreenSplit=3");
-				iniFile.Write("PlayerShortcut", "Alt+D4", "ScreenSplit=2");
-				iniFile.Write("PlayerShortcut", "Q", "ScreenSplitWidth=5");
-				iniFile.Write("PlayerShortcut", "W", "ScreenSplitWidth=4");
-				iniFile.Write("PlayerShortcut", "E", "ScreenSplitWidth=3");
-				iniFile.Write("PlayerShortcut", "R", "ScreenSplitWidth=2");
-				iniFile.Write("PlayerShortcut", "Alt+Q", "ScreenSplitHeight=5");
-				iniFile.Write("PlayerShortcut", "Alt+W", "ScreenSplitHeight=4");
-				iniFile.Write("PlayerShortcut", "Alt+E", "ScreenSplitHeight=3");
-				iniFile.Write("PlayerShortcut", "Alt+R", "ScreenSplitHeight=2");
-				iniFile.Write("PlayerShortcut", "Alt+LeftClick", "Frame");
-				iniFile.Write("PlayerShortcut", "Right->LeftClick", "Frame");
-				iniFile.Write("PlayerShortcut", "P", "ScreenShot");
-				iniFile.Write("PlayerShortcut", "↑", "ScreenShot");
-				iniFile.Write("PlayerShortcut", "L", "OpenScreenShotFolder");
-				iniFile.Write("PlayerShortcut", "G", "FitSizeMovie");
-				iniFile.Write("PlayerShortcut", "Control+V", "OpenClipBoard");
-				iniFile.Write("PlayerShortcut", "K", "OpenFile");
-				iniFile.Write("PlayerShortcut", "H", "Retry");
-				*/
 			}
 
 
@@ -1764,27 +1632,6 @@ H = Retry
 
 			// 終了時にサイズを保存するか
 			iniFile.Write("Player", "SaveSizeOnClose", SaveSizeOnClose.ToString());
-			/*
-			if (!SaveLocationOnClose)
-			{
-				// 初期位置X
-				iniFile.Write("Player", "X", "");
-
-				// 初期位置Y
-				iniFile.Write("Player", "Y", "");
-			}
-
-			if (!SaveSizeOnClose)
-			{
-				// 初期Width
-				iniFile.Write("Player", "Width", "");
-
-				// 初期Height
-				iniFile.Write("Player", "Height", "");
-			}
-			*/
-			// ボリューム
-			//iniFile.Write("Player", "Volume", wmp.Volume.ToString());
 
 			// フォント名
 			iniFile.Write("Player", "FontName", labelDetail.Font.Name);
@@ -2046,8 +1893,6 @@ H = Retry
 			if (Environment.GetCommandLineArgs().Length > 0)
 			{
 				string folder = Environment.GetCommandLineArgs()[0];
-
-				//string folder = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
 				folder = folder.Substring(0, folder.LastIndexOf('\\'));
 
 				return folder;
@@ -2405,7 +2250,6 @@ H = Retry
 			{
 				Visible = false;
 				Close();
-				//Application.Exit();
 			}
 			catch
 			{

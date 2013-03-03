@@ -99,7 +99,6 @@ namespace PeerstPlayer
 			this.レスボックスToolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
 			this.ステータスバーToolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
 			this.フレームToolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
-			this.字幕表示ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.状態保存ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.現在の状態を保存ToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
 			this.位置を保存ToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
@@ -638,8 +637,7 @@ namespace PeerstPlayer
             this.タイトルバーToolStripMenuItem2,
             this.レスボックスToolStripMenuItem2,
             this.ステータスバーToolStripMenuItem2,
-            this.フレームToolStripMenuItem2,
-            this.字幕表示ToolStripMenuItem});
+            this.フレームToolStripMenuItem2});
 			this.デフォルトToolStripMenuItem.Name = "デフォルトToolStripMenuItem";
 			this.デフォルトToolStripMenuItem.Size = new System.Drawing.Size(268, 22);
 			this.デフォルトToolStripMenuItem.Text = "デフォルト";
@@ -781,13 +779,6 @@ namespace PeerstPlayer
 			this.フレームToolStripMenuItem2.Size = new System.Drawing.Size(196, 22);
 			this.フレームToolStripMenuItem2.Text = "フレーム";
 			this.フレームToolStripMenuItem2.Click += new System.EventHandler(this.フレームToolStripMenuItem2_Click);
-			// 
-			// 字幕表示ToolStripMenuItem
-			// 
-			this.字幕表示ToolStripMenuItem.Name = "字幕表示ToolStripMenuItem";
-			this.字幕表示ToolStripMenuItem.Size = new System.Drawing.Size(196, 22);
-			this.字幕表示ToolStripMenuItem.Text = "字幕表示";
-			this.字幕表示ToolStripMenuItem.Click += new System.EventHandler(this.字幕表示ToolStripMenuItem_Click);
 			// 
 			// 状態保存ToolStripMenuItem
 			// 
@@ -1651,7 +1642,6 @@ namespace PeerstPlayer
 		private System.Windows.Forms.ToolStripMenuItem x600ToolStripMenuItem;
 		private System.Windows.Forms.Timer timerUpdateChannelInfo;
 		private System.Windows.Forms.ToolStripTextBox toolStripTextBoxThreadURL;
-		private System.Windows.Forms.ToolStripMenuItem 字幕表示ToolStripMenuItem;
 		private System.Windows.Forms.Label labelThreadTitle;
 	}
 }
