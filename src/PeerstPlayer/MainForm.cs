@@ -481,63 +481,63 @@ namespace PeerstPlayer
 			switch (command)
 			{
 				case "Size=50%":
-					SetScale(50);
+					windowSizeManager.SetScale(50);
 					value = " (" + panelWMP.Width + " x " + panelWMP.Height + ")";
 					break;
 				case "Size=75%":
-					SetScale(75);
+					windowSizeManager.SetScale(75);
 					value = " (" + panelWMP.Width + " x " + panelWMP.Height + ")";
 					break;
 				case "Size=100%":
-					SetScale(100);
+					windowSizeManager.SetScale(100);
 					value = " (" + panelWMP.Width + " x " + panelWMP.Height + ")";
 					break;
 				case "Size=150%":
-					SetScale(150);
+					windowSizeManager.SetScale(150);
 					value = " (" + panelWMP.Width + " x " + panelWMP.Height + ")";
 					break;
 				case "Size=200%":
-					SetScale(200);
+					windowSizeManager.SetScale(200);
 					value = " (" + panelWMP.Width + " x " + panelWMP.Height + ")";
 					break;
 				case "Width=160":
-					SetWidth(160);
+					windowSizeManager.SetWidth(160);
 					value = " (" + panelWMP.Width + " x " + panelWMP.Height + ")";
 					break;
 				case "Width=320":
-					SetWidth(320);
+					windowSizeManager.SetWidth(320);
 					value = " (" + panelWMP.Width + " x " + panelWMP.Height + ")";
 					break;
 				case "Width=480":
-					SetWidth(480);
+					windowSizeManager.SetWidth(480);
 					value = " (" + panelWMP.Width + " x " + panelWMP.Height + ")";
 					break;
 				case "Width=640":
-					SetWidth(640);
+					windowSizeManager.SetWidth(640);
 					value = " (" + panelWMP.Width + " x " + panelWMP.Height + ")";
 					break;
 				case "Width=800":
-					SetWidth(800);
+					windowSizeManager.SetWidth(800);
 					value = " (" + panelWMP.Width + " x " + panelWMP.Height + ")";
 					break;
 				case "Height=120":
-					SetWidth(120);
+					windowSizeManager.SetWidth(120);
 					value = " (" + panelWMP.Width + " x " + panelWMP.Height + ")";
 					break;
 				case "Height=240":
-					SetWidth(240);
+					windowSizeManager.SetWidth(240);
 					value = " (" + panelWMP.Width + " x " + panelWMP.Height + ")";
 					break;
 				case "Height=360":
-					SetWidth(360);
+					windowSizeManager.SetWidth(360);
 					value = " (" + panelWMP.Width + " x " + panelWMP.Height + ")";
 					break;
 				case "Height=480":
-					SetWidth(480);
+					windowSizeManager.SetWidth(480);
 					value = " (" + panelWMP.Width + " x " + panelWMP.Height + ")";
 					break;
 				case "Height=600":
-					SetWidth(600);
+					windowSizeManager.SetWidth(600);
 					value = " (" + panelWMP.Width + " x " + panelWMP.Height + ")";
 					break;
 				case "ScreenSplitWidth=5":
@@ -827,11 +827,11 @@ namespace PeerstPlayer
 					{
 						if ((wmp.Height / (float)wmp.Width) > wmp.AspectRate)
 						{
-							SetWidth(wmp.Width);
+							windowSizeManager.SetWidth(wmp.Width);
 						}
 						else
 						{
-							SetHeight(wmp.Height);
+							windowSizeManager.SetHeight(wmp.Height);
 						}
 					}
 					catch
@@ -1793,39 +1793,6 @@ H = Retry
 		}
 
 		/// <summary>
-		/// 幅指定
-		/// </summary>
-		void SetWidth(int width)
-		{
-			windowSizeManager.SetWidth(width);
-		}
-
-		/// <summary>
-		/// 高さ指定
-		/// </summary>
-		void SetHeight(int height)
-		{
-			windowSizeManager.SetHeight(height);
-		}
-
-		/// <summary>
-		/// サイズ指定
-		/// </summary>
-		void SetSize(int width, int height)
-		{
-			windowSizeManager.SetSize(width, height);
-		}
-
-		/// <summary>
-		/// 拡大率
-		/// </summary>
-		void SetScale(int scale)
-		{
-			panelWMP.Size = new Size((int)(wmp.ImageWidth * (scale / (float)100)), (int)(wmp.ImageHeight * (scale / (float)100)));
-			OnPanelSizeChange();
-		}
-
-		/// <summary>
 		/// 作業フォルダを取得
 		/// </summary>
 		string GetCurrentDirectory()
@@ -1935,27 +1902,27 @@ H = Retry
 
 		private void 幅160ToolStripMenuItem_Click(object sender, EventArgs e)
 		{
-			SetWidth(160);
+			windowSizeManager.SetWidth(160);
 		}
 
 		private void 幅320ToolStripMenuItem_Click(object sender, EventArgs e)
 		{
-			SetWidth(320);
+			windowSizeManager.SetWidth(320);
 		}
 
 		private void 幅480ToolStripMenuItem_Click(object sender, EventArgs e)
 		{
-			SetWidth(480);
+			windowSizeManager.SetWidth(480);
 		}
 
 		private void 幅640ToolStripMenuItem_Click(object sender, EventArgs e)
 		{
-			SetWidth(640);
+			windowSizeManager.SetWidth(640);
 		}
 
 		private void 幅800ToolStripMenuItem_Click(object sender, EventArgs e)
 		{
-			SetWidth(800);
+			windowSizeManager.SetWidth(800);
 		}
 
 		#endregion
@@ -1995,27 +1962,27 @@ H = Retry
 
 		private void toolStripMenuItem50Per_Click(object sender, EventArgs e)
 		{
-			SetScale(50);
+			windowSizeManager.SetScale(50);
 		}
 
 		private void toolStripMenuItem75Per_Click(object sender, EventArgs e)
 		{
-			SetScale(75);
+			windowSizeManager.SetScale(75);
 		}
 
 		private void toolStripMenuItem100Per_Click(object sender, EventArgs e)
 		{
-			SetScale(100);
+			windowSizeManager.SetScale(100);
 		}
 
 		private void toolStripMenuItem150_Click(object sender, EventArgs e)
 		{
-			SetScale(150);
+			windowSizeManager.SetScale(150);
 		}
 
 		private void toolStripMenuItem200Per_Click(object sender, EventArgs e)
 		{
-			SetScale(200);
+			windowSizeManager.SetScale(200);
 		}
 
 		#endregion
@@ -2024,27 +1991,27 @@ H = Retry
 
 		private void x120ToolStripMenuItem_Click(object sender, EventArgs e)
 		{
-			SetSize(160, 120);
+			windowSizeManager.SetSize(160, 120);
 		}
 
 		private void x240ToolStripMenuItem_Click(object sender, EventArgs e)
 		{
-			SetSize(320, 240);
+			windowSizeManager.SetSize(320, 240);
 		}
 
 		private void x360ToolStripMenuItem_Click(object sender, EventArgs e)
 		{
-			SetSize(480, 360);
+			windowSizeManager.SetSize(480, 360);
 		}
 
 		private void x480ToolStripMenuItem_Click(object sender, EventArgs e)
 		{
-			SetSize(640, 480);
+			windowSizeManager.SetSize(640, 480);
 		}
 
 		private void x600ToolStripMenuItem_Click(object sender, EventArgs e)
 		{
-			SetSize(800, 600);
+			windowSizeManager.SetSize(800, 600);
 		}
 
 		#endregion
@@ -2053,27 +2020,27 @@ H = Retry
 
 		private void 高さ120ToolStripMenuItem_Click(object sender, EventArgs e)
 		{
-			SetHeight(120);
+			windowSizeManager.SetHeight(120);
 		}
 
 		private void 高さ240ToolStripMenuItem_Click(object sender, EventArgs e)
 		{
-			SetHeight(240);
+			windowSizeManager.SetHeight(240);
 		}
 
 		private void 高さ360ToolStripMenuItem_Click(object sender, EventArgs e)
 		{
-			SetHeight(360);
+			windowSizeManager.SetHeight(360);
 		}
 
 		private void 高さ480ToolStripMenuItem_Click(object sender, EventArgs e)
 		{
-			SetHeight(480);
+			windowSizeManager.SetHeight(480);
 		}
 
 		private void 高さ600ToolStripMenuItem_Click(object sender, EventArgs e)
 		{
-			SetHeight(600);
+			windowSizeManager.SetHeight(600);
 		}
 
 		#endregion
