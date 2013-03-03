@@ -41,6 +41,7 @@ namespace PeerstPlayer
 			wmp.Volume = 50;
 			wmp.enableContextMenu = false;
 
+			// ウィンドウ配置調節
 			OnPanelSizeChange();
 
 			// ウィンドウサイズ管理
@@ -264,7 +265,7 @@ namespace PeerstPlayer
 					string data = iniFile.ReadString("Player", keys[i]);
 					switch (keys[i])
 					{
-						// タイトルバー
+						// 音量
 						case "Volume":
 							try
 							{

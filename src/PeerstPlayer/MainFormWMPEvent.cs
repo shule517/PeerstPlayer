@@ -27,11 +27,11 @@ namespace PeerstPlayer
 
 				if (gesture != "")
 				{
-					for (int i = 0; i < ShortcutList.Count; i++)
+					for (int i = 0; i < settings.ShortcutList.Count; i++)
 					{
-						if (gesture == ShortcutList[i][0])
+						if (gesture == settings.ShortcutList[i][0])
 						{
-							gesture += " (" + CommandToString(ShortcutList[i][1]) + ")";
+							gesture += " (" + CommandToString(settings.ShortcutList[i][1]) + ")";
 							break;
 						}
 					}
@@ -56,11 +56,11 @@ namespace PeerstPlayer
 		/// </summary>
 		void wmp_Gesture(object sender, string gesture)
 		{
-			for (int i = 0; i < ShortcutList.Count; i++)
+			for (int i = 0; i < settings.ShortcutList.Count; i++)
 			{
-				if (gesture == ShortcutList[i][0])
+				if (gesture == settings.ShortcutList[i][0])
 				{
-					ExeCommand(ShortcutList[i][1]);
+					ExeCommand(settings.ShortcutList[i][1]);
 				}
 			}
 		}
