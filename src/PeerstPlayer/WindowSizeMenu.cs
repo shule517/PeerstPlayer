@@ -135,5 +135,92 @@ namespace PeerstPlayer
 		}
 
 		#endregion
+
+		#region 画面分割メニュー（高さx幅）
+
+		public void 分割5X5ToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			windowSizeManager.ScreenSplit(5);
+		}
+
+		public void 分割4X4ToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			windowSizeManager.ScreenSplit(4);
+		}
+
+		public void 分割3X3ToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			windowSizeManager.ScreenSplit(3);
+		}
+
+		public void 分割2X2ToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			windowSizeManager.ScreenSplit(2);
+		}
+
+		public void 分割1X1ToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			windowSizeManager.ScreenSplit(1);
+		}
+
+		#endregion
+
+		#region 画面分割メニュー（幅）
+
+		public void 幅5分の1ToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			windowSizeManager.ScreenSplitWidth(5);
+		}
+
+		public void 幅4分の1ToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			windowSizeManager.ScreenSplitWidth(4);
+		}
+
+		public void 幅3分の1ToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			windowSizeManager.ScreenSplitWidth(3);
+		}
+
+		public void 幅2分の1ToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			windowSizeManager.ScreenSplitWidth(2);
+		}
+
+		public void 幅1分の1ToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			windowSizeManager.ScreenSplitWidth(1);
+		}
+
+		#endregion
+
+		#region 画面分割メニュー（高さ）
+
+		public void 高さ5分の1ToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			windowSizeManager.ScreenSplitHeight(5);
+		}
+
+		public void 高さ4分の1ToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			windowSizeManager.ScreenSplitHeight(4);
+		}
+
+		public void 高さ3分の1ToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			windowSizeManager.ScreenSplitHeight(3);
+		}
+
+		public void 高さ2分の1ToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			windowSizeManager.ScreenSplitHeight(2);
+		}
+
+		public void 高さ1分の1ToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			windowSizeManager.ScreenSplitHeight(1);
+		}
+
+		#endregion
 	}
 }

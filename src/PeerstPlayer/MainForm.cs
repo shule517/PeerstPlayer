@@ -312,7 +312,6 @@ namespace PeerstPlayer
 
 			// WMP初期化
 			wmp = new WMPEx(this);
-			wmp.MouseDownEvent += new AxWMPLib._WMPOCXEvents_MouseDownEventHandler(wmp_MouseDownEvent);
 			wmp.MouseUpEvent += new AxWMPLib._WMPOCXEvents_MouseUpEventHandler(wmp_MouseUpEvent);
 			wmp.MouseMoveEvent += new AxWMPLib._WMPOCXEvents_MouseMoveEventHandler(wmp_MouseMoveEvent);
 			wmp.MovieStart += new EventHandler(wmp_MovieStart);
@@ -1840,93 +1839,6 @@ H = Retry
 
 		#endregion
 
-		private void 分割5X5ToolStripMenuItem_Click(object sender, EventArgs e)
-		{
-			windowSizeManager.ScreenSplit(5);
-		}
-
-		private void 分割4X4ToolStripMenuItem_Click(object sender, EventArgs e)
-		{
-			windowSizeManager.ScreenSplit(4);
-		}
-
-		private void 分割3X3ToolStripMenuItem_Click(object sender, EventArgs e)
-		{
-			windowSizeManager.ScreenSplit(3);
-		}
-
-		private void 分割2X2ToolStripMenuItem_Click(object sender, EventArgs e)
-		{
-			windowSizeManager.ScreenSplit(2);
-		}
-
-		private void 分割1X1ToolStripMenuItem_Click(object sender, EventArgs e)
-		{
-			windowSizeManager.ScreenSplit(1);
-		}
-
-		#region 画面分割メニュー（幅）
-
-		private void 幅5分の1ToolStripMenuItem_Click(object sender, EventArgs e)
-		{
-			windowSizeManager.ScreenSplitWidth(5);
-		}
-
-		private void 幅4分の1ToolStripMenuItem_Click(object sender, EventArgs e)
-		{
-			windowSizeManager.ScreenSplitWidth(4);
-		}
-
-		private void 幅3分の1ToolStripMenuItem_Click(object sender, EventArgs e)
-		{
-			windowSizeManager.ScreenSplitWidth(3);
-		}
-
-		private void 幅2分の1ToolStripMenuItem_Click(object sender, EventArgs e)
-		{
-			windowSizeManager.ScreenSplitWidth(2);
-		}
-
-		private void 幅1分の1ToolStripMenuItem_Click(object sender, EventArgs e)
-		{
-			windowSizeManager.ScreenSplitWidth(1);
-		}
-
-		#endregion
-
-		#region 画面分割メニュー
-
-		#region 画面分割メニュー（高さ）
-
-		private void 高さ5分の1ToolStripMenuItem_Click(object sender, EventArgs e)
-		{
-			windowSizeManager.ScreenSplitHeight(5);
-		}
-
-		private void 高さ4分の1ToolStripMenuItem_Click(object sender, EventArgs e)
-		{
-			windowSizeManager.ScreenSplitHeight(4);
-		}
-
-		private void 高さ3分の1ToolStripMenuItem_Click(object sender, EventArgs e)
-		{
-			windowSizeManager.ScreenSplitHeight(3);
-		}
-
-		private void 高さ2分の1ToolStripMenuItem_Click(object sender, EventArgs e)
-		{
-			windowSizeManager.ScreenSplitHeight(2);
-		}
-
-		private void 高さ1分の1ToolStripMenuItem_Click(object sender, EventArgs e)
-		{
-			windowSizeManager.ScreenSplitHeight(1);
-		}
-
-		#endregion
-
-		#endregion
-
 		/// <summary>
 		/// 最小化ボタン
 		/// </summary>
@@ -2092,7 +2004,7 @@ H = Retry
 		/// </summary>
 		/// <param name="threadUrl">スレッドURL</param>
 		/// <param name="threadNo">スレッド番号</param>
-		public void UpdateThreadUrl(string threadUrl, string threadNo)
+		void ThreadSelectObserver.UpdateThreadUrl(string threadUrl, string threadNo)
 		{
 			// スレッドURL変更
 			operationBbs.ChangeUrl(threadUrl);

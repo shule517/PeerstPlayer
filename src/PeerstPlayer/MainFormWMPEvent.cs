@@ -4,13 +4,6 @@ namespace PeerstPlayer
 	partial class MainForm
 	{
 		/// <summary>
-		/// WMP:MouseDown
-		/// </summary>
-		void wmp_MouseDownEvent(object sender, AxWMPLib._WMPOCXEvents_MouseDownEvent e)
-		{
-		}
-
-		/// <summary>
 		/// MouseUp
 		/// </summary>
 		void wmp_MouseUpEvent(object sender, AxWMPLib._WMPOCXEvents_MouseUpEvent e)

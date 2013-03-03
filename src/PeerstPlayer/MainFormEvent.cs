@@ -81,6 +81,22 @@ namespace PeerstPlayer
 			this.x360ToolStripMenuItem.Click += new System.EventHandler(windowSizeMenu.x360ToolStripMenuItem_Click);
 			this.x480ToolStripMenuItem.Click += new System.EventHandler(windowSizeMenu.x480ToolStripMenuItem_Click);
 			this.x600ToolStripMenuItem.Click += new System.EventHandler(windowSizeMenu.x600ToolStripMenuItem_Click);
+			this.幅5分の1ToolStripMenuItem.Click += new System.EventHandler(windowSizeMenu.幅5分の1ToolStripMenuItem_Click);
+			this.幅4分の1ToolStripMenuItem.Click += new System.EventHandler(windowSizeMenu.幅4分の1ToolStripMenuItem_Click);
+			this.幅3分の1ToolStripMenuItem.Click += new System.EventHandler(windowSizeMenu.幅3分の1ToolStripMenuItem_Click);
+			this.幅2分の1ToolStripMenuItem.Click += new System.EventHandler(windowSizeMenu.幅2分の1ToolStripMenuItem_Click);
+			this.幅1分の1ToolStripMenuItem.Click += new System.EventHandler(windowSizeMenu.幅1分の1ToolStripMenuItem_Click);
+			this.高さ5分の1ToolStripMenuItem.Click += new System.EventHandler(windowSizeMenu.高さ5分の1ToolStripMenuItem_Click);
+			this.高さ4分の1ToolStripMenuItem.Click += new System.EventHandler(windowSizeMenu.高さ4分の1ToolStripMenuItem_Click);
+			this.高さ3分の1ToolStripMenuItem.Click += new System.EventHandler(windowSizeMenu.高さ3分の1ToolStripMenuItem_Click);
+			this.高さ2分の1ToolStripMenuItem.Click += new System.EventHandler(windowSizeMenu.高さ2分の1ToolStripMenuItem_Click);
+			this.高さ1分の1ToolStripMenuItem.Click += new System.EventHandler(windowSizeMenu.高さ1分の1ToolStripMenuItem_Click);
+			this.分割5X5ToolStripMenuItem.Click += new System.EventHandler(windowSizeMenu.分割5X5ToolStripMenuItem_Click);
+			this.分割4X4ToolStripMenuItem.Click += new System.EventHandler(windowSizeMenu.分割4X4ToolStripMenuItem_Click);
+			this.分割3X3ToolStripMenuItem.Click += new System.EventHandler(windowSizeMenu.分割3X3ToolStripMenuItem_Click);
+			this.分割2X2ToolStripMenuItem.Click += new System.EventHandler(windowSizeMenu.分割2X2ToolStripMenuItem_Click);
+			this.分割1X1ToolStripMenuItem.Click += new System.EventHandler(windowSizeMenu.分割1X1ToolStripMenuItem_Click);
+
 		}
 
 		/// <summary>
