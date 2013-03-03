@@ -339,7 +339,12 @@ namespace PeerstViewer
 			if (e.KeyCode == Keys.Enter)
 			{
 				// コンボボックスに入力されたURLを更新 / 現在の板のスレッド一覧を取得
-				operationBbs.ChangeUrl(this.comboBox.Text);
+				string url = this.comboBox.Text;
+				if (!isEnableUrl(url))
+				{
+					return;
+				}
+				operationBbs.ChangeUrl(url);
 				ThreadListUpdate();
 			}
 		}
@@ -366,8 +371,34 @@ namespace PeerstViewer
 		private void buttonThreadListUpdate_Click(object sender, EventArgs e)
 		{
 			// コンボボックスに入力されたURLを更新 / 現在の板のスレッド一覧を取得
-			operationBbs.ChangeUrl(this.comboBox.Text);
+			string url = this.comboBox.Text;
+			if (!isEnableUrl(url))
+			{
+				return;
+			}
+			operationBbs.ChangeUrl(url);
 			ThreadListUpdate();
+		}
+
+		/// <summary>
+		/// 有効なURLか判定
+		/// </summary>
+		private bool isEnableUrl(string url)
+		{
+			if (url == "本スレ")
+			{
+				return true;
+			}
+			
+			if (url.Length >= 7)
+			{
+				if (url.Substring(0, 7) == "http://")
+				{
+					return true;
+				}
+			}
+
+			return false;
 		}
 
 		#region コンテキストメニュー

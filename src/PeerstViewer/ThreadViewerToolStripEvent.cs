@@ -18,7 +18,11 @@ namespace PeerstViewer
 			timerAutoReload.Stop();
 
 			// スレURLを更新
-			operationBbs.ChangeUrl(this.comboBox.Text);
+			string url = this.comboBox.Text;
+			if (isEnableUrl(url))
+			{
+				operationBbs.ChangeUrl(url);
+			}
 
 			// 更新
 			Reload(true);

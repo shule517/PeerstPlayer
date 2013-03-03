@@ -342,12 +342,22 @@ text-decoration:underline;
 		void ThreadListUpdate()
 		{
 			BbsUrl bbsUrl = operationBbs.GetBbsUrl();
+
 			try
 			{
 				// 取得できていなかったら、URLを直接ブラウザで開く
 				if ((bbsUrl.BBSServer == BbsServer.UnSupport) || (bbsUrl.BoadGenre == "") || (bbsUrl.BoadNo == ""))
 				{
-					webBrowser.Url = new Uri(comboBox.Text);
+					string url = comboBox.Text;
+					if (isEnableUrl(url))
+					{
+						webBrowser.Url = new Uri(url);
+					}
+					else
+					{
+						// 初期表示
+						webBrowser.DocumentText = @"<body bgcolor=""#E6EEF3"" style=""font-family:'ＭＳ Ｐゴシック','ＭＳＰゴシック','MSPゴシック','MS Pゴシック';font-size:14px;line-height:16px;"" ><br>↑スレッド(板)URLを入力してください。";
+					}
 				}
 				// データ更新
 				else
@@ -367,7 +377,7 @@ text-decoration:underline;
 						for (int i = 0; i < threadList.Count; i++)
 						{
 							// スレタイ(レス数)
-							comboBox.Items.Add("[speed:" + threadList[i].ThreadSpeed.ToString("F1") + "] " + threadList[i].Title + " (" + threadList[i].ResCount + ")");
+							comboBox.Items.Add(threadList[i].Title + " (" + threadList[i].ResCount + ")");
 						}
 					}
 
