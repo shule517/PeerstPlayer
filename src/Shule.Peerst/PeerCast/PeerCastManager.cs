@@ -5,6 +5,8 @@ using System.IO;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Xml;
+using System.Configuration;
+using System.Net.Configuration;
 
 namespace Shule.Peerst.PeerCast
 {
@@ -111,6 +113,21 @@ namespace Shule.Peerst.PeerCast
 			this.host = host;			// PeerCastアドレス
 			this.portNo = portNo;		// PeerCastポート番号
 			this.channelId = channelId;	// チャンネルID
+
+			// プロトコル違反を許容
+			SettingDisableResponseError();
+		}
+
+		/// <summary>
+		/// プロトコル違反を許容
+		/// PeerCastがプロトコル違反しているバージョンがあるため、許容する
+		/// </summary>
+		private static void SettingDisableResponseError()
+		{
+			Configuration config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+			SettingsSection section = (SettingsSection)config.GetSection("system.net/settings");
+			section.HttpWebRequest.UseUnsafeHeaderParsing = true;
+			config.Save();
 		}
 
 		/// <summary>

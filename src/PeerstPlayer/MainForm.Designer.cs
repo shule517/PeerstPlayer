@@ -94,7 +94,7 @@ namespace PeerstPlayer
 			this.labelDuration = new System.Windows.Forms.Label();
 			this.labelDetail = new System.Windows.Forms.Label();
 			this.pictureBoxIcon = new System.Windows.Forms.PictureBox();
-			this.timerDetail = new System.Windows.Forms.Timer(this.components);
+			this.timerUpdateStatubar = new System.Windows.Forms.Timer(this.components);
 			this.timerLoadIni = new System.Windows.Forms.Timer(this.components);
 			this.toolTipDetail = new System.Windows.Forms.ToolTip(this.components);
 			this.contextMenuStripWMP = new System.Windows.Forms.ContextMenuStrip(this.components);
@@ -184,7 +184,7 @@ namespace PeerstPlayer
 			this.終了するToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.リレーを切断して終了するToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
 			this.wMPメニューToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.timerUpdate = new System.Windows.Forms.Timer(this.components);
+			this.timerUpdateChannelInfo = new System.Windows.Forms.Timer(this.components);
 			this.panelWMP.SuspendLayout();
 			this.toolStrip.SuspendLayout();
 			this.panelResBox.SuspendLayout();
@@ -757,11 +757,11 @@ namespace PeerstPlayer
 			this.pictureBoxIcon.TabIndex = 4;
 			this.pictureBoxIcon.TabStop = false;
 			// 
-			// timerDetail
+			// timerUpdateStatubar
 			// 
-			this.timerDetail.Enabled = true;
-			this.timerDetail.Interval = 1000;
-			this.timerDetail.Tick += new System.EventHandler(this.timerDetail_Tick);
+			this.timerUpdateStatubar.Enabled = true;
+			this.timerUpdateStatubar.Interval = 1000;
+			this.timerUpdateStatubar.Tick += new System.EventHandler(this.timerUpdateStatusbar_Tick);
 			// 
 			// timerLoadIni
 			// 
@@ -940,21 +940,21 @@ namespace PeerstPlayer
 			// 上げるToolStripMenuItem
 			// 
 			this.上げるToolStripMenuItem.Name = "上げるToolStripMenuItem";
-			this.上げるToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+			this.上げるToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
 			this.上げるToolStripMenuItem.Text = "上げる";
 			this.上げるToolStripMenuItem.Click += new System.EventHandler(this.上げるToolStripMenuItem_Click);
 			// 
 			// 下げるToolStripMenuItem
 			// 
 			this.下げるToolStripMenuItem.Name = "下げるToolStripMenuItem";
-			this.下げるToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+			this.下げるToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
 			this.下げるToolStripMenuItem.Text = "下げる";
 			this.下げるToolStripMenuItem.Click += new System.EventHandler(this.下げるToolStripMenuItem_Click);
 			// 
 			// ミュートToolStripMenuItem
 			// 
 			this.ミュートToolStripMenuItem.Name = "ミュートToolStripMenuItem";
-			this.ミュートToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+			this.ミュートToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
 			this.ミュートToolStripMenuItem.Text = "ミュート";
 			this.ミュートToolStripMenuItem.Click += new System.EventHandler(this.ミュートToolStripMenuItem_Click);
 			// 
@@ -965,7 +965,7 @@ namespace PeerstPlayer
             this.左ToolStripMenuItem,
             this.右ToolStripMenuItem});
 			this.バランスToolStripMenuItem.Name = "バランスToolStripMenuItem";
-			this.バランスToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+			this.バランスToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
 			this.バランスToolStripMenuItem.Text = "バランス";
 			this.バランスToolStripMenuItem.DropDownOpened += new System.EventHandler(this.バランスToolStripMenuItem_DropDownOpened);
 			// 
@@ -1277,14 +1277,14 @@ namespace PeerstPlayer
 			// 色ToolStripMenuItem
 			// 
 			this.色ToolStripMenuItem.Name = "色ToolStripMenuItem";
-			this.色ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+			this.色ToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
 			this.色ToolStripMenuItem.Text = "色";
 			this.色ToolStripMenuItem.Click += new System.EventHandler(this.色ToolStripMenuItem_Click);
 			// 
 			// フォントToolStripMenuItem1
 			// 
 			this.フォントToolStripMenuItem1.Name = "フォントToolStripMenuItem1";
-			this.フォントToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
+			this.フォントToolStripMenuItem1.Size = new System.Drawing.Size(124, 22);
 			this.フォントToolStripMenuItem1.Text = "フォント";
 			this.フォントToolStripMenuItem1.Click += new System.EventHandler(this.フォントToolStripMenuItem1_Click);
 			// 
@@ -1456,11 +1456,11 @@ namespace PeerstPlayer
 			this.wMPメニューToolStripMenuItem.Text = "WMPメニュー";
 			this.wMPメニューToolStripMenuItem.Click += new System.EventHandler(this.wMPメニューToolStripMenuItem_Click);
 			// 
-			// timerUpdate
+			// timerUpdateChannelInfo
 			// 
-			this.timerUpdate.Enabled = true;
-			this.timerUpdate.Interval = 600000;
-			this.timerUpdate.Tick += new System.EventHandler(this.timerUpdateChannelInfo_Tick);
+			this.timerUpdateChannelInfo.Enabled = true;
+			this.timerUpdateChannelInfo.Interval = 60000;
+			this.timerUpdateChannelInfo.Tick += new System.EventHandler(this.timerUpdateChannelInfo_Tick);
 			// 
 			// MainForm
 			// 
@@ -1512,7 +1512,7 @@ namespace PeerstPlayer
 		private System.Windows.Forms.Label labelDetail;
 		private System.Windows.Forms.PictureBox pictureBoxIcon;
 		private TextBox resBox;
-		private System.Windows.Forms.Timer timerDetail;
+		private System.Windows.Forms.Timer timerUpdateStatubar;
 		private System.Windows.Forms.ContextMenuStrip contextMenuStripResBox;
 		private System.Windows.Forms.ToolStripMenuItem スレッドビューワを開くToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem スレッドURLをコピーToolStripMenuItem;
@@ -1649,7 +1649,7 @@ namespace PeerstPlayer
 		private System.Windows.Forms.ToolStripMenuItem x360ToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem x480ToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem x600ToolStripMenuItem;
-		private System.Windows.Forms.Timer timerUpdate;
+		private System.Windows.Forms.Timer timerUpdateChannelInfo;
 		private System.Windows.Forms.ToolStripTextBox toolStripTextBoxThreadURL;
 		private System.Windows.Forms.ToolStripMenuItem 字幕表示ToolStripMenuItem;
 		private System.Windows.Forms.Label labelThreadTitle;

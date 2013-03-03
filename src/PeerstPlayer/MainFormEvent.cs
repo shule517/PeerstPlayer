@@ -62,9 +62,9 @@ namespace PeerstPlayer
 		}
 
 		/// <summary>
-		/// TimerDetail
+		/// ステータスバー情報を更新
 		/// </summary>
-		private void timerDetail_Tick(object sender, EventArgs e)
+		private void timerUpdateStatusbar_Tick(object sender, EventArgs e)
 		{
 			// 最小化ミュート解除
 			if (MiniMute && WindowState != FormWindowState.Minimized)
