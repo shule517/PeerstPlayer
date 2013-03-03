@@ -18,8 +18,9 @@ namespace Shule.Peerst.BBS
 			// 空白：本スレ
 			if (url == "本スレ")
 			{
-				bbsUrl = new BbsUrl(BbsServer.YYKakiko, "yy25.60.kg", "peercastjikkyou", "");
-
+				// TODO 本スレのスレッド番号を指定する
+				bbsUrl = new BbsUrl(BbsServer.YYKakiko, "yy25.60.kg", "peercastjikkyou", "本スレ");
+				return;
 				/*
 				// TODO 本スレのスレッド番号を取得する
 				// TODO 本スレの掲示板名の設定を行うか検討する
