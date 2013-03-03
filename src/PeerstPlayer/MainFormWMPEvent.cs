@@ -25,7 +25,7 @@ namespace PeerstPlayer
 				// マウスジェスチャ
 				string gesture = wmp.MouseGesture;
 
-				if (UseMouseGesture && gesture != "")
+				if (gesture != "")
 				{
 					for (int i = 0; i < ShortcutList.Count; i++)
 					{
@@ -96,7 +96,7 @@ namespace PeerstPlayer
 			InitThreadSelected = false;
 
 			// 動画サイズを合わせる
-			if (FitSizeMovie)
+			if (settings.FitSizeMovie)
 			{
 				ExeCommand("FitSizeMovie");
 			}

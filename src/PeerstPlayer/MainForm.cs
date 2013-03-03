@@ -51,106 +51,9 @@ namespace PeerstPlayer
 		WMPEx wmp;
 
 		/// <summary>
-		/// ブラウザアドレス
-		/// </summary>
-		string BrowserAddress = "";
-
-		/// <summary>
-		/// スレッドブラウザアドレス
-		/// </summary>
-		string ThreadBrowserAddress = "";
-
-		/// <summary>
-		/// レスボックスの操作
-		/// true（Enter：改行 / Shift+Enter：書き込み）
-		/// false（Enter：書き込み / Shift+Enter：改行）
-		/// </summary>
-		bool ResBoxType = true;
-
-		/// <summary>
-		/// レスボックスを自動的に隠すか
-		/// </summary>
-		bool ResBoxAutoVisible = false;
-
-		/// <summary>
-		/// 終了時にリレーを切断する
-		/// </summary>
-		public bool RlayCutOnClose = true;
-
-		/// <summary>
 		/// XPであるか
 		/// </summary>
 		public bool WindowsXP = true;
-
-		/// <summary>
-		/// クリックした時レスボックスを閉じるか
-		/// </summary>
-		bool ClickToResBoxClose = true;
-
-		/// <summary>
-		/// 終了時に位置を保存するか
-		/// </summary>
-		bool SaveLocationOnClose = false;
-
-		/// <summary>
-		/// 終了時にサイズを保存するか
-		/// </summary>
-		bool SaveSizeOnClose = false;
-
-		/// <summary>
-		/// アスペクト比を維持
-		/// </summary>
-		bool AspectRate = true;
-
-		/// <summary>
-		/// 書き込み時にレスボックスを閉じる
-		/// </summary>
-		bool CloseResBoxOnWrite = true;
-
-		/// <summary>
-		/// バックスペースでレスボックスを閉じるか
-		/// </summary>
-		bool CloseResBoxOnBackSpace = false;
-
-		/// <summary>
-		/// 最小化ミュート時
-		/// </summary>
-		bool MiniMute = false;
-
-		/// <summary>
-		/// デフォルト拡大率
-		/// </summary>
-		int DefaultScale = -1;
-
-		/// <summary>
-		/// 起動時に動画サイズを合わせる
-		/// </summary>
-		bool FitSizeMovie = false;
-
-		/// <summary>
-		/// スクリーン吸着距離
-		/// </summary>
-		int ScreenMagnetDockDist = 20;
-
-		/// <summary>
-		/// マウスジェスチャーを使うか
-		/// </summary>
-		public bool UseMouseGesture = true;
-
-		/// <summary>
-		/// 終了時に一緒にビューワも終了するか
-		/// </summary>
-		bool CloseViewerOnClose = false;
-
-		/// <summary>
-		/// 終了時のボリュームを保存するか
-		/// </summary>
-		bool SaveVolumeOnClose = false;
-
-		/// <summary>
-		/// スクリーン吸着をするか
-		/// </summary>
-		bool UseScreenMagnet = true;
 
 		// スレッドビューワのプロセス
 		Process ThreadViewerProcess = null;
@@ -770,8 +673,8 @@ namespace PeerstPlayer
 					スレッドビューワを開くToolStripMenuItem_Click(this, EventArgs.Empty);
 					break;
 				case "AspectRate":
-					AspectRate = !AspectRate;
-					if (AspectRate)
+					settings.AspectRate = !settings.AspectRate;
+					if (settings.AspectRate)
 					{
 						value = " (有効)";
 					}
@@ -811,7 +714,7 @@ namespace PeerstPlayer
 				case "Mini&Mute":
 					WindowState = FormWindowState.Minimized;
 					wmp.Mute = true;
-					MiniMute = true;
+					settings.MiniMute = true;
 					break;
 				case "ScreenShot":
 					ScreenShot();
@@ -1107,12 +1010,6 @@ CloseResBoxOnWrite =False
 // バックスペースでレスボックスを閉じる
 CloseResBoxOnBackSpace =False
 
-// マウスジェスチャーを使うか
-// falseにすると、ショートカットにマウスジェスチャーが指定されていても反応しません
-// True ： 使う
-// False ： 使わない
-UseMouseGesture =True
-
 // スクリーン吸着をするか
 // True ： する
 // False ： しない
@@ -1296,71 +1193,66 @@ H = Retry
 							break;
 
 						case "AspectRate":
-							AspectRate = (data == "True");
+							settings.AspectRate = (data == "True");
 							break;
 
 						// レスボックスの操作方法
 						case "ResBoxType":
-							ResBoxType = (data == "True");
+							settings.ResBoxType = (data == "True");
 							break;
 
 						// レスボックスを自動表示
 						case "ResBoxAutoVisible":
-							ResBoxAutoVisible = (data == "True");
+							settings.ResBoxAutoVisible = (data == "True");
 							break;
 
 						// 終了時にリレーを終了
 						case "RlayCutOnClose":
-							RlayCutOnClose = (data == "True");
-							break;
-
-						// マウスジェスチャーを使うか
-						case "UseMouseGesture":
-							UseMouseGesture = (data == "True");
+							settings.RlayCutOnClose = (data == "True");
 							break;
 
 						//　書き込み後にレスボックスを閉じる
 						case "CloseResBoxOnWrite":
-							CloseResBoxOnWrite = (data == "True");
+							settings.CloseResBoxOnWrite = (data == "True");
 							break;
 
 						case "UseScreenMagnet":
-							UseScreenMagnet = (data == "True");
+							settings.UseScreenMagnet = (data == "True");
 							break;
 
 						// 終了時に一緒にビューワも終了するか
 						case "CloseViewerOnClose":
-							CloseViewerOnClose = (data == "True");
+							settings.CloseViewerOnClose = (data == "True");
 							break;
 
 						// バックスペースでレスボックスを閉じるか
 						case "CloseResBoxOnBackSpace":
-							CloseResBoxOnBackSpace = (data == "True");
+							settings.CloseResBoxOnBackSpace = (data == "True");
 							break;
 
 						// クリックした時にレスボックスを閉じるか
 						case "ClickToResBoxClose":
-							ClickToResBoxClose = (data == "True");
+							settings.ClickToResBoxClose = (data == "True");
 							break;
 
 						// 終了時に位置を保存するか
 						case "SaveLocationOnClose":
-							SaveLocationOnClose = (data == "True");
+							settings.SaveLocationOnClose = (data == "True");
 							break;
 
 						// 終了時にボリュームを保存するか
 						case "SaveVolumeOnClose":
-							SaveVolumeOnClose = (data == "True");
+							settings.SaveVolumeOnClose = (data == "True");
 							break;
 
 						// 終了時にサイズを保存するか
 						case "SaveSizeOnClose":
-							SaveSizeOnClose = (data == "True");
+							settings.SaveSizeOnClose = (data == "True");
 							break;
 							
 						// 再生時に動画サイズに合わせる
 						case "FitSizeMovie":
-							FitSizeMovie = (data == "True");
+							settings.FitSizeMovie = (data == "True");
 							break;
 
 						// 初期位置X
@@ -1424,12 +1316,12 @@ H = Retry
 							try
 							{
 								if (data == "")
-									DefaultScale = -1;
+									settings.DefaultScale = -1;
 
-								DefaultScale = int.Parse(data);
+								settings.DefaultScale = int.Parse(data);
 
-								if (DefaultScale < 0)
-									DefaultScale = -1;
+								if (settings.DefaultScale < 0)
+									settings.DefaultScale = -1;
 							}
 							catch
 							{
@@ -1497,7 +1389,7 @@ H = Retry
 						case "ScreenMagnetDockDist":
 							try
 							{
-								ScreenMagnetDockDist = int.Parse(data);
+								settings.ScreenMagnetDockDist = int.Parse(data);
 							}
 							catch
 							{
@@ -1515,11 +1407,11 @@ H = Retry
 							break;
 
 						case "BrowserAddress":
-							BrowserAddress = data;
+							settings.BrowserAddress = data;
 							break;
 
 						case "ThreadBrowserAddress":
-							ThreadBrowserAddress = data;
+							settings.ThreadBrowserAddress = data;
 							break;
 					}
 				}
@@ -1604,40 +1496,37 @@ H = Retry
 			iniFile.Write("Player", "TopMost", TopMost.ToString());
 
 			// アスペクト比
-			iniFile.Write("Player", "AspectRate", AspectRate.ToString());
+			iniFile.Write("Player", "AspectRate", settings.AspectRate.ToString());
 
 			// レスボックスの操作方法
-			iniFile.Write("Player", "ResBoxType", ResBoxType.ToString());
+			iniFile.Write("Player", "ResBoxType", settings.ResBoxType.ToString());
 
 			// レスボックスを自動表示
-			iniFile.Write("Player", "ResBoxAutoVisible", ResBoxAutoVisible.ToString());
+			iniFile.Write("Player", "ResBoxAutoVisible", settings.ResBoxAutoVisible.ToString());
 
 			// 終了時にリレーを終了
-			iniFile.Write("Player", "RlayCutOnClose", RlayCutOnClose.ToString());
-
-			// マウスジェスチャーを使うか
-			iniFile.Write("Player", "UseMouseGesture", UseMouseGesture.ToString());
+			iniFile.Write("Player", "RlayCutOnClose", settings.RlayCutOnClose.ToString());
 
 			//　書き込み後にレスボックスを閉じる
-			iniFile.Write("Player", "CloseResBoxOnWrite", CloseResBoxOnWrite.ToString());
+			iniFile.Write("Player", "CloseResBoxOnWrite", settings.CloseResBoxOnWrite.ToString());
 
 			// スクリーン吸着を使うか
-			iniFile.Write("Player", "UseScreenMagnet", UseScreenMagnet.ToString());
+			iniFile.Write("Player", "UseScreenMagnet", settings.UseScreenMagnet.ToString());
 
 			// 終了時に一緒にビューワも終了するか
-			iniFile.Write("Player", "CloseViewerOnClose", CloseViewerOnClose.ToString());
+			iniFile.Write("Player", "CloseViewerOnClose", settings.CloseViewerOnClose.ToString());
 
 			// クリックした時にレスボックスを閉じるか
-			iniFile.Write("Player", "ClickToResBoxClose", ClickToResBoxClose.ToString());
+			iniFile.Write("Player", "ClickToResBoxClose", settings.ClickToResBoxClose.ToString());
 
 			// 終了時に位置を保存するか
-			iniFile.Write("Player", "SaveLocationOnClose", SaveLocationOnClose.ToString());
+			iniFile.Write("Player", "SaveLocationOnClose", settings.SaveLocationOnClose.ToString());
 
 			// 終了時にボリュームを保存するか
-			iniFile.Write("Player", "SaveVolumeOnClose", SaveVolumeOnClose.ToString());
+			iniFile.Write("Player", "SaveVolumeOnClose", settings.SaveVolumeOnClose.ToString());
 
 			// 終了時にサイズを保存するか
-			iniFile.Write("Player", "SaveSizeOnClose", SaveSizeOnClose.ToString());
+			iniFile.Write("Player", "SaveSizeOnClose", settings.SaveSizeOnClose.ToString());
 
 			// フォント名
 			iniFile.Write("Player", "FontName", labelDetail.Font.Name);
@@ -1919,7 +1808,7 @@ H = Retry
 		private void resBox_KeyDown(object sender, KeyEventArgs e)
 		{
 			// レスボックスをバックスペースで閉じる
-			if (CloseResBoxOnBackSpace && e.KeyCode == Keys.Back)
+			if (settings.CloseResBoxOnBackSpace && e.KeyCode == Keys.Back)
 			{
 				if (resBox.Text == "")
 				{
@@ -1936,7 +1825,7 @@ H = Retry
 
 			if (e.KeyCode == Keys.Enter)
 			{
-				if (ResBoxType)
+				if (settings.ResBoxType)
 				{
 					if (e.Control)
 					{
@@ -1944,7 +1833,7 @@ H = Retry
 						if (operationBbs.Write("", "sage", resBox.Text))
 						{
 							resBox.Text = "";
-							if (CloseResBoxOnWrite)
+							if (settings.CloseResBoxOnWrite)
 							{
 								panelResBox.Visible = false;
 							}

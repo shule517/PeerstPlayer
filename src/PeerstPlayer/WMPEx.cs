@@ -629,7 +629,7 @@ namespace PeerstPlayer
 
 				// マウスジェスチャーイベント
 				List<Direction> list = mouseGesture.Value;
-				if (form.UseMouseGesture && list.Count > 0)
+				if (list.Count > 0)
 				{
 					OnGesture(mouseGesture.ToString());
 				}
@@ -1072,12 +1072,6 @@ namespace PeerstPlayer
 					// 指定なしなら変更なし
 					if (value == "")
 						return;
-
-					if (base.URL != "" && form.RlayCutOnClose)
-					{
-						// 現在のチャンネルを切断
-						RelayCut();
-					}
 
 					string url = "";
 

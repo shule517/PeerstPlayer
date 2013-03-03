@@ -222,42 +222,42 @@ namespace PeerstPlayer
 
 		private void 位置を保存するToolStripMenuItem_Click(object sender, EventArgs e)
 		{
-			SaveLocationOnClose = !SaveLocationOnClose;
+			settings.SaveLocationOnClose = !settings.SaveLocationOnClose;
 
 			IniFile iniFile = new IniFile(GetCurrentDirectory() + "\\PeerstPlayer.ini");
-			iniFile.Write("Player", "SaveLocationOnClose", SaveLocationOnClose.ToString());
+			iniFile.Write("Player", "SaveLocationOnClose", settings.SaveLocationOnClose.ToString());
 		}
 
 		private void サイズを保存するToolStripMenuItem_Click(object sender, EventArgs e)
 		{
-			SaveSizeOnClose = !SaveSizeOnClose;
+			settings.SaveSizeOnClose = !settings.SaveSizeOnClose;
 
 			IniFile iniFile = new IniFile(GetCurrentDirectory() + "\\PeerstPlayer.ini");
-			iniFile.Write("Player", "SaveSizeOnClose", SaveSizeOnClose.ToString());
+			iniFile.Write("Player", "SaveSizeOnClose", settings.SaveSizeOnClose.ToString());
 		}
 
 		private void リレーを切断するToolStripMenuItem_Click(object sender, EventArgs e)
 		{
-			RlayCutOnClose = !RlayCutOnClose;
+			settings.RlayCutOnClose = !settings.RlayCutOnClose;
 
 			IniFile iniFile = new IniFile(GetCurrentDirectory() + "\\PeerstPlayer.ini");
-			iniFile.Write("Player", "RlayCutOnClose", RlayCutOnClose.ToString());
+			iniFile.Write("Player", "RlayCutOnClose", settings.RlayCutOnClose.ToString());
 		}
 
 		private void 音量を保存するToolStripMenuItem_Click(object sender, EventArgs e)
 		{
-			SaveVolumeOnClose = !SaveVolumeOnClose;
+			settings.SaveVolumeOnClose = !settings.SaveVolumeOnClose;
 
 			IniFile iniFile = new IniFile(GetCurrentDirectory() + "\\PeerstPlayer.ini");
-			iniFile.Write("Player", "SaveVolumeOnClose", SaveVolumeOnClose.ToString());
+			iniFile.Write("Player", "SaveVolumeOnClose", settings.SaveVolumeOnClose.ToString());
 		}
 
 		private void スレッドビューワを終了するToolStripMenuItem_Click(object sender, EventArgs e)
 		{
-			CloseViewerOnClose = !CloseViewerOnClose;
+			settings.CloseViewerOnClose = !settings.CloseViewerOnClose;
 
 			IniFile iniFile = new IniFile(GetCurrentDirectory() + "\\PeerstPlayer.ini");
-			iniFile.Write("Player", "CloseViewerOnClose", CloseViewerOnClose.ToString());
+			iniFile.Write("Player", "CloseViewerOnClose", settings.CloseViewerOnClose.ToString());
 		}
 
 
@@ -354,18 +354,18 @@ namespace PeerstPlayer
 
 		private void enter改行ShiftEnter書き込みToolStripMenuItem_Click(object sender, EventArgs e)
 		{
-			ResBoxType = true;
+			settings.ResBoxType = true;
 
 			IniFile iniFile = new IniFile(GetCurrentDirectory() + "\\PeerstPlayer.ini");
-			iniFile.Write("Player", "ResBoxType", ResBoxType.ToString());
+			iniFile.Write("Player", "ResBoxType", settings.ResBoxType.ToString());
 		}
 
 		private void enter書き込みShiftEnter改行ToolStripMenuItem_Click(object sender, EventArgs e)
 		{
-			ResBoxType = false;
+			settings.ResBoxType = false;
 
 			IniFile iniFile = new IniFile(GetCurrentDirectory() + "\\PeerstPlayer.ini");
-			iniFile.Write("Player", "ResBoxType", ResBoxType.ToString());
+			iniFile.Write("Player", "ResBoxType", settings.ResBoxType.ToString());
 		}
 
 		/// <summary>
@@ -383,9 +383,6 @@ namespace PeerstPlayer
 				{
 					case "UseScreenMagnet":
 						スクリーン吸着ToolStripMenuItem.Checked = (data == "True");
-						break;
-					case "UseMouseGesture":
-						マウスジェスチャーToolStripMenuItem.Checked = (data == "True");
 						break;
 					case "CloseResBoxOnWrite":
 						書き込み時にレスボックスを非表示ToolStripMenuItem.Checked = (data == "True");
@@ -405,58 +402,54 @@ namespace PeerstPlayer
 
 		private void スクリーン吸着ToolStripMenuItem_Click(object sender, EventArgs e)
 		{
-			UseScreenMagnet = !UseScreenMagnet;
+			settings.UseScreenMagnet = !settings.UseScreenMagnet;
 
 			IniFile iniFile = new IniFile(GetCurrentDirectory() + "\\PeerstPlayer.ini");
-			iniFile.Write("Player", "UseScreenMagnet", UseScreenMagnet.ToString());
+			iniFile.Write("Player", "UseScreenMagnet", settings.UseScreenMagnet.ToString());
 		}
 
 		private void マウスジェスチャーToolStripMenuItem_Click(object sender, EventArgs e)
 		{
-			UseMouseGesture = !UseMouseGesture;
-
-			IniFile iniFile = new IniFile(GetCurrentDirectory() + "\\PeerstPlayer.ini");
-			iniFile.Write("Player", "UseMouseGesture", UseMouseGesture.ToString());
 		}
 
 		private void 書き込み時にレスボックスを非表示ToolStripMenuItem_Click(object sender, EventArgs e)
 		{
-			CloseResBoxOnWrite = !CloseResBoxOnWrite;
+			settings.CloseResBoxOnWrite = !settings.CloseResBoxOnWrite;
 
 			IniFile iniFile = new IniFile(GetCurrentDirectory() + "\\PeerstPlayer.ini");
-			iniFile.Write("Player", "CloseResBoxOnWrite", CloseResBoxOnWrite.ToString());
+			iniFile.Write("Player", "CloseResBoxOnWrite", settings.CloseResBoxOnWrite.ToString());
 		}
 
 		private void bSでレスボックスを閉じるToolStripMenuItem_Click(object sender, EventArgs e)
 		{
-			CloseResBoxOnBackSpace = !CloseResBoxOnBackSpace;
+			settings.CloseResBoxOnBackSpace = !settings.CloseResBoxOnBackSpace;
 
 			IniFile iniFile = new IniFile(GetCurrentDirectory() + "\\PeerstPlayer.ini");
-			iniFile.Write("Player", "CloseResBoxOnBackSpace", CloseResBoxOnBackSpace.ToString());
+			iniFile.Write("Player", "CloseResBoxOnBackSpace", settings.CloseResBoxOnBackSpace.ToString());
 		}
 
 		private void レスボックスを自動的に隠すToolStripMenuItem_Click(object sender, EventArgs e)
 		{
-			ResBoxAutoVisible = !ResBoxAutoVisible;
+			settings.ResBoxAutoVisible = !settings.ResBoxAutoVisible;
 
 			IniFile iniFile = new IniFile(GetCurrentDirectory() + "\\PeerstPlayer.ini");
-			iniFile.Write("Player", "ResBoxAutoVisible", ResBoxAutoVisible.ToString());
+			iniFile.Write("Player", "ResBoxAutoVisible", settings.ResBoxAutoVisible.ToString());
 		}
 
 		private void アスペクト比を維持ToolStripMenuItem_Click(object sender, EventArgs e)
 		{
-			AspectRate = !AspectRate;
+			settings.AspectRate = !settings.AspectRate;
 
 			IniFile iniFile = new IniFile(GetCurrentDirectory() + "\\PeerstPlayer.ini");
-			iniFile.Write("Player", "AspectRate", AspectRate.ToString());
+			iniFile.Write("Player", "AspectRate", settings.AspectRate.ToString());
 		}
 
 		private void クリック時にレスボックスを非表示ToolStripMenuItem_Click(object sender, EventArgs e)
 		{
-			ClickToResBoxClose = !ClickToResBoxClose;
+			settings.ClickToResBoxClose = !settings.ClickToResBoxClose;
 
 			IniFile iniFile = new IniFile(GetCurrentDirectory() + "\\PeerstPlayer.ini");
-			iniFile.Write("Player", "ClickToResBoxClose", ClickToResBoxClose.ToString());
+			iniFile.Write("Player", "ClickToResBoxClose", settings.ClickToResBoxClose.ToString());
 		}
 
 		/// <summary>
@@ -514,9 +507,9 @@ namespace PeerstPlayer
 		private void コンタクトＵＲＬをブラウザで開くToolStripMenuItem_Click(object sender, EventArgs e)
 		{
 			// ブラウザを開く
-			if (File.Exists(BrowserAddress))
+			if (File.Exists(settings.BrowserAddress))
 			{
-				Process.Start(BrowserAddress, GetThreadUrl());
+				Process.Start(settings.BrowserAddress, GetThreadUrl());
 			}
 			else
 			{
@@ -552,7 +545,6 @@ namespace PeerstPlayer
 		{
 			ExeCommand("FitSizeMovie");
 		}
-
 
 		/// <summary>
 		/// デフォルト：X
@@ -803,7 +795,7 @@ namespace PeerstPlayer
 				{
 					IniFile iniFile = new IniFile(GetCurrentDirectory() + "\\PeerstPlayer.ini");
 					iniFile.Write("Player", "ScreenMagnetDockDist", toolStripTextBoxScreenMagnetDockDist.Text);
-					ScreenMagnetDockDist = int.Parse(toolStripTextBoxScreenMagnetDockDist.Text);
+					settings.ScreenMagnetDockDist = int.Parse(toolStripTextBoxScreenMagnetDockDist.Text);
 					contextMenuStripWMP.Close();
 				}
 			}
@@ -884,9 +876,9 @@ namespace PeerstPlayer
 				}
 
 				// スレッドブラウザが指定してあるか
-				if (File.Exists(ThreadBrowserAddress))
+				if (File.Exists(settings.ThreadBrowserAddress))
 				{
-					Process.Start(ThreadBrowserAddress, GetThreadUrl());
+					Process.Start(settings.ThreadBrowserAddress, GetThreadUrl());
 				}
 				else
 				{
@@ -912,7 +904,6 @@ namespace PeerstPlayer
 		{
 			Clipboard.SetDataObject(GetThreadUrl(), true);
 		}
-
 
 		/// <summary>
 		/// URL入力後Enter

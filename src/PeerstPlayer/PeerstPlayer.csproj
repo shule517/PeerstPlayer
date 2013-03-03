@@ -118,6 +118,7 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Compile Include="Settings.cs" />
     <Compile Include="ThreadSelectForm\ThreadSelectObserver.cs" />
     <Compile Include="ThreadSelectForm\ThreadSelectForm.cs">
       <SubType>Form</SubType>

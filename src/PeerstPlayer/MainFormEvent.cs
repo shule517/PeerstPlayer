@@ -15,7 +15,11 @@ namespace PeerstPlayer
 		// PeerCast管理
 		PeerCastManager pecaManager = null;
 
+		// ウィンドウサイズ管理
 		WindowSizeMenu windowSizeMenu = null;
+
+		// 設定
+		Settings settings = new Settings();
 
 		/// <summary>
 		/// Load
@@ -41,7 +45,6 @@ namespace PeerstPlayer
 
 			// ウィンドウサイズ管理
 			windowSizeManager = new WindowSizeManager(this, wmp, this);
-
 			windowSizeMenu = new WindowSizeMenu(windowSizeManager);
 
 			// ウィンドウサイズメニューの初期化
@@ -107,7 +110,7 @@ namespace PeerstPlayer
 			ShowToolTipDetail(labelDetail);
 
 			// レスボックスを表示 / 非表示
-			if (ResBoxAutoVisible)
+			if (settings.ResBoxAutoVisible)
 			{
 				panelResBox.Visible = true;
 				OnPanelSizeChange();
@@ -120,10 +123,10 @@ namespace PeerstPlayer
 		private void timerUpdateStatusbar_Tick(object sender, EventArgs e)
 		{
 			// 最小化ミュート解除
-			if (MiniMute && WindowState != FormWindowState.Minimized)
+			if (settings.MiniMute && WindowState != FormWindowState.Minimized)
 			{
 				wmp.Mute = false;
-				MiniMute = false;
+				settings.MiniMute = false;
 			}
 
 			// ステータスバーにチャンネル詳細を表示
@@ -152,14 +155,14 @@ namespace PeerstPlayer
 			IniFile iniFile = new IniFile(GetCurrentDirectory() + "\\PeerstPlayer.ini");
 
 			// 位置を保存
-			if (SaveLocationOnClose)
+			if (settings.SaveLocationOnClose)
 			{
 				iniFile.Write("Player", "X", Left.ToString());
 				iniFile.Write("Player", "Y", Top.ToString());
 			}
 
 			// サイズを保存
-			if (SaveSizeOnClose)
+			if (settings.SaveSizeOnClose)
 			{
 				if (WindowState != FormWindowState.Maximized)
 				{
@@ -180,18 +183,18 @@ namespace PeerstPlayer
 			}
 
 			// ボリュームを保存
-			if (SaveVolumeOnClose)
+			if (settings.SaveVolumeOnClose)
 			{
 				iniFile.Write("Player", "Volume", wmp.Volume.ToString());
 			}
 
-			if (RlayCutOnClose)
+			if (settings.RlayCutOnClose)
 			{
 				// リレーを切断
 				pecaManager.DisconnectRelay();
 			}
 
-			if (CloseViewerOnClose)
+			if (settings.CloseViewerOnClose)
 			{
 				// ビューワを終了
 				try
@@ -329,7 +332,7 @@ namespace PeerstPlayer
 				 */
 			}
 
-			if (UseScreenMagnet && m.Msg == WM_MOVING)
+			if (settings.UseScreenMagnet && m.Msg == WM_MOVING)
 			{
 				#region 吸いつき
 
@@ -346,18 +349,18 @@ namespace PeerstPlayer
 
 				// 上
 				p1.x = left + Width / 2;
-				p1.y = top - ScreenMagnetDockDist;
+				p1.y = top - settings.ScreenMagnetDockDist;
 
 				// 右
-				p2.x = left + Width + ScreenMagnetDockDist;
+				p2.x = left + Width + settings.ScreenMagnetDockDist;
 				p2.y = top + Height / 2;
 
 				// 下
 				p3.x = p1.x;
-				p3.y = top + Height + ScreenMagnetDockDist;
+				p3.y = top + Height + settings.ScreenMagnetDockDist;
 
 				// 左
-				p4.x = left - ScreenMagnetDockDist;
+				p4.x = left - settings.ScreenMagnetDockDist;
 				p4.y = p2.y;
 
 				IntPtr h1 = WindowFromPoint(p1);
@@ -373,7 +376,7 @@ namespace PeerstPlayer
 
 					if (GetWindowRect(anc1, out rect))
 					{
-						if (Math.Abs(MousePosition.Y - wmp.ClickPoint.Y - rect.bottom) <= ScreenMagnetDockDist)
+						if (Math.Abs(MousePosition.Y - wmp.ClickPoint.Y - rect.bottom) <= settings.ScreenMagnetDockDist)
 						{
 							top = rect.bottom;
 							IsSetTop = true;
@@ -389,7 +392,7 @@ namespace PeerstPlayer
 
 					if (GetWindowRect(anc2, out rect))
 					{
-						if (Math.Abs(MousePosition.X - wmp.ClickPoint.X + Width - rect.left) <= ScreenMagnetDockDist)
+						if (Math.Abs(MousePosition.X - wmp.ClickPoint.X + Width - rect.left) <= settings.ScreenMagnetDockDist)
 						{
 							left = rect.left - Width;
 							IsSetLeft = true;
@@ -405,7 +408,7 @@ namespace PeerstPlayer
 
 					if (GetWindowRect(anc3, out rect))
 					{
-						if (Math.Abs(MousePosition.Y - wmp.ClickPoint.Y + Height - rect.top) <= ScreenMagnetDockDist)
+						if (Math.Abs(MousePosition.Y - wmp.ClickPoint.Y + Height - rect.top) <= settings.ScreenMagnetDockDist)
 						{
 							top = rect.top - Height;
 							IsSetTop = true;
@@ -421,7 +424,7 @@ namespace PeerstPlayer
 
 					if (GetWindowRect(anc4, out rect))
 					{
-						if (Math.Abs(MousePosition.X - wmp.ClickPoint.X - rect.right) <= ScreenMagnetDockDist)
+						if (Math.Abs(MousePosition.X - wmp.ClickPoint.X - rect.right) <= settings.ScreenMagnetDockDist)
 						{
 							left = rect.right;
 							IsSetLeft = true;
@@ -440,19 +443,19 @@ namespace PeerstPlayer
 
 				Rectangle scr = System.Windows.Forms.Screen.GetBounds(this);
 
-				if (!IsSetTop && Math.Abs(MousePosition.Y - wmp.ClickPoint.Y) <= ScreenMagnetDockDist)
+				if (!IsSetTop && Math.Abs(MousePosition.Y - wmp.ClickPoint.Y) <= settings.ScreenMagnetDockDist)
 				{
 					top = scr.Top;
 					IsSetTop = true;
 				}
 
-				if (!IsSetLeft && Math.Abs(MousePosition.X - wmp.ClickPoint.X) <= ScreenMagnetDockDist)
+				if (!IsSetLeft && Math.Abs(MousePosition.X - wmp.ClickPoint.X) <= settings.ScreenMagnetDockDist)
 				{
 					left = scr.Left;
 					IsSetLeft = true;
 				}
 
-				if (!IsSetTop && Math.Abs(MousePosition.Y + Height - wmp.ClickPoint.Y - scr.Height) <= ScreenMagnetDockDist)
+				if (!IsSetTop && Math.Abs(MousePosition.Y + Height - wmp.ClickPoint.Y - scr.Height) <= settings.ScreenMagnetDockDist)
 				{
 					top = scr.Bottom - Height;
 					IsSetTop = true;
@@ -485,7 +488,7 @@ namespace PeerstPlayer
 			{
 				#region アスペクト比維持
 
-				if (AspectRate)
+				if (settings.AspectRate)
 				{
 					//各辺の座標を取得
 					int L = Marshal.ReadInt32(m.LParam, 0);
@@ -541,7 +544,7 @@ namespace PeerstPlayer
 			if (e.Button == MouseButtons.Left)
 			{
 				// レスボックスを表示 / 非表示
-				if (!ResBoxAutoVisible || ClickToResBoxClose)
+				if (!settings.ResBoxAutoVisible || settings.ClickToResBoxClose)
 				{
 					panelResBox.Visible = !panelResBox.Visible;
 					resBox.Focus();
