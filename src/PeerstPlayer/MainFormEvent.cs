@@ -15,6 +15,8 @@ namespace PeerstPlayer
 		// PeerCast管理
 		PeerCastManager pecaManager = null;
 
+		WindowSizeMenu windowSizeMenu = new WindowSizeMenu();
+
 		/// <summary>
 		/// Load
 		/// </summary>
@@ -39,6 +41,22 @@ namespace PeerstPlayer
 
 			// ウィンドウサイズ管理
 			windowSizeManager = new WindowSizeManager(this, wmp, this);
+
+			// TODO 
+			this.高さ120ToolStripMenuItem.Click += new System.EventHandler(this.高さ120ToolStripMenuItem_Click);
+			this.高さ240ToolStripMenuItem.Click += new System.EventHandler(this.高さ240ToolStripMenuItem_Click);
+			this.高さ360ToolStripMenuItem.Click += new System.EventHandler(this.高さ360ToolStripMenuItem_Click);
+			this.高さ480ToolStripMenuItem.Click += new System.EventHandler(windowSizeMenu.幅480ToolStripMenuItem_Click);
+			this.高さ600ToolStripMenuItem.Click += new System.EventHandler(this.高さ600ToolStripMenuItem_Click);
+			this.幅160ToolStripMenuItem.Click += new System.EventHandler(windowSizeMenu.幅160ToolStripMenuItem_Click);
+			this.幅320ToolStripMenuItem.Click += new System.EventHandler(windowSizeMenu.幅320ToolStripMenuItem_Click);
+			this.幅480ToolStripMenuItem.Click += new System.EventHandler(windowSizeMenu.幅480ToolStripMenuItem_Click);
+			this.幅640ToolStripMenuItem.Click += new System.EventHandler(windowSizeMenu.幅640ToolStripMenuItem_Click);
+			this.幅800ToolStripMenuItem.Click += new System.EventHandler(windowSizeMenu.幅800ToolStripMenuItem_Click);
+
+
+
+
 
 			// コマンドラインから再生
 			wmp.LoadCommandLine();

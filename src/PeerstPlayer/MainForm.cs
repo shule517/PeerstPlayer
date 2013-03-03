@@ -1897,35 +1897,6 @@ H = Retry
 		{
 			ScreenSplit(1);
 		}
-	
-		#region サイズ指定（幅）
-
-		private void 幅160ToolStripMenuItem_Click(object sender, EventArgs e)
-		{
-			windowSizeManager.SetWidth(160);
-		}
-
-		private void 幅320ToolStripMenuItem_Click(object sender, EventArgs e)
-		{
-			windowSizeManager.SetWidth(320);
-		}
-
-		private void 幅480ToolStripMenuItem_Click(object sender, EventArgs e)
-		{
-			windowSizeManager.SetWidth(480);
-		}
-
-		private void 幅640ToolStripMenuItem_Click(object sender, EventArgs e)
-		{
-			windowSizeManager.SetWidth(640);
-		}
-
-		private void 幅800ToolStripMenuItem_Click(object sender, EventArgs e)
-		{
-			windowSizeManager.SetWidth(800);
-		}
-
-		#endregion
 
 		#region 画面分割メニュー（幅）
 

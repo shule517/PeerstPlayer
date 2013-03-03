@@ -1343,35 +1343,30 @@ namespace PeerstPlayer
 			this.幅160ToolStripMenuItem.Name = "幅160ToolStripMenuItem";
 			this.幅160ToolStripMenuItem.Size = new System.Drawing.Size(133, 22);
 			this.幅160ToolStripMenuItem.Text = "幅：160";
-			this.幅160ToolStripMenuItem.Click += new System.EventHandler(this.幅160ToolStripMenuItem_Click);
 			// 
 			// 幅320ToolStripMenuItem
 			// 
 			this.幅320ToolStripMenuItem.Name = "幅320ToolStripMenuItem";
 			this.幅320ToolStripMenuItem.Size = new System.Drawing.Size(133, 22);
 			this.幅320ToolStripMenuItem.Text = "幅：320";
-			this.幅320ToolStripMenuItem.Click += new System.EventHandler(this.幅320ToolStripMenuItem_Click);
 			// 
 			// 幅480ToolStripMenuItem
 			// 
 			this.幅480ToolStripMenuItem.Name = "幅480ToolStripMenuItem";
 			this.幅480ToolStripMenuItem.Size = new System.Drawing.Size(133, 22);
 			this.幅480ToolStripMenuItem.Text = "幅：480";
-			this.幅480ToolStripMenuItem.Click += new System.EventHandler(this.幅480ToolStripMenuItem_Click);
 			// 
 			// 幅640ToolStripMenuItem
 			// 
 			this.幅640ToolStripMenuItem.Name = "幅640ToolStripMenuItem";
 			this.幅640ToolStripMenuItem.Size = new System.Drawing.Size(133, 22);
 			this.幅640ToolStripMenuItem.Text = "幅：640";
-			this.幅640ToolStripMenuItem.Click += new System.EventHandler(this.幅640ToolStripMenuItem_Click);
 			// 
 			// 幅800ToolStripMenuItem
 			// 
 			this.幅800ToolStripMenuItem.Name = "幅800ToolStripMenuItem";
 			this.幅800ToolStripMenuItem.Size = new System.Drawing.Size(133, 22);
 			this.幅800ToolStripMenuItem.Text = "幅：800";
-			this.幅800ToolStripMenuItem.Click += new System.EventHandler(this.幅800ToolStripMenuItem_Click);
 			// 
 			// toolStripSeparatorSize2
 			// 
@@ -1383,35 +1378,30 @@ namespace PeerstPlayer
 			this.高さ120ToolStripMenuItem.Name = "高さ120ToolStripMenuItem";
 			this.高さ120ToolStripMenuItem.Size = new System.Drawing.Size(133, 22);
 			this.高さ120ToolStripMenuItem.Text = "高さ：120";
-			this.高さ120ToolStripMenuItem.Click += new System.EventHandler(this.高さ120ToolStripMenuItem_Click);
 			// 
 			// 高さ240ToolStripMenuItem
 			// 
 			this.高さ240ToolStripMenuItem.Name = "高さ240ToolStripMenuItem";
 			this.高さ240ToolStripMenuItem.Size = new System.Drawing.Size(133, 22);
 			this.高さ240ToolStripMenuItem.Text = "高さ：240";
-			this.高さ240ToolStripMenuItem.Click += new System.EventHandler(this.高さ240ToolStripMenuItem_Click);
 			// 
 			// 高さ360ToolStripMenuItem
 			// 
 			this.高さ360ToolStripMenuItem.Name = "高さ360ToolStripMenuItem";
 			this.高さ360ToolStripMenuItem.Size = new System.Drawing.Size(133, 22);
 			this.高さ360ToolStripMenuItem.Text = "高さ：360";
-			this.高さ360ToolStripMenuItem.Click += new System.EventHandler(this.高さ360ToolStripMenuItem_Click);
 			// 
 			// 高さ480ToolStripMenuItem
 			// 
 			this.高さ480ToolStripMenuItem.Name = "高さ480ToolStripMenuItem";
 			this.高さ480ToolStripMenuItem.Size = new System.Drawing.Size(133, 22);
 			this.高さ480ToolStripMenuItem.Text = "高さ：480";
-			this.高さ480ToolStripMenuItem.Click += new System.EventHandler(this.幅480ToolStripMenuItem_Click);
 			// 
 			// 高さ600ToolStripMenuItem
 			// 
 			this.高さ600ToolStripMenuItem.Name = "高さ600ToolStripMenuItem";
 			this.高さ600ToolStripMenuItem.Size = new System.Drawing.Size(133, 22);
 			this.高さ600ToolStripMenuItem.Text = "高さ：600";
-			this.高さ600ToolStripMenuItem.Click += new System.EventHandler(this.高さ600ToolStripMenuItem_Click);
 			// 
 			// toolStripButtonOpenViewer
 			// 
