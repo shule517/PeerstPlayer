@@ -82,11 +82,6 @@ namespace PeerstPlayer
 			ExeCommand("ChannelInfoUpdate");
 		}
 
-		private void スレッド一覧を更新するToolStripMenuItem_Click(object sender, EventArgs e)
-		{
-			ExeCommand("ThreadListUpdate");
-		}
-
 		private void スレッドビューワを開くToolStripMenuItem1_Click(object sender, EventArgs e)
 		{
 			ExeCommand("OpenThreadViewer");
@@ -904,13 +899,6 @@ namespace PeerstPlayer
 		}
 
 		string ResBoxText = "";
-		/// <summary>
-		/// スレッド一覧を更新
-		/// </summary>
-		private void スレッド一覧を更新ToolStripMenuItem_Click(object sender, EventArgs e)
-		{
-			ExeCommand("ThreadListUpdate");
-		}
 
 		/// <summary>
 		/// スレッドビューワを開く

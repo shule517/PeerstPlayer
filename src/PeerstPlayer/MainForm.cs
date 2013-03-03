@@ -161,11 +161,6 @@ namespace PeerstPlayer
 		public Size PanelWMPSize = new Size(320, 240);
 
 		/// <summary>
-		/// 初回のスレ選択をしたか
-		/// </summary>
-		bool InitThreadSelected = false;
-
-		/// <summary>
 		/// ツールチップが表示されているか
 		/// </summary>
 		public bool ToolStipVisile
@@ -367,8 +362,6 @@ namespace PeerstPlayer
 					return "リレーを切断して終了する";
 				case "OpenThreadViewer":
 					return "スレッドビューワを開く";
-				case "ThreadListUpdate":
-					return "スレッド一覧を更新する";
 				case "Close":
 					return "終了する";
 				case "AspectRate":
@@ -786,9 +779,6 @@ namespace PeerstPlayer
 					{
 						value = " (無効)";
 					}
-					break;
-				case "ThreadListUpdate":
-					ThreadListUpdate();
 					break;
 				case "ChannelInfoUpdate":
 					ChannelInfoUpdate();
@@ -1252,7 +1242,6 @@ ScrollBottom =True
 [PlayerShortcut]
 ↓ = OpenThreadViewer
 ↓↑ = ChannelInfoUpdate
-↑↓ = ThreadListUpdate
 ↓→ = Close
 ← = balance-10
 → = balance+10
@@ -1280,7 +1269,6 @@ Control+Up = Size-10
 Control+Down = Size+10
 Space = SelectResBox
 O = OpenThreadViewer
-U = ThreadListUpdate
 Escape = Close
 T = TopMost
 A = ResBox
@@ -1336,7 +1324,6 @@ H = Retry
 
 				iniFile.Write("PlayerShortcut", "↓", "OpenThreadViewer");
 				iniFile.Write("PlayerShortcut", "↓↑", "ChannelInfoUpdate");
-				iniFile.Write("PlayerShortcut", "↑↓", "ThreadListUpdate");
 				iniFile.Write("PlayerShortcut", "↓→", "Close");
 				iniFile.Write("PlayerShortcut", "←", "balance-10");
 				iniFile.Write("PlayerShortcut", "→", "balance+10");
@@ -1364,7 +1351,6 @@ H = Retry
 				iniFile.Write("PlayerShortcut", "Control+Down", "Size+10");
 				iniFile.Write("PlayerShortcut", "Space", "SelectResBox");
 				iniFile.Write("PlayerShortcut", "O", "OpenThreadViewer");
-				iniFile.Write("PlayerShortcut", "U", "ThreadListUpdate");
 				iniFile.Write("PlayerShortcut", "Escape", "Close");
 				iniFile.Write("PlayerShortcut", "T", "TopMost");
 				iniFile.Write("PlayerShortcut", "A", "ResBox");
@@ -1817,7 +1803,6 @@ H = Retry
 		{
 			Text = channelInfo.Name;
 			labelDetail.Text = channelInfo.ToString();
-			ThreadListUpdate();
 
 			if (channelInfo.IconURL != "")
 			{
@@ -1836,86 +1821,6 @@ H = Retry
 				labelDetail.Left = 3;
 			}
 		}
-
-		/// <summary>
-		/// スレッド一覧スレッド
-		/// </summary>
-		System.Threading.Thread httpGetThreadList;
-
-		delegate void UpdateThreadInfoDelegate();
-
-		// TODO 変数名を修正する
-		ThreadInfo threadInfo = new ThreadInfo("", "", "");
-
-		void HttpGetThreadListWorker()
-		{
-			// 初回だけスレ情報取得＋スレ移動
-			if (!InitThreadSelected)
-			{
-				operationBbs.ChangeUrl(channelInfo.ContactUrl);
-				
-				InitThreadSelected = true;
-			}
-
-			// スレッド情報を更新
-			threadInfo = operationBbs.GetThreadInfo();
-			if (labelThreadTitle.InvokeRequired)
-			{
-				Invoke(new UpdateThreadInfoDelegate(UpdateThreadInfo));
-			}
-			else
-			{
-				UpdateThreadInfo();
-			}
-		}
-
-		/// <summary>
-		/// スレッド一覧を更新
-		/// </summary>
-		private void ThreadListUpdate()
-		{
-			httpGetThreadList = new System.Threading.Thread(new System.Threading.ThreadStart(HttpGetThreadListWorker));
-			httpGetThreadList.IsBackground = true;
-			httpGetThreadList.Start();
-		}
-
-		/// <summary>
-		/// スレッド一覧スレッド
-		/// </summary>
-		System.Threading.Thread channelInfoUpdateThread = null;
-
-		/// <summary>
-		/// チャンネル情報を更新
-		/// </summary>
-		void ChannelInfoUpdate()
-		{
-			channelInfoUpdateThread = new System.Threading.Thread(new System.Threading.ThreadStart(ChannelInfoUpdateWorker));
-			channelInfoUpdateThread.IsBackground = true;
-			channelInfoUpdateThread.Start();
-		}
-
-		delegate void ChannelInfoUpdateDelegate();
-
-		/// <summary>
-		/// チャンネル情報更新(スレッド処理)
-		/// </summary>
-		void ChannelInfoUpdateWorker()
-		{
-			// チャンネル更新
-			ChannelInfoUpdateMethod();
-
-			// GUIの更新
-			Invoke(new ChannelInfoUpdateDelegate(ChannelInfo_UpdateComp));
-		}
-
-		/// <summary>
-		/// チャンネル情報を更新スレッド
-		/// </summary>
-		void ChannelInfoUpdateMethod()
-		{
-			pecaManager.GetChannelInfo();
-		}
-
 
 		/// <summary>
 		/// パネルのアンカー設定
@@ -2603,6 +2508,8 @@ H = Retry
 			}
 		}
 
+		#region スレッド選択フォーム
+
 		// スレッド選択フォーム
 		ThreadSelectForm threadSelectForm = null;
 
@@ -2682,13 +2589,77 @@ H = Retry
 			}
 		}
 
-		private void timerUpdate_Tick(object sender, EventArgs e)
-		{
-			// スレ一覧更新
-			ExeCommand("ThreadListUpdate");
+		#endregion
 
+		#region チャンネル情報更新
+
+		/// <summary>
+		/// チャンネル情報更新タイマー
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
+		private void timerUpdateChannelInfo_Tick(object sender, EventArgs e)
+		{
 			// チャンネル情報更新
 			ExeCommand("ChannelInfoUpdate");
 		}
+
+		// TODO 変数名を修正する
+		ThreadInfo threadInfo = new ThreadInfo("", "", "");
+
+		/// <summary>
+		/// チャンネル情報更新スレッド
+		/// </summary>
+		System.Threading.Thread updateChannelInfoThread = null;
+
+		/// <summary>
+		/// チャンネル情報更新デリゲート
+		/// </summary>
+		delegate void UpdateThreadInfoDelegate();
+
+		/// <summary>
+		/// チャンネル情報を更新
+		/// </summary>
+		void ChannelInfoUpdate()
+		{
+			updateChannelInfoThread = new System.Threading.Thread(new System.Threading.ThreadStart(UpdateChannelInfoWorker));
+			updateChannelInfoThread.IsBackground = true;
+			updateChannelInfoThread.Start();
+		}
+
+		/// <summary>
+		/// 初回のスレ選択をしたか
+		/// </summary>
+		bool InitThreadSelected = false;
+
+		/// <summary>
+		/// チャンネル情報更新
+		/// </summary>
+		void UpdateChannelInfoWorker()
+		{
+			// チャンネル情報取得
+			pecaManager.GetChannelInfo();
+
+			// 初回だけスレ情報取得＋スレ移動
+			if (!InitThreadSelected)
+			{
+				operationBbs.ChangeUrl(pecaManager.ChannelInfo.ContactUrl);
+
+				InitThreadSelected = true;
+			}
+
+			// スレッド情報を更新
+			threadInfo = operationBbs.GetThreadInfo();
+			if (labelThreadTitle.InvokeRequired)
+			{
+				Invoke(new UpdateThreadInfoDelegate(UpdateThreadInfo));
+			}
+			else
+			{
+				UpdateThreadInfo();
+			}
+		}
+
+		#endregion
 	}
 }

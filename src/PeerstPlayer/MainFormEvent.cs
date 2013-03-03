@@ -41,11 +41,9 @@ namespace PeerstPlayer
 			wmp.LoadCommandLine();
 
 			URLData urlData = wmp.URLData;
+			urlData.GetDataFromURL(Environment.GetCommandLineArgs()[1]);
 			pecaManager = new PeerCastManager(urlData.Host, urlData.PortNo, urlData.ChannelId);
 			pecaManager.GetChannelInfo();
-
-			// コマンドラインからチャンネル名を取得
-			labelDetail.Text = GetChannelName();
 		}
 
 		/// <summary>
