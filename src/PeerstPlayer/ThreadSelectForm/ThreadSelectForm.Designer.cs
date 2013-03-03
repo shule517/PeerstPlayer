@@ -47,6 +47,7 @@
 			this.textBoxThreadUrl.Size = new System.Drawing.Size(470, 19);
 			this.textBoxThreadUrl.TabIndex = 0;
 			this.textBoxThreadUrl.Text = "http://";
+			this.textBoxThreadUrl.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBoxThreadUrl_KeyDown);
 			// 
 			// buttonUpdate
 			// 

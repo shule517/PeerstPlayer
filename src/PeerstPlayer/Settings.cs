@@ -276,7 +276,7 @@ namespace PeerstPlayer
 						break;
 					 */
 
-					// ボリューム
+					// 拡大率
 					case "Scale":
 						try
 						{

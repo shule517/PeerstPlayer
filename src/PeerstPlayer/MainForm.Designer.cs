@@ -293,7 +293,7 @@ namespace PeerstPlayer
 			this.panelStatusLabel.Controls.Add(this.pictureBoxIcon);
 			this.panelStatusLabel.Location = new System.Drawing.Point(0, 484);
 			this.panelStatusLabel.Name = "panelStatusLabel";
-			this.panelStatusLabel.Size = new System.Drawing.Size(480, 16);
+			this.panelStatusLabel.Size = new System.Drawing.Size(480, 18);
 			this.panelStatusLabel.TabIndex = 5;
 			this.panelStatusLabel.MouseDown += new System.Windows.Forms.MouseEventHandler(this.panelStatusLabel_MouseDown);
 			this.panelStatusLabel.MouseHover += new System.EventHandler(this.panelStatusLabel_MouseHover);
@@ -306,7 +306,7 @@ namespace PeerstPlayer
 			this.panelDetailRight.Controls.Add(this.labelDuration);
 			this.panelDetailRight.Location = new System.Drawing.Point(393, 0);
 			this.panelDetailRight.Name = "panelDetailRight";
-			this.panelDetailRight.Size = new System.Drawing.Size(87, 18);
+			this.panelDetailRight.Size = new System.Drawing.Size(87, 20);
 			this.panelDetailRight.TabIndex = 1;
 			// 
 			// labelVolume
@@ -351,6 +351,7 @@ namespace PeerstPlayer
 			this.labelDetail.Size = new System.Drawing.Size(75, 12);
 			this.labelDetail.TabIndex = 0;
 			this.labelDetail.Text = "チャンネル詳細";
+			this.labelDetail.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
 			this.labelDetail.MouseDown += new System.Windows.Forms.MouseEventHandler(this.panelStatusLabel_MouseDown);
 			this.labelDetail.MouseHover += new System.EventHandler(this.panelStatusLabel_MouseHover);
 			// 
@@ -539,21 +540,21 @@ namespace PeerstPlayer
 			// 上げるToolStripMenuItem
 			// 
 			this.上げるToolStripMenuItem.Name = "上げるToolStripMenuItem";
-			this.上げるToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+			this.上げるToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
 			this.上げるToolStripMenuItem.Text = "上げる";
 			this.上げるToolStripMenuItem.Click += new System.EventHandler(this.上げるToolStripMenuItem_Click);
 			// 
 			// 下げるToolStripMenuItem
 			// 
 			this.下げるToolStripMenuItem.Name = "下げるToolStripMenuItem";
-			this.下げるToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+			this.下げるToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
 			this.下げるToolStripMenuItem.Text = "下げる";
 			this.下げるToolStripMenuItem.Click += new System.EventHandler(this.下げるToolStripMenuItem_Click);
 			// 
 			// ミュートToolStripMenuItem
 			// 
 			this.ミュートToolStripMenuItem.Name = "ミュートToolStripMenuItem";
-			this.ミュートToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+			this.ミュートToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
 			this.ミュートToolStripMenuItem.Text = "ミュート";
 			this.ミュートToolStripMenuItem.Click += new System.EventHandler(this.ミュートToolStripMenuItem_Click);
 			// 
@@ -564,7 +565,7 @@ namespace PeerstPlayer
             this.左ToolStripMenuItem,
             this.右ToolStripMenuItem});
 			this.バランスToolStripMenuItem.Name = "バランスToolStripMenuItem";
-			this.バランスToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+			this.バランスToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
 			this.バランスToolStripMenuItem.Text = "バランス";
 			this.バランスToolStripMenuItem.DropDownOpened += new System.EventHandler(this.バランスToolStripMenuItem_DropDownOpened);
 			// 

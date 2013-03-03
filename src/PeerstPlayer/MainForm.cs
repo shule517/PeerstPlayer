@@ -513,8 +513,9 @@ namespace PeerstPlayer
 					{
 						pecaManager.DisconnectRelay();
 						Visible = false;
+						updateChannelInfoThread.Abort();
 						updateChannelInfoThread.Join();
-						Close();
+						Application.Exit();
 					}
 					catch
 					{
@@ -669,8 +670,9 @@ namespace PeerstPlayer
 					try
 					{
 						Visible = false;
+						updateChannelInfoThread.Abort();
 						updateChannelInfoThread.Join();
-						Close();
+						Application.Exit();
 					}
 					catch
 					{
@@ -701,7 +703,6 @@ namespace PeerstPlayer
 				case "OpenScreenShotFolder":
 					OpenScreenShotFolder();
 					break;
-
 				// 動画サイズを合わせる
 				case "FitSizeMovie":
 					try
@@ -1051,9 +1052,10 @@ namespace PeerstPlayer
 			labelDetail.Font = new Font(name, size);
 			labelDuration.Font = new Font(name, size);
 			labelVolume.Font = new Font(name, size);
+			labelThreadTitle.Font = new Font(name, size);
 
 			// 右側ラベルの適応
-			panelStatusLabel.Height = labelDetail.Height + 8;
+			panelStatusLabel.Height = labelDetail.Height + 6;
 			panelDetailRight.Left = panelStatusLabel.Width - (labelDuration.Width + labelVolume.Width);
 			panelDetailRight.Width = labelDuration.Width + labelVolume.Width;
 			labelVolume.Left = panelDetailRight.Width - labelVolume.Width;

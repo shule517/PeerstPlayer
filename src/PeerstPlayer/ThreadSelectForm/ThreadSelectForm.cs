@@ -120,5 +120,20 @@ namespace PeerstPlayer
 				Visible = false;
 			}
 		}
+
+		/// <summary>
+		/// スレッドURLテキストボックスでキー押下
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
+		private void textBoxThreadUrl_KeyDown(object sender, KeyEventArgs e)
+		{
+			// エンター押下
+			if (e.KeyCode == Keys.Enter)
+			{
+				// チャンネル更新
+				UpdateThreadList(textBoxThreadUrl.Text);
+			}
+		}
 	}
 }

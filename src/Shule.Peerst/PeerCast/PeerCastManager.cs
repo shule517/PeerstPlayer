@@ -138,10 +138,12 @@ namespace Shule.Peerst.PeerCast
 		{
 			string xmlUrl = "http://" + host + ":" + portNo + "/admin?cmd=viewxml";
 
-			XmlTextReader reader = new XmlTextReader(xmlUrl);
+			XmlTextReader reader = null;
 
 			try
 			{
+				reader = new XmlTextReader(xmlUrl);
+
 				// XMLファイルを1ノードずつ読み込む
 				while (reader.Read())
 				{
@@ -193,8 +195,11 @@ namespace Shule.Peerst.PeerCast
 			}
 			finally
 			{
-				// XMLファイルを閉じる
-				reader.Close();
+				if (reader != null)
+				{
+					// XMLファイルを閉じる
+					reader.Close();
+				}
 			}
 		}
 
