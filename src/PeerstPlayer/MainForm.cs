@@ -178,7 +178,6 @@ namespace PeerstPlayer
 		/// <summary>
 		/// フレーム
 		/// </summary>
-		bool isBeforeTitleBar = true;
 		public bool Frame
 		{
 			get
@@ -190,11 +189,10 @@ namespace PeerstPlayer
 				if (value)
 				{
 					FormBorderStyle = FormBorderStyle.Sizable;
-					TitleBar = isBeforeTitleBar;
+					TitleBar = false;
 				}
 				else
 				{
-					TitleBar = false;
 					FormBorderStyle = FormBorderStyle.None;
 				}
 			}
@@ -272,8 +270,6 @@ namespace PeerstPlayer
 					return "ステータスラベルの表示切り替え";
 				case "Frame":
 					return "フレームの表示切り替え";
-				case "TitleBar":
-					return "タイトルバーの表示切り替え";
 				case "Size=50%":
 					return "サイズ：50%";
 				case "Size=75%":
@@ -616,18 +612,6 @@ namespace PeerstPlayer
 						value = " (無効)";
 					}
 					break;
-				case "TitleBar":
-					TitleBar = !TitleBar;
-					OnPanelSizeChange();
-					if (TitleBar)
-					{
-						value = " (有効)";
-					}
-					else
-					{
-						value = " (無効)";
-					}
-					break;
 				case "Mute":
 					wmp.Mute = !wmp.Mute;
 					if (wmp.Mute)
@@ -907,11 +891,6 @@ namespace PeerstPlayer
 					string data = iniFile.ReadString("Player", keys[i]);
 					switch (keys[i])
 					{
-						// タイトルバー
-						case "TitleBar":
-							TitleBar = (data == "True");
-							break;
-
 						// レスボックス
 						case "ResBox":
 							panelResBox.Visible = (data == "True");
@@ -1094,9 +1073,6 @@ namespace PeerstPlayer
 			IniFile iniFile = new IniFile(GetCurrentDirectory() + "\\PeerstPlayer.ini");
 
 			// 一度書き込み
-			// タイトルバー
-			iniFile.Write("Player", "TitleBar", TitleBar.ToString());
-
 			// レスボックス
 			iniFile.Write("Player", "ResBox", panelResBox.Visible.ToString());
 

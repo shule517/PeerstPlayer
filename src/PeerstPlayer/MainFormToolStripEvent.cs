@@ -16,7 +16,6 @@ namespace PeerstPlayer
 		private void 表示ToolStripMenuItem_DropDownOpened(object sender, EventArgs e)
 		{
 			最前列表示ToolStripMenuItem.Checked = TopMost;
-			タイトルバーToolStripMenuItem.Checked = TitleBar;
 			レスボックスToolStripMenuItem.Checked = panelResBox.Visible;
 			ステータスバーToolStripMenuItem.Checked = panelStatusLabel.Visible;
 			フレームToolStripMenuItem.Checked = Frame;
@@ -45,7 +44,6 @@ namespace PeerstPlayer
 
 		private void タイトルバーToolStripMenuItem_Click(object sender, EventArgs e)
 		{
-			ExeCommand("TitleBar");
 		}
 
 		private void レスボックスToolStripMenuItem_Click(object sender, EventArgs e)
@@ -277,9 +275,6 @@ namespace PeerstPlayer
 					case "TopMost":
 						最前列表示ToolStripMenuItem2.Checked = (data == "True");
 						break;
-					case "TitleBar":
-						タイトルバーToolStripMenuItem2.Checked = (data == "True");
-						break;
 					case "ResBox":
 						レスボックスToolStripMenuItem2.Checked = (data == "True");
 						break;
@@ -304,9 +299,6 @@ namespace PeerstPlayer
 
 		private void タイトルバーToolStripMenuItem2_Click(object sender, EventArgs e)
 		{
-			IniFile iniFile = new IniFile(GetCurrentDirectory() + "\\PeerstPlayer.ini");
-			iniFile.Write("Player", "TitleBar", (!タイトルバーToolStripMenuItem2.Checked).ToString());
-			OnPanelSizeChange();
 		}
 
 		private void レスボックスToolStripMenuItem2_Click(object sender, EventArgs e)

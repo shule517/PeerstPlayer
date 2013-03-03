@@ -139,11 +139,6 @@ namespace PeerstPlayer
 				switch (keys[i])
 				{
 					/*
-					// タイトルバー
-					case "TitleBar":
-						TitleBar = (data == "True");
-						break;
-
 					// レスボックス
 					case "ResBox":
 						panelResBox.Visible = (data == "True");
@@ -424,11 +419,6 @@ namespace PeerstPlayer
 /**************************************************************************/
 [Player]
 
-// タイトルバー
-// True ： 表示
-// False ： 表示しない
-TitleBar =False
-
 // レスボックスの表示
 // True ： 表示
 // False ： 表示しない
@@ -634,7 +624,6 @@ T = TopMost
 A = ResBox
 S = StatusLabel
 D = Frame
-F = TitleBar
 Z = AspectRate
 Return = OpenContextMenu
 Delete = Mute
