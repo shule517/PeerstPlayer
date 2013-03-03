@@ -34,6 +34,12 @@ namespace PeerstPlayer
 			return Screen.GetWorkingArea(form);
 		}
 
+		/// <summary>
+		/// コンストラクタ
+		/// </summary>
+		/// <param name="form">フォーム</param>
+		/// <param name="wmp">WMP</param>
+		/// <param name="mediator">ウィンドウサイズメディエイター</param>
 		public WindowSizeManager(Form form, WMPEx wmp, WindowSizeMediator mediator)
 		{
 			this.form = form;
@@ -41,25 +47,18 @@ namespace PeerstPlayer
 			this.mediator = mediator;
 		}
 
-		/*
 		/// <summary>
 		/// 画面分割：幅
 		/// </summary>
 		public void ScreenSplitWidth(int num)
 		{
+			int width = (int)(GetScreen().Width / (float)num);
+			form.Size = new Size(width, form.Height);
 
-			// TODO WMPサイズ基準でないと、アスペクト比がずれてしまう
-			// ウィンドウ幅 = WMP幅 + ウィンドウフレーム
-			// WMP幅 = ウィンドウ幅 - ウィンドウフレーム
-			// WMP高さ = WMP幅 * アスペクト比
+			int wmpWidth = wmp.Width;
+			int wmpHeight = (int)(wmp.AspectRate * wmp.Width);
 
-			// TODO ウィンドウフレーム幅の取得方法
-			int windowFrameWidth = 0;
-
-			int windowWidth = (int)(GetScreen().Width / (float)num);
-			int wmpWidth = windowWidth - windowFrameWidth;
-			int wmpHeight = (int)(wmp.AspectRate * wmpWidth);
-			SetWMPSize(wmpWidth, wmpHeight);
+			mediator.OnChangeWmpSize(wmpWidth, wmpHeight);
 		}
 
 		/// <summary>
@@ -67,10 +66,13 @@ namespace PeerstPlayer
 		/// </summary>
 		public void ScreenSplitHeight(int num)
 		{
-			//int height = (int)(Screen.Height / (float)num);
-			//Size = new Size(Width, height);
-			//panelWMP.Size = new Size((int)(1 / wmp.AspectRate * wmp.Height), wmp.Height);
-			//OnPanelSizeChange();
+			int height = (int)(GetScreen().Height / (float)num);
+			form.Size = new Size(form.Width, height);
+
+			int wmpWidth = (int)(1 / wmp.AspectRate * wmp.Height);
+			int wmpHeight = wmp.Height;
+
+			mediator.OnChangeWmpSize(wmpWidth, wmpHeight);
 		}
 
 		/// <summary>
@@ -78,17 +80,15 @@ namespace PeerstPlayer
 		/// </summary>
 		public void ScreenSplit(int num)
 		{
-			int windowWidth = (int)(GetScreen().Width / (float)num);
-			int windowHeight = (int)(GetScreen().Height / (float)num);
+			int width = (int)(GetScreen().Width / (float)num);
+			int height = (int)(GetScreen().Height / (float)num);
+			form.Size = new Size(width, height);
 
-			// TODO WMPの指定だとアスペクト比があった状態になってしまう
-	
-			//int width = (int)(Screen.Width / (float)num);
-			//int height = (int)(Screen.Height / (float)num);
-			//Size = new Size(width, height);
-			//OnPanelSizeChange();
+			int wmpWidth = wmp.Width;
+			int wmpHeight = wmp.Height;
+
+			mediator.OnChangeWmpSize(wmpWidth, wmpHeight);
 		}
-		 */
 
 		/// <summary>
 		/// 幅指定

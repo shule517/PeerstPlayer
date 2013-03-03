@@ -15,7 +15,7 @@ namespace PeerstPlayer
 		// PeerCast管理
 		PeerCastManager pecaManager = null;
 
-		WindowSizeMenu windowSizeMenu = new WindowSizeMenu();
+		WindowSizeMenu windowSizeMenu = null;
 
 		/// <summary>
 		/// Load
@@ -42,22 +42,11 @@ namespace PeerstPlayer
 			// ウィンドウサイズ管理
 			windowSizeManager = new WindowSizeManager(this, wmp, this);
 
-			// TODO 
-			this.高さ120ToolStripMenuItem.Click += new System.EventHandler(this.高さ120ToolStripMenuItem_Click);
-			this.高さ240ToolStripMenuItem.Click += new System.EventHandler(this.高さ240ToolStripMenuItem_Click);
-			this.高さ360ToolStripMenuItem.Click += new System.EventHandler(this.高さ360ToolStripMenuItem_Click);
-			this.高さ480ToolStripMenuItem.Click += new System.EventHandler(windowSizeMenu.幅480ToolStripMenuItem_Click);
-			this.高さ600ToolStripMenuItem.Click += new System.EventHandler(this.高さ600ToolStripMenuItem_Click);
-			this.幅160ToolStripMenuItem.Click += new System.EventHandler(windowSizeMenu.幅160ToolStripMenuItem_Click);
-			this.幅320ToolStripMenuItem.Click += new System.EventHandler(windowSizeMenu.幅320ToolStripMenuItem_Click);
-			this.幅480ToolStripMenuItem.Click += new System.EventHandler(windowSizeMenu.幅480ToolStripMenuItem_Click);
-			this.幅640ToolStripMenuItem.Click += new System.EventHandler(windowSizeMenu.幅640ToolStripMenuItem_Click);
-			this.幅800ToolStripMenuItem.Click += new System.EventHandler(windowSizeMenu.幅800ToolStripMenuItem_Click);
+			windowSizeMenu = new WindowSizeMenu(windowSizeManager);
 
-
-
-
-
+			// ウィンドウサイズメニューの初期化
+			InitWindowSizeMenu();
+			
 			// コマンドラインから再生
 			wmp.LoadCommandLine();
 
@@ -65,6 +54,33 @@ namespace PeerstPlayer
 			urlData.GetDataFromURL(Environment.GetCommandLineArgs()[1]);
 			pecaManager = new PeerCastManager(urlData.Host, urlData.PortNo, urlData.ChannelId);
 			pecaManager.GetChannelInfo();
+		}
+
+		/// <summary>
+		/// ウィンドウサイズメニューの初期化
+		/// </summary>
+		private void InitWindowSizeMenu()
+		{
+			this.高さ120ToolStripMenuItem.Click += new System.EventHandler(windowSizeMenu.高さ120ToolStripMenuItem_Click);
+			this.高さ240ToolStripMenuItem.Click += new System.EventHandler(windowSizeMenu.高さ240ToolStripMenuItem_Click);
+			this.高さ360ToolStripMenuItem.Click += new System.EventHandler(windowSizeMenu.高さ360ToolStripMenuItem_Click);
+			this.高さ480ToolStripMenuItem.Click += new System.EventHandler(windowSizeMenu.幅480ToolStripMenuItem_Click);
+			this.高さ600ToolStripMenuItem.Click += new System.EventHandler(windowSizeMenu.高さ600ToolStripMenuItem_Click);
+			this.幅160ToolStripMenuItem.Click += new System.EventHandler(windowSizeMenu.幅160ToolStripMenuItem_Click);
+			this.幅320ToolStripMenuItem.Click += new System.EventHandler(windowSizeMenu.幅320ToolStripMenuItem_Click);
+			this.幅480ToolStripMenuItem.Click += new System.EventHandler(windowSizeMenu.幅480ToolStripMenuItem_Click);
+			this.幅640ToolStripMenuItem.Click += new System.EventHandler(windowSizeMenu.幅640ToolStripMenuItem_Click);
+			this.幅800ToolStripMenuItem.Click += new System.EventHandler(windowSizeMenu.幅800ToolStripMenuItem_Click);
+			this.toolStripMenuItem2.Click += new System.EventHandler(windowSizeMenu.toolStripMenuItem50Per_Click);
+			this.toolStripMenuItem3.Click += new System.EventHandler(windowSizeMenu.toolStripMenuItem75Per_Click);
+			this.toolStripMenuItem4.Click += new System.EventHandler(windowSizeMenu.toolStripMenuItem100Per_Click);
+			this.toolStripMenuItem5.Click += new System.EventHandler(windowSizeMenu.toolStripMenuItem150_Click);
+			this.toolStripMenuItem6.Click += new System.EventHandler(windowSizeMenu.toolStripMenuItem200Per_Click);
+			this.x120ToolStripMenuItem.Click += new System.EventHandler(windowSizeMenu.x120ToolStripMenuItem_Click);
+			this.x240ToolStripMenuItem.Click += new System.EventHandler(windowSizeMenu.x240ToolStripMenuItem_Click);
+			this.x360ToolStripMenuItem.Click += new System.EventHandler(windowSizeMenu.x360ToolStripMenuItem_Click);
+			this.x480ToolStripMenuItem.Click += new System.EventHandler(windowSizeMenu.x480ToolStripMenuItem_Click);
+			this.x600ToolStripMenuItem.Click += new System.EventHandler(windowSizeMenu.x600ToolStripMenuItem_Click);
 		}
 
 		/// <summary>

@@ -541,51 +541,51 @@ namespace PeerstPlayer
 					value = " (" + panelWMP.Width + " x " + panelWMP.Height + ")";
 					break;
 				case "ScreenSplitWidth=5":
-					ScreenSplitWidth(5);
+					windowSizeManager.ScreenSplitWidth(5);
 					value = " (" + panelWMP.Width + " x " + panelWMP.Height + ")";
 					break;
 				case "ScreenSplitWidth=4":
-					ScreenSplitWidth(4);
+					windowSizeManager.ScreenSplitWidth(4);
 					value = " (" + panelWMP.Width + " x " + panelWMP.Height + ")";
 					break;
 				case "ScreenSplitWidth=3":
-					ScreenSplitWidth(3);
+					windowSizeManager.ScreenSplitWidth(3);
 					value = " (" + panelWMP.Width + " x " + panelWMP.Height + ")";
 					break;
 				case "ScreenSplitWidth=2":
-					ScreenSplitWidth(2);
+					windowSizeManager.ScreenSplitWidth(2);
 					value = " (" + panelWMP.Width + " x " + panelWMP.Height + ")";
 					break;
 				case "ScreenSplitHeight=5":
-					ScreenSplitHeight(5);
+					windowSizeManager.ScreenSplitHeight(5);
 					value = " (" + panelWMP.Width + " x " + panelWMP.Height + ")";
 					break;
 				case "ScreenSplitHeight=4":
-					ScreenSplitHeight(4);
+					windowSizeManager.ScreenSplitHeight(4);
 					value = " (" + panelWMP.Width + " x " + panelWMP.Height + ")";
 					break;
 				case "ScreenSplitHeight=3":
-					ScreenSplitHeight(3);
+					windowSizeManager.ScreenSplitHeight(3);
 					value = " (" + panelWMP.Width + " x " + panelWMP.Height + ")";
 					break;
 				case "ScreenSplitHeight=2":
-					ScreenSplitHeight(2);
+					windowSizeManager.ScreenSplitHeight(2);
 					value = " (" + panelWMP.Width + " x " + panelWMP.Height + ")";
 					break;
 				case "ScreenSplit=5":
-					ScreenSplit(5);
+					windowSizeManager.ScreenSplit(5);
 					value = " (" + panelWMP.Width + " x " + panelWMP.Height + ")";
 					break;
 				case "ScreenSplit=4":
-					ScreenSplit(4);
+					windowSizeManager.ScreenSplit(4);
 					value = " (" + panelWMP.Width + " x " + panelWMP.Height + ")";
 					break;
 				case "ScreenSplit=3":
-					ScreenSplit(3);
+					windowSizeManager.ScreenSplit(3);
 					value = " (" + panelWMP.Width + " x " + panelWMP.Height + ")";
 					break;
 				case "ScreenSplit=2":
-					ScreenSplit(2);
+					windowSizeManager.ScreenSplit(2);
 					value = " (" + panelWMP.Width + " x " + panelWMP.Height + ")";
 					break;
 				case "Volume+1":
@@ -1760,39 +1760,6 @@ H = Retry
 		#endregion
 
 		/// <summary>
-		/// 画面分割：幅
-		/// </summary>
-		void ScreenSplitWidth(int num)
-		{
-			int width = (int)(Screen.Width / (float)num);
-			Size = new Size(width, Height);
-			panelWMP.Size = new Size(wmp.Width, (int)(wmp.AspectRate * wmp.Width));
-			OnPanelSizeChange();
-		}
-
-		/// <summary>
-		/// 画面分割：高さ
-		/// </summary>
-		void ScreenSplitHeight(int num)
-		{
-			int height = (int)(Screen.Height / (float)num);
-			Size = new Size(Width, height);
-			panelWMP.Size = new Size((int)(1 / wmp.AspectRate * wmp.Height), wmp.Height);
-			OnPanelSizeChange();
-		}
-
-		/// <summary>
-		/// 画面分割
-		/// </summary>
-		void ScreenSplit(int num)
-		{
-			int width = (int)(Screen.Width / (float)num);
-			int height = (int)(Screen.Height / (float)num);
-			Size = new Size(width, height);
-			OnPanelSizeChange();
-		}
-
-		/// <summary>
 		/// 作業フォルダを取得
 		/// </summary>
 		string GetCurrentDirectory()
@@ -1875,146 +1842,55 @@ H = Retry
 
 		private void 分割5X5ToolStripMenuItem_Click(object sender, EventArgs e)
 		{
-			ScreenSplit(5);
+			windowSizeManager.ScreenSplit(5);
 		}
 
 		private void 分割4X4ToolStripMenuItem_Click(object sender, EventArgs e)
 		{
-			ScreenSplit(4);
+			windowSizeManager.ScreenSplit(4);
 		}
 
 		private void 分割3X3ToolStripMenuItem_Click(object sender, EventArgs e)
 		{
-			ScreenSplit(3);
+			windowSizeManager.ScreenSplit(3);
 		}
 
 		private void 分割2X2ToolStripMenuItem_Click(object sender, EventArgs e)
 		{
-			ScreenSplit(2);
+			windowSizeManager.ScreenSplit(2);
 		}
 
 		private void 分割1X1ToolStripMenuItem_Click(object sender, EventArgs e)
 		{
-			ScreenSplit(1);
+			windowSizeManager.ScreenSplit(1);
 		}
 
 		#region 画面分割メニュー（幅）
 
 		private void 幅5分の1ToolStripMenuItem_Click(object sender, EventArgs e)
 		{
-			ScreenSplitWidth(5);
+			windowSizeManager.ScreenSplitWidth(5);
 		}
 
 		private void 幅4分の1ToolStripMenuItem_Click(object sender, EventArgs e)
 		{
-			ScreenSplitWidth(4);
+			windowSizeManager.ScreenSplitWidth(4);
 		}
 
 		private void 幅3分の1ToolStripMenuItem_Click(object sender, EventArgs e)
 		{
-			ScreenSplitWidth(3);
+			windowSizeManager.ScreenSplitWidth(3);
 		}
 
 		private void 幅2分の1ToolStripMenuItem_Click(object sender, EventArgs e)
 		{
-			ScreenSplitWidth(2);
+			windowSizeManager.ScreenSplitWidth(2);
 		}
 
 		private void 幅1分の1ToolStripMenuItem_Click(object sender, EventArgs e)
 		{
-			ScreenSplitWidth(1);
+			windowSizeManager.ScreenSplitWidth(1);
 		}
-
-		#endregion
-
-		#region サイズ指定
-
-		#region サイズ指定（拡大率）
-
-		private void toolStripMenuItem50Per_Click(object sender, EventArgs e)
-		{
-			windowSizeManager.SetScale(50);
-		}
-
-		private void toolStripMenuItem75Per_Click(object sender, EventArgs e)
-		{
-			windowSizeManager.SetScale(75);
-		}
-
-		private void toolStripMenuItem100Per_Click(object sender, EventArgs e)
-		{
-			windowSizeManager.SetScale(100);
-		}
-
-		private void toolStripMenuItem150_Click(object sender, EventArgs e)
-		{
-			windowSizeManager.SetScale(150);
-		}
-
-		private void toolStripMenuItem200Per_Click(object sender, EventArgs e)
-		{
-			windowSizeManager.SetScale(200);
-		}
-
-		#endregion
-
-		#region サイズ指定（幅×高さ）
-
-		private void x120ToolStripMenuItem_Click(object sender, EventArgs e)
-		{
-			windowSizeManager.SetSize(160, 120);
-		}
-
-		private void x240ToolStripMenuItem_Click(object sender, EventArgs e)
-		{
-			windowSizeManager.SetSize(320, 240);
-		}
-
-		private void x360ToolStripMenuItem_Click(object sender, EventArgs e)
-		{
-			windowSizeManager.SetSize(480, 360);
-		}
-
-		private void x480ToolStripMenuItem_Click(object sender, EventArgs e)
-		{
-			windowSizeManager.SetSize(640, 480);
-		}
-
-		private void x600ToolStripMenuItem_Click(object sender, EventArgs e)
-		{
-			windowSizeManager.SetSize(800, 600);
-		}
-
-		#endregion
-
-		#region サイズ指定（高さ）
-
-		private void 高さ120ToolStripMenuItem_Click(object sender, EventArgs e)
-		{
-			windowSizeManager.SetHeight(120);
-		}
-
-		private void 高さ240ToolStripMenuItem_Click(object sender, EventArgs e)
-		{
-			windowSizeManager.SetHeight(240);
-		}
-
-		private void 高さ360ToolStripMenuItem_Click(object sender, EventArgs e)
-		{
-			windowSizeManager.SetHeight(360);
-		}
-
-		private void 高さ480ToolStripMenuItem_Click(object sender, EventArgs e)
-		{
-			windowSizeManager.SetHeight(480);
-		}
-
-		private void 高さ600ToolStripMenuItem_Click(object sender, EventArgs e)
-		{
-			windowSizeManager.SetHeight(600);
-		}
-
-		#endregion
 
 		#endregion
 
@@ -2024,32 +1900,28 @@ H = Retry
 
 		private void 高さ5分の1ToolStripMenuItem_Click(object sender, EventArgs e)
 		{
-			ScreenSplitHeight(5);
+			windowSizeManager.ScreenSplitHeight(5);
 		}
 
 		private void 高さ4分の1ToolStripMenuItem_Click(object sender, EventArgs e)
 		{
-			ScreenSplitHeight(4);
+			windowSizeManager.ScreenSplitHeight(4);
 		}
 
 		private void 高さ3分の1ToolStripMenuItem_Click(object sender, EventArgs e)
 		{
-			ScreenSplitHeight(3);
+			windowSizeManager.ScreenSplitHeight(3);
 		}
 
 		private void 高さ2分の1ToolStripMenuItem_Click(object sender, EventArgs e)
 		{
-			ScreenSplitHeight(2);
+			windowSizeManager.ScreenSplitHeight(2);
 		}
 
 		private void 高さ1分の1ToolStripMenuItem_Click(object sender, EventArgs e)
 		{
-			ScreenSplitHeight(1);
+			windowSizeManager.ScreenSplitHeight(1);
 		}
-
-		#endregion
-
-		#region 画面分割メニュー（縦×横）
 
 		#endregion
 
@@ -2087,15 +1959,7 @@ H = Retry
 		/// </summary>
 		private void toolStripButtonClose_Click(object sender, EventArgs e)
 		{
-			try
-			{
-				Visible = false;
-				updateChannelInfoThread.Join();
-				Close();
-			}
-			catch
-			{
-			}
+			ExeCommand("Close");
 		}
 
 		/// <summary>
@@ -2256,7 +2120,15 @@ H = Retry
 			if (threadInfo.Title == "")
 			{
 				// 掲示板[板名] - スレッドを選択してください
-				labelThreadTitle.Text = "掲示板名[ " + operationBbs.GetBbsName() + " ] - スレッドを選択してください";
+				string bbsName = operationBbs.GetBbsName();
+				if (bbsName.Length > 0)
+				{
+					labelThreadTitle.Text = "掲示板名[ " + operationBbs.GetBbsName() + " ] - スレッドを選択してください";
+				}
+				else
+				{
+					labelThreadTitle.Text = "スレッドを選択してください";
+				}
 			}
 			else
 			{

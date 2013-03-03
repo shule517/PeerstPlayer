@@ -1263,35 +1263,30 @@ namespace PeerstPlayer
 			this.toolStripMenuItem2.Name = "toolStripMenuItem2";
 			this.toolStripMenuItem2.Size = new System.Drawing.Size(133, 22);
 			this.toolStripMenuItem2.Text = "50%";
-			this.toolStripMenuItem2.Click += new System.EventHandler(this.toolStripMenuItem50Per_Click);
 			// 
 			// toolStripMenuItem3
 			// 
 			this.toolStripMenuItem3.Name = "toolStripMenuItem3";
 			this.toolStripMenuItem3.Size = new System.Drawing.Size(133, 22);
 			this.toolStripMenuItem3.Text = "75%";
-			this.toolStripMenuItem3.Click += new System.EventHandler(this.toolStripMenuItem75Per_Click);
 			// 
 			// toolStripMenuItem4
 			// 
 			this.toolStripMenuItem4.Name = "toolStripMenuItem4";
 			this.toolStripMenuItem4.Size = new System.Drawing.Size(133, 22);
 			this.toolStripMenuItem4.Text = "100%";
-			this.toolStripMenuItem4.Click += new System.EventHandler(this.toolStripMenuItem100Per_Click);
 			// 
 			// toolStripMenuItem5
 			// 
 			this.toolStripMenuItem5.Name = "toolStripMenuItem5";
 			this.toolStripMenuItem5.Size = new System.Drawing.Size(133, 22);
 			this.toolStripMenuItem5.Text = "150%";
-			this.toolStripMenuItem5.Click += new System.EventHandler(this.toolStripMenuItem150_Click);
 			// 
 			// toolStripMenuItem6
 			// 
 			this.toolStripMenuItem6.Name = "toolStripMenuItem6";
 			this.toolStripMenuItem6.Size = new System.Drawing.Size(133, 22);
 			this.toolStripMenuItem6.Text = "200%";
-			this.toolStripMenuItem6.Click += new System.EventHandler(this.toolStripMenuItem200Per_Click);
 			// 
 			// toolStripSeparator6
 			// 
@@ -1303,35 +1298,30 @@ namespace PeerstPlayer
 			this.x120ToolStripMenuItem.Name = "x120ToolStripMenuItem";
 			this.x120ToolStripMenuItem.Size = new System.Drawing.Size(133, 22);
 			this.x120ToolStripMenuItem.Text = "160 x 120";
-			this.x120ToolStripMenuItem.Click += new System.EventHandler(this.x120ToolStripMenuItem_Click);
 			// 
 			// x240ToolStripMenuItem
 			// 
 			this.x240ToolStripMenuItem.Name = "x240ToolStripMenuItem";
 			this.x240ToolStripMenuItem.Size = new System.Drawing.Size(133, 22);
 			this.x240ToolStripMenuItem.Text = "320 x 240";
-			this.x240ToolStripMenuItem.Click += new System.EventHandler(this.x240ToolStripMenuItem_Click);
 			// 
 			// x360ToolStripMenuItem
 			// 
 			this.x360ToolStripMenuItem.Name = "x360ToolStripMenuItem";
 			this.x360ToolStripMenuItem.Size = new System.Drawing.Size(133, 22);
 			this.x360ToolStripMenuItem.Text = "480 x 360";
-			this.x360ToolStripMenuItem.Click += new System.EventHandler(this.x360ToolStripMenuItem_Click);
 			// 
 			// x480ToolStripMenuItem
 			// 
 			this.x480ToolStripMenuItem.Name = "x480ToolStripMenuItem";
 			this.x480ToolStripMenuItem.Size = new System.Drawing.Size(133, 22);
 			this.x480ToolStripMenuItem.Text = "640 x 480";
-			this.x480ToolStripMenuItem.Click += new System.EventHandler(this.x480ToolStripMenuItem_Click);
 			// 
 			// x600ToolStripMenuItem
 			// 
 			this.x600ToolStripMenuItem.Name = "x600ToolStripMenuItem";
 			this.x600ToolStripMenuItem.Size = new System.Drawing.Size(133, 22);
 			this.x600ToolStripMenuItem.Text = "800 x 600";
-			this.x600ToolStripMenuItem.Click += new System.EventHandler(this.x600ToolStripMenuItem_Click);
 			// 
 			// toolStripSeparatorSize1
 			// 
