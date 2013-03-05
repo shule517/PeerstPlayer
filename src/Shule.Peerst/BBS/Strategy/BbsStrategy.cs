@@ -200,7 +200,7 @@ namespace Shule.Peerst.BBS
 		private void GetSubject(out string[] subjectArray)
 		{
 			// subject.txtを取得
-			string subject_html = HTTP.GetHtml(GetSubjectUrl(), GetEncode());
+			string subject_html = WebUtility.GetHtml(GetSubjectUrl(), GetEncode());
 
 			// 区切り文字作成
 			string[] separator = new string[2];
@@ -253,7 +253,7 @@ namespace Shule.Peerst.BBS
 		public string GetBbsName()
 		{
 			// 板名を取得：<title>板名</title>
-			string html = HTTP.GetHtml(GetBoadUrl(), GetEncode());
+			string html = WebUtility.GetHtml(GetBoadUrl(), GetEncode());
 
 			int startPos = html.IndexOf("<title>");
 			int endPos = html.IndexOf("</title>");

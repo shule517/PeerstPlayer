@@ -76,7 +76,7 @@ namespace Shule.Peerst.BBS
 			// datの取得
 			// http://yy67.60.kg/ff11peca/dat/1263298996.dat
 			string url = "http://" + bbsUrl.BoadGenre + "/" + bbsUrl.BoadNo + "/dat/" + threadNo + ".dat";
-			string html = HTTP.GetHtml(url, GetEncode());
+			string html = WebUtility.GetHtml(url, GetEncode());
 
 			// TODO 指定レス(ResNum)まで飛ばす
 			/*

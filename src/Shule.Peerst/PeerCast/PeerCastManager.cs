@@ -309,7 +309,7 @@ namespace Shule.Peerst.PeerCast
 		public void Bump()
 		{
 			string url = "/admin?cmd=bump&id=" + channelId;
-			HTTP.SendCommand(host, portNo, url, "Shift_JIS");
+			WebUtility.SendCommand(host, portNo, url, "Shift_JIS");
 		}
 
 		/// <summary>
@@ -321,7 +321,7 @@ namespace Shule.Peerst.PeerCast
 			//if (form.channelInfo.IsInfo && form.channelInfo.Status != "BROADCAST")
 			{
 				string url = "/admin?cmd=stop&id=" + channelId;
-				HTTP.SendCommand(host, portNo, url, "Shift_JIS");
+				WebUtility.SendCommand(host, portNo, url, "Shift_JIS");
 			}
 		}
 
@@ -331,7 +331,7 @@ namespace Shule.Peerst.PeerCast
 		public void RelayKeep()
 		{
 			string url = "/admin?cmd=keep&id=" + channelId;
-			HTTP.SendCommand(host, portNo, url, "Shift_JIS");
+			WebUtility.SendCommand(host, portNo, url, "Shift_JIS");
 		}
 
 	}

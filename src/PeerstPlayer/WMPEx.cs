@@ -736,7 +736,7 @@ namespace PeerstPlayer
 			beforeReceivedPackets = 0;
 
 			string url = "/admin?cmd=bump&id=" + URLData.ChannelId;
-			HTTP.SendCommand(URLData.Host, URLData.PortNo, url, "Shift_JIS");
+			WebUtility.SendCommand(URLData.Host, URLData.PortNo, url, "Shift_JIS");
 		}
 
 		/// <summary>
@@ -748,7 +748,7 @@ namespace PeerstPlayer
 			if (form.channelInfo.IsInfo && form.channelInfo.Status != "BROADCAST")
 			{
 				string url = "/admin?cmd=stop&id=" + URLData.ChannelId;
-				HTTP.SendCommand(URLData.Host, URLData.PortNo, url, "Shift_JIS");
+				WebUtility.SendCommand(URLData.Host, URLData.PortNo, url, "Shift_JIS");
 			}
 		}
 
@@ -758,7 +758,7 @@ namespace PeerstPlayer
 		public void RelayKeep()
 		{
 			string url = "/admin?cmd=keep&id=" + URLData.ChannelId;
-			HTTP.SendCommand(URLData.Host, URLData.PortNo, url, "Shift_JIS");
+			WebUtility.SendCommand(URLData.Host, URLData.PortNo, url, "Shift_JIS");
 		}
 
 		/// <summary>

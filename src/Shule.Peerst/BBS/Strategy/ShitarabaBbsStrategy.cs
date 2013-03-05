@@ -77,7 +77,7 @@ namespace Shule.Peerst.BBS
 			// datの取得
 			// http://jbbs.livedoor.jp/bbs/rawmode.cgi/game/41324/1260939060/930-
 			string url = "http://jbbs.livedoor.jp/bbs/rawmode.cgi/" + bbsUrl.BoadGenre + "/" + bbsUrl.BoadNo + "/" + threadNo + "/";// TODO 検討の必要あり +ResNum.ToString() + "-";
-			string html = HTTP.GetHtml(url, GetEncode());
+			string html = WebUtility.GetHtml(url, GetEncode());
 
 			// 本文の修正
 			// html = html.Replace("<a", @"<u><font color=""blue""");
