@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Shule.Peerst.Form
 {
-	public class FormManager
+	public class FormUtility
 	{
 		private const UInt32 WS_CAPTION = (UInt32)0x00C00000;
 		private const int GWL_STYLE = -16;

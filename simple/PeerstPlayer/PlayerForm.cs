@@ -31,11 +31,83 @@ namespace PeerstPlayer
 		public PlayerForm()
 		{
 			InitializeComponent();
+
+			// スレッド選択フォーム
 			threadSelectForm = new ThreadSelectForm(this);
-			FormManager.VisibleTitlebar(Handle, false);
+
+			// タイトルバーを非表示
+			FormUtility.VisibleTitlebar(Handle, false);
+
+			// イベント追加
 			MouseWheel += PlayerForm_MouseWheel;
 		}
 
+		/// <summary>
+		/// ロードイベント
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
+		private void PlayerForm_Load(object sender, EventArgs e)
+		{
+			if (Environment.GetCommandLineArgs().Length <= 1)
+			{
+				// コマンドライン引数指定なし
+				return;
+			}
+
+			// 動画再生
+			string streamUrl = Environment.GetCommandLineArgs()[1];
+			wmp.URL = streamUrl;
+
+			// ストリームURLの解析
+			PecaInfo pecaInfo = StreamUrlAnalyzer.GetPecaInfo(streamUrl);
+
+			// チャンネル情報取得
+			pecaManager = new PeerCastManager(pecaInfo.Host, pecaInfo.PortNo, pecaInfo.StreamId);
+
+			// スレッドの実行
+			backgroundWorker.RunWorkerAsync();
+		}
+
+		/// <summary>
+		/// チャンネル情報取得
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
+		private void backgroundWorker_DoWork(object sender, DoWorkEventArgs e)
+		{
+			// 取得できるまでループ
+			for (;;)
+			{
+				bool result = pecaManager.GetChannelInfo();
+
+				// 取得成功
+				if (result)
+				{
+					break;
+				}
+				Thread.Sleep(1);
+				Application.DoEvents();
+			}
+
+			// スレッド更新
+			operationBbs.ChangeUrl(pecaManager.ChannelInfo.ContactUrl);
+		}
+
+		/// <summary>
+		/// チャンネル情報取得完了
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
+		private void backgroundWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+		{
+			// ステータスラベルの更新
+			channelInfoLabel.Text = pecaManager.ChannelInfo.ToString();
+
+			// スレッドタイトルの更新
+			threadTitleLabel.Text = operationBbs.GetBbsName();
+		}
+	
 		#region ライブラリ化したい
 
 		/// <summary>
@@ -90,81 +162,14 @@ namespace PeerstPlayer
 		}
 
 		/// <summary>
-		/// ロードイベント
-		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
-		private void PlayerForm_Load(object sender, EventArgs e)
-		{
-			if (Environment.GetCommandLineArgs().Length <= 1)
-			{
-				// コマンドライン引数指定なし
-				return;
-			}
-		
-			// 動画再生
-			string streamUrl = Environment.GetCommandLineArgs()[1];
-			wmp.URL = streamUrl;
-
-			// スレッドの実行
-			backgroundWorker.RunWorkerAsync();
-		}
-
-		/// <summary>
-		/// チャンネル情報取得
-		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
-		private void backgroundWorker_DoWork(object sender, DoWorkEventArgs e)
-		{
-			// ストリームURLの解析
-			string streamUrl = Environment.GetCommandLineArgs()[1];
-			PecaInfo pecaInfo = StreamUrlAnalyzer.GetPecaInfo(streamUrl);
-
-			// チャンネル情報取得
-			pecaManager = new PeerCastManager(pecaInfo.Host, pecaInfo.PortNo, pecaInfo.StreamId);
-
-			// 取得できるまでループ
-			for (;;)
-			{
-				bool result = pecaManager.GetChannelInfo();
-
-				if ((pecaManager.ChannelInfo != null) && (pecaManager.ChannelInfo.Name != ""))
-				{
-					break;
-				}
-				Thread.Sleep(1);
-				Application.DoEvents();
-			}
-
-			// スレッド更新
-			operationBbs.ChangeUrl(pecaManager.ChannelInfo.ContactUrl);
-		}
-
-		/// <summary>
-		/// チャンネル情報取得完了
-		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
-		private void backgroundWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
-		{
-			// ステータスラベルの更新
-			channelInfoLabel.Text = pecaManager.ChannelInfo.ToString();
-
-			// スレッドタイトルの更新
-			threadTitleLabel.Text = operationBbs.GetBbsName();
-		}
-
-		/// <summary>
 		/// スレッドURL更新通知
 		/// </summary>
 		/// <param name="threadUrl"></param>
-		/// <param name="threadName"></param>
-		void ThreadSelectObserver.UpdateThreadUrl(string threadUrl, string threadName)
+		/// <param name="threadNo"></param>
+		void ThreadSelectObserver.UpdateThreadUrl(string threadUrl, string threadNo)
 		{
 			// スレッド更新
-			operationBbs.ChangeUrl(threadUrl);
-			operationBbs.ChangeThread(threadName);
+			operationBbs.ChangeUrl(threadUrl, threadNo);
 
 			// スレッドタイトルの更新
 			threadTitleLabel.Text = operationBbs.GetBbsName();

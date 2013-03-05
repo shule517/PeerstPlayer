@@ -203,6 +203,14 @@ namespace Shule.Peerst.PeerCast
 				}
 			}
 
+			// チャンネル取得確認
+			if ((this.ChannelInfo == null) || (ChannelInfo.Name == ""))
+			{
+				// 取得失敗
+				return false;
+			}
+
+			// 取得成功
 			return true;
 		}
 

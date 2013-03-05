@@ -63,7 +63,7 @@
     <Compile Include="BBS\Strategy\YYKakikoBbsStrategy.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Form\FormManager.cs" />
+    <Compile Include="Form\FormUtility.cs" />
     <Compile Include="Form\Win32API.cs" />
     <Compile Include="PeerCast\PeerCastManager.cs" />
     <Compile Include="PeerCast\StreamUrlAnalyzer.cs" />

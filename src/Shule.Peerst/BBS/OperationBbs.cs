@@ -162,32 +162,46 @@ namespace Shule.Peerst.BBS
 		/// 掲示板URL変更
 		/// URLにあったストラテジに変更する
 		/// </summary>
-		/// <param name="url">掲示板URL</param>
-		public void ChangeUrl(string url)
+		/// <param name="threadUrl">スレッドURL</param>
+		public void ChangeUrl(string threadUrl)
 		{
-			if (url == "本スレ")
+			ChangeUrl(threadUrl, "");
+		}
+
+		/// <summary>
+		/// 掲示板URL変更
+		/// </summary>
+		/// <param name="bbsUrl"></param>
+		/// <param name="threadNo"></param>
+		public void ChangeUrl(string bbsUrl, string threadNo)
+		{
+			if (threadNo == "本スレ")
 			{
-				bbsStrategy = bbsFactory.Create(url);
+				bbsStrategy = bbsFactory.Create(threadNo);
 				return;
 			}
 
+			// スレッドURLの作成
+			string threadUrl = bbsUrl + threadNo;
+
 			Regex regex = new Regex(@"(h?ttps?://[-_.!~*'()a-zA-Z0-9;/?:@&=+$,%#]+)");
-			Match match = regex.Match(url);
+			Match match = regex.Match(threadUrl);
 
 			if (match.Groups.Count == 2)
 			{
 				// ttpをhttpに変換
 				if (match.Groups[0].Value[0] == 't')
 				{
-					url = "h" + match.Groups[0].Value;
+					threadUrl = "h" + match.Groups[0].Value;
 				}
 				else
 				{
-					url = match.Groups[0].Value;
+					threadUrl = match.Groups[0].Value;
 				}
 			}
 
-			bbsStrategy = bbsFactory.Create(url);
+			// 生成
+			bbsStrategy = bbsFactory.Create(threadUrl);
 		}
 
 		/// <summary>
