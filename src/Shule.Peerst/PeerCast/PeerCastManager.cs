@@ -134,7 +134,7 @@ namespace Shule.Peerst.PeerCast
 		/// チャンネル情報取得
 		/// </summary>
 		/// <returns>指定チャンネルのチャンネル情報</returns>
-		public void GetChannelInfo()
+		public bool GetChannelInfo()
 		{
 			string xmlUrl = "http://" + host + ":" + portNo + "/admin?cmd=viewxml";
 
@@ -192,6 +192,7 @@ namespace Shule.Peerst.PeerCast
 			catch (Exception)
 			{
 				// PeerCastの接続エラー
+				return false;
 			}
 			finally
 			{
@@ -201,6 +202,8 @@ namespace Shule.Peerst.PeerCast
 					reader.Close();
 				}
 			}
+
+			return true;
 		}
 
 		/// <summary>
