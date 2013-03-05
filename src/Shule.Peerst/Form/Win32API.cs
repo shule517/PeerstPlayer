@@ -23,7 +23,7 @@ namespace PeerstPlayer
 			public int bottom;
 		}
 
-		[System.Runtime.InteropServices.DllImport("user32.dll")]
+		[DllImport("user32.dll")]
 		public static extern int MoveWindow(IntPtr hwnd, int x, int y, int nWidth, int nHeight, int bRepaint);
 
 		/// <summary>
@@ -52,11 +52,17 @@ namespace PeerstPlayer
 		[DllImport("user32.dll")]
 		public static extern IntPtr GetAncestor(IntPtr hwnd, uint gaFlags);
 
-		[DllImport("USER32.dll")]
+		[DllImport("user32.dll")]
 		public static extern IntPtr SendMessage(IntPtr hWnd, int msg, IntPtr wp, IntPtr lp);
 
 		[DllImport("user32.dll", SetLastError = true)]
-		public static extern int PostMessage(IntPtr hWnd, uint msg, IntPtr wParam, IntPtr lParam); 
+		public static extern int PostMessage(IntPtr hWnd, uint msg, IntPtr wParam, IntPtr lParam);
+
+		[DllImport("user32.dll")]
+		public static extern short GetAsyncKeyState(int vKey);
+
+		[DllImport("user32.dll")]
+		public static extern bool GetKeyboardState(byte[] lpKeyState);
 
 		public const uint GA_ROOT = 2;
 
@@ -64,15 +70,13 @@ namespace PeerstPlayer
 		public const int WM_SIZING = 0x214;
 		public const int WM_MOVE = 0x0003;
 		public const int WM_MOVING = 0x0216;
-
 		public const int WM_MOUSEMOVE = 0x200;
 		public const int WM_LBUTTONDOWN = 0x201;
 		public const int WM_NCLBUTTONDOWN = 0x00A1;
-		public const int HTCAPTION = 2;
-
 		public const int WM_MOUSEWHEEL = 0x020A;
-
 		public const int WM_CONTEXTMENU = 0x007B;
+		public const int WM_KEYDOWN = 0x0100;
+		public const int WM_SETFOCUS = 0x0007;
 
 		public const int WMSZ_LEFT = 1;
 		public const int WMSZ_RIGHT = 2;
@@ -83,26 +87,13 @@ namespace PeerstPlayer
 		public const int WMSZ_BOTTOMLEFT = 7;
 		public const int WMSZ_BOTTOMRIGHT = 8;
 
-		public const int WM_KEYDOWN = 0x0100;
-
-		[DllImport("user32.dll")]
-		public static extern short GetAsyncKeyState(int vKey);
-
-		[DllImport("user32.dll")]
-		public static extern bool GetKeyboardState(byte[] lpKeyState);
-
-		//[DllImport("user32.dll")]
-		//public static extern short GetKeyState(VirtualKeyStates nVirtKey);
-
-		public const int WM_SETFOCUS = 0x0007;
-
-
 		public const int WM_LBUTTONDBLCLK = 0x0203;
 		public const int WM_RBUTTONDOWN = 0x0201;
 		public const int WM_NCHITTEST = 0x0084;
 		public const int WM_LBUTTONUP = 0x0202;
 		public const int WM_MOUSEHOVER = 0x02A1;
 
+		public const int HTCAPTION = 2;
 		public const int HTTOP = 12;			// 可変枠の上辺境界線上にある
 		public const int HTBOTTOM = 15;			// 可変枠の下辺境界線上にある
 		public const int HTLEFT = 10;			// 可変枠の左辺境界線上にある
@@ -140,6 +131,5 @@ namespace PeerstPlayer
 		}
 
 		#endregion
-
 	}
 }
