@@ -29,33 +29,33 @@
 		private void InitializeComponent()
 		{
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(PlayerForm));
-			this.statusStrip1 = new System.Windows.Forms.StatusStrip();
+			this.statusStrip = new System.Windows.Forms.StatusStrip();
 			this.channelInfoLabel = new System.Windows.Forms.ToolStripStatusLabel();
 			this.backgroundWorker = new System.ComponentModel.BackgroundWorker();
 			this.writeField = new System.Windows.Forms.TextBox();
 			this.threadTitleLabel = new System.Windows.Forms.Label();
 			this.wmp = new AxWMPLib.AxWindowsMediaPlayer();
-			this.statusStrip1.SuspendLayout();
+			this.statusStrip.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.wmp)).BeginInit();
 			this.SuspendLayout();
 			// 
-			// statusStrip1
+			// statusStrip
 			// 
-			this.statusStrip1.BackColor = System.Drawing.Color.Black;
-			this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+			this.statusStrip.BackColor = System.Drawing.Color.Black;
+			this.statusStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.channelInfoLabel});
-			this.statusStrip1.Location = new System.Drawing.Point(0, 191);
-			this.statusStrip1.Name = "statusStrip1";
-			this.statusStrip1.Size = new System.Drawing.Size(284, 23);
-			this.statusStrip1.TabIndex = 1;
-			this.statusStrip1.Text = "statusStrip1";
+			this.statusStrip.Location = new System.Drawing.Point(0, 191);
+			this.statusStrip.Name = "statusStrip";
+			this.statusStrip.Size = new System.Drawing.Size(284, 23);
+			this.statusStrip.TabIndex = 1;
+			this.statusStrip.Text = "";
 			// 
 			// channelInfoLabel
 			// 
 			this.channelInfoLabel.ForeColor = System.Drawing.Color.SpringGreen;
 			this.channelInfoLabel.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
 			this.channelInfoLabel.Name = "channelInfoLabel";
-			this.channelInfoLabel.Size = new System.Drawing.Size(269, 18);
+			this.channelInfoLabel.Size = new System.Drawing.Size(238, 18);
 			this.channelInfoLabel.Spring = true;
 			this.channelInfoLabel.Text = "チャンネル情報";
 			this.channelInfoLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -109,13 +109,13 @@
 			this.ClientSize = new System.Drawing.Size(284, 214);
 			this.Controls.Add(this.threadTitleLabel);
 			this.Controls.Add(this.writeField);
-			this.Controls.Add(this.statusStrip1);
+			this.Controls.Add(this.statusStrip);
 			this.Controls.Add(this.wmp);
 			this.Name = "PlayerForm";
 			this.Text = "Form1";
 			this.Load += new System.EventHandler(this.PlayerForm_Load);
-			this.statusStrip1.ResumeLayout(false);
-			this.statusStrip1.PerformLayout();
+			this.statusStrip.ResumeLayout(false);
+			this.statusStrip.PerformLayout();
 			((System.ComponentModel.ISupportInitialize)(this.wmp)).EndInit();
 			this.ResumeLayout(false);
 			this.PerformLayout();
@@ -125,7 +125,7 @@
 		#endregion
 
 		private AxWMPLib.AxWindowsMediaPlayer wmp;
-		private System.Windows.Forms.StatusStrip statusStrip1;
+		private System.Windows.Forms.StatusStrip statusStrip;
 		private System.Windows.Forms.ToolStripStatusLabel channelInfoLabel;
 		private System.ComponentModel.BackgroundWorker backgroundWorker;
 		private System.Windows.Forms.TextBox writeField;

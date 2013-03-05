@@ -58,31 +58,6 @@ namespace PeerstPlayer
 		[DllImport("user32.dll", SetLastError = true)]
 		public static extern int PostMessage(IntPtr hWnd, uint msg, IntPtr wParam, IntPtr lParam); 
 
-		public enum SWP : int
-		{
-			NOSIZE = 0x0001,
-			NOMOVE = 0x0002,
-			NOZORDER = 0x0004,
-			NOREDRAW = 0x0008,
-			NOACTIVATE = 0x0010,
-			FRAMECHANGED = 0x0020,
-			SHOWWINDOW = 0x0040,
-			HIDEWINDOW = 0x0080,
-			NOCOPYBITS = 0x0100,
-			NOOWNERZORDER = 0x0200,
-			NOSENDCHANGING = 0x400
-		}
-
-		public const UInt32 WS_CAPTION = (UInt32)0x00C00000;
-		public const int GWL_STYLE = -16;
-
-		[DllImport("user32.dll")]
-		public static extern UInt32 GetWindowLong(IntPtr hWnd, int index);
-		[DllImport("user32.dll")]
-		public static extern UInt32 SetWindowLong(IntPtr hWnd, int index, UInt32 unValue);
-		[DllImport("user32.dll")]
-		public static extern UInt32 SetWindowPos(IntPtr hWnd, IntPtr hWndInsertAfter, int x, int y, int width, int height, SWP flags);
-
 		public const uint GA_ROOT = 2;
 
 		public const int WM_SIZE = 0x0005;
@@ -136,5 +111,35 @@ namespace PeerstPlayer
 		public const int HTTOPRIGHT = 14;		// 可変枠の右上隅にある
 		public const int HTBOTTOMLEFT = 16;		// 可変枠の左下隅にある
 		public const int HTBOTTOMRIGHT = 17;	// 可変枠の右下隅にある
+
+		#region タイトルバー用定義
+
+		[DllImport("user32.dll")]
+		public static extern UInt32 GetWindowLong(IntPtr hWnd, int index);
+		[DllImport("user32.dll")]
+		public static extern UInt32 SetWindowLong(IntPtr hWnd, int index, UInt32 unValue);
+		[DllImport("user32.dll")]
+		public static extern UInt32 SetWindowPos(IntPtr hWnd, IntPtr hWndInsertAfter, int x, int y, int width, int height, SWP flags);
+
+		public const UInt32 WS_CAPTION = (UInt32)0x00C00000;
+		public const int GWL_STYLE = -16;
+
+		public enum SWP : int
+		{
+			NOSIZE = 0x0001,
+			NOMOVE = 0x0002,
+			NOZORDER = 0x0004,
+			NOREDRAW = 0x0008,
+			NOACTIVATE = 0x0010,
+			FRAMECHANGED = 0x0020,
+			SHOWWINDOW = 0x0040,
+			HIDEWINDOW = 0x0080,
+			NOCOPYBITS = 0x0100,
+			NOOWNERZORDER = 0x0200,
+			NOSENDCHANGING = 0x400
+		}
+
+		#endregion
+
 	}
 }

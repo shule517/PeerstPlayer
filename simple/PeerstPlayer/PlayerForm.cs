@@ -111,27 +111,12 @@ namespace PeerstPlayer
 		#region ライブラリ化したい
 
 		/// <summary>
-		/// 作業フォルダを取得
-		/// </summary>
-		string GetCurrentDirectory()
-		{
-			if (Environment.GetCommandLineArgs().Length > 0)
-			{
-				string folder = Environment.GetCommandLineArgs()[0];
-				folder = folder.Substring(0, folder.LastIndexOf('\\'));
-
-				return folder;
-			}
-			return "";
-		}
-
-		/// <summary>
 		/// スレッドビューワを開く
 		/// </summary>
 		public void OpenThreadViewer()
 		{
 			// スレビューワを開く
-			string viewerPath = GetCurrentDirectory() + "\\PeerstViewer.exe";
+			string viewerPath = FormUtility.GetCurrentDirectory() + "\\PeerstViewer.exe";
 			string threadUrl = operationBbs.ThreadUrl;
 			Process.Start(viewerPath, threadUrl + " " + pecaManager.ChannelInfo.Name);
 		}
