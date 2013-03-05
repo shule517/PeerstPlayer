@@ -89,7 +89,6 @@
     <Compile Include="MainFormWMPEvent.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="MouseGesture.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="MainForm.resx">

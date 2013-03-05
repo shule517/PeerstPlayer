@@ -8,7 +8,7 @@ namespace PeerstPlayer
 	/// <summary>
 	/// マウスジェスチャを取得するクラス
 	/// </summary>
-	class MouseGesture
+	public class MouseGesture
 	{
 		#region 内部変数
 

@@ -34,6 +34,7 @@
     <Reference Include="System" />
     <Reference Include="System.configuration" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Web" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
@@ -64,6 +65,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Form\FormUtility.cs" />
+    <Compile Include="Form\MouseGesture.cs" />
     <Compile Include="Form\Win32API.cs" />
     <Compile Include="PeerCast\PeerCastManager.cs" />
     <Compile Include="PeerCast\StreamUrlAnalyzer.cs" />

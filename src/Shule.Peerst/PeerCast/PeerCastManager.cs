@@ -139,6 +139,7 @@ namespace Shule.Peerst.PeerCast
 			string xmlUrl = "http://" + host + ":" + portNo + "/admin?cmd=viewxml";
 
 			XmlTextReader reader = null;
+			// TODO XmlDocumentへの移行を検討
 
 			try
 			{
@@ -260,6 +261,7 @@ namespace Shule.Peerst.PeerCast
 				{
 					channelInfo.ContactUrl = reader.Value;
 				}
+				// TODO STATUSを取得する
 			}
 		}
 

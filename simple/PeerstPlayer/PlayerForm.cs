@@ -20,10 +20,10 @@ namespace PeerstPlayer
 		OperationBbs operationBbs = new OperationBbs();
 
 		// Peca管理
-		PeerCastManager pecaManager = null;
+		PeerCastManager pecaManager;
 
 		// スレッド選択フォーム
-		ThreadSelectForm threadSelectForm = null;
+		ThreadSelectForm threadSelectForm;
 
 		/// <summary>
 		/// コンストラクタ
@@ -108,8 +108,6 @@ namespace PeerstPlayer
 			threadTitleLabel.Text = operationBbs.GetBbsName();
 		}
 	
-		#region ライブラリ化したい
-
 		/// <summary>
 		/// スレッドビューワを開く
 		/// </summary>
@@ -120,8 +118,6 @@ namespace PeerstPlayer
 			string threadUrl = operationBbs.ThreadUrl;
 			Process.Start(viewerPath, threadUrl + " " + pecaManager.ChannelInfo.Name);
 		}
-
-		#endregion
 
 		/// <summary>
 		/// マウスホイールイベント

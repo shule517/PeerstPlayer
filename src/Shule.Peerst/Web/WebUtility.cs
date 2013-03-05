@@ -11,6 +11,9 @@ namespace Shule.Peerst.Web
 		/// <summary>
 		/// 指定したアドレスのHTMLを取得（エンコード指定）
 		/// </summary>
+		/// <param name="url">URL</param>
+		/// <param name="encode">エンコード</param>
+		/// <returns></returns>
 		public static string GetHtml(string url, Encoding encode)
 		{
 			try
@@ -36,7 +39,11 @@ namespace Shule.Peerst.Web
 		/// <summary>
 		/// HTMLを取得（サーバを指定）
 		/// </summary>
-		public static string GetHtml(string host, string port_no, string url)
+		/// <param name="host">ホスト</param>
+		/// <param name="portNo">ポート番号</param>
+		/// <param name="url">URL</param>
+		/// <returns></returns>
+		public static string GetHtml(string host, string portNo, string url)
 		{
 			try
 			{
@@ -44,7 +51,7 @@ namespace Shule.Peerst.Web
 				System.Text.Encoding enc = System.Text.Encoding.UTF8;
 
 				// TcpClientを作成し、サーバーと接続する
-				System.Net.Sockets.TcpClient tcp = new System.Net.Sockets.TcpClient(host, int.Parse(port_no));
+				System.Net.Sockets.TcpClient tcp = new System.Net.Sockets.TcpClient(host, int.Parse(portNo));
 
 				// NetworkStreamを取得する
 				System.Net.Sockets.NetworkStream ns = tcp.GetStream();
@@ -60,7 +67,7 @@ namespace Shule.Peerst.Web
 
 				// サーバーから送られたデータを受信する
 				System.IO.MemoryStream ms = new System.IO.MemoryStream();
-				byte[] resBytes = new byte[256];
+				byte[] resBytes = new byte[1024];
 				int resSize;
 				do
 				{
@@ -91,12 +98,16 @@ namespace Shule.Peerst.Web
 
 			return "";
 		}
-
 
 		/// <summary>
 		/// HTMLを取得（サーバー指定 + エンコード指定）
 		/// </summary>
-		public static string GetHtml(string host, string port_no, string url, string encode)
+		/// <param name="host">ホスト</param>
+		/// <param name="portNo">ポート番号</param>
+		/// <param name="url">URL</param>
+		/// <param name="encode">エンコード</param>
+		/// <returns></returns>
+		public static string GetHtml(string host, string portNo, string url, string encode)
 		{
 			try
 			{
@@ -104,7 +115,7 @@ namespace Shule.Peerst.Web
 				System.Text.Encoding enc = System.Text.Encoding.GetEncoding(encode);
 
 				// TcpClientを作成し、サーバーと接続する
-				System.Net.Sockets.TcpClient tcp = new System.Net.Sockets.TcpClient(host, int.Parse(port_no));
+				System.Net.Sockets.TcpClient tcp = new System.Net.Sockets.TcpClient(host, int.Parse(portNo));
 
 				// NetworkStreamを取得する
 				System.Net.Sockets.NetworkStream ns = tcp.GetStream();
@@ -152,8 +163,14 @@ namespace Shule.Peerst.Web
 			return "";
 		}
 
-
-		public static void SendCommand(string host, string port_no, string url, string encode)
+		/// <summary>
+		/// コマンド送信
+		/// </summary>
+		/// <param name="host">ホスト</param>
+		/// <param name="portNo">ポート番号</param>
+		/// <param name="url">コマンド</param>
+		/// <param name="encode">エンコード</param>
+		public static void SendCommand(string host, string portNo, string url, string encode)
 		{
 			try
 			{
@@ -161,7 +178,7 @@ namespace Shule.Peerst.Web
 				System.Text.Encoding enc = System.Text.Encoding.GetEncoding(encode);
 
 				// TcpClientを作成し、サーバーと接続する
-				System.Net.Sockets.TcpClient tcp = new System.Net.Sockets.TcpClient(host, int.Parse(port_no));
+				System.Net.Sockets.TcpClient tcp = new System.Net.Sockets.TcpClient(host, int.Parse(portNo));
 
 				// NetworkStreamを取得する
 				System.Net.Sockets.NetworkStream ns = tcp.GetStream();
