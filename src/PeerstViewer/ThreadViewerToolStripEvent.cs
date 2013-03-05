@@ -117,7 +117,7 @@ namespace PeerstViewer
 		{
 			// クリップボードへコピー
 			// アプリケーション終了後もクリップボードにデータを残しておく
-			Clipboard.SetDataObject(operationBbs.GetUrl(), true);
+			Clipboard.SetDataObject(operationBbs.ThreadUrl, true);
 		}
 
 		private void 折り返し表示ToolStripMenuItem_Click(object sender, EventArgs e)

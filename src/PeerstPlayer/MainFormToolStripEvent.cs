@@ -501,14 +501,14 @@ namespace PeerstPlayer
 			// ブラウザを開く
 			if (File.Exists(settings.BrowserAddress))
 			{
-				Process.Start(settings.BrowserAddress, GetThreadUrl());
+				Process.Start(settings.BrowserAddress, operationBbs.ThreadUrl);
 			}
 			else
 			{
 				try
 				{
 					string browserPath = GetDefaultBrowserExePath();
-					Process.Start(browserPath, GetThreadUrl());
+					Process.Start(browserPath, operationBbs.ThreadUrl);
 				}
 				catch
 				{
@@ -870,13 +870,13 @@ namespace PeerstPlayer
 				// スレッドブラウザが指定してあるか
 				if (File.Exists(settings.ThreadBrowserAddress))
 				{
-					Process.Start(settings.ThreadBrowserAddress, GetThreadUrl());
+					Process.Start(settings.ThreadBrowserAddress, operationBbs.ThreadUrl);
 				}
 				else
 				{
 					// スレビューワを開く
 					fileName = GetCurrentDirectory() + "\\PeerstViewer.exe";
-					threadUrl = GetThreadUrl();
+					threadUrl = operationBbs.ThreadUrl;
 
 					ThreadViewerProcess = System.Diagnostics.Process.Start(fileName, threadUrl + " " + channelInfo.Name);
 				}
@@ -894,7 +894,7 @@ namespace PeerstPlayer
 		/// <param name="e"></param>
 		private void スレッドURLをコピーToolStripMenuItem_Click(object sender, EventArgs e)
 		{
-			Clipboard.SetDataObject(GetThreadUrl(), true);
+			Clipboard.SetDataObject(operationBbs.ThreadUrl, true);
 		}
 
 		/// <summary>

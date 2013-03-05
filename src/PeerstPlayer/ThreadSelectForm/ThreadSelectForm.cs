@@ -69,7 +69,7 @@ namespace PeerstPlayer
 				listViewThread.Items.Add(item);
 
 				// 指定スレッドを選択
-				if (info.ThreadNo == operationBbs.GetThreadNo())
+				if (info.ThreadNo == operationBbs.ThreadNo)
 				{
 					listViewThread.Items[listViewThread.Items.Count - 1].BackColor = Color.Orange;
 					listViewThread.Select();
@@ -114,7 +114,7 @@ namespace PeerstPlayer
 				string selectThreadNo = listViewThread.SelectedItems[0].Tag.ToString();
 
 				// スレッドURL更新通知
-				selectThreadObserver.UpdateThreadUrl(operationBbs.GetUrl(), selectThreadNo);
+				selectThreadObserver.UpdateThreadUrl(operationBbs.ThreadUrl, selectThreadNo);
 
 				// 非表示
 				Visible = false;

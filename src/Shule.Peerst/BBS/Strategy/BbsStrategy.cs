@@ -23,6 +23,93 @@ namespace Shule.Peerst.BBS
 		}
 
 		/// <summary>
+		/// スレッド変更
+		/// </summary>
+		public void ChangeThread(string threadNo)
+		{
+			bbsUrl.ThreadNo = threadNo;
+		}
+
+		/// <summary>
+		/// 掲示板URL取得
+		/// </summary>
+		public BbsUrl GetBbsUrl()
+		{
+			return bbsUrl;
+		}
+
+		/// <summary>
+		/// スレッド一覧の取得
+		/// </summary>
+		public List<ThreadInfo> GetThreadList()
+		{
+			List<ThreadInfo> threadList = new List<ThreadInfo>();
+			string[] subjects;
+
+			// Subject.txtの取得
+			GetSubject(out subjects);
+
+			// スレッドデータ作成
+			for (int i = 0; i < subjects.Length - 1; i += 2)
+			{
+				string[] text = new string[3];
+				int index = subjects[i + 1].LastIndexOf('(');
+				string threadTitle = subjects[i + 1].Substring(0, index);
+				string resNum = subjects[i + 1].Substring(index + 1, subjects[i + 1].Length - index - 2);
+				string threadNo = subjects[i];
+				ThreadInfo thread = new ThreadInfo(threadTitle, threadNo, resNum);
+
+				// 追加
+				threadList.Add(thread);
+			}
+
+			return threadList;
+		}
+
+		/// <summary>
+		/// スレッド一覧の取得
+		/// </summary>
+		public ThreadInfo GetThreadInfo(string threadNo)
+		{
+			string[] list;
+			GetSubject(out list);
+
+			for (int i = 0; i < list.Length - 1; i += 2)
+			{
+				// スレッドデータ作成
+				string thread = list[i];
+				if (threadNo == thread)
+				{
+					int index = list[i + 1].LastIndexOf('(');
+					string threadTitle = list[i + 1].Substring(0, index);
+					string resNum = list[i + 1].Substring(index + 1, list[i + 1].Length - index - 2);
+					return new ThreadInfo(threadTitle, thread, resNum);
+				}
+			}
+
+			return new ThreadInfo("", threadNo, "");
+		}
+
+		/// <summary>
+		/// 掲示板名を取得
+		/// </summary>
+		public string GetBbsName()
+		{
+			// 板名を取得：<title>板名</title>
+			string html = WebUtility.GetHtml(GetBoadUrl(), GetEncode());
+
+			int startPos = html.IndexOf("<title>");
+			int endPos = html.IndexOf("</title>");
+
+			if ((startPos == -1) || (endPos == -1))
+				return "";
+
+			int tagSize = "<title>".Length;
+
+			return html.Substring(startPos + tagSize, (endPos - startPos) - tagSize);
+		}
+
+		/// <summary>
 		/// 掲示板書き込み
 		/// </summary>
 		/// <param name="name">名前</param>
@@ -141,58 +228,6 @@ namespace Shule.Peerst.BBS
 
 			return true;
 		}
-
-		/// <summary>
-		/// スレッド一覧の取得
-		/// </summary>
-		public List<ThreadInfo> GetThreadList()
-		{
-			List<ThreadInfo> threadList = new List<ThreadInfo>();
-			string[] subjects;
-
-			// Subject.txtの取得
-			GetSubject(out subjects);
-
-			// スレッドデータ作成
-			for (int i = 0; i < subjects.Length - 1; i += 2)
-			{
-				string[] text = new string[3];
-				int index = subjects[i + 1].LastIndexOf('(');
-				string threadTitle = subjects[i + 1].Substring(0, index);
-				string resNum = subjects[i + 1].Substring(index + 1, subjects[i + 1].Length - index - 2);
-				string threadNo = subjects[i];
-				ThreadInfo thread = new ThreadInfo(threadTitle, threadNo, resNum);
-
-				// 追加
-				threadList.Add(thread);
-			}
-
-			return threadList;
-		}
-
-		/// <summary>
-		/// スレッド一覧の取得
-		/// </summary>
-		public ThreadInfo GetThreadInfo(string threadNo)
-		{
-			string[] list;
-			GetSubject(out list);
-
-			for (int i = 0; i < list.Length - 1; i += 2)
-			{
-				// スレッドデータ作成
-				string thread = list[i];
-				if (threadNo == thread)
-				{
-					int index = list[i + 1].LastIndexOf('(');
-					string threadTitle = list[i + 1].Substring(0, index);
-					string resNum = list[i + 1].Substring(index + 1, list[i + 1].Length - index - 2);
-					return new ThreadInfo(threadTitle, thread, resNum);
-				}
-			}
-
-			return new ThreadInfo("", threadNo, "");
-		}
 	
 		/// <summary>
 		/// Subject.txtの取得
@@ -248,43 +283,8 @@ namespace Shule.Peerst.BBS
 		protected abstract Encoding GetEncode();
 
 		/// <summary>
-		/// 掲示板名を取得
-		/// </summary>
-		public string GetBbsName()
-		{
-			// 板名を取得：<title>板名</title>
-			string html = WebUtility.GetHtml(GetBoadUrl(), GetEncode());
-
-			int startPos = html.IndexOf("<title>");
-			int endPos = html.IndexOf("</title>");
-
-			if ((startPos == -1) || (endPos == -1))
-				return "";
-
-			int tagSize = "<title>".Length;
-
-			return html.Substring(startPos + tagSize, (endPos - startPos) - tagSize);
-		}
-
-		/// <summary>
 		/// 板URLを取得
 		/// </summary>
 		protected abstract string GetBoadUrl();
-
-		/// <summary>
-		/// スレッド変更
-		/// </summary>
-		public void ChangeThread(string threadNo)
-		{
-			bbsUrl.ThreadNo = threadNo;
-		}
-
-		/// <summary>
-		/// 掲示板URL取得
-		/// </summary>
-		public BbsUrl GetBbsUrl()
-		{
-			return bbsUrl;
-		}
 	}
 }

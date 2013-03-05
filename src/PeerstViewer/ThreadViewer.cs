@@ -341,7 +341,7 @@ text-decoration:underline;
 		/// </summary>
 		void ThreadListUpdate()
 		{
-			BbsUrl bbsUrl = operationBbs.GetBbsUrl();
+			BbsUrl bbsUrl = operationBbs.BbsUrl;
 
 			try
 			{

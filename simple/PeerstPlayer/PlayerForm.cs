@@ -60,7 +60,7 @@ namespace PeerstPlayer
 		{
 			// スレビューワを開く
 			string viewerPath = GetCurrentDirectory() + "\\PeerstViewer.exe";
-			string threadUrl = operationBbs.GetUrl();
+			string threadUrl = operationBbs.ThreadUrl;
 			Process.Start(viewerPath, threadUrl + " " + pecaManager.ChannelInfo.Name);
 		}
 
@@ -208,7 +208,7 @@ namespace PeerstPlayer
 			if (e.Button == System.Windows.Forms.MouseButtons.Left)
 			{
 				// スレッド選択フォームを開く
-				threadSelectForm.Update(operationBbs.GetUrl());
+				threadSelectForm.Update(operationBbs.ThreadUrl);
 				threadSelectForm.Show();
 			}
 			// 右クリック

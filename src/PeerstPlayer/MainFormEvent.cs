@@ -221,7 +221,7 @@ namespace PeerstPlayer
 		/// </summary>
 		private void contextMenuStripResBox_Opened(object sender, EventArgs e)
 		{
-			toolStripTextBoxThreadURL.Text = GetThreadUrl();
+			toolStripTextBoxThreadURL.Text = operationBbs.ThreadUrl;
 		}
 
 		#endregion

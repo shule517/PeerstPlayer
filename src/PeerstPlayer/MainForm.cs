@@ -1182,14 +1182,6 @@ namespace PeerstPlayer
 
 		bool IsWriting = false;
 
-		/// <summary>
-		/// スレッドURLを取得
-		/// </summary>
-		private string GetThreadUrl()
-		{
-			return operationBbs.GetUrl();
-		}
-
 		#region APIで使う構造体
 		[StructLayout(LayoutKind.Sequential)]
 		public struct POINT
@@ -1468,7 +1460,7 @@ namespace PeerstPlayer
 			{
 				// TODO コンタクトＵＲＬが取得できる前に開く場合はどうするか
 				// スレッド選択フォームを開く
-				threadSelectForm.Update(operationBbs.GetUrl());
+				threadSelectForm.Update(operationBbs.ThreadUrl);
 				threadSelectForm.Show();
 				threadSelectForm.Focus();
 			}
