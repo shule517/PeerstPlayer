@@ -59,9 +59,9 @@ namespace Shule.Peerst.BBS
 		/// <summary>
 		/// 掲示板URL取得
 		/// </summary>
-		public BbsUrl GetBbsUrl()
+		public BbsInfo GetBbsUrl()
 		{
-			return new BbsUrl(BbsServer.UnSupport, "", "", "");
+			return new BbsInfo(BbsServer.UnSupport, "", "", "");
 		}
 	}
 }

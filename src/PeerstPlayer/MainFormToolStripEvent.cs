@@ -297,10 +297,6 @@ namespace PeerstPlayer
 			iniFile.Write("Player", "TopMost", (!最前列表示ToolStripMenuItem2.Checked).ToString());
 		}
 
-		private void タイトルバーToolStripMenuItem2_Click(object sender, EventArgs e)
-		{
-		}
-
 		private void レスボックスToolStripMenuItem2_Click(object sender, EventArgs e)
 		{
 			IniFile iniFile = new IniFile(GetCurrentDirectory() + "\\PeerstPlayer.ini");
@@ -400,10 +396,6 @@ namespace PeerstPlayer
 			iniFile.Write("Player", "UseScreenMagnet", settings.UseScreenMagnet.ToString());
 		}
 
-		private void マウスジェスチャーToolStripMenuItem_Click(object sender, EventArgs e)
-		{
-		}
-
 		private void 書き込み時にレスボックスを非表示ToolStripMenuItem_Click(object sender, EventArgs e)
 		{
 			settings.CloseResBoxOnWrite = !settings.CloseResBoxOnWrite;
@@ -495,7 +487,6 @@ namespace PeerstPlayer
 		/// <summary>
 		/// ファイル
 		/// </summary>
-
 		private void コンタクトＵＲＬをブラウザで開くToolStripMenuItem_Click(object sender, EventArgs e)
 		{
 			// ブラウザを開く

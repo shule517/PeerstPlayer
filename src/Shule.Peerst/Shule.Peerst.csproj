@@ -46,7 +46,7 @@
     <Compile Include="BBS\BbsServer.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="BBS\BbsUrl.cs" />
+    <Compile Include="BBS\Data\BbsInfo.cs" />
     <Compile Include="BBS\BbsUrlAnalyzer.cs" />
     <Compile Include="BBS\Data\ResInfo.cs" />
     <Compile Include="BBS\Data\ThreadInfo.cs" />

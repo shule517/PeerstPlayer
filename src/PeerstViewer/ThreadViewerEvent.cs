@@ -425,7 +425,7 @@ namespace PeerstViewer
 		/// </summary>
 		private void backgroundWorkerReload_DoWork(object sender, DoWorkEventArgs e)
 		{
-			BbsUrl bbsUrl = operationBbs.BbsUrl;
+			BbsInfo bbsUrl = operationBbs.BbsUrl;
 			ThreadData = BBS.ReadThread((KindOfBBS)bbsUrl.BBSServer, bbsUrl.BoadGenre, bbsUrl.BoadNo, bbsUrl.ThreadNo, ResNum);
 
 			try

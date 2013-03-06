@@ -42,6 +42,6 @@ namespace Shule.Peerst.BBS
 		/// <summary>
 		/// 掲示板URL取得
 		/// </summary>
-		BbsUrl GetBbsUrl();
+		BbsInfo GetBbsUrl();
 	}
 }

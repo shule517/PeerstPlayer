@@ -6,12 +6,12 @@ namespace Shule.Peerst.BBS
 	/// </summary>
 	class BbsUrlAnalyzer
 	{
-		public void Analyze(string url, out BbsUrl bbsUrl)
+		public void Analyze(string url, out BbsInfo bbsUrl)
 		{
 			if (url == "")
 			{
 				// 非対応
-				bbsUrl = new BbsUrl(BbsServer.UnSupport, string.Empty, string.Empty, string.Empty); ;
+				bbsUrl = new BbsInfo(BbsServer.UnSupport, string.Empty, string.Empty, string.Empty); ;
 				return;
 			}
 
@@ -19,7 +19,7 @@ namespace Shule.Peerst.BBS
 			if (url == "本スレ")
 			{
 				// TODO 本スレのスレッド番号を指定する
-				bbsUrl = new BbsUrl(BbsServer.YYKakiko, "yy25.60.kg", "peercastjikkyou", "本スレ");
+				bbsUrl = new BbsInfo(BbsServer.YYKakiko, "yy25.60.kg", "peercastjikkyou", "本スレ");
 				return;
 				/*
 				// TODO 本スレのスレッド番号を取得する
@@ -97,13 +97,13 @@ namespace Shule.Peerst.BBS
 			}
 
 			// 掲示板非対応
-			bbsUrl = new BbsUrl(BbsServer.UnSupport, string.Empty, string.Empty, string.Empty);
+			bbsUrl = new BbsInfo(BbsServer.UnSupport, string.Empty, string.Empty, string.Empty);
 		}
 
 		/// <summary>
 		/// 板URLからデータを抽出
 		/// </summary>
-		private static bool GetThreadDataFromBoardURL(string url, BbsServer bbsServer, string pattern, out BbsUrl bbsUrl)
+		private static bool GetThreadDataFromBoardURL(string url, BbsServer bbsServer, string pattern, out BbsInfo bbsUrl)
 		{
 			Regex regex = new Regex(pattern);
 			Match match = regex.Match(url);
@@ -124,7 +124,7 @@ namespace Shule.Peerst.BBS
 
 				string boadNo = match.Groups[2].Value;
 
-				bbsUrl = new BbsUrl(bbsServer, boadGenre, boadNo, string.Empty);
+				bbsUrl = new BbsInfo(bbsServer, boadGenre, boadNo, string.Empty);
 				return true;
 			}
 
@@ -135,7 +135,7 @@ namespace Shule.Peerst.BBS
 		/// <summary>
 		/// スレッドURLからデータを抽出
 		/// </summary>
-		private static bool GetThreadDataFromThreadURL(string url, BbsServer bbsServer, string pattern, out BbsUrl bbsUrl)
+		private static bool GetThreadDataFromThreadURL(string url, BbsServer bbsServer, string pattern, out BbsInfo bbsUrl)
 		{
 			// 初期化
 			Regex regex = new Regex(pattern);
@@ -158,7 +158,7 @@ namespace Shule.Peerst.BBS
 				string boadNo = match.Groups[2].Value;
 				string threadNo = match.Groups[3].Value;
 
-				bbsUrl = new BbsUrl(bbsServer, boadGenre, boadNo, threadNo);
+				bbsUrl = new BbsInfo(bbsServer, boadGenre, boadNo, threadNo);
 				return true;
 			}
 

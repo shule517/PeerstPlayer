@@ -14,7 +14,7 @@ namespace Shule.Peerst.BBS
 		/// コンストラクタ
 		/// </summary>
 		/// <param name="bbsUrl">掲示板アドレス情報</param>
-		public YYKakikoBbsStrategy(BbsUrl bbsUrl)
+		public YYKakikoBbsStrategy(BbsInfo bbsUrl)
 		: base(bbsUrl)
 		{
 		}

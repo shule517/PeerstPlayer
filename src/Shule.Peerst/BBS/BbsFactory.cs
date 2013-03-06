@@ -13,7 +13,7 @@
 		public IBbsStrategy Create(string url)
 		{
 			IBbsStrategy instance = null;
-			BbsUrl bbsUrl = null;
+			BbsInfo bbsUrl = null;
 
 			// 掲示板URL解析
 			BbsUrlAnalyzer analyzer = new BbsUrlAnalyzer();

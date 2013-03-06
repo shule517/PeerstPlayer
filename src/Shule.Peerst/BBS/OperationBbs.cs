@@ -31,7 +31,7 @@ namespace Shule.Peerst.BBS
 		/// <summary>
 		/// 掲示板URL
 		/// </summary>
-		public BbsUrl BbsUrl
+		public BbsInfo BbsUrl
 		{
 			get
 			{

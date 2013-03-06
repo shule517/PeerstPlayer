@@ -12,12 +12,12 @@ namespace Shule.Peerst.BBS
 	/// </summary>
 	abstract class BbsStrategy : IBbsStrategy
 	{
-		protected BbsUrl bbsUrl;	// 掲示板アドレス情報
+		protected BbsInfo bbsUrl;	// 掲示板アドレス情報
 
 		/// <summary>
 		/// コンストラクタ
 		/// </summary>
-		public BbsStrategy(BbsUrl bbsUrl)
+		public BbsStrategy(BbsInfo bbsUrl)
 		{
 			this.bbsUrl = bbsUrl;
 		}
@@ -33,7 +33,7 @@ namespace Shule.Peerst.BBS
 		/// <summary>
 		/// 掲示板URL取得
 		/// </summary>
-		public BbsUrl GetBbsUrl()
+		public BbsInfo GetBbsUrl()
 		{
 			return bbsUrl;
 		}
