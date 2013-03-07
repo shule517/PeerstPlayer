@@ -10,6 +10,7 @@ using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using Shule.Peerst.Util;
 using Shule.Peerst.BBS;
+using Shule.Peerst.Form;
 
 namespace PeerstViewer
 {
@@ -353,7 +354,7 @@ namespace PeerstViewer
 		/// </summary>
 		private void comboBox_SelectedIndexChanged(object sender, EventArgs e)
 		{
-			if (comboBox.SelectedIndex != -1 && threadList.Count > comboBox.SelectedIndex)
+			if ((comboBox.SelectedIndex != -1) && (threadList.Count > comboBox.SelectedIndex))
 			{
 				// スレッドを変更
 				string threadNo = threadList[comboBox.SelectedIndex].ThreadNo;
@@ -583,7 +584,7 @@ text-decoration:underline;
 		/// </summary>
 		private void 終了時ToolStripMenuItem_DropDownOpened(object sender, EventArgs e)
 		{
-			IniFile iniFile = new IniFile(GetCurrentDirectory() + "\\PeerstPlayer.ini");
+			IniFile iniFile = new IniFile(FormUtility.GetCurrentDirectory() + "\\PeerstPlayer.ini");
 			string[] keys = iniFile.GetKeys("Viewer");
 
 			for (int i = 0; i < keys.Length; i++)
@@ -606,7 +607,7 @@ text-decoration:underline;
 		/// </summary>
 		private void 位置を保存するToolStripMenuItem_Click(object sender, EventArgs e)
 		{
-			IniFile iniFile = new IniFile(GetCurrentDirectory() + "\\PeerstPlayer.ini");
+			IniFile iniFile = new IniFile(FormUtility.GetCurrentDirectory() + "\\PeerstPlayer.ini");
 			iniFile.Write("Viewer", "SaveLocationOnClose", (!位置を保存するToolStripMenuItem.Checked).ToString());
 			SaveLocationOnClose = !位置を保存するToolStripMenuItem.Checked;
 		}
@@ -616,7 +617,7 @@ text-decoration:underline;
 		/// </summary>
 		private void サイズを保存するToolStripMenuItem_Click(object sender, EventArgs e)
 		{
-			IniFile iniFile = new IniFile(GetCurrentDirectory() + "\\PeerstPlayer.ini");
+			IniFile iniFile = new IniFile(FormUtility.GetCurrentDirectory() + "\\PeerstPlayer.ini");
 			iniFile.Write("Viewer", "SaveSizeOnClose", (!サイズを保存するToolStripMenuItem.Checked).ToString());
 			SaveSizeOnClose = !サイズを保存するToolStripMenuItem.Checked;
 		}
@@ -627,7 +628,7 @@ text-decoration:underline;
 		private void ThreadViewer_FormClosing(object sender, FormClosingEventArgs e)
 		{
 			// INI用
-			IniFile iniFile = new IniFile(GetCurrentDirectory() + "\\PeerstPlayer.ini");
+			IniFile iniFile = new IniFile(FormUtility.GetCurrentDirectory() + "\\PeerstPlayer.ini");
 
 			// 位置を保存
 			if (SaveLocationOnClose)
@@ -652,7 +653,7 @@ text-decoration:underline;
 		/// </summary>
 		private void ThreadViewer_FormClosed(object sender, FormClosedEventArgs e)
 		{
-			IniFile iniFile = new IniFile(GetCurrentDirectory() + "\\PeerstPlayer.ini");
+			IniFile iniFile = new IniFile(FormUtility.GetCurrentDirectory() + "\\PeerstPlayer.ini");
 
 			// 位置を保存
 			if (true)

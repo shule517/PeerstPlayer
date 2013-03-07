@@ -12,6 +12,7 @@ using System.Runtime.InteropServices;
 using System.Diagnostics;
 using Shule.Peerst.Util;
 using Shule.Peerst.BBS;
+using Shule.Peerst.Form;
 
 namespace PeerstViewer
 {
@@ -417,28 +418,11 @@ text-decoration:underline;
 		}
 
 		/// <summary>
-		/// 作業フォルダを取得
-		/// </summary>
-		string GetCurrentDirectory()
-		{
-			if (Environment.GetCommandLineArgs().Length > 0)
-			{
-				string folder = Environment.GetCommandLineArgs()[0];
-
-				//string folder = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
-				folder = folder.Substring(0, folder.LastIndexOf('\\'));
-
-				return folder;
-			}
-			return "";
-		}
-
-		/// <summary>
 		/// 初期設定ロード
 		/// </summary>
 		private void LoadIni()
 		{
-			string iniFileName = GetCurrentDirectory() + "\\PeerstPlayer.ini";
+			string iniFileName = FormUtility.GetCurrentDirectory() + "\\PeerstPlayer.ini";
 			IniFile iniFile = new IniFile(iniFileName);
 
 			if (!System.IO.File.Exists(iniFileName))
