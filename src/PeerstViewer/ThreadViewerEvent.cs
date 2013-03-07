@@ -360,7 +360,7 @@ namespace PeerstViewer
 				operationBbs.ChangeThread(threadNo);
 
 				// スレッドを開く
-				OpenUrl();
+				Reload(true);
 			}
 		}
 
@@ -437,7 +437,33 @@ namespace PeerstViewer
 				string text = DocumentText.Replace("<b>", "").Replace("</b>", "");
 
 				// 新着変更なし
-				if (DocumentText == text)
+				if (DocumentText == "")
+				{
+					DocumentText = @"<head>
+<style type=""text/css"">
+<!--
+U
+{
+color: #0000FF;
+}
+
+ul
+{
+margin: 1px 1px 1px 30px;
+}
+
+TT
+{
+color: #0000FF;
+text-decoration:underline;
+}
+-->
+</style>
+</head>
+<body bgcolor=""#E6EEF3"" style=""font-family:'※※※','ＭＳ Ｐゴシック','ＭＳＰゴシック','MSPゴシック','MS Pゴシック';font-size:16px;line-height:18px;"" >";
+
+				}
+				else if (DocumentText == text)
 				{
 					// 新着レスなし & 前回に新着なし（太文字を消す）
 					if (resList.Count == 0)

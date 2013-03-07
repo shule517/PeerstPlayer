@@ -242,7 +242,7 @@ namespace PeerstViewer
 			}
 
 			// URLを開く
-			OpenUrl();
+			Reload(true);
 		}
 
 		/// <summary>
