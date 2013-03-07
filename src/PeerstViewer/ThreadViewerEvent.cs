@@ -343,6 +343,8 @@ namespace PeerstViewer
 				string url = this.comboBox.Text;
 				if (isEnableUrl(url))
 				{
+					// URL変更
+					InitDocumentText();
 					operationBbs.ChangeUrl(url);
 				}
 				ThreadListUpdate();
@@ -357,6 +359,7 @@ namespace PeerstViewer
 			if ((comboBox.SelectedIndex != -1) && (threadList.Count > comboBox.SelectedIndex))
 			{
 				// スレッドを変更
+				InitDocumentText();
 				string threadNo = threadList[comboBox.SelectedIndex].ThreadNo;
 				operationBbs.ChangeThread(threadNo);
 
@@ -374,6 +377,8 @@ namespace PeerstViewer
 			string url = this.comboBox.Text;
 			if (isEnableUrl(url))
 			{
+				// URL変更
+				InitDocumentText();
 				operationBbs.ChangeUrl(url);
 			}
 			ThreadListUpdate();
@@ -400,19 +405,6 @@ namespace PeerstViewer
 			return false;
 		}
 
-		#region コンテキストメニュー
-
-		private void アドレスをコピーToolStripMenuItem_Click(object sender, EventArgs e)
-		{
-			Clipboard.SetDataObject(OuterText, true);
-		}
-
-		private void リンクを開くToolStripMenuItem_Click(object sender, EventArgs e)
-		{
-			LinkViewer linkViewer = new LinkViewer();
-			linkViewer.Show(OuterText, MousePosition);
-		}
-		#endregion
 
 		private void textBoxMessage_MouseMove(object sender, MouseEventArgs e)
 		{
@@ -427,10 +419,10 @@ namespace PeerstViewer
 		/// <summary>
 		/// スレッド更新スレッドの処理
 		/// </summary>
-		private void backgroundWorkerReload_DoWork(object sender, DoWorkEventArgs e)
+		private void backgroundWorkerReload_DoWork(object sender, EventArgs e)
 		{
 			BbsInfo bbsUrl = operationBbs.BbsUrl;
-			resList = operationBbs.ReadThread(bbsUrl.ThreadNo, ResNum);
+			resList = operationBbs.ReadThread(bbsUrl.ThreadNo);
 
 			try
 			{
@@ -482,72 +474,9 @@ text-decoration:underline;
 				// レスごとにHTML作成
 				foreach (ResInfo res in resList)
 				{
-					string document_text = "";
-
-					// 折り返し
-					if (!NoBR)
-					{
-						document_text += "<nobr>";
-					}
-
-					// レス番号
-					document_text += "<b><u><font color=#0000FF>" + ResNum + "</font></u></b>";
-					document_text += "<font color=#999999>";
-					document_text += " ： ";
-					// 名前 [
-					document_text += "<font color=#228B22>" + res.Name + "</font> ";
-
-					// メール欄
-					if (res.Mail == "")
-					{
-						document_text += "[] ";
-					}
-					else if (res.Mail == "sage")
-					{
-						document_text += "[sage] ";
-					}
-					else if (res.Mail == "age")
-					{
-						document_text += "<font color = red>[age]</font> ";
-					}
-					else
-					{
-						document_text += "<font color = blue>[" + res.Mail + "]</font> ";
-					}
-
-					// ]日付
-					document_text += res.Date;
-
-					// ID
-					if (res.ID != "")
-					{
-						document_text += @" <font color=""blue"">ID:";
-
-						// 折り返し
-						if (!NoBR)
-						{
-							document_text += "<nobr>";
-						}
-
-						document_text += "</font><ID>" + res.ID + "</ID></nobr>";
-					}
-					document_text += "</font><br><ul>";
-
-					// 本文
-					document_text += res.Text;
-
-					// ドキュメントに追加
-					DocumentText += document_text + "</ul><hr></nobr>\n";
-
-					document_text = document_text.Replace("&gt;", ">");
-					document_text = document_text.Replace("<br>", "\n");
-
-					// タグ除去
-					Regex regex = new Regex("<.*?>", RegexOptions.Singleline);
-					document_text = regex.Replace(document_text, "");
-
 					// レスリストに追加
-					ResList.Add(document_text);
+					string resHtml = CreateResHtml(res);
+					ResList.Add(resHtml);
 
 					// レス数の更新
 					ResNum++;
@@ -571,6 +500,79 @@ text-decoration:underline;
 		}
 
 		/// <summary>
+		/// レスHTMLの作成
+		/// </summary>
+		/// <param name="res"></param>
+		/// <returns></returns>
+		private string CreateResHtml(ResInfo res)
+		{
+			string html = "";
+
+			// 折り返し
+			if (!NoBR)
+			{
+				html += "<nobr>";
+			}
+
+			// レス番号
+			html += "<b><u><font color=#0000FF>" + ResNum + "</font></u></b>";
+			html += "<font color=#999999>";
+			html += " ： ";
+			// 名前 [
+			html += "<font color=#228B22>" + res.Name + "</font> ";
+
+			// メール欄
+			if (res.Mail == "")
+			{
+				html += "[] ";
+			}
+			else if (res.Mail == "sage")
+			{
+				html += "[sage] ";
+			}
+			else if (res.Mail == "age")
+			{
+				html += "<font color = red>[age]</font> ";
+			}
+			else
+			{
+				html += "<font color = blue>[" + res.Mail + "]</font> ";
+			}
+
+			// ]日付
+			html += res.Date;
+
+			// ID
+			if (res.ID != "")
+			{
+				html += @" <font color=""blue"">ID:";
+
+				// 折り返し
+				if (!NoBR)
+				{
+					html += "<nobr>";
+				}
+
+				html += "</font><ID>" + res.ID + "</ID></nobr>";
+			}
+			html += "</font><br><ul>";
+
+			// 本文
+			html += res.Text;
+
+			// ドキュメントに追加
+			DocumentText += html + "</ul><hr></nobr>\n";
+
+			html = html.Replace("&gt;", ">");
+			html = html.Replace("<br>", "\n");
+
+			// タグ除去
+			Regex regex = new Regex("<.*?>", RegexOptions.Singleline);
+			html = regex.Replace(html, "");
+			return html;
+		}
+
+		/// <summary>
 		/// スレッド更新完了イベント
 		/// </summary>
 		private void backgroundWorkerReload_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
@@ -578,6 +580,23 @@ text-decoration:underline;
 			comboBox.Enabled = true;
 			webBrowser.Visible = true;
 		}
+
+		#region コンテキストメニュー
+
+		private void アドレスをコピーToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			Clipboard.SetDataObject(OuterText, true);
+		}
+
+		private void リンクを開くToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			LinkViewer linkViewer = new LinkViewer();
+			linkViewer.Show(OuterText, MousePosition);
+		}
+	
+		#endregion
+
+		#region イベント
 
 		/// <summary>
 		/// 開いた時
@@ -601,27 +620,7 @@ text-decoration:underline;
 				}
 			}
 		}
-
-		/// <summary>
-		/// クリック：位置保存
-		/// </summary>
-		private void 位置を保存するToolStripMenuItem_Click(object sender, EventArgs e)
-		{
-			IniFile iniFile = new IniFile(FormUtility.GetCurrentDirectory() + "\\PeerstPlayer.ini");
-			iniFile.Write("Viewer", "SaveLocationOnClose", (!位置を保存するToolStripMenuItem.Checked).ToString());
-			SaveLocationOnClose = !位置を保存するToolStripMenuItem.Checked;
-		}
-
-		/// <summary>
-		/// クリック：サイズ保存
-		/// </summary>
-		private void サイズを保存するToolStripMenuItem_Click(object sender, EventArgs e)
-		{
-			IniFile iniFile = new IniFile(FormUtility.GetCurrentDirectory() + "\\PeerstPlayer.ini");
-			iniFile.Write("Viewer", "SaveSizeOnClose", (!サイズを保存するToolStripMenuItem.Checked).ToString());
-			SaveSizeOnClose = !サイズを保存するToolStripMenuItem.Checked;
-		}
-
+	
 		/// <summary>
 		/// フォーム終了前処理
 		/// </summary>
@@ -661,5 +660,31 @@ text-decoration:underline;
 				iniFile.Write("Viewer", "WriteHeight", splitContainer.SplitterDistance.ToString());
 			}
 		}
+
+		#endregion
+
+		#region ツールストリップ
+
+		/// <summary>
+		/// クリック：位置保存
+		/// </summary>
+		private void 位置を保存するToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			IniFile iniFile = new IniFile(FormUtility.GetCurrentDirectory() + "\\PeerstPlayer.ini");
+			iniFile.Write("Viewer", "SaveLocationOnClose", (!位置を保存するToolStripMenuItem.Checked).ToString());
+			SaveLocationOnClose = !位置を保存するToolStripMenuItem.Checked;
+		}
+
+		/// <summary>
+		/// クリック：サイズ保存
+		/// </summary>
+		private void サイズを保存するToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			IniFile iniFile = new IniFile(FormUtility.GetCurrentDirectory() + "\\PeerstPlayer.ini");
+			iniFile.Write("Viewer", "SaveSizeOnClose", (!サイズを保存するToolStripMenuItem.Checked).ToString());
+			SaveSizeOnClose = !サイズを保存するToolStripMenuItem.Checked;
+		}
+
+		#endregion
 	}
 }

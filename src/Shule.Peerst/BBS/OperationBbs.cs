@@ -94,6 +94,11 @@ namespace Shule.Peerst.BBS
 			}
 		}
 
+		/// <summary>
+		/// 取得済みレス番号
+		/// </summary>
+		public int LastResNo { get; private set; }
+
 		/*
 		/// <summary>
 		/// スレッド一覧
@@ -140,14 +145,6 @@ namespace Shule.Peerst.BBS
 		}
 
 		/// <summary>
-		/// スレッド情報読み込み
-		/// </summary>
-		public List<ResInfo> ReadThread(string threadNo)
-		{
-			return bbsStrategy.ReadThread(threadNo, 1);
-		}
-
-		/// <summary>
 		/// 掲示板書き込み
 		/// </summary>
 		/// <param name="name">名前</param>
@@ -165,6 +162,8 @@ namespace Shule.Peerst.BBS
 		/// <param name="threadUrl">スレッドURL</param>
 		public void ChangeUrl(string threadUrl)
 		{
+			// 取得済みレス番号を初期化
+			LastResNo = 0;
 			ChangeUrl(threadUrl, "");
 		}
 
@@ -175,6 +174,9 @@ namespace Shule.Peerst.BBS
 		/// <param name="threadNo"></param>
 		public void ChangeUrl(string bbsUrl, string threadNo)
 		{
+			// 取得済みレス番号を初期化
+			LastResNo = 0;
+
 			if (threadNo == "本スレ")
 			{
 				bbsStrategy = bbsFactory.Create(threadNo);
@@ -209,6 +211,8 @@ namespace Shule.Peerst.BBS
 		/// </summary>
 		public void ChangeThread(string threadNo)
 		{
+			// 取得済みレス番号を初期化
+			LastResNo = 0;
 			bbsStrategy.ChangeThread(threadNo);
 		}
 
@@ -222,14 +226,13 @@ namespace Shule.Peerst.BBS
 		}
 
 		/// <summary>
-		/// スレッド読み込み
+		/// スレッド情報読み込み
 		/// </summary>
-		/// <param name="threadNo">スレッド番号</param>
-		/// <param name="resNum">読み込み開始レス番号</param>
-		/// <returns></returns>
-		public List<ResInfo> ReadThread(string threadNo, int resNo)
+		public List<ResInfo> ReadThread(string threadNo)
 		{
-			return bbsStrategy.ReadThread(threadNo, resNo);
+			List<ResInfo> resList = bbsStrategy.ReadThread(threadNo, LastResNo + 1);
+			LastResNo += resList.Count;
+			return resList;
 		}
 	}
 }

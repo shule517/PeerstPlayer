@@ -228,6 +228,7 @@ namespace PeerstViewer
 				String url = Environment.GetCommandLineArgs()[1].ToString();
 
 				// コンタクトURL設定有り
+				InitDocumentText();
 				operationBbs.ChangeUrl(url);
 
 				// スレ一覧更新
@@ -241,9 +242,6 @@ namespace PeerstViewer
 				// ブラウザのフォント、背景色を設定
 				webBrowser.DocumentText = @"<body bgcolor=""#E6EEF3"" style=""font-family:'ＭＳ Ｐゴシック','ＭＳＰゴシック','MSPゴシック','MS Pゴシック';font-size:14px;line-height:16px;"" ><br>↑スレッド(板)URLを入力してください。";
 			}
-
-			// URLを開く
-			Reload(true);
 		}
 
 		/// <summary>
@@ -253,8 +251,29 @@ namespace PeerstViewer
 		{
 			try
 			{
-				// ブラウザのフォント、背景色を設定
-				DocumentText = @"<head>
+				InitDocumentText();
+				IsScrollBottom = ScrollBottomOnOpen;
+
+				ResList.Clear();
+				resList.Clear();
+
+				// スレッド更新
+				Reload(false);
+			}
+			catch
+			{
+			}
+		}
+
+		/// <summary>
+		/// ドキュメントの初期化
+		/// </summary>
+		private void InitDocumentText()
+		{
+			ResNum = 1;
+
+			// ブラウザのフォント、背景色を設定
+			DocumentText = @"<head>
 <style type=""text/css"">
 <!--
 U
@@ -276,18 +295,6 @@ text-decoration:underline;
 </style>
 </head>
 " + FontName;
-				ResNum = 1;
-				IsScrollBottom = ScrollBottomOnOpen;
-
-				ResList.Clear();
-				resList.Clear();
-
-				// スレッド更新
-				Reload(false);
-			}
-			catch
-			{
-			}
 		}
 
 		/// <summary>

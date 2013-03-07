@@ -22,6 +22,8 @@ namespace PeerstViewer
 			string url = this.comboBox.Text;
 			if (isEnableUrl(url))
 			{
+				// URL更新
+				InitDocumentText();
 				operationBbs.ChangeUrl(url);
 			}
 
@@ -106,6 +108,8 @@ namespace PeerstViewer
 			// スレッド一覧更新
 			if (url.Length > 0)
 			{
+				// URL更新
+				InitDocumentText();
 				operationBbs.ChangeUrl(url);
 				ThreadListUpdate();
 			}
