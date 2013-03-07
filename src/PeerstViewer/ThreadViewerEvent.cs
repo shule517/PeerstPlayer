@@ -340,11 +340,10 @@ namespace PeerstViewer
 			{
 				// コンボボックスに入力されたURLを更新 / 現在の板のスレッド一覧を取得
 				string url = this.comboBox.Text;
-				if (!isEnableUrl(url))
+				if (isEnableUrl(url))
 				{
-					return;
+					operationBbs.ChangeUrl(url);
 				}
-				operationBbs.ChangeUrl(url);
 				ThreadListUpdate();
 			}
 		}
@@ -360,7 +359,7 @@ namespace PeerstViewer
 				string threadNo = threadList[comboBox.SelectedIndex].ThreadNo;
 				operationBbs.ChangeThread(threadNo);
 
-				// 更新
+				// スレッドを開く
 				OpenUrl();
 			}
 		}
@@ -372,11 +371,10 @@ namespace PeerstViewer
 		{
 			// コンボボックスに入力されたURLを更新 / 現在の板のスレッド一覧を取得
 			string url = this.comboBox.Text;
-			if (!isEnableUrl(url))
+			if (isEnableUrl(url))
 			{
-				return;
+				operationBbs.ChangeUrl(url);
 			}
-			operationBbs.ChangeUrl(url);
 			ThreadListUpdate();
 		}
 

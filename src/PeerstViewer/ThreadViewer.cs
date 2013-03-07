@@ -240,6 +240,9 @@ namespace PeerstViewer
 				// ブラウザのフォント、背景色を設定
 				webBrowser.DocumentText = @"<body bgcolor=""#E6EEF3"" style=""font-family:'ＭＳ Ｐゴシック','ＭＳＰゴシック','MSPゴシック','MS Pゴシック';font-size:14px;line-height:16px;"" ><br>↑スレッド(板)URLを入力してください。";
 			}
+
+			// URLを開く
+			OpenUrl();
 		}
 
 		/// <summary>
@@ -365,7 +368,6 @@ text-decoration:underline;
 					{
 						// スレッド一覧を取得
 						threadList = operationBbs.GetThreadList();
-						//ThreadList = BBS.GetThreadList((KindOfBBS)bbsUrl.BBSServer, bbsUrl.BoadGenre, bbsUrl.BoadNo);
 
 						// コンボボックスにセット
 						comboBox.Items.Clear();

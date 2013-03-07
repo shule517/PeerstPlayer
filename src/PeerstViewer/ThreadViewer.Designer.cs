@@ -38,6 +38,8 @@
 			this.toolStripButtonScrollTop = new System.Windows.Forms.ToolStripButton();
 			this.toolStripButtonWriteView = new System.Windows.Forms.ToolStripButton();
 			this.toolStripButtonTopMost = new System.Windows.Forms.ToolStripButton();
+			this.toolStripButtonOpenClipBoad = new System.Windows.Forms.ToolStripButton();
+			this.URLをコピー = new System.Windows.Forms.ToolStripButton();
 			this.toolStripDropDownButtonSetting = new System.Windows.Forms.ToolStripDropDownButton();
 			this.toolStripMenuItemデフォルト = new System.Windows.Forms.ToolStripMenuItem();
 			this.toolStripMenuItemX = new System.Windows.Forms.ToolStripMenuItem();
@@ -79,10 +81,7 @@
 			this.アドレスをコピーToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.リンクを開くToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.backgroundWorkerReload = new System.ComponentModel.BackgroundWorker();
-			this.backgroundWorkerInit = new System.ComponentModel.BackgroundWorker();
 			this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-			this.toolStripButtonOpenClipBoad = new System.Windows.Forms.ToolStripButton();
-			this.URLをコピー = new System.Windows.Forms.ToolStripButton();
 			this.toolStrip.SuspendLayout();
 			this.splitContainer.Panel1.SuspendLayout();
 			this.splitContainer.Panel2.SuspendLayout();
@@ -108,7 +107,7 @@
             this.toolStripDropDownButtonSetting});
 			this.toolStrip.Location = new System.Drawing.Point(3, 0);
 			this.toolStrip.Name = "toolStrip";
-			this.toolStrip.Size = new System.Drawing.Size(558, 26);
+			this.toolStrip.Size = new System.Drawing.Size(527, 26);
 			this.toolStrip.TabIndex = 0;
 			this.toolStrip.Text = "設定";
 			// 
@@ -186,6 +185,26 @@
 			this.toolStripButtonTopMost.ToolTipText = "toolStripButtonTopMost";
 			this.toolStripButtonTopMost.Click += new System.EventHandler(this.toolStripButtonTopMost_Click);
 			// 
+			// toolStripButtonOpenClipBoad
+			// 
+			this.toolStripButtonOpenClipBoad.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonOpenClipBoad.Image")));
+			this.toolStripButtonOpenClipBoad.ImageTransparentColor = System.Drawing.Color.Magenta;
+			this.toolStripButtonOpenClipBoad.Name = "toolStripButtonOpenClipBoad";
+			this.toolStripButtonOpenClipBoad.Size = new System.Drawing.Size(52, 23);
+			this.toolStripButtonOpenClipBoad.Text = "展開";
+			this.toolStripButtonOpenClipBoad.ToolTipText = "クリップボードからURLを開く";
+			this.toolStripButtonOpenClipBoad.Click += new System.EventHandler(this.toolStripButtonOpenClipBoad_Click);
+			// 
+			// URLをコピー
+			// 
+			this.URLをコピー.Image = ((System.Drawing.Image)(resources.GetObject("URLをコピー.Image")));
+			this.URLをコピー.ImageTransparentColor = System.Drawing.Color.Magenta;
+			this.URLをコピー.Name = "URLをコピー";
+			this.URLをコピー.Size = new System.Drawing.Size(64, 23);
+			this.URLをコピー.Text = "コピー";
+			this.URLをコピー.ToolTipText = "スレッドURLをコピー";
+			this.URLをコピー.Click += new System.EventHandler(this.URLをコピー_Click);
+			// 
 			// toolStripDropDownButtonSetting
 			// 
 			this.toolStripDropDownButtonSetting.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -215,7 +234,7 @@
             this.最下位へスクロールtoolStripMenuItem,
             this.自動更新ToolStripMenuItem});
 			this.toolStripMenuItemデフォルト.Name = "toolStripMenuItemデフォルト";
-			this.toolStripMenuItemデフォルト.Size = new System.Drawing.Size(152, 22);
+			this.toolStripMenuItemデフォルト.Size = new System.Drawing.Size(148, 22);
 			this.toolStripMenuItemデフォルト.Text = "デフォルト";
 			this.toolStripMenuItemデフォルト.DropDownOpened += new System.EventHandler(this.デフォルトToolStripMenuItem_DropDownOpened);
 			// 
@@ -318,7 +337,7 @@
             this.位置を保存するToolStripMenuItem1,
             this.サイズを保存するToolStripMenuItem1});
 			this.状態保存ToolStripMenuItem.Name = "状態保存ToolStripMenuItem";
-			this.状態保存ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+			this.状態保存ToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
 			this.状態保存ToolStripMenuItem.Text = "状態保存";
 			// 
 			// 位置を保存するToolStripMenuItem1
@@ -341,7 +360,7 @@
             this.位置を保存するToolStripMenuItem,
             this.サイズを保存するToolStripMenuItem});
 			this.終了時ToolStripMenuItem.Name = "終了時ToolStripMenuItem";
-			this.終了時ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+			this.終了時ToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
 			this.終了時ToolStripMenuItem.Text = "終了時";
 			this.終了時ToolStripMenuItem.DropDownOpened += new System.EventHandler(this.終了時ToolStripMenuItem_DropDownOpened);
 			// 
@@ -366,7 +385,7 @@
             this.フォントToolStripMenuItem1});
 			this.フォントToolStripMenuItem.Enabled = false;
 			this.フォントToolStripMenuItem.Name = "フォントToolStripMenuItem";
-			this.フォントToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+			this.フォントToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
 			this.フォントToolStripMenuItem.Text = "フォント";
 			// 
 			// 色ToolStripMenuItem
@@ -386,12 +405,12 @@
 			// toolStripSeparator1
 			// 
 			this.toolStripSeparator1.Name = "toolStripSeparator1";
-			this.toolStripSeparator1.Size = new System.Drawing.Size(149, 6);
+			this.toolStripSeparator1.Size = new System.Drawing.Size(145, 6);
 			// 
 			// 折り返し表示ToolStripMenuItem
 			// 
 			this.折り返し表示ToolStripMenuItem.Name = "折り返し表示ToolStripMenuItem";
-			this.折り返し表示ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+			this.折り返し表示ToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
 			this.折り返し表示ToolStripMenuItem.Text = "折り返し表示";
 			this.折り返し表示ToolStripMenuItem.Click += new System.EventHandler(this.折り返し表示ToolStripMenuItem_Click);
 			// 
@@ -575,26 +594,6 @@
 			this.toolTip1.ReshowDelay = 0;
 			this.toolTip1.ShowAlways = true;
 			// 
-			// toolStripButtonOpenClipBoad
-			// 
-			this.toolStripButtonOpenClipBoad.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonOpenClipBoad.Image")));
-			this.toolStripButtonOpenClipBoad.ImageTransparentColor = System.Drawing.Color.Magenta;
-			this.toolStripButtonOpenClipBoad.Name = "toolStripButtonOpenClipBoad";
-			this.toolStripButtonOpenClipBoad.Size = new System.Drawing.Size(52, 23);
-			this.toolStripButtonOpenClipBoad.Text = "展開";
-			this.toolStripButtonOpenClipBoad.ToolTipText = "クリップボードからURLを開く";
-			this.toolStripButtonOpenClipBoad.Click += new System.EventHandler(this.toolStripButtonOpenClipBoad_Click);
-			// 
-			// URLをコピー
-			// 
-			this.URLをコピー.Image = ((System.Drawing.Image)(resources.GetObject("URLをコピー.Image")));
-			this.URLをコピー.ImageTransparentColor = System.Drawing.Color.Magenta;
-			this.URLをコピー.Name = "URLをコピー";
-			this.URLをコピー.Size = new System.Drawing.Size(64, 23);
-			this.URLをコピー.Text = "コピー";
-			this.URLをコピー.ToolTipText = "スレッドURLをコピー";
-			this.URLをコピー.Click += new System.EventHandler(this.URLをコピー_Click);
-			// 
 			// ThreadViewer
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -643,7 +642,6 @@
 		private System.Windows.Forms.ToolStripMenuItem リンクを開くToolStripMenuItem;
 		private System.Windows.Forms.ToolStripButton toolStripButtonTopMost;
 		private System.ComponentModel.BackgroundWorker backgroundWorkerReload;
-		private System.ComponentModel.BackgroundWorker backgroundWorkerInit;
 		private System.Windows.Forms.ToolStripDropDownButton toolStripDropDownButtonSetting;
 		private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemデフォルト;
 		private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemX;

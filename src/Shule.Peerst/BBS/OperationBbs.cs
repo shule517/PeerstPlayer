@@ -225,11 +225,11 @@ namespace Shule.Peerst.BBS
 		/// スレッド読み込み
 		/// </summary>
 		/// <param name="threadNo">スレッド番号</param>
-		/// <param name="ResNum">読み込み開始レス</param>
+		/// <param name="resNum">読み込み開始レス番号</param>
 		/// <returns></returns>
-		public List<ResInfo> ReadThread(string threadNo, int ResNum)
+		public List<ResInfo> ReadThread(string threadNo, int resNo)
 		{
-			return bbsStrategy.ReadThread(threadNo, ResNum);
+			return bbsStrategy.ReadThread(threadNo, resNo);
 		}
 	}
 }
