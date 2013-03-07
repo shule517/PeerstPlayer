@@ -1,4 +1,5 @@
-﻿using Shule.Peerst.BBS;
+﻿using PeerstPlayer.Event;
+using Shule.Peerst.BBS;
 using Shule.Peerst.Form;
 using Shule.Peerst.PeerCast;
 using System;
@@ -14,7 +15,7 @@ using System.Windows.Forms;
 
 namespace PeerstPlayer
 {
-	public partial class PlayerForm : Form, ThreadSelectObserver
+	public partial class PlayerForm : Form, ThreadSelectObserver, EventObserver
 	{
 		// 掲示板管理
 		OperationBbs operationBbs = new OperationBbs();
@@ -25,6 +26,10 @@ namespace PeerstPlayer
 		// スレッド選択フォーム
 		ThreadSelectForm threadSelectForm;
 
+		// イベントマネージャ
+		WmpEventManager wmpEventManager;
+		FormEventManager formEventManager;
+
 		/// <summary>
 		/// コンストラクタ
 		/// </summary>
@@ -33,13 +38,14 @@ namespace PeerstPlayer
 			InitializeComponent();
 
 			// スレッド選択フォーム
-			threadSelectForm = new ThreadSelectForm(this);
+			threadSelectForm = new ThreadSelectForm((ThreadSelectObserver)this);
+
+			// イベントマネージャ
+			formEventManager = new FormEventManager((Form)this, (EventObserver)this);
+			wmpEventManager = new WmpEventManager(wmp, (EventObserver)this);
 
 			// タイトルバーを非表示
 			FormUtility.VisibleTitlebar(Handle, false);
-
-			// イベント追加
-			MouseWheel += PlayerForm_MouseWheel;
 		}
 
 		/// <summary>
@@ -120,29 +126,6 @@ namespace PeerstPlayer
 		}
 
 		/// <summary>
-		/// マウスホイールイベント
-		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
-		void PlayerForm_MouseWheel(object sender, MouseEventArgs e)
-		{
-			if (wmp.settings == null)
-			{
-				return;
-			}
-
-			// 音量調節
-			if (e.Delta > 0)
-			{
-				wmp.settings.volume += 5;
-			}
-			else
-			{
-				wmp.settings.volume -= 5;
-			}
-		}
-
-		/// <summary>
 		/// スレッドURL更新通知
 		/// </summary>
 		/// <param name="threadUrl"></param>
@@ -202,6 +185,46 @@ namespace PeerstPlayer
 			{
 				// スレビューワを開く
 				OpenThreadViewer();
+			}
+		}
+
+		/// <summary>
+		/// イベント処理
+		/// </summary>
+		/// <param name="events">イベントの種類</param>
+		/// <param name="param">パラメータ</param>
+		void EventObserver.OnEvent(Events events, object param)
+		{
+			// TODO Chain of Responsibilityパターンを仕様する
+			if (events == Event.Events.MouseWheel)
+			{
+				int delta = (int)param;
+				if (delta > 0)
+				{
+					wmp.settings.volume += 5;
+				}
+				else
+				{
+					wmp.settings.volume -= 5;
+				}
+			}
+			else if (events == Event.Events.MouseDown)
+			{
+				// WMPフルスクリーン解除
+				wmp.fullScreen = false;
+			}
+			else if (events == Event.Events.DoubleClick)
+			{
+				if (WindowState == FormWindowState.Normal)
+				{
+					WindowState = FormWindowState.Maximized;
+				}
+				else if (WindowState == FormWindowState.Maximized)
+				{
+					WindowState = FormWindowState.Normal;
+				}
+				// WMPフルスクリーン解除
+				wmp.fullScreen = false;
 			}
 		}
 	}

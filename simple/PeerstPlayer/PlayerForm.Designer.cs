@@ -48,14 +48,13 @@
 			this.statusStrip.Name = "statusStrip";
 			this.statusStrip.Size = new System.Drawing.Size(284, 23);
 			this.statusStrip.TabIndex = 1;
-			this.statusStrip.Text = "";
 			// 
 			// channelInfoLabel
 			// 
 			this.channelInfoLabel.ForeColor = System.Drawing.Color.SpringGreen;
 			this.channelInfoLabel.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
 			this.channelInfoLabel.Name = "channelInfoLabel";
-			this.channelInfoLabel.Size = new System.Drawing.Size(238, 18);
+			this.channelInfoLabel.Size = new System.Drawing.Size(269, 18);
 			this.channelInfoLabel.Spring = true;
 			this.channelInfoLabel.Text = "チャンネル情報";
 			this.channelInfoLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;

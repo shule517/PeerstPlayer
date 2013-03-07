@@ -44,6 +44,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Event\EventObserver.cs" />
+    <Compile Include="Event\FormEventManager.cs" />
     <Compile Include="PlayerForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -59,6 +61,7 @@
       <DependentUpon>ThreadSelectForm.cs</DependentUpon>
     </Compile>
     <Compile Include="ThreadSelectForm\ThreadSelectObserver.cs" />
+    <Compile Include="Event\WmpEventManager.cs" />
     <EmbeddedResource Include="PlayerForm.resx">
       <DependentUpon>PlayerForm.cs</DependentUpon>
     </EmbeddedResource>
