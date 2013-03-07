@@ -144,7 +144,7 @@ namespace Shule.Peerst.BBS
 		/// </summary>
 		public List<ResInfo> ReadThread(string threadNo)
 		{
-			return bbsStrategy.ReadThread(threadNo);
+			return bbsStrategy.ReadThread(threadNo, 1);
 		}
 
 		/// <summary>
@@ -219,6 +219,17 @@ namespace Shule.Peerst.BBS
 		public string GetBbsName()
 		{
 			return bbsStrategy.GetBbsName();
+		}
+
+		/// <summary>
+		/// スレッド読み込み
+		/// </summary>
+		/// <param name="threadNo">スレッド番号</param>
+		/// <param name="ResNum">読み込み開始レス</param>
+		/// <returns></returns>
+		public List<ResInfo> ReadThread(string threadNo, int ResNum)
+		{
+			return bbsStrategy.ReadThread(threadNo, ResNum);
 		}
 	}
 }

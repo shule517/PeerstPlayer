@@ -188,11 +188,6 @@ namespace PeerstViewer
 		Timer timerAutoReload;
 
 		/// <summary>
-		/// 取得したスレッドデータ
-		/// </summary>
-		List<string[]> ThreadData = null;
-
-		/// <summary>
 		/// コンストラクタ
 		/// </summary>
 		public ThreadViewer()
@@ -281,7 +276,7 @@ text-decoration:underline;
 				IsScrollBottom = ScrollBottomOnOpen;
 
 				ResList.Clear();
-				ThreadData = null;
+				resList.Clear();
 
 				// スレッド更新
 				Reload(false);

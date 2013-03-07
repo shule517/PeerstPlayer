@@ -275,7 +275,7 @@ namespace Shule.Peerst.BBS
 		/// <summary>
 		/// スレッド読み込み
 		/// </summary>
-		public abstract List<ResInfo> ReadThread(string threadNo);
+		public abstract List<ResInfo> ReadThread(string threadNo, int resNo);
 
 		/// <summary>
 		/// 文字エンコードを取得

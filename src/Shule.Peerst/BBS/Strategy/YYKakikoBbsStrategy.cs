@@ -69,7 +69,7 @@ namespace Shule.Peerst.BBS
 		/// スレッド読み込み
 		/// </summary>
 		/// <returns>スレッド情報一覧</returns>
-		public override List<ResInfo> ReadThread(string threadNo)
+		public override List<ResInfo> ReadThread(string threadNo, int resNo)
 		{
 			List<ResInfo> threadData = new List<ResInfo>();
 
@@ -78,15 +78,13 @@ namespace Shule.Peerst.BBS
 			string url = "http://" + bbsUrl.BoadGenre + "/" + bbsUrl.BoadNo + "/dat/" + threadNo + ".dat";
 			string html = WebUtility.GetHtml(url, GetEncode());
 
-			// TODO 指定レス(ResNum)まで飛ばす
-			/*
+			// 指定レス(ResNum)まで飛ばす
 			int find = 0;
-			for (int i = 0; i < ResNum - 1; i++)
+			for (int i = 0; i < resNo - 1; i++)
 			{
 				find = html.IndexOf('\n', find) + 1;
 			}
 			html = html.Substring(find);
-			 */
 
 			// 本文の修正
 			// html = html.Replace("<a", @"<u><font color=""blue""");

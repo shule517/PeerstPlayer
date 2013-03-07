@@ -27,7 +27,7 @@ namespace Shule.Peerst.BBS
 		/// <summary>
 		/// レス読み込み
 		/// </summary>
-		List<ResInfo> ReadThread(string threadNo);
+		List<ResInfo> ReadThread(string threadNo, int resNo);
 
 		/// <summary>
 		/// 掲示板名を取得

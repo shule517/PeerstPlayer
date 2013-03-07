@@ -36,7 +36,7 @@ namespace Shule.Peerst.BBS
 		/// <summary>
 		/// スレッド読み込み
 		/// </summary>
-		public List<ResInfo> ReadThread(string threadNo)
+		public List<ResInfo> ReadThread(string threadNo, int resNo)
 		{
 			return new List<ResInfo>();
 		}

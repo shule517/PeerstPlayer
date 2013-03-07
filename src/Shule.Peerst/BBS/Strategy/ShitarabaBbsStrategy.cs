@@ -70,13 +70,13 @@ namespace Shule.Peerst.BBS
 		/// スレッド読み込み
 		/// </summary>
 		/// <returns>スレッド情報一覧</returns>
-		public override List<ResInfo> ReadThread(string threadNo)
+		public override List<ResInfo> ReadThread(string threadNo, int resNo)
 		{
 			List<ResInfo> threadData = new List<ResInfo>();
 
 			// datの取得
 			// http://jbbs.livedoor.jp/bbs/rawmode.cgi/game/41324/1260939060/930-
-			string url = "http://jbbs.livedoor.jp/bbs/rawmode.cgi/" + bbsUrl.BoadGenre + "/" + bbsUrl.BoadNo + "/" + threadNo + "/";// TODO 検討の必要あり +ResNum.ToString() + "-";
+			string url = "http://jbbs.livedoor.jp/bbs/rawmode.cgi/" + bbsUrl.BoadGenre + "/" + bbsUrl.BoadNo + "/" + threadNo + "/" + resNo.ToString() + "-"; // TODO 検討の必要あり
 			string html = WebUtility.GetHtml(url, GetEncode());
 
 			// 本文の修正

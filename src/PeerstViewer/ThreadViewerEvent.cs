@@ -421,12 +421,17 @@ namespace PeerstViewer
 		}
 
 		/// <summary>
+		/// レスリスト
+		/// </summary>
+		List<ResInfo> resList = null;
+
+		/// <summary>
 		/// スレッド更新スレッドの処理
 		/// </summary>
 		private void backgroundWorkerReload_DoWork(object sender, DoWorkEventArgs e)
 		{
 			BbsInfo bbsUrl = operationBbs.BbsUrl;
-			ThreadData = BBS.ReadThread((KindOfBBS)bbsUrl.BBSServer, bbsUrl.BoadGenre, bbsUrl.BoadNo, bbsUrl.ThreadNo, ResNum);
+			resList = operationBbs.ReadThread(bbsUrl.ThreadNo, ResNum);
 
 			try
 			{
@@ -437,9 +442,9 @@ namespace PeerstViewer
 				if (DocumentText == text)
 				{
 					// 新着レスなし & 前回に新着なし（太文字を消す）
-					if (ThreadData.Count == 0)
+					if (resList.Count == 0)
 					{
-						ThreadData = null;
+						resList = null;
 						return;
 					}
 				}
@@ -450,7 +455,7 @@ namespace PeerstViewer
 				}
 
 				// レスごとにHTML作成
-				foreach (string[] data in ThreadData)
+				foreach (ResInfo res in resList)
 				{
 					string document_text = "";
 
@@ -465,31 +470,31 @@ namespace PeerstViewer
 					document_text += "<font color=#999999>";
 					document_text += " ： ";
 					// 名前 [
-					document_text += "<font color=#228B22>" + data[0] + "</font> ";
+					document_text += "<font color=#228B22>" + res.Name + "</font> ";
 
 					// メール欄
-					if (data[1] == "")
+					if (res.Mail == "")
 					{
 						document_text += "[] ";
 					}
-					else if (data[1] == "sage")
+					else if (res.Mail == "sage")
 					{
 						document_text += "[sage] ";
 					}
-					else if (data[1] == "age")
+					else if (res.Mail == "age")
 					{
 						document_text += "<font color = red>[age]</font> ";
 					}
 					else
 					{
-						document_text += "<font color = blue>[" + data[1] + "]</font> ";
+						document_text += "<font color = blue>[" + res.Mail + "]</font> ";
 					}
 
 					// ]日付
-					document_text += data[2];
+					document_text += res.Date;
 
 					// ID
-					if (data[3] != "")
+					if (res.ID != "")
 					{
 						document_text += @" <font color=""blue"">ID:";
 
@@ -499,12 +504,12 @@ namespace PeerstViewer
 							document_text += "<nobr>";
 						}
 
-						document_text += "</font><ID>" + data[3] + "</ID></nobr>";
+						document_text += "</font><ID>" + res.ID + "</ID></nobr>";
 					}
 					document_text += "</font><br><ul>";
 
 					// 本文
-					document_text += data[4];
+					document_text += res.Text;
 
 					// ドキュメントに追加
 					DocumentText += document_text + "</ul><hr></nobr>\n";
@@ -533,7 +538,7 @@ namespace PeerstViewer
 				webBrowser.DocumentText = DocumentText;
 
 				// スレッドデータ初期化
-				ThreadData = null;
+				resList = null;
 			}
 			catch
 			{
