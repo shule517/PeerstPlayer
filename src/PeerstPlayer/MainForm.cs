@@ -514,7 +514,6 @@ namespace PeerstPlayer
 						pecaManager.DisconnectRelay();
 						Visible = false;
 						updateChannelInfoThread.Abort();
-						updateChannelInfoThread.Join();
 						Application.Exit();
 					}
 					catch
@@ -671,7 +670,6 @@ namespace PeerstPlayer
 					{
 						Visible = false;
 						updateChannelInfoThread.Abort();
-						updateChannelInfoThread.Join();
 						Application.Exit();
 					}
 					catch
