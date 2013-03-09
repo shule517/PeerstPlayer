@@ -71,7 +71,7 @@ namespace PeerstPlayer
 			// チャンネル情報取得
 			pecaManager = new PeerCastManager(pecaInfo.Host, pecaInfo.PortNo, pecaInfo.StreamId);
 
-			// スレッドの実行
+			// チャンネル情報取得スレッドの実行
 			backgroundWorker.RunWorkerAsync();
 		}
 
@@ -85,6 +85,7 @@ namespace PeerstPlayer
 			// 取得できるまでループ
 			for (;;)
 			{
+				// チャンネル情報取得
 				bool result = pecaManager.GetChannelInfo();
 
 				// 取得成功
@@ -92,7 +93,7 @@ namespace PeerstPlayer
 				{
 					break;
 				}
-				Thread.Sleep(1);
+				Thread.Sleep(1000);
 				Application.DoEvents();
 			}
 
@@ -184,35 +185,34 @@ namespace PeerstPlayer
 		/// <param name="param">パラメータ</param>
 		void EventObserver.OnEvent(Events events, object param)
 		{
-			threadTitleLabel.Text = events.ToString() + param;
-
 			// TODO Chain of Responsibilityパターンを使用する
+
+			// ホイールアップ
 			if (events == Event.Events.WheelUp)
 			{
 				wmp.settings.volume += 5;
 			}
+			// ホイールダウン
 			else if (events == Event.Events.WheelDown)
 			{
 				wmp.settings.volume -= 5;
 			}
+			// 左クリック
 			else if (events == Event.Events.LeftClick)
 			{
-				// マウスドラッグ
-				Win32API.SendMessage(Handle, Win32API.WM_NCLBUTTONDOWN, new IntPtr(Win32API.HTCAPTION), new IntPtr(0));
-
+				// ウィンドウドラッグ開始
+				FormUtility.WindowDragStart(Handle);
+				
 				// WMPフルスクリーン解除
 				wmp.fullScreen = false;
 			}
+			// 左ダブルクリック
 			else if (events == Event.Events.DoubleLeftClick)
 			{
-				if (WindowState == FormWindowState.Normal)
-				{
-					WindowState = FormWindowState.Maximized;
-				}
-				else if (WindowState == FormWindowState.Maximized)
-				{
-					WindowState = FormWindowState.Normal;
-				}
+				// ウィンドウ最大化/解除
+				FormUtility.ToggleWindowMaximize(this);
+
+
 				// WMPフルスクリーン解除
 				wmp.fullScreen = false;
 			}
