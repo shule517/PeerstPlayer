@@ -98,7 +98,6 @@
 			this.wmp.OcxState = ((System.Windows.Forms.AxHost.State)(resources.GetObject("wmp.OcxState")));
 			this.wmp.Size = new System.Drawing.Size(284, 151);
 			this.wmp.TabIndex = 0;
-			this.wmp.MouseDownEvent += new AxWMPLib._WMPOCXEvents_MouseDownEventHandler(this.wmp_MouseDownEvent);
 			// 
 			// PlayerForm
 			// 

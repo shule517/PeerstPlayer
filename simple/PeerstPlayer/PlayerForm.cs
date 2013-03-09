@@ -156,17 +156,6 @@ namespace PeerstPlayer
 		}
 
 		/// <summary>
-		/// WMP：マウスダウンイベント
-		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
-		private void wmp_MouseDownEvent(object sender, AxWMPLib._WMPOCXEvents_MouseDownEvent e)
-		{
-			// マウスドラッグ
-			Win32API.SendMessage(Handle, Win32API.WM_NCLBUTTONDOWN, new IntPtr(Win32API.HTCAPTION), new IntPtr(0));
-		}
-
-		/// <summary>
 		/// スレッドタイトルラベル：キーダウンイベント
 		/// </summary>
 		/// <param name="sender"></param>
@@ -197,7 +186,7 @@ namespace PeerstPlayer
 		{
 			threadTitleLabel.Text = events.ToString() + param;
 
-			// TODO Chain of Responsibilityパターンを仕様する
+			// TODO Chain of Responsibilityパターンを使用する
 			if (events == Event.Events.WheelUp)
 			{
 				wmp.settings.volume += 5;
@@ -208,6 +197,9 @@ namespace PeerstPlayer
 			}
 			else if (events == Event.Events.LeftClick)
 			{
+				// マウスドラッグ
+				Win32API.SendMessage(Handle, Win32API.WM_NCLBUTTONDOWN, new IntPtr(Win32API.HTCAPTION), new IntPtr(0));
+
 				// WMPフルスクリーン解除
 				wmp.fullScreen = false;
 			}
