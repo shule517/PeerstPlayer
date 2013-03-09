@@ -19,8 +19,33 @@ namespace PeerstPlayer.Event
 	enum Events
 	{
 		None = 0,
-		MouseWheel,
-		DoubleClick,
-		MouseDown,
+
+		// マウス
+		LeftClick,
+		RightClick,
+		MiddleClick,
+
+		// ダブルクリック
+		DoubleLeftClick,
+		DoubleRightClick,
+		DoubleMiddleClick,
+
+		// マウスホイール
+		WheelDown,
+		WheelUp,
+
+		// 右クリック＋マウスホイール
+		RightClick_WheelDown,
+		RightClick_WheelUp,
+
+		// 左クリック＋マウスホイール
+		LeftClick_WheelDown,
+		LeftClick_WheelUp,
+
+		// 右→左クリック
+		RightToLeftClick,
+
+		// 左→右クリック
+		LeftToRightClick,
 	}
 }

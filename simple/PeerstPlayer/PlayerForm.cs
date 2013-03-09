@@ -195,25 +195,23 @@ namespace PeerstPlayer
 		/// <param name="param">パラメータ</param>
 		void EventObserver.OnEvent(Events events, object param)
 		{
+			threadTitleLabel.Text = events.ToString() + param;
+
 			// TODO Chain of Responsibilityパターンを仕様する
-			if (events == Event.Events.MouseWheel)
+			if (events == Event.Events.WheelUp)
 			{
-				int delta = (int)param;
-				if (delta > 0)
-				{
-					wmp.settings.volume += 5;
-				}
-				else
-				{
-					wmp.settings.volume -= 5;
-				}
+				wmp.settings.volume += 5;
 			}
-			else if (events == Event.Events.MouseDown)
+			else if (events == Event.Events.WheelDown)
+			{
+				wmp.settings.volume -= 5;
+			}
+			else if (events == Event.Events.LeftClick)
 			{
 				// WMPフルスクリーン解除
 				wmp.fullScreen = false;
 			}
-			else if (events == Event.Events.DoubleClick)
+			else if (events == Event.Events.DoubleLeftClick)
 			{
 				if (WindowState == FormWindowState.Normal)
 				{
