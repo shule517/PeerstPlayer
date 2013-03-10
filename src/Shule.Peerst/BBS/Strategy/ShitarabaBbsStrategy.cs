@@ -18,28 +18,21 @@ namespace Shule.Peerst.BBS
 		: base(bbsUrl)
 		{
 		}
-		
+
 		/// <summary>
-		/// 掲示板書き込みリクエスト用データ作成
+		/// 文字エンコードの取得
 		/// </summary>
-		/// <param name="name"></param>
-		/// <param name="mail"></param>
-		/// <param name="message"></param>
-		/// <returns></returns>
-		protected override byte[] CreateWriteRequestData(string name, string mail, string message)
+		protected override Encoding GetEncode()
 		{
-			Encoding encode = GetEncode(); // エンコード
-			string param = ""; // データ配列
+			return Encoding.GetEncoding("EUC-JP");
+		}
 
-			param += "DIR=" + HttpUtility.UrlEncode(bbsUrl.BoadGenre, encode) + "&"; // 板ジャンル
-			param += "BBS=" + HttpUtility.UrlEncode(bbsUrl.BoadNo, encode) + "&"; // 板番号
-			param += "KEY=" + HttpUtility.UrlEncode(bbsUrl.ThreadNo, encode) + "&"; // スレ番号
-			param += "NAME=" + HttpUtility.UrlEncode(name, encode) + "&"; // 名前
-			param += "MAIL=" + HttpUtility.UrlEncode(mail, encode) + "&"; // メール
-			param += "MESSAGE=" + HttpUtility.UrlEncode(message, encode) + "&"; // 本文
-			param += "SUBMIT=" + HttpUtility.UrlEncode("書き込む", encode) + "&"; // 書き込む
-
-			return Encoding.ASCII.GetBytes(param);
+		/// <summary>
+		/// 板URLを取得
+		/// </summary>
+		protected override string GetBoadUrl()
+		{
+			return "http://jbbs.livedoor.jp/" + bbsUrl.BoadGenre + "/" + bbsUrl.BoadNo + "/";
 		}
 
 		/// <summary>
@@ -65,6 +58,29 @@ namespace Shule.Peerst.BBS
 		{
 			return ".cgi,";
 		}
+		
+		/// <summary>
+		/// 掲示板書き込みリクエスト用データ作成
+		/// </summary>
+		/// <param name="name"></param>
+		/// <param name="mail"></param>
+		/// <param name="message"></param>
+		/// <returns></returns>
+		protected override byte[] CreateWriteRequestData(string name, string mail, string message)
+		{
+			Encoding encode = GetEncode(); // エンコード
+			string param = ""; // データ配列
+
+			param += "DIR="		+ HttpUtility.UrlEncode(bbsUrl.BoadGenre, encode)	+ "&"; // 板ジャンル
+			param += "BBS="		+ HttpUtility.UrlEncode(bbsUrl.BoadNo, encode)		+ "&"; // 板番号
+			param += "KEY="		+ HttpUtility.UrlEncode(bbsUrl.ThreadNo, encode)	+ "&"; // スレ番号
+			param += "NAME="	+ HttpUtility.UrlEncode(name, encode)				+ "&"; // 名前
+			param += "MAIL="	+ HttpUtility.UrlEncode(mail, encode)				+ "&"; // メール
+			param += "MESSAGE="	+ HttpUtility.UrlEncode(message, encode)			+ "&"; // 本文
+			param += "SUBMIT="	+ HttpUtility.UrlEncode("書き込む", encode)			+ "&"; // 書き込む
+
+			return Encoding.ASCII.GetBytes(param);
+		}
 
 		/// <summary>
 		/// スレッド読み込み
@@ -76,7 +92,9 @@ namespace Shule.Peerst.BBS
 
 			// datの取得
 			// http://jbbs.livedoor.jp/bbs/rawmode.cgi/game/41324/1260939060/930-
-			string url = "http://jbbs.livedoor.jp/bbs/rawmode.cgi/" + bbsUrl.BoadGenre + "/" + bbsUrl.BoadNo + "/" + threadNo + "/" + resNo.ToString() + "-"; // TODO 検討の必要あり
+	
+			// TODO 取得方法を検討する必要あり
+			string url = "http://jbbs.livedoor.jp/bbs/rawmode.cgi/" + bbsUrl.BoadGenre + "/" + bbsUrl.BoadNo + "/" + threadNo + "/" + resNo.ToString() + "-";
 			string html = WebUtility.GetHtml(url, GetEncode());
 
 			// 本文の修正
@@ -126,22 +144,6 @@ namespace Shule.Peerst.BBS
 			}
 
 			return threadData;
-		}
-
-		/// <summary>
-		/// 文字エンコードの取得
-		/// </summary>
-		protected override Encoding GetEncode()
-		{
-			return Encoding.GetEncoding("EUC-JP");
-		}
-
-		/// <summary>
-		/// 板URLを取得
-		/// </summary>
-		protected override string GetBoadUrl()
-		{
-			return "http://jbbs.livedoor.jp/" + bbsUrl.BoadGenre + "/" + bbsUrl.BoadNo + "/";
 		}
 	}
 }

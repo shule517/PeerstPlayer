@@ -15,6 +15,41 @@ namespace Shule.Peerst.BBS
 		protected BbsInfo bbsUrl;	// 掲示板アドレス情報
 
 		/// <summary>
+		/// 掲示板書き込みリクエスト用データ作成
+		/// </summary>
+		protected abstract byte[] CreateWriteRequestData(string name, string mail, string message);
+
+		/// <summary>
+		/// リクエストURLの取得
+		/// </summary>
+		protected abstract string GetRequestURL();
+
+		/// <summary>
+		/// サブジェクトURL(スレッド一覧)の取得
+		/// </summary>
+		protected abstract string GetSubjectUrl();
+
+		/// <summary>
+		/// サブジェクトURLのスプリット文字の取得
+		/// </summary>
+		protected abstract string GetSubjectSplit();
+
+		/// <summary>
+		/// スレッド読み込み
+		/// </summary>
+		public abstract List<ResInfo> ReadThread(string threadNo, int resNo);
+
+		/// <summary>
+		/// 文字エンコードを取得
+		/// </summary>
+		protected abstract Encoding GetEncode();
+
+		/// <summary>
+		/// 板URLを取得
+		/// </summary>
+		protected abstract string GetBoadUrl();
+
+		/// <summary>
 		/// コンストラクタ
 		/// </summary>
 		public BbsStrategy(BbsInfo bbsUrl)
@@ -141,8 +176,17 @@ namespace Shule.Peerst.BBS
 			sr.Close();
 			responseStream.Close();
 
-			#region エラーチェック
+			// 書き込みエラーチェック
+			return CheckWriteError(html);
+		}
 
+		/// <summary>
+		/// 書き込みエラーチェック
+		/// </summary>
+		/// <param name="html">レスポンスHTML</param>
+		/// <returns>書き込みエラー有無(true:正常 / false:異常)</returns>
+		private static bool CheckWriteError(string html)
+		{
 			if ((html.IndexOf("ERROR") != -1) || (html.IndexOf("ＥＲＲＯＲ") != -1))
 			{
 				if (html.IndexOf("リンクＵＲＬ") != -1)
@@ -222,8 +266,7 @@ namespace Shule.Peerst.BBS
 				}
 			}
 
-			#endregion
-
+			// 正常
 			return true;
 		}
 	
@@ -251,40 +294,5 @@ namespace Shule.Peerst.BBS
 
 			return subjectArray;
 		}
-
-		/// <summary>
-		/// 掲示板書き込みリクエスト用データ作成
-		/// </summary>
-		protected abstract byte[] CreateWriteRequestData(string name, string mail, string message);
-
-		/// <summary>
-		/// リクエストURLの取得
-		/// </summary>
-		protected abstract string GetRequestURL();
-
-		/// <summary>
-		/// サブジェクトURL(スレッド一覧)の取得
-		/// </summary>
-		protected abstract string GetSubjectUrl();
-
-		/// <summary>
-		/// サブジェクトURLのスプリット文字の取得
-		/// </summary>
-		protected abstract string GetSubjectSplit();
-
-		/// <summary>
-		/// スレッド読み込み
-		/// </summary>
-		public abstract List<ResInfo> ReadThread(string threadNo, int resNo);
-
-		/// <summary>
-		/// 文字エンコードを取得
-		/// </summary>
-		protected abstract Encoding GetEncode();
-
-		/// <summary>
-		/// 板URLを取得
-		/// </summary>
-		protected abstract string GetBoadUrl();
 	}
 }

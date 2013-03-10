@@ -20,28 +20,6 @@ namespace Shule.Peerst.BBS
 		}
 
 		/// <summary>
-		/// 掲示板書き込みリクエスト用データ作成
-		/// </summary>
-		/// <param name="name"></param>
-		/// <param name="mail"></param>
-		/// <param name="message"></param>
-		/// <returns></returns>
-		protected override byte[] CreateWriteRequestData(string name, string mail, string message)
-		{
-			Encoding encode = GetEncode();
-			string param = ""; // リクエストデータ
-
-			param += "bbs=" + HttpUtility.UrlEncode(bbsUrl.BoadNo, encode) + "&";	// 板番号
-			param += "key=" + HttpUtility.UrlEncode(bbsUrl.ThreadNo, encode) + "&";	// スレ番号
-			param += "FROM=" + HttpUtility.UrlEncode(name, encode) + "&";			// 名前
-			param += "mail=" + HttpUtility.UrlEncode(mail, encode) + "&";			// メール
-			param += "MESSAGE=" + HttpUtility.UrlEncode(message, encode) + "&";		// 本文
-			param += "submit=" + HttpUtility.UrlEncode("書き込む", encode) + "&";	// 書き込む
-
-			return Encoding.ASCII.GetBytes(param);
-		}
-
-		/// <summary>
 		/// リクエストURLを取得
 		/// </summary>
 		protected override string GetRequestURL()
@@ -63,6 +41,44 @@ namespace Shule.Peerst.BBS
 		protected override string GetSubjectSplit()
 		{
 			return ".dat<>";
+		}
+
+		/// <summary>
+		/// 文字エンコードの取得
+		/// </summary>
+		protected override Encoding GetEncode()
+		{
+			return Encoding.GetEncoding("Shift_JIS");
+		}
+
+		/// <summary>
+		/// 板URLを取得
+		/// </summary>
+		protected override string GetBoadUrl()
+		{
+			return "http://" + bbsUrl.BoadGenre + "/" + bbsUrl.BoadNo + "/";
+		}
+
+		/// <summary>
+		/// 掲示板書き込みリクエスト用データ作成
+		/// </summary>
+		/// <param name="name"></param>
+		/// <param name="mail"></param>
+		/// <param name="message"></param>
+		/// <returns></returns>
+		protected override byte[] CreateWriteRequestData(string name, string mail, string message)
+		{
+			Encoding encode = GetEncode();
+			string param = ""; // リクエストデータ
+
+			param += "bbs="		+ HttpUtility.UrlEncode(bbsUrl.BoadNo, encode)		+ "&";	// 板番号
+			param += "key="		+ HttpUtility.UrlEncode(bbsUrl.ThreadNo, encode)	+ "&";	// スレ番号
+			param += "FROM="	+ HttpUtility.UrlEncode(name, encode)				+ "&";	// 名前
+			param += "mail="	+ HttpUtility.UrlEncode(mail, encode)				+ "&";	// メール
+			param += "MESSAGE="	+ HttpUtility.UrlEncode(message, encode)			+ "&";	// 本文
+			param += "submit="	+ HttpUtility.UrlEncode("書き込む", encode)			+ "&";	// 書き込む
+
+			return Encoding.ASCII.GetBytes(param);
 		}
 
 		/// <summary>
@@ -139,22 +155,6 @@ namespace Shule.Peerst.BBS
 			}
 
 			return threadData;
-		}
-
-		/// <summary>
-		/// 文字エンコードの取得
-		/// </summary>
-		protected override Encoding GetEncode()
-		{
-			return Encoding.GetEncoding("Shift_JIS");
-		}
-
-		/// <summary>
-		/// 板URLを取得
-		/// </summary>
-		protected override string GetBoadUrl()
-		{
-			return "http://" + bbsUrl.BoadGenre + "/" + bbsUrl.BoadNo + "/";
 		}
 	}
 }
