@@ -13,7 +13,7 @@ namespace PeerstPlayer
 		[STAThread]
 		static void Main()
 		{
-			// 設定
+			// アプリーケーション設定
 			Application.EnableVisualStyles();
 			Application.SetCompatibleTextRenderingDefault(false);
 

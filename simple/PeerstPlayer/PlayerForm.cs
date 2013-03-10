@@ -3,16 +3,10 @@ using Shule.Peerst.BBS;
 using Shule.Peerst.Form;
 using Shule.Peerst.PeerCast;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
 using System.Diagnostics;
-using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Windows.Forms;
-
 namespace PeerstPlayer
 {
 	public partial class PlayerForm : Form, ThreadSelectObserver, EventObserver
@@ -211,7 +205,6 @@ namespace PeerstPlayer
 			{
 				// ウィンドウ最大化/解除
 				FormUtility.ToggleWindowMaximize(this);
-
 
 				// WMPフルスクリーン解除
 				wmp.fullScreen = false;
