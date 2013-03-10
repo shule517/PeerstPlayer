@@ -43,33 +43,6 @@ namespace PeerstPlayer
 		}
 
 		/// <summary>
-		/// ロードイベント
-		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
-		private void PlayerForm_Load(object sender, EventArgs e)
-		{
-			if (Environment.GetCommandLineArgs().Length <= 1)
-			{
-				// コマンドライン引数指定なし
-				return;
-			}
-
-			// 動画再生
-			string streamUrl = Environment.GetCommandLineArgs()[1];
-			wmp.URL = streamUrl;
-
-			// ストリームURLの解析
-			PecaInfo pecaInfo = StreamUrlAnalyzer.GetPecaInfo(streamUrl);
-
-			// チャンネル情報取得
-			pecaManager = new PeerCastManager(pecaInfo.Host, pecaInfo.PortNo, pecaInfo.StreamId);
-
-			// チャンネル情報取得スレッドの実行
-			backgroundWorker.RunWorkerAsync();
-		}
-
-		/// <summary>
 		/// チャンネル情報取得
 		/// </summary>
 		/// <param name="sender"></param>
@@ -120,20 +93,35 @@ namespace PeerstPlayer
 			Process.Start(viewerPath, threadUrl + " " + pecaManager.ChannelInfo.Name);
 		}
 
+		#region GUIイベント
+
 		/// <summary>
-		/// スレッドURL更新通知
+		/// ロードイベント
 		/// </summary>
-		/// <param name="threadUrl"></param>
-		/// <param name="threadNo"></param>
-		void ThreadSelectObserver.UpdateThreadUrl(string threadUrl, string threadNo)
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
+		private void PlayerForm_Load(object sender, EventArgs e)
 		{
-			// スレッド更新
-			operationBbs.ChangeUrl(threadUrl, threadNo);
+			if (Environment.GetCommandLineArgs().Length <= 1)
+			{
+				// コマンドライン引数指定なし
+				return;
+			}
 
-			// スレッドタイトルの更新
-			threadTitleLabel.Text = operationBbs.GetBbsName();
+			// 動画再生
+			string streamUrl = Environment.GetCommandLineArgs()[1];
+			wmp.URL = streamUrl;
+
+			// ストリームURLの解析
+			PecaInfo pecaInfo = StreamUrlAnalyzer.GetPecaInfo(streamUrl);
+
+			// チャンネル情報取得
+			pecaManager = new PeerCastManager(pecaInfo.Host, pecaInfo.PortNo, pecaInfo.StreamId);
+
+			// チャンネル情報取得スレッドの実行
+			backgroundWorker.RunWorkerAsync();
 		}
-
+	
 		/// <summary>
 		/// 書き込み欄：キーダウンイベント
 		/// </summary>
@@ -171,6 +159,10 @@ namespace PeerstPlayer
 				OpenThreadViewer();
 			}
 		}
+
+		#endregion
+
+		#region 更新通知の受取り
 
 		/// <summary>
 		/// イベント処理
@@ -210,5 +202,21 @@ namespace PeerstPlayer
 				wmp.fullScreen = false;
 			}
 		}
+
+		/// <summary>
+		/// スレッドURL更新通知
+		/// </summary>
+		/// <param name="threadUrl"></param>
+		/// <param name="threadNo"></param>
+		void ThreadSelectObserver.UpdateThreadUrl(string threadUrl, string threadNo)
+		{
+			// スレッド更新
+			operationBbs.ChangeUrl(threadUrl, threadNo);
+
+			// スレッドタイトルの更新
+			threadTitleLabel.Text = operationBbs.GetBbsName();
+		}
+
+		#endregion
 	}
 }
