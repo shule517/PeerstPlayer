@@ -95,11 +95,6 @@ namespace Shule.Peerst.BBS
 		}
 
 		/// <summary>
-		/// 取得済みレス番号
-		/// </summary>
-		public int LastResNo { get; private set; }
-
-		/// <summary>
 		/// 掲示板名の取得
 		/// </summary>
 		/// <returns></returns>
@@ -107,6 +102,27 @@ namespace Shule.Peerst.BBS
 		{
 			return bbsStrategy.GetBbsName();
 		}
+
+		/// <summary>
+		/// スレッド一覧の取得
+		/// </summary>
+		public List<ThreadInfo> GetThreadList()
+		{
+			return bbsStrategy.GetThreadList();
+		}
+
+		/// <summary>
+		/// スレッド情報の取得
+		/// </summary>
+		public ThreadInfo GetThreadInfo()
+		{
+			return bbsStrategy.GetThreadInfo(bbsStrategy.GetBbsUrl().ThreadNo);
+		}
+
+		/// <summary>
+		/// 取得済みレス番号
+		/// </summary>
+		public int LastResNo { get; private set; }
 
 		/*
 		/// <summary>
@@ -136,22 +152,6 @@ namespace Shule.Peerst.BBS
 			private set;
 		}
 		 */
-
-		/// <summary>
-		/// スレッド一覧の取得
-		/// </summary>
-		public List<ThreadInfo> GetThreadList()
-		{
-			return bbsStrategy.GetThreadList();
-		}
-
-		/// <summary>
-		/// スレッド情報の取得
-		/// </summary>
-		public ThreadInfo GetThreadInfo()
-		{
-			return bbsStrategy.GetThreadInfo(bbsStrategy.GetBbsUrl().ThreadNo);
-		}
 
 		/// <summary>
 		/// 掲示板書き込み

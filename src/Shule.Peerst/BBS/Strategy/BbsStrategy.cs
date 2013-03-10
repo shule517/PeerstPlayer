@@ -44,10 +44,9 @@ namespace Shule.Peerst.BBS
 		public List<ThreadInfo> GetThreadList()
 		{
 			List<ThreadInfo> threadList = new List<ThreadInfo>();
-			string[] subjects;
 
 			// Subject.txtの取得
-			GetSubject(out subjects);
+			string[] subjects = GetSubject();
 
 			// スレッドデータ作成
 			for (int i = 0; i < subjects.Length - 1; i += 2)
@@ -71,8 +70,7 @@ namespace Shule.Peerst.BBS
 		/// </summary>
 		public ThreadInfo GetThreadInfo(string threadNo)
 		{
-			string[] list;
-			GetSubject(out list);
+			string[] list = GetSubject();
 
 			for (int i = 0; i < list.Length - 1; i += 2)
 			{
@@ -232,7 +230,7 @@ namespace Shule.Peerst.BBS
 		/// <summary>
 		/// Subject.txtの取得
 		/// </summary>
-		private void GetSubject(out string[] subjectArray)
+		private string[] GetSubject()
 		{
 			// subject.txtを取得
 			string subject_html = WebUtility.GetHtml(GetSubjectUrl(), GetEncode());
@@ -242,7 +240,7 @@ namespace Shule.Peerst.BBS
 			separator[0] = "\n";
 			separator[1] = GetSubjectSplit();
 
-			subjectArray = subject_html.Split(separator, StringSplitOptions.None);
+			string[] subjectArray = subject_html.Split(separator, StringSplitOptions.None);
 
 			// したらばの場合は、最下位のデータは削除する
 			// 最上位のデータと同じため
@@ -250,6 +248,8 @@ namespace Shule.Peerst.BBS
 			{
 				Array.Resize(ref subjectArray, subjectArray.Length - 3);
 			}
+
+			return subjectArray;
 		}
 
 		/// <summary>
