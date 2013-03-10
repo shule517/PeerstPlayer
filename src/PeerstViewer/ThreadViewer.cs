@@ -429,7 +429,7 @@ text-decoration:underline;
 		/// </summary>
 		private void LoadIni()
 		{
-			string iniFileName = FormUtility.GetCurrentDirectory() + "\\PeerstPlayer.ini";
+			string iniFileName = FormUtility.GetExeFileDirectory() + "\\PeerstPlayer.ini";
 			IniFile iniFile = new IniFile(iniFileName);
 
 			if (!System.IO.File.Exists(iniFileName))

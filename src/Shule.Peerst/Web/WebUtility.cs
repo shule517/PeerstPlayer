@@ -6,7 +6,7 @@ namespace Shule.Peerst.Web
 	/// <summary>
 	/// HTTPクラス
 	/// </summary>
-	public class WebUtility
+	public static class WebUtility
 	{
 		/// <summary>
 		/// 指定したアドレスのHTMLを取得（エンコード指定）

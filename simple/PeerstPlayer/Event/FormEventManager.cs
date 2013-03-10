@@ -1,4 +1,6 @@
 ﻿using PeerstPlayer.Event;
+using Shule.Peerst.Form;
+using Shule.Peerst.Observer;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +9,7 @@ using System.Windows.Forms;
 
 namespace PeerstPlayer
 {
-	class FormEventManager
+	class FormEventManager : Observable
 	{
 		/// <summary>
 		/// Formクラス
@@ -15,18 +17,13 @@ namespace PeerstPlayer
 		Form form;
 
 		/// <summary>
-		/// イベントオブザーバ
-		/// </summary>
-		EventObserver eventObserver;
-
-		/// <summary>
 		/// コンストラクタ
 		/// </summary>
 		/// <param name="form"></param>
-		public FormEventManager(Form form, EventObserver eventObserver)
+		public FormEventManager(Form form)
 		{
+			// データ登録
 			this.form = form;
-			this.eventObserver = eventObserver;
 
 			// イベント登録
 			form.MouseDown += form_MouseDown;
@@ -44,17 +41,17 @@ namespace PeerstPlayer
 			// 左ダブルクリック
 			if (e.Button == MouseButtons.Left)
 			{
-				eventObserver.OnEvent(Events.DoubleLeftClick, e);
+				Notify(FormEvents.DoubleLeftClick);
 			}
 			// 右ダブルクリック
 			else if (e.Button == MouseButtons.Right)
 			{
-				eventObserver.OnEvent(Events.DoubleRightClick, e);
+				Notify(FormEvents.DoubleRightClick);
 			}
 			// 中ダブルクリック
 			else if (e.Button == MouseButtons.Middle)
 			{
-				eventObserver.OnEvent(Events.DoubleMiddleClick, e);
+				Notify(FormEvents.DoubleMiddleClick);
 			}
 		}
 
@@ -68,17 +65,17 @@ namespace PeerstPlayer
 			// 左クリック
 			if (e.Button == MouseButtons.Left)
 			{
-				eventObserver.OnEvent(Events.LeftClick, e);
+				Notify(FormEvents.LeftClick);
 			}
 			// 右クリック
 			else if (e.Button == MouseButtons.Right)
 			{
-				eventObserver.OnEvent(Events.RightClick, e);
+				Notify(FormEvents.RightClick);
 			}
 			// 中クリック
 			else if (e.Button == MouseButtons.Middle)
 			{
-				eventObserver.OnEvent(Events.MiddleClick, e);
+				Notify(FormEvents.MiddleClick);
 			}
 		}
 
@@ -97,17 +94,17 @@ namespace PeerstPlayer
 				// 左クリック + ホイールアップ
 				if (Win32API.GetAsyncKeyState(KeyLeft) < 0)
 				{
-					eventObserver.OnEvent(Events.LeftClick_WheelUp, e.Delta);
+					Notify(FormEvents.LeftClick_WheelUp);
 				}
 				// 右クリック + ホイールアップ
 				else if (Win32API.GetAsyncKeyState(KeyRight) < 0)
 				{
-					eventObserver.OnEvent(Events.RightClick_WheelUp, e.Delta);
+					Notify(FormEvents.RightClick_WheelUp);
 				}
 				// ホイールアップ
 				else
 				{
-					eventObserver.OnEvent(Events.WheelUp, e.Delta);
+					Notify(FormEvents.WheelUp);
 				}
 			}
 			else if (e.Delta < 0)
@@ -115,19 +112,29 @@ namespace PeerstPlayer
 				// 左クリック + ホイールダウン
 				if (Win32API.GetAsyncKeyState(KeyLeft) < 0)
 				{
-					eventObserver.OnEvent(Events.LeftClick_WheelDown, e.Delta);
+					Notify(FormEvents.LeftClick_WheelDown);
 				}
 				// 右クリック + ホイールダウン
 				else if (Win32API.GetAsyncKeyState(KeyRight) < 0)
 				{
-					eventObserver.OnEvent(Events.RightClick_WheelDown, e.Delta);
+					Notify(FormEvents.RightClick_WheelDown);
 				}
 				// ホイールダウン
 				else
 				{
-					eventObserver.OnEvent(Events.WheelDown, e.Delta);
+					Notify(FormEvents.WheelDown);
 				}
 			}
+		}
+
+		/// <summary>
+		/// 通知
+		/// </summary>
+		/// <param name="events"></param>
+		private void Notify(FormEvents events)
+		{
+			List<Keys> keys = FormUtility.GetModifyKeys();
+			NotifyObservers(new FormEventArgs(events, keys));
 		}
 	}
 }

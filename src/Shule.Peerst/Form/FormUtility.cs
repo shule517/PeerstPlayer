@@ -7,7 +7,7 @@ using System.Windows.Forms;
 
 namespace Shule.Peerst.Form
 {
-	public class FormUtility
+	public static class FormUtility
 	{
 		/// <summary>
 		/// タイトルバーの表示切替
@@ -39,18 +39,19 @@ namespace Shule.Peerst.Form
 		}
 
 		/// <summary>
-		/// 作業フォルダを取得
+		/// 実行ファイルのフォルダパスを取得
 		/// </summary>
-		static public string GetCurrentDirectory()
+		static public string GetExeFileDirectory()
 		{
-			if (Environment.GetCommandLineArgs().Length > 0)
+			if (Environment.GetCommandLineArgs().Length <= 0)
 			{
-				string folder = Environment.GetCommandLineArgs()[0];
-				folder = folder.Substring(0, folder.LastIndexOf('\\'));
-
-				return folder;
+				return "";
 			}
-			return "";
+
+			// コマンドライン[0]から、フォルダパスのみ切り出す
+			string folder = Environment.GetCommandLineArgs()[0];
+			folder = folder.Substring(0, folder.LastIndexOf('\\'));
+			return folder;
 		}
 
 		/// <summary>
@@ -61,7 +62,6 @@ namespace Shule.Peerst.Form
 		{
 			Win32API.SendMessage(handle, Win32API.WM_NCLBUTTONDOWN, new IntPtr(Win32API.HTCAPTION), new IntPtr(0));
 		}
-
 
 		/// <summary>
 		/// ウィンドウの最大化/解除
@@ -79,6 +79,38 @@ namespace Shule.Peerst.Form
 				// 解除
 				form.WindowState = FormWindowState.Normal;
 			}
+		}
+
+		/// <summary>
+		/// 修飾キーの状態取得
+		/// Shift / Control / Altキーを監視
+		/// </summary>
+		/// <returns></returns>
+		public static List<Keys> GetModifyKeys()
+		{
+			List<Keys> keys = new List<Keys>();
+
+			// キーボードの状態取得
+			byte[] keyState = new byte[256];
+			Win32API.GetKeyboardState(keyState);
+
+			// 判定
+			if ((keyState[(int)Keys.ShiftKey] & 128) != 0)
+			{
+				keys.Add(Keys.ShiftKey);
+			}
+
+			if ((keyState[(int)Keys.ControlKey] & 128) != 0)
+			{
+				keys.Add(Keys.ControlKey);
+			}
+
+			if ((keyState[(int)Keys.Menu] & 128) != 0)
+			{
+				keys.Add(Keys.Menu);
+			}
+
+			return keys;
 		}
 	}
 }

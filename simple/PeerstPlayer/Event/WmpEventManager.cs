@@ -1,5 +1,7 @@
 ﻿using AxWMPLib;
 using PeerstPlayer.Event;
+using Shule.Peerst.Form;
+using Shule.Peerst.Observer;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,51 +10,23 @@ using System.Windows.Forms;
 
 namespace PeerstPlayer
 {
-	class WmpEventManager
+	class WmpEventManager : Observable
 	{
 		AxWindowsMediaPlayer wmp;
-		EventObserver eventObserver;
 
 		// マウスジェスチャ
 		MouseGesture mouseGesture = new MouseGesture();
 
-		public WmpEventManager(AxWindowsMediaPlayer wmp, EventObserver eventObserver)
+		/// <summary>
+		/// WMPイベントマネージャ
+		/// </summary>
+		/// <param name="wmp"></param>
+		public WmpEventManager(AxWindowsMediaPlayer wmp)
 		{
 			this.wmp = wmp;
-			this.eventObserver = eventObserver;
 
 			wmp.DoubleClickEvent += wmp_DoubleClickEvent;	// ダブルクリック
 			wmp.MouseDownEvent += wmp_MouseDownEvent;		// マウスダウン
-		}
-
-		/// <summary>
-		/// Shift+Control+Altを取得
-		/// </summary>
-		/// <returns></returns>
-		string GetModifiers()
-		{
-			// ジェスチャー
-			byte[] keyState = new byte[256];
-			Win32API.GetKeyboardState(keyState);
-
-			string modifiers = "";
-
-			if ((keyState[(int)Keys.ShiftKey] & 128) != 0)
-			{
-				modifiers += "Shift+";
-			}
-
-			if ((keyState[(int)Keys.ControlKey] & 128) != 0)
-			{
-				modifiers += "Control+";
-			}
-
-			if ((keyState[(int)Keys.Menu] & 128) != 0)
-			{
-				modifiers += "Alt+";
-			}
-
-			return modifiers;
 		}
 
 		/// <summary>
@@ -63,24 +37,21 @@ namespace PeerstPlayer
 		void wmp_DoubleClickEvent(object sender, _WMPOCXEvents_DoubleClickEvent e)
 		{
 			// 左ダブルクリック
-			if (e.nButton == 1)
+			if (e.nButton == (short)Keys.LButton)
 			{
-				eventObserver.OnEvent(Events.DoubleLeftClick, e);
+				Notify(FormEvents.DoubleLeftClick);
 			}
 			// 右ダブルクリック
-			else if (e.nButton == 2)
+			else if (e.nButton == (short)Keys.RButton)
 			{
-				eventObserver.OnEvent(Events.DoubleRightClick, e);
+				Notify(FormEvents.DoubleRightClick);
 			}
 			// 中ダブルクリック
-			else if (e.nButton == 4)
+			else if (e.nButton == (short)Keys.MButton)
 			{
-				eventObserver.OnEvent(Events.DoubleMiddleClick, e);
+				Notify(FormEvents.DoubleMiddleClick);
 			}
 		}
-
-		const int KeyLeft = 1;		// 左クリック
-		const int KeyRight = 2;		// 右クリック
 
 		/// <summary>
 		/// マウスダウン
@@ -90,38 +61,36 @@ namespace PeerstPlayer
 		void wmp_MouseDownEvent(object sender, _WMPOCXEvents_MouseDownEvent e)
 		{
 			// 左クリック
-			if (e.nButton == 1)
+			if (e.nButton == (short)Keys.LButton)
 			{
-				// 右クリック->左クリック
-				if (Win32API.GetAsyncKeyState(KeyRight) < 0)
-				{
-					eventObserver.OnEvent(Events.RightToLeftClick, e);
-				}
+				// TODO 右クリック->左クリック
+
 				// 左クリック
-				else
-				{
-					eventObserver.OnEvent(Events.LeftClick, e);
-				}
+				Notify(FormEvents.LeftClick);
 			}
 			// 右クリック
-			else if (e.nButton == 2)
+			else if (e.nButton == (short)Keys.RButton)
 			{
-				// 左クリック->右クリック
-				if (Win32API.GetAsyncKeyState(KeyRight) < 0)
-				{
-					eventObserver.OnEvent(Events.LeftToRightClick, e);
-				}
+				// TODO 左クリック->右クリック
+
 				// 右クリック
-				else
-				{
-					eventObserver.OnEvent(Events.RightClick, e);
-				}
+				Notify(FormEvents.RightClick);
 			}
 			// 中クリック
-			else if (e.nButton == 3)
+			else if (e.nButton == (short)Keys.MButton)
 			{
-				eventObserver.OnEvent(Events.MiddleClick, e);
+				Notify(FormEvents.MiddleClick);
 			}
+		}
+
+		/// <summary>
+		/// 通知
+		/// </summary>
+		/// <param name="events"></param>
+		private void Notify(FormEvents events)
+		{
+			List<Keys> keys = FormUtility.GetModifyKeys();
+			NotifyObservers(new FormEventArgs(events, keys));
 		}
 	}
 }

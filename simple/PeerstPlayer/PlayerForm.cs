@@ -1,6 +1,7 @@
 ﻿using PeerstPlayer.Event;
 using Shule.Peerst.BBS;
 using Shule.Peerst.Form;
+using Shule.Peerst.Observer;
 using Shule.Peerst.PeerCast;
 using System;
 using System.ComponentModel;
@@ -9,7 +10,7 @@ using System.Threading;
 using System.Windows.Forms;
 namespace PeerstPlayer
 {
-	public partial class PlayerForm : Form, ThreadSelectObserver, EventObserver
+	public partial class PlayerForm : Form, ThreadSelectObserver, Observer
 	{
 		// 掲示板管理
 		OperationBbs operationBbs = new OperationBbs();
@@ -35,8 +36,10 @@ namespace PeerstPlayer
 			threadSelectForm = new ThreadSelectForm((ThreadSelectObserver)this);
 
 			// イベントマネージャ
-			formEventManager = new FormEventManager((Form)this, (EventObserver)this);
-			wmpEventManager = new WmpEventManager(wmp, (EventObserver)this);
+			formEventManager = new FormEventManager(this);
+			formEventManager.AddObserver(this);
+			wmpEventManager = new WmpEventManager(wmp);
+			wmpEventManager.AddObserver(this);
 
 			// タイトルバーを非表示
 			FormUtility.VisibleTitlebar(Handle, false);
@@ -88,7 +91,7 @@ namespace PeerstPlayer
 		public void OpenThreadViewer()
 		{
 			// スレビューワを開く
-			string viewerPath = FormUtility.GetCurrentDirectory() + "\\PeerstViewer.exe";
+			string viewerPath = FormUtility.GetExeFileDirectory() + "\\PeerstViewer.exe";
 			string threadUrl = operationBbs.ThreadUrl;
 			Process.Start(viewerPath, threadUrl + " " + pecaManager.ChannelInfo.Name);
 		}
@@ -165,45 +168,6 @@ namespace PeerstPlayer
 		#region 更新通知の受取り
 
 		/// <summary>
-		/// イベント処理
-		/// </summary>
-		/// <param name="events">イベントの種類</param>
-		/// <param name="param">パラメータ</param>
-		void EventObserver.OnEvent(Events events, object param)
-		{
-			// TODO Chain of Responsibilityパターンを使用する
-
-			// ホイールアップ
-			if (events == Event.Events.WheelUp)
-			{
-				wmp.settings.volume += 5;
-			}
-			// ホイールダウン
-			else if (events == Event.Events.WheelDown)
-			{
-				wmp.settings.volume -= 5;
-			}
-			// 左クリック
-			else if (events == Event.Events.LeftClick)
-			{
-				// ウィンドウドラッグ開始
-				FormUtility.WindowDragStart(Handle);
-				
-				// WMPフルスクリーン解除
-				wmp.fullScreen = false;
-			}
-			// 左ダブルクリック
-			else if (events == Event.Events.DoubleLeftClick)
-			{
-				// ウィンドウ最大化/解除
-				FormUtility.ToggleWindowMaximize(this);
-
-				// WMPフルスクリーン解除
-				wmp.fullScreen = false;
-			}
-		}
-
-		/// <summary>
 		/// スレッドURL更新通知
 		/// </summary>
 		/// <param name="threadUrl"></param>
@@ -218,5 +182,48 @@ namespace PeerstPlayer
 		}
 
 		#endregion
+
+		/// <summary>
+		/// イベント処理
+		/// </summary>
+		/// <param name="param"></param>
+		void Observer.Update(Object param)
+		{
+			FormEventArgs args = param as FormEventArgs;
+			FormEvents events = args.Event;
+
+			// TODO args.ModifyKeysを見るようにする
+			// TODO Chain of Responsibilityパターンを使用する
+
+			// ホイールアップ
+			if (events == Event.FormEvents.WheelUp)
+			{
+				wmp.settings.volume += 5;
+			}
+			// ホイールダウン
+			else if (events == Event.FormEvents.WheelDown)
+			{
+				wmp.settings.volume -= 5;
+			}
+			// 左クリック
+			else if (events == Event.FormEvents.LeftClick)
+			{
+				// ウィンドウドラッグ開始
+				FormUtility.WindowDragStart(Handle);
+
+				// WMPフルスクリーン解除
+				wmp.fullScreen = false;
+			}
+			// 左ダブルクリック
+			else if (events == Event.FormEvents.DoubleLeftClick)
+			{
+				// ウィンドウ最大化/解除
+				FormUtility.ToggleWindowMaximize(this);
+
+				// WMPフルスクリーン解除
+				wmp.fullScreen = false;
+			}
+		
+		}
 	}
 }

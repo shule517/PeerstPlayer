@@ -12,13 +12,13 @@ namespace Shule.Peerst.Observer
 		/// <summary>
 		/// オブザーバリスト
 		/// </summary>
-		List<Observer> observers = new List<Observer>();
+		private List<Observer> observers = new List<Observer>();
 
 		/// <summary>
 		/// オブザーバの追加
 		/// </summary>
 		/// <param name="observer">追加対象のオブザーバ</param>
-		void AddObserver(Observer observer)
+		public void AddObserver(Observer observer)
 		{
 			observers.Add(observer);
 		}
@@ -27,7 +27,7 @@ namespace Shule.Peerst.Observer
 		/// オブザーバの削除
 		/// </summary>
 		/// <param name="observer">削除対象のオブザーバ</param>
-		void DeleteObserver(Observer observer)
+		public void DeleteObserver(Observer observer)
 		{
 			observers.Remove(observer);
 		}
@@ -36,18 +36,18 @@ namespace Shule.Peerst.Observer
 		/// オブザーバへ通知
 		/// </summary>
 		/// <param name="param">渡すデータ</param>
-		void NotifyObservers(Object param)
+		protected void NotifyObservers(Object param)
 		{
 			foreach(Observer observer in observers)
 			{
-				observer.OnUpdate(param);
+				observer.Update(param);
 			}
 		}
 
 		/// <summary>
 		/// オブザーバへ通知
 		/// </summary>
-		void NotifyObservers()
+		protected void NotifyObservers()
 		{
 			NotifyObservers(new Object());
 		}

@@ -127,7 +127,7 @@ namespace PeerstViewer
 
 		private void 折り返し表示ToolStripMenuItem_Click(object sender, EventArgs e)
 		{
-			IniFile iniFile = new IniFile(FormUtility.GetCurrentDirectory() + "\\PeerstPlayer.ini");
+			IniFile iniFile = new IniFile(FormUtility.GetExeFileDirectory() + "\\PeerstPlayer.ini");
 			iniFile.Write("Viewer", "NoBR", (!折り返し表示ToolStripMenuItem.Checked).ToString());
 
 			NoBR = (!折り返し表示ToolStripMenuItem.Checked);
@@ -138,7 +138,7 @@ namespace PeerstViewer
 		/// </summary>
 		private void toolStripDropDownButtonSetting_DropDownOpened(object sender, EventArgs e)
 		{
-			IniFile iniFile = new IniFile(FormUtility.GetCurrentDirectory() + "\\PeerstPlayer.ini");
+			IniFile iniFile = new IniFile(FormUtility.GetExeFileDirectory() + "\\PeerstPlayer.ini");
 			string[] keys = iniFile.GetKeys("Viewer");
 
 			for (int i = 0; i < keys.Length; i++)
@@ -158,7 +158,7 @@ namespace PeerstViewer
 		/// </summary>
 		private void デフォルトToolStripMenuItem_DropDownOpened(object sender, EventArgs e)
 		{
-			IniFile iniFile = new IniFile(FormUtility.GetCurrentDirectory() + "\\PeerstPlayer.ini");
+			IniFile iniFile = new IniFile(FormUtility.GetExeFileDirectory() + "\\PeerstPlayer.ini");
 			string[] keys = iniFile.GetKeys("Viewer");
 
 			for (int i = 0; i < keys.Length; i++)
@@ -187,7 +187,7 @@ namespace PeerstViewer
 		/// </summary>
 		private void 自動更新ToolStripMenuItem_Click(object sender, EventArgs e)
 		{
-			IniFile iniFile = new IniFile(FormUtility.GetCurrentDirectory() + "\\PeerstPlayer.ini");
+			IniFile iniFile = new IniFile(FormUtility.GetExeFileDirectory() + "\\PeerstPlayer.ini");
 			iniFile.Write("Viewer", "AutoReload", (!自動更新ToolStripMenuItem.Checked).ToString());
 		}
 
@@ -196,7 +196,7 @@ namespace PeerstViewer
 		/// </summary>
 		private void 最前列表示ToolStripMenuItem_Click(object sender, EventArgs e)
 		{
-			IniFile iniFile = new IniFile(FormUtility.GetCurrentDirectory() + "\\PeerstPlayer.ini");
+			IniFile iniFile = new IniFile(FormUtility.GetExeFileDirectory() + "\\PeerstPlayer.ini");
 			iniFile.Write("Viewer", "TopMost", (!最前列表示toolStripMenuItem.Checked).ToString());
 		}
 
@@ -205,7 +205,7 @@ namespace PeerstViewer
 		/// </summary>
 		private void 書き込み欄の表示ToolStripMenuItem_Click(object sender, EventArgs e)
 		{
-			IniFile iniFile = new IniFile(FormUtility.GetCurrentDirectory() + "\\PeerstPlayer.ini");
+			IniFile iniFile = new IniFile(FormUtility.GetExeFileDirectory() + "\\PeerstPlayer.ini");
 			iniFile.Write("Viewer", "WriteView", (!書き込み欄の表示toolStripMenuItem.Checked).ToString());
 		}
 
@@ -214,7 +214,7 @@ namespace PeerstViewer
 		/// </summary>
 		private void 最下位へスクロールToolStripMenuItem_Click(object sender, EventArgs e)
 		{
-			IniFile iniFile = new IniFile(FormUtility.GetCurrentDirectory() + "\\PeerstPlayer.ini");
+			IniFile iniFile = new IniFile(FormUtility.GetExeFileDirectory() + "\\PeerstPlayer.ini");
 			iniFile.Write("Viewer", "ScrollBottom", (!最下位へスクロールtoolStripMenuItem.Checked).ToString());
 		}
 
@@ -223,7 +223,7 @@ namespace PeerstViewer
 		/// </summary>
 		private void xToolStripMenuItem_DropDownOpened(object sender, EventArgs e)
 		{
-			IniFile iniFile = new IniFile(FormUtility.GetCurrentDirectory() + "\\PeerstPlayer.ini");
+			IniFile iniFile = new IniFile(FormUtility.GetExeFileDirectory() + "\\PeerstPlayer.ini");
 			string[] keys = iniFile.GetKeys("Viewer");
 
 			for (int i = 0; i < keys.Length; i++)
@@ -243,7 +243,7 @@ namespace PeerstViewer
 		/// </summary>
 		private void yToolStripMenuItem_DropDownOpened(object sender, EventArgs e)
 		{
-			IniFile iniFile = new IniFile(FormUtility.GetCurrentDirectory() + "\\PeerstPlayer.ini");
+			IniFile iniFile = new IniFile(FormUtility.GetExeFileDirectory() + "\\PeerstPlayer.ini");
 			string[] keys = iniFile.GetKeys("Viewer");
 
 			for (int i = 0; i < keys.Length; i++)
@@ -263,7 +263,7 @@ namespace PeerstViewer
 		/// </summary>
 		private void 幅ToolStripMenuItem_DropDownOpened(object sender, EventArgs e)
 		{
-			IniFile iniFile = new IniFile(FormUtility.GetCurrentDirectory() + "\\PeerstPlayer.ini");
+			IniFile iniFile = new IniFile(FormUtility.GetExeFileDirectory() + "\\PeerstPlayer.ini");
 			string[] keys = iniFile.GetKeys("Viewer");
 
 			for (int i = 0; i < keys.Length; i++)
@@ -283,7 +283,7 @@ namespace PeerstViewer
 		/// </summary>
 		private void 高さToolStripMenuItem_DropDownOpened(object sender, EventArgs e)
 		{
-			IniFile iniFile = new IniFile(FormUtility.GetCurrentDirectory() + "\\PeerstPlayer.ini");
+			IniFile iniFile = new IniFile(FormUtility.GetExeFileDirectory() + "\\PeerstPlayer.ini");
 			string[] keys = iniFile.GetKeys("Viewer");
 
 			for (int i = 0; i < keys.Length; i++)
@@ -305,7 +305,7 @@ namespace PeerstViewer
 		{
 			if (e.KeyCode == Keys.Return)
 			{
-				IniFile iniFile = new IniFile(FormUtility.GetCurrentDirectory() + "\\PeerstPlayer.ini");
+				IniFile iniFile = new IniFile(FormUtility.GetExeFileDirectory() + "\\PeerstPlayer.ini");
 				iniFile.Write("Viewer", "X", toolStripTextBoxX.Text);
 			}
 		}
@@ -317,7 +317,7 @@ namespace PeerstViewer
 		{
 			if (e.KeyCode == Keys.Return)
 			{
-				IniFile iniFile = new IniFile(FormUtility.GetCurrentDirectory() + "\\PeerstPlayer.ini");
+				IniFile iniFile = new IniFile(FormUtility.GetExeFileDirectory() + "\\PeerstPlayer.ini");
 				iniFile.Write("Viewer", "Y", toolStripTextBoxY.Text);
 			}
 		}
@@ -331,7 +331,7 @@ namespace PeerstViewer
 		{
 			if (e.KeyCode == Keys.Return)
 			{
-				IniFile iniFile = new IniFile(FormUtility.GetCurrentDirectory() + "\\PeerstPlayer.ini");
+				IniFile iniFile = new IniFile(FormUtility.GetExeFileDirectory() + "\\PeerstPlayer.ini");
 				iniFile.Write("Viewer", "Width", toolStripTextBoxWidth.Text);
 			}
 		}
@@ -343,20 +343,20 @@ namespace PeerstViewer
 		{
 			if (e.KeyCode == Keys.Return)
 			{
-				IniFile iniFile = new IniFile(FormUtility.GetCurrentDirectory() + "\\PeerstPlayer.ini");
+				IniFile iniFile = new IniFile(FormUtility.GetExeFileDirectory() + "\\PeerstPlayer.ini");
 				iniFile.Write("Viewer", "Height", toolStripTextBoxHeight.Text);
 			}
 		}
 		private void 位置を保存するToolStripMenuItem1_Click(object sender, EventArgs e)
 		{
-			IniFile iniFile = new IniFile(FormUtility.GetCurrentDirectory() + "\\PeerstPlayer.ini");
+			IniFile iniFile = new IniFile(FormUtility.GetExeFileDirectory() + "\\PeerstPlayer.ini");
 			iniFile.Write("Viewer", "X", Location.X.ToString());
 			iniFile.Write("Viewer", "Y", Location.Y.ToString());
 		}
 
 		private void サイズを保存するToolStripMenuItem1_Click(object sender, EventArgs e)
 		{
-			IniFile iniFile = new IniFile(FormUtility.GetCurrentDirectory() + "\\PeerstPlayer.ini");
+			IniFile iniFile = new IniFile(FormUtility.GetExeFileDirectory() + "\\PeerstPlayer.ini");
 			iniFile.Write("Viewer", "Width", Size.Width.ToString());
 			iniFile.Write("Viewer", "Height", Size.Height.ToString());
 		}

@@ -13,6 +13,6 @@ namespace Shule.Peerst.Observer
 		/// 監視対象に更新あり
 		/// </summary>
 		/// <param name="param">パラメータ</param>
-		void OnUpdate(Object param);
+		void Update(Object param);
 	}
 }
