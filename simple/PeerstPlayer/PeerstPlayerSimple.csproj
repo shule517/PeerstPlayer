@@ -46,6 +46,7 @@
   <ItemGroup>
     <Compile Include="Event\EventObserver.cs" />
     <Compile Include="Event\FormEventManager.cs" />
+    <Compile Include="PeerstPlayerViewModel.cs" />
     <Compile Include="PlayerForm.cs">
       <SubType>Form</SubType>
     </Compile>

@@ -343,6 +343,5 @@ namespace Shule.Peerst.PeerCast
 			string url = "/admin?cmd=keep&id=" + channelId;
 			WebUtility.SendCommand(host, portNo, url, "Shift_JIS");
 		}
-
 	}
 }

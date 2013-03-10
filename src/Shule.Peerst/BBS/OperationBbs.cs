@@ -99,6 +99,15 @@ namespace Shule.Peerst.BBS
 		/// </summary>
 		public int LastResNo { get; private set; }
 
+		/// <summary>
+		/// 掲示板名の取得
+		/// </summary>
+		/// <returns></returns>
+		public string GetBbsName()
+		{
+			return bbsStrategy.GetBbsName();
+		}
+
 		/*
 		/// <summary>
 		/// スレッド一覧
@@ -214,15 +223,6 @@ namespace Shule.Peerst.BBS
 			// 取得済みレス番号を初期化
 			LastResNo = 0;
 			bbsStrategy.ChangeThread(threadNo);
-		}
-
-		/// <summary>
-		/// 掲示板名の取得
-		/// </summary>
-		/// <returns></returns>
-		public string GetBbsName()
-		{
-			return bbsStrategy.GetBbsName();
 		}
 
 		/// <summary>

@@ -31,7 +31,6 @@
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(PlayerForm));
 			this.statusStrip = new System.Windows.Forms.StatusStrip();
 			this.channelInfoLabel = new System.Windows.Forms.ToolStripStatusLabel();
-			this.backgroundWorker = new System.ComponentModel.BackgroundWorker();
 			this.writeField = new System.Windows.Forms.TextBox();
 			this.threadTitleLabel = new System.Windows.Forms.Label();
 			this.wmp = new AxWMPLib.AxWindowsMediaPlayer();
@@ -58,11 +57,6 @@
 			this.channelInfoLabel.Spring = true;
 			this.channelInfoLabel.Text = "チャンネル情報";
 			this.channelInfoLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-			// 
-			// backgroundWorker
-			// 
-			this.backgroundWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorker_DoWork);
-			this.backgroundWorker.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.backgroundWorker_RunWorkerCompleted);
 			// 
 			// writeField
 			// 
@@ -110,8 +104,7 @@
 			this.Controls.Add(this.statusStrip);
 			this.Controls.Add(this.wmp);
 			this.Name = "PlayerForm";
-			this.Text = "Form1";
-			this.Load += new System.EventHandler(this.PlayerForm_Load);
+			this.Text = "PeerstPlayer";
 			this.statusStrip.ResumeLayout(false);
 			this.statusStrip.PerformLayout();
 			((System.ComponentModel.ISupportInitialize)(this.wmp)).EndInit();
@@ -125,7 +118,6 @@
 		private AxWMPLib.AxWindowsMediaPlayer wmp;
 		private System.Windows.Forms.StatusStrip statusStrip;
 		private System.Windows.Forms.ToolStripStatusLabel channelInfoLabel;
-		private System.ComponentModel.BackgroundWorker backgroundWorker;
 		private System.Windows.Forms.TextBox writeField;
 		private System.Windows.Forms.Label threadTitleLabel;
 	}
