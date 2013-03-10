@@ -67,6 +67,8 @@
     <Compile Include="Form\FormUtility.cs" />
     <Compile Include="Form\MouseGesture.cs" />
     <Compile Include="Form\Win32API.cs" />
+    <Compile Include="Observer\Observable.cs" />
+    <Compile Include="Observer\Observer.cs" />
     <Compile Include="PeerCast\PeerCastManager.cs" />
     <Compile Include="PeerCast\StreamUrlAnalyzer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
