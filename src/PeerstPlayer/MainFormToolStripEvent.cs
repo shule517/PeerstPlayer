@@ -899,7 +899,7 @@ namespace PeerstPlayer
 				operationBbs.ChangeUrl(toolStripTextBoxThreadURL.Text);
 
 				// スレッド情報の更新
-				threadInfo = operationBbs.GetThreadInfo();
+				operationBbs.UpdateThreadInfo();
 				if (labelThreadTitle.InvokeRequired)
 				{
 					Invoke(new UpdateThreadInfoDelegate(UpdateThreadInfo));

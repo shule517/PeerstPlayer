@@ -101,6 +101,7 @@ namespace PeerstPlayer
 
 			// スレッド更新
 			operationBbs.ChangeUrl(pecaManager.ChannelInfo.ContactUrl);
+			operationBbs.UpdateThreadInfo();
 		}
 
 		/// <summary>
@@ -110,6 +111,9 @@ namespace PeerstPlayer
 		/// <param name="e"></param>
 		private void backgroundWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
 		{
+			// スレタイ変更
+			OnThreadTitleChange();
+
 			// チャンネル情報更新
 			OnChannelInfoChange();
 		}
@@ -133,6 +137,10 @@ namespace PeerstPlayer
 		public void ChangeUrl(string threadUrl, string threadNo)
 		{
 			operationBbs.ChangeUrl(threadUrl, threadNo);
+			operationBbs.UpdateThreadInfo();
+
+			// スレタイ変更
+			OnThreadTitleChange();
 		}
 	}
 }

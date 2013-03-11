@@ -95,6 +95,11 @@ namespace Shule.Peerst.BBS
 		}
 
 		/// <summary>
+		/// スレッド情報
+		/// </summary>
+		public ThreadInfo ThreadInfo { get; private set; }
+
+		/// <summary>
 		/// 掲示板名の取得
 		/// </summary>
 		/// <returns></returns>
@@ -114,9 +119,9 @@ namespace Shule.Peerst.BBS
 		/// <summary>
 		/// スレッド情報の取得
 		/// </summary>
-		public ThreadInfo GetThreadInfo()
+		public void UpdateThreadInfo()
 		{
-			return bbsStrategy.GetThreadInfo(bbsStrategy.GetBbsUrl().ThreadNo);
+			ThreadInfo = bbsStrategy.GetThreadInfo(bbsStrategy.GetBbsUrl().ThreadNo);
 		}
 
 		/// <summary>

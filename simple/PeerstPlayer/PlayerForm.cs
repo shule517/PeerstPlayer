@@ -66,7 +66,7 @@ namespace PeerstPlayer
 		/// </summary>
 		void viewModel_OnThreadTitleChange()
 		{
-			threadTitleLabel.Text = viewModel.ThreadTitle;
+			threadTitleLabel.Text = "【" + viewModel.BbsName + "】 " + viewModel.ThreadTitle;
 		}
 
 		/// <summary>

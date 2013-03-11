@@ -1483,7 +1483,7 @@ namespace PeerstPlayer
 
 			// TODO スレッド化
 			// スレッド情報を更新
-			threadInfo = operationBbs.GetThreadInfo();
+			operationBbs.UpdateThreadInfo();
 			if (labelThreadTitle.InvokeRequired)
 			{
 				Invoke(new UpdateThreadInfoDelegate(UpdateThreadInfo));
@@ -1500,7 +1500,7 @@ namespace PeerstPlayer
 		void UpdateThreadInfo()
 		{
 			// スレッドタイトル表示
-			if (threadInfo.Title == "")
+			if (operationBbs.ThreadInfo.Title == "")
 			{
 				// 掲示板[板名] - スレッドを選択してください
 				string bbsName = operationBbs.GetBbsName();
@@ -1516,10 +1516,10 @@ namespace PeerstPlayer
 			else
 			{
 				// スレタイ(レス数)
-				labelThreadTitle.Text = threadInfo.Title + "(" + threadInfo.ResCount + ")";
+				labelThreadTitle.Text = operationBbs.ThreadInfo.Title + "(" + operationBbs.ThreadInfo.ResCount + ")";
 
 				// 文字色の変更
-				if (int.Parse(threadInfo.ResCount) >= 1000)
+				if (int.Parse(operationBbs.ThreadInfo.ResCount) >= 1000)
 				{
 					labelThreadTitle.ForeColor = Color.Red;
 				}
@@ -1544,9 +1544,6 @@ namespace PeerstPlayer
 			// チャンネル情報更新
 			ExeCommand("ChannelInfoUpdate");
 		}
-
-		// TODO 変数名を修正する
-		ThreadInfo threadInfo = new ThreadInfo("", "", "");
 
 		/// <summary>
 		/// チャンネル情報更新スレッド
@@ -1590,7 +1587,7 @@ namespace PeerstPlayer
 			}
 
 			// スレッド情報を更新
-			threadInfo = operationBbs.GetThreadInfo();
+			operationBbs.UpdateThreadInfo();
 			if (labelThreadTitle.InvokeRequired)
 			{
 				Invoke(new UpdateThreadInfoDelegate(UpdateThreadInfo));
