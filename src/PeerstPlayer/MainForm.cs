@@ -1503,10 +1503,10 @@ namespace PeerstPlayer
 			if (operationBbs.ThreadInfo.Title == "")
 			{
 				// 掲示板[板名] - スレッドを選択してください
-				string bbsName = operationBbs.GetBbsName();
+				string bbsName = operationBbs.BbsName;
 				if (bbsName.Length > 0)
 				{
-					labelThreadTitle.Text = "掲示板名[ " + operationBbs.GetBbsName() + " ] - スレッドを選択してください";
+					labelThreadTitle.Text = "掲示板名[ " + operationBbs.BbsName + " ] - スレッドを選択してください";
 				}
 				else
 				{

@@ -18,12 +18,19 @@ namespace Shule.Peerst.BBS
 		}
 
 		/// <summary>
-		/// スレッド一覧の取得
+		/// スレッド一覧
 		/// </summary>
-		public List<ThreadInfo> GetThreadList()
-		{
-			return new List<ThreadInfo>();
-		}
+		public List<ThreadInfo> ThreadList { get { return new List<ThreadInfo>(); } }
+
+		/// <summary>
+		/// 掲示板名
+		/// </summary>
+		public string BbsName { get { return ""; } }
+
+		/// <summary>
+		/// 掲示板情報
+		/// </summary>
+		public BbsInfo BbsInfo { get { return new BbsInfo(BbsServer.UnSupport, "", "", ""); } }
 
 		/// <summary>
 		/// 指定スレッドの情報取得
@@ -42,26 +49,10 @@ namespace Shule.Peerst.BBS
 		}
 
 		/// <summary>
-		/// 掲示板名を取得
-		/// </summary>
-		public string GetBbsName()
-		{
-			return "";
-		}
-
-		/// <summary>
 		/// スレッド変更
 		/// </summary>
 		public void ChangeThread(string threadNo)
 		{
-		}
-
-		/// <summary>
-		/// 掲示板URL取得
-		/// </summary>
-		public BbsInfo GetBbsUrl()
-		{
-			return new BbsInfo(BbsServer.UnSupport, "", "", "");
 		}
 	}
 }

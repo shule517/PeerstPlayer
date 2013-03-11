@@ -24,7 +24,7 @@ namespace Shule.Peerst.BBS
 		/// </summary>
 		protected override string GetRequestURL()
 		{
-			return "http://" + bbsUrl.BoadGenre + "/test/bbs.cgi";
+			return "http://" + BbsInfo.BoadGenre + "/test/bbs.cgi";
 		}
 
 		/// <summary>
@@ -32,7 +32,7 @@ namespace Shule.Peerst.BBS
 		/// </summary>
 		protected override string GetSubjectUrl()
 		{
-			return "http://" + bbsUrl.BoadGenre + "/" + bbsUrl.BoadNo + "/subject.txt";
+			return "http://" + BbsInfo.BoadGenre + "/" + BbsInfo.BoadNo + "/subject.txt";
 		}
 
 		/// <summary>
@@ -56,7 +56,7 @@ namespace Shule.Peerst.BBS
 		/// </summary>
 		protected override string GetBoadUrl()
 		{
-			return "http://" + bbsUrl.BoadGenre + "/" + bbsUrl.BoadNo + "/";
+			return "http://" + BbsInfo.BoadGenre + "/" + BbsInfo.BoadNo + "/";
 		}
 
 		/// <summary>
@@ -71,8 +71,8 @@ namespace Shule.Peerst.BBS
 			Encoding encode = GetEncode();
 			string param = ""; // リクエストデータ
 
-			param += "bbs="		+ HttpUtility.UrlEncode(bbsUrl.BoadNo, encode)		+ "&";	// 板番号
-			param += "key="		+ HttpUtility.UrlEncode(bbsUrl.ThreadNo, encode)	+ "&";	// スレ番号
+			param += "bbs="		+ HttpUtility.UrlEncode(BbsInfo.BoadNo, encode)		+ "&";	// 板番号
+			param += "key="		+ HttpUtility.UrlEncode(BbsInfo.ThreadNo, encode)	+ "&";	// スレ番号
 			param += "FROM="	+ HttpUtility.UrlEncode(name, encode)				+ "&";	// 名前
 			param += "mail="	+ HttpUtility.UrlEncode(mail, encode)				+ "&";	// メール
 			param += "MESSAGE="	+ HttpUtility.UrlEncode(message, encode)			+ "&";	// 本文
@@ -91,7 +91,7 @@ namespace Shule.Peerst.BBS
 
 			// datの取得
 			// http://yy67.60.kg/ff11peca/dat/1263298996.dat
-			string url = "http://" + bbsUrl.BoadGenre + "/" + bbsUrl.BoadNo + "/dat/" + threadNo + ".dat";
+			string url = "http://" + BbsInfo.BoadGenre + "/" + BbsInfo.BoadNo + "/dat/" + threadNo + ".dat";
 			string html = WebUtility.GetHtml(url, GetEncode());
 
 			// 指定レス(ResNum)まで飛ばす

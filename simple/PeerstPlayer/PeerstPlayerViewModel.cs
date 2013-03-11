@@ -39,7 +39,7 @@ namespace PeerstPlayer
 		public string ResNo { get; private set; }
 		public string Url { get; private set; }
 		public string ThreadUrl { get { return operationBbs.ThreadUrl; } }
-		public string BbsName { get { return operationBbs.GetBbsName(); } }
+		public string BbsName { get { return operationBbs.BbsName; } }
 
 		/// <summary>
 		/// コンストラクタ
@@ -72,9 +72,15 @@ namespace PeerstPlayer
 		/// </summary>
 		public void OpenThreadViewer()
 		{
-			// スレビューワを開く
-			string viewerPath = FormUtility.GetExeFileDirectory() + "\\PeerstViewer.exe";
-			Process.Start(viewerPath, ThreadUrl + " " + ChannelInfo.Name);
+			try
+			{
+				// スレビューワを開く
+				string viewerPath = FormUtility.GetExeFileDirectory() + "\\PeerstViewer.exe";
+				Process.Start(viewerPath, ThreadUrl + " " + ChannelInfo.Name);
+			}
+			catch
+			{
+			}
 		}
 
 		/// <summary>

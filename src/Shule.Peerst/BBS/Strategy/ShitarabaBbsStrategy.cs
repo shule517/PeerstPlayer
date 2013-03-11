@@ -13,9 +13,9 @@ namespace Shule.Peerst.BBS
 		/// <summary>
 		/// コンストラクタ
 		/// </summary>
-		/// <param name="bbsUrl">掲示板アドレス情報</param>
-		public ShitarabaBbsStrategy(BbsInfo bbsUrl)
-		: base(bbsUrl)
+		/// <param name="bbsInfo">掲示板アドレス情報</param>
+		public ShitarabaBbsStrategy(BbsInfo bbsInfo)
+			: base(bbsInfo)
 		{
 		}
 
@@ -32,7 +32,7 @@ namespace Shule.Peerst.BBS
 		/// </summary>
 		protected override string GetBoadUrl()
 		{
-			return "http://jbbs.livedoor.jp/" + bbsUrl.BoadGenre + "/" + bbsUrl.BoadNo + "/";
+			return "http://jbbs.livedoor.jp/" + BbsInfo.BoadGenre + "/" + BbsInfo.BoadNo + "/";
 		}
 
 		/// <summary>
@@ -48,7 +48,7 @@ namespace Shule.Peerst.BBS
 		/// </summary>
 		protected override string GetSubjectUrl()
 		{
-			return "http://jbbs.livedoor.jp/" + bbsUrl.BoadGenre + "/" + bbsUrl.BoadNo + "/subject.txt";
+			return "http://jbbs.livedoor.jp/" + BbsInfo.BoadGenre + "/" + BbsInfo.BoadNo + "/subject.txt";
 		}
 
 		/// <summary>
@@ -71,9 +71,9 @@ namespace Shule.Peerst.BBS
 			Encoding encode = GetEncode(); // エンコード
 			string param = ""; // データ配列
 
-			param += "DIR="		+ HttpUtility.UrlEncode(bbsUrl.BoadGenre, encode)	+ "&"; // 板ジャンル
-			param += "BBS="		+ HttpUtility.UrlEncode(bbsUrl.BoadNo, encode)		+ "&"; // 板番号
-			param += "KEY="		+ HttpUtility.UrlEncode(bbsUrl.ThreadNo, encode)	+ "&"; // スレ番号
+			param += "DIR="		+ HttpUtility.UrlEncode(BbsInfo.BoadGenre, encode)	+ "&"; // 板ジャンル
+			param += "BBS="		+ HttpUtility.UrlEncode(BbsInfo.BoadNo, encode)		+ "&"; // 板番号
+			param += "KEY="		+ HttpUtility.UrlEncode(BbsInfo.ThreadNo, encode)	+ "&"; // スレ番号
 			param += "NAME="	+ HttpUtility.UrlEncode(name, encode)				+ "&"; // 名前
 			param += "MAIL="	+ HttpUtility.UrlEncode(mail, encode)				+ "&"; // メール
 			param += "MESSAGE="	+ HttpUtility.UrlEncode(message, encode)			+ "&"; // 本文
@@ -94,7 +94,7 @@ namespace Shule.Peerst.BBS
 			// http://jbbs.livedoor.jp/bbs/rawmode.cgi/game/41324/1260939060/930-
 	
 			// TODO 取得方法を検討する必要あり
-			string url = "http://jbbs.livedoor.jp/bbs/rawmode.cgi/" + bbsUrl.BoadGenre + "/" + bbsUrl.BoadNo + "/" + threadNo + "/" + resNo.ToString() + "-";
+			string url = "http://jbbs.livedoor.jp/bbs/rawmode.cgi/" + BbsInfo.BoadGenre + "/" + BbsInfo.BoadNo + "/" + threadNo + "/" + resNo.ToString() + "-";
 			string html = WebUtility.GetHtml(url, GetEncode());
 
 			// 本文の修正

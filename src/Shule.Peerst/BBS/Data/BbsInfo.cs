@@ -5,10 +5,25 @@
 	/// </summary>
 	public class BbsInfo
 	{
-		public BbsServer BBSServer { get; private set; }	// 掲示板サーバ
-		public string BoadGenre { get; private set; }		// 板ジャンル
-		public string BoadNo { get; private set; }			// 板番号
-		public string ThreadNo { get; set; }				// スレッド番号
+		/// <summary>
+		/// 掲示板サーバ
+		/// </summary>
+		public BbsServer BBSServer { get; private set; }
+
+		/// <summary>
+		/// 板ジャンル
+		/// </summary>
+		public string BoadGenre { get; private set; }
+
+		/// <summary>
+		/// 板番号
+		/// </summary>
+		public string BoadNo { get; private set; }
+
+		/// <summary>
+		/// スレッド番号
+		/// </summary>
+		public string ThreadNo { get; set; }
 
 		/// <summary>
 		/// コンストラクタ

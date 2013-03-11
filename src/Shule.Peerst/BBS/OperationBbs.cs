@@ -29,70 +29,34 @@ namespace Shule.Peerst.BBS
 		}
 
 		/// <summary>
-		/// 掲示板URL
+		/// 掲示板情報
 		/// </summary>
-		public BbsInfo BbsUrl
-		{
-			get
-			{
-				return bbsStrategy.GetBbsUrl();
-			}
-		}
+		public BbsInfo BbsInfo { get { return bbsStrategy.BbsInfo; } }
 
 		/// <summary>
 		/// スレッドURL
 		/// </summary>
-		public string ThreadUrl
-		{
-			get
-			{
-				return bbsStrategy.GetBbsUrl().ToString();
-			}
-		}
+		public string ThreadUrl { get { return bbsStrategy.BbsInfo.ToString(); } }
 
 		/// <summary>
 		/// 掲示板サーバ
 		/// </summary>
-		public BbsServer BBSServer
-		{
-			get
-			{
-				return BbsUrl.BBSServer;
-			}
-		}
+		public BbsServer BBSServer { get { return BbsInfo.BBSServer; } }
 
 		/// <summary>
 		/// 板ジャンル
 		/// </summary>
-		public string BoadGenre
-		{
-			get
-			{
-				return BbsUrl.BoadGenre;
-			}
-		}
+		public string BoadGenre { get { return BbsInfo.BoadGenre; } }
 
 		/// <summary>
 		/// 板番号
 		/// </summary>
-		public string BoadNo
-			{
-			get
-			{
-				return BbsUrl.BoadNo;
-			}
-		}
+		public string BoadNo { get { return BbsInfo.BoadNo; } }
 
 		/// <summary>
 		/// スレッド番号
 		/// </summary>
-		public string ThreadNo
-		{
-			get
-			{
-				return BbsUrl.ThreadNo;
-			}
-		}
+		public string ThreadNo { get { return BbsInfo.ThreadNo; } }
 
 		/// <summary>
 		/// スレッド情報
@@ -103,17 +67,14 @@ namespace Shule.Peerst.BBS
 		/// 掲示板名の取得
 		/// </summary>
 		/// <returns></returns>
-		public string GetBbsName()
-		{
-			return bbsStrategy.GetBbsName();
-		}
+		public string BbsName { get { return bbsStrategy.BbsName; } }
 
 		/// <summary>
 		/// スレッド一覧の取得
 		/// </summary>
 		public List<ThreadInfo> GetThreadList()
 		{
-			return bbsStrategy.GetThreadList();
+			return bbsStrategy.ThreadList;
 		}
 
 		/// <summary>
@@ -121,42 +82,13 @@ namespace Shule.Peerst.BBS
 		/// </summary>
 		public void UpdateThreadInfo()
 		{
-			ThreadInfo = bbsStrategy.GetThreadInfo(bbsStrategy.GetBbsUrl().ThreadNo);
+			ThreadInfo = bbsStrategy.GetThreadInfo(bbsStrategy.BbsInfo.ThreadNo);
 		}
 
 		/// <summary>
 		/// 取得済みレス番号
 		/// </summary>
 		public int LastResNo { get; private set; }
-
-		/*
-		/// <summary>
-		/// スレッド一覧
-		/// </summary>
-		public List<ThreadInfo> ThreadList
-		{
-			get;
-			private set;
-		}
-
-		/// <summary>
-		/// スレッド情報
-		/// </summary>
-		public ThreadInfo ThreadInfo
-		{
-			get;
-			private set;
-		}
-
-		/// <summary>
-		/// レス一覧
-		/// </summary>
-		public List<ResInfo> ResList
-		{
-			get;
-			private set;
-		}
-		 */
 
 		/// <summary>
 		/// 掲示板書き込み

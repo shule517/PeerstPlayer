@@ -6,6 +6,12 @@ namespace Shule.Peerst.BBS
 	/// </summary>
 	public class ThreadInfo
 	{
+		/// <summary>
+		/// コンストラクタ
+		/// </summary>
+		/// <param name="title">スレッドタイトル</param>
+		/// <param name="threadNo">スレッド番号</param>
+		/// <param name="resCount">レス数</param>
 		public ThreadInfo(string title, string threadNo, string resCount)
 		{
 			Title = title;
@@ -13,9 +19,20 @@ namespace Shule.Peerst.BBS
 			ResCount = resCount;
 		}
 
-		public string Title { get; set; }		// スレタイ
-		public string ThreadNo { get; set; }	// スレッド番号
-		public string ResCount { get; set; }	// レス数
+		/// <summary>
+		/// スレッドタイトル
+		/// </summary>
+		public string Title { get; set; }
+
+		/// <summary>
+		/// スレッド番号
+		/// </summary>
+		public string ThreadNo { get; set; }
+
+		/// <summary>
+		/// レス数
+		/// </summary>
+		public string ResCount { get; set; }
 
 		/// <summary>
 		/// スレッド作成日時

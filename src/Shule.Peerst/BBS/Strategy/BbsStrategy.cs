@@ -12,7 +12,20 @@ namespace Shule.Peerst.BBS
 	/// </summary>
 	abstract class BbsStrategy : IBbsStrategy
 	{
-		protected BbsInfo bbsUrl;	// 掲示板アドレス情報
+		/// <summary>
+		/// スレッド一覧
+		/// </summary>
+		public List<ThreadInfo> ThreadList { get; private set; }
+
+		/// <summary>
+		/// 掲示板名
+		/// </summary>
+		public string BbsName { get; private set; }
+
+		/// <summary>
+		/// 掲示板情報
+		/// </summary>
+		public BbsInfo BbsInfo { get; private set; }
 
 		/// <summary>
 		/// 掲示板書き込みリクエスト用データ作成
@@ -52,9 +65,9 @@ namespace Shule.Peerst.BBS
 		/// <summary>
 		/// コンストラクタ
 		/// </summary>
-		public BbsStrategy(BbsInfo bbsUrl)
+		public BbsStrategy(BbsInfo bbsInfo)
 		{
-			this.bbsUrl = bbsUrl;
+			this.BbsInfo = bbsInfo;
 		}
 
 		/// <summary>
@@ -62,7 +75,7 @@ namespace Shule.Peerst.BBS
 		/// </summary>
 		public void ChangeThread(string threadNo)
 		{
-			bbsUrl.ThreadNo = threadNo;
+			BbsInfo.ThreadNo = threadNo;
 		}
 
 		/// <summary>
@@ -70,7 +83,7 @@ namespace Shule.Peerst.BBS
 		/// </summary>
 		public BbsInfo GetBbsUrl()
 		{
-			return bbsUrl;
+			return BbsInfo;
 		}
 
 		/// <summary>
@@ -287,7 +300,7 @@ namespace Shule.Peerst.BBS
 
 			// したらばの場合は、最下位のデータは削除する
 			// 最上位のデータと同じため
-			if (bbsUrl.BBSServer == BbsServer.Shitaraba)
+			if (BbsInfo.BBSServer == BbsServer.Shitaraba)
 			{
 				Array.Resize(ref subjectArray, subjectArray.Length - 3);
 			}

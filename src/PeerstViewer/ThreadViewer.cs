@@ -347,7 +347,7 @@ text-decoration:underline;
 		/// </summary>
 		void ThreadListUpdate()
 		{
-			BbsInfo bbsUrl = operationBbs.BbsUrl;
+			BbsInfo bbsUrl = operationBbs.BbsInfo;
 
 			try
 			{
@@ -369,7 +369,7 @@ text-decoration:underline;
 				else
 				{
 					// タイトルバーに板名表示
-					Text = operationBbs.GetBbsName();
+					Text = operationBbs.BbsName;
 
 					// スレッド一覧更新
 					if ((bbsUrl.BBSServer != BbsServer.UnSupport) && (bbsUrl.BoadGenre != "") && (bbsUrl.BoadNo != ""))
