@@ -13,6 +13,11 @@ namespace Shule.Peerst.BBS
 	abstract class BbsStrategy : IBbsStrategy
 	{
 		/// <summary>
+		/// 掲示板情報
+		/// </summary>
+		public BbsInfo BbsInfo { get; private set; }
+
+		/// <summary>
 		/// スレッド一覧
 		/// </summary>
 		public List<ThreadInfo> ThreadList { get; private set; }
@@ -20,12 +25,7 @@ namespace Shule.Peerst.BBS
 		/// <summary>
 		/// 掲示板名
 		/// </summary>
-		public string BbsName { get; private set; }
-
-		/// <summary>
-		/// 掲示板情報
-		/// </summary>
-		public BbsInfo BbsInfo { get; private set; }
+		public string BbsName { get; protected set; }
 
 		/// <summary>
 		/// 掲示板書き込みリクエスト用データ作成
@@ -68,6 +68,7 @@ namespace Shule.Peerst.BBS
 		public BbsStrategy(BbsInfo bbsInfo)
 		{
 			this.BbsInfo = bbsInfo;
+			ThreadList = new List<ThreadInfo>();
 		}
 
 		/// <summary>
@@ -79,67 +80,29 @@ namespace Shule.Peerst.BBS
 		}
 
 		/// <summary>
-		/// 掲示板URL取得
-		/// </summary>
-		public BbsInfo GetBbsUrl()
-		{
-			return BbsInfo;
-		}
-
-		/// <summary>
 		/// スレッド一覧の取得
 		/// </summary>
-		public List<ThreadInfo> GetThreadList()
+		public ThreadInfo ThreadInfo
 		{
-			List<ThreadInfo> threadList = new List<ThreadInfo>();
-
-			// Subject.txtの取得
-			string[] subjects = GetSubject();
-
-			// スレッドデータ作成
-			for (int i = 0; i < subjects.Length - 1; i += 2)
+			get
 			{
-				string[] text = new string[3];
-				int index = subjects[i + 1].LastIndexOf('(');
-				string threadTitle = subjects[i + 1].Substring(0, index);
-				string resNum = subjects[i + 1].Substring(index + 1, subjects[i + 1].Length - index - 2);
-				string threadNo = subjects[i];
-				ThreadInfo thread = new ThreadInfo(threadTitle, threadNo, resNum);
-
-				// 追加
-				threadList.Add(thread);
-			}
-
-			return threadList;
-		}
-
-		/// <summary>
-		/// スレッド一覧の取得
-		/// </summary>
-		public ThreadInfo GetThreadInfo(string threadNo)
-		{
-			string[] list = GetSubject();
-
-			for (int i = 0; i < list.Length - 1; i += 2)
-			{
-				// スレッドデータ作成
-				string thread = list[i];
-				if (threadNo == thread)
+				// 選択中のスレッド情報を返す
+				foreach (ThreadInfo thread in ThreadList)
 				{
-					int index = list[i + 1].LastIndexOf('(');
-					string threadTitle = list[i + 1].Substring(0, index);
-					string resNum = list[i + 1].Substring(index + 1, list[i + 1].Length - index - 2);
-					return new ThreadInfo(threadTitle, thread, resNum);
+					if (thread.ThreadNo == BbsInfo.ThreadNo)
+					{
+						return thread;
+					}
 				}
-			}
 
-			return new ThreadInfo("", threadNo, "");
+				return new ThreadInfo("", "", "");
+			}
 		}
 
 		/// <summary>
 		/// 掲示板名を取得
 		/// </summary>
-		public string GetBbsName()
+		public void UpdateBbsName()
 		{
 			// 板名を取得：<title>板名</title>
 			string html = WebUtility.GetHtml(GetBoadUrl(), GetEncode());
@@ -148,11 +111,12 @@ namespace Shule.Peerst.BBS
 			int endPos = html.IndexOf("</title>");
 
 			if ((startPos == -1) || (endPos == -1))
-				return "";
+			{
+				this.BbsName = "";
+			}
 
 			int tagSize = "<title>".Length;
-
-			return html.Substring(startPos + tagSize, (endPos - startPos) - tagSize);
+			this.BbsName = html.Substring(startPos + tagSize, (endPos - startPos) - tagSize);
 		}
 
 		/// <summary>
@@ -306,6 +270,34 @@ namespace Shule.Peerst.BBS
 			}
 
 			return subjectArray;
+		}
+
+		/// <summary>
+		/// スレッド情報更新
+		/// ThreadList / ThreadInfoの更新
+		/// </summary>
+		void IBbsStrategy.UpdateThreadInfo()
+		{
+			List<ThreadInfo> threadList = new List<ThreadInfo>();
+
+			// Subject.txtの取得
+			string[] subjects = GetSubject();
+
+			// スレッドデータ作成
+			for (int i = 0; i < subjects.Length - 1; i += 2)
+			{
+				string[] text = new string[3];
+				int index = subjects[i + 1].LastIndexOf('(');
+				string threadTitle = subjects[i + 1].Substring(0, index);
+				string resNum = subjects[i + 1].Substring(index + 1, subjects[i + 1].Length - index - 2);
+				string threadNo = subjects[i];
+				ThreadInfo thread = new ThreadInfo(threadTitle, threadNo, resNum);
+
+				// 追加
+				threadList.Add(thread);
+			}
+
+			ThreadList = threadList;
 		}
 	}
 }

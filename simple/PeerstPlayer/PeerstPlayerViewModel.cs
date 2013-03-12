@@ -34,11 +34,24 @@ namespace PeerstPlayer
 		// スレッド
 		BackgroundWorker backgroundWorker = new BackgroundWorker();
 
+		/// <summary>
+		/// チャンネル情報
+		/// </summary>
 		public ChannelInfo ChannelInfo { get { return pecaManager.ChannelInfo; } }
-		public string ThreadTitle { get; private set; }
-		public string ResNo { get; private set; }
-		public string Url { get; private set; }
+
+		/// <summary>
+		/// スレッド情報
+		/// </summary>
+		public ThreadInfo ThreadInfo { get { return operationBbs.ThreadInfo; } }
+
+		/// <summary>
+		/// スレッドURL
+		/// </summary>
 		public string ThreadUrl { get { return operationBbs.ThreadUrl; } }
+
+		/// <summary>
+		/// 掲示板名
+		/// </summary>
 		public string BbsName { get { return operationBbs.BbsName; } }
 
 		/// <summary>
@@ -107,7 +120,6 @@ namespace PeerstPlayer
 
 			// スレッド更新
 			operationBbs.ChangeUrl(pecaManager.ChannelInfo.ContactUrl);
-			operationBbs.UpdateThreadInfo();
 		}
 
 		/// <summary>
@@ -143,7 +155,6 @@ namespace PeerstPlayer
 		public void ChangeUrl(string threadUrl, string threadNo)
 		{
 			operationBbs.ChangeUrl(threadUrl, threadNo);
-			operationBbs.UpdateThreadInfo();
 
 			// スレタイ変更
 			OnThreadTitleChange();

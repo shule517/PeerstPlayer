@@ -356,11 +356,11 @@ namespace PeerstViewer
 		/// </summary>
 		private void comboBox_SelectedIndexChanged(object sender, EventArgs e)
 		{
-			if ((comboBox.SelectedIndex != -1) && (threadList.Count > comboBox.SelectedIndex))
+			if ((comboBox.SelectedIndex != -1) && (operationBbs.ThreadList.Count > comboBox.SelectedIndex))
 			{
 				// スレッドを変更
 				InitDocumentText();
-				string threadNo = threadList[comboBox.SelectedIndex].ThreadNo;
+				string threadNo = operationBbs.ThreadList[comboBox.SelectedIndex].ThreadNo;
 				operationBbs.ChangeThread(threadNo);
 
 				// スレッドを開く

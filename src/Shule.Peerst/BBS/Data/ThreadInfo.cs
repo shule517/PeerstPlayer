@@ -9,12 +9,12 @@ namespace Shule.Peerst.BBS
 		/// <summary>
 		/// コンストラクタ
 		/// </summary>
-		/// <param name="title">スレッドタイトル</param>
+		/// <param name="threadTitle">スレッドタイトル</param>
 		/// <param name="threadNo">スレッド番号</param>
 		/// <param name="resCount">レス数</param>
-		public ThreadInfo(string title, string threadNo, string resCount)
+		public ThreadInfo(string threadTitle, string threadNo, string resCount)
 		{
-			Title = title;
+			ThreadTitle = threadTitle;
 			ThreadNo = threadNo;
 			ResCount = resCount;
 		}
@@ -22,17 +22,17 @@ namespace Shule.Peerst.BBS
 		/// <summary>
 		/// スレッドタイトル
 		/// </summary>
-		public string Title { get; set; }
+		public string ThreadTitle { get; private set; }
 
 		/// <summary>
 		/// スレッド番号
 		/// </summary>
-		public string ThreadNo { get; set; }
+		public string ThreadNo { get; private set; }
 
 		/// <summary>
 		/// レス数
 		/// </summary>
-		public string ResCount { get; set; }
+		public string ResCount { get; private set; }
 
 		/// <summary>
 		/// スレッド作成日時

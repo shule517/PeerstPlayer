@@ -7,8 +7,15 @@ namespace Shule.Peerst.BBS
 	/// </summary>
 	public class OperationBbs
 	{
-		readonly BbsFactory bbsFactory = new BbsFactory();	// 掲示板ストラテジを生成
-		IBbsStrategy bbsStrategy;							// 掲示板URLに対応したストラテジを保持
+		/// <summary>
+		/// 掲示板ストラテジファクトリ
+		/// </summary>
+		readonly BbsFactory bbsFactory = new BbsFactory();
+
+		/// <summary>
+		/// 掲示板ストラテジを保持
+		/// </summary>
+		IBbsStrategy bbsStrategy = new NullBbsStrategy();
 
 		/// <summary>
 		/// コンストラクタ
@@ -25,7 +32,7 @@ namespace Shule.Peerst.BBS
 		/// <param name="url">掲示板URL</param>
 		public OperationBbs()
 		{
-			bbsStrategy = new NullBbsStrategy();
+			ChangeUrl("");
 		}
 
 		/// <summary>
@@ -39,29 +46,14 @@ namespace Shule.Peerst.BBS
 		public string ThreadUrl { get { return bbsStrategy.BbsInfo.ToString(); } }
 
 		/// <summary>
-		/// 掲示板サーバ
+		/// スレッド一覧
 		/// </summary>
-		public BbsServer BBSServer { get { return BbsInfo.BBSServer; } }
-
-		/// <summary>
-		/// 板ジャンル
-		/// </summary>
-		public string BoadGenre { get { return BbsInfo.BoadGenre; } }
-
-		/// <summary>
-		/// 板番号
-		/// </summary>
-		public string BoadNo { get { return BbsInfo.BoadNo; } }
-
-		/// <summary>
-		/// スレッド番号
-		/// </summary>
-		public string ThreadNo { get { return BbsInfo.ThreadNo; } }
+		public List<ThreadInfo> ThreadList { get { return bbsStrategy.ThreadList; } }
 
 		/// <summary>
 		/// スレッド情報
 		/// </summary>
-		public ThreadInfo ThreadInfo { get; private set; }
+		public ThreadInfo ThreadInfo { get { return bbsStrategy.ThreadInfo; } }
 
 		/// <summary>
 		/// 掲示板名の取得
@@ -70,19 +62,12 @@ namespace Shule.Peerst.BBS
 		public string BbsName { get { return bbsStrategy.BbsName; } }
 
 		/// <summary>
-		/// スレッド一覧の取得
-		/// </summary>
-		public List<ThreadInfo> GetThreadList()
-		{
-			return bbsStrategy.ThreadList;
-		}
-
-		/// <summary>
-		/// スレッド情報の取得
+		/// スレッド情報の更新
+		/// ThreadList / ThreadInfoの内容を更新する
 		/// </summary>
 		public void UpdateThreadInfo()
 		{
-			ThreadInfo = bbsStrategy.GetThreadInfo(bbsStrategy.BbsInfo.ThreadNo);
+			bbsStrategy.UpdateThreadInfo();
 		}
 
 		/// <summary>
@@ -108,9 +93,23 @@ namespace Shule.Peerst.BBS
 		/// <param name="threadUrl">スレッドURL</param>
 		public void ChangeUrl(string threadUrl)
 		{
+			if (threadUrl == "")
+			{
+				bbsStrategy = new NullBbsStrategy();
+			}
+			else
+			{
+				ChangeUrl(threadUrl, "");
+			}
+
 			// 取得済みレス番号を初期化
 			LastResNo = 0;
-			ChangeUrl(threadUrl, "");
+
+			// スレッド情報更新
+			bbsStrategy.UpdateThreadInfo();
+
+			// 掲示板名の更新
+			bbsStrategy.UpdateBbsName();
 		}
 
 		/// <summary>
@@ -118,7 +117,7 @@ namespace Shule.Peerst.BBS
 		/// </summary>
 		/// <param name="bbsUrl"></param>
 		/// <param name="threadNo"></param>
-		public void ChangeUrl(string bbsUrl, string threadNo)
+		public void ChangeUrl(string threadUrl, string threadNo)
 		{
 			// 取得済みレス番号を初期化
 			LastResNo = 0;
@@ -128,9 +127,6 @@ namespace Shule.Peerst.BBS
 				bbsStrategy = bbsFactory.Create(threadNo);
 				return;
 			}
-
-			// スレッドURLの作成
-			string threadUrl = bbsUrl + threadNo;
 
 			Regex regex = new Regex(@"(h?ttps?://[-_.!~*'()a-zA-Z0-9;/?:@&=+$,%#]+)");
 			Match match = regex.Match(threadUrl);
@@ -150,6 +146,20 @@ namespace Shule.Peerst.BBS
 
 			// 生成
 			bbsStrategy = bbsFactory.Create(threadUrl);
+
+			// TODO 板移動時に、ChangeThreadを実行しなくて良いようにする
+
+			// スレッド変更
+			if (threadNo != "")
+			{
+				bbsStrategy.ChangeThread(threadNo);
+			}
+
+			// スレッド情報更新
+			bbsStrategy.UpdateThreadInfo();
+
+			// 掲示板名の更新
+			bbsStrategy.UpdateBbsName();
 		}
 
 		/// <summary>
@@ -160,6 +170,12 @@ namespace Shule.Peerst.BBS
 			// 取得済みレス番号を初期化
 			LastResNo = 0;
 			bbsStrategy.ChangeThread(threadNo);
+
+			// スレッド情報更新
+			bbsStrategy.UpdateThreadInfo();
+
+			// 掲示板名の更新
+			bbsStrategy.UpdateBbsName();
 		}
 
 		/// <summary>

@@ -84,11 +84,6 @@ namespace PeerstViewer
 		List<string> ResList = new List<string>();
 
 		/// <summary>
-		/// スレッドの一覧
-		/// </summary>
-		List<ThreadInfo> threadList = new List<ThreadInfo>();
-
-		/// <summary>
 		/// Panel2の高さ：書き込み欄表示時のスクロール用
 		/// </summary>
 		int Panel2Height = 0;
@@ -375,14 +370,14 @@ text-decoration:underline;
 					if ((bbsUrl.BBSServer != BbsServer.UnSupport) && (bbsUrl.BoadGenre != "") && (bbsUrl.BoadNo != ""))
 					{
 						// スレッド一覧を取得
-						threadList = operationBbs.GetThreadList();
+						operationBbs.UpdateThreadInfo();
 
 						// コンボボックスにセット
 						comboBox.Items.Clear();
-						for (int i = 0; i < threadList.Count; i++)
+						for (int i = 0; i < operationBbs.ThreadList.Count; i++)
 						{
 							// スレタイ(レス数)
-							comboBox.Items.Add(threadList[i].Title + " (" + threadList[i].ResCount + ")");
+							comboBox.Items.Add(operationBbs.ThreadList[i].ThreadTitle + " (" + operationBbs.ThreadList[i].ResCount + ")");
 						}
 					}
 
@@ -393,9 +388,9 @@ text-decoration:underline;
 						int index = 0;
 
 						// 指定スレッドのindexを取得
-						for (int i = 0; i < threadList.Count; i++)
+						for (int i = 0; i < operationBbs.ThreadList.Count; i++)
 						{
-							if (bbsUrl.ThreadNo == threadList[i].ThreadNo)
+							if (bbsUrl.ThreadNo == operationBbs.ThreadList[i].ThreadNo)
 							{
 								index = i;
 								break;

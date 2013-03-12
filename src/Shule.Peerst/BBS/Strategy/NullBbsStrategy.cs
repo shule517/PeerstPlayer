@@ -23,6 +23,11 @@ namespace Shule.Peerst.BBS
 		public List<ThreadInfo> ThreadList { get { return new List<ThreadInfo>(); } }
 
 		/// <summary>
+		/// スレッド情報
+		/// </summary>
+		public ThreadInfo ThreadInfo { get { return new ThreadInfo("", "", ""); } }
+
+		/// <summary>
 		/// 掲示板名
 		/// </summary>
 		public string BbsName { get { return ""; } }
@@ -33,9 +38,16 @@ namespace Shule.Peerst.BBS
 		public BbsInfo BbsInfo { get { return new BbsInfo(BbsServer.UnSupport, "", "", ""); } }
 
 		/// <summary>
+		/// 掲示板名の更新
+		/// </summary>
+		public void UpdateBbsName()
+		{
+		}
+
+		/// <summary>
 		/// 指定スレッドの情報取得
 		/// </summary>
-		public ThreadInfo GetThreadInfo(string threadNo)
+		public ThreadInfo UpdateThreadInfo(string threadNo)
 		{
 			return new ThreadInfo("", threadNo, "");
 		}
@@ -52,6 +64,14 @@ namespace Shule.Peerst.BBS
 		/// スレッド変更
 		/// </summary>
 		public void ChangeThread(string threadNo)
+		{
+		}
+
+		/// <summary>
+		/// スレッド更新
+		/// </summary>
+		/// <returns></returns>
+		void IBbsStrategy.UpdateThreadInfo()
 		{
 		}
 	}

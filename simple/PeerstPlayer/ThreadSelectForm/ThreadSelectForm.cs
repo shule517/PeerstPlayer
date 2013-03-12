@@ -57,19 +57,19 @@ namespace PeerstPlayer
 		private void UpdateThreadList(string threadUrl)
 		{
 			operationBbs.ChangeUrl(threadUrl);
-			List<ThreadInfo> threadList = operationBbs.GetThreadList();
+			operationBbs.UpdateThreadInfo();
 
 			listViewThread.Items.Clear();
 			int no = 1;
-			foreach (ThreadInfo info in threadList)
+			foreach (ThreadInfo info in operationBbs.ThreadList)
 			{
-				string[] items = { no.ToString(), info.Title, info.ResCount, ((int)info.ThreadSpeed).ToString() };
+				string[] items = { no.ToString(), info.ThreadTitle, info.ResCount, ((int)info.ThreadSpeed).ToString() };
 				ListViewItem item = new ListViewItem(items);
 				item.Tag = info.ThreadNo;
 				listViewThread.Items.Add(item);
 
 				// 指定スレッドを選択
-				if (info.ThreadNo == operationBbs.ThreadNo)
+				if (info.ThreadNo == operationBbs.BbsInfo.ThreadNo)
 				{
 					listViewThread.Items[listViewThread.Items.Count - 1].BackColor = Color.Orange;
 					listViewThread.Select();

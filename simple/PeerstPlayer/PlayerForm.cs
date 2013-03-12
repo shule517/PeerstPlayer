@@ -66,7 +66,14 @@ namespace PeerstPlayer
 		/// </summary>
 		void viewModel_OnThreadTitleChange()
 		{
-			threadTitleLabel.Text = "【" + viewModel.BbsName + "】 " + viewModel.ThreadTitle;
+			if (viewModel.ThreadInfo.ThreadTitle == "")
+			{
+				threadTitleLabel.Text = "掲示板[ " + viewModel.BbsName + " ] スレッドを選択してください。";
+			}
+			else
+			{
+				threadTitleLabel.Text = viewModel.ThreadInfo.ThreadTitle + " (" + viewModel.ThreadInfo.ResCount + ")";
+			}
 		}
 
 		/// <summary>
@@ -86,9 +93,6 @@ namespace PeerstPlayer
 		{
 			// スレッド更新
 			viewModel.ChangeUrl(threadUrl, threadNo);
-
-			// スレッドタイトルの更新
-			threadTitleLabel.Text = viewModel.BbsName;
 		}
 
 		#endregion

@@ -1500,7 +1500,7 @@ namespace PeerstPlayer
 		void UpdateThreadInfo()
 		{
 			// スレッドタイトル表示
-			if (operationBbs.ThreadInfo.Title == "")
+			if (operationBbs.ThreadInfo.ThreadTitle == "")
 			{
 				// 掲示板[板名] - スレッドを選択してください
 				string bbsName = operationBbs.BbsName;
@@ -1516,7 +1516,7 @@ namespace PeerstPlayer
 			else
 			{
 				// スレタイ(レス数)
-				labelThreadTitle.Text = operationBbs.ThreadInfo.Title + "(" + operationBbs.ThreadInfo.ResCount + ")";
+				labelThreadTitle.Text = operationBbs.ThreadInfo.ThreadTitle + "(" + operationBbs.ThreadInfo.ResCount + ")";
 
 				// 文字色の変更
 				if (int.Parse(operationBbs.ThreadInfo.ResCount) >= 1000)
