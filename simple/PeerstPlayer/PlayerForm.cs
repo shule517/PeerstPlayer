@@ -6,6 +6,7 @@ using Shule.Peerst.PeerCast;
 using System;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.Drawing;
 using System.Threading;
 using System.Windows.Forms;
 namespace PeerstPlayer
@@ -66,13 +67,25 @@ namespace PeerstPlayer
 		/// </summary>
 		void viewModel_OnThreadTitleChange()
 		{
+			// スレッド未選択
 			if (viewModel.ThreadInfo.ThreadTitle == "")
 			{
 				threadTitleLabel.Text = "掲示板[ " + viewModel.BbsName + " ] スレッドを選択してください。";
+				threadTitleLabel.ForeColor = Color.SpringGreen;
 			}
+			// スレッドタイトル表示
 			else
 			{
 				threadTitleLabel.Text = viewModel.ThreadInfo.ThreadTitle + " (" + viewModel.ThreadInfo.ResCount + ")";
+
+				if (viewModel.ThreadInfo.ResCount >= 1000)
+				{
+					threadTitleLabel.ForeColor = Color.Red;
+				}
+				else
+				{
+					threadTitleLabel.ForeColor = Color.SpringGreen;
+				}
 			}
 		}
 

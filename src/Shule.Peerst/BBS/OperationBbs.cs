@@ -23,6 +23,9 @@ namespace Shule.Peerst.BBS
 		/// <param name="url">掲示板URL</param>
 		public OperationBbs(string url)
 		{
+			// 取得済みレス番号を初期化
+			LastResNo = 0;
+
 			ChangeUrl(url);
 		}
 
@@ -32,7 +35,8 @@ namespace Shule.Peerst.BBS
 		/// <param name="url">掲示板URL</param>
 		public OperationBbs()
 		{
-			ChangeUrl("");
+			// 取得済みレス番号を初期化
+			LastResNo = 0;
 		}
 
 		/// <summary>
@@ -93,23 +97,11 @@ namespace Shule.Peerst.BBS
 		/// <param name="threadUrl">スレッドURL</param>
 		public void ChangeUrl(string threadUrl)
 		{
-			if (threadUrl == "")
-			{
-				bbsStrategy = new NullBbsStrategy();
-			}
-			else
-			{
-				ChangeUrl(threadUrl, "");
-			}
-
+			// スレッド変更
+			ChangeUrl(threadUrl, "");
+	
 			// 取得済みレス番号を初期化
 			LastResNo = 0;
-
-			// スレッド情報更新
-			bbsStrategy.UpdateThreadInfo();
-
-			// 掲示板名の更新
-			bbsStrategy.UpdateBbsName();
 		}
 
 		/// <summary>
@@ -128,21 +120,8 @@ namespace Shule.Peerst.BBS
 				return;
 			}
 
-			Regex regex = new Regex(@"(h?ttps?://[-_.!~*'()a-zA-Z0-9;/?:@&=+$,%#]+)");
-			Match match = regex.Match(threadUrl);
-
-			if (match.Groups.Count == 2)
-			{
-				// ttpをhttpに変換
-				if (match.Groups[0].Value[0] == 't')
-				{
-					threadUrl = "h" + match.Groups[0].Value;
-				}
-				else
-				{
-					threadUrl = match.Groups[0].Value;
-				}
-			}
+			// ttp → httpに変換
+			threadUrl = FixThreadUrl(threadUrl);
 
 			// 生成
 			bbsStrategy = bbsFactory.Create(threadUrl);
@@ -160,6 +139,24 @@ namespace Shule.Peerst.BBS
 
 			// 掲示板名の更新
 			bbsStrategy.UpdateBbsName();
+		}
+
+		/// <summary>
+		/// URLの修正
+		/// ttp → http
+		/// </summary>
+		/// <param name="threadUrl"></param>
+		/// <returns></returns>
+		private static string FixThreadUrl(string threadUrl)
+		{
+			string ttp = "ttp://";
+			int start = threadUrl.IndexOf(ttp);
+
+			if (start == 0)
+			{
+				threadUrl = "h" + threadUrl;
+			}
+			return threadUrl;
 		}
 
 		/// <summary>

@@ -57,13 +57,12 @@ namespace PeerstPlayer
 		private void UpdateThreadList(string threadUrl)
 		{
 			operationBbs.ChangeUrl(threadUrl);
-			operationBbs.UpdateThreadInfo();
 
 			listViewThread.Items.Clear();
 			int no = 1;
 			foreach (ThreadInfo info in operationBbs.ThreadList)
 			{
-				string[] items = { no.ToString(), info.ThreadTitle, info.ResCount, ((int)info.ThreadSpeed).ToString() };
+				string[] items = { no.ToString(), info.ThreadTitle, info.ResCount.ToString(), ((int)info.ThreadSpeed).ToString() };
 				ListViewItem item = new ListViewItem(items);
 				item.Tag = info.ThreadNo;
 				listViewThread.Items.Add(item);

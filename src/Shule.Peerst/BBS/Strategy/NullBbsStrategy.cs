@@ -25,7 +25,7 @@ namespace Shule.Peerst.BBS
 		/// <summary>
 		/// スレッド情報
 		/// </summary>
-		public ThreadInfo ThreadInfo { get { return new ThreadInfo("", "", ""); } }
+		public ThreadInfo ThreadInfo { get { return new ThreadInfo("", "", -1); } }
 
 		/// <summary>
 		/// 掲示板名
@@ -49,7 +49,7 @@ namespace Shule.Peerst.BBS
 		/// </summary>
 		public ThreadInfo UpdateThreadInfo(string threadNo)
 		{
-			return new ThreadInfo("", threadNo, "");
+			return new ThreadInfo("", threadNo, -1);
 		}
 
 		/// <summary>

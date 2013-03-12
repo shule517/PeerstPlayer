@@ -1519,7 +1519,7 @@ namespace PeerstPlayer
 				labelThreadTitle.Text = operationBbs.ThreadInfo.ThreadTitle + "(" + operationBbs.ThreadInfo.ResCount + ")";
 
 				// 文字色の変更
-				if (int.Parse(operationBbs.ThreadInfo.ResCount) >= 1000)
+				if (operationBbs.ThreadInfo.ResCount >= 1000)
 				{
 					labelThreadTitle.ForeColor = Color.Red;
 				}

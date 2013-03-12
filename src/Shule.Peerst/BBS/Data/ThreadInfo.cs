@@ -12,7 +12,7 @@ namespace Shule.Peerst.BBS
 		/// <param name="threadTitle">スレッドタイトル</param>
 		/// <param name="threadNo">スレッド番号</param>
 		/// <param name="resCount">レス数</param>
-		public ThreadInfo(string threadTitle, string threadNo, string resCount)
+		public ThreadInfo(string threadTitle, string threadNo, int resCount)
 		{
 			ThreadTitle = threadTitle;
 			ThreadNo = threadNo;
@@ -32,7 +32,7 @@ namespace Shule.Peerst.BBS
 		/// <summary>
 		/// レス数
 		/// </summary>
-		public string ResCount { get; private set; }
+		public int ResCount { get; private set; }
 
 		/// <summary>
 		/// スレッド作成日時
@@ -68,7 +68,7 @@ namespace Shule.Peerst.BBS
 				double speed = 0;
 				try
 				{
-					int count = int.Parse(ResCount);
+					int count = ResCount;
 					double days = (DateTime.Now - DateCreated).TotalDays;
 					speed = (double)count / days;
 				}

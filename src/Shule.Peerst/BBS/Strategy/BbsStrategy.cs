@@ -95,7 +95,7 @@ namespace Shule.Peerst.BBS
 					}
 				}
 
-				return new ThreadInfo("", "", "");
+				return new ThreadInfo("", "", -1);
 			}
 		}
 
@@ -291,10 +291,16 @@ namespace Shule.Peerst.BBS
 				string threadTitle = subjects[i + 1].Substring(0, index);
 				string resNum = subjects[i + 1].Substring(index + 1, subjects[i + 1].Length - index - 2);
 				string threadNo = subjects[i];
-				ThreadInfo thread = new ThreadInfo(threadTitle, threadNo, resNum);
 
-				// 追加
-				threadList.Add(thread);
+				try
+				{
+					// 追加
+					ThreadInfo thread = new ThreadInfo(threadTitle, threadNo, int.Parse(resNum));
+					threadList.Add(thread);
+				}
+				catch (Exception e)
+				{
+				}
 			}
 
 			ThreadList = threadList;
