@@ -31,7 +31,7 @@
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ThreadSelectForm));
 			this.textBoxThreadUrl = new System.Windows.Forms.TextBox();
 			this.buttonUpdate = new System.Windows.Forms.Button();
-			this.listViewThread = new System.Windows.Forms.ListView();
+			this.threadListView = new Shule.Peerst.Form.BufferedListView();
 			this.columnHeaderNo = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
 			this.columnHeaderThreadTitle = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
 			this.columnHeaderResCount = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -60,26 +60,24 @@
 			this.buttonUpdate.UseVisualStyleBackColor = true;
 			this.buttonUpdate.Click += new System.EventHandler(this.buttonUpdate_Click);
 			// 
-			// listViewThread
+			// threadListView
 			// 
-			this.listViewThread.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+			this.threadListView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			this.listViewThread.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+			this.threadListView.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeaderNo,
             this.columnHeaderThreadTitle,
             this.columnHeaderResCount,
             this.columnHeaderSpeed});
-			this.listViewThread.FullRowSelect = true;
-			this.listViewThread.GridLines = true;
-			this.listViewThread.Location = new System.Drawing.Point(0, 21);
-			this.listViewThread.MultiSelect = false;
-			this.listViewThread.Name = "listViewThread";
-			this.listViewThread.Size = new System.Drawing.Size(544, 200);
-			this.listViewThread.TabIndex = 2;
-			this.listViewThread.UseCompatibleStateImageBehavior = false;
-			this.listViewThread.View = System.Windows.Forms.View.Details;
-			this.listViewThread.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.listViewThread_MouseDoubleClick);
+			this.threadListView.FullRowSelect = true;
+			this.threadListView.Location = new System.Drawing.Point(0, 20);
+			this.threadListView.Name = "threadListView";
+			this.threadListView.Size = new System.Drawing.Size(545, 203);
+			this.threadListView.TabIndex = 3;
+			this.threadListView.UseCompatibleStateImageBehavior = false;
+			this.threadListView.View = System.Windows.Forms.View.Details;
+			this.threadListView.MouseDoubleClick += threadListView_MouseDoubleClick;
 			// 
 			// columnHeaderNo
 			// 
@@ -102,7 +100,7 @@
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(544, 222);
-			this.Controls.Add(this.listViewThread);
+			this.Controls.Add(this.threadListView);
 			this.Controls.Add(this.buttonUpdate);
 			this.Controls.Add(this.textBoxThreadUrl);
 			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -118,7 +116,7 @@
 
 		private System.Windows.Forms.TextBox textBoxThreadUrl;
 		private System.Windows.Forms.Button buttonUpdate;
-		private System.Windows.Forms.ListView listViewThread;
+		private Shule.Peerst.Form.BufferedListView threadListView;
 		private System.Windows.Forms.ColumnHeader columnHeaderNo;
 		private System.Windows.Forms.ColumnHeader columnHeaderThreadTitle;
 		private System.Windows.Forms.ColumnHeader columnHeaderResCount;

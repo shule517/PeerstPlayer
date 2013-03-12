@@ -17,6 +17,9 @@ namespace PeerstPlayer
 		// スレッド選択監視
 		ThreadSelectObserver selectThreadObserver = null;
 
+		// スレッド一覧更新用Worker
+		BackgroundWorker updateThreadWorker = new BackgroundWorker();
+
 		// TODO スレッドストップスレの表示/非表示を切替(チェックボックス)
 		// TODO カラムクリックでソートを行う
 
@@ -28,17 +31,76 @@ namespace PeerstPlayer
 		{
 			InitializeComponent();
 			this.selectThreadObserver = selectThreadObserver;
+			updateThreadWorker.DoWork += updateThreadWorker_DoWork;
+			updateThreadWorker.RunWorkerCompleted += updateThreadWorker_RunWorkerCompleted;
 		}
 
 		/// <summary>
 		/// スレッド一覧更新
 		/// </summary>
-		/// <param name="threadUrl"></param>
+		/// <param name="threadUrl">スレッドURL</param>
 		public void Update(string threadUrl)
 		{
+			threadListView.Items.Clear();
 			textBoxThreadUrl.Text = threadUrl;
-			UpdateThreadList(threadUrl);
+			updateThreadWorker.RunWorkerAsync(threadUrl);
 		}
+
+		#region スレッド一覧更新Worker
+
+		/// <summary>
+		/// スレッド一覧更新
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e">スレッドURL</param>
+		void updateThreadWorker_DoWork(object sender, DoWorkEventArgs e)
+		{
+			operationBbs.ChangeUrl((string)e.Argument);
+		}
+
+		/// <summary>
+		/// スレッド一覧更新完了
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
+		void updateThreadWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+		{
+			DrawListView();
+		}
+
+		/// <summary>
+		/// スレッド一覧の描画
+		/// </summary>
+		private void DrawListView()
+		{
+			threadListView.Items.Clear();
+			threadListView.BeginUpdate();
+			int no = 1;
+			foreach (ThreadInfo info in operationBbs.ThreadList)
+			{
+				string[] items = { no.ToString(), info.ThreadTitle, info.ResCount.ToString(), ((int)info.ThreadSpeed).ToString() };
+				ListViewItem item = new ListViewItem(items);
+				item.Tag = info.ThreadNo;
+				threadListView.Items.Add(item);
+
+				// 指定スレッドを選択
+				if (info.ThreadNo == operationBbs.BbsInfo.ThreadNo)
+				{
+					threadListView.Items[threadListView.Items.Count - 1].BackColor = Color.Orange;
+					threadListView.Select();
+					threadListView.EnsureVisible(threadListView.Items.Count - 1);
+				}
+				no++;
+			}
+
+			// 幅を自動調整
+			threadListView.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
+			threadListView.EndUpdate();
+		}
+
+		#endregion
+
+		#region GUIイベント
 
 		/// <summary>
 		/// 更新ボタン押下
@@ -47,38 +109,61 @@ namespace PeerstPlayer
 		/// <param name="e"></param>
 		private void buttonUpdate_Click(object sender, EventArgs e)
 		{
-			UpdateThreadList(textBoxThreadUrl.Text);
+			// スレッド一覧更新
+			updateThreadWorker.RunWorkerAsync(textBoxThreadUrl.Text);
 		}
 
 		/// <summary>
-		/// スレッド一覧を更新
+		/// スレッドURLテキストボックス：キー押下
 		/// </summary>
-		/// <param name="threadUrl">スレッドURL</param>
-		private void UpdateThreadList(string threadUrl)
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
+		private void textBoxThreadUrl_KeyDown(object sender, KeyEventArgs e)
 		{
-			operationBbs.ChangeUrl(threadUrl);
-
-			listViewThread.Items.Clear();
-			int no = 1;
-			foreach (ThreadInfo info in operationBbs.ThreadList)
+			// エンター押下
+			if (e.KeyCode == Keys.Enter)
 			{
-				string[] items = { no.ToString(), info.ThreadTitle, info.ResCount.ToString(), ((int)info.ThreadSpeed).ToString() };
-				ListViewItem item = new ListViewItem(items);
-				item.Tag = info.ThreadNo;
-				listViewThread.Items.Add(item);
+				// チャンネル更新
+				updateThreadWorker.RunWorkerAsync(textBoxThreadUrl.Text);
+			}
+		}
 
-				// 指定スレッドを選択
-				if (info.ThreadNo == operationBbs.BbsInfo.ThreadNo)
-				{
-					listViewThread.Items[listViewThread.Items.Count - 1].BackColor = Color.Orange;
-					listViewThread.Select();
-					listViewThread.EnsureVisible(listViewThread.Items.Count - 1);
-				}
-				no++;
+		/// <summary>
+		/// スレッドURLテキストボックス：クリック
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
+		private void textBoxThreadUrl_Click(object sender, EventArgs e)
+		{
+			// 全選択する
+			textBoxThreadUrl.SelectAll();
+		}
+
+		/// <summary>
+		/// スレッド一覧：ダブルクリックイベント
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
+		private void threadListView_MouseDoubleClick(object sender, MouseEventArgs e)
+		{
+			// 未選択チェック
+			if (threadListView.SelectedItems.Count == 0)
+			{
+				return;
 			}
 
-			// 幅を自動調整
-			listViewThread.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
+			// 左クリック
+			if (e.Button == System.Windows.Forms.MouseButtons.Left)
+			{
+				// MainFormのスレッド変更
+				string selectThreadNo = threadListView.SelectedItems[0].Tag.ToString();
+
+				// スレッドURL更新通知
+				selectThreadObserver.UpdateThreadUrl(operationBbs.ThreadUrl, selectThreadNo);
+
+				// 非表示
+				Visible = false;
+			}
 		}
 
 		/// <summary>
@@ -93,46 +178,6 @@ namespace PeerstPlayer
 			e.Cancel = true;
 		}
 
-		/// <summary>
-		/// ダブルクリックイベント
-		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
-		private void listViewThread_MouseDoubleClick(object sender, MouseEventArgs e)
-		{
-			// 未選択チェック
-			if (listViewThread.SelectedItems.Count == 0)
-			{
-				return;
-			}
-
-			// 左クリック
-			if (e.Button == System.Windows.Forms.MouseButtons.Left)
-			{
-				// MainFormのスレッド変更
-				string selectThreadNo = listViewThread.SelectedItems[0].Tag.ToString();
-
-				// スレッドURL更新通知
-				selectThreadObserver.UpdateThreadUrl(operationBbs.ThreadUrl, selectThreadNo);
-
-				// 非表示
-				Visible = false;
-			}
-		}
-
-		/// <summary>
-		/// スレッドURLテキストボックスでキー押下
-		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
-		private void textBoxThreadUrl_KeyDown(object sender, KeyEventArgs e)
-		{
-			// エンター押下
-			if (e.KeyCode == Keys.Enter)
-			{
-				// チャンネル更新
-				UpdateThreadList(textBoxThreadUrl.Text);
-			}
-		}
+		#endregion
 	}
 }

@@ -63,7 +63,7 @@ namespace PeerstPlayer
 			int no = 1;
 			foreach (ThreadInfo info in threadList)
 			{
-				string[] items = { no.ToString(), info.ThreadTitle, info.ResCount, ((int)info.ThreadSpeed).ToString() };
+				string[] items = { no.ToString(), info.ThreadTitle, info.ResCount.ToString(), ((int)info.ThreadSpeed).ToString() };
 				ListViewItem item = new ListViewItem(items);
 				item.Tag = info.ThreadNo;
 				listViewThread.Items.Add(item);

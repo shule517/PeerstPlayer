@@ -64,6 +64,9 @@
     <Compile Include="BBS\Strategy\YYKakikoBbsStrategy.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Form\BufferedListView.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Form\FormUtility.cs" />
     <Compile Include="Form\MouseGesture.cs" />
     <Compile Include="Form\Win32API.cs" />
