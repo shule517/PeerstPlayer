@@ -7,9 +7,14 @@ namespace Shule.Peerst.BBS
 	interface IBbsStrategy
 	{
 		/// <summary>
-		/// スレッド一覧の取得
+		/// スレッド一覧
 		/// </summary>
 		List<ThreadInfo> ThreadList { get; }
+
+		/// <summary>
+		/// 選択中のスレッド情報
+		/// </summary>
+		ThreadInfo ThreadInfo { get; }
 
 		/// <summary>
 		/// 掲示板名
@@ -27,9 +32,10 @@ namespace Shule.Peerst.BBS
 		void ChangeThread(string threadNo);
 
 		/// <summary>
-		/// 指定スレッドの情報取得
+		/// スレッド情報の更新
+		/// ThreadList /  ThreadInfoの更新
 		/// </summary>
-		ThreadInfo GetThreadInfo(string threadNo);
+		void UpdateThreadInfo();
 
 		/// <summary>
 		/// 掲示板書き込み
@@ -43,5 +49,10 @@ namespace Shule.Peerst.BBS
 		/// レス読み込み
 		/// </summary>
 		List<ResInfo> ReadThread(string threadNo, int resNo);
+
+		/// <summary>
+		/// 掲示板名の更新
+		/// </summary>
+		void UpdateBbsName();
 	}
 }
