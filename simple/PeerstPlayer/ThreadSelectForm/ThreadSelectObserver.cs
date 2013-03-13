@@ -7,6 +7,6 @@ namespace PeerstPlayer
 {
 	public interface ThreadSelectObserver
 	{
-		void UpdateThreadUrl(string threadUrl, string threadName);
+		void UpdateThreadUrl(string threadUrl);
 	}
 }

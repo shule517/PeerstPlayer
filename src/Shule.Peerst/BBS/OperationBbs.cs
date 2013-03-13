@@ -47,7 +47,7 @@ namespace Shule.Peerst.BBS
 		/// <summary>
 		/// スレッドURL
 		/// </summary>
-		public string ThreadUrl { get { return bbsStrategy.BbsInfo.ToString(); } }
+		public string ThreadUrl { get { return bbsStrategy.BbsInfo.ThreadUrl; } }
 
 		/// <summary>
 		/// スレッド一覧
@@ -97,28 +97,17 @@ namespace Shule.Peerst.BBS
 		/// <param name="threadUrl">スレッドURL</param>
 		public void ChangeUrl(string threadUrl)
 		{
-			// スレッド変更
-			ChangeUrl(threadUrl, "");
-	
-			// 取得済みレス番号を初期化
-			LastResNo = 0;
-		}
-
-		/// <summary>
-		/// 掲示板URL変更
-		/// </summary>
-		/// <param name="bbsUrl"></param>
-		/// <param name="threadNo"></param>
-		public void ChangeUrl(string threadUrl, string threadNo)
-		{
 			// 取得済みレス番号を初期化
 			LastResNo = 0;
 
+			// TODO 本スレ判定
+			/*
 			if (threadNo == "本スレ")
 			{
 				bbsStrategy = bbsFactory.Create(threadNo);
 				return;
 			}
+			 */
 
 			// ttp → httpに変換
 			threadUrl = FixThreadUrl(threadUrl);
@@ -127,12 +116,13 @@ namespace Shule.Peerst.BBS
 			bbsStrategy = bbsFactory.Create(threadUrl);
 
 			// TODO 板移動時に、ChangeThreadを実行しなくて良いようにする
-
+			/*
 			// スレッド変更
 			if (threadNo != "")
 			{
 				bbsStrategy.ChangeThread(threadNo);
 			}
+			 */
 
 			// スレッド情報更新
 			bbsStrategy.UpdateThreadInfo();

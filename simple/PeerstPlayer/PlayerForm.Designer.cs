@@ -63,9 +63,11 @@
 			this.writeField.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.writeField.Location = new System.Drawing.Point(0, 169);
+			this.writeField.Multiline = true;
 			this.writeField.Name = "writeField";
 			this.writeField.Size = new System.Drawing.Size(284, 19);
 			this.writeField.TabIndex = 2;
+			this.writeField.TextChanged += new System.EventHandler(this.writeField_TextChanged);
 			this.writeField.KeyDown += new System.Windows.Forms.KeyEventHandler(this.writeField_KeyDown);
 			// 
 			// threadTitleLabel

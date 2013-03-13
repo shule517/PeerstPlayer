@@ -159,7 +159,8 @@ namespace PeerstPlayer
 				string selectThreadNo = threadListView.SelectedItems[0].Tag.ToString();
 
 				// スレッドURL更新通知
-				selectThreadObserver.UpdateThreadUrl(operationBbs.ThreadUrl, selectThreadNo);
+				string threadUrl = operationBbs.BbsInfo.BoardUrl + selectThreadNo;
+				selectThreadObserver.UpdateThreadUrl(threadUrl);
 
 				// 非表示
 				Visible = false;

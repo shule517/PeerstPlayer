@@ -102,10 +102,10 @@ namespace PeerstPlayer
 		/// </summary>
 		/// <param name="threadUrl">スレッドURL</param>
 		/// <param name="threadNo">スレッド番号</param>
-		void ThreadSelectObserver.UpdateThreadUrl(string threadUrl, string threadNo)
+		void ThreadSelectObserver.UpdateThreadUrl(string threadUrl)
 		{
 			// スレッド更新
-			viewModel.ChangeUrl(threadUrl, threadNo);
+			viewModel.ChangeUrl(threadUrl);
 		}
 
 		#endregion
@@ -150,6 +150,16 @@ namespace PeerstPlayer
 				// スレビューワを開く
 				viewModel.OpenThreadViewer();
 			}
+		}
+
+		/// <summary>
+		/// 書き込み欄のサイズ調節
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
+		private void writeField_TextChanged(object sender, EventArgs e)
+		{
+			writeField.Height = writeField.PreferredSize.Height;
 		}
 
 		#endregion

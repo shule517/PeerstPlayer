@@ -37,30 +37,44 @@
 		}
 
 		/// <summary>
-		/// 掲示板URLを取得
+		/// 板URL
 		/// </summary>
-		public override string ToString()
+		public string BoardUrl
 		{
-			string url = "";
-			if (BBSServer == BbsServer.Shitaraba)
+			get
 			{
-				url = "http://jbbs.livedoor.jp/bbs/read.cgi/" + BoadGenre + "/" + BoadNo + "/";
+				string url = "";
+				if (BBSServer == BbsServer.Shitaraba)
+				{
+					return "http://jbbs.livedoor.jp/bbs/read.cgi/" + BoadGenre + "/" + BoadNo + "/";
+				}
+				else if (BBSServer == BbsServer.YYKakiko)
+				{
+					return "http://" + BoadGenre + "/test/read.cgi/" + BoadNo + "/";
+				}
+				else
+				{
+					return string.Empty;
+				}
 			}
-			else if (BBSServer == BbsServer.YYKakiko)
-			{
-				url = "http://" + BoadGenre + "/test/read.cgi/" + BoadNo + "/";
-			}
-			else
-			{
-				return string.Empty;
-			}
+		}
 
-			if (ThreadNo != "")
+		/// <summary>
+		/// 掲示板URL
+		/// </summary>
+		public string ThreadUrl
+		{
+			get
 			{
-				url += ThreadNo + "/";
-			}
+				string threadUrl = BoardUrl;
 
-			return url;
+				if (ThreadNo != "")
+				{
+					threadUrl += ThreadNo + "/";
+				}
+
+				return threadUrl;
+			}
 		}
 	}
 }

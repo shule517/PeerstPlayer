@@ -152,9 +152,9 @@ namespace PeerstPlayer
 		/// </summary>
 		/// <param name="threadUrl"></param>
 		/// <param name="threadNo"></param>
-		public void ChangeUrl(string threadUrl, string threadNo)
+		public void ChangeUrl(string threadUrl)
 		{
-			operationBbs.ChangeUrl(threadUrl, threadNo);
+			operationBbs.ChangeUrl(threadUrl);
 
 			// スレタイ変更
 			OnThreadTitleChange();
