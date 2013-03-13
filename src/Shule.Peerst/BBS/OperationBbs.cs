@@ -100,29 +100,11 @@ namespace Shule.Peerst.BBS
 			// 取得済みレス番号を初期化
 			LastResNo = 0;
 
-			// TODO 本スレ判定
-			/*
-			if (threadNo == "本スレ")
-			{
-				bbsStrategy = bbsFactory.Create(threadNo);
-				return;
-			}
-			 */
-
 			// ttp → httpに変換
 			threadUrl = FixThreadUrl(threadUrl);
 
 			// 生成
 			bbsStrategy = bbsFactory.Create(threadUrl);
-
-			// TODO 板移動時に、ChangeThreadを実行しなくて良いようにする
-			/*
-			// スレッド変更
-			if (threadNo != "")
-			{
-				bbsStrategy.ChangeThread(threadNo);
-			}
-			 */
 
 			// スレッド情報更新
 			bbsStrategy.UpdateThreadInfo();
@@ -160,9 +142,6 @@ namespace Shule.Peerst.BBS
 
 			// スレッド情報更新
 			bbsStrategy.UpdateThreadInfo();
-
-			// 掲示板名の更新
-			bbsStrategy.UpdateBbsName();
 		}
 
 		/// <summary>

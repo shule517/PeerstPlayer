@@ -110,7 +110,10 @@ namespace PeerstPlayer
 		private void buttonUpdate_Click(object sender, EventArgs e)
 		{
 			// スレッド一覧更新
-			updateThreadWorker.RunWorkerAsync(textBoxThreadUrl.Text);
+			if (!updateThreadWorker.IsBusy)
+			{
+				updateThreadWorker.RunWorkerAsync(textBoxThreadUrl.Text);
+			}
 		}
 
 		/// <summary>
@@ -123,8 +126,11 @@ namespace PeerstPlayer
 			// エンター押下
 			if (e.KeyCode == Keys.Enter)
 			{
-				// チャンネル更新
-				updateThreadWorker.RunWorkerAsync(textBoxThreadUrl.Text);
+				if (!updateThreadWorker.IsBusy)
+				{
+					// チャンネル更新
+					updateThreadWorker.RunWorkerAsync(textBoxThreadUrl.Text);
+				}
 			}
 		}
 
