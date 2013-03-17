@@ -36,7 +36,7 @@ namespace Shule.Peerst.Observer
 		/// オブザーバへ通知
 		/// </summary>
 		/// <param name="param">渡すデータ</param>
-		protected void NotifyObservers(Object param)
+		public void NotifyObservers(Object param)
 		{
 			foreach(Observer observer in observers)
 			{
