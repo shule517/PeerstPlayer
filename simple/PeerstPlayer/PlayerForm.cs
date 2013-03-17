@@ -22,6 +22,7 @@ namespace PeerstPlayer
 		// イベントマネージャ
 		WmpEventManager wmpEventManager;
 		FormEventManager formEventManager;
+		WmpNativeWindow wmpNativeWindow;
 
 		/// <summary>
 		/// コンストラクタ
@@ -38,6 +39,7 @@ namespace PeerstPlayer
 			formEventManager.AddObserver(this);
 			wmpEventManager = new WmpEventManager(wmp);
 			wmpEventManager.AddObserver(this);
+			wmpNativeWindow = new WmpNativeWindow(wmp.Handle, this);
 
 			// イベント登録
 			viewModel.OnChannelInfoChange += viewModel_OnChannelInfoChange;
@@ -193,16 +195,22 @@ namespace PeerstPlayer
 				FormUtility.WindowDragStart(Handle);
 
 				// WMPフルスクリーン解除
-				wmp.fullScreen = false;
+				if (wmp.fullScreen)
+				{
+					wmp.fullScreen = false;
+				}
 			}
 			// 左ダブルクリック
 			else if (events == Event.FormEvents.DoubleLeftClick)
 			{
-				// ウィンドウ最大化/解除
 				FormUtility.ToggleWindowMaximize(this);
 
-				// WMPフルスクリーン解除
-				wmp.fullScreen = false;
+				if (WindowState == FormWindowState.Normal)
+				{
+					// タイトルバー分小さくする
+					Height -= SystemInformation.CaptionHeight + 2;
+					Width -= 2;
+				}
 			}
 		}
 	}
