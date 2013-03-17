@@ -16,26 +16,25 @@ namespace Shule.Peerst.Form
 		/// <param name="visible">true:表示 / false:非表示</param>
 		static public void VisibleTitlebar(IntPtr handle, bool visible)
 		{
+			// 現在のスタイルを取得
+			UInt32 style = Win32API.GetWindowLong(handle, Win32API.GWL_STYLE);			
+
 			if (visible)
 			{
 				// タイトルバーを出す
-				UInt32 style = Win32API.GetWindowLong(handle, Win32API.GWL_STYLE);	// 現在のスタイルを取得
-				style = (style | Win32API.WS_CAPTION);								// キャプションのスタイルを削除
-				Win32API.SetWindowLong(handle, Win32API.GWL_STYLE, style);			// スタイルを反映
-	
-				// ウィンドウを再描画
-				Win32API.SetWindowPos(handle, IntPtr.Zero, 0, 0, 0, 0, Win32API.SWP.NOMOVE | Win32API.SWP.NOSIZE | Win32API.SWP.NOZORDER | Win32API.SWP.FRAMECHANGED);
+				style = (style | Win32API.WS_CAPTION);
 			}
 			else
 			{
 				// タイトルバーを消す
-				UInt32 style = Win32API.GetWindowLong(handle, Win32API.GWL_STYLE);	// 現在のスタイルを取得
-				style = (style & ~Win32API.WS_CAPTION);								// キャプションのスタイルを削除
-				Win32API.SetWindowLong(handle, Win32API.GWL_STYLE, style);			// スタイルを反映
-	
-				// ウィンドウを再描画
-				Win32API.SetWindowPos(handle, IntPtr.Zero, 0, 0, 0, 0, Win32API.SWP.NOMOVE | Win32API.SWP.NOSIZE | Win32API.SWP.NOZORDER | Win32API.SWP.FRAMECHANGED);
+				style = (style & ~Win32API.WS_CAPTION);
 			}
+
+			// スタイルを反映
+			Win32API.SetWindowLong(handle, Win32API.GWL_STYLE, style);
+
+			// ウィンドウを再描画
+			Win32API.SetWindowPos(handle, IntPtr.Zero, 0, 0, 0, 0, Win32API.SWP.NOMOVE | Win32API.SWP.NOSIZE | Win32API.SWP.NOZORDER | Win32API.SWP.FRAMECHANGED);
 		}
 
 		/// <summary>

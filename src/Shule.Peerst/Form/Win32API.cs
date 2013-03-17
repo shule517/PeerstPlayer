@@ -88,7 +88,7 @@ namespace PeerstPlayer
 		public const int WMSZ_BOTTOMRIGHT = 8;
 
 		public const int WM_LBUTTONDBLCLK = 0x0203;
-		public const int WM_RBUTTONDOWN = 0x0201;
+		public const int WM_RBUTTONDOWN = 0x0204;
 		public const int WM_NCHITTEST = 0x0084;
 		public const int WM_LBUTTONUP = 0x0202;
 		public const int WM_MOUSEHOVER = 0x02A1;
