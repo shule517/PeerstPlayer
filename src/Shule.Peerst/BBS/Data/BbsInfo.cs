@@ -43,7 +43,6 @@
 		{
 			get
 			{
-				string url = "";
 				if (BBSServer == BbsServer.Shitaraba)
 				{
 					return "http://jbbs.livedoor.jp/bbs/read.cgi/" + BoadGenre + "/" + BoadNo + "/";
