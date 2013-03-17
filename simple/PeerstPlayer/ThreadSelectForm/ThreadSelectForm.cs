@@ -81,6 +81,14 @@ namespace PeerstPlayer
 				string[] items = { no.ToString(), info.ThreadTitle, info.ResCount.ToString(), ((int)info.ThreadSpeed).ToString() };
 				ListViewItem item = new ListViewItem(items);
 				item.Tag = info.ThreadNo;
+
+				// TODO スレッドストップ数を取得する
+				// 1000越えは色を変える
+				if (info.ResCount >= 1000)
+				{
+					item.ForeColor = Color.Gray;
+				}
+				
 				threadListView.Items.Add(item);
 
 				// 指定スレッドを選択
