@@ -315,8 +315,19 @@ namespace UIUnitTest.ThreadSelect
 		public void Test_Update_ThreadList()
 		{
 			ThreadSelectModelView modelView = new ThreadSelectModelView();
+			modelView.PropertyChanged += modelView_PropertyChanged;
+
+			// 更新
 			modelView.Update("http://jbbs.livedoor.jp/bbs/read.cgi/game/45037/1286755510/");
-			List<ThreadInfo> threadList = modelView.ThreadList;
+		}
+
+		void modelView_PropertyChanged(object sender, PropertyChangedEventArgs e)
+		{
+			// プロパティ変更通知の確認
+			Assert.AreEqual(e.PropertyName, ThreadSelectModelView.Property.ThreadList);
+
+			// スレッド一覧取得
+			List<ThreadInfo> threadList = ((ThreadSelectModelView)sender).ThreadList;
 
 			// スレッドリストの更新確認
 			Assert.IsTrue(threadList.Count > 0);
@@ -326,21 +337,6 @@ namespace UIUnitTest.ThreadSelect
 			{
 				Assert.AreEqual(threadList[i].ThreadTitle, TestDataThreadTitle[i]);
 			}
-		}
-
-		[TestMethod]
-		// スレッド一覧の更新
-		public void Test_Update_PropertyChanged()
-		{
-			string propertyName = "";
-
-			ThreadSelectModelView modelView = new ThreadSelectModelView();
-			modelView.PropertyChanged += new PropertyChangedEventHandler((s, e) => { propertyName = e.PropertyName; });
-			Assert.AreEqual(propertyName, "");
-			modelView.Update("http://jbbs.livedoor.jp/bbs/read.cgi/game/45037/1286755510/");
-
-			// プロパティ変更通知の確認
-			Assert.AreEqual(propertyName, ThreadSelectModelView.Property.ThreadList);
 		}
 	}
 }
