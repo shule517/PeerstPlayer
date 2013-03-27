@@ -47,6 +47,11 @@ namespace PeerstPlayer
 				// スレッド一覧の描画
 				DrawThreadList();
 			}
+			else if (e.PropertyName == ThreadSelectModelView.Property.ThreadUrl)
+			{
+				// スレッド変更通知
+				NotifyThreadUrlChanged();
+			}
 		}
 
 		// スレッドURL変更通知
@@ -142,9 +147,6 @@ namespace PeerstPlayer
 				// スレッド変更
 				string selectThreadNo = threadListView.SelectedItems[0].Tag.ToString();
 				modelView.ChangeThread(selectThreadNo);
-
-				// スレッド変更通知
-				NotifyThreadUrlChanged();
 
 				// 非表示
 				Visible = false;

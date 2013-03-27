@@ -15,6 +15,9 @@ namespace PeerstPlayer
 		{
 			// スレッド一覧
 			public const string ThreadList = "ThreadList";
+
+			// スレッドURL
+			public const string ThreadUrl = "ThreadUrl";
 		};
 
 		// スレッドストップレス数
@@ -32,26 +35,67 @@ namespace PeerstPlayer
 		// 掲示板操作クラス
 		private OperationBbs operationBbs = new OperationBbs();
 
+		private BackgroundWorker updateWorker = new BackgroundWorker();
+		private BackgroundWorker changeThreadWorker = new BackgroundWorker();
+
 		// コンストラクタ
 		public ThreadSelectModelView()
 		{
+			updateWorker.DoWork += updateWorker_DoWork;
+			updateWorker.RunWorkerCompleted += updateWorker_RunWorkerCompleted;
+
+			changeThreadWorker.DoWork += changeThreadWorker_DoWork;
+			changeThreadWorker.RunWorkerCompleted += changeThreadWorker_RunWorkerCompleted;
 		}
 
 		// スレッド変更
 		public void ChangeThread(string threadNo)
 		{
-			operationBbs.ChangeThread(threadNo);
+			changeThreadWorker.RunWorkerAsync(threadNo);
 		}
 
-		// スレッド一覧更新
+		// スレッド一覧の更新
 		public void Update(string url)
 		{
-			// スレッド変更
-			operationBbs.ChangeUrl(url);
+			// 更新スレッドの実行
+			updateWorker.RunWorkerAsync(url);
+		}
+	
+		#region スレッド変更
 
-			// TODO Backgroundで実行する
+		// スレッド変更
+		private void changeThreadWorker_DoWork(object sender, DoWorkEventArgs e)
+		{
+			// スレッド変更
+			operationBbs.ChangeThread((string)e.Argument);
+		}
+
+		// スレッド変更完了
+		private void changeThreadWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+		{
+			// スレッド一覧更新完了
+			RaisePropertyChanged(Property.ThreadUrl);
+		}
+
+		#endregion
+
+		#region スレッド一覧更新
+
+		// マルチスレッド：スレッド一覧の更新
+		private void updateWorker_DoWork(object sender, DoWorkEventArgs e)
+		{
+			// スレッド変更
+			operationBbs.ChangeUrl((string)e.Argument);
+		}
+
+		// マルチスレッド：スレッド一覧の更新完了
+		private void updateWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+		{
+			// スレッド一覧更新完了
 			RaisePropertyChanged(Property.ThreadList);
 		}
+
+		#endregion
 
 		// プロパティ変更通知
 		private void RaisePropertyChanged(string propertyName)
