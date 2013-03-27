@@ -10,9 +10,11 @@ using System.Windows.Forms;
 
 namespace PeerstPlayer
 {
-	class WmpEventManager : Observable
+	class WmpEventManager
 	{
 		AxWindowsMediaPlayer wmp;
+
+		public event FormEvent FormEvent;
 
 		// マウスジェスチャ
 		MouseGesture mouseGesture = new MouseGesture();
@@ -90,7 +92,11 @@ namespace PeerstPlayer
 		private void Notify(FormEvents events)
 		{
 			List<Keys> keys = FormUtility.GetModifyKeys();
-			NotifyObservers(new FormEventArgs(events, keys));
+
+			if (FormEvent != null)
+			{
+				FormEvent(new FormEventArgs(events, keys));
+			}
 		}
 	}
 }

@@ -9,13 +9,20 @@ using System.Windows.Forms;
 
 namespace PeerstPlayer
 {
-	class FormEventManager : Observable
+	public delegate void FormEvent(FormEventArgs args);
+
+	class FormEventManager
 	{
 		/// <summary>
 		/// Formクラス
 		/// </summary>
 		Form form;
 
+		/// <summary>
+		/// フォームイベント
+		/// </summary>
+		public event FormEvent FormEvent;
+		
 		/// <summary>
 		/// コンストラクタ
 		/// </summary>
@@ -134,7 +141,11 @@ namespace PeerstPlayer
 		private void Notify(FormEvents events)
 		{
 			List<Keys> keys = FormUtility.GetModifyKeys();
-			NotifyObservers(new FormEventArgs(events, keys));
+
+			if (FormEvent != null)
+			{
+				FormEvent(new FormEventArgs(events, keys));
+			}
 		}
 	}
 }

@@ -8,16 +8,29 @@ using System.Windows.Forms;
 
 namespace PeerstPlayer.Event
 {
+	// WMPウィンドウのサブクラス化
 	class WmpNativeWindow : NativeWindow
 	{
-		Observable observable = new Observable();
+		// フォームイベント
+		public event FormEvent FormEvent;
 
-		public WmpNativeWindow(IntPtr handle, Observer observer)
+		// コンストラクタ
+		public WmpNativeWindow(IntPtr handle)
 		{
-			AssignHandle(handle);				// サブクラスウィンドウの設定
-			observable.AddObserver(observer);	// オブザーバの設定
+			// サブクラスウィンドウの設定
+			AssignHandle(handle);
 		}
 
+		// 通知
+		private void Notify(FormEventArgs args)
+		{
+			if (FormEvent != null)
+			{
+				FormEvent(args);
+			}
+		}
+
+		// ウィンドウプロシージャ
 		protected override void WndProc(ref Message m)
 		{
 			switch (m.Msg)
@@ -41,7 +54,7 @@ namespace PeerstPlayer.Event
 					break;
 
 				case Win32API.WM_LBUTTONUP:
-					observable.NotifyObservers(new FormEventArgs(FormEvents.DoubleLeftClick, new List<Keys>()));
+					Notify(new FormEventArgs(FormEvents.DoubleLeftClick, new List<Keys>()));
 					break;
 
 				default:
