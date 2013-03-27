@@ -11,7 +11,7 @@ using System.Threading;
 using System.Windows.Forms;
 namespace PeerstPlayer
 {
-	public partial class PlayerForm : Form, ThreadSelectObserver, Observer
+	public partial class PlayerForm : Form, Observer
 	{
 		// ViewModel
 		PeerstPlayerViewModel viewModel = new PeerstPlayerViewModel();
@@ -33,6 +33,7 @@ namespace PeerstPlayer
 
 			// スレッド選択フォーム
 			threadSelectView = new ThreadSelectView();
+			threadSelectView.ThreadUrlChanged += threadSelectView_ThreadUrlChanged;
 
 			// イベントマネージャ
 			formEventManager = new FormEventManager(this);
@@ -58,8 +59,15 @@ namespace PeerstPlayer
 			string streamUrl = Environment.GetCommandLineArgs()[1];
 			wmp.URL = streamUrl;
 
-			// TODO チャンネル再生開始
-			//viewModel.Open(streamUrl);
+			// チャンネル再生開始
+			viewModel.Open(streamUrl);
+		}
+
+		// スレッドURL変更イベント
+		void threadSelectView_ThreadUrlChanged(object sender, PropertyChangedEventArgs e)
+		{
+			// スレッド更新
+			viewModel.ChangeUrl(threadSelectView.ThreadUrl);
 		}
 
 		void formEventManager_FormEvent(FormEventArgs args)
@@ -105,17 +113,6 @@ namespace PeerstPlayer
 		void viewModel_OnChannelInfoChange()
 		{
 			channelInfoLabel.Text = viewModel.ChannelInfo.ToString();
-		}
-
-		/// <summary>
-		/// スレッドURL更新通知
-		/// </summary>
-		/// <param name="threadUrl">スレッドURL</param>
-		/// <param name="threadNo">スレッド番号</param>
-		void ThreadSelectObserver.UpdateThreadUrl(string threadUrl)
-		{
-			// スレッド更新
-			viewModel.ChangeUrl(threadUrl);
 		}
 
 		#endregion

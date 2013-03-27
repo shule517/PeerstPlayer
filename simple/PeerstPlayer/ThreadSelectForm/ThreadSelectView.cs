@@ -18,7 +18,7 @@ namespace PeerstPlayer
 		};
 
 		// スレッドURL
-		public string ThreadUrl { get { return modelView.BbsInfo.ThreadUrl; } set { modelView.ChangeThread(value); } }
+		public string ThreadUrl { get { return modelView.BbsInfo.ThreadUrl; } set { modelView.Update(value); } }
 
 		// スレッドURL変更イベント
 		public event PropertyChangedEventHandler ThreadUrlChanged;
