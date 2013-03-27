@@ -111,5 +111,8 @@ namespace Shule.Peerst.Form
 
 			return keys;
 		}
+
+		// タイトルバーの高さ
+		public static int TitlebarHeight { get { return SystemInformation.CaptionHeight; } }
 	}
 }
