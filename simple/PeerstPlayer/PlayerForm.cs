@@ -17,7 +17,7 @@ namespace PeerstPlayer
 		PeerstPlayerViewModel viewModel = new PeerstPlayerViewModel();
 
 		// スレッド選択フォーム
-		ThreadSelectForm threadSelectForm;
+		ThreadSelectView threadSelectView;
 
 		// イベントマネージャ
 		WmpEventManager wmpEventManager;
@@ -32,7 +32,7 @@ namespace PeerstPlayer
 			InitializeComponent();
 
 			// スレッド選択フォーム
-			threadSelectForm = new ThreadSelectForm(this);
+			threadSelectView = new ThreadSelectView();
 
 			// イベントマネージャ
 			formEventManager = new FormEventManager(this);
@@ -151,8 +151,8 @@ namespace PeerstPlayer
 			if (e.Button == System.Windows.Forms.MouseButtons.Left)
 			{
 				// スレッド選択フォームを開く
-				threadSelectForm.Update(viewModel.ThreadUrl);
-				threadSelectForm.Show();
+				threadSelectView.ThreadUrl = viewModel.ThreadUrl;
+				threadSelectView.Show();
 			}
 			// 右クリック
 			else

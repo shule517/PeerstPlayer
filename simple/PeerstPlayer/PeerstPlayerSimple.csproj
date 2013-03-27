@@ -22,6 +22,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -31,10 +32,15 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Windows.Input.Manipulations" />
+    <Reference Include="System.Xaml" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Data" />
@@ -42,10 +48,35 @@
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
+    <Reference Include="UIAutomationProvider" />
+    <Reference Include="WindowsBase" />
+    <Reference Include="WindowsFormsIntegration" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Event\EventObserver.cs" />
     <Compile Include="Event\FormEventManager.cs" />
+    <Compile Include="ThreadSelectForm\ThreadSelectModelView.cs" />
+    <Compile Include="ThreadSelectForm\ThreadSelectView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ThreadSelectForm\ThreadSelectView.Designer.cs">
+      <DependentUpon>ThreadSelectView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Commands.cs" />
+    <Compile Include="UI\PecaPlayer.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\PecaPlayer.Designer.cs">
+      <DependentUpon>PecaPlayer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\PlayerModel.cs" />
+    <Compile Include="UI\PlayerView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\PlayerView.Designer.cs">
+      <DependentUpon>PlayerView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\PlayerViewModel.cs" />
     <Compile Include="PeerstPlayerViewModel.cs" />
     <Compile Include="PlayerForm.cs">
       <SubType>Form</SubType>
@@ -55,14 +86,8 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ThreadSelectForm\ThreadSelectForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="ThreadSelectForm\ThreadSelectForm.Designer.cs">
-      <DependentUpon>ThreadSelectForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="ThreadSelectForm\ThreadSelectObserver.cs" />
     <Compile Include="Event\WmpEventManager.cs" />
+    <Compile Include="Event\WmpNativeWindow.cs" />
     <EmbeddedResource Include="PlayerForm.resx">
       <DependentUpon>PlayerForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -76,9 +101,16 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <EmbeddedResource Include="ThreadSelectForm\ThreadSelectForm.resx">
-      <DependentUpon>ThreadSelectForm.cs</DependentUpon>
+    <EmbeddedResource Include="ThreadSelectForm\ThreadSelectView.resx">
+      <DependentUpon>ThreadSelectView.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="UI\PecaPlayer.resx">
+      <DependentUpon>PecaPlayer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\PlayerView.resx">
+      <DependentUpon>PlayerView.cs</DependentUpon>
+    </EmbeddedResource>
+    <None Include="App.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
