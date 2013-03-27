@@ -47,6 +47,7 @@
 			this.textBoxThreadUrl.Size = new System.Drawing.Size(470, 19);
 			this.textBoxThreadUrl.TabIndex = 0;
 			this.textBoxThreadUrl.Text = "http://";
+			this.textBoxThreadUrl.Click += new System.EventHandler(this.textBoxThreadUrl_Click);
 			this.textBoxThreadUrl.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBoxThreadUrl_KeyDown);
 			// 
 			// buttonUpdate
@@ -71,6 +72,7 @@
             this.columnHeaderResCount,
             this.columnHeaderSpeed});
 			this.threadListView.FullRowSelect = true;
+			this.threadListView.GridLines = true;
 			this.threadListView.Location = new System.Drawing.Point(0, 20);
 			this.threadListView.Name = "threadListView";
 			this.threadListView.Size = new System.Drawing.Size(545, 203);

@@ -35,8 +35,9 @@ namespace PeerstPlayer
 		// 掲示板操作クラス
 		private OperationBbs operationBbs = new OperationBbs();
 
-		private BackgroundWorker updateWorker = new BackgroundWorker();
-		private BackgroundWorker changeThreadWorker = new BackgroundWorker();
+		// Worker
+		private BackgroundWorker updateWorker = new BackgroundWorker();			// スレッド一覧更新
+		private BackgroundWorker changeThreadWorker = new BackgroundWorker();	// スレッド変更
 
 		// コンストラクタ
 		public ThreadSelectModelView()
