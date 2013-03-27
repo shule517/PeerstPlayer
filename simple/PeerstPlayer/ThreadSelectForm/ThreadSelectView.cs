@@ -51,6 +51,9 @@ namespace PeerstPlayer
 			{
 				// スレッド変更通知
 				NotifyThreadUrlChanged();
+
+				// スレッド一覧の描画
+				DrawThreadList();
 			}
 		}
 

@@ -52,14 +52,21 @@ namespace PeerstPlayer
 		// スレッド変更
 		public void ChangeThread(string threadNo)
 		{
-			changeThreadWorker.RunWorkerAsync(threadNo);
+			// 更新スレッドの実行
+			if (!changeThreadWorker.IsBusy)
+			{
+				changeThreadWorker.RunWorkerAsync(threadNo);
+			}
 		}
 
 		// スレッド一覧の更新
 		public void Update(string url)
 		{
 			// 更新スレッドの実行
-			updateWorker.RunWorkerAsync(url);
+			if (!updateWorker.IsBusy)
+			{
+				updateWorker.RunWorkerAsync(url);
+			}
 		}
 	
 		#region スレッド変更
