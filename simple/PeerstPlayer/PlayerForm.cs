@@ -36,10 +36,10 @@ namespace PeerstPlayer
 
 			// イベントマネージャ
 			formEventManager = new FormEventManager(this);
-			formEventManager.AddObserver(this);
+			formEventManager.FormEvent += formEventManager_FormEvent;
+
 			wmpEventManager = new WmpEventManager(wmp);
-			wmpEventManager.AddObserver(this);
-			wmpNativeWindow = new WmpNativeWindow(wmp.Handle, this);
+			wmpNativeWindow = new WmpNativeWindow(wmp.Handle);
 
 			// イベント登録
 			viewModel.OnChannelInfoChange += viewModel_OnChannelInfoChange;
@@ -59,7 +59,15 @@ namespace PeerstPlayer
 			wmp.URL = streamUrl;
 
 			// TODO チャンネル再生開始
-			viewModel.Open(streamUrl);
+			//viewModel.Open(streamUrl);
+		}
+
+		void formEventManager_FormEvent(FormEventArgs args)
+		{
+			if (args.Event == FormEvents.LeftClick)
+			{
+				MessageBox.Show("test");
+			}
 		}
 
 		#region GUI更新
