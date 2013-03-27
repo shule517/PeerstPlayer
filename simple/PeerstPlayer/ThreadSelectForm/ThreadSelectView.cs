@@ -168,5 +168,15 @@ namespace PeerstPlayer
 		}
 
 		#endregion
+
+		// スレッド選択フォームを開くイベント
+		private void ThreadSelectView_VisibleChanged(object sender, EventArgs e)
+		{
+			// 選択行を解除
+			foreach (ListViewItem item in threadListView.SelectedItems)
+			{
+				item.Selected = false;
+			}
+		}
 	}
 }

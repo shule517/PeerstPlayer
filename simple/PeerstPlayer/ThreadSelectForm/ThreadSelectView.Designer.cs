@@ -110,6 +110,7 @@
 			this.Name = "ThreadSelectView";
 			this.Text = "スレッド選択";
 			this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ThreadSelectForm_FormClosing);
+			this.VisibleChanged += new System.EventHandler(this.ThreadSelectView_VisibleChanged);
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
