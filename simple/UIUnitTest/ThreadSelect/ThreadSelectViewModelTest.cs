@@ -1,6 +1,5 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using PeerstPlayer.UI;
 using PeerstPlayer;
 using Shule.Peerst.BBS;
 using System.Collections.Generic;
@@ -9,7 +8,7 @@ using System.ComponentModel;
 namespace UIUnitTest.ThreadSelect
 {
 	[TestClass]
-	public class ThreadSelectModelViewTest
+	public class ThreadSelectViewModelTest
 	{
 		#region 想定データ：スレッド一覧
 
@@ -314,7 +313,7 @@ namespace UIUnitTest.ThreadSelect
 		// スレッド一覧の更新
 		public void Test_Update_ThreadList()
 		{
-			ThreadSelectModelView modelView = new ThreadSelectModelView();
+			ThreadSelectViewModel modelView = new ThreadSelectViewModel();
 			modelView.PropertyChanged += modelView_PropertyChanged;
 
 			// 更新
@@ -324,10 +323,10 @@ namespace UIUnitTest.ThreadSelect
 		void modelView_PropertyChanged(object sender, PropertyChangedEventArgs e)
 		{
 			// プロパティ変更通知の確認
-			Assert.AreEqual(e.PropertyName, ThreadSelectModelView.Property.ThreadList);
+			Assert.AreEqual(e.PropertyName, ThreadSelectViewModel.Property.ThreadList);
 
 			// スレッド一覧取得
-			List<ThreadInfo> threadList = ((ThreadSelectModelView)sender).ThreadList;
+			List<ThreadInfo> threadList = ((ThreadSelectViewModel)sender).ThreadList;
 
 			// スレッドリストの更新確認
 			Assert.IsTrue(threadList.Count > 0);
