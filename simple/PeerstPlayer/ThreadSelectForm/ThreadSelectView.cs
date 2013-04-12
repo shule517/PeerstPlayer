@@ -24,7 +24,7 @@ namespace PeerstPlayer
 		public event PropertyChangedEventHandler ThreadUrlChanged;
 
 		// モデルビュー
-		private ThreadSelectModelView modelView = new ThreadSelectModelView();
+		private ThreadSelectViewModel modelView = new ThreadSelectViewModel();
 
 		// TODO スレッドストップスレの表示/非表示を切替(チェックボックス)
 		// TODO カラムクリックでソートを行う
@@ -42,12 +42,12 @@ namespace PeerstPlayer
 		private void modelView_PropertyChanged(object sender, PropertyChangedEventArgs e)
 		{
 			// スレッド一覧変更
-			if (e.PropertyName == ThreadSelectModelView.Property.ThreadList)
+			if (e.PropertyName == ThreadSelectViewModel.Property.ThreadList)
 			{
 				// スレッド一覧の描画
 				DrawThreadList();
 			}
-			else if (e.PropertyName == ThreadSelectModelView.Property.ThreadUrl)
+			else if (e.PropertyName == ThreadSelectViewModel.Property.ThreadUrl)
 			{
 				// スレッド変更通知
 				NotifyThreadUrlChanged();
