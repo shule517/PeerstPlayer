@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PeerstPlayer", "..\src\Peer
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PeerstViewer", "..\src\PeerstViewer\PeerstViewer.csproj", "{7D40F4D3-FB0E-484F-8BF7-B16C71155168}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UIUnitTest", "UIUnitTest\UIUnitTest.csproj", "{31B09553-24DC-493F-BA74-8168B4D088F3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -31,6 +33,10 @@ Global
 		{7D40F4D3-FB0E-484F-8BF7-B16C71155168}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7D40F4D3-FB0E-484F-8BF7-B16C71155168}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7D40F4D3-FB0E-484F-8BF7-B16C71155168}.Release|Any CPU.Build.0 = Release|Any CPU
+		{31B09553-24DC-493F-BA74-8168B4D088F3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{31B09553-24DC-493F-BA74-8168B4D088F3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{31B09553-24DC-493F-BA74-8168B4D088F3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{31B09553-24DC-493F-BA74-8168B4D088F3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
