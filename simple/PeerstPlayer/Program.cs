@@ -17,15 +17,8 @@ namespace PeerstPlayer
 			Application.EnableVisualStyles();
 			Application.SetCompatibleTextRenderingDefault(false);
 
-			// Formの初期化
-			PlayerForm form = new PlayerForm();
-
-			// TODO 設定ファイルの読み込み
-
-			// Formの表示
-			Application.Run(form);
-
-			// TODO 終了処理
+			//// Formの表示
+			Application.Run(new PlayerView());
 		}
 	}
 }

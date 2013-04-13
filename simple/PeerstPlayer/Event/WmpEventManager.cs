@@ -41,7 +41,7 @@ namespace PeerstPlayer
 			// 左ダブルクリック
 			if (e.nButton == (short)Keys.LButton)
 			{
-				Notify(FormEvents.DoubleLeftClick);
+				//Notify(FormEvents.DoubleLeftClick);
 			}
 			// 右ダブルクリック
 			else if (e.nButton == (short)Keys.RButton)
