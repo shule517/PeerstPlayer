@@ -134,7 +134,6 @@ namespace PeerstPlayer
 			this.リレーを切断して終了するToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
 			this.wMPメニューToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.timerUpdateChannelInfo = new System.Windows.Forms.Timer(this.components);
-			this.toolStrip = new PeerstPlayer.ToolStripEx();
 			this.toolStripDropDownButtonDivide = new System.Windows.Forms.ToolStripDropDownButton();
 			this.幅5分の1ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.幅4分の1ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -181,14 +180,12 @@ namespace PeerstPlayer
 			this.toolStripButtonMin = new System.Windows.Forms.ToolStripButton();
 			this.toolStripButtonMax = new System.Windows.Forms.ToolStripButton();
 			this.toolStripButtonClose = new System.Windows.Forms.ToolStripButton();
-			this.panelWMP.SuspendLayout();
 			this.panelResBox.SuspendLayout();
 			this.contextMenuStripResBox.SuspendLayout();
 			this.panelStatusLabel.SuspendLayout();
 			this.panelDetailRight.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.pictureBoxIcon)).BeginInit();
 			this.contextMenuStripWMP.SuspendLayout();
-			this.toolStrip.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// panelWMP
@@ -196,7 +193,6 @@ namespace PeerstPlayer
 			this.panelWMP.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			this.panelWMP.Controls.Add(this.toolStrip);
 			this.panelWMP.Location = new System.Drawing.Point(0, 0);
 			this.panelWMP.Name = "panelWMP";
 			this.panelWMP.Size = new System.Drawing.Size(480, 360);
@@ -1038,25 +1034,6 @@ namespace PeerstPlayer
 			this.timerUpdateChannelInfo.Interval = 60000;
 			this.timerUpdateChannelInfo.Tick += new System.EventHandler(this.timerUpdateChannelInfo_Tick);
 			// 
-			// toolStrip
-			// 
-			this.toolStrip.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.toolStrip.Dock = System.Windows.Forms.DockStyle.None;
-			this.toolStrip.EnableClickThrough = true;
-			this.toolStrip.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
-			this.toolStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripDropDownButtonDivide,
-            this.toolStripDropDownButtonSize,
-            this.toolStripButtonOpenViewer,
-            this.toolStripButtonMin,
-            this.toolStripButtonMax,
-            this.toolStripButtonClose});
-			this.toolStrip.Location = new System.Drawing.Point(327, 0);
-			this.toolStrip.Name = "toolStrip";
-			this.toolStrip.Size = new System.Drawing.Size(153, 25);
-			this.toolStrip.TabIndex = 5;
-			this.toolStrip.Visible = false;
-			// 
 			// toolStripDropDownButtonDivide
 			// 
 			this.toolStripDropDownButtonDivide.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
@@ -1409,8 +1386,6 @@ namespace PeerstPlayer
 			this.DragDrop += new System.Windows.Forms.DragEventHandler(this.MainForm_DragDrop);
 			this.DragEnter += new System.Windows.Forms.DragEventHandler(this.MainForm_DragEnter);
 			this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.MainForm_KeyDown);
-			this.panelWMP.ResumeLayout(false);
-			this.panelWMP.PerformLayout();
 			this.panelResBox.ResumeLayout(false);
 			this.panelResBox.PerformLayout();
 			this.contextMenuStripResBox.ResumeLayout(false);
@@ -1421,8 +1396,6 @@ namespace PeerstPlayer
 			this.panelDetailRight.PerformLayout();
 			((System.ComponentModel.ISupportInitialize)(this.pictureBoxIcon)).EndInit();
 			this.contextMenuStripWMP.ResumeLayout(false);
-			this.toolStrip.ResumeLayout(false);
-			this.toolStrip.PerformLayout();
 			this.ResumeLayout(false);
 
 		}
