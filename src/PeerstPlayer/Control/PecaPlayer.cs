@@ -14,6 +14,9 @@ namespace PeerstPlayer.Control
 		public PecaPlayer()
 		{
 			InitializeComponent();
+
+			wmp.uiMode = "none";
+			wmp.stretchToFit = true;
 		}
 	}
 }
