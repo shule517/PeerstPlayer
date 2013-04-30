@@ -28,13 +28,22 @@
 		/// </summary>
 		private void InitializeComponent()
 		{
+			this.pecaPlayer = new PeerstPlayer.Control.PecaPlayer();
 			this.SuspendLayout();
+			// 
+			// pecaPlayer
+			// 
+			this.pecaPlayer.Location = new System.Drawing.Point(3, 2);
+			this.pecaPlayer.Name = "pecaPlayer";
+			this.pecaPlayer.Size = new System.Drawing.Size(150, 150);
+			this.pecaPlayer.TabIndex = 0;
 			// 
 			// PlayerView
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(284, 262);
+			this.Controls.Add(this.pecaPlayer);
 			this.Name = "PlayerView";
 			this.Text = "PeestPlayer";
 			this.ResumeLayout(false);
@@ -42,6 +51,8 @@
 		}
 
 		#endregion
+
+		private Control.PecaPlayer pecaPlayer;
 	}
 }
 
