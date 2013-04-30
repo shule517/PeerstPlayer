@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace PeerstViewer
 {
-	public partial class Form1 : Form
+	public partial class ViewerView : Form
 	{
-		public Form1()
+		public ViewerView()
 		{
 			InitializeComponent();
 		}

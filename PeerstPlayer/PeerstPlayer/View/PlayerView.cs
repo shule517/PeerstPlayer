@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace PeerstPlayer
 {
-	public partial class Form1 : Form
+	public partial class PlayerView : Form
 	{
-		public Form1()
+		public PlayerView()
 		{
 			InitializeComponent();
 		}
