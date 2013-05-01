@@ -6,6 +6,7 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using PeerstLib.PeerCast;
 
 namespace PeerstPlayer.Control
 {
@@ -22,9 +23,12 @@ namespace PeerstPlayer.Control
 		}
 
 		// 指定URLを再生する
-		public void open(string streamUrl)
+		public void Open(string streamUrl)
 		{
+			StreamUrlInfo info = StreamUrlAnalyzer.GetUrlInfo(streamUrl);
 
+			// 動画の再生
+			wmp.URL = streamUrl;
 		}
 	}
 }

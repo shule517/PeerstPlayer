@@ -10,6 +10,7 @@ namespace TestPeerstLib
 		[TestMethod]
 		public void Test_StreamUrlAnalyzerTest_GetUrlInfo()
 		{
+			// ストリームURL情報が正しく取得できること
 			// ホスト：localhost
 			GetUrlInfoTest(
 				"http://localhost:7144/pls/1234567890ABCDEFGHIJKLMNOPQRSTUV?tip=123.456.789.012:7144",
