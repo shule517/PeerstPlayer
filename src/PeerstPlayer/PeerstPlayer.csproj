@@ -58,6 +58,18 @@
     <Compile Include="Control\PecaPlayer.Designer.cs">
       <DependentUpon>PecaPlayer.cs</DependentUpon>
     </Compile>
+    <Compile Include="Control\StatusBar.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Control\StatusBar.Designer.cs">
+      <DependentUpon>StatusBar.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Control\WriteField.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Control\WriteField.Designer.cs">
+      <DependentUpon>WriteField.cs</DependentUpon>
+    </Compile>
     <Compile Include="Model\PlayerSettings.cs" />
     <Compile Include="View\PlayerView.cs">
       <SubType>Form</SubType>
@@ -69,6 +81,12 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Control\PecaPlayer.resx">
       <DependentUpon>PecaPlayer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Control\StatusBar.resx">
+      <DependentUpon>StatusBar.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Control\WriteField.resx">
+      <DependentUpon>WriteField.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
