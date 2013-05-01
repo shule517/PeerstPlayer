@@ -21,7 +21,7 @@ namespace PeerstPlayer.Control
 		private void writeFieldTextBox_TextChanged(object sender, EventArgs e)
 		{
 			writeFieldTextBox.Height = writeFieldTextBox.PreferredSize.Height;
-			Height = SelectThreadLabel.Height + writeFieldTextBox.PreferredSize.Height;
+			Height = selectThreadLabel.Height + writeFieldTextBox.PreferredSize.Height;
 		}
 	}
 }
