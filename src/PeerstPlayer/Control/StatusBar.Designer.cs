@@ -34,6 +34,7 @@
 			// 
 			// ChannelDetailLabel
 			// 
+			this.ChannelDetailLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
 			this.ChannelDetailLabel.BackColor = System.Drawing.Color.Black;
 			this.ChannelDetailLabel.ForeColor = System.Drawing.Color.SpringGreen;
 			this.ChannelDetailLabel.Location = new System.Drawing.Point(0, 31);
@@ -44,6 +45,8 @@
 			// 
 			// writeField
 			// 
+			this.writeField.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
 			this.writeField.Location = new System.Drawing.Point(0, 0);
 			this.writeField.Margin = new System.Windows.Forms.Padding(0);
 			this.writeField.Name = "writeField";

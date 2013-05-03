@@ -34,6 +34,8 @@
 			// 
 			// writeFieldTextBox
 			// 
+			this.writeFieldTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
 			this.writeFieldTextBox.Location = new System.Drawing.Point(0, 12);
 			this.writeFieldTextBox.Margin = new System.Windows.Forms.Padding(0);
 			this.writeFieldTextBox.Multiline = true;
@@ -44,6 +46,8 @@
 			// 
 			// selectThreadLabel
 			// 
+			this.selectThreadLabel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
 			this.selectThreadLabel.BackColor = System.Drawing.Color.Black;
 			this.selectThreadLabel.ForeColor = System.Drawing.Color.SpringGreen;
 			this.selectThreadLabel.Location = new System.Drawing.Point(0, 0);
