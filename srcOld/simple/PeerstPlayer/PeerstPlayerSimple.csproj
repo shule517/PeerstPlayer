@@ -137,7 +137,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\GitHub\PeerstPlayer\src\Shule.Peerst\Shule.Peerst.csproj">
+    <ProjectReference Include="..\..\src\Shule.Peerst\Shule.Peerst.csproj">
       <Project>{f5b9b548-cb1c-4065-82cc-b4344da0c337}</Project>
       <Name>Shule.Peerst</Name>
     </ProjectReference>
