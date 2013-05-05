@@ -12,7 +12,9 @@ namespace TestPeerstLib
 		{
 			StreamUrlInfo info = StreamUrlAnalyzer.GetUrlInfo(TestSettings.StreamUrl);
 			PeerCastConnection connect = new PeerCastConnection(info);
-			connect.GetChannelInfo();
+			ChannelInfo chInfo = connect.GetChannelInfo();
+
+			// TODO テスト実施
 		}
 	}
 }
