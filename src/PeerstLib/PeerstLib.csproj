@@ -39,6 +39,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Form\FormUtility.cs" />
+    <Compile Include="Form\Win32API.cs" />
     <Compile Include="PeerCast\ChannelInfo.cs" />
     <Compile Include="PeerCast\PeerCastConnection.cs" />
     <Compile Include="PeerCast\StreamUrlAnalyzer.cs" />

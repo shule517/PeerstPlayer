@@ -14,9 +14,13 @@ namespace PeerstPlayer.Control
 	public partial class PecaPlayer : UserControl
 	{
 		// チャンネル情報
-		public ChannelInfo ChannelInfo {
+		public ChannelInfo ChannelInfo
+		{
 			get { if (pecaConnect != null) { return pecaConnect.GetChannelInfo(); } else { return new ChannelInfo(); } }
 		}
+
+		// マウス押下イベント
+		public AxWMPLib._WMPOCXEvents_MouseDownEventHandler MouseDownEvent { set { wmp.MouseDownEvent += value; } }
 
 		//-------------------------------------------------------------
 		// 概要：コンストラクタ
@@ -29,6 +33,15 @@ namespace PeerstPlayer.Control
 			// 初期設定
 			wmp.uiMode = "none";
 			wmp.stretchToFit = true;
+
+			// WMPフルスクリーンを無効
+			wmp.MouseDownEvent += (sender, e) =>
+			{
+				if (wmp.fullScreen)
+				{
+					wmp.fullScreen = false;
+				}
+			};
 		}
 
 		//-------------------------------------------------------------

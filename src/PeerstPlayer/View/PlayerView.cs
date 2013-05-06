@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PeerstLib.Form;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -16,7 +17,7 @@ namespace PeerstPlayer
 		{
 			InitializeComponent();
 
-			// TODO 
+			// TODO デバッグ開始
 			pecaPlayer.Open("http://localhost:7145/pls/90E13182A11873DF1B8ADD5F4E7C0A38?tip=183.181.158.208:7154");
 			pecaPlayer.Size = pecaPlayer.Size;
 
@@ -42,6 +43,12 @@ namespace PeerstPlayer
 			{
 				this.Close();
 			};
+			// マウスドラッグ
+			pecaPlayer.MouseDownEvent = (sender, e) =>
+			{
+				FormUtility.WindowDragStart(this.Handle);
+			};
+			// TODO デバッグ終了
 		}
 	}
 }
