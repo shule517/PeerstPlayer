@@ -49,7 +49,7 @@ namespace PeerstPlayer
 				FormUtility.WindowDragStart(this.Handle);
 			};
 			// 選択スレッドをクリック
-			statusBar.SelectThreadClick = (sender, e) =>
+			statusBar.SelectThreadClick += (sender, e) =>
 			{
 				PlayerSettingView view = new PlayerSettingView();
 				view.Show();

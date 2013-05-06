@@ -12,12 +12,18 @@ namespace PeerstPlayer.Control
 	// 書き込み欄コントロール
 	public partial class WriteField : UserControl
 	{
-		// 選択スレッドをクリック
-		public EventHandler SelectThreadClick { set { selectThreadLabel.Click += value; } }
+		// 選択スレッドのクリックイベント
+		public event EventHandler SelectThreadClick;
 
 		public WriteField()
 		{
 			InitializeComponent();
+
+			// 選択スレッドのクリックイベント
+			selectThreadLabel.Click += (sender, e) =>
+			{
+				if (SelectThreadClick != null) SelectThreadClick(sender, e);
+			};
 		}
 
 		#region 非公開プロパティ

@@ -18,8 +18,8 @@ namespace PeerstPlayer.Control
 			set { ChannelDetailLabel.Text = value; }
 		}
 
-		// 選択スレッドをクリック
-		public EventHandler SelectThreadClick { set { writeField.SelectThreadClick = value; } }
+		// 選択スレッドのクリックイベント
+		public event EventHandler SelectThreadClick;
 
 		//-------------------------------------------------------------
 		// 概要：コンストラクタ
@@ -31,6 +31,10 @@ namespace PeerstPlayer.Control
 
 			// サイズ変更イベント登録
 			writeField.SizeChanged += writeField_SizeChanged;
+			writeField.SelectThreadClick += (sender, e) =>
+			{
+				if (SelectThreadClick != null) SelectThreadClick(sender, e);
+			};
 		}
 
 		#region 非公開プロパティ
