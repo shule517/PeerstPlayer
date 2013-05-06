@@ -52,6 +52,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Control\MovieDetail.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Control\MovieDetail.Designer.cs">
+      <DependentUpon>MovieDetail.cs</DependentUpon>
+    </Compile>
     <Compile Include="Control\PecaPlayer.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -92,6 +98,9 @@
     <Compile Include="View\ThreadSelectView.Designer.cs">
       <DependentUpon>ThreadSelectView.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="Control\MovieDetail.resx">
+      <DependentUpon>MovieDetail.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Control\PecaPlayer.resx">
       <DependentUpon>PecaPlayer.cs</DependentUpon>
     </EmbeddedResource>

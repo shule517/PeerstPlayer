@@ -15,10 +15,24 @@ namespace PeerstPlayer.Control
 		// チャンネル詳細
 		public string ChannelDetail
 		{
-			get { return ChannelDetailLabel.Text; }
-			set { ChannelDetailLabel.Text = value; }
+			get { return movieDetail.ChannelDetail; }
+			set { movieDetail.ChannelDetail = value; }
 		}
 
+		// 動画ステータス
+		public string MovieStatus
+		{
+			get { return movieDetail.MovieStatus; }
+			set { movieDetail.MovieStatus = value; }
+		}
+
+		// 音量
+		public string Volume
+		{
+			get { return movieDetail.Volume; }
+			set { movieDetail.Volume = value; }
+		}
+		
 		// 選択スレッドURL
 		public string SelectThreadUrl
 		{
@@ -53,8 +67,8 @@ namespace PeerstPlayer.Control
 		//-------------------------------------------------------------
 		private void writeField_SizeChanged(object sender, EventArgs e)
 		{
-			Height = writeField.Height + ChannelDetailLabel.Height;
-			ChannelDetailLabel.Top = writeField.Height;
+			Height = writeField.Height + movieDetail.Height;
+			movieDetail.Top = writeField.Height;
 		}
 
 		#endregion

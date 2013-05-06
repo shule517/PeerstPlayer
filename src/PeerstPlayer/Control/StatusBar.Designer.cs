@@ -28,23 +28,9 @@
 		/// </summary>
 		private void InitializeComponent()
 		{
-			this.ChannelDetailLabel = new System.Windows.Forms.Label();
 			this.writeField = new PeerstPlayer.Control.WriteField();
+			this.movieDetail = new PeerstPlayer.Control.MovieDetail();
 			this.SuspendLayout();
-			// 
-			// ChannelDetailLabel
-			// 
-			this.ChannelDetailLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-			this.ChannelDetailLabel.BackColor = System.Drawing.Color.Black;
-			this.ChannelDetailLabel.Font = new System.Drawing.Font("MS UI Gothic", 9F);
-			this.ChannelDetailLabel.ForeColor = System.Drawing.Color.SpringGreen;
-			this.ChannelDetailLabel.Location = new System.Drawing.Point(0, 33);
-			this.ChannelDetailLabel.Margin = new System.Windows.Forms.Padding(3);
-			this.ChannelDetailLabel.Name = "ChannelDetailLabel";
-			this.ChannelDetailLabel.Size = new System.Drawing.Size(480, 16);
-			this.ChannelDetailLabel.TabIndex = 1;
-			this.ChannelDetailLabel.Text = "チャンネル情報";
-			this.ChannelDetailLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
 			// 
 			// writeField
 			// 
@@ -57,11 +43,21 @@
 			this.writeField.Size = new System.Drawing.Size(480, 31);
 			this.writeField.TabIndex = 0;
 			// 
+			// movieDetail
+			// 
+			this.movieDetail.ChannelDetail = "チャンネル情報";
+			this.movieDetail.Location = new System.Drawing.Point(0, 29);
+			this.movieDetail.MovieStatus = "00:00:00";
+			this.movieDetail.Name = "movieDetail";
+			this.movieDetail.Size = new System.Drawing.Size(480, 18);
+			this.movieDetail.TabIndex = 1;
+			this.movieDetail.Volume = "100";
+			// 
 			// StatusBar
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.Controls.Add(this.ChannelDetailLabel);
+			this.Controls.Add(this.movieDetail);
 			this.Controls.Add(this.writeField);
 			this.Margin = new System.Windows.Forms.Padding(0);
 			this.Name = "StatusBar";
@@ -73,6 +69,6 @@
 		#endregion
 
 		private WriteField writeField;
-		private System.Windows.Forms.Label ChannelDetailLabel;
+		private MovieDetail movieDetail;
 	}
 }
