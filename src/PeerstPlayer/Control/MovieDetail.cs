@@ -33,9 +33,35 @@ namespace PeerstPlayer.Control
 			set { volumeLabel.Text = value; }
 		}
 
+		// 動画詳細のクリックイベント
+		public event EventHandler ChannelDetailClick;
+
+		// 音量のクリックイベント
+		public event EventHandler VolumeClick;
+
+		//-------------------------------------------------------------
+		// 概要：コンストラクタ
+		// 詳細：イベントの設定
+		//-------------------------------------------------------------
 		public MovieDetail()
 		{
 			InitializeComponent();
+
+			// 動画詳細クリック
+			ChannelDetailLabel.Click += (sender, e) =>
+			{
+				if (ChannelDetailClick != null) ChannelDetailClick(sender, e);
+			};
+			movieStatusLabel.Click += (sender, e) =>
+			{
+				if (ChannelDetailClick != null) ChannelDetailClick(sender, e);
+			};
+
+			// 音量クリック
+			volumeLabel.Click += (sender, e) =>
+			{
+				if (VolumeClick != null) VolumeClick(sender, e);
+			};
 		}
 	}
 }
