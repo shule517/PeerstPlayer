@@ -71,6 +71,12 @@
       <DependentUpon>WriteField.cs</DependentUpon>
     </Compile>
     <Compile Include="Model\PlayerSettings.cs" />
+    <Compile Include="View\PlayerSettingView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\PlayerSettingView.Designer.cs">
+      <DependentUpon>PlayerSettingView.cs</DependentUpon>
+    </Compile>
     <Compile Include="View\PlayerView.cs">
       <SubType>Form</SubType>
     </Compile>
