@@ -48,22 +48,22 @@ namespace PeerstPlayer
 			{
 				FormUtility.WindowDragStart(this.Handle);
 			};
-			// 選択スレッドをクリック
-			statusBar.SelectThreadClick += (sender, e) =>
-			{
-				PlayerSettingView view = new PlayerSettingView();
-				view.Show();
-			};
 			// チャンネル情報更新
 			pecaPlayer.ChannelInfoChange += (sender, e) =>
 			{
 				ChannelInfo info = pecaPlayer.ChannelInfo;
 				statusBar.ChannelDetail = info.Name + " [" + info.Genre + "] " + info.Desc;
+
+				// TODO 初回だけコンタクトURLを設定する
+				statusBar.SelectThreadUrl = info.Url;
 			};
 
-			// 動画再生
-			pecaPlayer.Open("http://localhost:7145/pls/9072B7771C771AB60CDB6AF9A846B64D?tip=114.167.196.248:7144");
 			// TODO デバッグ終了
+		}
+
+		public void Open(string url)
+		{
+			pecaPlayer.Open(url);
 		}
 	}
 }

@@ -6,14 +6,19 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using PeerstPlayer.View;
 
 namespace PeerstPlayer.Control
 {
 	// 書き込み欄コントロール
 	public partial class WriteField : UserControl
 	{
-		// 選択スレッドのクリックイベント
-		public event EventHandler SelectThreadClick;
+		// 選択スレッドURL
+		public string SelectThreadUrl
+		{
+			get { return selectThreadLabel.Text; }
+			set { selectThreadLabel.Text = value; }
+		}
 
 		//-------------------------------------------------------------
 		// 概要：コンストラクタ
@@ -26,8 +31,10 @@ namespace PeerstPlayer.Control
 			// 選択スレッドのクリックイベント
 			selectThreadLabel.Click += (sender, e) =>
 			{
-				if (SelectThreadClick != null) SelectThreadClick(sender, e);
+				PlayerSettingView view = new PlayerSettingView();
+				view.Show();
 			};
+
 		}
 
 		#region 非公開プロパティ

@@ -13,13 +13,18 @@ namespace PeerstPlayer.Control
 	public partial class StatusBar : UserControl
 	{
 		// チャンネル詳細
-		public string ChannelDetail {
+		public string ChannelDetail
+		{
 			get { return ChannelDetailLabel.Text; }
 			set { ChannelDetailLabel.Text = value; }
 		}
 
-		// 選択スレッドのクリックイベント
-		public event EventHandler SelectThreadClick;
+		// 選択スレッドURL
+		public string SelectThreadUrl
+		{
+			get { return writeField.SelectThreadUrl; }
+			set { writeField.SelectThreadUrl = value; }
+		}
 
 		//-------------------------------------------------------------
 		// 概要：コンストラクタ
@@ -31,10 +36,6 @@ namespace PeerstPlayer.Control
 
 			// サイズ変更イベント登録
 			writeField.SizeChanged += writeField_SizeChanged;
-			writeField.SelectThreadClick += (sender, e) =>
-			{
-				if (SelectThreadClick != null) SelectThreadClick(sender, e);
-			};
 		}
 
 		#region 非公開プロパティ
