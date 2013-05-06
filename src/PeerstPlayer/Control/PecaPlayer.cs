@@ -13,22 +13,15 @@ namespace PeerstPlayer.Control
 	// PeerCast対応の動画再生プレイヤー
 	public partial class PecaPlayer : UserControl
 	{
-		//--------------------------------------------
-		// 公開プロパティ
-		//--------------------------------------------
-
 		// チャンネル情報
 		public ChannelInfo ChannelInfo {
 			get { if (pecaConnect != null) { return pecaConnect.GetChannelInfo(); } else { return new ChannelInfo(); } }
 		}
 
-		//--------------------------------------------
-		// 非公開プロパティ
-		//--------------------------------------------
-
-		// PeerCast通信
-		private PeerCastConnection pecaConnect = null;
-
+		//-------------------------------------------------------------
+		// 概要：コンストラクタ
+		// 詳細：コントロールの初期化
+		//-------------------------------------------------------------
 		public PecaPlayer()
 		{
 			InitializeComponent();
@@ -38,7 +31,9 @@ namespace PeerstPlayer.Control
 			wmp.stretchToFit = true;
 		}
 
-		// 指定URLを再生する
+		//-------------------------------------------------------------
+		// 概要：指定URLを再生
+		//-------------------------------------------------------------
 		public void Open(string streamUrl)
 		{
 			StreamUrlInfo info = StreamUrlAnalyzer.GetUrlInfo(streamUrl);
@@ -47,5 +42,12 @@ namespace PeerstPlayer.Control
 			// 動画の再生
 			wmp.URL = streamUrl;
 		}
+
+		#region 非公開プロパティ
+
+		// PeerCast通信
+		private PeerCastConnection pecaConnect = null;
+
+		#endregion
 	}
 }

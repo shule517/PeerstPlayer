@@ -17,11 +17,18 @@ namespace PeerstPlayer.Control
 			InitializeComponent();
 		}
 
-		// 文字入力イベント
+		#region 非公開プロパティ
+
+		//-------------------------------------------------------------
+		// 概要：文字入力イベント
+		// 詳細：コントロールの高さ調節
+		//-------------------------------------------------------------
 		private void writeFieldTextBox_TextChanged(object sender, EventArgs e)
 		{
 			writeFieldTextBox.Height = writeFieldTextBox.PreferredSize.Height;
 			Height = selectThreadLabel.Height + writeFieldTextBox.PreferredSize.Height;
 		}
+
+		#endregion
 	}
 }

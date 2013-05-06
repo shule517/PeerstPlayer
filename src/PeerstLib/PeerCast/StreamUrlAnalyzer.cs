@@ -20,7 +20,9 @@ namespace PeerstLib.PeerCast
 		const string StreamUrlPattern = @"ttp://(.*):(.*)/pls/(.*)?tip=";
 		const int GroupCount = 4;
 
-		// ストリームURL情報の取得
+		//-------------------------------------------------------------
+		// 概要：ストリームURL情報の取得
+		//-------------------------------------------------------------
 		public static StreamUrlInfo GetUrlInfo(string streamUrl)
 		{
 			StreamUrlInfo info = new StreamUrlInfo();

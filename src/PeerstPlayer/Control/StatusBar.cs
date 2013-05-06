@@ -12,16 +12,16 @@ namespace PeerstPlayer.Control
 	// ステータスバーコントロール
 	public partial class StatusBar : UserControl
 	{
-		//--------------------------------------------
-		// 公開プロパティ
-		//--------------------------------------------
-
 		// チャンネル詳細
 		public string ChannelDetail {
 			get { return ChannelDetailLabel.Text; }
 			set { ChannelDetailLabel.Text = value; }
 		}
 
+		//-------------------------------------------------------------
+		// 概要：コンストラクタ
+		// 詳細：イベント登録
+		//-------------------------------------------------------------
 		public StatusBar()
 		{
 			InitializeComponent();
@@ -30,15 +30,18 @@ namespace PeerstPlayer.Control
 			writeField.SizeChanged += writeField_SizeChanged;
 		}
 
-		//--------------------------------------------
-		// 非公開プロパティ
-		//--------------------------------------------
+		#region 非公開プロパティ
 
-		// 書き込み欄のサイズ自動調節
+		//-------------------------------------------------------------
+		// 概要：サイズ変更イベント
+		// 詳細：書き込み欄のサイズ自動調節
+		//-------------------------------------------------------------
 		private void writeField_SizeChanged(object sender, EventArgs e)
 		{
 			Height = writeField.Height + ChannelDetailLabel.Height;
 			ChannelDetailLabel.Top = writeField.Height;
 		}
+
+		#endregion
 	}
 }
