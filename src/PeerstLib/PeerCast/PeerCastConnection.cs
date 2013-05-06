@@ -9,8 +9,6 @@ namespace PeerstLib.PeerCast
 	// PeerCast通信クラス
 	public class PeerCastConnection
 	{
-		private StreamUrlInfo urlInfo = null;
-
 		//-------------------------------------------------------------
 		// 概要：ストリーム情報の初期化
 		//-------------------------------------------------------------
@@ -31,6 +29,11 @@ namespace PeerstLib.PeerCast
 			// ViewXMLの解析
 			return AnlyzeViewXML(elements);
 		}
+
+		#region 非公開プロパティ
+
+		// ストリームURL情報(接続先)
+		private StreamUrlInfo urlInfo = null;
 
 		//-------------------------------------------------------------
 		// 概要：ViewXMLを解析
@@ -210,5 +213,7 @@ namespace PeerstLib.PeerCast
 
 			return hostList;
 		}
+
+		#endregion
 	}
 }
