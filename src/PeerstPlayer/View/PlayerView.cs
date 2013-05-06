@@ -1,4 +1,5 @@
 ﻿using PeerstLib.Form;
+using PeerstPlayer.View;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -47,6 +48,12 @@ namespace PeerstPlayer
 			pecaPlayer.MouseDownEvent = (sender, e) =>
 			{
 				FormUtility.WindowDragStart(this.Handle);
+			};
+			// 選択スレッドをクリック
+			statusBar.SelectThreadClick = (sender, e) =>
+			{
+				ThreadSelectView view = new ThreadSelectView();
+				view.Show();
 			};
 			// TODO デバッグ終了
 		}

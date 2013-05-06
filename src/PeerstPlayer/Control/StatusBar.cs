@@ -18,6 +18,9 @@ namespace PeerstPlayer.Control
 			set { ChannelDetailLabel.Text = value; }
 		}
 
+		// 選択スレッドをクリック
+		public EventHandler SelectThreadClick { set { writeField.SelectThreadClick = value; } }
+
 		//-------------------------------------------------------------
 		// 概要：コンストラクタ
 		// 詳細：イベント登録
