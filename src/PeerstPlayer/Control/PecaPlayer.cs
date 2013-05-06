@@ -14,10 +14,8 @@ namespace PeerstPlayer.Control
 	public partial class PecaPlayer : UserControl
 	{
 		// チャンネル情報
-		public ChannelInfo ChannelInfo
-		{
-			get { if (pecaConnect != null) { return pecaConnect.GetChannelInfo(); } else { return new ChannelInfo(); } }
-		}
+		public ChannelInfo ChannelInfo { get; set; }
+		public event EventHandler ChannelInfoChange;
 
 		// マウス押下イベント
 		public AxWMPLib._WMPOCXEvents_MouseDownEventHandler MouseDownEvent { set { wmp.MouseDownEvent += value; } }
@@ -46,6 +44,7 @@ namespace PeerstPlayer.Control
 
 		//-------------------------------------------------------------
 		// 概要：指定URLを再生
+		// 詳細：動画を再生し、チャンネル情報を取得する
 		//-------------------------------------------------------------
 		public void Open(string streamUrl)
 		{
@@ -54,6 +53,14 @@ namespace PeerstPlayer.Control
 
 			// 動画の再生
 			wmp.URL = streamUrl;
+
+			// チャンネル情報の取得
+			// TODO BackGroundで実行する
+			this.ChannelInfo = pecaConnect.GetChannelInfo();
+			if (ChannelInfoChange != null)
+			{
+				ChannelInfoChange(this, new EventArgs());
+			}
 		}
 
 		#region 非公開プロパティ

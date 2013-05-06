@@ -110,6 +110,9 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="View\PlayerSettingView.resx">
+      <DependentUpon>PlayerSettingView.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="View\PlayerView.resx">
       <DependentUpon>PlayerView.cs</DependentUpon>
     </EmbeddedResource>

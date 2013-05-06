@@ -29,32 +29,31 @@
 		private void InitializeComponent()
 		{
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(PlayerView));
-			this.toolStrip1 = new System.Windows.Forms.ToolStrip();
+			this.toolStrip = new System.Windows.Forms.ToolStrip();
 			this.minToolStripButton = new System.Windows.Forms.ToolStripButton();
 			this.maxToolStripButton = new System.Windows.Forms.ToolStripButton();
 			this.closeToolStripButton = new System.Windows.Forms.ToolStripButton();
 			this.statusBar = new PeerstPlayer.Control.StatusBar();
 			this.pecaPlayer = new PeerstPlayer.Control.PecaPlayer();
-			this.toolStrip1.SuspendLayout();
+			this.toolStrip.SuspendLayout();
 			this.SuspendLayout();
 			// 
-			// toolStrip1
+			// toolStrip
 			// 
-			this.toolStrip1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.toolStrip1.Dock = System.Windows.Forms.DockStyle.None;
-			this.toolStrip1.GripMargin = new System.Windows.Forms.Padding(0);
-			this.toolStrip1.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
-			this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+			this.toolStrip.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.toolStrip.Dock = System.Windows.Forms.DockStyle.None;
+			this.toolStrip.GripMargin = new System.Windows.Forms.Padding(0);
+			this.toolStrip.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
+			this.toolStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.minToolStripButton,
             this.maxToolStripButton,
             this.closeToolStripButton});
-			this.toolStrip1.Location = new System.Drawing.Point(413, 0);
-			this.toolStrip1.Name = "toolStrip1";
-			this.toolStrip1.Padding = new System.Windows.Forms.Padding(0);
-			this.toolStrip1.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
-			this.toolStrip1.Size = new System.Drawing.Size(102, 25);
-			this.toolStrip1.TabIndex = 3;
-			this.toolStrip1.Text = "toolStrip1";
+			this.toolStrip.Location = new System.Drawing.Point(444, 0);
+			this.toolStrip.Name = "toolStrip";
+			this.toolStrip.Padding = new System.Windows.Forms.Padding(0);
+			this.toolStrip.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
+			this.toolStrip.Size = new System.Drawing.Size(71, 25);
+			this.toolStrip.TabIndex = 3;
 			// 
 			// minToolStripButton
 			// 
@@ -91,6 +90,7 @@
 			// 
 			// statusBar
 			// 
+			this.statusBar.ChannelDetail = "チャンネル情報";
 			this.statusBar.Location = new System.Drawing.Point(0, 360);
 			this.statusBar.Margin = new System.Windows.Forms.Padding(0);
 			this.statusBar.Name = "statusBar";
@@ -111,13 +111,13 @@
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(514, 449);
 			this.ControlBox = false;
-			this.Controls.Add(this.toolStrip1);
+			this.Controls.Add(this.toolStrip);
 			this.Controls.Add(this.statusBar);
 			this.Controls.Add(this.pecaPlayer);
+			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
 			this.Name = "PlayerView";
-			this.TransparencyKey = System.Drawing.Color.Fuchsia;
-			this.toolStrip1.ResumeLayout(false);
-			this.toolStrip1.PerformLayout();
+			this.toolStrip.ResumeLayout(false);
+			this.toolStrip.PerformLayout();
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
@@ -127,7 +127,7 @@
 
 		private Control.PecaPlayer pecaPlayer;
 		private Control.StatusBar statusBar;
-		private System.Windows.Forms.ToolStrip toolStrip1;
+		private System.Windows.Forms.ToolStrip toolStrip;
 		private System.Windows.Forms.ToolStripButton minToolStripButton;
 		private System.Windows.Forms.ToolStripButton maxToolStripButton;
 		private System.Windows.Forms.ToolStripButton closeToolStripButton;

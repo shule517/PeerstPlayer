@@ -1,4 +1,5 @@
 ﻿using PeerstLib.Form;
+using PeerstLib.PeerCast;
 using PeerstPlayer.View;
 using System;
 using System.Collections.Generic;
@@ -19,8 +20,6 @@ namespace PeerstPlayer
 			InitializeComponent();
 
 			// TODO デバッグ開始
-			pecaPlayer.Open("http://localhost:7145/pls/90E13182A11873DF1B8ADD5F4E7C0A38?tip=183.181.158.208:7154");
-			pecaPlayer.Size = pecaPlayer.Size;
 
 			// 最小化ボタン
 			minToolStripButton.Click += (sender, e) =>
@@ -52,9 +51,18 @@ namespace PeerstPlayer
 			// 選択スレッドをクリック
 			statusBar.SelectThreadClick = (sender, e) =>
 			{
-				ThreadSelectView view = new ThreadSelectView();
+				PlayerSettingView view = new PlayerSettingView();
 				view.Show();
 			};
+			// チャンネル情報更新
+			pecaPlayer.ChannelInfoChange += (sender, e) =>
+			{
+				ChannelInfo info = pecaPlayer.ChannelInfo;
+				statusBar.ChannelDetail = info.Name + " [" + info.Genre + "] " + info.Desc;
+			};
+
+			// 動画再生
+			pecaPlayer.Open("http://localhost:7145/pls/9072B7771C771AB60CDB6AF9A846B64D?tip=114.167.196.248:7144");
 			// TODO デバッグ終了
 		}
 	}
