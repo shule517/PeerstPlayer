@@ -11,48 +11,151 @@ namespace PeerstLib.PeerCast
 	{
 		private StreamUrlInfo urlInfo = null;
 
+		//-------------------------------------------------------------
+		// 概要：ストリーム情報の初期化
+		//-------------------------------------------------------------
 		public PeerCastConnection(StreamUrlInfo streamUrlInfo)
 		{
 			urlInfo = streamUrlInfo;
 		}
 
-		// チャンネル情報の取得
+		//-------------------------------------------------------------
+		// 概要：チャンネル情報の取得
+		// 詳細：読み込む対象のXMLを指定する
+		//-------------------------------------------------------------
 		public ChannelInfo GetChannelInfo()
 		{
-			// チャンネル情報の取得
+			// ViewXMLの取得
 			XElement elements = XElement.Load("http://" + urlInfo.Host + ":" + urlInfo.PortNo + "/admin?cmd=viewxml");
 
+			// ViewXMLの解析
+			return AnlyzeViewXML(elements);
+		}
+
+		//-------------------------------------------------------------
+		// 概要：ViewXMLを解析
+		//-------------------------------------------------------------
+		private ChannelInfo AnlyzeViewXML(XElement elements)
+		{
 			// ホスト情報の取得
-			IEnumerable<HostInfo> hostInfo = GetHostInfo(elements, urlInfo.StreamId);
+			IEnumerable<HostInfo> hostInfo = SelectHostInfo(elements, urlInfo.StreamId);
 			List<HostInfo> hostList = hostInfo.ToList();
 
 			// チャンネル情報の取得
-			var query =
-				from channel in elements.Elements("channels_relayed").Elements("channel")
-				where (string)channel.Attribute("id") == urlInfo.StreamId
-				from relay in channel.Elements("relay")
-				from track in channel.Elements("track")
+			ChannelInfo channelInfo = SelectChannelInfo(elements, hostList);
+
+			// リレー色の設定
+			SetRelayColor(channelInfo);
+
+			return channelInfo;
+		}
+
+		//-------------------------------------------------------------
+		// 概要：リレー色の設定
+		//-------------------------------------------------------------
+		private void SetRelayColor(ChannelInfo chInfo)
+		{
+			// 自分のリレー色
+			{
+				bool isPortOpen = (chInfo.Firewalled == "0");
+				bool isRelay = (chInfo.HostList.Count != 0);
+				bool canRelay =(chInfo.Relays != "0");
+
+				chInfo.RelayColor = JudgeRelayColor(chInfo, isPortOpen, isRelay, canRelay);
+			}
+
+			// リレー先のリレー色
+			foreach (HostInfo hostInfo in chInfo.HostList)
+			{
+				bool isPortOpen = (hostInfo.Push == "0");
+				bool isRelay = (hostInfo.Relay != "0");
+				bool canRelay = (hostInfo.Relays != "0");
+
+				hostInfo.RelayColor = JudgeRelayColor(chInfo, isPortOpen, isRelay, canRelay);
+			}
+		}
+
+		//-------------------------------------------------------------
+		// 概要：リレー色の判定
+		//-------------------------------------------------------------
+		private static RelayColor JudgeRelayColor(ChannelInfo chInfo, bool isPortOpen, bool isRelay, bool canRelay)
+		{
+			// ポート解放済み
+			if (isPortOpen)
+			{
+				// リレーあり
+				if (isRelay)
+				{
+					return RelayColor.Green;
+				}
+				// リレーなし
+				else
+				{
+					// リレーできる
+					if (canRelay)
+					{
+						return RelayColor.Blue;
+					}
+					// リレーできない
+					else
+					{
+						return RelayColor.Purple;
+					}
+				}
+			}
+			// ポート未開放
+			else
+			{
+				// リレーできる
+				if (canRelay)
+				{
+					return RelayColor.Orange;
+				}
+				// リレーできない
+				else
+				{
+					return RelayColor.Red;
+				}
+			}
+		}
+
+		//-------------------------------------------------------------
+		// 概要：チャンネル情報の取得
+		//-------------------------------------------------------------
+		private ChannelInfo SelectChannelInfo(XElement elements, List<HostInfo> hostList)
+		{
+			var channelList =
+				// channels_relayed
+				from chRelay in elements.Elements("channels_relayed").Elements("channel")
+				where (string)chRelay.Attribute("id") == urlInfo.StreamId
+				from relay in chRelay.Elements("relay")
+				from track in chRelay.Elements("track")
+				// channels_found
+				from chFound in elements.Elements("channels_found").Elements("channel")
+				where (string)chFound.Attribute("id") == urlInfo.StreamId
+				from hits in chFound.Elements("hits")
 				select new ChannelInfo
 				{
 					// チャンネル情報
-					Name = (string)channel.Attribute("name"),
-					Id = (string)channel.Attribute("id"),
-					Bitrate = (string)channel.Attribute("bitrate"),
-					Type = (string)channel.Attribute("type"),
-					Genre = (string)channel.Attribute("genre"),
-					Desc = (string)channel.Attribute("desc"),
-					Url = (string)channel.Attribute("url"),
-					Uptime = (string)channel.Attribute("uptime"),
-					Comment = (string)channel.Attribute("comment"),
-					Skips = (string)channel.Attribute("skips"),
-					Age = (string)channel.Attribute("age"),
-					Bcflags = (string)channel.Attribute("bcflags"),
+					Name = (string)chRelay.Attribute("name"),
+					Id = (string)chRelay.Attribute("id"),
+					Bitrate = (string)chRelay.Attribute("bitrate"),
+					Type = (string)chRelay.Attribute("type"),
+					Genre = (string)chRelay.Attribute("genre"),
+					Desc = (string)chRelay.Attribute("desc"),
+					Url = (string)chRelay.Attribute("url"),
+					Uptime = (string)chRelay.Attribute("uptime"),
+					Comment = (string)chRelay.Attribute("comment"),
+					Skips = (string)chRelay.Attribute("skips"),
+					Age = (string)chRelay.Attribute("age"),
+					Bcflags = (string)chRelay.Attribute("bcflags"),
 
 					// リレー情報
 					Listeners = (string)relay.Attribute("listeners"),
 					Relays = (string)relay.Attribute("relays"),
 					Hosts = (string)relay.Attribute("hosts"),
 					Status = (string)relay.Attribute("status"),
+					Firewalled = (string)hits.Attribute("firewalled"),
 
 					// トラック情報
 					TrackTitle = (string)track.Attribute("title"),
@@ -64,20 +167,26 @@ namespace PeerstLib.PeerCast
 					HostList = hostList,
 				};
 
-			if (query.Count() > 0)
+			// チャンネル情報の取得
+			ChannelInfo channelInfo;
+			if (channelList.Count() > 0)
 			{
-				return query.Single();
+				channelInfo = channelList.Single();
 			}
 			else
 			{
-				return new ChannelInfo();
+				channelInfo = new ChannelInfo();
 			}
+
+			return channelInfo;
 		}
 
-		// ホスト情報の取得
-		private static IEnumerable<HostInfo> GetHostInfo(XElement elements, string streamId)
+		//-------------------------------------------------------------
+		// 概要：ホスト情報の取得
+		//-------------------------------------------------------------
+		private static IEnumerable<HostInfo> SelectHostInfo(XElement elements, string streamId)
 		{
-			var query =
+			var hostList =
 				from channel in elements.Elements("channels_found").Elements("channel")
 				where (string)channel.Attribute("id") == streamId
 				from host in channel.Elements("hits").Elements("host")
@@ -99,7 +208,7 @@ namespace PeerstLib.PeerCast
 					Tracker = (string)host.Attribute("tracker"),
 				};
 
-			return query;
+			return hostList;
 		}
 	}
 }

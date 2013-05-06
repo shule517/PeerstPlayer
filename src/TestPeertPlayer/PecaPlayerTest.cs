@@ -42,7 +42,6 @@ namespace TestPeertPlayer
 			form.Show();
 
 			PecaPlayer pecaPlayer = form.pecaPlayer;
-			//PecaPlayer pecaPlayer = new PecaPlayer();
 			PrivateObject accessor = new PrivateObject(pecaPlayer);
 			AxWindowsMediaPlayer wmp = (AxWindowsMediaPlayer)accessor.GetField("wmp");
 			wmp.PlayStateChange += (sender, e) =>

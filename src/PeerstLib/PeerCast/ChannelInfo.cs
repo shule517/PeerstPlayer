@@ -32,6 +32,8 @@ namespace PeerstLib.PeerCast
 		public string Relays { get; set; }
 		public string Hosts { get; set; }
 		public string Status { get; set; }
+		public string Firewalled { get; set; }
+		public RelayColor RelayColor { get; set; }
 
 		// トラック情報
 		public string TrackTitle { get; set; }
@@ -62,5 +64,17 @@ namespace PeerstLib.PeerCast
 		public string Version { get; set; }
 		public string Update { get; set; }
 		public string Tracker { get; set; }
+		public RelayColor RelayColor { get; set; }
 	}
+
+	// リレー色
+	public enum RelayColor
+	{
+		None,
+		Red,
+		Orange,
+		Blue,
+		Green,
+		Purple,
+	};
 }

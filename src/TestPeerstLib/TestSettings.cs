@@ -20,5 +20,15 @@ namespace TestPeerstLib
 				return dir + @"\TestData\movie.wmv";
 			}
 		}
+
+		// ViewXMLテストデータ
+		public static string ViewXMLPath
+		{
+			get
+			{
+				string dir = Path.GetDirectoryName(Path.GetDirectoryName(Environment.CurrentDirectory));
+				return dir + @"\TestData\admin.xml";
+			}
+		}
 	}
 }
