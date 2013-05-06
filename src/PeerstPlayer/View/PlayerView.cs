@@ -44,7 +44,7 @@ namespace PeerstPlayer
 				this.Close();
 			};
 			// マウスドラッグ
-			pecaPlayer.MouseDownEvent = (sender, e) =>
+			pecaPlayer.MouseDownEvent += (sender, e) =>
 			{
 				FormUtility.WindowDragStart(this.Handle);
 			};

@@ -18,7 +18,7 @@ namespace PeerstPlayer.Control
 		public event EventHandler ChannelInfoChange;
 
 		// マウス押下イベント
-		public AxWMPLib._WMPOCXEvents_MouseDownEventHandler MouseDownEvent { set { wmp.MouseDownEvent += value; } }
+		public event EventHandler MouseDownEvent;
 
 		//-------------------------------------------------------------
 		// 概要：コンストラクタ
@@ -31,6 +31,10 @@ namespace PeerstPlayer.Control
 			// 初期設定
 			wmp.uiMode = "none";
 			wmp.stretchToFit = true;
+			wmp.MouseDownEvent += (sender, e) =>
+			{
+				if (MouseDownEvent != null) MouseDownEvent(sender, new EventArgs());
+			};
 
 			// WMPフルスクリーンを無効
 			wmp.MouseDownEvent += (sender, e) =>
