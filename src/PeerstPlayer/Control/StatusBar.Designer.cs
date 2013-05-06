@@ -36,12 +36,15 @@
 			// 
 			this.ChannelDetailLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
 			this.ChannelDetailLabel.BackColor = System.Drawing.Color.Black;
+			this.ChannelDetailLabel.Font = new System.Drawing.Font("MS UI Gothic", 9F);
 			this.ChannelDetailLabel.ForeColor = System.Drawing.Color.SpringGreen;
-			this.ChannelDetailLabel.Location = new System.Drawing.Point(0, 31);
+			this.ChannelDetailLabel.Location = new System.Drawing.Point(0, 33);
+			this.ChannelDetailLabel.Margin = new System.Windows.Forms.Padding(3);
 			this.ChannelDetailLabel.Name = "ChannelDetailLabel";
-			this.ChannelDetailLabel.Size = new System.Drawing.Size(480, 12);
+			this.ChannelDetailLabel.Size = new System.Drawing.Size(480, 16);
 			this.ChannelDetailLabel.TabIndex = 1;
 			this.ChannelDetailLabel.Text = "チャンネル情報";
+			this.ChannelDetailLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
 			// 
 			// writeField
 			// 
@@ -50,6 +53,7 @@
 			this.writeField.Location = new System.Drawing.Point(0, 0);
 			this.writeField.Margin = new System.Windows.Forms.Padding(0);
 			this.writeField.Name = "writeField";
+			this.writeField.SelectThreadUrl = "読み込み中...";
 			this.writeField.Size = new System.Drawing.Size(480, 31);
 			this.writeField.TabIndex = 0;
 			// 
@@ -61,7 +65,7 @@
 			this.Controls.Add(this.writeField);
 			this.Margin = new System.Windows.Forms.Padding(0);
 			this.Name = "StatusBar";
-			this.Size = new System.Drawing.Size(480, 43);
+			this.Size = new System.Drawing.Size(480, 47);
 			this.ResumeLayout(false);
 
 		}

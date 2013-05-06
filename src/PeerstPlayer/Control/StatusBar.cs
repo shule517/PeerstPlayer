@@ -26,6 +26,9 @@ namespace PeerstPlayer.Control
 			set { writeField.SelectThreadUrl = value; }
 		}
 
+		// 高さ変更イベント
+		public event EventHandler HeightChanged;
+
 		//-------------------------------------------------------------
 		// 概要：コンストラクタ
 		// 詳細：イベント登録
@@ -36,6 +39,10 @@ namespace PeerstPlayer.Control
 
 			// サイズ変更イベント登録
 			writeField.SizeChanged += writeField_SizeChanged;
+			writeField.HeightChanged += (sender, e) =>
+			{
+				if (HeightChanged != null) HeightChanged(sender, e);
+			};
 		}
 
 		#region 非公開プロパティ

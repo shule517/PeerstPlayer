@@ -48,7 +48,7 @@
             this.minToolStripButton,
             this.maxToolStripButton,
             this.closeToolStripButton});
-			this.toolStrip.Location = new System.Drawing.Point(444, 0);
+			this.toolStrip.Location = new System.Drawing.Point(410, 0);
 			this.toolStrip.Name = "toolStrip";
 			this.toolStrip.Padding = new System.Windows.Forms.Padding(0);
 			this.toolStrip.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
@@ -94,11 +94,13 @@
 			this.statusBar.Location = new System.Drawing.Point(0, 360);
 			this.statusBar.Margin = new System.Windows.Forms.Padding(0);
 			this.statusBar.Name = "statusBar";
-			this.statusBar.Size = new System.Drawing.Size(480, 43);
+			this.statusBar.SelectThreadUrl = "読み込み中...";
+			this.statusBar.Size = new System.Drawing.Size(480, 47);
 			this.statusBar.TabIndex = 1;
 			// 
 			// pecaPlayer
 			// 
+			this.pecaPlayer.ChannelInfo = null;
 			this.pecaPlayer.Location = new System.Drawing.Point(0, 0);
 			this.pecaPlayer.Margin = new System.Windows.Forms.Padding(0);
 			this.pecaPlayer.Name = "pecaPlayer";
@@ -109,7 +111,8 @@
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(514, 449);
+			this.BackColor = System.Drawing.Color.Black;
+			this.ClientSize = new System.Drawing.Size(480, 407);
 			this.ControlBox = false;
 			this.Controls.Add(this.toolStrip);
 			this.Controls.Add(this.statusBar);

@@ -57,6 +57,22 @@ namespace PeerstPlayer
 				// TODO 初回だけコンタクトURLを設定する
 				statusBar.SelectThreadUrl = info.Url;
 			};
+			// ステータスバーのサイズ変更
+			statusBar.HeightChanged += (sender, e) =>
+			{
+				this.ClientSize = new Size(ClientSize.Width, pecaPlayer.Height + statusBar.Height);
+			};
+			// サイズ変更
+			SizeChanged += (sender, e) =>
+			{
+				// 幅
+				pecaPlayer.Width = ClientSize.Width;
+				statusBar.Width = ClientSize.Width;
+
+				// 高さ
+				pecaPlayer.Height = ClientSize.Height - statusBar.Height;
+				statusBar.Top = pecaPlayer.Bottom;
+			};
 
 			// TODO デバッグ終了
 		}

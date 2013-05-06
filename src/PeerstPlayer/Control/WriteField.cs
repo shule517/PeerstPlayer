@@ -20,6 +20,9 @@ namespace PeerstPlayer.Control
 			set { selectThreadLabel.Text = value; }
 		}
 
+		// 高さ変更
+		public event EventHandler HeightChanged;
+
 		//-------------------------------------------------------------
 		// 概要：コンストラクタ
 		// 詳細：イベントの設定
@@ -31,13 +34,16 @@ namespace PeerstPlayer.Control
 			// 選択スレッドのクリックイベント
 			selectThreadLabel.Click += (sender, e) =>
 			{
-				PlayerSettingView view = new PlayerSettingView();
-				view.Show();
+				// 選択スレッド画面を開く
+				threadSelectView.Show();
 			};
 
 		}
 
 		#region 非公開プロパティ
+
+		// スレッド選択画面
+		ThreadSelectView threadSelectView = new ThreadSelectView();
 
 		//-------------------------------------------------------------
 		// 概要：文字入力イベント
@@ -47,6 +53,12 @@ namespace PeerstPlayer.Control
 		{
 			writeFieldTextBox.Height = writeFieldTextBox.PreferredSize.Height;
 			Height = selectThreadLabel.Height + writeFieldTextBox.PreferredSize.Height;
+
+			// 高さの変更
+			if (HeightChanged != null)
+			{
+				HeightChanged(sender, e);
+			}
 		}
 
 		#endregion
