@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<peercast>
+<servent uptime="14474"/>
+<bandwidth out="290991" in="468901"/>
+<connections total="11" relays="3" direct="8"/>
+<channels_relayed total="8">
+<channel name="スナネズミの生活" id="90E13182A11873DF1B8ADD5F4E7C0A38" bitrate="498" type="WMV" genre="sp?" desc="スナネズミ Liveカメラ" url="http://jbbs.livedoor.jp/bbs/read.cgi/radio/5187/1348208653/" uptime="402" comment="" skips="0" age="403" bcflags="0">
+<relay listeners="0" relays="0" hosts="0" status="IDLE"/>
+<track title="" artist="" album="" genre="" contact=""/>
+</channel>
+<channel name="てる" id="9712484B83F719C92072BDB47E0E9A61" bitrate="585" type="WMV" genre="tp@+game" desc="クロノトリガーRTA フルイベント" url="http://jbbs.livedoor.jp/bbs/read.cgi/game/49880/1365339083/" uptime="2342" comment="" skips="0" age="2803" bcflags="0">
+<relay listeners="2" relays="0" hosts="0" status="RECEIVE"/>
+<track title="" artist="" album="" genre="" contact=""/>
+</channel>
+<channel name="キング" id="90BB93C694EB73DE7BB528E50ECA7FAC" bitrate="668" type="WMV" genre="spGame" desc="第3回初見FLASHゲームRTA" url="http://jbbs.livedoor.jp/bbs/read.cgi/radio/4749/1367210645/" uptime="2755" comment="まけない" skips="0" age="2845" bcflags="0">
+<relay listeners="2" relays="0" hosts="0" status="RECEIVE"/>
+<track title="" artist="" album="" genre="" contact=""/>
+</channel>
+<channel name="しんぐｃｈ" id="90BF74DF859B629A6602E403C59038D1" bitrate="959" type="WMV" genre="sp@プログラミング初級者" desc="テトリス練習ツール作り" url="http://jbbs.livedoor.jp/bbs/read.cgi/radio/23665/1367606878/" uptime="128" comment="ファイル検索とかを勉強" skips="0" age="2936" bcflags="0">
+<relay listeners="2" relays="0" hosts="0" status="RECEIVE"/>
+<track title="" artist="" album="" genre="" contact=""/>
+</channel>
+<channel name="Rch" id="2116DB2112C6D9AB85493CC4CA4AF648" bitrate="875" type="WMV" genre="spGame" desc="" url="http://jbbs.livedoor.jp/game/48573/" uptime="3574" comment="" skips="0" age="3577" bcflags="0">
+<relay listeners="2" relays="0" hosts="0" status="RECEIVE"/>
+<track title="" artist="" album="" genre="" contact=""/>
+</channel>
+<channel name="すきゃみ" id="6453389B00F0E0F00214895930FAE25A" bitrate="493" type="WMV" genre="sp?@stg" desc="グラディウス外伝　短" url="http://jbbs.livedoor.jp/game/54897/" uptime="3580" comment="" skips="0" age="3581" bcflags="0">
+<relay listeners="0" relays="0" hosts="0" status="IDLE"/>
+<track title="" artist="" album="" genre="" contact=""/>
+</channel>
+<channel name="" id="90F0F1DB14BA39DE5DEAB313840B0DB9" bitrate="0" type="UNKNOWN" genre="" desc="" url="" uptime="0" comment="" skips="0" age="3593" bcflags="0">
+<relay listeners="0" relays="0" hosts="0" status="ERROR"/>
+<track title="" artist="" album="" genre="" contact=""/>
+</channel>
+<channel name="Ｃ調ch" id="BCFF60B0A56E77509D3A1EE98F1794DE" bitrate="743" type="WMV" genre="spgame" desc="GBA FF5 ジョブ安価3抽選王1縛り" url="http://jbbs.livedoor.jp/game/52573/" uptime="6640" comment="2年ぶり2回目の安価FF5 今ではFF5プロになってしまった" skips="0" age="13545" bcflags="0">
+<relay listeners="0" relays="3" hosts="4" status="RECEIVE"/>
+<track title="" artist="" album="" genre="" contact=""/>
+</channel>
+</channels_relayed>
+<channels_found total="8">
+<channel name="スナネズミの生活" id="90E13182A11873DF1B8ADD5F4E7C0A38" bitrate="498" type="WMV" genre="sp?" desc="スナネズミ Liveカメラ" url="http://jbbs.livedoor.jp/bbs/read.cgi/radio/5187/1348208653/" uptime="0" comment="" skips="0" age="403" bcflags="0">
+<hits hosts="0" listeners="0" relays="0" firewalled="0" closest="10000" furthest="0" newest="1367758109"/>
+<track title="" artist="" album="" genre="" contact=""/>
+</channel>
+<channel name="てる" id="9712484B83F719C92072BDB47E0E9A61" bitrate="585" type="WMV" genre="tp@+game" desc="クロノトリガーRTA フルイベント" url="http://jbbs.livedoor.jp/bbs/read.cgi/game/49880/1365339083/" uptime="0" comment="" skips="0" age="2803" bcflags="0">
+<hits hosts="0" listeners="0" relays="0" firewalled="0" closest="10000" furthest="0" newest="1367758109"/>
+<track title="" artist="" album="" genre="" contact=""/>
+</channel>
+<channel name="キング" id="90BB93C694EB73DE7BB528E50ECA7FAC" bitrate="668" type="WMV" genre="spGame" desc="第3回初見FLASHゲームRTA" url="http://jbbs.livedoor.jp/bbs/read.cgi/radio/4749/1367210645/" uptime="0" comment="まけない" skips="0" age="2845" bcflags="0">
+<hits hosts="0" listeners="0" relays="0" firewalled="0" closest="10000" furthest="0" newest="1367758109"/>
+<track title="" artist="" album="" genre="" contact=""/>
+</channel>
+<channel name="しんぐｃｈ" id="90BF74DF859B629A6602E403C59038D1" bitrate="959" type="WMV" genre="sp@プログラミング初級者" desc="テトリス練習ツール作り" url="http://jbbs.livedoor.jp/bbs/read.cgi/radio/23665/1367606878/" uptime="0" comment="ファイル検索とかを勉強" skips="0" age="2936" bcflags="0">
+<hits hosts="0" listeners="0" relays="5" firewalled="0" closest="0" furthest="0" newest="129">
+<host ip="203.111.196.114:7144" hops="0" listeners="1" relays="0" uptime="0" push="0" relay="1" direct="0" cin="1" stable="0" version="1218" update="129" tracker="0"/>
+<host ip="116.81.140.235:7144" hops="0" listeners="1" relays="0" uptime="0" push="0" relay="1" direct="0" cin="1" stable="0" version="1218" update="129" tracker="0"/>
+<host ip="125.4.159.213:7144" hops="0" listeners="1" relays="0" uptime="2025" push="0" relay="1" direct="1" cin="0" stable="0" version="1218" update="129" tracker="0"/>
+<host ip="58.188.104.71:7742" hops="0" listeners="1" relays="1" uptime="10" push="0" relay="0" direct="0" cin="1" stable="0" version="1218" update="129" tracker="0"/>
+<host ip="106.159.90.246:7144" hops="0" listeners="1" relays="1" uptime="10" push="0" relay="1" direct="0" cin="1" stable="0" version="1218" update="129" tracker="0"/>
+<host ip="114.149.4.174:7144" hops="0" listeners="1" relays="2" uptime="10" push="0" relay="0" direct="0" cin="1" stable="0" version="1218" update="129" tracker="0"/>
+<host ip="180.22.90.170:7146" hops="0" listeners="1" relays="1" uptime="10" push="0" relay="0" direct="0" cin="1" stable="0" version="1218" update="129" tracker="0"/>
+<host ip="182.165.65.198:7144" hops="0" listeners="1" relays="0" uptime="0" push="0" relay="1" direct="0" cin="1" stable="0" version="1218" update="129" tracker="0"/>
+</hits>
+<track title="" artist="" album="" genre="" contact=""/>
+</channel>
+<channel name="Rch" id="2116DB2112C6D9AB85493CC4CA4AF648" bitrate="875" type="WMV" genre="spGame" desc="" url="http://jbbs.livedoor.jp/game/48573/" uptime="0" comment="" skips="0" age="3577" bcflags="0">
+<hits hosts="0" listeners="0" relays="0" firewalled="0" closest="10000" furthest="0" newest="1367758109"/>
+<track title="" artist="" album="" genre="" contact=""/>
+</channel>
+<channel name="すきゃみ" id="6453389B00F0E0F00214895930FAE25A" bitrate="493" type="WMV" genre="sp?@stg" desc="グラディウス外伝　短" url="http://jbbs.livedoor.jp/game/54897/" uptime="0" comment="" skips="0" age="3581" bcflags="0">
+<hits hosts="0" listeners="0" relays="0" firewalled="0" closest="10000" furthest="0" newest="1367758109"/>
+<track title="" artist="" album="" genre="" contact=""/>
+</channel>
+<channel name="" id="90F0F1DB14BA39DE5DEAB313840B0DB9" bitrate="0" type="UNKNOWN" genre="" desc="" url="" uptime="0" comment="" skips="0" age="3593" bcflags="0">
+<hits hosts="0" listeners="0" relays="0" firewalled="0" closest="10000" furthest="0" newest="1367758109"/>
+<track title="" artist="" album="" genre="" contact=""/>
+</channel>
+<channel name="Ｃ調ch" id="BCFF60B0A56E77509D3A1EE98F1794DE" bitrate="743" type="WMV" genre="spgame" desc="GBA FF5 ジョブ安価3抽選王1縛り" url="http://jbbs.livedoor.jp/game/52573/" uptime="8348" comment="2年ぶり2回目の安価FF5 今ではFF5プロになってしまった" skips="0" age="13545" bcflags="0">
+<hits hosts="4" listeners="5" relays="1" firewalled="0" closest="1" furthest="2" newest="13">
+<host ip="219.202.228.1:7144" hops="1" listeners="2" relays="0" uptime="6492" push="0" relay="1" direct="0" cin="1" stable="0" version="1218" update="144" tracker="0"/>
+<host ip="180.30.158.159:7144" hops="2" listeners="1" relays="0" uptime="1450" push="0" relay="1" direct="0" cin="1" stable="0" version="1218" update="22" tracker="0"/>
+<host ip="220.104.5.50:7144" hops="1" listeners="1" relays="1" uptime="6630" push="0" relay="0" direct="0" cin="1" stable="0" version="1218" update="13" tracker="0"/>
+<host ip="211.3.192.65:7144" hops="1" listeners="1" relays="0" uptime="6595" push="0" relay="0" direct="0" cin="1" stable="0" version="1218" update="48" tracker="0"/>
+</hits>
+<track title="" artist="" album="" genre="" contact=""/>
+</channel>
+</channels_found>
+<host_cache/>
+</peercast>
