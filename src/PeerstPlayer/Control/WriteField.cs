@@ -15,6 +15,10 @@ namespace PeerstPlayer.Control
 		// 選択スレッドのクリックイベント
 		public event EventHandler SelectThreadClick;
 
+		//-------------------------------------------------------------
+		// 概要：コンストラクタ
+		// 詳細：イベントの設定
+		//-------------------------------------------------------------
 		public WriteField()
 		{
 			InitializeComponent();
