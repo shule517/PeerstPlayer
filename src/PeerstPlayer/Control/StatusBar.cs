@@ -40,8 +40,35 @@ namespace PeerstPlayer.Control
 			set { writeField.SelectThreadUrl = value; }
 		}
 
+		// 書き込み欄の表示
+		public bool WriteFieldVisible
+		{
+			get { return writeField.Visible; }
+			set
+			{
+				// 書き込み欄の表示切り替え
+				writeField.Visible = value;
+
+				// 高さの調節
+				if (writeField.Visible)
+				{
+					writeField.Height = writeField.PreferredSize.Height;
+				}
+				else
+				{
+					writeField.Height = 0;
+				}
+
+				// 高さ変更イベント
+				if (HeightChanged != null) HeightChanged(this, new EventArgs());
+			}
+		}
+
 		// 高さ変更イベント
 		public event EventHandler HeightChanged;
+
+		// 音量クリックイベント
+		public event EventHandler VolumeClick;
 
 		//-------------------------------------------------------------
 		// 概要：コンストラクタ
@@ -56,6 +83,19 @@ namespace PeerstPlayer.Control
 			writeField.HeightChanged += (sender, e) =>
 			{
 				if (HeightChanged != null) HeightChanged(sender, e);
+			};
+
+			// チャンネル詳細クリック
+			movieDetail.ChannelDetailClick += (sender, e) =>
+			{
+				WriteFieldVisible = !WriteFieldVisible;
+			};
+
+			// 音量クリック
+			movieDetail.VolumeClick += (sender, e) =>
+			{
+				// 音量クリックイベント
+				if (VolumeClick != null) VolumeClick(sender, e);
 			};
 		}
 
