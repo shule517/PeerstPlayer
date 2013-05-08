@@ -4,7 +4,7 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
 
-namespace PeerstLib.Form
+namespace PeerstLib.Control
 {
 	// Win32APIをimport
 	class Win32API

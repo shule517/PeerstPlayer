@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace PeerstLib.Form
+namespace PeerstLib.Control
 {
 	public class FormUtility
 	{
