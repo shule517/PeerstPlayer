@@ -20,10 +20,12 @@ namespace PeerstPlayer
 			
 			// TODO デバッグ開始
 
-			// 設定情報を反映
-			playerView.TopMost = true;
 			// 動画再生
-			playerView.Open("http://localhost:7145/pls/9072B7771C771AB60CDB6AF9A846B64D?tip=114.167.196.248:7144");
+			if (Environment.GetCommandLineArgs().Count() > 1)
+			{
+				string url = Environment.GetCommandLineArgs()[1];
+				playerView.Open(url);
+			}
 
 			// TODO デバッグ終了
 

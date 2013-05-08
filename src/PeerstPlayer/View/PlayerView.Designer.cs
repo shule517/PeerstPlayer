@@ -1,4 +1,5 @@
-﻿namespace PeerstPlayer
+﻿using PeerstLib.Control;
+namespace PeerstPlayer
 {
 	partial class PlayerView
 	{
@@ -29,7 +30,7 @@
 		private void InitializeComponent()
 		{
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(PlayerView));
-			this.toolStrip = new System.Windows.Forms.ToolStrip();
+			this.toolStrip = new ToolStripEx();
 			this.minToolStripButton = new System.Windows.Forms.ToolStripButton();
 			this.maxToolStripButton = new System.Windows.Forms.ToolStripButton();
 			this.closeToolStripButton = new System.Windows.Forms.ToolStripButton();
@@ -48,11 +49,11 @@
             this.minToolStripButton,
             this.maxToolStripButton,
             this.closeToolStripButton});
-			this.toolStrip.Location = new System.Drawing.Point(410, 0);
+			this.toolStrip.Location = new System.Drawing.Point(379, 0);
 			this.toolStrip.Name = "toolStrip";
 			this.toolStrip.Padding = new System.Windows.Forms.Padding(0);
 			this.toolStrip.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
-			this.toolStrip.Size = new System.Drawing.Size(71, 25);
+			this.toolStrip.Size = new System.Drawing.Size(102, 25);
 			this.toolStrip.TabIndex = 3;
 			// 
 			// minToolStripButton
@@ -93,19 +94,24 @@
 			this.statusBar.ChannelDetail = "チャンネル情報";
 			this.statusBar.Location = new System.Drawing.Point(0, 360);
 			this.statusBar.Margin = new System.Windows.Forms.Padding(0);
+			this.statusBar.MovieStatus = "00:00:00";
 			this.statusBar.Name = "statusBar";
 			this.statusBar.SelectThreadUrl = "読み込み中...";
-			this.statusBar.Size = new System.Drawing.Size(480, 47);
+			this.statusBar.Size = new System.Drawing.Size(480, 18);
 			this.statusBar.TabIndex = 1;
+			this.statusBar.Volume = "50";
+			this.statusBar.WriteFieldVisible = false;
 			// 
 			// pecaPlayer
 			// 
 			this.pecaPlayer.ChannelInfo = null;
 			this.pecaPlayer.Location = new System.Drawing.Point(0, 0);
 			this.pecaPlayer.Margin = new System.Windows.Forms.Padding(0);
+			this.pecaPlayer.Mute = false;
 			this.pecaPlayer.Name = "pecaPlayer";
 			this.pecaPlayer.Size = new System.Drawing.Size(480, 360);
 			this.pecaPlayer.TabIndex = 0;
+			this.pecaPlayer.Volume = 50;
 			// 
 			// PlayerView
 			// 
@@ -130,7 +136,7 @@
 
 		private Control.PecaPlayer pecaPlayer;
 		private Control.StatusBar statusBar;
-		private System.Windows.Forms.ToolStrip toolStrip;
+		private ToolStripEx toolStrip;
 		private System.Windows.Forms.ToolStripButton minToolStripButton;
 		private System.Windows.Forms.ToolStripButton maxToolStripButton;
 		private System.Windows.Forms.ToolStripButton closeToolStripButton;
