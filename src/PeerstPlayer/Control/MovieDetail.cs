@@ -34,10 +34,10 @@ namespace PeerstPlayer.Control
 		}
 
 		// 動画詳細のクリックイベント
-		public event EventHandler ChannelDetailClick;
+		public event MouseEventHandler ChannelDetailClick = delegate { };
 
 		// 音量のクリックイベント
-		public event EventHandler VolumeClick;
+		public event EventHandler VolumeClick = delegate { };
 
 		//-------------------------------------------------------------
 		// 概要：コンストラクタ
@@ -48,20 +48,11 @@ namespace PeerstPlayer.Control
 			InitializeComponent();
 
 			// 動画詳細クリック
-			ChannelDetailLabel.Click += (sender, e) =>
-			{
-				if (ChannelDetailClick != null) ChannelDetailClick(sender, e);
-			};
-			movieStatusLabel.Click += (sender, e) =>
-			{
-				if (ChannelDetailClick != null) ChannelDetailClick(sender, e);
-			};
+			ChannelDetailLabel.MouseClick += (sender, e) => ChannelDetailClick(sender, e);
+			movieStatusLabel.MouseClick += (sender, e) => ChannelDetailClick(sender, e);
 
 			// 音量クリック
-			volumeLabel.Click += (sender, e) =>
-			{
-				if (VolumeClick != null) VolumeClick(sender, e);
-			};
+			volumeLabel.Click += (sender, e) => VolumeClick(sender, e);
 		}
 	}
 }

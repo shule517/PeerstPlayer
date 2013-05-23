@@ -68,12 +68,11 @@
 			this.movieStatusLabel.Font = new System.Drawing.Font("MS UI Gothic", 9F);
 			this.movieStatusLabel.ForeColor = System.Drawing.Color.SpringGreen;
 			this.movieStatusLabel.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-			this.movieStatusLabel.Location = new System.Drawing.Point(400, 0);
+			this.movieStatusLabel.Location = new System.Drawing.Point(387, 0);
 			this.movieStatusLabel.Margin = new System.Windows.Forms.Padding(3);
 			this.movieStatusLabel.Name = "movieStatusLabel";
-			this.movieStatusLabel.Size = new System.Drawing.Size(50, 18);
+			this.movieStatusLabel.Size = new System.Drawing.Size(63, 18);
 			this.movieStatusLabel.TabIndex = 4;
-			this.movieStatusLabel.Text = "00:00:00";
 			this.movieStatusLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
 			// 
 			// MovieDetail
