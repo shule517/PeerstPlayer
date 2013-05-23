@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PeerstLib.Bbs;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,11 +24,18 @@ namespace PeerstLib.PeerCast
 		//-------------------------------------------------------------
 		public ChannelInfo GetChannelInfo()
 		{
-			// ViewXMLの取得
-			XElement elements = XElement.Load("http://" + urlInfo.Host + ":" + urlInfo.PortNo + "/admin?cmd=viewxml");
+			try
+			{
+				// ViewXMLの取得
+				XElement elements = XElement.Load("http://" + urlInfo.Host + ":" + urlInfo.PortNo + "/admin?cmd=viewxml");
 
-			// ViewXMLの解析
-			return AnlyzeViewXML(elements);
+				// ViewXMLの解析
+				return AnlyzeViewXML(elements);
+			}
+			catch
+			{
+				return new ChannelInfo();
+			}
 		}
 
 		#region 非公開プロパティ
