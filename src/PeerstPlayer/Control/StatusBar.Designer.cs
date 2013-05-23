@@ -38,11 +38,11 @@
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.movieDetail.ChannelDetail = "チャンネル情報";
 			this.movieDetail.Location = new System.Drawing.Point(0, 29);
-			this.movieDetail.MovieStatus = "00:00:00";
+			this.movieDetail.MovieStatus = "";
 			this.movieDetail.Name = "movieDetail";
 			this.movieDetail.Size = new System.Drawing.Size(480, 18);
 			this.movieDetail.TabIndex = 1;
-			this.movieDetail.Volume = "100";
+			this.movieDetail.Volume = "50";
 			// 
 			// writeField
 			// 

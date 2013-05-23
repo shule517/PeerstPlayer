@@ -60,15 +60,22 @@ namespace PeerstPlayer.Control
 				}
 
 				// 高さ変更イベント
-				if (HeightChanged != null) HeightChanged(this, new EventArgs());
+				HeightChanged(this, new EventArgs());
 			}
 		}
 
 		// 高さ変更イベント
-		public event EventHandler HeightChanged;
+		public event EventHandler HeightChanged = delegate { };
+
+		// ステータスバークリックイベント
+		public event MouseEventHandler ChannelDetailClick = delegate { };
 
 		// 音量クリックイベント
-		public event EventHandler VolumeClick;
+		public event EventHandler VolumeClick
+		{
+			add { movieDetail.VolumeClick += value; }
+			remove { movieDetail.VolumeClick -= value; }
+		}
 
 		//-------------------------------------------------------------
 		// 概要：コンストラクタ
@@ -80,26 +87,11 @@ namespace PeerstPlayer.Control
 
 			// サイズ変更イベント登録
 			writeField.SizeChanged += writeField_SizeChanged;
-			writeField.HeightChanged += (sender, e) =>
-			{
-				if (HeightChanged != null) HeightChanged(sender, e);
-			};
+			writeField.HeightChanged += (sender, e) => HeightChanged(sender, e);
 
 			// チャンネル詳細クリック
-			movieDetail.ChannelDetailClick += (sender, e) =>
-			{
-				WriteFieldVisible = !WriteFieldVisible;
-			};
-
-			// 音量クリック
-			movieDetail.VolumeClick += (sender, e) =>
-			{
-				// 音量クリックイベント
-				if (VolumeClick != null) VolumeClick(sender, e);
-			};
+			movieDetail.ChannelDetailClick += (sender, e) => ChannelDetailClick(sender, e);
 		}
-
-		#region 非公開プロパティ
 
 		//-------------------------------------------------------------
 		// 概要：サイズ変更イベント
@@ -110,7 +102,5 @@ namespace PeerstPlayer.Control
 			Height = writeField.Height + movieDetail.Height;
 			movieDetail.Top = writeField.Height;
 		}
-
-		#endregion
 	}
 }
