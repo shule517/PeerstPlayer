@@ -14,9 +14,24 @@ namespace PeerstLib.Control
 	}
 
 	// ウィンドウメッセージ
-	enum WindowMessage : int
+	public enum WindowMessage : int
 	{
 		WM_NCLBUTTONDOWN = 0x00A1,
+		WM_LBUTTONDBLCLK = 0x0203,
+		WM_RBUTTONDOWN = 0x0204,
+		WM_NCHITTEST = 0x0084,
+		WM_LBUTTONUP = 0x0202,
+		WM_MOUSEHOVER = 0x02A1,
+		WM_SIZE = 0x0005,
+		WM_SIZING = 0x214,
+		WM_MOVE = 0x0003,
+		WM_MOVING = 0x0216,
+		WM_MOUSEMOVE = 0x200,
+		WM_LBUTTONDOWN = 0x201,
+		WM_MOUSEWHEEL = 0x020A,
+		WM_CONTEXTMENU = 0x007B,
+		WM_KEYDOWN = 0x0100,
+		WM_SETFOCUS = 0x0007,
 	}
 
 	// 当たり判定
