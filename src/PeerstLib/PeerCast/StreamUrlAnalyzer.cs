@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PeerstLib.Bbs;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,14 +7,6 @@ using System.Text.RegularExpressions;
 
 namespace PeerstLib.PeerCast
 {
-	// ストリームURLから抽出した情報
-	public class StreamUrlInfo
-	{
-		public string Host { get; set; }		// PeerCastのアドレス
-		public string PortNo { get; set; }		// PeerCastのポート番号
-		public string StreamId { get; set; }	// ストリームID
-	}
-
 	// ストリームURL解析クラス
 	public static class StreamUrlAnalyzer
 	{
