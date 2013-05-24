@@ -6,11 +6,11 @@ using System.Runtime.InteropServices;
 // アセンブリに関連付けられている情報を変更するには、
 // これらの属性値を変更してください。
 [assembly: AssemblyTitle("PeerstPlayer")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("PeerCast実況用プレイヤー")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("UNITCOM PC")]
+[assembly: AssemblyCompany("Shikkari Shule ch")]
 [assembly: AssemblyProduct("PeerstPlayer")]
-[assembly: AssemblyCopyright("Copyright © UNITCOM PC 2013")]
+[assembly: AssemblyCopyright("Copyright © Shule 2008-2013")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
