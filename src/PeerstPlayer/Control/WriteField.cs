@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using PeerstPlayer.View;
+using PeerstLib.Bbs;
 
 namespace PeerstPlayer.Control
 {
@@ -16,12 +17,27 @@ namespace PeerstPlayer.Control
 		// 選択スレッドURL
 		public string SelectThreadUrl
 		{
-			get { return selectThreadLabel.Text; }
-			set { selectThreadLabel.Text = value; }
+			get { return threadSelectView.ThreadUrl; }
+			set
+			{
+				// TODO 別メソッド移動
+				// TODO ChangeUrlをBackGroundで実行させる
+				threadSelectView.ThreadUrl = value;
+				operationBbs.ChangeUrl(value);
+
+				// スレッドタイトルの更新
+				UpdateThreadTitle();
+			}
 		}
 
 		// 高さ変更
-		public event EventHandler HeightChanged;
+		public event EventHandler HeightChanged = delegate { };
+
+		// 掲示板操作クラス
+		private OperationBbs operationBbs = new OperationBbs();
+
+		// スレッド選択画面
+		private ThreadSelectView threadSelectView = new ThreadSelectView();
 
 		//-------------------------------------------------------------
 		// 概要：コンストラクタ
@@ -35,15 +51,44 @@ namespace PeerstPlayer.Control
 			selectThreadLabel.Click += (sender, e) =>
 			{
 				// 選択スレッド画面を開く
-				threadSelectView.Show();
+				threadSelectView.Open();
 			};
+			// スレッド一覧情報更新イベント
+			threadSelectView.ThreadListChange += (sender, e) =>
+			{
+				operationBbs.ChangeUrl(threadSelectView.ThreadUrl);
 
+				// スレッドタイトルの更新
+				UpdateThreadTitle();
+			};
 		}
 
-		#region 非公開プロパティ
+		// スレッドタイトルの更新
+		private void UpdateThreadTitle()
+		{
+			if (operationBbs.Enabled)
+			{
+				// スレッドタイトル表示
+				selectThreadLabel.Text = operationBbs.ThreadSelected
+					? string.Format("スレッド[ {0} ] ({1})", operationBbs.ThreadInfo.ThreadTitle, operationBbs.ThreadInfo.ResCount)
+					: string.Format("掲示板[ {0} ] スレッドを選択してください", operationBbs.BbsInfo.BoardName);
+			}
+			else
+			{
+				// スレッドタイトル表示
+				if (string.IsNullOrEmpty(operationBbs.ThreadUrl))
+				{
+					selectThreadLabel.Text = "URLが指定されていません";
+				}
+				else
+				{
+					selectThreadLabel.Text = "未対応URLです";
+				}
+			}
 
-		// スレッド選択画面
-		ThreadSelectView threadSelectView = new ThreadSelectView();
+			// 書き込み欄の有効/無効
+			writeFieldTextBox.Enabled = operationBbs.ThreadSelected;
+		}
 
 		//-------------------------------------------------------------
 		// 概要：文字入力イベント
@@ -55,12 +100,17 @@ namespace PeerstPlayer.Control
 			Height = selectThreadLabel.Height + writeFieldTextBox.PreferredSize.Height;
 
 			// 高さの変更
-			if (HeightChanged != null)
-			{
-				HeightChanged(sender, e);
-			}
+			HeightChanged(sender, e);
 		}
 
-		#endregion
+		private void writeFieldTextBox_KeyDown(object sender, KeyEventArgs e)
+		{
+			if ((e.Modifiers == Keys.Control) && (e.KeyCode == Keys.Enter))
+			{
+				// TODO レス書き込み
+				operationBbs.Write("", "sage", writeFieldTextBox.Text);
+				writeFieldTextBox.Text = "";
+			}
+		}
 	}
 }

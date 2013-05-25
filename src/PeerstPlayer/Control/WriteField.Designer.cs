@@ -43,6 +43,7 @@
 			this.writeFieldTextBox.Size = new System.Drawing.Size(480, 19);
 			this.writeFieldTextBox.TabIndex = 0;
 			this.writeFieldTextBox.TextChanged += new System.EventHandler(this.writeFieldTextBox_TextChanged);
+			this.writeFieldTextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.writeFieldTextBox_KeyDown);
 			// 
 			// selectThreadLabel
 			// 
