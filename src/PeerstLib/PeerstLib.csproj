@@ -41,6 +41,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Bbs\BbsInfo.cs" />
+    <Compile Include="Bbs\BbsServer.cs" />
+    <Compile Include="Bbs\Strategy\BbsStrategy.cs" />
+    <Compile Include="Bbs\Strategy\BbsStrategyFactory.cs" />
+    <Compile Include="Bbs\Strategy\NullBbsStrategy.cs" />
+    <Compile Include="Bbs\Strategy\ShitarabaBbsStrategy.cs" />
+    <Compile Include="Bbs\Strategy\YYKakikoBbsStrategy.cs" />
+    <Compile Include="Bbs\BbsUrlAnalyzer.cs" />
+    <Compile Include="Bbs\OperationBbs.cs" />
+    <Compile Include="Bbs\StreamUrlInfo.cs" />
+    <Compile Include="Bbs\ThreadInfo.cs" />
     <Compile Include="Control\BufferedListView.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -48,11 +59,17 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Form\FormUtility.cs" />
+    <Compile Include="Form\MouseCapture.cs" />
+    <Compile Include="Form\MouseGesture.cs" />
+    <Compile Include="Form\MouseHook.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Form\Win32API.cs" />
     <Compile Include="PeerCast\ChannelInfo.cs" />
     <Compile Include="PeerCast\PeerCastConnection.cs" />
     <Compile Include="PeerCast\StreamUrlAnalyzer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Utility\WebUtil.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
