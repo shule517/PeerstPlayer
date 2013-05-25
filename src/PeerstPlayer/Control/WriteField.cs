@@ -57,8 +57,12 @@ namespace PeerstPlayer.Control
 			threadSelectView.ThreadListChange += (sender, e) =>
 			{
 				operationBbs.ChangeUrl(threadSelectView.ThreadUrl);
-
-				// スレッドタイトルの更新
+				UpdateThreadTitle();
+			};
+			// スレッド変更イベント
+			threadSelectView.ThreadChange += (sender, e) =>
+			{
+				operationBbs.ChangeUrl(threadSelectView.ThreadUrl);
 				UpdateThreadTitle();
 			};
 		}

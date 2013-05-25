@@ -16,11 +16,7 @@ namespace PeerstPlayer.ViewModel
 		public string ThreadUrl { get { return operationBbs.ThreadUrl; } }
 
 		// スレッド一覧変更イベント
-		public event EventHandler ThreadListChange
-		{
-			add { operationBbs.ThreadListChange += value; }
-			remove { operationBbs.ThreadListChange -= value; }
-		}
+		public event EventHandler ThreadListChange = delegate { };
 
 		// 掲示板操作クラス
 		private　OperationBbs operationBbs = new OperationBbs();
@@ -29,6 +25,7 @@ namespace PeerstPlayer.ViewModel
 		public void Update(string threadUrl)
 		{
 			operationBbs.ChangeUrl(threadUrl);
+			ThreadListChange(this, new EventArgs());
 		}
 
 		// スレッド変更

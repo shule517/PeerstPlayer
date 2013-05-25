@@ -28,6 +28,9 @@ namespace PeerstPlayer.View
 			remove { viewModel.ThreadListChange -= value; }
 		}
 
+		// スレッド変更
+		public event EventHandler ThreadChange = delegate { };
+
 		private ThreadSelectViewModel viewModel = new ThreadSelectViewModel();
 
 		public ThreadSelectView()
@@ -144,6 +147,7 @@ namespace PeerstPlayer.View
 				string selectThreadNo = threadListView.SelectedItems[0].Tag.ToString();
 				viewModel.ChangeThread(selectThreadNo);
 				urlTextBox.Text = viewModel.ThreadUrl;
+				ThreadChange(sender, e);
 
 				// 非表示
 				Visible = false;

@@ -12,28 +12,6 @@ namespace TestPeerstLib
 	public class OperationBbsTest
 	{
 		[TestMethod]
-		public void OperationBbs_ThreadListChange()
-		{
-			OperationBbs operationBbs = new OperationBbs();
-			bool result = false;
-			operationBbs.ThreadListChange += (sender, e) => result = true;
-			operationBbs.ChangeUrl("http://jbbs.livedoor.jp/bbs/read.cgi/game/45037/1286755510/");
-
-			for (int i = 0; i < 10; i++)
-			{
-				Application.DoEvents();
-				Thread.Sleep(200);
-
-				if (result)
-				{
-					return;
-				}
-			}
-
-			Assert.Fail("ThreadListChangeイベントが実行されなかった");
-		}
-
-		[TestMethod]
 		public void OperationBbs_UpdateBbsName()
 		{
 			// TODO UpdateBbsName
