@@ -13,10 +13,10 @@ namespace PeerstLib.Bbs.Strategy
 		}
 
 		public override string ThreadUrl { get { return BbsInfo.Url; } }
-		protected override Encoding Encoding { get { return Encoding.Default; } }
-		protected override string SubjectUrl { get { return string.Empty; } }
-		protected override string DatUrl { get { return string.Empty; } }
-		protected override string BoardUrl { get { return string.Empty; } }
+		protected override Encoding encoding { get { return Encoding.Default; } }
+		protected override string subjectUrl { get { return string.Empty; } }
+		protected override string datUrl { get { return string.Empty; } }
+		protected override string boardUrl { get { return string.Empty; } }
 
 		override protected List<ThreadInfo> AnalyzeSubjectText(string[] lines)
 		{

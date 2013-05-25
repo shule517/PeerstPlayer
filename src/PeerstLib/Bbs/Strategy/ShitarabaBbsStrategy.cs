@@ -12,7 +12,7 @@ namespace PeerstLib.Bbs.Strategy
 		{
 		}
 
-		protected override Encoding Encoding { get { return Encoding.GetEncoding("EUC-JP"); } }
+		protected override Encoding encoding { get { return Encoding.GetEncoding("EUC-JP"); } }
 
 		public override string ThreadUrl
 		{
@@ -29,16 +29,16 @@ namespace PeerstLib.Bbs.Strategy
 			}
 		}
 
-		protected override string SubjectUrl
+		protected override string subjectUrl
 		{
 			get { return String.Format("http://jbbs.livedoor.jp/{0}/{1}/subject.txt", BbsInfo.BoardGenre, BbsInfo.BoardNo); } }
 
-		protected override string DatUrl
+		protected override string datUrl
 		{
 			get { return String.Format("http://jbbs.livedoor.jp/bbs/rawmode.cgi/{0}/{1}/{2}/", BbsInfo.BoardGenre, BbsInfo.BoardNo, BbsInfo.ThreadNo); }
 		}
 
-		protected override string BoardUrl
+		protected override string boardUrl
 		{
 			get { return String.Format("http://jbbs.livedoor.jp/{0}/{1}/", BbsInfo.BoardGenre, BbsInfo.BoardNo); }
 		}

@@ -34,16 +34,16 @@ namespace PeerstLib.Bbs.Strategy
 		//-------------------------------------------------------------
 
 		// エンコード
-		abstract protected Encoding Encoding { get; }
+		abstract protected Encoding encoding { get; }
 
 		// スレッド一覧情報URL
-		abstract protected string SubjectUrl { get; }
+		abstract protected string subjectUrl { get; }
 
 		// スレッド情報取得
-		abstract protected string DatUrl { get; }
+		abstract protected string datUrl { get; }
 
 		// 板URL
-		abstract protected string BoardUrl { get; }
+		abstract protected string boardUrl { get; }
 
 		//-------------------------------------------------------------
 		// 公開メソッド
@@ -53,14 +53,12 @@ namespace PeerstLib.Bbs.Strategy
 		public void ChangeThread(string threadNo)
 		{
 			BbsInfo.ThreadNo = threadNo;
-
-			// TODO ThreadChangeイベントに変更した方が良い？
 		}
 
 		// スレッド一覧更新
 		public void UpdateThreadList()
 		{
-			string subjectText = WebUtil.GetHtml(SubjectUrl, Encoding);
+			string subjectText = WebUtil.GetHtml(subjectUrl, encoding);
 			string[] lines = subjectText.Replace("\r\n", "\n").Split('\n');
 			ThreadList = AnalyzeSubjectText(lines);
 		}
@@ -68,7 +66,7 @@ namespace PeerstLib.Bbs.Strategy
 		// 掲示板名の更新
 		public void UpdateBbsName()
 		{
-			string html = WebUtil.GetHtml(BoardUrl, Encoding);
+			string html = WebUtil.GetHtml(boardUrl, encoding);
 
 			int startPos = html.IndexOf("<title>");
 			int endPos = html.IndexOf("</title>");
@@ -86,6 +84,7 @@ namespace PeerstLib.Bbs.Strategy
 		// レス書き込み
 		public void Write(string name, string mail, string text)
 		{
+			throw new Exception();
 		}
 
 		//-------------------------------------------------------------

@@ -12,7 +12,7 @@ namespace PeerstLib.Bbs.Strategy
 		{
 		}
 
-		protected override Encoding Encoding
+		protected override Encoding encoding
 		{
 			get { return Encoding.GetEncoding("Shift_JIS"); }
 		}
@@ -32,17 +32,17 @@ namespace PeerstLib.Bbs.Strategy
 			}
 		}
 
-		protected override string SubjectUrl
+		protected override string subjectUrl
 		{
 			get { return String.Format("http://{0}/{1}/subject.txt", BbsInfo.BoardGenre, BbsInfo.BoardNo); }
 		}
 
-		protected override string DatUrl
+		protected override string datUrl
 		{
 			get { return String.Format("http://{0}/{1}/dat/{2}.dat", BbsInfo.BoardGenre, BbsInfo.BoardNo, BbsInfo.ThreadNo); }
 		}
 
-		protected override string BoardUrl
+		protected override string boardUrl
 		{
 			get { return String.Format("http://{0}/{1}/", BbsInfo.BoardGenre, BbsInfo.BoardNo); }
 		}

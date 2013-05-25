@@ -15,6 +15,25 @@ namespace PeerstLib.Bbs
 			get { return strategy.BbsInfo; }
 		}
 
+		// スレッド一覧
+		public List<ThreadInfo> ThreadList
+		{
+			get { return strategy.ThreadList; }
+		}
+		public event EventHandler ThreadListChange = delegate { };
+
+		// 選択スレッド情報
+		public ThreadInfo SelectThread
+		{
+			get { return ThreadList.Single(thread => (thread.ThreadNo == BbsInfo.ThreadNo)); }
+		}
+
+		// スレッドURL
+		public string ThreadUrl
+		{
+			get { return strategy.ThreadUrl; }
+		}
+
 		// スレッド選択状態
 		public bool ThreadSelected
 		{
@@ -27,32 +46,11 @@ namespace PeerstLib.Bbs
 			get { return (!string.IsNullOrEmpty(BbsInfo.BoardGenre)) && (!string.IsNullOrEmpty(BbsInfo.BoardNo)); }
 		}
 
-		// スレッド一覧
-		public List<ThreadInfo> ThreadList
-		{
-			get { return strategy.ThreadList; }
-		}
-		public event EventHandler ThreadListChange = delegate { };
-
-		// スレッドURL
-		public string ThreadUrl
-		{
-			get { return strategy.ThreadUrl; }
-		}
-
-		// スレッドタイトル
-		public ThreadInfo ThreadInfo
-		{
-			get { return ThreadList.Single(thread => (thread.ThreadNo == BbsInfo.ThreadNo)); }
-		}
-
 		// 掲示板ストラテジ
 		private BbsStrategy strategy = new NullBbsStrategy(new BbsInfo { BbsServer = BbsServer.UnSupport });
 
-		//-------------------------------------------------------------
-		// 概要：URL変更
-		// 詳細：掲示板ストラテジを切り替える
-		//-------------------------------------------------------------
+		// URL変更
+		// 掲示板ストラテジを切り替える
 		public void ChangeUrl(string url)
 		{
 			strategy = BbsStrategyFactory.Create(url);
@@ -62,22 +60,19 @@ namespace PeerstLib.Bbs
 			strategy.UpdateBbsName();
 		}
 
-		//-------------------------------------------------------------
-		// 概要：スレッド変更
-		//-------------------------------------------------------------
+		// スレッド変更
 		public void ChangeThread(string threadNo)
 		{
 			strategy.ChangeThread(threadNo);
 		}
 
-		// TODO Update -> レス数の更新用
-
-		//-------------------------------------------------------------
-		// 概要：レス書き込み
-		//-------------------------------------------------------------
+		// レス書き込み
 		public void Write(string name, string mail, string text)
 		{
 			strategy.Write(name, mail, text);
 		}
+
+		// TODO Update -> レス数の更新用
+		// TODO Read -> レス読み込み
 	}
 }
