@@ -2,12 +2,35 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using PeerstLib.PeerCast;
 using System.Xml.Linq;
+using PeerstLib.Bbs;
 
 namespace TestPeerstLib
 {
 	[TestClass]
 	public class PeerCastConnectionTest
 	{
+		//-------------------------------------------------------------
+		// 概要：チャンネル情報取得
+		// 詳細：指定URL,指定ストリームIDのチャンネル情報を取得する
+		//-------------------------------------------------------------
+		private static ChannelInfo GetChannelInfo(string xmlUri, string streamId) {
+			// URL情報の取得
+			StreamUrlInfo info = StreamUrlAnalyzer.GetUrlInfo(TestSettings.StreamUrl);
+			info.StreamId = streamId;
+
+			// XMLの読み込み
+			XElement elements = XElement.Load(xmlUri);
+
+			// チャンネル情報取得
+			PeerCastConnection pecaConnection = new PeerCastConnection(info);
+			PrivateObject accessor = new PrivateObject(pecaConnection);
+			ChannelInfo channelInfo = (ChannelInfo)accessor.Invoke("AnlyzeViewXML", new object[] { elements });
+
+			return channelInfo;
+		}
+
+		// TODO 未実装
+		/*
 		//-------------------------------------------------------------
 		// 概要：チャンネル情報取得
 		// 詳細：自分のリレー色判定の確認
@@ -50,26 +73,6 @@ namespace TestPeerstLib
 			Assert.AreEqual(RelayColor.Purple, info.HostList[0].RelayColor);
 			Assert.AreEqual(RelayColor.Purple, info.HostList[2].RelayColor);
 		}
-
-		//-------------------------------------------------------------
-		// 概要：チャンネル情報取得
-		// 詳細：指定URL,指定ストリームIDのチャンネル情報を取得する
-		//-------------------------------------------------------------
-		private static ChannelInfo GetChannelInfo(string xmlUri, string streamId)
-		{
-			// URL情報の取得
-			StreamUrlInfo info = StreamUrlAnalyzer.GetUrlInfo(TestSettings.StreamUrl);
-			info.StreamId = streamId;
-
-			// XMLの読み込み
-			XElement elements = XElement.Load(xmlUri);
-
-			// チャンネル情報取得
-			PeerCastConnection pecaConnection = new PeerCastConnection(info);
-			PrivateObject accessor = new PrivateObject(pecaConnection);
-			ChannelInfo channelInfo = (ChannelInfo)accessor.Invoke("AnlyzeViewXML", new object[] { elements });
-
-			return channelInfo;
-		}
+		 */
 	}
 }
