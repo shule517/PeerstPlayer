@@ -12,7 +12,7 @@ namespace PeerstLib.Bbs
 		public string BoardGenre { get; set; }
 		public string BoardNo { get; set; }
 		public string ThreadNo { get; set; }
-		public string BoardName { get; set; }
+		public string BbsName { get; set; }
 		public BbsServer BbsServer { get; set; }
 	}
 }

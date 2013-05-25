@@ -19,7 +19,6 @@ namespace PeerstLib.Bbs.Strategy
 
 		// スレッド一覧
 		public List<ThreadInfo> ThreadList { get; set; }
-		public event EventHandler ThreadListChange = delegate { };
 
 		// スレッド選択状態
 		public bool ThreadSelected
@@ -54,7 +53,6 @@ namespace PeerstLib.Bbs.Strategy
 		public void ChangeThread(string threadNo)
 		{
 			BbsInfo.ThreadNo = threadNo;
-			ThreadListChange(this, new EventArgs());
 
 			// TODO ThreadChangeイベントに変更した方が良い？
 		}
@@ -65,7 +63,6 @@ namespace PeerstLib.Bbs.Strategy
 			string subjectText = WebUtil.GetHtml(SubjectUrl, Encoding);
 			string[] lines = subjectText.Replace("\r\n", "\n").Split('\n');
 			ThreadList = AnalyzeSubjectText(lines);
-			ThreadListChange(this, new EventArgs());
 		}
 
 		// 掲示板名の更新
@@ -78,12 +75,12 @@ namespace PeerstLib.Bbs.Strategy
 
 			if ((startPos == -1) || (endPos == -1))
 			{
-				BbsInfo.BoardName = "";
+				BbsInfo.BbsName = "";
 				return;
 			}
 
 			int tagSize = "<title>".Length;
-			BbsInfo.BoardName = html.Substring(startPos + tagSize, (endPos - startPos) - tagSize);
+			BbsInfo.BbsName = html.Substring(startPos + tagSize, (endPos - startPos) - tagSize);
 		}
 
 		// レス書き込み

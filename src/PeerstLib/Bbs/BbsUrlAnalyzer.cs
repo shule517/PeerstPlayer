@@ -24,7 +24,7 @@ namespace PeerstLib.Bbs
 					BoardGenre = null,
 					BoardNo = null,
 					ThreadNo = null,
-					BoardName = null,
+					BbsName = null,
 					BbsServer = BbsServer.UnSupport,
 				}; 
 			}
@@ -68,7 +68,7 @@ namespace PeerstLib.Bbs
 				BoardGenre = null,
 				BoardNo = null,
 				ThreadNo = null,
-				BoardName = null,
+				BbsName = null,
 				BbsServer = BbsServer.UnSupport,
 			};
 		}
@@ -97,7 +97,7 @@ namespace PeerstLib.Bbs
 				BoardGenre = String.IsNullOrEmpty(genre) ? null : genre,
 				BoardNo = String.IsNullOrEmpty(boardNo) ? null : boardNo,
 				ThreadNo = String.IsNullOrEmpty(threadNo) ? null : threadNo,
-				BoardName = null,
+				BbsName = null,
 				BbsServer = BbsServer.Shitaraba,
 			};
 		}
@@ -125,7 +125,7 @@ namespace PeerstLib.Bbs
 				BoardGenre = String.IsNullOrEmpty(host) ? null : host,
 				BoardNo = String.IsNullOrEmpty(boardNo) ? null : boardNo,
 				ThreadNo = String.IsNullOrEmpty(threadNo) ? null : threadNo,
-				BoardName = null,
+				BbsName = null,
 				BbsServer = BbsServer.YYKakiko,
 			};
 		}

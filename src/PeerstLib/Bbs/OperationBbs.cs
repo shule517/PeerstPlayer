@@ -56,7 +56,6 @@ namespace PeerstLib.Bbs
 		public void ChangeUrl(string url)
 		{
 			strategy = BbsStrategyFactory.Create(url);
-			strategy.ThreadListChange += (sender, e) => ThreadListChange(sender, e);
 
 			// データ更新
 			strategy.UpdateThreadList();

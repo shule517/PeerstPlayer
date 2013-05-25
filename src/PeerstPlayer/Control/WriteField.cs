@@ -71,7 +71,7 @@ namespace PeerstPlayer.Control
 				// スレッドタイトル表示
 				selectThreadLabel.Text = operationBbs.ThreadSelected
 					? string.Format("スレッド[ {0} ] ({1})", operationBbs.ThreadInfo.ThreadTitle, operationBbs.ThreadInfo.ResCount)
-					: string.Format("掲示板[ {0} ] スレッドを選択してください", operationBbs.BbsInfo.BoardName);
+					: string.Format("掲示板[ {0} ] スレッドを選択してください", operationBbs.BbsInfo.BbsName);
 			}
 			else
 			{
