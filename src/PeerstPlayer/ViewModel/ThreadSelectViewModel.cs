@@ -25,9 +25,6 @@ namespace PeerstPlayer.ViewModel
 		// 掲示板操作クラス
 		private　OperationBbs operationBbs = new OperationBbs();
 
-		// スレッド一覧更新用
-		private BackgroundWorker updateThreadListWorker = new BackgroundWorker();
-
 		// スレッド一覧更新
 		public void Update(string threadUrl)
 		{
