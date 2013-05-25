@@ -71,6 +71,7 @@
     <Compile Include="Control\StatusBar.Designer.cs">
       <DependentUpon>StatusBar.cs</DependentUpon>
     </Compile>
+    <Compile Include="Control\WmpNativeWindow.cs" />
     <Compile Include="Control\WriteField.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -78,6 +79,7 @@
       <DependentUpon>WriteField.cs</DependentUpon>
     </Compile>
     <Compile Include="Model\PlayerSettings.cs" />
+    <Compile Include="ViewModel\ThreadSelectViewModel.cs" />
     <Compile Include="View\PlayerSettingView.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -100,15 +102,18 @@
     </Compile>
     <EmbeddedResource Include="Control\MovieDetail.resx">
       <DependentUpon>MovieDetail.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Control\PecaPlayer.resx">
       <DependentUpon>PecaPlayer.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Control\StatusBar.resx">
       <DependentUpon>StatusBar.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Control\WriteField.resx">
       <DependentUpon>WriteField.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

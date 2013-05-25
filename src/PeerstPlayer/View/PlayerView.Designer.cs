@@ -30,7 +30,7 @@ namespace PeerstPlayer
 		private void InitializeComponent()
 		{
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(PlayerView));
-			this.toolStrip = new ToolStripEx();
+			this.toolStrip = new PeerstLib.Control.ToolStripEx();
 			this.minToolStripButton = new System.Windows.Forms.ToolStripButton();
 			this.maxToolStripButton = new System.Windows.Forms.ToolStripButton();
 			this.closeToolStripButton = new System.Windows.Forms.ToolStripButton();
@@ -49,11 +49,11 @@ namespace PeerstPlayer
             this.minToolStripButton,
             this.maxToolStripButton,
             this.closeToolStripButton});
-			this.toolStrip.Location = new System.Drawing.Point(379, 0);
+			this.toolStrip.Location = new System.Drawing.Point(410, 0);
 			this.toolStrip.Name = "toolStrip";
 			this.toolStrip.Padding = new System.Windows.Forms.Padding(0);
 			this.toolStrip.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
-			this.toolStrip.Size = new System.Drawing.Size(102, 25);
+			this.toolStrip.Size = new System.Drawing.Size(71, 25);
 			this.toolStrip.TabIndex = 3;
 			// 
 			// minToolStripButton
@@ -94,7 +94,7 @@ namespace PeerstPlayer
 			this.statusBar.ChannelDetail = "チャンネル情報";
 			this.statusBar.Location = new System.Drawing.Point(0, 360);
 			this.statusBar.Margin = new System.Windows.Forms.Padding(0);
-			this.statusBar.MovieStatus = "00:00:00";
+			this.statusBar.MovieStatus = "";
 			this.statusBar.Name = "statusBar";
 			this.statusBar.SelectThreadUrl = "読み込み中...";
 			this.statusBar.Size = new System.Drawing.Size(480, 18);
