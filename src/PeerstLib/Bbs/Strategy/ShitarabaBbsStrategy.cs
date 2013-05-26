@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Web;
 
 namespace PeerstLib.Bbs.Strategy
 {
@@ -41,6 +42,11 @@ namespace PeerstLib.Bbs.Strategy
 		protected override string boardUrl
 		{
 			get { return String.Format("http://jbbs.livedoor.jp/{0}/{1}/", BbsInfo.BoardGenre, BbsInfo.BoardNo); }
+		}
+
+		protected override string writeUrl
+		{
+			get { return "http://jbbs.livedoor.jp/bbs/write.cgi"; }
 		}
 
 		//-------------------------------------------------------------
@@ -86,6 +92,22 @@ namespace PeerstLib.Bbs.Strategy
 			}
 
 			return threadList;
+		}
+
+		// 書き込み用リクエストデータ作成
+		override protected byte[] CreateWriteRequestData(string name, string mail, string message)
+		{
+			StringBuilder param = new StringBuilder();
+
+			param.AppendFormat("DIR={0}&",		HttpUtility.UrlEncode(BbsInfo.BoardGenre,	encoding));
+			param.AppendFormat("BBS={0}&",		HttpUtility.UrlEncode(BbsInfo.BoardNo,		encoding));
+			param.AppendFormat("KEY={0}&",		HttpUtility.UrlEncode(BbsInfo.ThreadNo,		encoding));
+			param.AppendFormat("NAME={0}&",		HttpUtility.UrlEncode(name,					encoding));
+			param.AppendFormat("MAIL={0}&",		HttpUtility.UrlEncode(mail,					encoding));
+			param.AppendFormat("MESSAGE={0}&",	HttpUtility.UrlEncode(message,				encoding));
+			param.AppendFormat("SUBMIT={0}&",	HttpUtility.UrlEncode("書き込む",			encoding));
+
+			return Encoding.ASCII.GetBytes(param.ToString());
 		}
 	}
 }

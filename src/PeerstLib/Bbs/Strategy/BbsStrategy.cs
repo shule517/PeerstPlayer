@@ -4,6 +4,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Text;
+using System.IO;
+using System.Web;
+using System.Text.RegularExpressions;
 
 namespace PeerstLib.Bbs.Strategy
 {
@@ -45,6 +48,9 @@ namespace PeerstLib.Bbs.Strategy
 		// 板URL
 		abstract protected string boardUrl { get; }
 
+		// 書き込みリクエストURL
+		abstract protected string writeUrl { get; }
+
 		//-------------------------------------------------------------
 		// 公開メソッド
 		//-------------------------------------------------------------
@@ -68,36 +74,79 @@ namespace PeerstLib.Bbs.Strategy
 		{
 			string html = WebUtil.GetHtml(boardUrl, encoding);
 
-			int startPos = html.IndexOf("<title>");
-			int endPos = html.IndexOf("</title>");
+			Regex regex = new Regex("<title>(.*)</title>");
+			Match match = regex.Match(html);
 
-			if ((startPos == -1) || (endPos == -1))
+			// 取得成功
+			if (match.Groups.Count > 1)
 			{
-				BbsInfo.BbsName = "";
+				BbsInfo.BbsName = match.Groups[1].Value;
 				return;
 			}
 
-			int tagSize = "<title>".Length;
-			BbsInfo.BbsName = html.Substring(startPos + tagSize, (endPos - startPos) - tagSize);
+			// 取得失敗
+			BbsInfo.BbsName = string.Empty;
 		}
 
 		// レス書き込み
-		public void Write(string name, string mail, string text)
+		public void Write(string name, string mail, string message)
 		{
-			throw new Exception();
+			// POSTデータ作成
+			byte[] requestData = CreateWriteRequestData(name, mail, message);
+
+			// リクエスト作成
+			HttpWebRequest webRequest = (HttpWebRequest)WebRequest.Create(writeUrl);
+			webRequest.Method = "POST";
+			webRequest.ContentType = "application/x-www-form-urlencoded";
+			webRequest.ContentLength = requestData.Length;
+			webRequest.Referer = writeUrl;
+
+			// POST送信
+			Stream requestStream = webRequest.GetRequestStream();
+			requestStream.Write(requestData, 0, requestData.Length);
+			requestStream.Close();
+
+			// リクエスト受信
+			HttpWebResponse webResponse = (HttpWebResponse)webRequest.GetResponse();
+			Stream responseStream = webResponse.GetResponseStream();
+			StreamReader sr = new StreamReader(responseStream, encoding);
+			string html = sr.ReadToEnd();
+			sr.Close();
+			responseStream.Close();
+
+			// 書き込みエラーチェック
+			CheckWriteError(html);
 		}
+
 
 		//-------------------------------------------------------------
 		// 非公開メソッド
 		//-------------------------------------------------------------
 
-		// スレッド一覧解析
-		abstract protected List<ThreadInfo> AnalyzeSubjectText(string[] lines);
-
 		// コンストラクタ
 		protected BbsStrategy(BbsInfo bbsInfo)
 		{
 			this.BbsInfo = bbsInfo;
+		}
+
+		// スレッド一覧解析
+		abstract protected List<ThreadInfo> AnalyzeSubjectText(string[] lines);
+
+		// 書き込み用リクエストデータ作成
+		abstract protected byte[] CreateWriteRequestData(string name, string mail, string message);
+
+		// 書き込みエラーチェック
+		private void CheckWriteError(string html)
+		{
+			Regex regex = new Regex("<title>(.*)</title>");
+			Match match = regex.Match(html);
+			string title = match.Groups[1].Value;
+
+			// 書き込み失敗
+			if (title.StartsWith("ERROR") || title.StartsWith("ＥＲＲＯＲ"))
+			{
+				throw new Exception();
+			}
 		}
 	}
 }

@@ -17,10 +17,17 @@ namespace PeerstLib.Bbs.Strategy
 		protected override string subjectUrl { get { return string.Empty; } }
 		protected override string datUrl { get { return string.Empty; } }
 		protected override string boardUrl { get { return string.Empty; } }
+		protected override string writeUrl { get { return string.Empty; } }
 
 		override protected List<ThreadInfo> AnalyzeSubjectText(string[] lines)
 		{
 			return new List<ThreadInfo>();
+		}
+
+		// 書き込み用リクエストデータ作成
+		override protected byte[] CreateWriteRequestData(string name, string mail, string message)
+		{
+			return new byte[0];
 		}
 	}
 }

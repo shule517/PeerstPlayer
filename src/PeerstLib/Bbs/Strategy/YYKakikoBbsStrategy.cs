@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Web;
 
 namespace PeerstLib.Bbs.Strategy
 {
@@ -47,6 +48,11 @@ namespace PeerstLib.Bbs.Strategy
 			get { return String.Format("http://{0}/{1}/", BbsInfo.BoardGenre, BbsInfo.BoardNo); }
 		}
 
+		protected override string writeUrl
+		{
+			get { return "http://" + BbsInfo.BoardGenre + "/test/bbs.cgi"; }
+		}
+
 		//-------------------------------------------------------------
 		// 概要：スレッド一覧解析
 		// 詳細：subject.txtからスレッド一覧情報を作成する
@@ -85,5 +91,21 @@ namespace PeerstLib.Bbs.Strategy
 
 			return threadList;
 		}
+
+		// 書き込み用リクエストデータ作成
+		override protected byte[] CreateWriteRequestData(string name, string mail, string message)
+		{
+			StringBuilder param = new StringBuilder();
+
+			param.AppendFormat("bbs={0}&", HttpUtility.UrlEncode(BbsInfo.BoardNo, encoding)); // 板番号
+			param.AppendFormat("key={0}&", HttpUtility.UrlEncode(BbsInfo.ThreadNo, encoding)); // スレ番号
+			param.AppendFormat("FROM={0}&", HttpUtility.UrlEncode(name, encoding)); // 名前
+			param.AppendFormat("mail={0}&", HttpUtility.UrlEncode(mail, encoding)); // メール
+			param.AppendFormat("MESSAGE={0}&", HttpUtility.UrlEncode(message, encoding)); // 本文
+			param.AppendFormat("submit={0}&", HttpUtility.UrlEncode("書き込む", encoding)); // 書き込む
+
+			return Encoding.ASCII.GetBytes(param.ToString());
+		}
+
 	}
 }

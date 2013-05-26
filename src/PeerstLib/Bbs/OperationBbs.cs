@@ -67,9 +67,9 @@ namespace PeerstLib.Bbs
 		}
 
 		// レス書き込み
-		public void Write(string name, string mail, string text)
+		public void Write(string name, string mail, string message)
 		{
-			strategy.Write(name, mail, text);
+			strategy.Write(name, mail, message);
 		}
 
 		// TODO Update -> レス数の更新用
