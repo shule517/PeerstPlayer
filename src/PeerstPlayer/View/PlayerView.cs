@@ -95,6 +95,9 @@ namespace PeerstPlayer
 			pecaPlayer.VolumeChange += (sender, e) =>
 				statusBar.Volume = pecaPlayer.Mute ? "-" : pecaPlayer.Volume.ToString();
 
+			// スレッドタイトル右クリックイベント
+			statusBar.ThreadTitleRightClick += (sender, e) => ExecCommand(Command.OpenPeerstViewer);
+
 			// タイマーイベント
 			Timer timer = new Timer();
 			timer.Interval = 1000;

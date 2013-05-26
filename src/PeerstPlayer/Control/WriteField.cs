@@ -33,6 +33,9 @@ namespace PeerstPlayer.Control
 		// 高さ変更
 		public event EventHandler HeightChanged = delegate { };
 
+		// 右クリックイベント
+		public event EventHandler RightClick = delegate { };
+
 		// 掲示板操作クラス
 		private OperationBbs operationBbs = new OperationBbs();
 
@@ -48,10 +51,17 @@ namespace PeerstPlayer.Control
 			InitializeComponent();
 
 			// 選択スレッドのクリックイベント
-			selectThreadLabel.Click += (sender, e) =>
+			selectThreadLabel.MouseDown += (sender, e) =>
 			{
-				// 選択スレッド画面を開く
-				threadSelectView.Open();
+				if (e.Button == MouseButtons.Left)
+				{
+					// 選択スレッド画面を開く
+					threadSelectView.Open();
+				}
+				else if (e.Button == MouseButtons.Right)
+				{
+					RightClick(sender, e);
+				}
 			};
 			// スレッド一覧情報更新イベント
 			threadSelectView.ThreadListChange += (sender, e) =>
@@ -73,9 +83,7 @@ namespace PeerstPlayer.Control
 			if (operationBbs.Enabled)
 			{
 				// スレッドタイトル表示
-				selectThreadLabel.Text = operationBbs.ThreadSelected
-					? string.Format("スレッド[ {0} ] ({1})", operationBbs.SelectThread.ThreadTitle, operationBbs.SelectThread.ResCount)
-					: string.Format("掲示板[ {0} ] スレッドを選択してください", operationBbs.BbsInfo.BbsName);
+				EditThreadTitle();
 			}
 			else
 			{
@@ -92,6 +100,28 @@ namespace PeerstPlayer.Control
 
 			// 書き込み欄の有効/無効
 			writeFieldTextBox.Enabled = operationBbs.ThreadSelected;
+		}
+
+		//-------------------------------------------------------------
+		// 概要：スレッドタイトルの編集
+		//-------------------------------------------------------------
+		private void EditThreadTitle()
+		{
+			if (operationBbs.ThreadSelected)
+			{
+				try
+				{
+					selectThreadLabel.Text = string.Format("スレッド[ {0} ] ({1})", operationBbs.SelectThread.ThreadTitle, operationBbs.SelectThread.ResCount);
+				}
+				catch
+				{
+					selectThreadLabel.Text = string.Format("掲示板[ {0} ] 指定されたスレッドが存在しません", operationBbs.BbsInfo.BbsName);
+				}
+			}
+			else
+			{
+				selectThreadLabel.Text = string.Format("掲示板[ {0} ] スレッドを選択してください", operationBbs.BbsInfo.BbsName);
+			}
 		}
 
 		//-------------------------------------------------------------

@@ -70,6 +70,9 @@ namespace PeerstPlayer.Control
 		// ステータスバークリックイベント
 		public event MouseEventHandler ChannelDetailClick = delegate { };
 
+		// スレッドタイトル右クリック
+		public event EventHandler ThreadTitleRightClick = delegate { };
+
 		// 音量クリックイベント
 		public event EventHandler VolumeClick
 		{
@@ -91,6 +94,9 @@ namespace PeerstPlayer.Control
 
 			// チャンネル詳細クリック
 			movieDetail.ChannelDetailClick += (sender, e) => ChannelDetailClick(sender, e);
+
+			// スレッドタイトル右クリック
+			writeField.RightClick += (sender, e) => ThreadTitleRightClick(sender, e);
 		}
 
 		//-------------------------------------------------------------

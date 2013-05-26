@@ -78,7 +78,7 @@ namespace PeerstPlayer.Control
 		private PeerCastConnection pecaConnect = null;
 
 		// チャンネル更新用
-		private BackgroundWorker updateChannelInfoWorker = null;
+		private BackgroundWorker updateChannelInfoWorker = new BackgroundWorker();
 
 		// チャンネル更新間隔
 		private const int UpdateInterval = 60000;
@@ -130,7 +130,6 @@ namespace PeerstPlayer.Control
 			};
 
 			// チャンネル更新スレッド
-			updateChannelInfoWorker = new BackgroundWorker();
 			updateChannelInfoWorker.DoWork += (sender, e) =>
 			{
 				while (true)
