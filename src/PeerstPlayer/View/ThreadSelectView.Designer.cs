@@ -60,6 +60,7 @@
 			this.urlTextBox.Size = new System.Drawing.Size(360, 19);
 			this.urlTextBox.TabIndex = 2;
 			this.urlTextBox.Text = "http://";
+			this.urlTextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.urlTextBox_KeyDown);
 			// 
 			// updateButton
 			// 

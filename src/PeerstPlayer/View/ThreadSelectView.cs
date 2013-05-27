@@ -153,5 +153,15 @@ namespace PeerstPlayer.View
 				Visible = false;
 			}
 		}
+
+		// URLテキストボックス：キー押下
+		private void urlTextBox_KeyDown(object sender, KeyEventArgs e)
+		{
+			if (e.KeyCode == Keys.Return)
+			{
+				// スレッド更新
+				viewModel.Update(urlTextBox.Text);
+			}
+		}
 	}
 }

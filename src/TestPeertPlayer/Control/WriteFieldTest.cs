@@ -2,6 +2,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using PeerstPlayer.Control;
 using System.Windows.Forms;
+using System.Threading;
 
 namespace TestPeertPlayer.Control
 {
@@ -57,6 +58,12 @@ namespace TestPeertPlayer.Control
 			// URLを設定
 			WriteField writeField = new WriteField();
 			writeField.SelectThreadUrl = url;
+
+			for (int i = 0; i < 20; i++)
+			{
+				Application.DoEvents();
+				Thread.Sleep(20);
+			}
 
 			// スレッドタイトルのチェック
 			PrivateObject accessor = new PrivateObject(writeField);

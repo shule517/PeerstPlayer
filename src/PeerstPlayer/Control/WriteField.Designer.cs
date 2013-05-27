@@ -36,7 +36,7 @@
 			// 
 			this.writeFieldTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			this.writeFieldTextBox.Location = new System.Drawing.Point(0, 12);
+			this.writeFieldTextBox.Location = new System.Drawing.Point(0, 16);
 			this.writeFieldTextBox.Margin = new System.Windows.Forms.Padding(0);
 			this.writeFieldTextBox.Multiline = true;
 			this.writeFieldTextBox.Name = "writeFieldTextBox";
@@ -50,11 +50,12 @@
 			this.selectThreadLabel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.selectThreadLabel.BackColor = System.Drawing.Color.Black;
+			this.selectThreadLabel.Font = new System.Drawing.Font("MS UI Gothic", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
 			this.selectThreadLabel.ForeColor = System.Drawing.Color.SpringGreen;
 			this.selectThreadLabel.Location = new System.Drawing.Point(0, 0);
 			this.selectThreadLabel.Margin = new System.Windows.Forms.Padding(0);
 			this.selectThreadLabel.Name = "selectThreadLabel";
-			this.selectThreadLabel.Size = new System.Drawing.Size(480, 12);
+			this.selectThreadLabel.Size = new System.Drawing.Size(480, 16);
 			this.selectThreadLabel.TabIndex = 2;
 			this.selectThreadLabel.Text = "読み込み中...";
 			this.selectThreadLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -67,7 +68,7 @@
 			this.Controls.Add(this.writeFieldTextBox);
 			this.Margin = new System.Windows.Forms.Padding(0);
 			this.Name = "WriteField";
-			this.Size = new System.Drawing.Size(480, 31);
+			this.Size = new System.Drawing.Size(480, 35);
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
