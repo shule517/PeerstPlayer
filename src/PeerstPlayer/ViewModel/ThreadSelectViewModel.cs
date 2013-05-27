@@ -21,11 +21,15 @@ namespace PeerstPlayer.ViewModel
 		// 掲示板操作クラス
 		private　OperationBbs operationBbs = new OperationBbs();
 
+		public ThreadSelectViewModel()
+		{
+			operationBbs.ThreadListChange += (sender, e) => ThreadListChange(this, new EventArgs());
+		}
+
 		// スレッド一覧更新
 		public void Update(string threadUrl)
 		{
 			operationBbs.ChangeUrl(threadUrl);
-			ThreadListChange(this, new EventArgs());
 		}
 
 		// スレッド変更

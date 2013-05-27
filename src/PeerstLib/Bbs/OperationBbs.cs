@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.ComponentModel;
 
 namespace PeerstLib.Bbs
 {
@@ -49,15 +50,33 @@ namespace PeerstLib.Bbs
 		// 掲示板ストラテジ
 		private BbsStrategy strategy = new NullBbsStrategy(new BbsInfo { BbsServer = BbsServer.UnSupport });
 
+		// Worker
+		BackgroundWorker changeUrlWorker = new BackgroundWorker();
+
+		public OperationBbs()
+		{
+			changeUrlWorker.DoWork += (sender, e) =>
+			{
+				string url = (string)e.Argument;
+				strategy = BbsStrategyFactory.Create(url);
+				strategy.UpdateThreadList();
+				strategy.UpdateBbsName();
+			};
+			changeUrlWorker.RunWorkerCompleted += (sender, e) =>
+			{
+				ThreadListChange(this, new EventArgs());
+			};
+		}
+
 		// URL変更
 		// 掲示板ストラテジを切り替える
 		public void ChangeUrl(string url)
 		{
-			strategy = BbsStrategyFactory.Create(url);
-
 			// データ更新
-			strategy.UpdateThreadList();
-			strategy.UpdateBbsName();
+			if (!changeUrlWorker.IsBusy)
+			{
+				changeUrlWorker.RunWorkerAsync(url);
+			}
 		}
 
 		// スレッド変更

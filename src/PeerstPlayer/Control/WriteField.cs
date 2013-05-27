@@ -24,9 +24,6 @@ namespace PeerstPlayer.Control
 				// TODO ChangeUrlをBackGroundで実行させる
 				threadSelectView.ThreadUrl = value;
 				operationBbs.ChangeUrl(value);
-
-				// スレッドタイトルの更新
-				UpdateThreadTitle();
 			}
 		}
 
@@ -64,17 +61,11 @@ namespace PeerstPlayer.Control
 				}
 			};
 			// スレッド一覧情報更新イベント
-			threadSelectView.ThreadListChange += (sender, e) =>
-			{
-				operationBbs.ChangeUrl(threadSelectView.ThreadUrl);
-				UpdateThreadTitle();
-			};
+			threadSelectView.ThreadListChange += (sender, e) => operationBbs.ChangeUrl(threadSelectView.ThreadUrl);
 			// スレッド変更イベント
-			threadSelectView.ThreadChange += (sender, e) =>
-			{
-				operationBbs.ChangeUrl(threadSelectView.ThreadUrl);
-				UpdateThreadTitle();
-			};
+			threadSelectView.ThreadChange += (sender, e) => operationBbs.ChangeUrl(threadSelectView.ThreadUrl);
+			// スレッドタイトルの更新
+			operationBbs.ThreadListChange += (sender, e) => UpdateThreadTitle();
 		}
 
 		// スレッドタイトルの更新
