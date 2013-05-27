@@ -24,7 +24,7 @@ namespace PeerstLib.Bbs.Strategy
 			{
 				if (ThreadSelected)
 				{
-					return String.Format("http://{0}/{1}/{2}/", BbsInfo.BoardGenre, BbsInfo.BoardNo, BbsInfo.ThreadNo);
+					return String.Format("http://{0}/test/read.cgi/{1}/{2}/", BbsInfo.BoardGenre, BbsInfo.BoardNo, BbsInfo.ThreadNo);
 				}
 				else
 				{

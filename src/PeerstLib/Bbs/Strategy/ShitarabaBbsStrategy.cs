@@ -21,7 +21,7 @@ namespace PeerstLib.Bbs.Strategy
 			{
 				if (ThreadSelected)
 				{
-					return String.Format("http://jbbs.livedoor.jp/{0}/{1}/{2}/", BbsInfo.BoardGenre, BbsInfo.BoardNo, BbsInfo.ThreadNo);
+					return String.Format("http://jbbs.livedoor.jp/bbs/read.cgi/{0}/{1}/{2}/", BbsInfo.BoardGenre, BbsInfo.BoardNo, BbsInfo.ThreadNo);
 				}
 				else
 				{
@@ -32,7 +32,8 @@ namespace PeerstLib.Bbs.Strategy
 
 		protected override string subjectUrl
 		{
-			get { return String.Format("http://jbbs.livedoor.jp/{0}/{1}/subject.txt", BbsInfo.BoardGenre, BbsInfo.BoardNo); } }
+			get { return String.Format("http://jbbs.livedoor.jp/{0}/{1}/subject.txt", BbsInfo.BoardGenre, BbsInfo.BoardNo); }
+		}
 
 		protected override string datUrl
 		{

@@ -50,6 +50,7 @@ namespace PeerstPlayer
 			};
 
 			// チャンネル情報更新
+			bool isFirst = true;
 			pecaPlayer.ChannelInfoChange += (sender, e) =>
 			{
 				ChannelInfo info = pecaPlayer.ChannelInfo;
@@ -57,7 +58,11 @@ namespace PeerstPlayer
 				statusBar.ChannelDetail = String.Format("{0} [{1}] {2} {3}", info.Name, info.Genre, info.Desc, info.Comment);
 
 				// TODO 初回だけコンタクトURLを設定する
-				statusBar.SelectThreadUrl = info.Url;
+				if (isFirst)
+				{
+					statusBar.SelectThreadUrl = info.Url;
+					isFirst = false;
+				}
 			};
 
 			// ステータスバーのサイズ変更
