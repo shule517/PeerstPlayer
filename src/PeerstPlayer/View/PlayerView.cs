@@ -13,6 +13,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Windows.Forms;
 using WMPLib;
+using PeerstLib.Form;
 
 namespace PeerstPlayer
 {
@@ -197,6 +198,9 @@ namespace PeerstPlayer
 				}
 			};
 
+			// アスペクト比維持
+			new AspectRateKeepWindow(this.Handle);
+
 			// 書き込み欄の非表示
 			statusBar.WriteFieldVisible = false;
 
@@ -295,6 +299,7 @@ namespace PeerstPlayer
 					return;
 				}
 
+				// TODO スレッド選択しているスレッドURLを指定する
 				Process.Start(@"C:\Users\Shule517\Desktop\研究用_リムーバブルディスク\姉ちゃん\Tool\PeerstPlayer Pocket 0.13\PeerstViewer.exe",
 					info.Url);
 			});
