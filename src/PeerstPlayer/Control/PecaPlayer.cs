@@ -13,9 +13,16 @@ using PeerstLib.Bbs;
 
 namespace PeerstPlayer.Control
 {
-	// PeerCast対応の動画再生プレイヤー
+	//-------------------------------------------------------------
+	// 概要：ペカプレイヤークラスコントロール
+	// 詳細：PeerCast対応の動画再生プレイヤー
+	//-------------------------------------------------------------
 	public partial class PecaPlayer : UserControl
 	{
+		//-------------------------------------------------------------
+		// 公開プロパティ
+		//-------------------------------------------------------------
+
 		// チャンネル情報
 		public ChannelInfo ChannelInfo { get; set; }
 		public event EventHandler ChannelInfoChange = delegate { };
@@ -74,11 +81,19 @@ namespace PeerstPlayer.Control
 		// ダブルクリックイベント
 		public event EventHandler DoubleClickEvent = delegate { };
 
+		//-------------------------------------------------------------
+		// 非公開プロパティ
+		//-------------------------------------------------------------
+
 		// PeerCast通信
 		private PeerCastConnection pecaConnect = null;
 
 		// チャンネル更新用
 		private BackgroundWorker updateChannelInfoWorker = new BackgroundWorker();
+
+		//-------------------------------------------------------------
+		// 定義
+		//-------------------------------------------------------------
 
 		// チャンネル更新間隔
 		private const int UpdateInterval = 60000;
@@ -167,7 +182,10 @@ namespace PeerstPlayer.Control
 				}
 
 				// メモリリーク防止
-				wmp.Ctlcontrols.play();
+				if (wmp.Ctlcontrols != null)
+				{
+					wmp.Ctlcontrols.play();
+				}
 			};
 			timer.Start();
 

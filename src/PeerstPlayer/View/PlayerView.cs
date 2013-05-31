@@ -17,9 +17,48 @@ using PeerstLib.Form;
 
 namespace PeerstPlayer
 {
-	// 動画プレイヤーの表示
+	//-------------------------------------------------------------
+	// 概要：動画プレイヤー画面表示クラス
+	//-------------------------------------------------------------
 	public partial class PlayerView : Form
 	{
+		// イベント定義
+		enum Event
+		{
+			WheelUp,		// ホイールUp
+			WheelDown,		// ホイールDown
+			Mute,			// ミュートボタン押下
+			DoubleClick,	// ダブルクリック
+			StatusbarRightClick,	// ステータスバー右クリック
+			StatusbarLeftClick,
+		};
+
+		// コマンド実行
+		enum Command
+		{
+			VolumeUp,			// 音量Up
+			VolumeDown,			// 音量Down
+			Mute,				// ミュート切り替え
+			WindowMaximize,		// ウィンドウ最大化
+			WindowMinimization,	// ウィンドウ最小化
+			Close,				// 閉じる
+			OpenPeerstViewer,	// ビューワを開く
+			VisibleStatusBar,		// ステータスバーの表示切り替え
+		};
+
+		//-------------------------------------------------------------
+		// 非公開プロパティ
+		//-------------------------------------------------------------
+
+		// コマンドMap (コマンド -> 実行処理)
+		private Dictionary<Command, Action> commandMap = new Dictionary<Command, Action>();
+
+		// イベントMap (イベント -> コマンド)
+		private Dictionary<Event, Command> eventMap = new Dictionary<Event, Command>();
+
+		//-------------------------------------------------------------
+		// コンストラクタ
+		//-------------------------------------------------------------
 		public PlayerView()
 		{
 			InitializeComponent();
@@ -211,46 +250,35 @@ namespace PeerstPlayer
 			// TODO デバッグ終了
 		}
 
-		enum Event
+		//-------------------------------------------------------------
+		// 概要：URLを開く
+		//-------------------------------------------------------------
+		public void Open(string url)
 		{
-			WheelUp,		// ホイールUp
-			WheelDown,		// ホイールDown
-			Mute,			// ミュートボタン押下
-			DoubleClick,	// ダブルクリック
-			StatusbarRightClick,	// ステータスバー右クリック
-			StatusbarLeftClick,
-		};
+			pecaPlayer.Open(url);
+		}
 
-		enum Command
-		{
-			VolumeUp,			// 音量Up
-			VolumeDown,			// 音量Down
-			Mute,				// ミュート切り替え
-			WindowMaximize,		// ウィンドウ最大化
-			WindowMinimization,	// ウィンドウ最小化
-			Close,				// 閉じる
-			OpenPeerstViewer,	// ビューワを開く
-			VisibleStatusBar,		// ステータスバーの表示切り替え
-		};
-
-		void OnEvent(Event eventId)
+		//-------------------------------------------------------------
+		// 概要：イベント実行
+		//-------------------------------------------------------------
+		private void OnEvent(Event eventId)
 		{
 			Command commandId = eventMap[eventId];
 			ExecCommand(commandId);
 		}
 
-		void ExecCommand(Command commandId)
+		//-------------------------------------------------------------
+		// 概要：コマンド実行
+		//-------------------------------------------------------------
+		private void ExecCommand(Command commandId)
 		{
 			commandMap[commandId]();
 		}
 
-		Dictionary<Command, Action> commandMap = new Dictionary<Command, Action>();
-		Dictionary<Event, Command> eventMap = new Dictionary<Event, Command>();
-
 		//-------------------------------------------------------------
 		// 概要：イベント登録
 		//-------------------------------------------------------------
-		void createEvent()
+		private void createEvent()
 		{
 			// TODO 設定によって切り替えを行う
 			eventMap.Add(Event.WheelUp, Command.VolumeUp);
@@ -264,7 +292,7 @@ namespace PeerstPlayer
 		//-------------------------------------------------------------
 		// 概要：コマンド作成
 		//-------------------------------------------------------------
-		void createCommand()
+		private void createCommand()
 		{
 			// 音量UP
 			commandMap.Add(Command.VolumeUp, () => pecaPlayer.Volume += 10);
@@ -303,11 +331,6 @@ namespace PeerstPlayer
 				Process.Start(@"C:\Users\Shule517\Desktop\研究用_リムーバブルディスク\姉ちゃん\Tool\PeerstPlayer Pocket 0.13\PeerstViewer.exe",
 					info.Url);
 			});
-		}
-
-		public void Open(string url)
-		{
-			pecaPlayer.Open(url);
 		}
 	}
 }

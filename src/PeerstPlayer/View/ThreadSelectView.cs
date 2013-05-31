@@ -11,8 +11,15 @@ using System.Windows.Forms;
 
 namespace PeerstPlayer.View
 {
+	//-------------------------------------------------------------
+	// 概要：スレッド選択画面表示クラス
+	//-------------------------------------------------------------
 	public partial class ThreadSelectView : Form
 	{
+		//-------------------------------------------------------------
+		// 公開プロパティ
+		//-------------------------------------------------------------
+
 		// TODO 選択URLの変更イベントを作成する
 		// TODO このイベント時に選択スレッド名を表示する
 		public string ThreadUrl
@@ -31,8 +38,14 @@ namespace PeerstPlayer.View
 		// スレッド変更
 		public event EventHandler ThreadChange = delegate { };
 
+		//-------------------------------------------------------------
+		// 非公開プロパティ
+		//-------------------------------------------------------------
 		private ThreadSelectViewModel viewModel = new ThreadSelectViewModel();
 
+		//-------------------------------------------------------------
+		// 概要：コンストラタ
+		//-------------------------------------------------------------
 		public ThreadSelectView()
 		{
 			InitializeComponent();
@@ -48,7 +61,9 @@ namespace PeerstPlayer.View
 			// TODO 初期フォーカス時にURLテストトボックスを全選択する
 		}
 
-		// ウィンドウを開く
+		//-------------------------------------------------------------
+		// 概要：ウィンドウを開く
+		//-------------------------------------------------------------
 		public void Open()
 		{
 			Visible = true;
@@ -131,7 +146,10 @@ namespace PeerstPlayer.View
 			e.Cancel = true;
 		}
 
-		// ダブルクリックイベント
+		//-------------------------------------------------------------
+		// 概要：ダブルクリックイベント
+		// 詳細：スレッド変更を行う
+		//-------------------------------------------------------------
 		private void threadListView_MouseDoubleClick(object sender, MouseEventArgs e)
 		{
 			// 未選択チェック
@@ -154,7 +172,10 @@ namespace PeerstPlayer.View
 			}
 		}
 
-		// URLテキストボックス：キー押下
+		//-------------------------------------------------------------
+		// 概要：ダブルクリックイベント
+		// 詳細：スレッド変更を行う
+		//-------------------------------------------------------------
 		private void urlTextBox_KeyDown(object sender, KeyEventArgs e)
 		{
 			if (e.KeyCode == Keys.Return)

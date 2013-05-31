@@ -11,9 +11,15 @@ using PeerstLib.Bbs;
 
 namespace PeerstPlayer.Control
 {
-	// 書き込み欄コントロール
+	//-------------------------------------------------------------
+	// 概要：書き込み欄コントロール
+	//-------------------------------------------------------------
 	public partial class WriteField : UserControl
 	{
+		//-------------------------------------------------------------
+		// 公開プロパティ
+		//-------------------------------------------------------------
+
 		// 選択スレッドURL
 		public string SelectThreadUrl
 		{
@@ -32,6 +38,10 @@ namespace PeerstPlayer.Control
 
 		// 右クリックイベント
 		public event EventHandler RightClick = delegate { };
+
+		//-------------------------------------------------------------
+		// 非公開プロパティ
+		//-------------------------------------------------------------
 
 		// 掲示板操作クラス
 		private OperationBbs operationBbs = new OperationBbs();
@@ -68,7 +78,9 @@ namespace PeerstPlayer.Control
 			operationBbs.ThreadListChange += (sender, e) => UpdateThreadTitle();
 		}
 
-		// スレッドタイトルの更新
+		//-------------------------------------------------------------
+		// 概要：スレッドタイトルの更新
+		//-------------------------------------------------------------
 		private void UpdateThreadTitle()
 		{
 			if (operationBbs.Enabled)
@@ -128,6 +140,10 @@ namespace PeerstPlayer.Control
 			HeightChanged(sender, e);
 		}
 
+		//-------------------------------------------------------------
+		// 概要：書き込み欄のキー押下
+		// 詳細：レス書き込み
+		//-------------------------------------------------------------
 		private void writeFieldTextBox_KeyDown(object sender, KeyEventArgs e)
 		{
 			if ((e.Modifiers == Keys.Control) && (e.KeyCode == Keys.Enter))
