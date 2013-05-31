@@ -7,7 +7,10 @@ using System.ComponentModel;
 
 namespace PeerstLib.Bbs
 {
-	// 掲示板操作クラス
+	//-------------------------------------------------------------
+	// 概要：掲示板操作クラス
+	// 詳細：ストラテジの切替を行う
+	//-------------------------------------------------------------
 	public class OperationBbs
 	{
 		// 掲示板情報
@@ -50,9 +53,12 @@ namespace PeerstLib.Bbs
 		// 掲示板ストラテジ
 		private BbsStrategy strategy = new NullBbsStrategy(new BbsInfo { BbsServer = BbsServer.UnSupport });
 
-		// Worker
+		// URL変更Worker
 		BackgroundWorker changeUrlWorker = new BackgroundWorker();
 
+		//-------------------------------------------------------------
+		// 概要：コンストラクタ
+		//-------------------------------------------------------------
 		public OperationBbs()
 		{
 			changeUrlWorker.DoWork += (sender, e) =>
@@ -68,8 +74,10 @@ namespace PeerstLib.Bbs
 			};
 		}
 
-		// URL変更
-		// 掲示板ストラテジを切り替える
+		//-------------------------------------------------------------
+		// 概要：URL変更
+		// 詳細：掲示板ストラテジを切り替える
+		//-------------------------------------------------------------
 		public void ChangeUrl(string url)
 		{
 			// データ更新
@@ -79,13 +87,17 @@ namespace PeerstLib.Bbs
 			}
 		}
 
-		// スレッド変更
+		//-------------------------------------------------------------
+		// 概要：スレッド変更
+		//-------------------------------------------------------------
 		public void ChangeThread(string threadNo)
 		{
 			strategy.ChangeThread(threadNo);
 		}
 
-		// レス書き込み
+		//-------------------------------------------------------------
+		// 概要：レス書き込み
+		//-------------------------------------------------------------
 		public void Write(string name, string mail, string message)
 		{
 			strategy.Write(name, mail, message);

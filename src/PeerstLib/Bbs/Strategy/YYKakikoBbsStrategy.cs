@@ -6,18 +6,17 @@ using System.Web;
 
 namespace PeerstLib.Bbs.Strategy
 {
-	// YYかきこ掲示板ストラテジ
+	//-------------------------------------------------------------
+	// 概要：YYかきこ掲示板ストラテジ
+	// 責務：YYかきこ掲示板の操作を行う
+	//-------------------------------------------------------------
 	public class YYKakikoBbsStrategy : BbsStrategy
 	{
-		public YYKakikoBbsStrategy(BbsInfo bbsInfo) : base(bbsInfo)
-		{
-		}
+		//-------------------------------------------------------------
+		// 公開プロパティ
+		//-------------------------------------------------------------
 
-		protected override Encoding encoding
-		{
-			get { return Encoding.GetEncoding("Shift_JIS"); }
-		}
-
+		// スレッドURL
 		public override string ThreadUrl
 		{
 			get
@@ -33,24 +32,47 @@ namespace PeerstLib.Bbs.Strategy
 			}
 		}
 
+		//-------------------------------------------------------------
+		// 非公開プロパティ
+		//-------------------------------------------------------------
+
+		// 掲示板エンコード
+		protected override Encoding encoding
+		{
+			get { return Encoding.GetEncoding("Shift_JIS"); }
+		}
+
+		// 掲示板一覧URL
 		protected override string subjectUrl
 		{
 			get { return String.Format("http://{0}/{1}/subject.txt", BbsInfo.BoardGenre, BbsInfo.BoardNo); }
 		}
 
+		// スレッド情報URL
 		protected override string datUrl
 		{
 			get { return String.Format("http://{0}/{1}/dat/{2}.dat", BbsInfo.BoardGenre, BbsInfo.BoardNo, BbsInfo.ThreadNo); }
 		}
 
+		// 板URL
 		protected override string boardUrl
 		{
 			get { return String.Format("http://{0}/{1}/", BbsInfo.BoardGenre, BbsInfo.BoardNo); }
 		}
 
+		// 書き込みリクエストURL
 		protected override string writeUrl
 		{
 			get { return "http://" + BbsInfo.BoardGenre + "/test/bbs.cgi"; }
+		}
+
+		//-------------------------------------------------------------
+		// 概要：コンストラクタ
+		// 詳細：掲示板情報の初期化
+		//-------------------------------------------------------------
+		public YYKakikoBbsStrategy(BbsInfo bbsInfo)
+			: base(bbsInfo)
+		{
 		}
 
 		//-------------------------------------------------------------
@@ -92,7 +114,9 @@ namespace PeerstLib.Bbs.Strategy
 			return threadList;
 		}
 
-		// 書き込み用リクエストデータ作成
+		//-------------------------------------------------------------
+		// 概要：書き込み用リクエストデータ作成
+		//-------------------------------------------------------------
 		override protected byte[] CreateWriteRequestData(string name, string mail, string message)
 		{
 			StringBuilder param = new StringBuilder();
@@ -106,6 +130,5 @@ namespace PeerstLib.Bbs.Strategy
 
 			return Encoding.ASCII.GetBytes(param.ToString());
 		}
-
 	}
 }

@@ -5,11 +5,18 @@ using System.Text;
 
 namespace PeerstLib.Bbs
 {
-	// 掲示板サーバ
+	//-------------------------------------------------------------
+	// 概要：掲示板サーバ
+	//-------------------------------------------------------------
 	public enum BbsServer
 	{
-		Shitaraba,	// したらば掲示板
-		YYKakiko,	// わいわいKakiko
-		UnSupport	// 未対応サーバ
+		// したらば掲示板
+		Shitaraba,
+
+		// わいわいKakiko
+		YYKakiko,
+
+		// 未対応サーバ
+		UnSupport
 	}
 }

@@ -5,7 +5,9 @@ using System.Text;
 
 namespace PeerstLib.Bbs
 {
-	// ストリームURLから抽出した情報クラス
+	//-------------------------------------------------------------
+	// 概要：ストリームURLから抽出した情報クラス
+	//-------------------------------------------------------------
 	public class StreamUrlInfo
 	{
 		public StreamUrlInfo()

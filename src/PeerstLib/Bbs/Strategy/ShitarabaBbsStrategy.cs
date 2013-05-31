@@ -6,15 +6,17 @@ using System.Web;
 
 namespace PeerstLib.Bbs.Strategy
 {
-	// したらば掲示板ストラテジ
+	//-------------------------------------------------------------
+	// 概要：したらば掲示板ストラテジ
+	// 責務：したらば掲示板の操作を行う
+	//-------------------------------------------------------------
 	public class ShitarabaBbsStrategy : BbsStrategy
 	{
-		public ShitarabaBbsStrategy(BbsInfo bbsInfo) : base(bbsInfo)
-		{
-		}
+		//-------------------------------------------------------------
+		// 公開プロパティ
+		//-------------------------------------------------------------
 
-		protected override Encoding encoding { get { return Encoding.GetEncoding("EUC-JP"); } }
-
+		// スレッドURL
 		public override string ThreadUrl
 		{
 			get
@@ -30,24 +32,44 @@ namespace PeerstLib.Bbs.Strategy
 			}
 		}
 
+		//-------------------------------------------------------------
+		// 非公開プロパティ
+		//-------------------------------------------------------------
+
+		// 掲示板エンコード
+		protected override Encoding encoding { get { return Encoding.GetEncoding("EUC-JP"); } }
+
+		// スレッド一覧URL
 		protected override string subjectUrl
 		{
 			get { return String.Format("http://jbbs.livedoor.jp/{0}/{1}/subject.txt", BbsInfo.BoardGenre, BbsInfo.BoardNo); }
 		}
 
+		// スレッド情報URL
 		protected override string datUrl
 		{
 			get { return String.Format("http://jbbs.livedoor.jp/bbs/rawmode.cgi/{0}/{1}/{2}/", BbsInfo.BoardGenre, BbsInfo.BoardNo, BbsInfo.ThreadNo); }
 		}
 
+		// 板URL
 		protected override string boardUrl
 		{
 			get { return String.Format("http://jbbs.livedoor.jp/{0}/{1}/", BbsInfo.BoardGenre, BbsInfo.BoardNo); }
 		}
 
+		// 書き込みリクエストURL
 		protected override string writeUrl
 		{
 			get { return "http://jbbs.livedoor.jp/bbs/write.cgi"; }
+		}
+
+		//-------------------------------------------------------------
+		// 概要：コンストラクタ
+		// 詳細：掲示板情報の初期化
+		//-------------------------------------------------------------
+		public ShitarabaBbsStrategy(BbsInfo bbsInfo)
+			: base(bbsInfo)
+		{
 		}
 
 		//-------------------------------------------------------------
@@ -68,11 +90,11 @@ namespace PeerstLib.Bbs.Strategy
 				if (String.IsNullOrEmpty(line))
 					continue;
 
-				// スレッドタイトル
+				// スレッドタイトル抽出
 				int titleEnd = line.LastIndexOf('(');
 				string threadTitle = line.Substring(titleStart, titleEnd - titleStart);
 
-				// レス数
+				// レス数抽出
 				int resStart = titleEnd + 1;
 				string resCount = line.Substring(resStart, (line.Length - resStart - 1));
 
@@ -82,7 +104,6 @@ namespace PeerstLib.Bbs.Strategy
 					ThreadTitle = threadTitle.Trim(),
 					ResCount = int.Parse(resCount),
 				};
-
 				threadList.Add(threadInfo);
 			}
 
@@ -95,7 +116,9 @@ namespace PeerstLib.Bbs.Strategy
 			return threadList;
 		}
 
-		// 書き込み用リクエストデータ作成
+		//-------------------------------------------------------------
+		// 概要：書き込み用リクエストデータ作成
+		//-------------------------------------------------------------
 		override protected byte[] CreateWriteRequestData(string name, string mail, string message)
 		{
 			StringBuilder param = new StringBuilder();

@@ -10,7 +10,9 @@ using System.Text.RegularExpressions;
 
 namespace PeerstLib.Bbs.Strategy
 {
-	// 掲示板ストラテジクラス
+	//-------------------------------------------------------------
+	// 概要：掲示板ストラテジクラス
+	//-------------------------------------------------------------
 	public abstract class BbsStrategy
 	{
 		//-------------------------------------------------------------
@@ -30,38 +32,38 @@ namespace PeerstLib.Bbs.Strategy
 		}
 
 		// スレッドURL
-		abstract public string ThreadUrl { get; }
+		public abstract string ThreadUrl { get; }
 
 		//-------------------------------------------------------------
 		// 非公開プロパティ
 		//-------------------------------------------------------------
 
-		// エンコード
-		abstract protected Encoding encoding { get; }
+		// 掲示板のエンコード
+		protected abstract Encoding encoding { get; }
 
 		// スレッド一覧情報URL
-		abstract protected string subjectUrl { get; }
+		protected abstract string subjectUrl { get; }
 
 		// スレッド情報取得
-		abstract protected string datUrl { get; }
+		protected abstract string datUrl { get; }
 
 		// 板URL
-		abstract protected string boardUrl { get; }
+		protected abstract string boardUrl { get; }
 
 		// 書き込みリクエストURL
-		abstract protected string writeUrl { get; }
+		protected abstract string writeUrl { get; }
 
 		//-------------------------------------------------------------
-		// 公開メソッド
+		// 概要：スレッド変更
 		//-------------------------------------------------------------
-
-		// スレッド変更
 		public void ChangeThread(string threadNo)
 		{
 			BbsInfo.ThreadNo = threadNo;
 		}
 
-		// スレッド一覧更新
+		//-------------------------------------------------------------
+		// 概要：スレッド一覧更新
+		//-------------------------------------------------------------
 		public void UpdateThreadList()
 		{
 			string subjectText = WebUtil.GetHtml(subjectUrl, encoding);
@@ -69,7 +71,9 @@ namespace PeerstLib.Bbs.Strategy
 			ThreadList = AnalyzeSubjectText(lines);
 		}
 
-		// 掲示板名の更新
+		//-------------------------------------------------------------
+		// 概要：掲示板名の更新
+		//-------------------------------------------------------------
 		public void UpdateBbsName()
 		{
 			string html = WebUtil.GetHtml(boardUrl, encoding);
@@ -88,7 +92,9 @@ namespace PeerstLib.Bbs.Strategy
 			BbsInfo.BbsName = string.Empty;
 		}
 
-		// レス書き込み
+		//-------------------------------------------------------------
+		// 概要：レス書き込み
+		//-------------------------------------------------------------
 		public void Write(string name, string mail, string message)
 		{
 			// POSTデータ作成
@@ -118,24 +124,27 @@ namespace PeerstLib.Bbs.Strategy
 			CheckWriteError(html);
 		}
 
-
 		//-------------------------------------------------------------
-		// 非公開メソッド
+		// 概要：コンストラクタ
 		//-------------------------------------------------------------
-
-		// コンストラクタ
 		protected BbsStrategy(BbsInfo bbsInfo)
 		{
 			this.BbsInfo = bbsInfo;
 		}
 
-		// スレッド一覧解析
-		abstract protected List<ThreadInfo> AnalyzeSubjectText(string[] lines);
+		//-------------------------------------------------------------
+		// 概要：スレッド一覧解析
+		//-------------------------------------------------------------
+		protected abstract List<ThreadInfo> AnalyzeSubjectText(string[] lines);
 
-		// 書き込み用リクエストデータ作成
-		abstract protected byte[] CreateWriteRequestData(string name, string mail, string message);
+		//-------------------------------------------------------------
+		// 概要：書き込み用リクエストデータ作成
+		//-------------------------------------------------------------
+		protected abstract byte[] CreateWriteRequestData(string name, string mail, string message);
 
-		// 書き込みエラーチェック
+		//-------------------------------------------------------------
+		// 概要：書き込みエラーチェック
+		//-------------------------------------------------------------
 		private void CheckWriteError(string html)
 		{
 			Regex regex = new Regex("<title>(.*)</title>");

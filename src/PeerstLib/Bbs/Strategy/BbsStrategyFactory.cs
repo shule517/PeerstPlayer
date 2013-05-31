@@ -5,13 +5,16 @@ using System.Text;
 
 namespace PeerstLib.Bbs.Strategy
 {
-	// 掲示板ストラテジファクトリクラス
-	static public class BbsStrategyFactory
+	//-------------------------------------------------------------
+	// 概要：掲示板ストラテジファクトリクラス
+	// 責務：URLに対応したストラテジを生成すること
+	//-------------------------------------------------------------
+	public static class BbsStrategyFactory
 	{
 		//-------------------------------------------------------------
 		// 概要：URLに対応したストラテジの生成
 		//-------------------------------------------------------------
-		static public BbsStrategy Create(string url)
+		public static BbsStrategy Create(string url)
 		{
 			// 掲示板解析
 			BbsInfo bbsInfo = BbsUrlAnalyzer.Analyze(url);
