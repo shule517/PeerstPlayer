@@ -6,11 +6,14 @@ using System.Text;
 
 namespace PeerstLib.Utility
 {
+	//-------------------------------------------------------------
+	// 概要：Web関連のUtilityクラス
+	//-------------------------------------------------------------
 	static public class WebUtil
 	{
 		//-------------------------------------------------------------
 		// 概要：HTMLの取得
-		// 詳細：subject.txtからスレッド一覧情報を作成する
+		// 詳細：指定URLからHTMLコードを取得する
 		//-------------------------------------------------------------
 		public static string GetHtml(string url, Encoding encoding)
 		{

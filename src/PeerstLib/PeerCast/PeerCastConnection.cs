@@ -7,9 +7,18 @@ using System.Xml.Linq;
 
 namespace PeerstLib.PeerCast
 {
-	// PeerCast通信クラス
+	//-------------------------------------------------------------
+	// 概要：PeerCast通信クラス
+	//-------------------------------------------------------------
 	public class PeerCastConnection
 	{
+		//-------------------------------------------------------------
+		// 非公開プロパティ
+		//-------------------------------------------------------------
+
+		// ストリームURL情報(接続先)
+		private StreamUrlInfo urlInfo = null;
+
 		//-------------------------------------------------------------
 		// 概要：ストリーム情報の初期化
 		//-------------------------------------------------------------
@@ -37,11 +46,6 @@ namespace PeerstLib.PeerCast
 				return new ChannelInfo();
 			}
 		}
-
-		#region 非公開プロパティ
-
-		// ストリームURL情報(接続先)
-		private StreamUrlInfo urlInfo = null;
 
 		//-------------------------------------------------------------
 		// 概要：ViewXMLを解析
@@ -221,7 +225,5 @@ namespace PeerstLib.PeerCast
 
 			return hostList;
 		}
-
-		#endregion
 	}
 }

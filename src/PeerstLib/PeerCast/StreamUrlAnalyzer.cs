@@ -7,9 +7,14 @@ using System.Text.RegularExpressions;
 
 namespace PeerstLib.PeerCast
 {
-	// ストリームURL解析クラス
+	//-------------------------------------------------------------
+	// 概要：ストリームURL解析クラス
+	//-------------------------------------------------------------
 	public static class StreamUrlAnalyzer
 	{
+		//-------------------------------------------------------------
+		// 定義
+		//-------------------------------------------------------------
 		const string StreamUrlPattern = @"ttp://(.*):(.*)/pls/(.*)?tip=";
 		const int GroupCount = 4;
 

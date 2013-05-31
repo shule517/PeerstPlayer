@@ -49,7 +49,7 @@ namespace PeerstLib.Bbs.Strategy
 		//-------------------------------------------------------------
 		override protected List<ThreadInfo> AnalyzeSubjectText(string[] lines)
 		{
-			rnew List<ThreadInfo>();
+			return new List<ThreadInfo>();
 		}
 
 		//-------------------------------------------------------------

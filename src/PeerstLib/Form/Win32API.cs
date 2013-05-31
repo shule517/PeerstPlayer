@@ -6,7 +6,10 @@ using System.Text;
 
 namespace PeerstLib.Control
 {
-	// Win32APIをimport
+	//-------------------------------------------------------------
+	// 概要：Win32APIクラス
+	// 詳細：Win32APIのimport
+	//-------------------------------------------------------------
 	class Win32API
 	{
 		[DllImport("user32.dll")]

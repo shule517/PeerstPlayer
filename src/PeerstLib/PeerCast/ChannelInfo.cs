@@ -5,7 +5,9 @@ using System.Text;
 
 namespace PeerstLib.PeerCast
 {
-	// チャンネル情報
+	//-------------------------------------------------------------
+	// 概要：チャンネル情報クラス
+	//-------------------------------------------------------------
 	public class ChannelInfo
 	{
 		public ChannelInfo()
@@ -46,7 +48,9 @@ namespace PeerstLib.PeerCast
 		public List<HostInfo> HostList { get; set; }
 	}
 
-	// ホスト情報
+	//-------------------------------------------------------------
+	// 概要：ホスト情報クラス
+	//-------------------------------------------------------------
 	public class HostInfo
 	{
 		public string Ip { get; set; }
@@ -67,7 +71,9 @@ namespace PeerstLib.PeerCast
 		public RelayColor RelayColor { get; set; }
 	}
 
-	// リレー色
+	//-------------------------------------------------------------
+	// 概要：リレー色
+	//-------------------------------------------------------------
 	public enum RelayColor
 	{
 		None,

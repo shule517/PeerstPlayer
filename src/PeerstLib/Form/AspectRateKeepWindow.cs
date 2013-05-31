@@ -9,7 +9,10 @@ using PeerstLib.Control;
 
 namespace PeerstLib.Form
 {
-	// アスペクト比維持
+	//-------------------------------------------------------------
+	// 概要：アスペクト比維持クラス
+	// 責務：指定ウィンドウのアスペクト比維持
+	//-------------------------------------------------------------
 	public class AspectRateKeepWindow : NativeWindow
 	{
 		const int WMSZ_LEFT = 1;
@@ -21,14 +24,19 @@ namespace PeerstLib.Form
 		const int WMSZ_BOTTOMLEFT = 7;
 		const int WMSZ_BOTTOMRIGHT = 8;
 
-		// コンストラクタ
+		//-------------------------------------------------------------
+		// 概要：コンストラクタ
+		//-------------------------------------------------------------
 		public AspectRateKeepWindow(IntPtr handle)
 		{
 			// サブクラスウィンドウの設定
 			AssignHandle(handle);
 		}
 
-		// ウィンドウプロシージャ
+		//-------------------------------------------------------------
+		// 概要：ウィンドウプロシージャ
+		// 詳細：ウィンドウサイズの変更時にアスペクト比維持を実行
+		//-------------------------------------------------------------
 		protected override void WndProc(ref Message m)
 		{
 			switch ((WindowMessage)m.Msg)
@@ -44,6 +52,9 @@ namespace PeerstLib.Form
 			base.WndProc(ref m);
 		}
 
+		//-------------------------------------------------------------
+		// 概要：アスペクト非を維持する
+		//-------------------------------------------------------------
 		private void KeepAspectRate(Message m)
 		{
 			// 各辺の座標を取得
@@ -52,10 +63,9 @@ namespace PeerstLib.Form
 			int right = Marshal.ReadInt32(m.LParam, 8);
 			int bottom = Marshal.ReadInt32(m.LParam, 12);
 
+			// 幅/高さの取得
 			int width = right - left;
 			int height = bottom - top;
-
-			//Size dif = this.pa - panelWMP.Size;
 
 			// ドラッグされている辺に応じて、新たなサイズを指定
 			switch (m.WParam.ToInt32())
@@ -65,6 +75,7 @@ namespace PeerstLib.Form
 				// 右
 				case WMSZ_RIGHT:
 					{
+						// TODO 動画サイズに対してアスペクト比維持する
 						bottom = top + (int)(width * (800 / 600));
 						/*
 						int panelWidth = width;
@@ -77,6 +88,7 @@ namespace PeerstLib.Form
 				// 下
 				case WMSZ_BOTTOM:
 					{
+						// TODO 動画サイズに対してアスペクト比維持する
 						right = left + (int)(height * (800 / 600));
 						/*
 						int panelHeight = height;// -(panelStatusLabel.Visible ? panelStatusLabel.Height : 0) - (panelResBox.Visible ? panelResBox.Height : 0) - (Size - ClientSize).Height;
