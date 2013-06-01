@@ -1,12 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Windows.Forms;
+using log4net;
 
 namespace PeerstPlayer
 {
 	static class Program
 	{
+		// log4netの初期化
+		private static readonly ILog logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+
 		/// <summary>
 		/// アプリケーションのメイン エントリ ポイントです。
 		/// </summary>
