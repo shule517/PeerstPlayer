@@ -1,8 +1,7 @@
-﻿using System;
+﻿using System.Threading;
+using System.Windows.Forms;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using PeerstPlayer.Control;
-using System.Windows.Forms;
-using System.Threading;
 
 namespace TestPeertPlayer.Control
 {

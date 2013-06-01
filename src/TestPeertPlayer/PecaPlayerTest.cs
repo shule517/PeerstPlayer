@@ -1,12 +1,10 @@
-﻿using System;
+﻿using System.Threading;
+using System.Windows.Forms;
+using AxWMPLib;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using PeerstPlayer.Control;
-using AxWMPLib;
-using System.Threading;
-using System.Windows.Forms;
-using WMPLib;
-using System.IO;
 using TestPeerstLib;
+using WMPLib;
 
 namespace TestPeertPlayer
 {

@@ -1,19 +1,13 @@
-﻿using HongliangSoft.Utilities.Gui;
-using PeerstLib.Control;
-using PeerstLib.PeerCast;
-using PeerstPlayer.View;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Diagnostics;
 using System.Drawing;
-using System.Linq;
-using System.Runtime.InteropServices;
-using System.Text;
 using System.Windows.Forms;
-using WMPLib;
+using HongliangSoft.Utilities.Gui;
+using PeerstLib.Control;
 using PeerstLib.Form;
+using PeerstLib.PeerCast;
+using WMPLib;
 
 namespace PeerstPlayer
 {

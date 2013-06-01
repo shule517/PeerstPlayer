@@ -2,8 +2,8 @@ using System;
 using System.ComponentModel;
 using System.Drawing;
 using System.Runtime.InteropServices;
-using System.Windows.Forms;
-namespace HongliangSoft.Utilities.Gui {
+namespace HongliangSoft.Utilities.Gui
+{
 
 	///<summary>マウスをフックし、任意のメソッドを実行する。</summary>
 	[DefaultEvent("MouseHooked")]

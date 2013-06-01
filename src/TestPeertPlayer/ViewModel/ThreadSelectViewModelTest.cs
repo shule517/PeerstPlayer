@@ -1,9 +1,7 @@
-﻿using System;
+﻿using System.Threading;
+using System.Windows.Forms;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using PeerstPlayer.ViewModel;
-using PeerstPlayer.View;
-using System.Threading;
-using System.Windows.Forms;
 
 namespace TestPeertPlayer.ViewModel
 {

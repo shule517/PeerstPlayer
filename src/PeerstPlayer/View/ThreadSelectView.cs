@@ -1,13 +1,8 @@
-﻿using PeerstLib.Bbs;
-using PeerstPlayer.ViewModel;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
+﻿using System;
 using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
+using PeerstLib.Bbs;
+using PeerstPlayer.ViewModel;
 
 namespace PeerstPlayer.View
 {

@@ -1,15 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Drawing;
-using System.Data;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
+using PeerstLib.Bbs;
 using PeerstLib.PeerCast;
 using WMPLib;
-using PeerstLib.Control;
-using PeerstLib.Bbs;
 
 namespace PeerstPlayer.Control
 {

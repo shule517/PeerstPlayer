@@ -1,9 +1,6 @@
-﻿using PeerstLib.Control;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System;
 using System.Windows.Forms;
+using PeerstLib.Control;
 
 namespace PeerstPlayer.Control
 {
