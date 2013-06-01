@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Xml.Linq;
+using System.Text.RegularExpressions;
 
 namespace PeerstLib.PeerCast
 {
@@ -66,6 +67,110 @@ namespace PeerstLib.PeerCast
 		}
 
 		//-------------------------------------------------------------
+		// 概要：チャンネル情報の取得
+		//-------------------------------------------------------------
+		private ChannelInfo SelectChannelInfo(XElement elements, List<HostInfo> hostList)
+		{
+			var channelList =
+				// channels_relayed
+				from chRelay in elements.Elements("channels_relayed").Elements("channel")
+				where (string)chRelay.Attribute("id") == urlInfo.StreamId
+				from relay in chRelay.Elements("relay")
+				from track in chRelay.Elements("track")
+				// channels_found
+				from chFound in elements.Elements("channels_found").Elements("channel")
+				where (string)chFound.Attribute("id") == urlInfo.StreamId
+				from hits in chFound.Elements("hits")
+				select new ChannelInfo
+				{
+					// チャンネル情報
+					Name = (string)chRelay.Attribute("name"),
+					Id = (string)chRelay.Attribute("id"),
+					Bitrate = (string)chRelay.Attribute("bitrate"),
+					Type = (string)chRelay.Attribute("type"),
+					Genre = FitGenre((string)chRelay.Attribute("genre")),
+					Desc = (string)chRelay.Attribute("desc"),
+					Url = (string)chRelay.Attribute("url"),
+					Uptime = (string)chRelay.Attribute("uptime"),
+					Comment = (string)chRelay.Attribute("comment"),
+					Skips = (string)chRelay.Attribute("skips"),
+					Age = (string)chRelay.Attribute("age"),
+					Bcflags = (string)chRelay.Attribute("bcflags"),
+
+					// リレー情報
+					Listeners = (string)relay.Attribute("listeners"),
+					Relays = (string)relay.Attribute("relays"),
+					Hosts = (string)relay.Attribute("hosts"),
+					Status = (string)relay.Attribute("status"),
+					Firewalled = (string)hits.Attribute("firewalled"),
+
+					// トラック情報
+					TrackTitle = (string)track.Attribute("title"),
+					TrackArtist = (string)track.Attribute("artist"),
+					TrackAlbum = (string)track.Attribute("album"),
+					TrackGenre = (string)track.Attribute("genre"),
+					TrackContact = (string)track.Attribute("contact"),
+
+					HostList = hostList,
+				};
+
+			// チャンネル情報の取得
+			ChannelInfo channelInfo;
+			if (channelList.Count() > 0)
+			{
+				channelInfo = channelList.Single();
+			}
+			else
+			{
+				channelInfo = new ChannelInfo();
+			}
+
+			return channelInfo;
+		}
+
+		//-------------------------------------------------------------
+		// 概要：ジャンルから不要な文字を削除する
+		//-------------------------------------------------------------
+		private string FitGenre(string genre)
+		{
+			// リンクアドレスを抽出
+			Regex http = new Regex(@"(cp|xp|rp|tp|hktv|sp|np|op|gp|lp|nm|np|twyp)([:]*)([?]*)([@]*)([+]*)(?<genre>.*)");
+			Match m = http.Match(genre);
+
+			return m.Groups["genre"].Value.Trim();
+		}
+
+		//-------------------------------------------------------------
+		// 概要：ホスト情報の取得
+		//-------------------------------------------------------------
+		private static IEnumerable<HostInfo> SelectHostInfo(XElement elements, string streamId)
+		{
+			var hostList =
+				from channel in elements.Elements("channels_found").Elements("channel")
+				where (string)channel.Attribute("id") == streamId
+				from host in channel.Elements("hits").Elements("host")
+				where (string)host.Attribute("hops") == "1"
+				select new HostInfo
+				{
+					Ip = (string)host.Attribute("ip"),
+					Hops = (string)host.Attribute("hops"),
+					Listeners = (string)host.Attribute("listeners"),
+					Relays = (string)host.Attribute("relays"),
+					Uptime = (string)host.Attribute("uptime"),
+					Push = (string)host.Attribute("push"),
+					Relay = (string)host.Attribute("relay"),
+					Direct = (string)host.Attribute("direct"),
+					Cin = (string)host.Attribute("cin"),
+					Stable = (string)host.Attribute("stable"),
+					Version = (string)host.Attribute("version"),
+					Update = (string)host.Attribute("update"),
+					Tracker = (string)host.Attribute("tracker"),
+				};
+
+			return hostList;
+		}
+
+		//-------------------------------------------------------------
 		// 概要：リレー色の設定
 		//-------------------------------------------------------------
 		private void SetRelayColor(ChannelInfo chInfo)
@@ -74,7 +179,7 @@ namespace PeerstLib.PeerCast
 			{
 				bool isPortOpen = (chInfo.Firewalled == "0");
 				bool isRelay = (chInfo.HostList.Count != 0);
-				bool canRelay =(chInfo.Relays != "0");
+				bool canRelay = (chInfo.Relays != "0");
 
 				chInfo.RelayColor = JudgeRelayColor(chInfo, isPortOpen, isRelay, canRelay);
 			}
@@ -132,98 +237,6 @@ namespace PeerstLib.PeerCast
 					return RelayColor.Red;
 				}
 			}
-		}
-
-		//-------------------------------------------------------------
-		// 概要：チャンネル情報の取得
-		//-------------------------------------------------------------
-		private ChannelInfo SelectChannelInfo(XElement elements, List<HostInfo> hostList)
-		{
-			var channelList =
-				// channels_relayed
-				from chRelay in elements.Elements("channels_relayed").Elements("channel")
-				where (string)chRelay.Attribute("id") == urlInfo.StreamId
-				from relay in chRelay.Elements("relay")
-				from track in chRelay.Elements("track")
-				// channels_found
-				from chFound in elements.Elements("channels_found").Elements("channel")
-				where (string)chFound.Attribute("id") == urlInfo.StreamId
-				from hits in chFound.Elements("hits")
-				select new ChannelInfo
-				{
-					// チャンネル情報
-					Name = (string)chRelay.Attribute("name"),
-					Id = (string)chRelay.Attribute("id"),
-					Bitrate = (string)chRelay.Attribute("bitrate"),
-					Type = (string)chRelay.Attribute("type"),
-					Genre = (string)chRelay.Attribute("genre"),
-					Desc = (string)chRelay.Attribute("desc"),
-					Url = (string)chRelay.Attribute("url"),
-					Uptime = (string)chRelay.Attribute("uptime"),
-					Comment = (string)chRelay.Attribute("comment"),
-					Skips = (string)chRelay.Attribute("skips"),
-					Age = (string)chRelay.Attribute("age"),
-					Bcflags = (string)chRelay.Attribute("bcflags"),
-
-					// リレー情報
-					Listeners = (string)relay.Attribute("listeners"),
-					Relays = (string)relay.Attribute("relays"),
-					Hosts = (string)relay.Attribute("hosts"),
-					Status = (string)relay.Attribute("status"),
-					Firewalled = (string)hits.Attribute("firewalled"),
-
-					// トラック情報
-					TrackTitle = (string)track.Attribute("title"),
-					TrackArtist = (string)track.Attribute("artist"),
-					TrackAlbum = (string)track.Attribute("album"),
-					TrackGenre = (string)track.Attribute("genre"),
-					TrackContact = (string)track.Attribute("contact"),
-
-					HostList = hostList,
-				};
-
-			// チャンネル情報の取得
-			ChannelInfo channelInfo;
-			if (channelList.Count() > 0)
-			{
-				channelInfo = channelList.Single();
-			}
-			else
-			{
-				channelInfo = new ChannelInfo();
-			}
-
-			return channelInfo;
-		}
-
-		//-------------------------------------------------------------
-		// 概要：ホスト情報の取得
-		//-------------------------------------------------------------
-		private static IEnumerable<HostInfo> SelectHostInfo(XElement elements, string streamId)
-		{
-			var hostList =
-				from channel in elements.Elements("channels_found").Elements("channel")
-				where (string)channel.Attribute("id") == streamId
-				from host in channel.Elements("hits").Elements("host")
-				where (string)host.Attribute("hops") == "1"
-				select new HostInfo
-				{
-					Ip = (string)host.Attribute("ip"),
-					Hops = (string)host.Attribute("hops"),
-					Listeners = (string)host.Attribute("listeners"),
-					Relays = (string)host.Attribute("relays"),
-					Uptime = (string)host.Attribute("uptime"),
-					Push = (string)host.Attribute("push"),
-					Relay = (string)host.Attribute("relay"),
-					Direct = (string)host.Attribute("direct"),
-					Cin = (string)host.Attribute("cin"),
-					Stable = (string)host.Attribute("stable"),
-					Version = (string)host.Attribute("version"),
-					Update = (string)host.Attribute("update"),
-					Tracker = (string)host.Attribute("tracker"),
-				};
-
-			return hostList;
 		}
 	}
 }

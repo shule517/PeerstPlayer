@@ -95,7 +95,7 @@ namespace PeerstPlayer
 			{
 				ChannelInfo info = pecaPlayer.ChannelInfo;
 				// TODO 文字が空の場合は、空白を開けない
-				statusBar.ChannelDetail = String.Format("{0} [{1}] {2} {3}", info.Name, info.Genre, info.Desc, info.Comment);
+				statusBar.ChannelDetail = String.Format("{0} {1}{2} {3}", info.Name, string.IsNullOrEmpty(info.Genre) ? "" : string.Format("[{0}] ", info.Genre), info.Desc, info.Comment);
 
 				// TODO 初回だけコンタクトURLを設定する
 				if (isFirst)

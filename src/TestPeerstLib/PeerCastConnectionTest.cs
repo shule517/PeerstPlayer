@@ -29,6 +29,8 @@ namespace TestPeerstLib
 			return channelInfo;
 		}
 
+		// TODO ジャンルの調節確認
+
 		// TODO 未実装
 		/*
 		//-------------------------------------------------------------
