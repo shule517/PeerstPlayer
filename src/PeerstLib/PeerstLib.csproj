@@ -68,7 +68,9 @@
     </Compile>
     <Compile Include="Form\Win32API.cs" />
     <Compile Include="PeerCast\ChannelInfo.cs" />
+    <Compile Include="PeerCast\HostInfo.cs" />
     <Compile Include="PeerCast\PeerCastConnection.cs" />
+    <Compile Include="PeerCast\RelayColor.cs" />
     <Compile Include="PeerCast\StreamUrlAnalyzer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utility\WebUtil.cs" />

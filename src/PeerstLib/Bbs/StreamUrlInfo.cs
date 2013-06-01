@@ -10,15 +10,27 @@ namespace PeerstLib.Bbs
 	//-------------------------------------------------------------
 	public class StreamUrlInfo
 	{
+		//-------------------------------------------------------------
+		// 公開プロパティ
+		//-------------------------------------------------------------
+
+		// PeerCastのアドレス
+		public string Host { get; set; }
+
+		// PeerCastのポート番号
+		public string PortNo { get; set; }
+
+		// ストリームID
+		public string StreamId { get; set; }
+
+		//-------------------------------------------------------------
+		// 概要：コンストラクタ
+		//-------------------------------------------------------------
 		public StreamUrlInfo()
 		{
 			Host = "";
 			PortNo = "";
 			StreamId = "";
 		}
-
-		public string Host { get; set; }		// PeerCastのアドレス
-		public string PortNo { get; set; }		// PeerCastのポート番号
-		public string StreamId { get; set; }	// ストリームID
 	}
 }
