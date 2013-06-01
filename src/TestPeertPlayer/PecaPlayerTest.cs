@@ -13,6 +13,9 @@ namespace TestPeertPlayer
 	[TestClass]
 	public class PecaPlayerTest
 	{
+		//-------------------------------------------------------------
+		// 確認：指定URLが再生できるか
+		//-------------------------------------------------------------
 		[TestMethod]
 		public void Test_PecaPlayer_Open_PeerCastMovie()
 		{
@@ -22,16 +25,14 @@ namespace TestPeertPlayer
 			// TODO PeerCast以外のアドレス：PeerCastに接続しないこと
 			// 動画が表示されること
 			//OpenTest("http://localhost:7145/pls/9BFF1089B90973DD388ECB7A4B4B2EDB?tip=183.181.158.208:7154");
-		}
 
-		[TestMethod]
-		public void Test_PecaPlayer_Open_LocalFile()
-		{
 			// ローカル動画ファイル：動画が再生されること
 			OpenTest(TestSettings.LocalMoviePath);
 		}
 
-		// 指定したパスが再生できるかテスト
+		//-------------------------------------------------------------
+		// 概要：PlayStateChangeが発生するか確認
+		//-------------------------------------------------------------
 		private static void OpenTest(string streamUrl)
 		{
 			// 再生中の判定

@@ -10,6 +10,9 @@ namespace TestPeertPlayer.ViewModel
 	[TestClass]
 	public class ThreadSelectViewModelTest
 	{
+		//-------------------------------------------------------------
+		// 確認：ThreadListChangeイベントの実行確認
+		//-------------------------------------------------------------
 		[TestMethod]
 		public void ThreadSelectViewModel_Update()
 		{
@@ -23,7 +26,7 @@ namespace TestPeertPlayer.ViewModel
 
 			viewModel.Update("http://jbbs.livedoor.jp/bbs/read.cgi/game/45037/1286755510/");
 
-			for (int i = 0; i < 10; i++)
+			for (int i = 0; i < 100; i++)
 			{
 				Application.DoEvents();
 				Thread.Sleep(200);

@@ -11,56 +11,64 @@ namespace TestPeerstLib
 	[TestClass]
 	public class OperationBbsTest
 	{
+		//-------------------------------------------------------------
+		// 確認：指定URLから取得した掲示板名が正しいか確認
+		//-------------------------------------------------------------
 		[TestMethod]
 		public void OperationBbs_UpdateBbsName()
 		{
 			// したらば
-			checkBbsName("http://jbbs.livedoor.jp/game/45037/",	"シュール・備長炭と愉快な仲間たち");
-			checkBbsName("http://jbbs.livedoor.jp/game/45037", "シュール・備長炭と愉快な仲間たち");
-			checkBbsName("http://jbbs.livedoor.jp/game/45037/1286755510/", "シュール・備長炭と愉快な仲間たち");
-			checkBbsName("http://jbbs.livedoor.jp/game/45037/1286755510", "シュール・備長炭と愉快な仲間たち");
-			checkBbsName("http://jbbs.livedoor.jp/bbs/read.cgi/game/45037/", "シュール・備長炭と愉快な仲間たち");
-			checkBbsName("http://jbbs.livedoor.jp/bbs/read.cgi/game/45037", "シュール・備長炭と愉快な仲間たち");
-			checkBbsName("http://jbbs.livedoor.jp/bbs/read.cgi/game/45037/1286755510/", "シュール・備長炭と愉快な仲間たち");
-			checkBbsName("http://jbbs.livedoor.jp/bbs/read.cgi/game/45037/1286755510", "シュール・備長炭と愉快な仲間たち");
-			checkBbsName("http://jbbs.livedoor.jp/bbs/read.cgi/game/45037/1286755510/l50", "シュール・備長炭と愉快な仲間たち");
-			checkBbsName("http://jbbs.livedoor.jp/bbs/read.cgi/game/45037/1286755510/50", "シュール・備長炭と愉快な仲間たち");
-			checkBbsName("http://jbbs.livedoor.jp/bbs/read.cgi/game/45037/1286755510/50-", "シュール・備長炭と愉快な仲間たち");
-			checkBbsName("http://jbbs.livedoor.jp/bbs/read.cgi/game/45037/1286755510/50n-", "シュール・備長炭と愉快な仲間たち");
+			CheckBbsName("http://jbbs.livedoor.jp/game/45037/",	"シュール・備長炭と愉快な仲間たち");
+			CheckBbsName("http://jbbs.livedoor.jp/game/45037", "シュール・備長炭と愉快な仲間たち");
+			CheckBbsName("http://jbbs.livedoor.jp/game/45037/1286755510/", "シュール・備長炭と愉快な仲間たち");
+			CheckBbsName("http://jbbs.livedoor.jp/game/45037/1286755510", "シュール・備長炭と愉快な仲間たち");
+			CheckBbsName("http://jbbs.livedoor.jp/bbs/read.cgi/game/45037/", "シュール・備長炭と愉快な仲間たち");
+			CheckBbsName("http://jbbs.livedoor.jp/bbs/read.cgi/game/45037", "シュール・備長炭と愉快な仲間たち");
+			CheckBbsName("http://jbbs.livedoor.jp/bbs/read.cgi/game/45037/1286755510/", "シュール・備長炭と愉快な仲間たち");
+			CheckBbsName("http://jbbs.livedoor.jp/bbs/read.cgi/game/45037/1286755510", "シュール・備長炭と愉快な仲間たち");
+			CheckBbsName("http://jbbs.livedoor.jp/bbs/read.cgi/game/45037/1286755510/l50", "シュール・備長炭と愉快な仲間たち");
+			CheckBbsName("http://jbbs.livedoor.jp/bbs/read.cgi/game/45037/1286755510/50", "シュール・備長炭と愉快な仲間たち");
+			CheckBbsName("http://jbbs.livedoor.jp/bbs/read.cgi/game/45037/1286755510/50-", "シュール・備長炭と愉快な仲間たち");
+			CheckBbsName("http://jbbs.livedoor.jp/bbs/read.cgi/game/45037/1286755510/50n-", "シュール・備長炭と愉快な仲間たち");
 
 			// わいわいKakiko
-			checkBbsName("http://yy25.60.kg/test/read.cgi/peercastjikkyou/1368534792/", "今からpeercastでゲーム実況配信");
-			checkBbsName("http://yy25.60.kg/test/read.cgi/peercastjikkyou/1368534792", "今からpeercastでゲーム実況配信");
-			checkBbsName("http://yy25.60.kg/test/read.cgi/peercastjikkyou/", "今からpeercastでゲーム実況配信");
-			checkBbsName("http://yy25.60.kg/test/read.cgi/peercastjikkyou", "今からpeercastでゲーム実況配信");
-			checkBbsName("http://yy25.60.kg/peercastjikkyou/1368534792/", "今からpeercastでゲーム実況配信");
-			checkBbsName("http://yy25.60.kg/peercastjikkyou/1368534792", "今からpeercastでゲーム実況配信");
-			checkBbsName("http://yy25.60.kg/peercastjikkyou/", "今からpeercastでゲーム実況配信");
-			checkBbsName("http://yy25.60.kg/peercastjikkyou", "今からpeercastでゲーム実況配信");
+			CheckBbsName("http://yy25.60.kg/test/read.cgi/peercastjikkyou/1368534792/", "今からpeercastでゲーム実況配信");
+			CheckBbsName("http://yy25.60.kg/test/read.cgi/peercastjikkyou/1368534792", "今からpeercastでゲーム実況配信");
+			CheckBbsName("http://yy25.60.kg/test/read.cgi/peercastjikkyou/", "今からpeercastでゲーム実況配信");
+			CheckBbsName("http://yy25.60.kg/test/read.cgi/peercastjikkyou", "今からpeercastでゲーム実況配信");
+			CheckBbsName("http://yy25.60.kg/peercastjikkyou/1368534792/", "今からpeercastでゲーム実況配信");
+			CheckBbsName("http://yy25.60.kg/peercastjikkyou/1368534792", "今からpeercastでゲーム実況配信");
+			CheckBbsName("http://yy25.60.kg/peercastjikkyou/", "今からpeercastでゲーム実況配信");
+			CheckBbsName("http://yy25.60.kg/peercastjikkyou", "今からpeercastでゲーム実況配信");
 
 			// 2ch互換
-			checkBbsName("http://sepia0330.dyndns.org/eicar/", "これは酷いな避難所BBS");	// TODO 別サーバタイプとする？
-			checkBbsName("http://sepia0330.dyndns.org/eicar", "これは酷いな避難所BBS");
+			CheckBbsName("http://sepia0330.dyndns.org/eicar/", "これは酷いな避難所BBS");	// TODO 別サーバタイプとする？
+			CheckBbsName("http://sepia0330.dyndns.org/eicar", "これは酷いな避難所BBS");
 
 			// 未対応
-			checkBbsName("", "");
-			checkBbsName("http://bayonet.ddo.jp/sp/", "");
-			checkBbsName("http://bayonet.ddo.jp/sp/xgame.html#xanc_31", "");
-			checkBbsName("http://listeners.reep.info/index.php?%A5%A4%A5%D9%A5%F3%A5%C8%C6%FC%C4%F8/2013-06-01", "");
-			checkBbsName("http://takami98.sakura.ne.jp/peca-navi/turf-page/index.php", "");
-			checkBbsName("http://temp.orz.hm/yp/uptest/", "");
-			checkBbsName("http://twitter.com/twityp", "");
-			checkBbsName("http://www.gamers-review.net/title.php?title=441", "");
+			CheckBbsName("", "");
+			CheckBbsName("http://bayonet.ddo.jp/sp/", "");
+			CheckBbsName("http://bayonet.ddo.jp/sp/xgame.html#xanc_31", "");
+			CheckBbsName("http://listeners.reep.info/index.php?%A5%A4%A5%D9%A5%F3%A5%C8%C6%FC%C4%F8/2013-06-01", "");
+			CheckBbsName("http://takami98.sakura.ne.jp/peca-navi/turf-page/index.php", "");
+			CheckBbsName("http://temp.orz.hm/yp/uptest/", "");
+			CheckBbsName("http://twitter.com/twityp", "");
+			CheckBbsName("http://www.gamers-review.net/title.php?title=441", "");
 		}
 
-		// 掲示板名取得のチェック
-		private void checkBbsName(string url, string bbsName)
+		//-------------------------------------------------------------
+		// 概要：指定URLから取得した掲示板名と想定結果を確認
+		//-------------------------------------------------------------
+		private void CheckBbsName(string url, string bbsName)
 		{
 			BbsStrategy strategy = BbsStrategyFactory.Create(url);
 			strategy.UpdateBbsName();
 			Assert.AreEqual(bbsName, strategy.BbsInfo.BbsName);
 		}
 
+		//-------------------------------------------------------------
+		// 概要：レス書き込み確認
+		//-------------------------------------------------------------
 		[TestMethod]
 		public void OperationBbs_Write()
 		{
@@ -69,69 +77,71 @@ namespace TestPeerstLib
 			//-------------------------------------------------------------
 
 			// 正常書き込み
-			checkWrite(true, "http://jbbs.livedoor.jp/bbs/read.cgi/game/45037/1310263750/", "シュール", "sage", "message");
+			CheckWrite(true, "http://jbbs.livedoor.jp/bbs/read.cgi/game/45037/1310263750/", "シュール", "sage", "message");
 
 			// 時間制限
-			checkWrite(false, "http://jbbs.livedoor.jp/bbs/read.cgi/game/45037/1310263750/", "シュール", "sage", "message");
+			CheckWrite(false, "http://jbbs.livedoor.jp/bbs/read.cgi/game/45037/1310263750/", "シュール", "sage", "message");
 
 			// 本文なし
-			checkWrite(false, "http://jbbs.livedoor.jp/bbs/read.cgi/game/45037/1310263750/", "", "", "");
+			CheckWrite(false, "http://jbbs.livedoor.jp/bbs/read.cgi/game/45037/1310263750/", "", "", "");
 
 			// 過去ログ
-			checkWrite(false, "http://jbbs.livedoor.jp/game/43934/1232972032/", "シュール", "sage", "message");
+			CheckWrite(false, "http://jbbs.livedoor.jp/game/43934/1232972032/", "シュール", "sage", "message");
 
 			// 掲示板番号が不正
-			checkWrite(false, "http://jbbs.livedoor.jp/bbs/read.cgi/game/99999/1268147268/", "シュール", "sage", "message");
+			CheckWrite(false, "http://jbbs.livedoor.jp/bbs/read.cgi/game/99999/1268147268/", "シュール", "sage", "message");
 
 			// スレッド番号が不正（パラメータ間違い）
-			checkWrite(false, "http://jbbs.livedoor.jp/bbs/read.cgi/game/45037/126814727/", "シュール", "sage", "message");
+			CheckWrite(false, "http://jbbs.livedoor.jp/bbs/read.cgi/game/45037/126814727/", "シュール", "sage", "message");
 
 			// 該当するスレッドは存在しない
-			checkWrite(false, "http://jbbs.livedoor.jp/bbs/read.cgi/game/45037/9999999999/", "シュール", "sage", "message");
+			CheckWrite(false, "http://jbbs.livedoor.jp/bbs/read.cgi/game/45037/9999999999/", "シュール", "sage", "message");
 
 			// 1000レス
-			checkWrite(false, "http://jbbs.livedoor.jp/bbs/read.cgi/game/45037/1268147268/", "シュール", "sage", "message");
+			CheckWrite(false, "http://jbbs.livedoor.jp/bbs/read.cgi/game/45037/1268147268/", "シュール", "sage", "message");
 
 			//-------------------------------------------------------------
 			// わいわいKakiko
 			//-------------------------------------------------------------
 			
 			// 正常書き込み
-			checkWrite(true, "http://yy22.kakiko.com/test/read.cgi/bbs2ch/1170685385/", "test", "sage", "message");
+			CheckWrite(true, "http://yy22.kakiko.com/test/read.cgi/bbs2ch/1170685385/", "test", "sage", "message");
 
 			// 連投
-			checkWrite(false, "http://yy22.kakiko.com/test/read.cgi/bbs2ch/1170685385/", "test", "sage", "message");
+			CheckWrite(false, "http://yy22.kakiko.com/test/read.cgi/bbs2ch/1170685385/", "test", "sage", "message");
 
 			// メッセージがありません
-			checkWrite(false, "http://yy25.60.kg/test/read.cgi/peercastjikkyou/1368534792/",  "test", "sage", "message");
+			CheckWrite(false, "http://yy25.60.kg/test/read.cgi/peercastjikkyou/1368534792/",  "test", "sage", "message");
 
 			// メッセージがありません
-			checkWrite(false, "http://yy25.60.kg/test/read.cgi/peercastjikkyou/1368534792/", "", "", "");
+			CheckWrite(false, "http://yy25.60.kg/test/read.cgi/peercastjikkyou/1368534792/", "", "", "");
 
 
 			//-------------------------------------------------------------
 			// 2ch互換
 			//-------------------------------------------------------------
 			/*
-			checkWrite(true, "http://sepia0330.dyndns.org/test/read.cgi/eicar/1307720374/", "", "sage", "test");
+			CheckWrite(true, "http://sepia0330.dyndns.org/test/read.cgi/eicar/1307720374/", "", "sage", "test");
 			*/
 			
 			//-------------------------------------------------------------
 			// 未対応
 			//-------------------------------------------------------------
 
-			checkWrite(false, "", "test", "sage", "message");
-			checkWrite(false, "http://bayonet.ddo.jp/sp/", "test", "sage", "message");
-			checkWrite(false, "http://bayonet.ddo.jp/sp/xgame.html#xanc_31", "test", "sage", "message");
-			checkWrite(false, "http://listeners.reep.info/index.php?%A5%A4%A5%D9%A5%F3%A5%C8%C6%FC%C4%F8/2013-06-01", "test", "sage", "message");
-			checkWrite(false, "http://takami98.sakura.ne.jp/peca-navi/turf-page/index.php", "test", "sage", "message");
-			checkWrite(false, "http://temp.orz.hm/yp/uptest/", "test", "sage", "message");
-			checkWrite(false, "http://twitter.com/twityp", "test", "sage", "message");
-			checkWrite(false, "http://www.gamers-review.net/title.php?title=441", "test", "sage", "message");
+			CheckWrite(false, "", "test", "sage", "message");
+			CheckWrite(false, "http://bayonet.ddo.jp/sp/", "test", "sage", "message");
+			CheckWrite(false, "http://bayonet.ddo.jp/sp/xgame.html#xanc_31", "test", "sage", "message");
+			CheckWrite(false, "http://listeners.reep.info/index.php?%A5%A4%A5%D9%A5%F3%A5%C8%C6%FC%C4%F8/2013-06-01", "test", "sage", "message");
+			CheckWrite(false, "http://takami98.sakura.ne.jp/peca-navi/turf-page/index.php", "test", "sage", "message");
+			CheckWrite(false, "http://temp.orz.hm/yp/uptest/", "test", "sage", "message");
+			CheckWrite(false, "http://twitter.com/twityp", "test", "sage", "message");
+			CheckWrite(false, "http://www.gamers-review.net/title.php?title=441", "test", "sage", "message");
 		}
 
-		// 書き込みチェック
-		private void checkWrite(bool result, string url, string name, string mail, string text)
+		//-------------------------------------------------------------
+		// 概要：レス書き込みの想定結果確認
+		//-------------------------------------------------------------
+		private void CheckWrite(bool result, string url, string name, string mail, string text)
 		{
 			BbsStrategy strategy = BbsStrategyFactory.Create(url);
 			try
@@ -153,6 +163,9 @@ namespace TestPeerstLib
 			}
 		}
 
+		//-------------------------------------------------------------
+		// 確認：掲示板一覧の取得確認
+		//-------------------------------------------------------------
 		[TestMethod]
 		public void BbsStrategyTest_AnalyzeSubjectText()
 		{

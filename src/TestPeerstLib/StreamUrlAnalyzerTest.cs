@@ -8,6 +8,9 @@ namespace TestPeerstLib
 	[TestClass]
 	public class StreamUrlAnalyzerTest
 	{
+		//-------------------------------------------------------------
+		// 確認：ストリームURLの解析結果の確認
+		//-------------------------------------------------------------
 		[TestMethod]
 		public void Test_StreamUrlAnalyzerTest_GetUrlInfo()
 		{
@@ -37,7 +40,9 @@ namespace TestPeerstLib
 				);
 		}
 
-		// GetUrlInfoテスト用
+		//-------------------------------------------------------------
+		// 概要：ストリームURLの解析結果と、想定結果の比較
+		//-------------------------------------------------------------
 		private static void GetUrlInfoTest(string streamUrl, string host, string portNo, string streamId)
 		{
 			StreamUrlInfo info = StreamUrlAnalyzer.GetUrlInfo(streamUrl);

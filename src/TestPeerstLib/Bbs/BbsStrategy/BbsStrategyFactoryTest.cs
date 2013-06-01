@@ -7,6 +7,9 @@ namespace TestPeerstLib.Bbs
 	[TestClass]
 	public class BbsStrategyFactoryTest
 	{
+		//-------------------------------------------------------------
+		// 確認：指定URLに対応したストラテジを生成しているか
+		//-------------------------------------------------------------
 		[TestMethod]
 		public void BbsStrategyFactory_Create()
 		{

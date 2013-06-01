@@ -244,8 +244,8 @@ namespace PeerstPlayer
 			statusBar.WriteFieldVisible = false;
 
 			// コマンド作成
-			createEvent();
-			createCommand();
+			CreateEvent();
+			CreateCommand();
 
 			// TODO デバッグ終了
 		}
@@ -278,7 +278,7 @@ namespace PeerstPlayer
 		//-------------------------------------------------------------
 		// 概要：イベント登録
 		//-------------------------------------------------------------
-		private void createEvent()
+		private void CreateEvent()
 		{
 			// TODO 設定によって切り替えを行う
 			eventMap.Add(Event.WheelUp, Command.VolumeUp);
@@ -292,7 +292,7 @@ namespace PeerstPlayer
 		//-------------------------------------------------------------
 		// 概要：コマンド作成
 		//-------------------------------------------------------------
-		private void createCommand()
+		private void CreateCommand()
 		{
 			// 音量UP
 			commandMap.Add(Command.VolumeUp, () => pecaPlayer.Volume += 10);

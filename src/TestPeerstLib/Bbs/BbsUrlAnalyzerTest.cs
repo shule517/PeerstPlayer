@@ -7,6 +7,9 @@ namespace TestPeerstLib.Bbs
 	[TestClass]
 	public class BbsUrlAnalyzerTest
 	{
+		//-------------------------------------------------------------
+		// 確認：掲示板URLの解析が正しいか
+		//-------------------------------------------------------------
 		[TestMethod]
 		public void BbsUrlAnalyzer_Analyze()
 		{
@@ -289,6 +292,9 @@ namespace TestPeerstLib.Bbs
 				});
 		}
 
+		//-------------------------------------------------------------
+		// 概要：指定URLの解析結果と、想定データとの比較
+		//-------------------------------------------------------------
 		private static void CheckBbsInfo(string url, BbsInfo bbsInfo)
 		{
 			BbsInfo result = BbsUrlAnalyzer.Analyze(url);
