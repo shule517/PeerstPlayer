@@ -173,6 +173,7 @@ namespace PeerstPlayer
 
 			// マウスジェスチャー
 			MouseGesture mouseGesture = new MouseGesture();
+			mouseGesture.Interval = 10;
 			bool isGesturing = false;
 
 			// マウスドラッグ
@@ -182,12 +183,34 @@ namespace PeerstPlayer
 				{
 					FormUtility.WindowDragStart(this.Handle);
 				}
-				else
+				else if (e.nButton == (short)Keys.RButton)
 				{
 					mouseGesture.Start();
 					isGesturing = true;
 				}
 			};
+
+			/*
+			pecaPlayer.MouseMoveEvent += (sender, e) =>
+			{
+				if (isGesturing)
+				{
+					// ジェスチャー表示
+					mouseGesture.Moving(new Point(e.fX, e.fY));
+					statusBar.ChannelDetail = mouseGesture.ToString();
+				}
+
+				// 自動表示ボタンの表示切り替え
+				if (RectangleToScreen(ClientRectangle).Contains(MousePosition))
+				{
+					toolStrip.Visible = true;
+				}
+				else
+				{
+					toolStrip.Visible = false;
+				}
+			};
+			 */
 
 			MouseHook mouseHook = new MouseHook(MouseHook.HookType.GlobalHook);
 			mouseHook.MouseHooked += (sender, e) =>
@@ -213,11 +236,25 @@ namespace PeerstPlayer
 				}
 				else if (e.Message == MouseMessage.RUp)
 				{
+					isGesturing = false;
+
 					// TODO ジェスチャーを実行：statusBar.ChannelDetail = mouseGesture.ToString();
 					ChannelInfo info = pecaPlayer.ChannelInfo;
 					if (info != null)
 					{
-						statusBar.ChannelDetail = string.Format("{0} [{1}] {2}", info.Name, info.Genre, info.Desc);
+						statusBar.ChannelDetail = String.Format("{0} {1}{2} {3}", info.Name, string.IsNullOrEmpty(info.Genre) ? "" : string.Format("[{0}] ", info.Genre), info.Desc, info.Comment);
+					}
+
+					// フォーカス確認
+					if (!Focused)
+					{
+						return;
+					}
+
+					// マウスカーソルが画面内
+					if (!RectangleToScreen(ClientRectangle).Contains(MousePosition))
+					{
+						return;
 					}
 
 					// TODO 設定画面でマウスジェスチャを設定できるようにする
@@ -229,8 +266,13 @@ namespace PeerstPlayer
 					{
 						ExecCommand(Command.OpenPeerstViewer);
 					}
-
-					isGesturing = false;
+					else
+					{
+						// コンテキストメニュー表示
+						pecaPlayer.EnableContextMenu = true;
+						FormUtility.ShowContextMenu(this.pecaPlayer.WMPHandle, MousePosition);
+						pecaPlayer.EnableContextMenu = false;
+					}
 				}
 			};
 
