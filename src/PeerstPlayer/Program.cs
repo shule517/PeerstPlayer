@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Net.Configuration;
 using System.Reflection;
 using System.Windows.Forms;
 using log4net;
@@ -21,6 +22,9 @@ namespace PeerstPlayer
 			Logger.Instance.Info("START:PeerstPlayer");
 			Application.EnableVisualStyles();
 			Application.SetCompatibleTextRenderingDefault(false);
+
+			// プロトコル違反しているPeerCastに対応
+			WebUtil.SettingDisableResponseError();
 
 			PlayerView playerView = new PlayerView();
 			

@@ -73,8 +73,32 @@ namespace PeerstPlayer.Control
 			remove { wmp.MouseDownEvent -= value; }
 		}
 
+		// マウスアップイベント
+		public event AxWMPLib._WMPOCXEvents_MouseUpEventHandler MouseUpEvent
+		{
+			add { wmp.MouseUpEvent += value; }
+			remove { wmp.MouseUpEvent -= value; }
+		}
+
+		// マウス移動イベント
+		public event AxWMPLib._WMPOCXEvents_MouseMoveEventHandler MouseMoveEvent
+		{
+			add { wmp.MouseMoveEvent += value; }
+			remove { wmp.MouseMoveEvent -= value; }
+		}
+
 		// ダブルクリックイベント
 		public event EventHandler DoubleClickEvent = delegate { };
+
+		// WMPのハンドル
+		public IntPtr WMPHandle { get { return wmp.Handle; } }
+
+		// コンテキストメニューの有効
+		public bool EnableContextMenu
+		{
+			get { return wmp.enableContextMenu; }
+			set { wmp.enableContextMenu = value; }
+		}
 
 		//-------------------------------------------------------------
 		// 非公開プロパティ
@@ -105,6 +129,7 @@ namespace PeerstPlayer.Control
 			// 初期設定
 			wmp.uiMode = "none";
 			wmp.stretchToFit = true;
+			wmp.enableContextMenu = false;
 
 			// ダブルクリックイベント
 			new WmpNativeWindow(wmp.Handle).DoubleClick += (sender, e) => DoubleClickEvent(sender, e);

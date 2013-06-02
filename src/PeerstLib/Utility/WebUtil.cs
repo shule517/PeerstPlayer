@@ -1,4 +1,6 @@
-﻿using System.Net;
+﻿using System.Configuration;
+using System.Net;
+using System.Net.Configuration;
 using System.Text;
 
 namespace PeerstLib.Utility
@@ -29,6 +31,18 @@ namespace PeerstLib.Utility
 				Logger.Instance.Error("HTMLの取得:異常");
 				return "";
 			}
+		}
+
+		/// <summary>
+		/// プロトコル違反を許容
+		/// PeerCastがプロトコル違反しているバージョンがあるため、許容する
+		/// </summary>
+		public static void SettingDisableResponseError()
+		{
+			Configuration config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+			SettingsSection section = (SettingsSection)config.GetSection("system.net/settings");
+			section.HttpWebRequest.UseUnsafeHeaderParsing = true;
+			config.Save();
 		}
 	}
 }
