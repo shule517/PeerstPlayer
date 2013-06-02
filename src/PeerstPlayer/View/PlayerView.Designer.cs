@@ -96,7 +96,6 @@ namespace PeerstPlayer
 			this.statusBar.Margin = new System.Windows.Forms.Padding(0);
 			this.statusBar.MovieStatus = "";
 			this.statusBar.Name = "statusBar";
-			this.statusBar.SelectThreadUrl = "読み込み中...";
 			this.statusBar.Size = new System.Drawing.Size(480, 18);
 			this.statusBar.TabIndex = 1;
 			this.statusBar.Volume = "50";

@@ -95,7 +95,6 @@ namespace PeerstPlayer.View
 					// ストップしたスレッドはスルー
 					if (info.ResCount >= 1000)
 					{
-						Logger.Instance.DebugFormat("ストップしたスレッド [レス数:{0} スレッドタイトル:{1}]", info.ResCount, info.ThreadTitle);
 						continue;
 					}
 				}

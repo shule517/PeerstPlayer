@@ -51,7 +51,6 @@
 			this.writeField.Location = new System.Drawing.Point(0, 0);
 			this.writeField.Margin = new System.Windows.Forms.Padding(0);
 			this.writeField.Name = "writeField";
-			this.writeField.SelectThreadUrl = "読み込み中...";
 			this.writeField.Size = new System.Drawing.Size(480, 31);
 			this.writeField.TabIndex = 0;
 			// 
