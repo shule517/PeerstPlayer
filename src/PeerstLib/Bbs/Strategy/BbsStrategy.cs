@@ -56,6 +56,7 @@ namespace PeerstLib.Bbs.Strategy
 		//-------------------------------------------------------------
 		public void ChangeThread(string threadNo)
 		{
+			Logger.Instance.DebugFormat("ChangeThread(threadNo:{0})", threadNo);
 			BbsInfo.ThreadNo = threadNo;
 		}
 
@@ -64,9 +65,12 @@ namespace PeerstLib.Bbs.Strategy
 		//-------------------------------------------------------------
 		public void UpdateThreadList()
 		{
+			Logger.Instance.DebugFormat("UpdateThreadList()");
 			string subjectText = WebUtil.GetHtml(subjectUrl, encoding);
 			string[] lines = subjectText.Replace("\r\n", "\n").Split('\n');
 			ThreadList = AnalyzeSubjectText(lines);
+
+			Logger.Instance.DebugFormat("スレッド一覧取得：正常 [スレッド取得数：{0}]", ThreadList.Count);
 		}
 
 		//-------------------------------------------------------------
@@ -74,6 +78,7 @@ namespace PeerstLib.Bbs.Strategy
 		//-------------------------------------------------------------
 		public void UpdateBbsName()
 		{
+			Logger.Instance.DebugFormat("UpdateBbsName()");
 			string html = WebUtil.GetHtml(boardUrl, encoding);
 
 			Regex regex = new Regex("<title>(.*)</title>");
@@ -83,11 +88,13 @@ namespace PeerstLib.Bbs.Strategy
 			if (match.Groups.Count > 1)
 			{
 				BbsInfo.BbsName = match.Groups[1].Value;
+				Logger.Instance.DebugFormat("掲示板名取得:正常 [掲示板名:{0}]", BbsInfo.BbsName);
 				return;
 			}
 
 			// 取得失敗
 			BbsInfo.BbsName = string.Empty;
+			Logger.Instance.ErrorFormat("掲示板名取得:異常 [指定URL:{0}]", BbsInfo.Url);
 		}
 
 		//-------------------------------------------------------------
@@ -95,6 +102,8 @@ namespace PeerstLib.Bbs.Strategy
 		//-------------------------------------------------------------
 		public void Write(string name, string mail, string message)
 		{
+			Logger.Instance.DebugFormat("Write(name:{0}, mail:{1}, message:{2})", name, mail, message);
+
 			// POSTデータ作成
 			byte[] requestData = CreateWriteRequestData(name, mail, message);
 
@@ -127,6 +136,7 @@ namespace PeerstLib.Bbs.Strategy
 		//-------------------------------------------------------------
 		protected BbsStrategy(BbsInfo bbsInfo)
 		{
+			Logger.Instance.DebugFormat("BbsStrategy(url:{0})", bbsInfo.Url);
 			this.BbsInfo = bbsInfo;
 		}
 
@@ -152,8 +162,11 @@ namespace PeerstLib.Bbs.Strategy
 			// 書き込み失敗
 			if (title.StartsWith("ERROR") || title.StartsWith("ＥＲＲＯＲ"))
 			{
+				Logger.Instance.ErrorFormat("レス書き込み：異常 [実行結果:{0} スレッド:{1}]", title, BbsInfo.Url);
 				throw new Exception();
 			}
+
+			Logger.Instance.DebugFormat("レス書き込み：正常 [実行結果:{0} スレッド:{1}]", title, BbsInfo.Url);
 		}
 	}
 }

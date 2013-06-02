@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows.Forms;
+using PeerstLib.Utility;
 
 namespace PeerstPlayer.Control
 {
@@ -45,14 +46,27 @@ namespace PeerstPlayer.Control
 		//-------------------------------------------------------------
 		public MovieDetail()
 		{
+			Logger.Instance.Debug("MovieDetail()");
 			InitializeComponent();
 
-			// 動画詳細クリック
-			ChannelDetailLabel.MouseClick += (sender, e) => ChannelDetailClick(sender, e);
-			movieStatusLabel.MouseClick += (sender, e) => ChannelDetailClick(sender, e);
+			// チャンネル詳細クリック
+			ChannelDetailLabel.MouseClick += (sender, e) =>
+			{
+				Logger.Instance.Info("チャンネル詳細クリック");
+				ChannelDetailClick(sender, e);
+			};
+			movieStatusLabel.MouseClick += (sender, e) =>
+			{
+				Logger.Instance.Info("チャンネル詳細クリック");
+				ChannelDetailClick(sender, e);
+			};
 
 			// 音量クリック
-			volumeLabel.Click += (sender, e) => VolumeClick(sender, e);
+			volumeLabel.Click += (sender, e) =>
+			{
+				Logger.Instance.Info("音量クリック");
+				VolumeClick(sender, e);
+			};
 		}
 	}
 }

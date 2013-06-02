@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using PeerstLib.Bbs;
+using PeerstLib.Utility;
 
 namespace PeerstPlayer.ViewModel
 {
@@ -34,6 +35,7 @@ namespace PeerstPlayer.ViewModel
 		//-------------------------------------------------------------
 		public ThreadSelectViewModel()
 		{
+			Logger.Instance.DebugFormat("ThreadSelectViewModel()");
 			operationBbs.ThreadListChange += (sender, e) => ThreadListChange(this, new EventArgs());
 		}
 
@@ -42,6 +44,7 @@ namespace PeerstPlayer.ViewModel
 		//-------------------------------------------------------------
 		public void Update(string threadUrl)
 		{
+			Logger.Instance.DebugFormat("Update(threadUrl:{0})", threadUrl);
 			operationBbs.ChangeUrl(threadUrl);
 		}
 
@@ -50,6 +53,7 @@ namespace PeerstPlayer.ViewModel
 		//-------------------------------------------------------------
 		public void ChangeThread(string threadNo)
 		{
+			Logger.Instance.DebugFormat("ChangeThread(threadNo:{0})", threadNo);
 			operationBbs.ChangeThread(threadNo);
 		}
 	}

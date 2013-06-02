@@ -3,6 +3,7 @@ using System.Linq;
 using System.Reflection;
 using System.Windows.Forms;
 using log4net;
+using PeerstLib.Utility;
 
 namespace PeerstPlayer
 {
@@ -17,23 +18,28 @@ namespace PeerstPlayer
 		[STAThread]
 		static void Main()
 		{
+			Logger.Instance.Info("START:PeerstPlayer");
 			Application.EnableVisualStyles();
 			Application.SetCompatibleTextRenderingDefault(false);
 
 			PlayerView playerView = new PlayerView();
 			
-			// TODO デバッグ開始
+			string[] commandLine = Environment.GetCommandLineArgs();
+			foreach (string arg in commandLine)
+			{
+				Logger.Instance.InfoFormat("コマンドライン引数[{0}]", arg);
+			}
 
 			// 動画再生
 			if (Environment.GetCommandLineArgs().Count() > 1)
 			{
-				string url = Environment.GetCommandLineArgs()[1];
+				string url = commandLine[1];
+				Logger.Instance.InfoFormat("動画再生[url:{0}]", url);
 				playerView.Open(url);
 			}
 
-			// TODO デバッグ終了
-
 			Application.Run(playerView);
+			Logger.Instance.Info("END:PeerstPlayer");
 		}
 	}
 }

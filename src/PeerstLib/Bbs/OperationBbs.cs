@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using PeerstLib.Bbs.Strategy;
+using PeerstLib.Utility;
 
 namespace PeerstLib.Bbs
 {
@@ -69,6 +70,7 @@ namespace PeerstLib.Bbs
 			};
 			changeUrlWorker.RunWorkerCompleted += (sender, e) =>
 			{
+				Logger.Instance.Debug("RaiseThreadListChange");
 				ThreadListChange(this, new EventArgs());
 			};
 		}
@@ -79,6 +81,8 @@ namespace PeerstLib.Bbs
 		//-------------------------------------------------------------
 		public void ChangeUrl(string url)
 		{
+			Logger.Instance.DebugFormat("ChangeUrl(url:{0})", url);
+
 			// データ更新
 			if (!changeUrlWorker.IsBusy)
 			{
@@ -91,6 +95,7 @@ namespace PeerstLib.Bbs
 		//-------------------------------------------------------------
 		public void ChangeThread(string threadNo)
 		{
+			Logger.Instance.DebugFormat("ChangeThread(threadNo:{0})", threadNo);
 			strategy.ChangeThread(threadNo);
 		}
 
@@ -99,6 +104,7 @@ namespace PeerstLib.Bbs
 		//-------------------------------------------------------------
 		public void Write(string name, string mail, string message)
 		{
+			Logger.Instance.DebugFormat("Write(name:{0}, mail:{1}, message:{2})", name, mail, message);
 			strategy.Write(name, mail, message);
 		}
 

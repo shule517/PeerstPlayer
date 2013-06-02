@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows.Forms;
+using PeerstLib.Utility;
 
 namespace PeerstPlayer.Control
 {
@@ -52,10 +53,12 @@ namespace PeerstPlayer.Control
 				// 高さの調節
 				if (writeField.Visible)
 				{
+					Logger.Instance.Debug("書き込み欄の高さを自動調節");
 					writeField.Height = writeField.PreferredSize.Height;
 				}
 				else
 				{
+					Logger.Instance.Debug("書き込み欄を非表示");
 					writeField.Height = 0;
 				}
 
@@ -86,6 +89,8 @@ namespace PeerstPlayer.Control
 		//-------------------------------------------------------------
 		public StatusBar()
 		{
+			Logger.Instance.Debug("StatusBar()");
+
 			InitializeComponent();
 
 			// サイズ変更イベント登録
@@ -93,10 +98,18 @@ namespace PeerstPlayer.Control
 			writeField.HeightChanged += (sender, e) => HeightChanged(sender, e);
 
 			// チャンネル詳細クリック
-			movieDetail.ChannelDetailClick += (sender, e) => ChannelDetailClick(sender, e);
+			movieDetail.ChannelDetailClick += (sender, e) =>
+			{
+				Logger.Instance.Info("チャンネル詳細をクリック");
+				ChannelDetailClick(sender, e);
+			};
 
 			// スレッドタイトル右クリック
-			writeField.RightClick += (sender, e) => ThreadTitleRightClick(sender, e);
+			writeField.RightClick += (sender, e) =>
+			{
+				Logger.Instance.Info("スレッドタイトルを右クリック");
+				ThreadTitleRightClick(sender, e);
+			};
 		}
 
 		//-------------------------------------------------------------
@@ -105,6 +118,7 @@ namespace PeerstPlayer.Control
 		//-------------------------------------------------------------
 		private void writeField_SizeChanged(object sender, EventArgs e)
 		{
+			Logger.Instance.Debug("writeField_SizeChanged()");
 			Height = writeField.Height + movieDetail.Height;
 			movieDetail.Top = writeField.Height;
 		}

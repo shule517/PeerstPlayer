@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Text;
+using PeerstLib.Utility;
 
 namespace PeerstLib.Bbs.Strategy
 {
@@ -40,6 +41,7 @@ namespace PeerstLib.Bbs.Strategy
 		//-------------------------------------------------------------
 		public NullBbsStrategy(BbsInfo bbsInfo) : base(bbsInfo)
 		{
+			Logger.Instance.DebugFormat("NullBbsStrategy(url:{0})", bbsInfo.Url);
 		}
 
 		//-------------------------------------------------------------
@@ -47,6 +49,7 @@ namespace PeerstLib.Bbs.Strategy
 		//-------------------------------------------------------------
 		override protected List<ThreadInfo> AnalyzeSubjectText(string[] lines)
 		{
+			Logger.Instance.DebugFormat("AnalyzeSubjectText(lines:{0})", lines);
 			return new List<ThreadInfo>();
 		}
 
@@ -55,6 +58,7 @@ namespace PeerstLib.Bbs.Strategy
 		//-------------------------------------------------------------
 		override protected byte[] CreateWriteRequestData(string name, string mail, string message)
 		{
+			Logger.Instance.DebugFormat("CreateWriteRequestData(name:{0}, mail;{1}, message:{2})", name, mail, message);
 			return new byte[0];
 		}
 	}

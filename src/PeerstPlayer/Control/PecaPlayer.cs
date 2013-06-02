@@ -3,6 +3,7 @@ using System.ComponentModel;
 using System.Windows.Forms;
 using PeerstLib.Bbs;
 using PeerstLib.PeerCast;
+using PeerstLib.Utility;
 using WMPLib;
 
 namespace PeerstPlayer.Control
@@ -98,6 +99,7 @@ namespace PeerstPlayer.Control
 		//-------------------------------------------------------------
 		public PecaPlayer()
 		{
+			Logger.Instance.Debug("PecaPlayer()");
 			InitializeComponent();
 
 			// 初期設定
@@ -124,6 +126,8 @@ namespace PeerstPlayer.Control
 		//-------------------------------------------------------------
 		public void Open(string streamUrl)
 		{
+			Logger.Instance.DebugFormat("Open(streamUrl:{0})", streamUrl);
+
 			StreamUrlInfo info = StreamUrlAnalyzer.GetUrlInfo(streamUrl);
 			pecaConnect = new PeerCastConnection(info);
 
@@ -133,6 +137,7 @@ namespace PeerstPlayer.Control
 			// 再生変更イベント
 			wmp.OpenStateChange += (sender, e) =>
 			{
+				Logger.Instance.Info("OpenStateChange");
 				// 動画切替時に、音量が初期化されるための対応
 				// TODO ミュート時に音量が変わらないようにする
 				VolumeChange(this, new EventArgs());
@@ -143,6 +148,7 @@ namespace PeerstPlayer.Control
 			{
 				while (true)
 				{
+					Logger.Instance.Debug("チャンネル更新トライ");
 					ChannelInfo chInfo = pecaConnect.GetChannelInfo();
 					if (!String.IsNullOrEmpty(chInfo.Name))
 					{
@@ -150,14 +156,19 @@ namespace PeerstPlayer.Control
 						return;
 					}
 
-					System.Threading.Thread.Sleep(500);
+					System.Threading.Thread.Sleep(2000);
 				}
 			};
-			updateChannelInfoWorker.RunWorkerCompleted += (sender, e) => ChannelInfoChange(sender, e);
+			updateChannelInfoWorker.RunWorkerCompleted += (sender, e) =>
+			{
+				Logger.Instance.InfoFormat("チャンネル更新完了 [チャンネル名:{0}]", ChannelInfo.Name);
+				ChannelInfoChange(sender, e);
+			};
 
 			// キー押下イベント
 			wmp.KeyDownEvent += (sender, e) =>
 			{
+				// TODO イベントを通知する
 				if (e.nKeyCode == (short)Keys.T)
 				{
 					ParentForm.TopMost = !ParentForm.TopMost;
@@ -172,6 +183,7 @@ namespace PeerstPlayer.Control
 				// チャンネル更新
 				if (!updateChannelInfoWorker.IsBusy)
 				{
+					Logger.Instance.Info("チャンネル更新開始");
 					updateChannelInfoWorker.RunWorkerAsync();
 				}
 
@@ -186,6 +198,7 @@ namespace PeerstPlayer.Control
 			// チャンネル更新
 			if (!updateChannelInfoWorker.IsBusy)
 			{
+				Logger.Instance.Info("チャンネル更新開始");
 				updateChannelInfoWorker.RunWorkerAsync();
 			}
 		}

@@ -14,14 +14,19 @@ namespace PeerstLib.Utility
 		//-------------------------------------------------------------
 		public static string GetHtml(string url, Encoding encoding)
 		{
+			Logger.Instance.DebugFormat("GetHtml(url:{0}, encoding:{1}", url, encoding);
+
 			try
 			{
 				WebClient wc = new WebClient();
 				byte[] data = wc.DownloadData(url);
-				return encoding.GetString(data);
+				string result = encoding.GetString(data);
+				Logger.Instance.DebugFormat("HTMLの取得:正常");
+				return result;
 			}
 			catch
 			{
+				Logger.Instance.Error("HTMLの取得:異常");
 				return "";
 			}
 		}

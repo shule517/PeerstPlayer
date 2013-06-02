@@ -3,6 +3,7 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using System.Xml.Linq;
 using PeerstLib.Bbs;
+using PeerstLib.Utility;
 
 namespace PeerstLib.PeerCast
 {
@@ -23,6 +24,7 @@ namespace PeerstLib.PeerCast
 		//-------------------------------------------------------------
 		public PeerCastConnection(StreamUrlInfo streamUrlInfo)
 		{
+			Logger.Instance.DebugFormat("PeerCastConnection(Host:{0}, PortNo:{1}, StreamId:{2})", streamUrlInfo.Host, streamUrlInfo.PortNo, streamUrlInfo.StreamId);
 			urlInfo = streamUrlInfo;
 		}
 
@@ -32,16 +34,21 @@ namespace PeerstLib.PeerCast
 		//-------------------------------------------------------------
 		public ChannelInfo GetChannelInfo()
 		{
+			Logger.Instance.DebugFormat("GetChannelInfo(Host:{0}, PortNo:{1}, StreamId:{2})", urlInfo.Host, urlInfo.PortNo, urlInfo.StreamId);
+			string xmlUrl = string.Format("http://{0}:{1}/admin?cmd=viewxml", urlInfo.Host, urlInfo.PortNo);
+
 			try
 			{
 				// ViewXMLの取得
-				XElement elements = XElement.Load("http://" + urlInfo.Host + ":" + urlInfo.PortNo + "/admin?cmd=viewxml");
+				XElement elements = XElement.Load(xmlUrl);
+				Logger.Instance.DebugFormat("ViewXMLの取得結果：正常 [xmlUrl:{0}]", xmlUrl);
 
 				// ViewXMLの解析
 				return AnlyzeViewXML(elements);
 			}
 			catch
 			{
+				Logger.Instance.ErrorFormat("ViewXMLの取得結果：異常 [xmlUrl:{0}]", xmlUrl);
 				return new ChannelInfo();
 			}
 		}
@@ -86,7 +93,7 @@ namespace PeerstLib.PeerCast
 					Id = (string)chRelay.Attribute("id"),
 					Bitrate = (string)chRelay.Attribute("bitrate"),
 					Type = (string)chRelay.Attribute("type"),
-					Genre = FitGenre((string)chRelay.Attribute("genre")),
+					Genre = (string)chRelay.Attribute("genre"),
 					Desc = (string)chRelay.Attribute("desc"),
 					Url = (string)chRelay.Attribute("url"),
 					Uptime = (string)chRelay.Attribute("uptime"),
@@ -113,14 +120,16 @@ namespace PeerstLib.PeerCast
 				};
 
 			// チャンネル情報の取得
-			ChannelInfo channelInfo;
+			ChannelInfo channelInfo = new ChannelInfo();
 			if (channelList.Count() > 0)
 			{
-				channelInfo = channelList.Single();
+				channelInfo = channelList.SingleOrDefault();
+				channelInfo.Genre = FitGenre(channelInfo.Genre);
+				Logger.Instance.DebugFormat("チャンネル情報取得結果：正常 [チャンネル名:{0}]", channelInfo.Name);
 			}
 			else
 			{
-				channelInfo = new ChannelInfo();
+				Logger.Instance.ErrorFormat("チャンネル情報取得結果：異常 [ストリームID:{0}]", urlInfo.StreamId);
 			}
 
 			return channelInfo;
@@ -131,11 +140,20 @@ namespace PeerstLib.PeerCast
 		//-------------------------------------------------------------
 		private string FitGenre(string genre)
 		{
+			if (string.IsNullOrEmpty(genre))
+			{
+				Logger.Instance.Debug("genre : 空");
+				return string.Empty;
+			}
+
 			// リンクアドレスを抽出
 			Regex http = new Regex(@"(cp|xp|rp|tp|hktv|sp|np|op|gp|lp|nm|np|twyp)([:]*)([?]*)([@]*)([+]*)(?<genre>.*)");
 			Match m = http.Match(genre);
 
-			return m.Groups["genre"].Value.Trim();
+			string result = m.Groups["genre"].Value.Trim();
+			Logger.Instance.DebugFormat("FitGenre(genre:{0}) -> [{1}]", genre, result);
+
+			return result;
 		}
 
 		//-------------------------------------------------------------

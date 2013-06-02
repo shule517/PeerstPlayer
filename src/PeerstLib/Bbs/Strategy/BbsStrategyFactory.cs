@@ -1,4 +1,5 @@
 ﻿
+using PeerstLib.Utility;
 namespace PeerstLib.Bbs.Strategy
 {
 	//-------------------------------------------------------------
@@ -12,8 +13,11 @@ namespace PeerstLib.Bbs.Strategy
 		//-------------------------------------------------------------
 		public static BbsStrategy Create(string url)
 		{
+			Logger.Instance.DebugFormat("BbsStrategy(url:{0})", url);
+
 			// 掲示板解析
 			BbsInfo bbsInfo = BbsUrlAnalyzer.Analyze(url);
+			Logger.Instance.DebugFormat("掲示板解析：正常 [url:[0], 掲示板サーバ:{1}]", url, bbsInfo.BbsServer);
 
 			switch (bbsInfo.BbsServer)
 			{

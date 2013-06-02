@@ -1,4 +1,5 @@
 ﻿using System;
+using PeerstLib.Utility;
 
 namespace PeerstLib.Control
 {
@@ -13,6 +14,7 @@ namespace PeerstLib.Control
 		//-------------------------------------------------------------
 		public static void WindowDragStart(IntPtr handle)
 		{
+			Logger.Instance.DebugFormat("WindowDragStart(handle:{0})", handle);
 			Win32API.SendMessage(handle, (int)WindowMessage.WM_NCLBUTTONDOWN, new IntPtr((int)HitTest.Caption), new IntPtr(0));
 		}
 	}

@@ -15,62 +15,57 @@ namespace PeerstLib.Bbs
 		// 概要：URLの解析
 		// 詳細：掲示板情報を取得する
 		//-------------------------------------------------------------
-		public static BbsInfo Analyze(string url)
+		public static BbsInfo Analyze(string threadUrl)
 		{
-			// 未入力
-			if (String.IsNullOrEmpty(url))
-			{
-				return new BbsInfo
-				{
-					Url = "",
-					BoardGenre = null,
-					BoardNo = null,
-					ThreadNo = null,
-					BbsName = null,
-					BbsServer = BbsServer.UnSupport,
-				}; 
-			}
+			Logger.Instance.DebugFormat("Analyze(url:{0})", threadUrl);
 
+			Uri uri = null;
 			try
 			{
-				Uri uri = new Uri(url);
-				string host = uri.Host;
-
-				// したらば
-				if (host == "jbbs.livedoor.jp")
-				{
-					return AnalyzeShitaraba(url);
-				}
-				// YY
-				else if (host.StartsWith("yy"))
-				{
-					return AnalayzeYY(url, host);
-				}
-				// 2ch互換かチェック
-				else
-				{
-					// スレッド一覧ページが存在するかで2ch互換かチェック
-					BbsInfo info = AnalayzeYY(url, host);
-					string subjectUrl = string.Format("http://{0}/{1}/subject.txt", info.BoardGenre, info.BoardNo);
-					string html = WebUtil.GetHtml(subjectUrl, Encoding.GetEncoding("Shift_JIS"));
-					if (html.Substring(10, 6) == ".dat<>")
-					{
-						return info;
-					}
-				}
+				uri = new Uri(threadUrl);
 			}
 			catch
 			{
+				Logger.Instance.WarnFormat("不正なURLです。[uri:{0}]", threadUrl);
+				return new BbsInfo
+				{
+					Url = "",
+					BbsServer = BbsServer.UnSupport,
+				};
 			}
-	
+
+			// したらば
+			if (uri.Host == "jbbs.livedoor.jp")
+			{
+				Logger.Instance.DebugFormat("掲示板サーバ：したらば [HOST:{0}]", uri.Host);
+				return AnalyzeShitaraba(threadUrl);
+			}
+			// YY
+			else if (uri.Host.StartsWith("yy"))
+			{
+				Logger.Instance.DebugFormat("掲示板サーバ：わいわいKakiko [HOST:{0}]", uri.Host);
+				return AnalayzeYY(threadUrl, uri.Host);
+			}
+			// 2ch互換かチェック
+			else
+			{
+				// スレッド一覧ページが存在するかで2ch互換かチェック
+				BbsInfo info = AnalayzeYY(threadUrl, uri.Host);
+				string subjectUrl = string.Format("http://{0}/{1}/subject.txt", info.BoardGenre, info.BoardNo);
+				string html = WebUtil.GetHtml(subjectUrl, Encoding.GetEncoding("Shift_JIS"));
+
+				if ((html.Length > 16) && (html.Substring(10, 6) == ".dat<>"))
+				{
+					Logger.Instance.DebugFormat("掲示板サーバ：2ch互換サーバ [HOST:{0}]", uri.Host);
+					return info;
+				}
+			}
+
 			// 未対応
+			Logger.Instance.DebugFormat("掲示板サーバ：未対応 [HOST:{0}]", uri.Host);
 			return new BbsInfo
 			{
-				Url = url,
-				BoardGenre = null,
-				BoardNo = null,
-				ThreadNo = null,
-				BbsName = null,
+				Url = threadUrl,
 				BbsServer = BbsServer.UnSupport,
 			};
 		}
@@ -81,6 +76,8 @@ namespace PeerstLib.Bbs
 		//-------------------------------------------------------------
 		private static BbsInfo AnalyzeShitaraba(string url)
 		{
+			Logger.Instance.DebugFormat("AnalyzeShitaraba(url:{0})", url);
+
 			const int threadUrlIndex = 0;
 			const int genreIndex = 2;
 			const int boardNoIndex = 3;
@@ -110,6 +107,8 @@ namespace PeerstLib.Bbs
 		//-------------------------------------------------------------
 		private static BbsInfo AnalayzeYY(string url, string host)
 		{
+			Logger.Instance.DebugFormat("AnalayzeYY(url:{0}, host:{1})", url, host);
+
 			const int threadUrlIndex = 0;
 			const int boardNoIndex = 2;
 			const int threadNoIndex = 3;

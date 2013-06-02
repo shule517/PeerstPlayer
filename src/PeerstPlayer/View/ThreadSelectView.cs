@@ -2,6 +2,7 @@
 using System.Drawing;
 using System.Windows.Forms;
 using PeerstLib.Bbs;
+using PeerstLib.Utility;
 using PeerstPlayer.ViewModel;
 
 namespace PeerstPlayer.View
@@ -47,6 +48,8 @@ namespace PeerstPlayer.View
 
 			viewModel.ThreadListChange += (sender, e) =>
 			{
+				Logger.Instance.Debug("ThreadListChangeイベント");
+
 				// TODO 変更前URLがチラッと見えてしまう
 				urlTextBox.Text = viewModel.ThreadUrl;
 
@@ -61,6 +64,8 @@ namespace PeerstPlayer.View
 		//-------------------------------------------------------------
 		public void Open()
 		{
+			Logger.Instance.Debug("Open()");
+
 			Visible = true;
 			Activate();
 			updateButton_Click(this, new EventArgs());
@@ -71,6 +76,8 @@ namespace PeerstPlayer.View
 		//-------------------------------------------------------------
 		private void DrawThreadList()
 		{
+			Logger.Instance.Debug("DrawThreadList()");
+			
 			threadListView.Items.Clear();
 
 			// データ追加：開始
@@ -88,6 +95,7 @@ namespace PeerstPlayer.View
 					// ストップしたスレッドはスルー
 					if (info.ResCount >= 1000)
 					{
+						Logger.Instance.DebugFormat("ストップしたスレッド [レス数:{0} スレッドタイトル:{1}]", info.ResCount, info.ThreadTitle);
 						continue;
 					}
 				}
@@ -117,7 +125,55 @@ namespace PeerstPlayer.View
 		private void updateButton_Click(object sender, EventArgs e)
 		{
 			// スレッド更新
+			Logger.Instance.InfoFormat("更新ボタン押下 [URL:{0}]", urlTextBox.Text);
 			viewModel.Update(urlTextBox.Text);
+		}
+
+		//-------------------------------------------------------------
+		// 概要：ダブルクリックイベント
+		// 詳細：スレッド変更を行う
+		//-------------------------------------------------------------
+		private void threadListView_MouseDoubleClick(object sender, MouseEventArgs e)
+		{
+			Logger.Instance.Info("スレッド一覧をダブルクリック");
+
+			// 未選択チェック
+			if (threadListView.SelectedItems.Count == 0)
+			{
+				Logger.Instance.Warn("スレッド未選択");
+				return;
+			}
+
+			// 左クリック
+			if (e.Button == System.Windows.Forms.MouseButtons.Left)
+			{
+				// スレッド選択
+				string selectThreadNo = threadListView.SelectedItems[0].Tag.ToString();
+				Logger.Instance.InfoFormat("スレッド選択 [スレッド番号:{0}]", selectThreadNo);
+
+				// スレッド変更通知
+				viewModel.ChangeThread(selectThreadNo);
+				urlTextBox.Text = viewModel.ThreadUrl;
+				ThreadChange(sender, e);
+
+				// 非表示
+				Logger.Instance.InfoFormat("スレッド選択画面を非表示");
+				Visible = false;
+			}
+		}
+
+		//-------------------------------------------------------------
+		// 概要：URLテキストボックスのキー押下イベント
+		// 詳細：スレッド更新
+		//-------------------------------------------------------------
+		private void urlTextBox_KeyDown(object sender, KeyEventArgs e)
+		{
+			if (e.KeyCode == Keys.Return)
+			{
+				// スレッド更新
+				Logger.Instance.InfoFormat("スレッド更新(エンター押下) [URL:{0}]", urlTextBox.Text);
+				viewModel.Update(urlTextBox.Text);
+			}
 		}
 
 		//-------------------------------------------------------------
@@ -127,6 +183,7 @@ namespace PeerstPlayer.View
 		private void checkBox_CheckedChanged(object sender, EventArgs e)
 		{
 			// スレッド一覧の描画
+			Logger.Instance.InfoFormat("チェックボックス押下 [ストップスレッドの表示:{0}]", checkBox.Checked);
 			DrawThreadList();
 		}
 
@@ -137,47 +194,9 @@ namespace PeerstPlayer.View
 		private void ThreadSelectView_FormClosing(object sender, FormClosingEventArgs e)
 		{
 			// 終了せずに、非表示とする
+			Logger.Instance.InfoFormat("スレッド選択画面を非表示");
 			Visible = false;
 			e.Cancel = true;
-		}
-
-		//-------------------------------------------------------------
-		// 概要：ダブルクリックイベント
-		// 詳細：スレッド変更を行う
-		//-------------------------------------------------------------
-		private void threadListView_MouseDoubleClick(object sender, MouseEventArgs e)
-		{
-			// 未選択チェック
-			if (threadListView.SelectedItems.Count == 0)
-			{
-				return;
-			}
-
-			// 左クリック
-			if (e.Button == System.Windows.Forms.MouseButtons.Left)
-			{
-				// スレッド変更
-				string selectThreadNo = threadListView.SelectedItems[0].Tag.ToString();
-				viewModel.ChangeThread(selectThreadNo);
-				urlTextBox.Text = viewModel.ThreadUrl;
-				ThreadChange(sender, e);
-
-				// 非表示
-				Visible = false;
-			}
-		}
-
-		//-------------------------------------------------------------
-		// 概要：ダブルクリックイベント
-		// 詳細：スレッド変更を行う
-		//-------------------------------------------------------------
-		private void urlTextBox_KeyDown(object sender, KeyEventArgs e)
-		{
-			if (e.KeyCode == Keys.Return)
-			{
-				// スレッド更新
-				viewModel.Update(urlTextBox.Text);
-			}
 		}
 	}
 }

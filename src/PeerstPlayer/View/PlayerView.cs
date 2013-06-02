@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
+using System.IO;
 using System.Windows.Forms;
 using HongliangSoft.Utilities.Gui;
 using PeerstLib.Control;
 using PeerstLib.Form;
 using PeerstLib.PeerCast;
+using PeerstLib.Utility;
 using WMPLib;
 
 namespace PeerstPlayer
@@ -19,10 +21,10 @@ namespace PeerstPlayer
 		// イベント定義
 		enum Event
 		{
-			WheelUp,		// ホイールUp
-			WheelDown,		// ホイールDown
-			Mute,			// ミュートボタン押下
-			DoubleClick,	// ダブルクリック
+			WheelUp,				// ホイールUp
+			WheelDown,				// ホイールDown
+			Mute,					// ミュートボタン押下
+			DoubleClick,			// ダブルクリック
 			StatusbarRightClick,	// ステータスバー右クリック
 			StatusbarLeftClick,
 		};
@@ -37,7 +39,7 @@ namespace PeerstPlayer
 			WindowMinimization,	// ウィンドウ最小化
 			Close,				// 閉じる
 			OpenPeerstViewer,	// ビューワを開く
-			VisibleStatusBar,		// ステータスバーの表示切り替え
+			VisibleStatusBar,	// ステータスバーの表示切り替え
 		};
 
 		//-------------------------------------------------------------
@@ -66,20 +68,20 @@ namespace PeerstPlayer
 			// 閉じるボタン
 			closeToolStripButton.Click += (sender, e) => ExecCommand(Command.Close);
 			// 音量クリック
-			statusBar.VolumeClick += (sender, e) => OnEvent(Event.Mute);
+			statusBar.VolumeClick += (sender, e) => RaiseEvent(Event.Mute);
 			// ダブルクリック
-			pecaPlayer.DoubleClickEvent += (sender, e) => OnEvent(Event.DoubleClick);
+			pecaPlayer.DoubleClickEvent += (sender, e) => RaiseEvent(Event.DoubleClick);
 			// マウスホイール
 			MouseWheel += (sender, e) =>
 			{
 				// 音量変更
 				if (e.Delta > 0)
 				{
-					OnEvent(Event.WheelUp);
+					RaiseEvent(Event.WheelUp);
 				}
 				else if (e.Delta < 0)
 				{
-					OnEvent(Event.WheelDown);
+					RaiseEvent(Event.WheelDown);
 				}
 			};
 
@@ -110,11 +112,11 @@ namespace PeerstPlayer
 			{
 				if (e.Button == MouseButtons.Left)
 				{
-					OnEvent(Event.StatusbarLeftClick);
+					RaiseEvent(Event.StatusbarLeftClick);
 				}
 				else if (e.Button == MouseButtons.Right)
 				{
-					OnEvent(Event.StatusbarRightClick);
+					RaiseEvent(Event.StatusbarRightClick);
 				}
 			};
 
@@ -249,14 +251,16 @@ namespace PeerstPlayer
 		//-------------------------------------------------------------
 		public void Open(string url)
 		{
+			Logger.Instance.DebugFormat("Open(url:{0})", url);
 			pecaPlayer.Open(url);
 		}
 
 		//-------------------------------------------------------------
 		// 概要：イベント実行
 		//-------------------------------------------------------------
-		private void OnEvent(Event eventId)
+		private void RaiseEvent(Event eventId)
 		{
+			Logger.Instance.DebugFormat("イベント実行 [eventId:{0}]", eventId);
 			Command commandId = eventMap[eventId];
 			ExecCommand(commandId);
 		}
@@ -266,6 +270,7 @@ namespace PeerstPlayer
 		//-------------------------------------------------------------
 		private void ExecCommand(Command commandId)
 		{
+			Logger.Instance.DebugFormat("コマンド実行 [commandId:{0}]", commandId);
 			commandMap[commandId]();
 		}
 
@@ -315,15 +320,11 @@ namespace PeerstPlayer
 			// PeerstViewerを開く
 			commandMap.Add(Command.OpenPeerstViewer, () =>
 			{
-				ChannelInfo info = pecaPlayer.ChannelInfo;
-				if (info == null)
-				{
-					return;
-				}
-
 				// TODO スレッド選択しているスレッドURLを指定する
-				Process.Start(@"C:\Users\Shule517\Desktop\研究用_リムーバブルディスク\姉ちゃん\Tool\PeerstPlayer Pocket 0.13\PeerstViewer.exe",
-					info.Url);
+				string viewerExePath = Path.Combine(Environment.CurrentDirectory, "PeerstViewer.exe");
+				string param = statusBar.SelectThreadUrl;
+				Logger.Instance.DebugFormat("PeerstViewer起動 [viewerExePath:{0} param:{1}]", viewerExePath, param);
+				Process.Start(viewerExePath, param);
 			});
 		}
 	}

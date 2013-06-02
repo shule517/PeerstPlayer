@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Web;
+using PeerstLib.Utility;
 
 namespace PeerstLib.Bbs.Strategy
 {
@@ -72,6 +73,7 @@ namespace PeerstLib.Bbs.Strategy
 		public YYKakikoBbsStrategy(BbsInfo bbsInfo)
 			: base(bbsInfo)
 		{
+			Logger.Instance.DebugFormat("YYKakikoBbsStrategy(url:{0})", bbsInfo.Url);
 		}
 
 		//-------------------------------------------------------------
@@ -80,6 +82,8 @@ namespace PeerstLib.Bbs.Strategy
 		//-------------------------------------------------------------
 		override protected List<ThreadInfo> AnalyzeSubjectText(string[] lines)
 		{
+			Logger.Instance.DebugFormat("AnalyzeSubjectText(lines:{0})", lines);
+
 			const int threadNoStart = 0;
 			const int threadNoEnd = 10;
 			const int cgiLength = 6;
@@ -118,6 +122,7 @@ namespace PeerstLib.Bbs.Strategy
 		//-------------------------------------------------------------
 		override protected byte[] CreateWriteRequestData(string name, string mail, string message)
 		{
+			Logger.Instance.DebugFormat("CreateWriteRequestData(name:{0}, mail:{1}, message:{2})", name, mail, message);
 			StringBuilder param = new StringBuilder();
 
 			param.AppendFormat("bbs={0}&", HttpUtility.UrlEncode(BbsInfo.BoardNo, encoding)); // 板番号
