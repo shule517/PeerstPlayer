@@ -176,42 +176,35 @@ namespace PeerstPlayer
 			mouseGesture.Interval = 10;
 			bool isGesturing = false;
 
-			// マウスドラッグ
+			// マウスダウンイベント
 			pecaPlayer.MouseDownEvent += (sender, e) =>
 			{
 				if (e.nButton == (short)Keys.LButton)
 				{
+					// マウスドラッグ
 					FormUtility.WindowDragStart(this.Handle);
 				}
 				else if (e.nButton == (short)Keys.RButton)
 				{
+					// マウスジェスチャー開始
 					mouseGesture.Start();
 					isGesturing = true;
 				}
 			};
 
-			/*
-			pecaPlayer.MouseMoveEvent += (sender, e) =>
+			// マウスアップイベント
+			pecaPlayer.MouseUpEvent += (sender, e) =>
 			{
-				if (isGesturing)
+				if (string.IsNullOrEmpty(mouseGesture.ToString()))
 				{
-					// ジェスチャー表示
-					mouseGesture.Moving(new Point(e.fX, e.fY));
-					statusBar.ChannelDetail = mouseGesture.ToString();
-				}
-
-				// 自動表示ボタンの表示切り替え
-				if (RectangleToScreen(ClientRectangle).Contains(MousePosition))
-				{
-					toolStrip.Visible = true;
-				}
-				else
-				{
-					toolStrip.Visible = false;
+					// コンテキストメニュー表示
+					pecaPlayer.EnableContextMenu = true;
+					FormUtility.ShowContextMenu(this.pecaPlayer.WMPHandle, MousePosition);
+					pecaPlayer.EnableContextMenu = false;
 				}
 			};
-			 */
 
+			// マウスフック
 			MouseHook mouseHook = new MouseHook(MouseHook.HookType.GlobalHook);
 			mouseHook.MouseHooked += (sender, e) =>
 			{
@@ -245,12 +238,6 @@ namespace PeerstPlayer
 						statusBar.ChannelDetail = String.Format("{0} {1}{2} {3}", info.Name, string.IsNullOrEmpty(info.Genre) ? "" : string.Format("[{0}] ", info.Genre), info.Desc, info.Comment);
 					}
 
-					// フォーカス確認
-					if (!Focused)
-					{
-						return;
-					}
-
 					// マウスカーソルが画面内
 					if (!RectangleToScreen(ClientRectangle).Contains(MousePosition))
 					{
@@ -265,13 +252,6 @@ namespace PeerstPlayer
 					else if (mouseGesture.ToString() == "↓")
 					{
 						ExecCommand(Command.OpenPeerstViewer);
-					}
-					else
-					{
-						// コンテキストメニュー表示
-						pecaPlayer.EnableContextMenu = true;
-						FormUtility.ShowContextMenu(this.pecaPlayer.WMPHandle, MousePosition);
-						pecaPlayer.EnableContextMenu = false;
 					}
 				}
 			};
