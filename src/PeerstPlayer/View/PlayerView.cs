@@ -220,6 +220,7 @@ namespace PeerstPlayer
 						statusBar.ChannelDetail = string.Format("{0} [{1}] {2}", info.Name, info.Genre, info.Desc);
 					}
 
+					// TODO 設定画面でマウスジェスチャを設定できるようにする
 					if (mouseGesture.ToString() == "↓→")
 					{
 						ExecCommand(Command.Close);
@@ -260,7 +261,7 @@ namespace PeerstPlayer
 		//-------------------------------------------------------------
 		private void RaiseEvent(Event eventId)
 		{
-			Logger.Instance.InfoFormat("イベント実行 [eventId:{0}]", eventId);
+			Logger.Instance.InfoFormat("イベント実行 [イベントID:{0}]", eventId);
 			Command commandId = eventMap[eventId];
 			ExecCommand(commandId);
 		}
@@ -270,7 +271,7 @@ namespace PeerstPlayer
 		//-------------------------------------------------------------
 		private void ExecCommand(Command commandId)
 		{
-			Logger.Instance.InfoFormat("コマンド実行 [commandId:{0}]", commandId);
+			Logger.Instance.InfoFormat("コマンド実行 [コマンドID:{0}]", commandId);
 			commandMap[commandId]();
 		}
 
@@ -323,7 +324,7 @@ namespace PeerstPlayer
 				// TODO スレッド選択しているスレッドURLを指定する
 				string viewerExePath = Path.Combine(Environment.CurrentDirectory, "PeerstViewer.exe");
 				string param = statusBar.SelectThreadUrl;
-				Logger.Instance.DebugFormat("PeerstViewer起動 [viewerExePath:{0} param:{1}]", viewerExePath, param);
+				Logger.Instance.InfoFormat("PeerstViewer起動 [viewerExePath:{0} param:{1}]", viewerExePath, param);
 				Process.Start(viewerExePath, param);
 			});
 		}

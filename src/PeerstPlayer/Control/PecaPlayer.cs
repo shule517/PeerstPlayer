@@ -155,7 +155,7 @@ namespace PeerstPlayer.Control
 						return;
 					}
 
-					System.Threading.Thread.Sleep(2000);
+					System.Threading.Thread.Sleep(3000);
 				}
 			};
 			updateChannelInfoWorker.RunWorkerCompleted += (sender, e) =>
