@@ -260,7 +260,7 @@ namespace PeerstPlayer
 		//-------------------------------------------------------------
 		private void RaiseEvent(Event eventId)
 		{
-			Logger.Instance.DebugFormat("イベント実行 [eventId:{0}]", eventId);
+			Logger.Instance.InfoFormat("イベント実行 [eventId:{0}]", eventId);
 			Command commandId = eventMap[eventId];
 			ExecCommand(commandId);
 		}
@@ -270,7 +270,7 @@ namespace PeerstPlayer
 		//-------------------------------------------------------------
 		private void ExecCommand(Command commandId)
 		{
-			Logger.Instance.DebugFormat("コマンド実行 [commandId:{0}]", commandId);
+			Logger.Instance.InfoFormat("コマンド実行 [commandId:{0}]", commandId);
 			commandMap[commandId]();
 		}
 

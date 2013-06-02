@@ -18,7 +18,7 @@ namespace PeerstPlayer.Control
 		// 選択スレッドURL
 		public string SelectThreadUrl
 		{
-			get { return threadSelectView.ThreadUrl; }
+			get { return operationBbs.ThreadUrl; }
 			set
 			{
 				// TODO 別メソッド移動
@@ -146,7 +146,8 @@ namespace PeerstPlayer.Control
 				Logger.Instance.Debug("全選択");
 				writeFieldTextBox.SelectAll();
 			}
-			else if ((e.Modifiers == Keys.Control) && (e.KeyCode == Keys.Enter))
+			else if (((e.Modifiers == Keys.Control) && (e.KeyCode == Keys.Enter)) ||	// Ctrl + Enter
+					((e.Modifiers == Keys.Shift) && (e.KeyCode == Keys.Enter)))			// Shift + Enter
 			{
 				string message = writeFieldTextBox.Text;
 				Logger.Instance.InfoFormat("レス書き込み [掲示板:{0} スレッド:{1}, 本文:{2}]", operationBbs.BbsInfo.BbsName, operationBbs.SelectThread.ThreadTitle, message);

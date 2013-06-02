@@ -20,6 +20,9 @@ namespace PeerstPlayer.ViewModel
 		// スレッドURL
 		public string ThreadUrl { get { return operationBbs.ThreadUrl; } }
 
+		// 選択スレッド番号
+		public string ThreadNo { get { return operationBbs.BbsInfo.ThreadNo; } }
+
 		// スレッド一覧変更イベント
 		public event EventHandler ThreadListChange = delegate { };
 

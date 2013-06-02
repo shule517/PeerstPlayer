@@ -105,7 +105,6 @@ namespace PeerstPlayer.Control
 			// 初期設定
 			wmp.uiMode = "none";
 			wmp.stretchToFit = true;
-			wmp.enableContextMenu = false;
 
 			// ダブルクリックイベント
 			new WmpNativeWindow(wmp.Handle).DoubleClick += (sender, e) => DoubleClickEvent(sender, e);

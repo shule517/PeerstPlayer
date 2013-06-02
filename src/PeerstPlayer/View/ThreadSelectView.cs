@@ -103,7 +103,18 @@ namespace PeerstPlayer.View
 				string[] items = { String.Format("{0, 4}", index), info.ThreadTitle, info.ResCount.ToString(), String.Format("{0,6:F1}", info.ThreadSpeed) };
 				ListViewItem item = new ListViewItem(items);
 				item.Tag = info.ThreadNo;
-				if (threadListView.Items.Count % 2 == 0) { item.BackColor = Color.FromArgb(200, 235, 203); }
+
+				// 行に色を付ける
+				if (threadListView.Items.Count % 2 == 0)
+				{
+					item.BackColor = Color.FromArgb(200, 235, 203);
+				}
+
+				// 選択スレッドを行選択
+				if (info.ThreadNo.Equals(viewModel.ThreadNo))
+				{
+					item.Selected = true;
+				}
 
 				threadListView.Items.Add(item);
 			}
@@ -112,6 +123,9 @@ namespace PeerstPlayer.View
 
 			// データ追加：終了
 			threadListView.EndUpdate();
+
+			// 選択
+			threadListView.Select();
 
 			// 幅を自動調整
 			threadListView.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
@@ -130,12 +144,11 @@ namespace PeerstPlayer.View
 		}
 
 		//-------------------------------------------------------------
-		// 概要：ダブルクリックイベント
-		// 詳細：スレッド変更を行う
+		// 概要：クリックイベント
 		//-------------------------------------------------------------
-		private void threadListView_MouseDoubleClick(object sender, MouseEventArgs e)
+		private void threadListView_MouseClick(object sender, MouseEventArgs e)
 		{
-			Logger.Instance.Info("スレッド一覧をダブルクリック");
+			Logger.Instance.Info("スレッド一覧をクリック");
 
 			// 未選択チェック
 			if (threadListView.SelectedItems.Count == 0)
