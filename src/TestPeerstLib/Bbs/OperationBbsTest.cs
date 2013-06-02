@@ -178,7 +178,7 @@ namespace TestPeerstLib
 				Assert.AreEqual(threadNoList[i], threadList[i].ThreadNo);
 				Assert.AreEqual(threadTitleList[i], threadList[i].ThreadTitle);
 				Assert.AreEqual(resCountList[i], threadList[i].ResCount);
-				//				Assert.AreEqual(threadNoList[i], threadList[i].ThreadSpeed);
+				// TODO レス勢い取得：未実装 Assert.AreEqual(threadNoList[i], threadList[i].ThreadSpeed);
 			}
 		}
 

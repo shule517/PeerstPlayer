@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 using PeerstLib.Bbs;
+using PeerstLib.Utility;
 using PeerstPlayer.View;
 
 namespace PeerstPlayer.Control
@@ -140,11 +141,32 @@ namespace PeerstPlayer.Control
 		//-------------------------------------------------------------
 		private void writeFieldTextBox_KeyDown(object sender, KeyEventArgs e)
 		{
-			if ((e.Modifiers == Keys.Control) && (e.KeyCode == Keys.Enter))
+			if ((e.Modifiers == Keys.Control) && (e.KeyCode == Keys.A))
 			{
-				// TODO レス書き込み
-				operationBbs.Write("", "sage", writeFieldTextBox.Text);
-				writeFieldTextBox.Text = "";
+				Logger.Instance.Debug("全選択");
+				writeFieldTextBox.SelectAll();
+			}
+			else if ((e.Modifiers == Keys.Control) && (e.KeyCode == Keys.Enter))
+			{
+				string message = writeFieldTextBox.Text;
+				Logger.Instance.InfoFormat("レス書き込み [掲示板:{0} スレッド:{1}, 本文:{2}]", operationBbs.BbsInfo.BbsName, operationBbs.SelectThread.ThreadTitle, message);
+				e.SuppressKeyPress = true;
+
+				// レス書き込み
+				try
+				{
+					operationBbs.Write("", "sage", writeFieldTextBox.Text);
+					Logger.Instance.InfoFormat("レス書き込み：成功 [掲示板:{0} スレッド:{1}, 本文:{2}]", operationBbs.BbsInfo.BbsName, operationBbs.SelectThread.ThreadTitle, message);
+					writeFieldTextBox.Text = "";
+				}
+				catch
+				{
+					Logger.Instance.ErrorFormat("レス書き込み：失敗 [掲示板:{0} スレッド:{1}, 本文:{2}]", operationBbs.BbsInfo.BbsName, operationBbs.SelectThread.ThreadTitle, message);
+					MessageBox.Show(
+						string.Format("レス書き込みに失敗しました。\n\n掲示板：{0}\nスレッド：{1}\n本文：{2}", operationBbs.BbsInfo.BbsName, operationBbs.SelectThread.ThreadTitle, message),
+						"Error!!");
+					writeFieldTextBox.Text = message;
+				}
 			}
 		}
 	}

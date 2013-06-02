@@ -162,11 +162,11 @@ namespace PeerstLib.Bbs.Strategy
 			// 書き込み失敗
 			if (title.StartsWith("ERROR") || title.StartsWith("ＥＲＲＯＲ"))
 			{
-				Logger.Instance.ErrorFormat("レス書き込み：異常 [実行結果:{0} スレッド:{1}]", title, BbsInfo.Url);
+				Logger.Instance.ErrorFormat("レス書き込み：異常 [スレッド:{1} 実行結果:{0}]", BbsInfo.Url, html);
 				throw new Exception();
 			}
 
-			Logger.Instance.DebugFormat("レス書き込み：正常 [実行結果:{0} スレッド:{1}]", title, BbsInfo.Url);
+			Logger.Instance.DebugFormat("レス書き込み：正常 [スレッド:{0} 実行結果:{1}]", title, BbsInfo.Url);
 		}
 	}
 }

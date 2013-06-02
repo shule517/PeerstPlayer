@@ -52,19 +52,19 @@ namespace PeerstPlayer.Control
 			// チャンネル詳細クリック
 			ChannelDetailLabel.MouseClick += (sender, e) =>
 			{
-				Logger.Instance.Info("チャンネル詳細クリック");
+				Logger.Instance.Info("チャンネル詳細をクリック");
 				ChannelDetailClick(sender, e);
 			};
 			movieStatusLabel.MouseClick += (sender, e) =>
 			{
-				Logger.Instance.Info("チャンネル詳細クリック");
+				Logger.Instance.Info("チャンネル詳細をクリック");
 				ChannelDetailClick(sender, e);
 			};
 
 			// 音量クリック
 			volumeLabel.Click += (sender, e) =>
 			{
-				Logger.Instance.Info("音量クリック");
+				Logger.Instance.Info("音量ラベルをクリック");
 				VolumeClick(sender, e);
 			};
 		}
