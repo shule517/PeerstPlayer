@@ -46,6 +46,7 @@ namespace PeerstPlayer.View
 		{
 			InitializeComponent();
 
+			// スレッド一覧更新イベント
 			viewModel.ThreadListChange += (sender, e) =>
 			{
 				Logger.Instance.Debug("ThreadListChangeイベント");
@@ -209,6 +210,15 @@ namespace PeerstPlayer.View
 			Logger.Instance.InfoFormat("スレッド選択画面を非表示");
 			Visible = false;
 			e.Cancel = true;
+		}
+
+		//-------------------------------------------------------------
+		// 概要：終了処理
+		//-------------------------------------------------------------
+		public void Close()
+		{
+			Logger.Instance.Debug("Close()");
+			viewModel.Close();
 		}
 	}
 }

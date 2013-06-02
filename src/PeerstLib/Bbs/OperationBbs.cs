@@ -61,6 +61,8 @@ namespace PeerstLib.Bbs
 		//-------------------------------------------------------------
 		public OperationBbs()
 		{
+			// キャンセル処理を許可
+			changeUrlWorker.WorkerSupportsCancellation = true;
 			changeUrlWorker.DoWork += (sender, e) =>
 			{
 				string url = (string)e.Argument;
@@ -110,5 +112,17 @@ namespace PeerstLib.Bbs
 
 		// TODO Update -> レス数の更新用
 		// TODO Read -> レス読み込み
+
+		//-------------------------------------------------------------
+		// 概要：終了処理
+		//-------------------------------------------------------------
+		public void Close()
+		{
+			Logger.Instance.Debug("Close()");
+			if (changeUrlWorker.IsBusy)
+			{
+				changeUrlWorker.CancelAsync();
+			}
+		}
 	}
 }

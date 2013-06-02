@@ -131,6 +131,9 @@ namespace PeerstPlayer.Control
 			wmp.stretchToFit = true;
 			wmp.enableContextMenu = false;
 
+			// キャンセル許可
+			updateChannelInfoWorker.WorkerSupportsCancellation = true;
+
 			// ダブルクリックイベント
 			new WmpNativeWindow(wmp.Handle).DoubleClick += (sender, e) => DoubleClickEvent(sender, e);
 
@@ -224,6 +227,18 @@ namespace PeerstPlayer.Control
 			{
 				Logger.Instance.Info("チャンネル更新開始");
 				updateChannelInfoWorker.RunWorkerAsync();
+			}
+		}
+
+		//-------------------------------------------------------------
+		// 概要：終了処理
+		//-------------------------------------------------------------
+		public void Close()
+		{
+			Logger.Instance.Debug("Close()");
+			if (updateChannelInfoWorker.IsBusy)
+			{
+				updateChannelInfoWorker.CancelAsync();
 			}
 		}
 	}

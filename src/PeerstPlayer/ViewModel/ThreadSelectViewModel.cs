@@ -59,5 +59,14 @@ namespace PeerstPlayer.ViewModel
 			Logger.Instance.DebugFormat("ChangeThread(threadNo:{0})", threadNo);
 			operationBbs.ChangeThread(threadNo);
 		}
+
+		//-------------------------------------------------------------
+		// 概要：終了処理
+		//-------------------------------------------------------------
+		public void Close()
+		{
+			Logger.Instance.Debug("Close()");
+			operationBbs.Close();
+		}
 	}
 }

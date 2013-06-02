@@ -170,5 +170,15 @@ namespace PeerstPlayer.Control
 				}
 			}
 		}
+
+		//-------------------------------------------------------------
+		// 概要：終了処理
+		//-------------------------------------------------------------
+		public void Close()
+		{
+			Logger.Instance.Debug("Close()");
+			operationBbs.Close();
+			threadSelectView.Close();
+		}
 	}
 }

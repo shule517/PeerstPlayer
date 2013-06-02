@@ -276,6 +276,14 @@ namespace PeerstPlayer
 				}
 			};
 
+			// 終了処理
+			FormClosing += (sender, e) =>
+			{
+				Logger.Instance.Debug("FormClosing");
+				pecaPlayer.Close();
+				statusBar.Close();
+			};
+
 			// アスペクト比維持
 			new AspectRateKeepWindow(this.Handle);
 
