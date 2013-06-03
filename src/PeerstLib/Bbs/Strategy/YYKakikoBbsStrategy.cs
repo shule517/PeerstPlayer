@@ -100,15 +100,18 @@ namespace PeerstLib.Bbs.Strategy
 				int titleEnd = line.LastIndexOf('(');
 				string threadTitle = line.Substring(titleStart, titleEnd - titleStart);
 
-				// レス数
 				int resStart = titleEnd + 1;
 				string resCount = line.Substring(resStart, (line.Length - resStart - 1));
+				string threadNo = line.Substring(threadNoStart, threadNoEnd);
+				double days = GetThreadSince(threadNo);
 
 				ThreadInfo threadInfo = new ThreadInfo
 				{
-					ThreadNo = line.Substring(threadNoStart, threadNoEnd),
+					ThreadNo = threadNo,
 					ThreadTitle = threadTitle.Trim(),
 					ResCount = int.Parse(resCount),
+					ThreadSpeed = GetThreadSpeed(days, resCount),
+					ThreadSince = days
 				};
 
 				threadList.Add(threadInfo);

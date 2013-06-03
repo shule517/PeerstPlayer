@@ -37,6 +37,7 @@
 			this.threadTitleColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
 			this.resNumColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
 			this.resSpeedColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+			this.sinecColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
 			this.SuspendLayout();
 			// 
 			// checkBox
@@ -57,7 +58,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.urlTextBox.Location = new System.Drawing.Point(0, 2);
 			this.urlTextBox.Name = "urlTextBox";
-			this.urlTextBox.Size = new System.Drawing.Size(360, 19);
+			this.urlTextBox.Size = new System.Drawing.Size(441, 19);
 			this.urlTextBox.TabIndex = 2;
 			this.urlTextBox.Text = "http://";
 			this.urlTextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.urlTextBox_KeyDown);
@@ -65,7 +66,7 @@
 			// updateButton
 			// 
 			this.updateButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.updateButton.Location = new System.Drawing.Point(359, 0);
+			this.updateButton.Location = new System.Drawing.Point(440, 0);
 			this.updateButton.Name = "updateButton";
 			this.updateButton.Size = new System.Drawing.Size(75, 23);
 			this.updateButton.TabIndex = 3;
@@ -82,13 +83,14 @@
             this.columnHeaderNo,
             this.threadTitleColumnHeader,
             this.resNumColumnHeader,
-            this.resSpeedColumnHeader});
+            this.resSpeedColumnHeader,
+            this.sinecColumnHeader});
 			this.threadListView.FullRowSelect = true;
 			this.threadListView.GridLines = true;
 			this.threadListView.Location = new System.Drawing.Point(0, 21);
 			this.threadListView.MultiSelect = false;
 			this.threadListView.Name = "threadListView";
-			this.threadListView.Size = new System.Drawing.Size(434, 242);
+			this.threadListView.Size = new System.Drawing.Size(515, 242);
 			this.threadListView.TabIndex = 0;
 			this.threadListView.UseCompatibleStateImageBehavior = false;
 			this.threadListView.View = System.Windows.Forms.View.Details;
@@ -114,11 +116,15 @@
 			this.resSpeedColumnHeader.Text = "勢い";
 			this.resSpeedColumnHeader.Width = 44;
 			// 
+			// sinecColumnHeader
+			// 
+			this.sinecColumnHeader.Text = "Since";
+			// 
 			// ThreadSelectView
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(433, 286);
+			this.ClientSize = new System.Drawing.Size(514, 286);
 			this.Controls.Add(this.updateButton);
 			this.Controls.Add(this.urlTextBox);
 			this.Controls.Add(this.checkBox);
@@ -126,7 +132,6 @@
 			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
 			this.Name = "ThreadSelectView";
 			this.Text = "スレッド選択画面";
-			this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ThreadSelectView_FormClosing);
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
@@ -142,6 +147,7 @@
 		private System.Windows.Forms.ColumnHeader threadTitleColumnHeader;
 		private System.Windows.Forms.ColumnHeader resNumColumnHeader;
 		private System.Windows.Forms.ColumnHeader resSpeedColumnHeader;
+		private System.Windows.Forms.ColumnHeader sinecColumnHeader;
 
 	}
 }

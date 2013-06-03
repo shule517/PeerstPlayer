@@ -7,10 +7,12 @@ namespace PeerstLib.Control
 	// 概要：Win32APIクラス
 	// 詳細：Win32APIのimport
 	//-------------------------------------------------------------
-	class Win32API
+	public class Win32API
 	{
 		[DllImport("user32.dll")]
 		public static extern IntPtr SendMessage(IntPtr hWnd, int msg, IntPtr wp, IntPtr lp);
+		[DllImport("user32.dll", EntryPoint = "SetWindowText")]
+		public static extern void SetWindowText(IntPtr hWnd, String text);
 	}
 
 	// ウィンドウメッセージ

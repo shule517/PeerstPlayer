@@ -21,5 +21,8 @@ namespace PeerstLib.Bbs
 	
 		// レス勢い
 		public float ThreadSpeed { get; set; }
+
+		// スレッド作成からの経過日数
+		public double ThreadSince { get; set; }
 	}
 }

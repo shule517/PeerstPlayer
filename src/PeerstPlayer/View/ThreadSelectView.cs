@@ -67,9 +67,9 @@ namespace PeerstPlayer.View
 		{
 			Logger.Instance.Debug("Open()");
 
-			Visible = true;
-			Activate();
+			StartPosition = FormStartPosition.CenterParent;
 			updateButton_Click(this, new EventArgs());
+			ShowDialog();
 		}
 
 		//-------------------------------------------------------------
@@ -100,7 +100,15 @@ namespace PeerstPlayer.View
 					}
 				}
 
-				string[] items = { String.Format("{0, 4}", index), info.ThreadTitle, info.ResCount.ToString(), String.Format("{0,6:F1}", info.ThreadSpeed) };
+				string[] items =
+				{
+					String.Format("{0, 4}", index),
+					info.ThreadTitle,
+					info.ResCount.ToString(),
+					String.Format("{0,6:F1}", info.ThreadSpeed),
+					String.Format("@ {0,0:F1} day", info.ThreadSince)
+				};
+
 				ListViewItem item = new ListViewItem(items);
 				item.Tag = info.ThreadNo;
 
@@ -128,8 +136,13 @@ namespace PeerstPlayer.View
 			threadListView.Select();
 
 			// 幅を自動調整
-			threadListView.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
-			this.ClientSize = new Size(threadListView.PreferredSize.Width + 30, ClientSize.Height);
+			threadListView.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
+			int width = 0;
+			foreach (ColumnHeader item in threadListView.Columns)
+			{
+				width += item.Width;
+			}
+			this.ClientSize = new Size(width + 30, ClientSize.Height);
 		}
 
 		//-------------------------------------------------------------
@@ -201,23 +214,11 @@ namespace PeerstPlayer.View
 		}
 
 		//-------------------------------------------------------------
-		// 概要：スレッド終了前イベント
-		// 詳細：ウィンドウを非表示にする
-		//-------------------------------------------------------------
-		private void ThreadSelectView_FormClosing(object sender, FormClosingEventArgs e)
-		{
-			// 終了せずに、非表示とする
-			Logger.Instance.InfoFormat("スレッド選択画面を非表示");
-			Visible = false;
-			e.Cancel = true;
-		}
-
-		//-------------------------------------------------------------
 		// 概要：終了処理
 		//-------------------------------------------------------------
-		public void Close()
+		public void Kill()
 		{
-			Logger.Instance.Debug("Close()");
+			Logger.Instance.Debug("Kill()");
 			viewModel.Close();
 		}
 	}

@@ -168,5 +168,32 @@ namespace PeerstLib.Bbs.Strategy
 
 			Logger.Instance.DebugFormat("レス書き込み：正常 [スレッド:{0} 実行結果:{1}]", title, BbsInfo.Url);
 		}
+
+		//-------------------------------------------------------------
+		// 概要：スレッド作成日時の取得
+		//-------------------------------------------------------------
+		protected double GetThreadSince(string threadNo)
+		{
+			// 経過秒数の取得
+			int second;
+			if (!int.TryParse(threadNo, out second)) { return -1; }
+
+			// 経過日時の取得
+			DateTime time = new DateTime(1970, 1, 1, 0, 0, 0);
+			time = time.AddSeconds(second);
+			time = System.TimeZone.CurrentTimeZone.ToLocalTime(time);
+			return (DateTime.Now - time).TotalDays;
+		}
+
+		//-------------------------------------------------------------
+		// 概要：スレッド勢いの取得
+		//-------------------------------------------------------------
+		protected float GetThreadSpeed(double days, string resCount)
+		{
+			// 勢いの計算
+			int count;
+			if (!int.TryParse(resCount, out count)) { return -1; }
+			return (float)(count / days);
+		}
 	}
 }

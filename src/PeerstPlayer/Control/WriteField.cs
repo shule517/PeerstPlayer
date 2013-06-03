@@ -178,7 +178,7 @@ namespace PeerstPlayer.Control
 		{
 			Logger.Instance.Debug("Close()");
 			operationBbs.Close();
-			threadSelectView.Close();
+			threadSelectView.Kill();
 		}
 	}
 }
