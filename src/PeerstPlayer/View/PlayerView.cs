@@ -260,6 +260,7 @@ namespace PeerstPlayer
 			FormClosing += (sender, e) =>
 			{
 				Logger.Instance.Debug("FormClosing");
+				mouseHook.Dispose();
 				pecaPlayer.Close();
 				statusBar.Close();
 			};
