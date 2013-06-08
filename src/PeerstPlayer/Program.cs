@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Net.Configuration;
 using System.Reflection;
+using System.Threading;
 using System.Windows.Forms;
 using log4net;
 using PeerstLib.Utility;
@@ -25,6 +26,12 @@ namespace PeerstPlayer
 
 			// プロトコル違反しているPeerCastに対応
 			WebUtil.SettingDisableResponseError();
+
+			// メインスレッドの未処理例外
+			Application.ThreadException += (sender, e) => Logger.Instance.Fatal(e.Exception);
+
+			// メインスレッド以外の未処理例外
+			Thread.GetDomain().UnhandledException += (sender, e) => Logger.Instance.Fatal(e.ExceptionObject as Exception);
 
 			PlayerView playerView = new PlayerView();
 			
