@@ -195,12 +195,16 @@ namespace PeerstPlayer
 			// マウスアップイベント
 			pecaPlayer.MouseUpEvent += (sender, e) =>
 			{
-				if (string.IsNullOrEmpty(mouseGesture.ToString()))
+				if (e.nButton == (short)Keys.RButton)
 				{
-					// コンテキストメニュー表示
-					pecaPlayer.EnableContextMenu = true;
-					FormUtility.ShowContextMenu(this.pecaPlayer.WMPHandle, MousePosition);
-					pecaPlayer.EnableContextMenu = false;
+					// マウスジェスチャーが実行されていなければ
+					if (string.IsNullOrEmpty(mouseGesture.ToString()))
+					{
+						// コンテキストメニュー表示
+						pecaPlayer.EnableContextMenu = true;
+						FormUtility.ShowContextMenu(this.pecaPlayer.WMPHandle, MousePosition);
+						pecaPlayer.EnableContextMenu = false;
+					}
 				}
 			};
 
