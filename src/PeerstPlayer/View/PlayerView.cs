@@ -330,9 +330,37 @@ namespace PeerstPlayer
 		private void CreateCommand()
 		{
 			// 音量UP
-			commandMap.Add(Command.VolumeUp, () => pecaPlayer.Volume += 10);
+			commandMap.Add(Command.VolumeUp, () =>
+			{
+				if (ModifierKeys == Keys.Shift)
+				{
+					pecaPlayer.Volume += 1;
+				}
+				else if (ModifierKeys == Keys.Control)
+				{
+					pecaPlayer.Volume += 5;
+				}
+				else
+				{
+					pecaPlayer.Volume += 10;
+				}
+			});
 			// 音量UP
-			commandMap.Add(Command.VolumeDown, () => pecaPlayer.Volume -= 10);
+			commandMap.Add(Command.VolumeDown, () =>
+			{
+				if (ModifierKeys == Keys.Shift)
+				{
+					pecaPlayer.Volume -= 1;
+				}
+				else if (ModifierKeys == Keys.Control)
+				{
+					pecaPlayer.Volume -= 5;
+				}
+				else
+				{
+					pecaPlayer.Volume -= 10;
+				}
+			});
 			// ミュート切替
 			commandMap.Add(Command.Mute, () => pecaPlayer.Mute = !pecaPlayer.Mute);
 			// ウィンドウを最小化
