@@ -21,6 +21,7 @@ namespace PeerstPlayer
 		static void Main()
 		{
 			Logger.Instance.Info("START:PeerstPlayer");
+	
 			Application.EnableVisualStyles();
 			Application.SetCompatibleTextRenderingDefault(false);
 
@@ -34,22 +35,8 @@ namespace PeerstPlayer
 			Thread.GetDomain().UnhandledException += (sender, e) => Logger.Instance.Fatal(e.ExceptionObject as Exception);
 
 			PlayerView playerView = new PlayerView();
-			
-			string[] commandLine = Environment.GetCommandLineArgs();
-			foreach (string arg in commandLine)
-			{
-				Logger.Instance.InfoFormat("コマンドライン引数[{0}]", arg);
-			}
-
-			// 動画再生
-			if (Environment.GetCommandLineArgs().Count() > 1)
-			{
-				string url = commandLine[1];
-				Logger.Instance.InfoFormat("動画再生[url:{0}]", url);
-				playerView.Open(url);
-			}
-
 			Application.Run(playerView);
+
 			Logger.Instance.Info("END:PeerstPlayer");
 		}
 	}
