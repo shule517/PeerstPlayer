@@ -137,6 +137,9 @@ namespace PeerstPlayer.Control
 			// ダブルクリックイベント
 			new WmpNativeWindow(wmp.Handle).DoubleClick += (sender, e) => DoubleClickEvent(sender, e);
 
+			// チャンネル自動リトライ
+			new ChannelAutoRetry(wmp);
+
 			// WMPフルスクリーンを無効
 			wmp.MouseDownEvent += (sender, e) =>
 			{
