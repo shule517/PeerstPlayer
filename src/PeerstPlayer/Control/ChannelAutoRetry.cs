@@ -45,7 +45,7 @@ namespace PeerstPlayer.Control
 		private void Retry(AxWMPLib.AxWindowsMediaPlayer wmp)
 		{
 			wmp.Ctlcontrols.stop();
-			wmp.Ctlcontrols.play();
+			wmp.URL = wmp.URL;
 		}
 	}
 }
