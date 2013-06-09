@@ -94,6 +94,7 @@
 			this.threadListView.TabIndex = 0;
 			this.threadListView.UseCompatibleStateImageBehavior = false;
 			this.threadListView.View = System.Windows.Forms.View.Details;
+			this.threadListView.KeyDown += new System.Windows.Forms.KeyEventHandler(this.threadListView_KeyDown);
 			this.threadListView.MouseClick += new System.Windows.Forms.MouseEventHandler(this.threadListView_MouseClick);
 			// 
 			// columnHeaderNo

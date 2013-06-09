@@ -136,13 +136,19 @@ namespace PeerstPlayer.View
 			threadListView.Select();
 
 			// 幅を自動調整
-			threadListView.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
 			int width = 0;
 			foreach (ColumnHeader item in threadListView.Columns)
 			{
-				width += item.Width;
+				if (item.Text.Equals("Since"))
+				{
+					item.Width = -1;
+				}
+				else
+				{
+					item.Width = -2;
+				}
 			}
-			this.ClientSize = new Size(width + 30, ClientSize.Height);
+			this.ClientSize = new Size(threadListView.PreferredSize.Width + 30, ClientSize.Height);
 		}
 
 		//-------------------------------------------------------------
@@ -157,35 +163,56 @@ namespace PeerstPlayer.View
 		}
 
 		//-------------------------------------------------------------
+		// 概要：キー押下イベント
+		//-------------------------------------------------------------
+		private void threadListView_KeyDown(object sender, KeyEventArgs e)
+		{
+			// エンター押下
+			if (e.KeyCode == Keys.Return)
+			{
+				SelectThread();
+			}
+			else if (e.KeyCode == Keys.Escape)
+			{
+				Close();
+			}
+		}
+
+		//-------------------------------------------------------------
 		// 概要：クリックイベント
 		//-------------------------------------------------------------
 		private void threadListView_MouseClick(object sender, MouseEventArgs e)
 		{
-			Logger.Instance.Info("スレッド一覧をクリック");
-
-			// 未選択チェック
-			if (threadListView.SelectedItems.Count == 0)
-			{
-				Logger.Instance.Warn("スレッド未選択");
-				return;
-			}
-
 			// 左クリック
 			if (e.Button == System.Windows.Forms.MouseButtons.Left)
 			{
-				// スレッド選択
-				string selectThreadNo = threadListView.SelectedItems[0].Tag.ToString();
-				Logger.Instance.InfoFormat("スレッド選択 [スレッド番号:{0}]", selectThreadNo);
-
-				// スレッド変更通知
-				viewModel.ChangeThread(selectThreadNo);
-				urlTextBox.Text = viewModel.ThreadUrl;
-				ThreadChange(sender, e);
-
-				// 非表示
-				Logger.Instance.InfoFormat("スレッド選択画面を非表示");
-				Visible = false;
+				SelectThread();
 			}
+		}
+
+		//-------------------------------------------------------------
+		// 概要：スレッド選択処理
+		//-------------------------------------------------------------
+		private void SelectThread()
+		{
+			// 未選択チェック
+			if (threadListView.SelectedItems.Count == 0)
+			{
+				return;
+			}
+
+			// スレッド選択
+			string selectThreadNo = threadListView.SelectedItems[0].Tag.ToString();
+			Logger.Instance.InfoFormat("スレッド選択 [スレッド番号:{0}]", selectThreadNo);
+
+			// スレッド変更通知
+			viewModel.ChangeThread(selectThreadNo);
+			urlTextBox.Text = viewModel.ThreadUrl;
+			ThreadChange(this, new EventArgs());
+
+			// 非表示
+			Logger.Instance.InfoFormat("スレッド選択画面を非表示");
+			Visible = false;
 		}
 
 		//-------------------------------------------------------------
