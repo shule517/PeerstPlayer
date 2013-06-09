@@ -52,6 +52,9 @@ namespace PeerstPlayer
 		// イベントMap (イベント -> コマンド)
 		private Dictionary<Event, Command> eventMap = new Dictionary<Event, Command>();
 
+		// マウスジェスチャーMap (ジェスチャー -> コマンド)
+		private Dictionary<string, Command> gestureMap = new Dictionary<string, Command>();
+
 		//-------------------------------------------------------------
 		// コンストラクタ
 		//-------------------------------------------------------------
@@ -277,14 +280,7 @@ namespace PeerstPlayer
 						}
 
 						// TODO 設定画面でマウスジェスチャを設定できるようにする
-						if (mouseGesture.ToString() == "↓→")
-						{
-							ExecCommand(Command.Close);
-						}
-						else if (mouseGesture.ToString() == "↓")
-						{
-							ExecCommand(Command.OpenPeerstViewer);
-						}
+						ExecGesture(mouseGesture.ToString());
 
 						// マウスジェスチャー実行後、後ろのウィンドウに対して
 						// 右クリックをしないようにする
@@ -310,9 +306,19 @@ namespace PeerstPlayer
 				// コマンド作成
 				CreateEvent();
 				CreateCommand();
+				CreateGesture();
 			};
 
 			// TODO デバッグ終了
+		}
+
+		//-------------------------------------------------------------
+		// 概要：マウスジェスチャーの設定作成
+		//-------------------------------------------------------------
+		private void CreateGesture()
+		{
+			gestureMap.Add("↓→", Command.Close);
+			gestureMap.Add("↓", Command.OpenPeerstViewer);
 		}
 
 		//-------------------------------------------------------------
@@ -332,6 +338,19 @@ namespace PeerstPlayer
 			Logger.Instance.InfoFormat("イベント実行 [イベントID:{0}]", eventId);
 			Command commandId = eventMap[eventId];
 			ExecCommand(commandId);
+		}
+
+		//-------------------------------------------------------------
+		// 概要：マウスジェスチャー実行
+		//-------------------------------------------------------------
+		private void ExecGesture(string gesture)
+		{
+			Command commandId;
+			if (gestureMap.TryGetValue(gesture, out commandId))
+			{
+				Logger.Instance.InfoFormat("マウスジェスチャー実行 [ジェスチャー:{0}, コマンドID:{1}]", gesture, commandId);
+				ExecCommand(commandId);
+			}
 		}
 
 		//-------------------------------------------------------------
