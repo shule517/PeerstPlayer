@@ -67,11 +67,7 @@
     </Compile>
     <Compile Include="Form\AspectRateKeepWindow.cs" />
     <Compile Include="Form\FormUtility.cs" />
-    <Compile Include="Form\MouseCapture.cs" />
     <Compile Include="Form\MouseGesture.cs" />
-    <Compile Include="Form\MouseHook.cs">
-      <SubType>Component</SubType>
-    </Compile>
     <Compile Include="Form\Win32API.cs" />
     <Compile Include="Utility\Logger.cs" />
     <Compile Include="PeerCast\ChannelInfo.cs" />

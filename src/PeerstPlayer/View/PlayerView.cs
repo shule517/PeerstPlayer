@@ -4,7 +4,6 @@ using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
-using HongliangSoft.Utilities.Gui;
 using PeerstLib.Control;
 using PeerstLib.Form;
 using PeerstLib.PeerCast;
@@ -172,9 +171,18 @@ namespace PeerstPlayer
 
 				// タイマーイベント
 				Timer timer = new Timer();
-				timer.Interval = 1000;
+				timer.Interval = 500;
 				timer.Tick += (sender, e) =>
 				{
+					// 自動表示ボタンの表示切り替え
+					if (toolStrip.Visible)
+					{
+						if (!RectangleToScreen(ClientRectangle).Contains(MousePosition))
+						{
+							toolStrip.Visible = false;
+						}
+					}
+
 					// 動画ステータスを表示
 					if (pecaPlayer.Duration.Length == 0)
 					{
@@ -228,63 +236,53 @@ namespace PeerstPlayer
 				{
 					if (e.nButton == (short)Keys.RButton)
 					{
+						string gesture = mouseGesture.ToString();
 						// マウスジェスチャーが実行されていなければ
-						if (string.IsNullOrEmpty(mouseGesture.ToString()))
+						if (string.IsNullOrEmpty(gesture))
 						{
 							// コンテキストメニュー表示
 							pecaPlayer.EnableContextMenu = true;
 							FormUtility.ShowContextMenu(this.pecaPlayer.WMPHandle, MousePosition);
 							pecaPlayer.EnableContextMenu = false;
 						}
-					}
-				};
-
-				// マウスフック
-				MouseHook mouseHook = new MouseHook(MouseHook.HookType.GlobalHook);
-				mouseHook.MouseHooked += (sender, e) =>
-				{
-					if (e.Message == MouseMessage.Move)
-					{
-						if (isGesturing)
+						else if (isGesturing)
 						{
-							// ジェスチャー表示
-							mouseGesture.Moving(e.Point);
-							statusBar.ChannelDetail = mouseGesture.ToString();
+							// マウスジェスチャー実行
+							ExecGesture(gesture);
 						}
 
-						// 自動表示ボタンの表示切り替え
-						if (RectangleToScreen(ClientRectangle).Contains(MousePosition))
-						{
-							toolStrip.Visible = true;
-						}
-						else
-						{
-							toolStrip.Visible = false;
-						}
-					}
-					else if (e.Message == MouseMessage.RUp)
-					{
 						isGesturing = false;
 
-						// TODO ジェスチャーを実行：statusBar.ChannelDetail = mouseGesture.ToString();
+						// チャンネル詳細を再描画
 						ChannelInfo info = pecaPlayer.ChannelInfo;
 						if (info != null)
 						{
 							statusBar.ChannelDetail = String.Format("{0} {1}{2} {3}", info.Name, string.IsNullOrEmpty(info.Genre) ? "" : string.Format("[{0}] ", info.Genre), info.Desc, info.Comment);
 						}
+					}
+				};
 
-						// マウスカーソルが画面内
-						if (!RectangleToScreen(ClientRectangle).Contains(MousePosition))
+				// マウスムーズイベント
+				pecaPlayer.MouseMoveEvent += (sender, e) =>
+				{
+					if (!toolStrip.Visible)
+					{
+						toolStrip.Visible = true;
+					}
+
+					if (isGesturing)
+					{
+						// ジェスチャー表示
+						mouseGesture.Moving(new Point(e.fX, e.fY));
+
+						string gesture = mouseGesture.ToString();
+						Command commandId;
+						if (gestureMap.TryGetValue(gesture, out commandId))
 						{
+							statusBar.ChannelDetail = string.Format("[{0}] {1}", gesture, commandId);
 							return;
 						}
-
-						// TODO 設定画面でマウスジェスチャを設定できるようにする
-						ExecGesture(mouseGesture.ToString());
-
-						// マウスジェスチャー実行後、後ろのウィンドウに対して
-						// 右クリックをしないようにする
-						e.Cancel = true;
+						statusBar.ChannelDetail = gesture;
 					}
 				};
 
@@ -292,7 +290,7 @@ namespace PeerstPlayer
 				FormClosing += (sender, e) =>
 				{
 					Logger.Instance.Debug("FormClosing");
-					mouseHook.Dispose();
+					//mouseHook.Dispose();
 					pecaPlayer.Close();
 					statusBar.Close();
 				};
