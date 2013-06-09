@@ -100,7 +100,7 @@ namespace PeerstLib.Bbs.Strategy
 		//-------------------------------------------------------------
 		// 概要：レス書き込み
 		//-------------------------------------------------------------
-		public void Write(string name, string mail, string message)
+		public string Write(string name, string mail, string message)
 		{
 			Logger.Instance.DebugFormat("Write(name:{0}, mail:{1}, message:{2})", name, mail, message);
 
@@ -128,7 +128,7 @@ namespace PeerstLib.Bbs.Strategy
 			responseStream.Close();
 
 			// 書き込みエラーチェック
-			CheckWriteError(html);
+			return CheckWriteError(html);
 		}
 
 		//-------------------------------------------------------------
@@ -150,14 +150,28 @@ namespace PeerstLib.Bbs.Strategy
 		//-------------------------------------------------------------
 		protected abstract byte[] CreateWriteRequestData(string name, string mail, string message);
 
+		public enum WriteStatus
+		{
+			Posted,				// 書きこみました
+			NothingMessage,		// 本文がありません
+			MultiWriteError,	// 多重書き込みです
+			NothingThreadError, // 該当スレッドは存在しません
+			LostUserInfoError,	// ユーザー設定が消失しています
+			ThreadStopError,	// スレッドストップです
+		}
+
 		//-------------------------------------------------------------
 		// 概要：書き込みエラーチェック
 		//-------------------------------------------------------------
-		private void CheckWriteError(string html)
+		protected string CheckWriteError(string html)
 		{
-			Regex regex = new Regex("<title>(.*)</title>");
-			Match match = regex.Match(html);
-			string title = match.Groups[1].Value;
+			Regex titleRegex = new Regex("<title>(.*)</title>");
+			Match titleMatch = titleRegex.Match(html);
+			string title = titleMatch.Groups[1].Value;
+
+			Regex tagRegex = new Regex("<!-- 2ch_X:(.*) -->");
+			Match tagMatch = tagRegex.Match(html);
+			string tag = tagMatch.Groups[1].Value;
 
 			// 書き込み失敗
 			if (title.StartsWith("ERROR") || title.StartsWith("ＥＲＲＯＲ"))
@@ -167,6 +181,7 @@ namespace PeerstLib.Bbs.Strategy
 			}
 
 			Logger.Instance.DebugFormat("レス書き込み：正常 [スレッド:{0} 実行結果:{1}]", title, BbsInfo.Url);
+			return html;
 		}
 
 		//-------------------------------------------------------------
