@@ -1,0 +1,13 @@
+<html>
+<head>
+<title>ERROR!!</title>
+
+</head>
+<body bgcolor="#FFFFFF"><!-- 2ch_X:error -->
+<table width="100%" border="1" cellspacing="0" cellpadding="10">
+<tr><td><b>ERROR!!<br><br>ユーザー設定が消失しています</b></td></tr>
+</table>
+<hr size=1>
+<div align="right"><a href="http://rentalbbs.livedoor.com/">したらば掲示板 (無料レンタル)</a></div>
+</body>
+</html>

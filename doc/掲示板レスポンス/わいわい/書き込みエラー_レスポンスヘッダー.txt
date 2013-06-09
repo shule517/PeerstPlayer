@@ -1,0 +1,8 @@
++		response.Headers	{Vary: Accept-Encoding
+Connection: close
+Transfer-Encoding: chunked
+Content-Type: text/html
+Date: Sun, 26 May 2013 14:07:12 GMT
+Server: Apache/2.0.59 (Unix) PHP/5.2.5 mod_ssl/2.0.59 OpenSSL/0.9.8e
+
+}	System.Net.WebHeaderCollection
