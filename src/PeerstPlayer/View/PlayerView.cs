@@ -63,21 +63,11 @@ namespace PeerstPlayer
 
 			Shown += (senderObject, eventArg) =>
 			{
-				// 画面表示
-				Application.DoEvents();
-
+				// コマンドライン引数のログ出力
 				string[] commandLine = Environment.GetCommandLineArgs();
 				foreach (string arg in commandLine)
 				{
 					Logger.Instance.InfoFormat("コマンドライン引数[{0}]", arg);
-				}
-
-				// 動画再生
-				if (Environment.GetCommandLineArgs().Length > 1)
-				{
-					string url = commandLine[1];
-					Logger.Instance.InfoFormat("動画再生[url:{0}]", url);
-					Open(url);
 				}
 
 				// チャンネル名表示
@@ -86,6 +76,17 @@ namespace PeerstPlayer
 					string name = commandLine[2];
 					Logger.Instance.InfoFormat("チャンネル名:{0}", name);
 					statusBar.ChannelDetail = name;
+				}
+
+				// チャンネル名設定後、画面表示
+				Application.DoEvents();
+
+				// 動画再生
+				if (Environment.GetCommandLineArgs().Length > 1)
+				{
+					string url = commandLine[1];
+					Logger.Instance.InfoFormat("動画再生[url:{0}]", url);
+					Open(url);
 				}
 
 				// 最小化ボタン
