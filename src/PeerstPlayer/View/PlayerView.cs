@@ -340,7 +340,14 @@ namespace PeerstPlayer
 			// 閉じる
 			commandMap.Add(Command.Close, () => Close());
 			// ステータスバーの表示切り替え
-			commandMap.Add(Command.VisibleStatusBar, () => statusBar.WriteFieldVisible = !statusBar.WriteFieldVisible);
+			commandMap.Add(Command.VisibleStatusBar, () =>
+			{
+				statusBar.WriteFieldVisible = !statusBar.WriteFieldVisible;
+				if (statusBar.WriteFieldVisible)
+				{
+					statusBar.Focus();
+				}
+			});
 			// ウィンドウを最大化
 			commandMap.Add(Command.WindowMaximize, () =>
 			{
