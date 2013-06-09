@@ -285,6 +285,10 @@ namespace PeerstPlayer
 						{
 							ExecCommand(Command.OpenPeerstViewer);
 						}
+
+						// マウスジェスチャー実行後、後ろのウィンドウに対して
+						// 右クリックをしないようにする
+						e.Cancel = true;
 					}
 				};
 
