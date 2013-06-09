@@ -169,18 +169,26 @@ namespace PeerstPlayer
 				// スレッドタイトル右クリックイベント
 				statusBar.ThreadTitleRightClick += (sender, e) => ExecCommand(Command.OpenPeerstViewer);
 
+				// マウスジェスチャー
+				MouseGesture mouseGesture = new MouseGesture();
+				mouseGesture.Interval = 10;
+				bool isGesturing = false;
+
 				// タイマーイベント
 				Timer timer = new Timer();
 				timer.Interval = 500;
 				timer.Tick += (sender, e) =>
 				{
-					// 自動表示ボタンの表示切り替え
-					if (toolStrip.Visible)
+					if (!RectangleToScreen(ClientRectangle).Contains(MousePosition))
 					{
-						if (!RectangleToScreen(ClientRectangle).Contains(MousePosition))
+						// 自動表示ボタンの表示切り替え
+						if (toolStrip.Visible)
 						{
 							toolStrip.Visible = false;
 						}
+
+						// 画面外に出たらマウスジェスチャー解除
+						isGesturing = false;
 					}
 
 					// 動画ステータスを表示
@@ -209,11 +217,6 @@ namespace PeerstPlayer
 					}
 				};
 				timer.Start();
-
-				// マウスジェスチャー
-				MouseGesture mouseGesture = new MouseGesture();
-				mouseGesture.Interval = 10;
-				bool isGesturing = false;
 
 				// マウスダウンイベント
 				pecaPlayer.MouseDownEvent += (sender, e) =>
@@ -289,6 +292,7 @@ namespace PeerstPlayer
 				// 終了処理
 				FormClosing += (sender, e) =>
 				{
+					Visible = false;
 					Logger.Instance.Debug("FormClosing");
 					//mouseHook.Dispose();
 					pecaPlayer.Close();
