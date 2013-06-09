@@ -96,6 +96,7 @@ namespace PeerstPlayer
 			this.statusBar.Margin = new System.Windows.Forms.Padding(0);
 			this.statusBar.MovieStatus = "";
 			this.statusBar.Name = "statusBar";
+			this.statusBar.SelectThreadUrl = null;
 			this.statusBar.Size = new System.Drawing.Size(480, 18);
 			this.statusBar.TabIndex = 1;
 			this.statusBar.Volume = "50";
@@ -104,6 +105,7 @@ namespace PeerstPlayer
 			// pecaPlayer
 			// 
 			this.pecaPlayer.ChannelInfo = null;
+			this.pecaPlayer.EnableContextMenu = false;
 			this.pecaPlayer.Location = new System.Drawing.Point(0, 0);
 			this.pecaPlayer.Margin = new System.Windows.Forms.Padding(0);
 			this.pecaPlayer.Mute = false;
@@ -117,7 +119,7 @@ namespace PeerstPlayer
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.BackColor = System.Drawing.Color.Black;
-			this.ClientSize = new System.Drawing.Size(480, 407);
+			this.ClientSize = new System.Drawing.Size(480, 379);
 			this.ControlBox = false;
 			this.Controls.Add(this.toolStrip);
 			this.Controls.Add(this.statusBar);

@@ -60,6 +60,12 @@ namespace PeerstPlayer.Control
 			}
 		}
 
+		// バッファー率
+		public int BufferingProgress
+		{
+			get { return wmp.network.bufferingProgress; }
+		}
+
 		// 再生状態
 		public WMPPlayState PlayState
 		{

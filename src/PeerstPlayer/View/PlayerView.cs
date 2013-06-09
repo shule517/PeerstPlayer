@@ -61,7 +61,7 @@ namespace PeerstPlayer
 
 			// TODO デバッグ開始
 
-			Shown += (_, __) =>
+			Shown += (senderObject, eventArg) =>
 			{
 				// 画面表示
 				Application.DoEvents();
@@ -182,7 +182,7 @@ namespace PeerstPlayer
 							case WMPPlayState.wmppsPlaying: statusBar.MovieStatus = "再生中"; break;
 							case WMPPlayState.wmppsScanForward: statusBar.MovieStatus = "早送り"; break;
 							case WMPPlayState.wmppsScanReverse: statusBar.MovieStatus = "巻き戻し"; break;
-							case WMPPlayState.wmppsBuffering: statusBar.MovieStatus = "バッファ中"; break;
+							case WMPPlayState.wmppsBuffering: statusBar.MovieStatus = string.Format("バッファ{0}%", pecaPlayer.BufferingProgress); break;
 							case WMPPlayState.wmppsWaiting: statusBar.MovieStatus = "接続待機"; break;
 							case WMPPlayState.wmppsMediaEnded: statusBar.MovieStatus = "再生完了"; break;
 							case WMPPlayState.wmppsTransitioning: statusBar.MovieStatus = "準備中"; break;
