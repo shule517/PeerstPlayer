@@ -139,7 +139,6 @@ namespace PeerstPlayer.View
 			threadListView.Select();
 
 			// 幅を自動調整
-			int width = 0;
 			foreach (ColumnHeader item in threadListView.Columns)
 			{
 				if (item.Text.Equals("Since"))

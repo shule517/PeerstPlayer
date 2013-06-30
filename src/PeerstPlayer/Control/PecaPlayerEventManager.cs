@@ -30,11 +30,6 @@ namespace PeerstPlayer.Control
 		public PecaPlayerEventManager(AxWindowsMediaPlayer wmp)
 		{
 			wmp.DoubleClickEvent += wmp_DoubleClickEvent;
-			wmp.MouseDownEvent += wmp_MouseDownEvent;
-		}
-
-		void wmp_MouseDownEvent(object sender, _WMPOCXEvents_MouseDownEvent e)
-		{
 		}
 
 		private void wmp_DoubleClickEvent(object sender, _WMPOCXEvents_DoubleClickEvent e)

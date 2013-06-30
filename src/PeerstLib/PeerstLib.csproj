@@ -68,6 +68,7 @@
     <Compile Include="Form\AspectRateKeepWindow.cs" />
     <Compile Include="Form\FormUtility.cs" />
     <Compile Include="Form\MouseGesture.cs" />
+    <Compile Include="Form\PecaPlayer.cs" />
     <Compile Include="Form\Win32API.cs" />
     <Compile Include="Utility\Logger.cs" />
     <Compile Include="PeerCast\ChannelInfo.cs" />

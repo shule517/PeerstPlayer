@@ -72,6 +72,9 @@ namespace PeerstPlayer.Control
 			get { return wmp.playState; }
 		}
 
+		// クリック開始位置
+		public System.Drawing.Point ClickPoint { get; set; }
+
 		// マウス押下イベント
 		public event AxWMPLib._WMPOCXEvents_MouseDownEventHandler MouseDownEvent
 		{
@@ -149,6 +152,10 @@ namespace PeerstPlayer.Control
 			// WMPフルスクリーンを無効
 			wmp.MouseDownEvent += (sender, e) =>
 			{
+				// クリック開始位置を設定
+				ClickPoint = new System.Drawing.Point(e.fX, e.fY);
+
+				// WMPのフルクリーンを解除
 				if (wmp.fullScreen)
 				{
 					wmp.fullScreen = false;

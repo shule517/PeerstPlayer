@@ -299,8 +299,8 @@ namespace PeerstPlayer
 					statusBar.Close();
 				};
 
-				// アスペクト比維持
-				new AspectRateKeepWindow(this.Handle);
+				// ウィンドウスナップ
+				new SnapWindow(this, pecaPlayer);
 
 				// 書き込み欄の非表示
 				statusBar.WriteFieldVisible = false;
