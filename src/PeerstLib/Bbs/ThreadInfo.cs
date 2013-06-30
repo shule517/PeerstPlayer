@@ -24,5 +24,11 @@ namespace PeerstLib.Bbs
 
 		// スレッド作成からの経過日数
 		public double ThreadSince { get; set; }
+
+		// スレッドストップ
+		public bool IsStopThread { get { return ResCount >= MaxResCount; } }
+
+		// 最大レス数
+		public int MaxResCount { get { return 1000; } } // TODO 掲示板情報から取得する
 	}
 }

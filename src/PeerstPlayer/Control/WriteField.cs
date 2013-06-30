@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Drawing;
 using System.Windows.Forms;
 using PeerstLib.Bbs;
 using PeerstLib.Utility;
@@ -110,6 +111,16 @@ namespace PeerstPlayer.Control
 				try
 				{
 					selectThreadLabel.Text = string.Format("スレッド[ {0} ] ({1})", operationBbs.SelectThread.ThreadTitle, operationBbs.SelectThread.ResCount);
+
+					// スレッドストップ時の色設定
+					if (operationBbs.SelectThread.IsStopThread)
+					{
+						selectThreadLabel.ForeColor = Color.Red;
+					}
+					else
+					{
+						selectThreadLabel.ForeColor = Color.SpringGreen;
+					}
 				}
 				catch
 				{
