@@ -420,7 +420,10 @@ namespace PeerstPlayer
 			// ウィンドウを最小化
 			commandMap.Add(Command.WindowMinimization, () => WindowState = FormWindowState.Minimized);
 			// 閉じる
-			commandMap.Add(Command.Close, () => Close());
+			commandMap.Add(Command.Close, () =>
+			{
+				Application.Exit();
+			});
 			// ステータスバーの表示切り替え
 			commandMap.Add(Command.VisibleStatusBar, () =>
 			{
