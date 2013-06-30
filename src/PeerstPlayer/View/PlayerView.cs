@@ -239,8 +239,15 @@ namespace PeerstPlayer
 				{
 					if (e.nButton == (short)Keys.RButton)
 					{
-						string gesture = mouseGesture.ToString();
+						// チャンネル詳細を再描画
+						ChannelInfo info = pecaPlayer.ChannelInfo;
+						if (info != null)
+						{
+							statusBar.ChannelDetail = String.Format("{0} {1}{2} {3}", info.Name, string.IsNullOrEmpty(info.Genre) ? "" : string.Format("[{0}] ", info.Genre), info.Desc, info.Comment);
+						}
+
 						// マウスジェスチャーが実行されていなければ
+						string gesture = mouseGesture.ToString();
 						if (string.IsNullOrEmpty(gesture))
 						{
 							// コンテキストメニュー表示
@@ -255,13 +262,6 @@ namespace PeerstPlayer
 						}
 
 						isGesturing = false;
-
-						// チャンネル詳細を再描画
-						ChannelInfo info = pecaPlayer.ChannelInfo;
-						if (info != null)
-						{
-							statusBar.ChannelDetail = String.Format("{0} {1}{2} {3}", info.Name, string.IsNullOrEmpty(info.Genre) ? "" : string.Format("[{0}] ", info.Genre), info.Desc, info.Comment);
-						}
 					}
 				};
 
@@ -282,18 +282,18 @@ namespace PeerstPlayer
 						Command commandId;
 						if (gestureMap.TryGetValue(gesture, out commandId))
 						{
-							statusBar.ChannelDetail = string.Format("[{0}] {1}", gesture, commandId);
+							statusBar.ChannelDetail = string.Format("マウスジェスチャ：{0}({1})", gesture, commandId);
 							return;
 						}
-						statusBar.ChannelDetail = gesture;
+						statusBar.ChannelDetail = string.Format("マウスジェスチャ：{0}", gesture);
 					}
 				};
 
 				// 終了処理
-				FormClosing += (sender, e) =>
+				FormClosed += (sender, e) =>
 				{
 					Visible = false;
-					Logger.Instance.Debug("FormClosing");
+					Logger.Instance.Debug("FormClosed");
 					//mouseHook.Dispose();
 					pecaPlayer.Close();
 					statusBar.Close();
