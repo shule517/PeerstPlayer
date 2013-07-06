@@ -25,7 +25,7 @@ namespace PeerstPlayer
 			Mute,					// ミュートボタン押下
 			DoubleClick,			// ダブルクリック
 			StatusbarRightClick,	// ステータスバー右クリック
-			StatusbarLeftClick,
+			StatusbarLeftClick,		// ステータスバー左クリック
 		};
 
 		// コマンド実行
@@ -300,7 +300,7 @@ namespace PeerstPlayer
 				};
 
 				// ウィンドウスナップ
-				new SnapWindow(this, pecaPlayer);
+				new WindowSnap(this, pecaPlayer);
 
 				// 書き込み欄の非表示
 				statusBar.WriteFieldVisible = false;

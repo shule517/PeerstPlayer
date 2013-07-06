@@ -74,7 +74,7 @@
       <DependentUpon>PecaPlayer.cs</DependentUpon>
     </Compile>
     <Compile Include="Control\PecaPlayerEventManager.cs" />
-    <Compile Include="Control\SnapWindow.cs" />
+    <Compile Include="Control\WindowSnap.cs" />
     <Compile Include="Control\StatusBar.cs">
       <SubType>UserControl</SubType>
     </Compile>

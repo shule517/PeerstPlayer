@@ -11,8 +11,38 @@ namespace PeerstLib.Control
 	{
 		[DllImport("user32.dll")]
 		public static extern IntPtr SendMessage(IntPtr hWnd, int msg, IntPtr wp, IntPtr lp);
+
 		[DllImport("user32.dll", EntryPoint = "SetWindowText")]
 		public static extern void SetWindowText(IntPtr hWnd, String text);
+
+		/// <summary>
+		/// 座標を含むウインドウのハンドルを取得
+		/// </summary>
+		/// <param name="Point">調査する座標</param>
+		/// <returns>ポイントにウインドウがなければNULL</returns>
+		[DllImport("user32.dll")]
+		public static extern IntPtr WindowFromPoint(POINT Point);
+
+		/// <summary>
+		/// 指定したハンドルの祖先のハンドルを取得
+		/// </summary>
+		/// <param name="hwnd">ハンドル</param>
+		/// <param name="gaFlags">フラグ</param>
+		/// <returns>祖先のハンドル</returns>
+		[DllImport("user32.dll")]
+		public static extern IntPtr GetAncestor(IntPtr hwnd, uint gaFlags);
+
+		// フラグ
+		public const uint GA_ROOT = 2;
+
+		/// <summary>
+		/// ハンドルからウインドウの位置を取得
+		/// </summary>
+		/// <param name="hWnd">ウインドウのハンドル</param>
+		/// <param name="lpRect">ウインドウの座標</param>
+		/// <returns>成功すればtrue</returns>
+		[DllImport("user32.dll")]
+		public static extern bool GetWindowRect(IntPtr hWnd, out RECT lpRect);
 	}
 
 	// ウィンドウメッセージ
@@ -48,5 +78,21 @@ namespace PeerstLib.Control
 		TopRight = 14,		// 可変枠の右上隅にある
 		BottomLeft = 16,	// 可変枠の左下隅にある
 		BottomRight = 17,	// 可変枠の右下隅にある
+	}
+
+	[StructLayout(LayoutKind.Sequential)]
+	public struct POINT
+	{
+		public int x;
+		public int y;
+	}
+
+	[StructLayout(LayoutKind.Sequential)]
+	public struct RECT
+	{
+		public int left;
+		public int top;
+		public int right;
+		public int bottom;
 	}
 }
