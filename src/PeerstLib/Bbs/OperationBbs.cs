@@ -83,6 +83,12 @@ namespace PeerstLib.Bbs
 		//-------------------------------------------------------------
 		public void ChangeUrl(string url)
 		{
+			if (String.IsNullOrEmpty(url))
+			{
+				Logger.Instance.DebugFormat("ChangeUrl [URL指定なし]", url);
+				return;
+			}
+
 			Logger.Instance.DebugFormat("ChangeUrl(url:{0})", url);
 
 			// データ更新

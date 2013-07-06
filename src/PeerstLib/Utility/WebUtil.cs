@@ -1,4 +1,5 @@
 ﻿using System.Configuration;
+using System.IO;
 using System.Net;
 using System.Net.Configuration;
 using System.Text;
@@ -21,6 +22,7 @@ namespace PeerstLib.Utility
 			try
 			{
 				WebClient wc = new WebClient();
+				wc.Proxy = null; // 遅延回避のため
 				byte[] data = wc.DownloadData(url);
 				string result = encoding.GetString(data);
 				Logger.Instance.DebugFormat("HTMLの取得:正常");

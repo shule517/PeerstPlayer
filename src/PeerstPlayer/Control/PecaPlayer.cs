@@ -180,7 +180,7 @@ namespace PeerstPlayer.Control
 			// 再生変更イベント
 			wmp.OpenStateChange += (sender, e) =>
 			{
-				Logger.Instance.Debug("OpenStateChange");
+				Logger.Instance.Debug(String.Format("OpenStateChange [{0}]", wmp.openState.ToString()));
 				// 動画切替時に、音量が初期化されるための対応
 				// TODO ミュート時に音量が変わらないようにする
 				VolumeChange(this, new EventArgs());
