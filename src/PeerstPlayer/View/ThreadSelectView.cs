@@ -60,7 +60,18 @@ namespace PeerstPlayer.View
 				// スレッド一覧の描画
 				DrawThreadList();
 			};
-			// TODO 初期フォーカス時にURLテストトボックスを全選択する
+
+			// 初期フォーカス時にURLテキストボックスを全選択する
+			bool focused = false;
+			urlTextBox.MouseDown += (sender, e) =>
+			{
+				if (!focused)
+				{
+					urlTextBox.SelectAll();
+					focused = true;
+				}
+			};
+			urlTextBox.MouseLeave += (sender, e) => focused = false;
 		}
 
 		//-------------------------------------------------------------
