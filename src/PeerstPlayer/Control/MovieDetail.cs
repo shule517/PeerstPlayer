@@ -50,16 +50,15 @@ namespace PeerstPlayer.Control
 			InitializeComponent();
 
 			// チャンネル詳細クリック
-			ChannelDetailLabel.MouseClick += (sender, e) =>
+
+			MouseEventHandler action = (sender, e) =>
 			{
 				Logger.Instance.Info("チャンネル詳細をクリック");
 				ChannelDetailClick(sender, e);
 			};
-			movieStatusLabel.MouseClick += (sender, e) =>
-			{
-				Logger.Instance.Info("チャンネル詳細をクリック");
-				ChannelDetailClick(sender, e);
-			};
+			this.MouseClick += action;
+			ChannelDetailLabel.MouseClick += action;
+			movieStatusLabel.MouseClick += action;
 
 			// 音量クリック
 			volumeLabel.Click += (sender, e) =>
