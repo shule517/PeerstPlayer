@@ -97,7 +97,7 @@ namespace PeerstPlayer.View
 				if (!checkBox.Checked)
 				{
 					// ストップしたスレッドはスルー
-					if (info.ResCount >= 1000)
+					if (info.IsStopThread)
 					{
 						continue;
 					}
@@ -137,20 +137,6 @@ namespace PeerstPlayer.View
 
 			// 選択
 			threadListView.Select();
-
-			// 幅を自動調整
-			foreach (ColumnHeader item in threadListView.Columns)
-			{
-				if (item.Text.Equals("Since"))
-				{
-					item.Width = -1;
-				}
-				else
-				{
-					item.Width = -2;
-				}
-			}
-			this.ClientSize = new Size(threadListView.PreferredSize.Width + 30, ClientSize.Height);
 		}
 
 		//-------------------------------------------------------------

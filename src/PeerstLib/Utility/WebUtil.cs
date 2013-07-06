@@ -3,6 +3,7 @@ using System.IO;
 using System.Net;
 using System.Net.Configuration;
 using System.Text;
+using System.Web;
 
 namespace PeerstLib.Utility
 {
@@ -25,6 +26,7 @@ namespace PeerstLib.Utility
 				wc.Proxy = null; // 遅延回避のため
 				byte[] data = wc.DownloadData(url);
 				string result = encoding.GetString(data);
+				result = HttpUtility.HtmlDecode(result);
 				Logger.Instance.DebugFormat("HTMLの取得:正常");
 				return result;
 			}

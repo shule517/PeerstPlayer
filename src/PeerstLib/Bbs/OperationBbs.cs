@@ -86,6 +86,9 @@ namespace PeerstLib.Bbs
 			if (String.IsNullOrEmpty(url))
 			{
 				Logger.Instance.DebugFormat("ChangeUrl [URL指定なし]", url);
+				Logger.Instance.Debug("RaiseThreadListChange");
+				strategy.ThreadList = new List<ThreadInfo>();
+				ThreadListChange(this, new EventArgs());
 				return;
 			}
 

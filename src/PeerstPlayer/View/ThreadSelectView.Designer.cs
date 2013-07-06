@@ -105,7 +105,7 @@
 			// threadTitleColumnHeader
 			// 
 			this.threadTitleColumnHeader.Text = "スレッドタイトル";
-			this.threadTitleColumnHeader.Width = 308;
+			this.threadTitleColumnHeader.Width = 292;
 			// 
 			// resNumColumnHeader
 			// 
@@ -120,6 +120,7 @@
 			// sinecColumnHeader
 			// 
 			this.sinecColumnHeader.Text = "Since";
+			this.sinecColumnHeader.Width = 78;
 			// 
 			// ThreadSelectView
 			// 
