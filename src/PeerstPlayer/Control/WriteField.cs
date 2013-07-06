@@ -66,12 +66,26 @@ namespace PeerstPlayer.Control
 					RightClick(sender, e);
 				}
 			};
+
+			// 書き込みボタン押下
+			writeButton.Click += (sender, e) =>
+			{
+				// レス書き込み
+				WriteRes();
+
+				// 書き込み欄をフォーカス
+				writeFieldTextBox.Focus();
+			};
+
 			// スレッド一覧情報更新イベント
 			threadSelectView.ThreadListChange += (sender, e) => operationBbs.ChangeUrl(threadSelectView.ThreadUrl);
 			// スレッド変更イベント
 			threadSelectView.ThreadChange += (sender, e) => operationBbs.ChangeUrl(threadSelectView.ThreadUrl);
 			// スレッドタイトルの更新
 			operationBbs.ThreadListChange += (sender, e) => UpdateThreadTitle();
+
+			// 高さ自動調節
+			writeFieldTextBox_TextChanged(this, new EventArgs());
 		}
 
 		//-------------------------------------------------------------
@@ -139,10 +153,12 @@ namespace PeerstPlayer.Control
 		//-------------------------------------------------------------
 		private void writeFieldTextBox_TextChanged(object sender, EventArgs e)
 		{
+			// 書き込み欄の高さ自動調節
 			writeFieldTextBox.Height = writeFieldTextBox.PreferredSize.Height;
+			writeButton.Height = writeFieldTextBox.Height + 2;
 			Height = selectThreadLabel.Height + writeFieldTextBox.PreferredSize.Height;
 
-			// 高さの変更
+			// 高さの変更通知
 			HeightChanged(sender, e);
 		}
 
@@ -160,25 +176,36 @@ namespace PeerstPlayer.Control
 			else if (((e.Modifiers == Keys.Control) && (e.KeyCode == Keys.Enter)) ||	// Ctrl + Enter
 					((e.Modifiers == Keys.Shift) && (e.KeyCode == Keys.Enter)))			// Shift + Enter
 			{
-				string message = writeFieldTextBox.Text;
-				Logger.Instance.InfoFormat("レス書き込み [掲示板:{0} スレッド:{1}, 本文:{2}]", operationBbs.BbsInfo.BbsName, operationBbs.SelectThread.ThreadTitle, message);
+				// 書き込み後に改行が入らないようにする
 				e.SuppressKeyPress = true;
 
 				// レス書き込み
-				try
-				{
-					operationBbs.Write("", "sage", writeFieldTextBox.Text);
-					Logger.Instance.InfoFormat("レス書き込み：成功 [掲示板:{0} スレッド:{1}, 本文:{2}]", operationBbs.BbsInfo.BbsName, operationBbs.SelectThread.ThreadTitle, message);
-					writeFieldTextBox.Text = "";
-				}
-				catch
-				{
-					Logger.Instance.ErrorFormat("レス書き込み：失敗 [掲示板:{0} スレッド:{1}, 本文:{2}]", operationBbs.BbsInfo.BbsName, operationBbs.SelectThread.ThreadTitle, message);
-					MessageBox.Show(
-						string.Format("レス書き込みに失敗しました。\n\n掲示板：{0}\nスレッド：{1}\n本文：{2}", operationBbs.BbsInfo.BbsName, operationBbs.SelectThread.ThreadTitle, message),
-						"Error!!");
-					writeFieldTextBox.Text = message;
-				}
+				WriteRes();
+			}
+		}
+
+		//-------------------------------------------------------------
+		// 概要：レス書き込み
+		//-------------------------------------------------------------
+		private void WriteRes()
+		{
+			string message = writeFieldTextBox.Text;
+			Logger.Instance.InfoFormat("レス書き込み [掲示板:{0} スレッド:{1}, 本文:{2}]", operationBbs.BbsInfo.BbsName, operationBbs.SelectThread.ThreadTitle, message);
+
+			// レス書き込み
+			try
+			{
+				operationBbs.Write("", "sage", writeFieldTextBox.Text);
+				Logger.Instance.InfoFormat("レス書き込み：成功 [掲示板:{0} スレッド:{1}, 本文:{2}]", operationBbs.BbsInfo.BbsName, operationBbs.SelectThread.ThreadTitle, message);
+				writeFieldTextBox.Text = "";
+			}
+			catch
+			{
+				Logger.Instance.ErrorFormat("レス書き込み：失敗 [掲示板:{0} スレッド:{1}, 本文:{2}]", operationBbs.BbsInfo.BbsName, operationBbs.SelectThread.ThreadTitle, message);
+				MessageBox.Show(
+					string.Format("レス書き込みに失敗しました。\n\n掲示板：{0}\nスレッド：{1}\n本文：{2}", operationBbs.BbsInfo.BbsName, operationBbs.SelectThread.ThreadTitle, message),
+					"Error!!");
+				writeFieldTextBox.Text = message;
 			}
 		}
 
