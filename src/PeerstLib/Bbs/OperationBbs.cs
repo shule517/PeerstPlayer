@@ -83,8 +83,14 @@ namespace PeerstLib.Bbs
 		//-------------------------------------------------------------
 		public void ChangeUrl(string url)
 		{
-			if (String.IsNullOrEmpty(url))
+			if (url == null)
 			{
+				// 初期化中のため、スルー
+				return;
+			}
+			else if (url.Equals(""))
+			{
+				// スレッド一覧更新あり(URL指定なしに更新)
 				Logger.Instance.DebugFormat("ChangeUrl [URL指定なし]", url);
 				Logger.Instance.Debug("RaiseThreadListChange");
 				strategy.ThreadList = new List<ThreadInfo>();
