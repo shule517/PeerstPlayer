@@ -8,6 +8,8 @@ using PeerstLib.Control;
 using PeerstLib.Form;
 using PeerstLib.PeerCast;
 using PeerstLib.Utility;
+using PeerstPlayer.Model;
+using PeerstPlayer.Model.Shortcut;
 using WMPLib;
 
 namespace PeerstPlayer
@@ -17,42 +19,18 @@ namespace PeerstPlayer
 	//-------------------------------------------------------------
 	public partial class PlayerView : Form
 	{
-		// イベント定義
-		enum Event
-		{
-			WheelUp,				// ホイールUp
-			WheelDown,				// ホイールDown
-			Mute,					// ミュートボタン押下
-			DoubleClick,			// ダブルクリック
-			StatusbarRightClick,	// ステータスバー右クリック
-			StatusbarLeftClick,		// ステータスバー左クリック
-		};
-
-		// コマンド実行
-		enum Command
-		{
-			VolumeUp,			// 音量Up
-			VolumeDown,			// 音量Down
-			Mute,				// ミュート切り替え
-			WindowMaximize,		// ウィンドウ最大化
-			WindowMinimization,	// ウィンドウ最小化
-			Close,				// 閉じる
-			OpenPeerstViewer,	// ビューワを開く
-			VisibleStatusBar,	// ステータスバーの表示切り替え
-		};
-
 		//-------------------------------------------------------------
 		// 非公開プロパティ
 		//-------------------------------------------------------------
 
-		// コマンドMap (コマンド -> 実行処理)
-		private Dictionary<Command, Action> commandMap = new Dictionary<Command, Action>();
-
-		// イベントMap (イベント -> コマンド)
-		private Dictionary<Event, Command> eventMap = new Dictionary<Event, Command>();
-
-		// マウスジェスチャーMap (ジェスチャー -> コマンド)
-		private Dictionary<string, Command> gestureMap = new Dictionary<string, Command>();
+		// ショートカットコマンド
+		ShortcutManager shortcut = new ShortcutManager();
+	
+		// マウスジェスチャーの感度
+		const int MouseGestureInterval = 10;
+		
+		// 動画ステータスの更新間隔
+		const int MovieStatusUpdateInterval = 500;
 
 		//-------------------------------------------------------------
 		// コンストラクタ
@@ -61,10 +39,11 @@ namespace PeerstPlayer
 		{
 			InitializeComponent();
 
-			// TODO デバッグ開始
-
 			Shown += (senderObject, eventArg) =>
 			{
+				// 書き込み欄の非表示
+				statusBar.WriteFieldVisible = false;
+
 				// コマンドライン引数のログ出力
 				string[] commandLine = Environment.GetCommandLineArgs();
 				foreach (string arg in commandLine)
@@ -91,236 +70,15 @@ namespace PeerstPlayer
 					Open(url);
 				}
 
-				// 最小化ボタン
-				minToolStripButton.Click += (sender, e) => ExecCommand(Command.WindowMinimization);
-				// 最大化ボタン
-				maxToolStripButton.Click += (sender, e) => ExecCommand(Command.WindowMaximize);
-				// 閉じるボタン
-				closeToolStripButton.Click += (sender, e) => ExecCommand(Command.Close);
-				// 音量クリック
-				statusBar.VolumeClick += (sender, e) => RaiseEvent(Event.Mute);
-				// ダブルクリック
-				pecaPlayer.DoubleClickEvent += (sender, e) => RaiseEvent(Event.DoubleClick);
-				// マウスホイール
-				MouseWheel += (sender, e) =>
-				{
-					// 音量変更
-					if (e.Delta > 0)
-					{
-						RaiseEvent(Event.WheelUp);
-					}
-					else if (e.Delta < 0)
-					{
-						RaiseEvent(Event.WheelDown);
-					}
-				};
+				// ショートカットの初期化
+				shortcut.Init(this, pecaPlayer, statusBar);
 
-				// チャンネル情報更新
-				bool isFirst = true;
-				pecaPlayer.ChannelInfoChange += (sender, e) =>
-				{
-					ChannelInfo info = pecaPlayer.ChannelInfo;
-					// TODO 文字が空の場合は、空白を開けない
-					statusBar.ChannelDetail = String.Format("{0} {1}{2} {3}", info.Name, string.IsNullOrEmpty(info.Genre) ? "" : string.Format("[{0}] ", info.Genre), info.Desc, info.Comment);
-
-					// TODO 初回だけコンタクトURLを設定する
-					if (isFirst)
-					{
-						statusBar.SelectThreadUrl = info.Url;
-						isFirst = false;
-					}
-				};
-
-				// ステータスバーのサイズ変更
-				statusBar.HeightChanged += (sender, e) =>
-				{
-					this.ClientSize = new Size(ClientSize.Width, pecaPlayer.Height + statusBar.Height);
-				};
-
-				// ステータスバーのクリックイベント
-				statusBar.ChannelDetailClick += (sender, e) =>
-				{
-					if (e.Button == MouseButtons.Left)
-					{
-						RaiseEvent(Event.StatusbarLeftClick);
-					}
-					else if (e.Button == MouseButtons.Right)
-					{
-						RaiseEvent(Event.StatusbarRightClick);
-					}
-				};
-
-				// サイズ変更
-				SizeChanged += (sender, e) =>
-				{
-					// 幅
-					pecaPlayer.Width = ClientSize.Width;
-					statusBar.Width = ClientSize.Width;
-
-					// 高さ
-					pecaPlayer.Height = ClientSize.Height - statusBar.Height;
-					statusBar.Top = pecaPlayer.Bottom;
-				};
-
-				// 音量変更イベント
-				pecaPlayer.VolumeChange += (sender, e) =>
-					statusBar.Volume = pecaPlayer.Mute ? "-" : pecaPlayer.Volume.ToString();
-
-				// スレッドタイトル右クリックイベント
-				statusBar.ThreadTitleRightClick += (sender, e) => ExecCommand(Command.OpenPeerstViewer);
-
-				// マウスジェスチャー
-				MouseGesture mouseGesture = new MouseGesture();
-				mouseGesture.Interval = 10;
-				bool isGesturing = false;
-
-				// タイマーイベント
-				Timer timer = new Timer();
-				timer.Interval = 500;
-				timer.Tick += (sender, e) =>
-				{
-					if (!RectangleToScreen(ClientRectangle).Contains(MousePosition))
-					{
-						// 自動表示ボタンの表示切り替え
-						if (toolStrip.Visible)
-						{
-							toolStrip.Visible = false;
-						}
-
-						// 画面外に出たらマウスジェスチャー解除
-						isGesturing = false;
-					}
-
-					// 動画ステータスを表示
-					if (pecaPlayer.Duration.Length == 0)
-					{
-						switch (pecaPlayer.PlayState)
-						{
-							case WMPPlayState.wmppsUndefined: statusBar.MovieStatus = ""; break;
-							case WMPPlayState.wmppsStopped: statusBar.MovieStatus = "停止"; break;
-							case WMPPlayState.wmppsPaused: statusBar.MovieStatus = "一時停止"; break;
-							case WMPPlayState.wmppsPlaying: statusBar.MovieStatus = "再生中"; break;
-							case WMPPlayState.wmppsScanForward: statusBar.MovieStatus = "早送り"; break;
-							case WMPPlayState.wmppsScanReverse: statusBar.MovieStatus = "巻き戻し"; break;
-							case WMPPlayState.wmppsBuffering: statusBar.MovieStatus = string.Format("バッファ{0}%", pecaPlayer.BufferingProgress); break;
-							case WMPPlayState.wmppsWaiting: statusBar.MovieStatus = "接続待機"; break;
-							case WMPPlayState.wmppsMediaEnded: statusBar.MovieStatus = "再生完了"; break;
-							case WMPPlayState.wmppsTransitioning: statusBar.MovieStatus = "準備中"; break;
-							case WMPPlayState.wmppsReady: statusBar.MovieStatus = "準備完了"; break;
-							case WMPPlayState.wmppsReconnecting: statusBar.MovieStatus = "再接続"; break;
-						}
-					}
-					// 再生時間を表示
-					else
-					{
-						statusBar.MovieStatus = pecaPlayer.Duration;
-					}
-				};
-				timer.Start();
-
-				// マウスダウンイベント
-				pecaPlayer.MouseDownEvent += (sender, e) =>
-				{
-					if (e.nButton == (short)Keys.LButton)
-					{
-						// マウスドラッグ
-						FormUtility.WindowDragStart(this.Handle);
-					}
-					else if (e.nButton == (short)Keys.RButton)
-					{
-						// マウスジェスチャー開始
-						mouseGesture.Start();
-						isGesturing = true;
-					}
-				};
-
-				// マウスアップイベント
-				pecaPlayer.MouseUpEvent += (sender, e) =>
-				{
-					if (e.nButton == (short)Keys.RButton)
-					{
-						// チャンネル詳細を再描画
-						ChannelInfo info = pecaPlayer.ChannelInfo;
-						if (info != null)
-						{
-							statusBar.ChannelDetail = String.Format("{0} {1}{2} {3}", info.Name, string.IsNullOrEmpty(info.Genre) ? "" : string.Format("[{0}] ", info.Genre), info.Desc, info.Comment);
-						}
-
-						// マウスジェスチャーが実行されていなければ
-						string gesture = mouseGesture.ToString();
-						if (string.IsNullOrEmpty(gesture))
-						{
-							// コンテキストメニュー表示
-							pecaPlayer.EnableContextMenu = true;
-							FormUtility.ShowContextMenu(this.pecaPlayer.WMPHandle, MousePosition);
-							pecaPlayer.EnableContextMenu = false;
-						}
-						else if (isGesturing)
-						{
-							// マウスジェスチャー実行
-							ExecGesture(gesture);
-						}
-
-						isGesturing = false;
-					}
-				};
-
-				// マウスムーズイベント
-				pecaPlayer.MouseMoveEvent += (sender, e) =>
-				{
-					if (!toolStrip.Visible)
-					{
-						toolStrip.Visible = true;
-					}
-
-					if (isGesturing)
-					{
-						// ジェスチャー表示
-						mouseGesture.Moving(new Point(e.fX, e.fY));
-
-						string gesture = mouseGesture.ToString();
-						Command commandId;
-						if (gestureMap.TryGetValue(gesture, out commandId))
-						{
-							statusBar.ChannelDetail = string.Format("マウスジェスチャ：{0}({1})", gesture, commandId);
-							return;
-						}
-						statusBar.ChannelDetail = string.Format("マウスジェスチャ：{0}", gesture);
-					}
-				};
-
-				// 終了処理
-				FormClosed += (sender, e) =>
-				{
-					Visible = false;
-					Logger.Instance.Debug("FormClosed");
-					//mouseHook.Dispose();
-					pecaPlayer.Close();
-					statusBar.Close();
-				};
+				// イベントの初期化
+				InitEvent();
 
 				// ウィンドウスナップ
 				new WindowSnap(this, pecaPlayer);
-
-				// 書き込み欄の非表示
-				statusBar.WriteFieldVisible = false;
-
-				// コマンド作成
-				CreateEvent();
-				CreateCommand();
-				CreateGesture();
 			};
-
-			// TODO デバッグ終了
-		}
-
-		//-------------------------------------------------------------
-		// 概要：マウスジェスチャーの設定作成
-		//-------------------------------------------------------------
-		private void CreateGesture()
-		{
-			gestureMap.Add("↓→", Command.Close);
-			gestureMap.Add("↓", Command.OpenPeerstViewer);
 		}
 
 		//-------------------------------------------------------------
@@ -333,127 +91,211 @@ namespace PeerstPlayer
 		}
 
 		//-------------------------------------------------------------
-		// 概要：イベント実行
+		// イベントの初期化
 		//-------------------------------------------------------------
-		private void RaiseEvent(Event eventId)
+		private void InitEvent()
 		{
-			Logger.Instance.InfoFormat("イベント実行 [イベントID:{0}]", eventId);
-			Command commandId = eventMap[eventId];
-			ExecCommand(commandId);
-		}
-
-		//-------------------------------------------------------------
-		// 概要：マウスジェスチャー実行
-		//-------------------------------------------------------------
-		private void ExecGesture(string gesture)
-		{
-			Command commandId;
-			if (gestureMap.TryGetValue(gesture, out commandId))
+			// 最小化ボタン
+			minToolStripButton.Click += (sender, e) => shortcut.RaiseEvent(ShortcutEvents.MinButtonClick);
+			// 最大化ボタン
+			maxToolStripButton.Click += (sender, e) => shortcut.RaiseEvent(ShortcutEvents.MaxButtonClick);
+			// 閉じるボタン
+			closeToolStripButton.Click += (sender, e) => shortcut.RaiseEvent(ShortcutEvents.CloseButtonClick);
+			// 音量クリック
+			statusBar.VolumeClick += (sender, e) => shortcut.RaiseEvent(ShortcutEvents.Mute);
+			// ダブルクリック
+			pecaPlayer.DoubleClickEvent += (sender, e) => shortcut.RaiseEvent(ShortcutEvents.DoubleClick);
+			// マウスホイール
+			MouseWheel += (sender, e) =>
 			{
-				Logger.Instance.InfoFormat("マウスジェスチャー実行 [ジェスチャー:{0}, コマンドID:{1}]", gesture, commandId);
-				ExecCommand(commandId);
-			}
-		}
+				// 音量変更
+				if (e.Delta > 0)
+				{
+					shortcut.RaiseEvent(ShortcutEvents.WheelUp);
+				}
+				else if (e.Delta < 0)
+				{
+					shortcut.RaiseEvent(ShortcutEvents.WheelDown);
+				}
+			};
 
-		//-------------------------------------------------------------
-		// 概要：コマンド実行
-		//-------------------------------------------------------------
-		private void ExecCommand(Command commandId)
-		{
-			Logger.Instance.InfoFormat("コマンド実行 [コマンドID:{0}]", commandId);
-			commandMap[commandId]();
-		}
-
-		//-------------------------------------------------------------
-		// 概要：イベント登録
-		//-------------------------------------------------------------
-		private void CreateEvent()
-		{
-			// TODO 設定によって切り替えを行う
-			eventMap.Add(Event.WheelUp, Command.VolumeUp);
-			eventMap.Add(Event.WheelDown, Command.VolumeDown);
-			eventMap.Add(Event.Mute, Command.Mute);
-			eventMap.Add(Event.DoubleClick, Command.WindowMaximize);
-			eventMap.Add(Event.StatusbarRightClick, Command.OpenPeerstViewer);
-			eventMap.Add(Event.StatusbarLeftClick, Command.VisibleStatusBar);
-		}
-
-		//-------------------------------------------------------------
-		// 概要：コマンド作成
-		//-------------------------------------------------------------
-		private void CreateCommand()
-		{
-			// 音量UP
-			commandMap.Add(Command.VolumeUp, () =>
+			// チャンネル情報更新
+			bool isFirst = true;
+			pecaPlayer.ChannelInfoChange += (sender, e) =>
 			{
-				if (ModifierKeys == Keys.Shift)
+				ChannelInfo info = pecaPlayer.ChannelInfo;
+				// TODO 文字が空の場合は、スペースを空けない
+				statusBar.ChannelDetail = String.Format("{0} {1}{2} {3}", info.Name, (string.IsNullOrEmpty(info.Genre) ? "" : string.Format("[{0}] ", info.Genre)), info.Desc, info.Comment);
+
+				// 初回だけコンタクトURLを設定する
+				// TODO コンタクトURLが変更されたら、通知後にURL変更
+				if (isFirst)
 				{
-					pecaPlayer.Volume += 1;
+					statusBar.SelectThreadUrl = info.Url;
+					isFirst = false;
 				}
-				else if (ModifierKeys == Keys.Control)
+			};
+
+			// ステータスバーのサイズ変更
+			statusBar.HeightChanged += (sender, e) =>
+			{
+				this.ClientSize = new Size(ClientSize.Width, (pecaPlayer.Height + statusBar.Height));
+			};
+
+			// ステータスバーのクリックイベント
+			statusBar.ChannelDetailClick += (sender, e) =>
+			{
+				if (e.Button == MouseButtons.Left)
 				{
-					pecaPlayer.Volume += 5;
+					shortcut.RaiseEvent(ShortcutEvents.StatusbarLeftClick);
 				}
+				else if (e.Button == MouseButtons.Right)
+				{
+					shortcut.RaiseEvent(ShortcutEvents.StatusbarRightClick);
+				}
+			};
+
+			// サイズ変更
+			SizeChanged += (sender, e) =>
+			{
+				// 幅
+				pecaPlayer.Width = ClientSize.Width;
+				statusBar.Width = ClientSize.Width;
+
+				// 高さ
+				pecaPlayer.Height = ClientSize.Height - statusBar.Height;
+				statusBar.Top = pecaPlayer.Bottom;
+			};
+
+			// 音量変更イベント
+			pecaPlayer.VolumeChange += (sender, e) => statusBar.Volume = (pecaPlayer.Mute ? "-" : pecaPlayer.Volume.ToString());
+
+			// スレッドタイトル右クリックイベント
+			statusBar.ThreadTitleRightClick += (sender, e) => shortcut.RaiseEvent(ShortcutEvents.ThreadTitleRightClick);
+
+			// マウスジェスチャー
+			MouseGesture mouseGesture = new MouseGesture();
+			mouseGesture.Interval = MouseGestureInterval;
+			bool isGesturing = false;
+
+			// タイマーイベント
+			Timer timer = new Timer();
+			timer.Interval = MovieStatusUpdateInterval;
+			timer.Tick += (sender, e) =>
+			{
+				if (!RectangleToScreen(ClientRectangle).Contains(MousePosition))
+				{
+					// 自動表示ボタンの表示切り替え
+					if (toolStrip.Visible)
+					{
+						toolStrip.Visible = false;
+					}
+
+					// 画面外に出たらマウスジェスチャー解除
+					isGesturing = false;
+				}
+
+				// 動画ステータスを表示
+				if (pecaPlayer.Duration.Length == 0)
+				{
+					switch (pecaPlayer.PlayState)
+					{
+						case WMPPlayState.wmppsUndefined: statusBar.MovieStatus		= "";			break;
+						case WMPPlayState.wmppsStopped: statusBar.MovieStatus		= "停止";		break;
+						case WMPPlayState.wmppsPaused: statusBar.MovieStatus		= "一時停止";	break;
+						case WMPPlayState.wmppsPlaying: statusBar.MovieStatus		= "再生中";		break;
+						case WMPPlayState.wmppsScanForward: statusBar.MovieStatus	= "早送り";		break;
+						case WMPPlayState.wmppsScanReverse: statusBar.MovieStatus	= "巻き戻し";	break;
+						case WMPPlayState.wmppsWaiting: statusBar.MovieStatus		= "接続待機";	break;
+						case WMPPlayState.wmppsMediaEnded: statusBar.MovieStatus	= "再生完了";	break;
+						case WMPPlayState.wmppsTransitioning: statusBar.MovieStatus = "準備中";		break;
+						case WMPPlayState.wmppsReady: statusBar.MovieStatus			= "準備完了";	break;
+						case WMPPlayState.wmppsReconnecting: statusBar.MovieStatus	= "再接続";		break;
+						case WMPPlayState.wmppsBuffering: statusBar.MovieStatus		= string.Format("バッファ{0}%", pecaPlayer.BufferingProgress); break;
+					}
+				}
+				// 再生時間を表示
 				else
 				{
-					pecaPlayer.Volume += 10;
+					statusBar.MovieStatus = pecaPlayer.Duration;
 				}
-			});
-			// 音量UP
-			commandMap.Add(Command.VolumeDown, () =>
+			};
+			timer.Start();
+
+			// マウスダウンイベント
+			pecaPlayer.MouseDownEvent += (sender, e) =>
 			{
-				if (ModifierKeys == Keys.Shift)
+				if (e.nButton == (short)Keys.LButton)
 				{
-					pecaPlayer.Volume -= 1;
+					// マウスドラッグ
+					FormUtility.WindowDragStart(this.Handle);
 				}
-				else if (ModifierKeys == Keys.Control)
+				else if (e.nButton == (short)Keys.RButton)
 				{
-					pecaPlayer.Volume -= 5;
+					// マウスジェスチャー開始
+					mouseGesture.Start();
+					isGesturing = true;
 				}
-				else
-				{
-					pecaPlayer.Volume -= 10;
-				}
-			});
-			// ミュート切替
-			commandMap.Add(Command.Mute, () => pecaPlayer.Mute = !pecaPlayer.Mute);
-			// ウィンドウを最小化
-			commandMap.Add(Command.WindowMinimization, () => WindowState = FormWindowState.Minimized);
-			// 閉じる
-			commandMap.Add(Command.Close, () =>
+			};
+
+			// マウスアップイベント
+			pecaPlayer.MouseUpEvent += (sender, e) =>
 			{
-				Application.Exit();
-			});
-			// ステータスバーの表示切り替え
-			commandMap.Add(Command.VisibleStatusBar, () =>
-			{
-				statusBar.WriteFieldVisible = !statusBar.WriteFieldVisible;
-				if (statusBar.WriteFieldVisible)
+				if (e.nButton == (short)Keys.RButton)
 				{
-					statusBar.Focus();
+					// チャンネル詳細を再描画
+					ChannelInfo info = pecaPlayer.ChannelInfo;
+					if (info != null)
+					{
+						statusBar.ChannelDetail = String.Format("{0} {1}{2} {3}", info.Name, (string.IsNullOrEmpty(info.Genre) ? "" : string.Format("[{0}] ", info.Genre)), info.Desc, info.Comment);
+					}
+
+					// マウスジェスチャーが実行されていなければ
+					string gesture = mouseGesture.ToString();
+					if (string.IsNullOrEmpty(gesture))
+					{
+						// コンテキストメニュー表示
+						pecaPlayer.EnableContextMenu = true;
+						FormUtility.ShowContextMenu(this.pecaPlayer.WMPHandle, MousePosition);
+						pecaPlayer.EnableContextMenu = false;
+					}
+					else if (isGesturing)
+					{
+						// マウスジェスチャー実行
+						shortcut.ExecGesture(gesture);
+					}
+
+					isGesturing = false;
 				}
-			});
-			// ウィンドウを最大化
-			commandMap.Add(Command.WindowMaximize, () =>
+			};
+
+			// マウスムーズイベント
+			pecaPlayer.MouseMoveEvent += (sender, e) =>
 			{
-				if (WindowState == FormWindowState.Normal)
+				if (!toolStrip.Visible)
 				{
-					WindowState = FormWindowState.Maximized;
+					toolStrip.Visible = true;
 				}
-				else
+
+				if (isGesturing)
 				{
-					WindowState = FormWindowState.Normal;
+					// ジェスチャー表示
+					mouseGesture.Moving(new Point(e.fX, e.fY));
+
+					string gesture = mouseGesture.ToString();
+					string detail = shortcut.GetGestureDetail(gesture);
+					statusBar.ChannelDetail = string.Format("マウスジェスチャ：{0}{1}", gesture, (String.IsNullOrEmpty(detail) ? "" : "(" + detail + ")"));
 				}
-			});
-			// PeerstViewerを開く
-			commandMap.Add(Command.OpenPeerstViewer, () =>
+			};
+
+			// 終了処理
+			FormClosed += (sender, e) =>
 			{
-				// TODO スレッド選択しているスレッドURLを指定する
-				string viewerExePath = Path.Combine(Environment.CurrentDirectory, "PeerstViewer.exe");
-				string param = statusBar.SelectThreadUrl;
-				Logger.Instance.InfoFormat("PeerstViewer起動 [viewerExePath:{0} param:{1}]", viewerExePath, param);
-				Process.Start(viewerExePath, param);
-			});
+				Visible = false;
+				Logger.Instance.Debug("FormClosed");
+				pecaPlayer.Close();
+				statusBar.Close();
+			};
 		}
 	}
 }
