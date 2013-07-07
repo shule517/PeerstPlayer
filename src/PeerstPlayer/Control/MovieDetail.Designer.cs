@@ -43,8 +43,8 @@
 			this.ChannelDetailLabel.Location = new System.Drawing.Point(0, 0);
 			this.ChannelDetailLabel.Margin = new System.Windows.Forms.Padding(3);
 			this.ChannelDetailLabel.Name = "ChannelDetailLabel";
-			this.ChannelDetailLabel.Padding = new System.Windows.Forms.Padding(0, 3, 0, 0);
-			this.ChannelDetailLabel.Size = new System.Drawing.Size(75, 15);
+			this.ChannelDetailLabel.Padding = new System.Windows.Forms.Padding(3, 3, 0, 0);
+			this.ChannelDetailLabel.Size = new System.Drawing.Size(78, 15);
 			this.ChannelDetailLabel.TabIndex = 2;
 			this.ChannelDetailLabel.Text = "チャンネル情報";
 			this.ChannelDetailLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
