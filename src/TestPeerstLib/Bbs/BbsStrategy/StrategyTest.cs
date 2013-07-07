@@ -41,9 +41,7 @@ namespace TestPeerstLib.Bbs.Strategy
 		{
 			try
 			{
-				BbsStrategy strategy = new ShitarabaBbsStrategy(new BbsInfo { });
-				PrivateObject accessor = new PrivateObject(strategy);
-				accessor.Invoke("CheckWriteError", new object[] { response });
+				BbsUtil.CheckWriteError(response);
 			}
 			catch
 			{

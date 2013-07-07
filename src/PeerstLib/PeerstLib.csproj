@@ -50,6 +50,7 @@
   <ItemGroup>
     <Compile Include="Bbs\BbsInfo.cs" />
     <Compile Include="Bbs\BbsServer.cs" />
+    <Compile Include="Bbs\BbsUtil.cs" />
     <Compile Include="Bbs\Strategy\BbsStrategy.cs" />
     <Compile Include="Bbs\Strategy\BbsStrategyFactory.cs" />
     <Compile Include="Bbs\Strategy\NullBbsStrategy.cs" />

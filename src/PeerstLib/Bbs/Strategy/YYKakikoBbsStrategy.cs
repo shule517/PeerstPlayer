@@ -103,14 +103,14 @@ namespace PeerstLib.Bbs.Strategy
 				int resStart = titleEnd + 1;
 				string resCount = line.Substring(resStart, (line.Length - resStart - 1));
 				string threadNo = line.Substring(threadNoStart, threadNoEnd);
-				double days = GetThreadSince(threadNo);
+				double days = BbsUtil.GetThreadSince(threadNo);
 
 				ThreadInfo threadInfo = new ThreadInfo
 				{
 					ThreadNo = threadNo,
 					ThreadTitle = threadTitle.Trim(),
 					ResCount = int.Parse(resCount),
-					ThreadSpeed = GetThreadSpeed(days, resCount),
+					ThreadSpeed = BbsUtil.GetThreadSpeed(days, resCount),
 					ThreadSince = days
 				};
 
