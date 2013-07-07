@@ -56,13 +56,16 @@ namespace PeerstLib.Bbs
 		// URL変更Worker
 		BackgroundWorker changeUrlWorker = new BackgroundWorker();
 
+		// スレッド一覧更新Worker
+		BackgroundWorker updateThreadListWorker = new BackgroundWorker();
+
 		//-------------------------------------------------------------
 		// 概要：コンストラクタ
 		//-------------------------------------------------------------
 		public OperationBbs()
 		{
-			// キャンセル処理を許可
-			changeUrlWorker.WorkerSupportsCancellation = true;
+			// スレッドURL変更
+			changeUrlWorker.WorkerSupportsCancellation = true; // キャンセル処理を許可
 			changeUrlWorker.DoWork += (sender, e) =>
 			{
 				string url = (string)e.Argument;
@@ -71,6 +74,19 @@ namespace PeerstLib.Bbs
 				strategy.UpdateBbsName();
 			};
 			changeUrlWorker.RunWorkerCompleted += (sender, e) =>
+			{
+				Logger.Instance.Debug("RaiseThreadListChange");
+				ThreadListChange(this, new EventArgs());
+			};
+
+			// スレッド一覧更新
+			updateThreadListWorker.WorkerSupportsCancellation = true;
+			updateThreadListWorker.DoWork += (sender, e) =>
+			{
+				strategy.UpdateThreadList();
+				strategy.UpdateBbsName();
+			};
+			updateThreadListWorker.RunWorkerCompleted += (sender, e) =>
 			{
 				Logger.Instance.Debug("RaiseThreadListChange");
 				ThreadListChange(this, new EventArgs());
@@ -104,6 +120,20 @@ namespace PeerstLib.Bbs
 			if (!changeUrlWorker.IsBusy)
 			{
 				changeUrlWorker.RunWorkerAsync(url);
+			}
+		}
+
+		//-------------------------------------------------------------
+		// 概要：スレッド一覧更新
+		//-------------------------------------------------------------
+		public void UpdateThreadList()
+		{
+			Logger.Instance.DebugFormat("UpdateThreadList(url:{0})", strategy.ThreadUrl);
+
+			// データ更新
+			if (!updateThreadListWorker.IsBusy)
+			{
+				updateThreadListWorker.RunWorkerAsync();
 			}
 		}
 

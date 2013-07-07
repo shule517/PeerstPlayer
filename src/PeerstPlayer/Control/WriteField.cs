@@ -46,6 +46,13 @@ namespace PeerstPlayer.Control
 		private ThreadSelectView threadSelectView = new ThreadSelectView();
 
 		//-------------------------------------------------------------
+		// 定義
+		//-------------------------------------------------------------
+
+		// 選択スレッドのレス数の更新間隔
+		const int UpdateThreadResCount = 60000;
+
+		//-------------------------------------------------------------
 		// 概要：コンストラクタ
 		// 詳細：イベントの設定
 		//-------------------------------------------------------------
@@ -86,6 +93,16 @@ namespace PeerstPlayer.Control
 
 			// 高さ自動調節
 			writeFieldTextBox_TextChanged(this, new EventArgs());
+
+			// 選択スレッドのレス数の更新
+			Timer timer = new Timer();
+			timer.Interval = UpdateThreadResCount;
+			timer.Tick += (sender, e) =>
+			{
+				operationBbs.UpdateThreadList();
+				UpdateThreadTitle();
+			};
+			timer.Start();
 		}
 
 		//-------------------------------------------------------------
