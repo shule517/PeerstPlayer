@@ -25,7 +25,11 @@ namespace PeerstPlayer
 
 		// ショートカットコマンド
 		ShortcutManager shortcut = new ShortcutManager();
-	
+
+		//-------------------------------------------------------------
+		// 定義
+		//-------------------------------------------------------------
+
 		// マウスジェスチャーの感度
 		const int MouseGestureInterval = 10;
 		

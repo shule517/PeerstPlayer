@@ -204,7 +204,7 @@ namespace PeerstPlayer.Control
 			};
 			updateChannelInfoWorker.RunWorkerCompleted += (sender, e) =>
 			{
-				Logger.Instance.InfoFormat("チャンネル更新完了 [チャンネル名:{0}]", ChannelInfo.Name);
+				Logger.Instance.InfoFormat("チャンネル更新完了 [チャンネル名:{0}] [ジャンル：{1}] [詳細:{2}] [コメント:{3}] [コンタクトURL:{4}]", ChannelInfo.Name, ChannelInfo.Genre, ChannelInfo.Desc, ChannelInfo.Comment, ChannelInfo.Url);
 				ChannelInfoChange(sender, e);
 			};
 
@@ -224,11 +224,7 @@ namespace PeerstPlayer.Control
 			timer.Tick += (sender, e) =>
 			{
 				// チャンネル更新
-				if (!updateChannelInfoWorker.IsBusy)
-				{
-					Logger.Instance.Info("チャンネル更新開始");
-					updateChannelInfoWorker.RunWorkerAsync();
-				}
+				UpdateChannelInfo();
 
 				// メモリリーク防止
 				if (wmp.Ctlcontrols != null)
@@ -238,6 +234,15 @@ namespace PeerstPlayer.Control
 			};
 			timer.Start();
 
+			// チャンネル更新
+			UpdateChannelInfo();
+		}
+
+		//-------------------------------------------------------------
+		// 概要：チャンネル更新
+		//-------------------------------------------------------------
+		public void UpdateChannelInfo()
+		{
 			// チャンネル更新
 			if (!updateChannelInfoWorker.IsBusy)
 			{

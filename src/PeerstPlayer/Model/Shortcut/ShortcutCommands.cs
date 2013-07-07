@@ -16,5 +16,6 @@ namespace PeerstPlayer.Model.Shortcut
 		Close,				// 閉じる
 		OpenPeerstViewer,	// ビューワを開く
 		VisibleStatusBar,	// ステータスバーの表示切り替え
+		UpdateChannelInfo,	// チャンネル情報更新
 	};
 }

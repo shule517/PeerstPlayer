@@ -99,8 +99,9 @@ namespace PeerstPlayer.Model.Shortcut
 		private void CreateGesture()
 		{
 			// TODO 設定によって切り替えを行う
-			gestureMap.Add("↓→", ShortcutCommands.Close);
+			gestureMap.Add("↓→",	ShortcutCommands.Close);
 			gestureMap.Add("↓",	ShortcutCommands.OpenPeerstViewer);
+			gestureMap.Add("↓↑",	ShortcutCommands.UpdateChannelInfo);
 		}
 
 		//-------------------------------------------------------------
@@ -178,6 +179,11 @@ namespace PeerstPlayer.Model.Shortcut
 				string param = statusBar.SelectThreadUrl;
 				Logger.Instance.InfoFormat("PeerstViewer起動 [viewerExePath:{0} param:{1}]", viewerExePath, param);
 				Process.Start(viewerExePath, param);
+			});
+			// チャンネル情報更新
+			commandMap.Add(ShortcutCommands.UpdateChannelInfo, () =>
+			{
+				pecaPlayer.UpdateChannelInfo();
 			});
 		}
 
