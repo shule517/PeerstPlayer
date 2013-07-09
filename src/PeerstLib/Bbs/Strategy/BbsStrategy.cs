@@ -1,9 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 using System.Net;
 using System.Text;
 using System.Text.RegularExpressions;
+using PeerstLib.Bbs.Data;
 using PeerstLib.Utility;
 
 namespace PeerstLib.Bbs.Strategy
@@ -22,6 +22,9 @@ namespace PeerstLib.Bbs.Strategy
 
 		// スレッド一覧
 		public List<ThreadInfo> ThreadList { get; set; }
+
+		// レス一覧
+		public List<ResInfo> ResList { get; set; }
 
 		// スレッド選択状態
 		public bool ThreadSelected
@@ -132,6 +135,27 @@ namespace PeerstLib.Bbs.Strategy
 		}
 
 		//-------------------------------------------------------------
+		// 概要：レス読み込み
+		//-------------------------------------------------------------
+		public void ReadThread()
+		{
+			if (!ThreadSelected)
+			{
+				// スレッド未選択
+				ResList = new List<ResInfo>();
+				return;
+			}
+
+			Logger.Instance.DebugFormat("ReadThread()");
+
+			string datText = WebUtil.GetHtml(datUrl, encoding);
+			string[] lines = datText.Replace("\r\n", "\n").Split('\n');
+			ResList = AnalyzeDatText(lines);
+
+			Logger.Instance.DebugFormat("レス一覧取得：正常 [レス取得数：{0}]", ThreadList.Count);
+		}
+
+		//-------------------------------------------------------------
 		// 概要：コンストラクタ
 		//-------------------------------------------------------------
 		protected BbsStrategy(BbsInfo bbsInfo)
@@ -144,6 +168,11 @@ namespace PeerstLib.Bbs.Strategy
 		// 概要：スレッド一覧解析
 		//-------------------------------------------------------------
 		protected abstract List<ThreadInfo> AnalyzeSubjectText(string[] lines);
+
+		//-------------------------------------------------------------
+		// 概要：スレッドデータ解析
+		//-------------------------------------------------------------
+		protected abstract List<ResInfo> AnalyzeDatText(string[] lines);
 
 		//-------------------------------------------------------------
 		// 概要：書き込み用リクエストデータ作成

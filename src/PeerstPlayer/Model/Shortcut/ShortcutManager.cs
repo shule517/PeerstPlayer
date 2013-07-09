@@ -90,7 +90,7 @@ namespace PeerstPlayer.Model.Shortcut
 			eventMap.Add(ShortcutEvents.MinButtonClick,			ShortcutCommands.WindowMinimization);
 			eventMap.Add(ShortcutEvents.MaxButtonClick,			ShortcutCommands.WindowMaximize);
 			eventMap.Add(ShortcutEvents.CloseButtonClick,		ShortcutCommands.Close);
-			eventMap.Add(ShortcutEvents.ThreadTitleRightClick,	ShortcutCommands.OpenPeerstViewer);
+			eventMap.Add(ShortcutEvents.ThreadTitleRightClick,	ShortcutCommands.ShowNewRes);
 		}
 
 		//-------------------------------------------------------------
@@ -184,6 +184,11 @@ namespace PeerstPlayer.Model.Shortcut
 			commandMap.Add(ShortcutCommands.UpdateChannelInfo, () =>
 			{
 				pecaPlayer.UpdateChannelInfo();
+			});
+			// 新着レス表示
+			commandMap.Add(ShortcutCommands.ShowNewRes, () =>
+			{
+				// TODO 新着レス表示の実装
 			});
 		}
 

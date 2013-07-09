@@ -1,14 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
 using System.Drawing;
-using System.IO;
 using System.Windows.Forms;
 using PeerstLib.Control;
 using PeerstLib.Form;
 using PeerstLib.PeerCast;
 using PeerstLib.Utility;
-using PeerstPlayer.Model;
 using PeerstPlayer.Model.Shortcut;
 using WMPLib;
 

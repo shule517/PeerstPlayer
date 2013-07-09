@@ -28,10 +28,12 @@
 		/// </summary>
 		private void InitializeComponent()
 		{
+			this.components = new System.ComponentModel.Container();
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(WriteField));
 			this.writeFieldTextBox = new System.Windows.Forms.TextBox();
 			this.selectThreadLabel = new System.Windows.Forms.Label();
 			this.writeButton = new System.Windows.Forms.Button();
+			this.newResToolTip = new System.Windows.Forms.ToolTip(this.components);
 			this.SuspendLayout();
 			// 
 			// writeFieldTextBox
@@ -73,6 +75,15 @@
 			this.writeButton.TabIndex = 3;
 			this.writeButton.UseVisualStyleBackColor = true;
 			// 
+			// newResToolTip
+			// 
+			this.newResToolTip.AutoPopDelay = 50000;
+			this.newResToolTip.InitialDelay = 500;
+			this.newResToolTip.IsBalloon = true;
+			this.newResToolTip.ReshowDelay = 100;
+			this.newResToolTip.ShowAlways = true;
+			this.newResToolTip.ToolTipTitle = "新着レス";
+			// 
 			// WriteField
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -93,5 +104,6 @@
 		private System.Windows.Forms.TextBox writeFieldTextBox;
 		private System.Windows.Forms.Label selectThreadLabel;
 		private System.Windows.Forms.Button writeButton;
+		private System.Windows.Forms.ToolTip newResToolTip;
 	}
 }

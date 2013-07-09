@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using PeerstLib.Bbs.Data;
 using PeerstLib.Bbs.Strategy;
 using PeerstLib.Utility;
 
@@ -25,6 +26,13 @@ namespace PeerstLib.Bbs
 			get { return strategy.ThreadList; }
 		}
 		public event EventHandler ThreadListChange = delegate { };
+
+		// レス一覧
+		public List<ResInfo> ResList
+		{
+			get { return strategy.ResList; }
+		}
+		public event EventHandler ResListChange = delegate { };
 
 		// 選択スレッド情報
 		public ThreadInfo SelectThread
@@ -155,8 +163,15 @@ namespace PeerstLib.Bbs
 			strategy.Write(name, mail, message);
 		}
 
-		// TODO Update -> レス数の更新用
-		// TODO Read -> レス読み込み
+		//-------------------------------------------------------------
+		// 概要：スレッド読み込み
+		//-------------------------------------------------------------
+		public void ReadThread()
+		{
+			// 選択しているスレッドからデータを取得する
+			Logger.Instance.DebugFormat("ReadThread");
+			strategy.ReadThread();
+		}
 
 		//-------------------------------------------------------------
 		// 概要：終了処理

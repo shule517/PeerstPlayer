@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Windows.Forms;
-using PeerstLib.Bbs;
+using PeerstLib.Bbs.Data;
 using PeerstLib.PeerCast;
 using PeerstLib.Utility;
 using WMPLib;

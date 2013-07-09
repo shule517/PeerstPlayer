@@ -2,8 +2,10 @@
 using System.Drawing;
 using System.Windows.Forms;
 using PeerstLib.Bbs;
+using PeerstLib.Bbs.Data;
 using PeerstLib.Utility;
 using PeerstPlayer.View;
+using System.Linq;
 
 namespace PeerstPlayer.Control
 {
@@ -74,6 +76,12 @@ namespace PeerstPlayer.Control
 				}
 			};
 
+			// マウスオーバー時に新着レス表示の設定
+			selectThreadLabel.MouseHover += (sender, e) =>
+			{
+				ShowNewRes();
+			};
+
 			// 書き込みボタン押下
 			writeButton.Click += (sender, e) =>
 			{
@@ -103,6 +111,25 @@ namespace PeerstPlayer.Control
 				UpdateThreadTitle();
 			};
 			timer.Start();
+		}
+
+		//-------------------------------------------------------------
+		// 概要：新着レス表示
+		//-------------------------------------------------------------
+		private void ShowNewRes()
+		{
+			operationBbs.ReadThread();
+
+			string message = "";
+			foreach (var res in operationBbs.ResList.Select((v, i) => new { v, i }))
+			{
+				if ((operationBbs.ResList.Count - res.i) <= 5)
+				{
+					message += String.Format("{0, 4} : {1}\n", res.v.ResNo, res.v.Message.Replace("<br>", "\n         "));
+				}
+			}
+
+			newResToolTip.SetToolTip(selectThreadLabel, message);
 		}
 
 		//-------------------------------------------------------------

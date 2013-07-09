@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using PeerstLib.Bbs;
+using PeerstLib.Bbs.Data;
 using PeerstLib.Utility;
 
 namespace PeerstPlayer.ViewModel

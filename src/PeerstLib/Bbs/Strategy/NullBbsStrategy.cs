@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Text;
+using PeerstLib.Bbs.Data;
 using PeerstLib.Utility;
 
 namespace PeerstLib.Bbs.Strategy
@@ -60,6 +61,15 @@ namespace PeerstLib.Bbs.Strategy
 		{
 			Logger.Instance.DebugFormat("CreateWriteRequestData(name:{0}, mail;{1}, message:{2})", name, mail, message);
 			return new byte[0];
+		}
+
+		//-------------------------------------------------------------
+		// 概要：スレッドデータ解析
+		// 詳細：datからレス一覧情報を作成する
+		//-------------------------------------------------------------
+		override protected List<ResInfo> AnalyzeDatText(string[] lines)
+		{
+			return new List<ResInfo>();
 		}
 	}
 }

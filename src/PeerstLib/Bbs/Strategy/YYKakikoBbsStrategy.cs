@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Web;
+using PeerstLib.Bbs.Data;
 using PeerstLib.Utility;
+using System.Linq;
 
 namespace PeerstLib.Bbs.Strategy
 {
@@ -65,6 +67,20 @@ namespace PeerstLib.Bbs.Strategy
 		{
 			get { return "http://" + BbsInfo.BoardGenre + "/test/bbs.cgi"; }
 		}
+
+		//-------------------------------------------------------------
+		// 定義
+		//-------------------------------------------------------------
+
+		// レスデータのインデックス
+		enum DatIndex : int
+		{
+			Name = 0,
+			Mail,
+			DateAndId,
+			Message,
+			ThreadName,
+		};
 
 		//-------------------------------------------------------------
 		// 概要：コンストラクタ
@@ -136,6 +152,38 @@ namespace PeerstLib.Bbs.Strategy
 			param.AppendFormat("submit={0}&", HttpUtility.UrlEncode("書き込む", encoding)); // 書き込む
 
 			return Encoding.ASCII.GetBytes(param.ToString());
+		}
+
+		//-------------------------------------------------------------
+		// 概要：スレッドデータ解析
+		// 詳細：datからレス一覧情報を作成する
+		//-------------------------------------------------------------
+		override protected List<ResInfo> AnalyzeDatText(string[] lines)
+		{
+			Logger.Instance.DebugFormat("AnalyzeDatText(lines:{0})", lines);
+
+			List<ResInfo> resList = new List<ResInfo>();
+
+			foreach (var line in lines.Select((v, i) => new { v, i }))
+			{
+				if (String.IsNullOrEmpty(line.v))
+					continue;
+
+				String[] data = line.v.Split(new[] { "<>" }, StringSplitOptions.None);
+
+				ResInfo resInfo = new ResInfo
+				{
+					ResNo = (line.i + 1).ToString(),
+					Date = data[(int)DatIndex.DateAndId],
+					Id = "", // TODO IDを取得する
+					Mail = data[(int)DatIndex.Mail],
+					Message = data[(int)DatIndex.Message],
+					Name = data[(int)DatIndex.Name],
+				};
+				resList.Add(resInfo);
+			}
+
+			return resList;
 		}
 	}
 }

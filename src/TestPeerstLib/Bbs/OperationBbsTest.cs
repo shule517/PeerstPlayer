@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using PeerstLib.Bbs;
+using PeerstLib.Bbs.Data;
 using PeerstLib.Bbs.Strategy;
 
 namespace TestPeerstLib
@@ -1363,5 +1363,30 @@ namespace TestPeerstLib
 			// 22, 不要データ
 		};
 #endregion
+
+
+		//-------------------------------------------------------------
+		// 確認：スレッドの読み込み
+		//-------------------------------------------------------------
+		[TestMethod]
+		public void BbsStrategyTest_ReadThread()
+		{
+			BbsStrategy strategy = BbsStrategyFactory.Create("http://jbbs.livedoor.jp/bbs/read.cgi/game/45037/1362306973/");
+			PrivateObject accessor = new PrivateObject(strategy);
+			List<ThreadInfo> threadList = (List<ThreadInfo>)accessor.Invoke("ReadThread", new object[] { });
+
+			/*
+			// スレッド一覧数のチェック
+			Assert.AreEqual(threadTitleList.Length, threadList.Count);
+
+			for (int i = 0; i < threadList.Count; i++)
+			{
+				Assert.AreEqual(threadNoList[i], threadList[i].ThreadNo);
+				Assert.AreEqual(threadTitleList[i], threadList[i].ThreadTitle);
+				Assert.AreEqual(resCountList[i], threadList[i].ResCount);
+				// TODO レス勢い取得：未実装 Assert.AreEqual(threadNoList[i], threadList[i].ThreadSpeed);
+			}
+			 */
+		}
 	}
 }

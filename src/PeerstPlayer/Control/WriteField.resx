@@ -165,7 +165,7 @@
         RudN65tdA8sHzg46DF645Xrr8m2v29fvrLwzMBQydHc4cnjkLvvu5L2key/vZ9yff7DpIfph4SOpR+WP
         lR7X/aj3Y+uI5ciZUdfRvidBTx6Mscae/5T+04fx/Kfkp+UTqhONk2aTp6fcp24+W/1s/Hnq8/npgp+l
         f65+ofviu18cf+mbWTUz/pL/cuHX4lfyr468Xva6e9Z/9vGb5Dfzc4Vv5d8efcd41/s+7P3EfOYH7IeK
-        j3ofuz55f3q4kLyw8Bv3hPP74uYdwgAAAAlwSFlzAAALEQAACxEBf2RfkQAAABl0RVh0U29mdHdhcmUA
+        j3ofuz55f3q4kLyw8Bv3hPP74uYdwgAAAAlwSFlzAAALDgAACw4BQL7hQQAAABl0RVh0U29mdHdhcmUA
         UGFpbnQuTkVUIFYzLjUuMUlLPc8AAAHJSURBVDhPlZBdKINRHMb/22sbNq0lWtFuVuJ6iny9LuZzyRSl
         JLZFLhTJxCxjmXzUbtRKdjFJasW8JDVKLl1qkhslJeXGhRsr9fc/5xVDbJ56Ol/P7/ScAxkqn9z8Pv5b
         RWS7J1K5XWhSz9HcwHczFIe9MbO0epeD9iXYonUDWccO04nDE9FCafkW0H0O2BOBB3EMItl6YE2KeeoX
@@ -177,4 +177,7 @@
         AI8+ytWq7HzLAAAAAElFTkSuQmCC
 </value>
   </data>
+  <metadata name="newResToolTip.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>17, 17</value>
+  </metadata>
 </root>

@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Xml.Linq;
-using PeerstLib.Bbs;
+using PeerstLib.Bbs.Data;
 using PeerstLib.Utility;
 
 namespace PeerstLib.PeerCast

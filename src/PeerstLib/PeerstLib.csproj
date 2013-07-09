@@ -48,9 +48,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Bbs\BbsInfo.cs" />
+    <Compile Include="Bbs\Data\BbsInfo.cs" />
     <Compile Include="Bbs\BbsServer.cs" />
     <Compile Include="Bbs\BbsUtil.cs" />
+    <Compile Include="Bbs\Data\ResInfo.cs" />
     <Compile Include="Bbs\Strategy\BbsStrategy.cs" />
     <Compile Include="Bbs\Strategy\BbsStrategyFactory.cs" />
     <Compile Include="Bbs\Strategy\NullBbsStrategy.cs" />
@@ -58,8 +59,8 @@
     <Compile Include="Bbs\Strategy\YYKakikoBbsStrategy.cs" />
     <Compile Include="Bbs\BbsUrlAnalyzer.cs" />
     <Compile Include="Bbs\OperationBbs.cs" />
-    <Compile Include="Bbs\StreamUrlInfo.cs" />
-    <Compile Include="Bbs\ThreadInfo.cs" />
+    <Compile Include="Bbs\Data\StreamUrlInfo.cs" />
+    <Compile Include="Bbs\Data\ThreadInfo.cs" />
     <Compile Include="Control\BufferedListView.cs">
       <SubType>Component</SubType>
     </Compile>

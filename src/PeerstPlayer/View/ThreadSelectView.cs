@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Drawing;
 using System.Windows.Forms;
-using PeerstLib.Bbs;
+using PeerstLib.Bbs.Data;
 using PeerstLib.Utility;
 using PeerstPlayer.ViewModel;
 
