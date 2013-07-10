@@ -90,7 +90,7 @@ namespace PeerstPlayer.Model.Shortcut
 			eventMap.Add(ShortcutEvents.MinButtonClick,			ShortcutCommands.WindowMinimization);
 			eventMap.Add(ShortcutEvents.MaxButtonClick,			ShortcutCommands.WindowMaximize);
 			eventMap.Add(ShortcutEvents.CloseButtonClick,		ShortcutCommands.Close);
-			eventMap.Add(ShortcutEvents.ThreadTitleRightClick,	ShortcutCommands.ShowNewRes);
+			eventMap.Add(ShortcutEvents.ThreadTitleRightClick,	ShortcutCommands.OpenPeerstViewer);
 		}
 
 		//-------------------------------------------------------------
