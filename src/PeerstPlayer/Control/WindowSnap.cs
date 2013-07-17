@@ -54,11 +54,11 @@ namespace PeerstLib.Form
 
 			// マウスポジションの取得
 			Rectangle screen = System.Windows.Forms.Screen.GetBounds(form);
-			int mouseX = ((Cursor.Position.X < 0) ? (Cursor.Position.X + screen.Width) : Cursor.Position.X);
-			int mouseY = Cursor.Position.Y;
+			int mouseX = System.Windows.Forms.Control.MousePosition.X;
+			int mouseY = System.Windows.Forms.Control.MousePosition.Y;
 
 			// 左枠
-			if (Math.Abs(mouseX - pecaPlayer.ClickPoint.X) <= ScreenMagnetDockDist)
+			if (Math.Abs((mouseX - pecaPlayer.ClickPoint.X) - screen.Left) <= ScreenMagnetDockDist)
 			{
 				left = screen.Left;
 			}
@@ -70,7 +70,7 @@ namespace PeerstLib.Form
 			}
 
 			// 右枠
-			if (Math.Abs((mouseX + form.Width) - (pecaPlayer.ClickPoint.X + screen.Width)) <= ScreenMagnetDockDist)
+			if (Math.Abs((mouseX + form.Width) - (pecaPlayer.ClickPoint.X + screen.Width) - screen.X) <= ScreenMagnetDockDist)
 			{
 				left = screen.Right - form.Width;
 			}
@@ -97,8 +97,8 @@ namespace PeerstLib.Form
 
 			// マウスポジションの取得
 			Rectangle screen = System.Windows.Forms.Screen.GetBounds(form);
-			int mouseX = ((Cursor.Position.X < 0) ? (Cursor.Position.X + screen.Width) : Cursor.Position.X);
-			int mouseY = Cursor.Position.Y;
+			int mouseX = System.Windows.Forms.Control.MousePosition.X;
+			int mouseY = System.Windows.Forms.Control.MousePosition.Y;
 
 			// 左
 			POINT leftPoint;
