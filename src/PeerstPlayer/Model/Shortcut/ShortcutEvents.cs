@@ -19,5 +19,6 @@ namespace PeerstPlayer.Model.Shortcut
 		MinButtonClick,			// 最小化ボタン押下
 		CloseButtonClick,		// 閉じるボタン押下
 		ThreadTitleRightClick,	// スレッドタイトルを右クリック
+		StatusbarHover,			// ステータスバーをマウスホバー
 	};
 }

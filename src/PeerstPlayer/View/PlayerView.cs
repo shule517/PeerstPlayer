@@ -296,6 +296,9 @@ namespace PeerstPlayer
 			// キー押下イベント
 			pecaPlayer.KeyDownEvent += (sender, e) => shortcut.RaiseKeyEvent(e);
 
+			// ステータスバー マウスホバーイベント
+			statusBar.MouseHoverEvent += (sender, e) => shortcut.RaiseEvent(ShortcutEvents.StatusbarHover);
+
 			// 終了処理
 			FormClosed += (sender, e) =>
 			{

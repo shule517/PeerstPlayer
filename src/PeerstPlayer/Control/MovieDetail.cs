@@ -40,6 +40,9 @@ namespace PeerstPlayer.Control
 		// 音量のクリックイベント
 		public event EventHandler VolumeClick = delegate { };
 
+		// マウスホバーイベント
+		public event EventHandler MouseHoverEvent = delegate { };
+
 		//-------------------------------------------------------------
 		// 概要：コンストラクタ
 		// 詳細：イベントの設定
@@ -65,6 +68,10 @@ namespace PeerstPlayer.Control
 				Logger.Instance.Info("音量ラベルをクリック");
 				VolumeClick(sender, e);
 			};
+
+			// マウスホバーイベント
+			ChannelDetailLabel.MouseHover += (sender, e) => MouseHoverEvent(sender, e);
+			movieStatusLabel.MouseHover += (sender, e) => MouseHoverEvent(sender, e);
 		}
 	}
 }

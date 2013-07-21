@@ -83,6 +83,13 @@ namespace PeerstPlayer.Control
 			remove { movieDetail.VolumeClick -= value; }
 		}
 
+		// マウスホバーイベント
+		public event EventHandler MouseHoverEvent
+		{
+			add { movieDetail.MouseHoverEvent += value; }
+			remove { movieDetail.MouseHoverEvent -= value; }
+		}
+
 		//-------------------------------------------------------------
 		// 概要：コンストラクタ
 		// 詳細：イベント登録
@@ -111,7 +118,7 @@ namespace PeerstPlayer.Control
 				ThreadTitleRightClick(sender, e);
 			};
 		}
-
+		
 		//-------------------------------------------------------------
 		// 概要：サイズ変更イベント
 		// 詳細：書き込み欄のサイズ自動調節

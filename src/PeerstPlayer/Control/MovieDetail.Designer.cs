@@ -35,19 +35,18 @@
 			// 
 			// ChannelDetailLabel
 			// 
-			this.ChannelDetailLabel.AutoSize = true;
+			this.ChannelDetailLabel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
 			this.ChannelDetailLabel.BackColor = System.Drawing.Color.Black;
-			this.ChannelDetailLabel.Dock = System.Windows.Forms.DockStyle.Left;
 			this.ChannelDetailLabel.Font = new System.Drawing.Font("MS UI Gothic", 9F);
 			this.ChannelDetailLabel.ForeColor = System.Drawing.Color.SpringGreen;
 			this.ChannelDetailLabel.Location = new System.Drawing.Point(0, 0);
 			this.ChannelDetailLabel.Margin = new System.Windows.Forms.Padding(3);
 			this.ChannelDetailLabel.Name = "ChannelDetailLabel";
 			this.ChannelDetailLabel.Padding = new System.Windows.Forms.Padding(3, 3, 0, 0);
-			this.ChannelDetailLabel.Size = new System.Drawing.Size(78, 15);
+			this.ChannelDetailLabel.Size = new System.Drawing.Size(450, 18);
 			this.ChannelDetailLabel.TabIndex = 2;
 			this.ChannelDetailLabel.Text = "チャンネル情報";
-			this.ChannelDetailLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
 			// 
 			// volumeLabel
 			// 
