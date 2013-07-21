@@ -34,8 +34,11 @@ namespace PeerstPlayer.Model.Shortcut
 		public void Init(PlayerView playerView, PecaPlayer pecaPlayer, Control.StatusBar statusBar)
 		{
 			CreateCommand(playerView, pecaPlayer, statusBar);
-			CreateEvent();
-			CreateGesture();
+
+			// キー設定
+			SettingEvent();
+			SettingGesture();
+			SettingKey();
 		}
 
 		//-------------------------------------------------------------
@@ -76,13 +79,14 @@ namespace PeerstPlayer.Model.Shortcut
 		}
 	
 		//-------------------------------------------------------------
-		// 概要：イベント登録
+		// 概要：イベントの設定
 		//-------------------------------------------------------------
-		private void CreateEvent()
+		private void SettingEvent()
 		{
 			// TODO 設定によって切り替えを行う
 			eventMap.Add(ShortcutEvents.WheelUp,				ShortcutCommands.VolumeUp);
 			eventMap.Add(ShortcutEvents.WheelDown,				ShortcutCommands.VolumeDown);
+			eventMap.Add(ShortcutEvents.MiddleClick,			ShortcutCommands.MiniMute);
 			eventMap.Add(ShortcutEvents.Mute,					ShortcutCommands.Mute);
 			eventMap.Add(ShortcutEvents.DoubleClick,			ShortcutCommands.WindowMaximize);
 			eventMap.Add(ShortcutEvents.StatusbarRightClick,	ShortcutCommands.OpenPeerstViewer);
@@ -94,14 +98,23 @@ namespace PeerstPlayer.Model.Shortcut
 		}
 
 		//-------------------------------------------------------------
-		// 概要：マウスジェスチャーの設定作成
+		// 概要：マウスジェスチャーの設定
 		//-------------------------------------------------------------
-		private void CreateGesture()
+		private void SettingGesture()
 		{
 			// TODO 設定によって切り替えを行う
-			gestureMap.Add("↓→",	ShortcutCommands.Close);
-			gestureMap.Add("↓",	ShortcutCommands.OpenPeerstViewer);
-			gestureMap.Add("↓↑",	ShortcutCommands.UpdateChannelInfo);
+			gestureMap.Add("↓→", ShortcutCommands.Close);
+			gestureMap.Add("↓", ShortcutCommands.OpenPeerstViewer);
+			gestureMap.Add("↓↑", ShortcutCommands.UpdateChannelInfo);
+		}
+
+		//-------------------------------------------------------------
+		// 概要：キー入力の設定
+		//-------------------------------------------------------------
+		private void SettingKey()
+		{
+			// TODO 設定によって切り替えを行う
+			//keyMap.Add(Keys.T, ShortcutCommands.TopMost);
 		}
 
 		//-------------------------------------------------------------
@@ -145,6 +158,24 @@ namespace PeerstPlayer.Model.Shortcut
 			commandMap.Add(ShortcutCommands.Mute, () => pecaPlayer.Mute = !pecaPlayer.Mute);
 			// ウィンドウを最小化
 			commandMap.Add(ShortcutCommands.WindowMinimization, () => form.WindowState = FormWindowState.Minimized);
+			// ウィンドウを最大化
+			commandMap.Add(ShortcutCommands.WindowMaximize, () =>
+			{
+				if (form.WindowState == FormWindowState.Normal)
+				{
+					form.WindowState = FormWindowState.Maximized;
+				}
+				else
+				{
+					form.WindowState = FormWindowState.Normal;
+				}
+			});
+			// 最小化ミュート
+			commandMap.Add(ShortcutCommands.MiniMute, () =>
+			{
+				pecaPlayer.Mute = true;
+				form.WindowState = FormWindowState.Minimized;
+			});
 			// 閉じる
 			commandMap.Add(ShortcutCommands.Close, () =>
 			{
@@ -157,18 +188,6 @@ namespace PeerstPlayer.Model.Shortcut
 				if (statusBar.WriteFieldVisible)
 				{
 					statusBar.Focus();
-				}
-			});
-			// ウィンドウを最大化
-			commandMap.Add(ShortcutCommands.WindowMaximize, () =>
-			{
-				if (form.WindowState == FormWindowState.Normal)
-				{
-					form.WindowState = FormWindowState.Maximized;
-				}
-				else
-				{
-					form.WindowState = FormWindowState.Normal;
 				}
 			});
 			// PeerstViewerを開く
@@ -189,6 +208,11 @@ namespace PeerstPlayer.Model.Shortcut
 			commandMap.Add(ShortcutCommands.ShowNewRes, () =>
 			{
 				// TODO 新着レス表示の実装
+			});
+			// 最前列表示切り替え
+			commandMap.Add(ShortcutCommands.TopMost, () =>
+			{
+				form.TopMost = !form.TopMost;
 			});
 		}
 

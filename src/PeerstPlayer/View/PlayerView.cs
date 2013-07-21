@@ -236,6 +236,11 @@ namespace PeerstPlayer
 					mouseGesture.Start();
 					isGesturing = true;
 				}
+				else if (e.nButton == (short)Keys.MButton)
+				{
+					// 中クリック
+					shortcut.RaiseEvent(ShortcutEvents.MiddleClick);
+				}
 			};
 
 			// マウスアップイベント

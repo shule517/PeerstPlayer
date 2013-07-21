@@ -10,6 +10,7 @@ namespace PeerstPlayer.Model.Shortcut
 	{
 		WheelUp,				// ホイールUp
 		WheelDown,				// ホイールDown
+		MiddleClick,			// 中クリック
 		Mute,					// ミュートボタン押下
 		DoubleClick,			// ダブルクリック
 		StatusbarRightClick,	// ステータスバー右クリック
