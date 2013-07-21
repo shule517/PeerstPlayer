@@ -5,6 +5,7 @@ using System.Web;
 using PeerstLib.Bbs.Data;
 using PeerstLib.Utility;
 using System.Linq;
+using System.Text.RegularExpressions;
 
 namespace PeerstLib.Bbs.Strategy
 {
@@ -182,9 +183,9 @@ namespace PeerstLib.Bbs.Strategy
 					ResNo	= data[(int)DatIndex.ResNo],
 					Date	= data[(int)DatIndex.Date],
 					Id		= data[(int)DatIndex.Id],
-					Mail	= data[(int)DatIndex.Mail],
-					Message	= data[(int)DatIndex.Message],
-					Name	= data[(int)DatIndex.Name],
+					Mail	= HttpUtility.HtmlDecode(data[(int)DatIndex.Mail]),
+					Message	= HttpUtility.HtmlDecode(data[(int)DatIndex.Message]),
+					Name	= HttpUtility.HtmlDecode(data[(int)DatIndex.Name]),
 				};
 				resList.Add(resInfo);
 			}

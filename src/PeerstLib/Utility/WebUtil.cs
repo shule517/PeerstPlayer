@@ -3,6 +3,7 @@ using System.IO;
 using System.Net;
 using System.Net.Configuration;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Web;
 
 namespace PeerstLib.Utility
@@ -26,7 +27,6 @@ namespace PeerstLib.Utility
 				wc.Proxy = null; // 遅延回避のため
 				byte[] data = wc.DownloadData(url);
 				string result = encoding.GetString(data);
-				result = HttpUtility.HtmlDecode(result);
 				Logger.Instance.DebugFormat("HTMLの取得:正常");
 				return result;
 			}
@@ -47,6 +47,15 @@ namespace PeerstLib.Utility
 			SettingsSection section = (SettingsSection)config.GetSection("system.net/settings");
 			section.HttpWebRequest.UseUnsafeHeaderParsing = true;
 			config.Save();
+		}
+
+		/// <summary>
+		/// HTMLタグを除去
+		/// <>ではさまれている文字列を削除して返す
+		/// </summary>
+		public static string DeleteHtmlTag(string text)
+		{
+			return Regex.Replace(text, @"<(.|\n)*?>", string.Empty);
 		}
 	}
 }

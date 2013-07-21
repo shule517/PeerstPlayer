@@ -125,7 +125,8 @@ namespace PeerstPlayer.Control
 			{
 				if ((operationBbs.ResList.Count - res.i) <= 5)
 				{
-					message += String.Format("{0, 4} : {1}\n", res.v.ResNo, res.v.Message.Replace("<br>", "\n         "));
+					string text = res.v.Message.Replace("<br>", "\n         ");
+					message += String.Format("{0, 4} : {1}\n", res.v.ResNo, WebUtil.DeleteHtmlTag(text));
 				}
 			}
 

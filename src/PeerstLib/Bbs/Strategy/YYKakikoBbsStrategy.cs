@@ -5,6 +5,7 @@ using System.Web;
 using PeerstLib.Bbs.Data;
 using PeerstLib.Utility;
 using System.Linq;
+using System.Text.RegularExpressions;
 
 namespace PeerstLib.Bbs.Strategy
 {
@@ -173,12 +174,12 @@ namespace PeerstLib.Bbs.Strategy
 
 				ResInfo resInfo = new ResInfo
 				{
-					ResNo = (line.i + 1).ToString(),
-					Date = data[(int)DatIndex.DateAndId],
-					Id = "", // TODO IDを取得する
-					Mail = data[(int)DatIndex.Mail],
-					Message = data[(int)DatIndex.Message],
-					Name = data[(int)DatIndex.Name],
+					ResNo	= (line.i + 1).ToString(),
+					Date	= data[(int)DatIndex.DateAndId],
+					Id		= "", // TODO IDを取得する
+					Mail	= HttpUtility.HtmlDecode(data[(int)DatIndex.Mail]),
+					Message = HttpUtility.HtmlDecode(data[(int)DatIndex.Message]),
+					Name	= HttpUtility.HtmlDecode(data[(int)DatIndex.Name]),
 				};
 				resList.Add(resInfo);
 			}
