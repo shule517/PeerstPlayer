@@ -274,7 +274,7 @@ namespace PeerstPlayer
 				}
 			};
 
-			// マウスムーズイベント
+			// マウス移動イベント
 			pecaPlayer.MouseMoveEvent += (sender, e) =>
 			{
 				if (!toolStrip.Visible)
@@ -292,6 +292,9 @@ namespace PeerstPlayer
 					statusBar.ChannelDetail = string.Format("マウスジェスチャ：{0}{1}", gesture, (String.IsNullOrEmpty(detail) ? "" : "(" + detail + ")"));
 				}
 			};
+
+			// キー押下イベント
+			pecaPlayer.KeyDownEvent += (sender, e) => shortcut.RaiseKeyEvent(e);
 
 			// 終了処理
 			FormClosed += (sender, e) =>

@@ -96,6 +96,13 @@ namespace PeerstPlayer.Control
 			remove { wmp.MouseMoveEvent -= value; }
 		}
 
+		// キー押下イベント
+		public event AxWMPLib._WMPOCXEvents_KeyDownEventHandler KeyDownEvent
+		{
+			add { wmp.KeyDownEvent += value; }
+			remove { wmp.KeyDownEvent -= value; }
+		}
+
 		// ダブルクリックイベント
 		public event EventHandler DoubleClickEvent = delegate { };
 
@@ -206,16 +213,6 @@ namespace PeerstPlayer.Control
 			{
 				Logger.Instance.InfoFormat("チャンネル更新完了 [チャンネル名:{0}] [ジャンル：{1}] [詳細:{2}] [コメント:{3}] [コンタクトURL:{4}]", ChannelInfo.Name, ChannelInfo.Genre, ChannelInfo.Desc, ChannelInfo.Comment, ChannelInfo.Url);
 				ChannelInfoChange(sender, e);
-			};
-
-			// キー押下イベント
-			wmp.KeyDownEvent += (sender, e) =>
-			{
-				// TODO イベントを通知する
-				if (e.nKeyCode == (short)Keys.T)
-				{
-					ParentForm.TopMost = !ParentForm.TopMost;
-				}
 			};
 
 			// チャンネル情報の取得

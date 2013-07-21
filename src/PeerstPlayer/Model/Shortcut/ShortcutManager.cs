@@ -19,14 +19,17 @@ namespace PeerstPlayer.Model.Shortcut
 		// 非公開プロパティ
 		//-------------------------------------------------------------
 
-		// イベントMap (イベント -> コマンド)
+		// イベントMap (イベント -> コマンドを取得)
 		private Dictionary<ShortcutEvents, ShortcutCommands> eventMap = new Dictionary<ShortcutEvents, ShortcutCommands>();
 
-		// コマンドMap (コマンド -> 実行処理)
+		// コマンドMap (コマンド -> 実行処理を取得)
 		private Dictionary<ShortcutCommands, Action> commandMap = new Dictionary<ShortcutCommands, Action>();
 
-		// マウスジェスチャーMap (ジェスチャー -> コマンド)
+		// マウスジェスチャーMap (ジェスチャー -> コマンドを取得)
 		private Dictionary<string, ShortcutCommands> gestureMap = new Dictionary<string, ShortcutCommands>();
+
+		// KeyMap (キー入力 -> コマンドを取得)
+		private Dictionary<KeyInput, ShortcutCommands> keyMap = new Dictionary<KeyInput, ShortcutCommands>();
 
 		//-------------------------------------------------------------
 		// 概要：初期化
@@ -42,6 +45,36 @@ namespace PeerstPlayer.Model.Shortcut
 		}
 
 		//-------------------------------------------------------------
+		// 概要：イベント実行
+		//-------------------------------------------------------------
+		public void RaiseEvent(ShortcutEvents eventId)
+		{
+			Logger.Instance.InfoFormat("イベント実行 [イベントID:{0}]", eventId);
+			ShortcutCommands commandId = eventMap[eventId];
+			ExecCommand(commandId);
+		}
+
+		//-------------------------------------------------------------
+		// 概要：キー押下イベント実行
+		//-------------------------------------------------------------
+		internal void RaiseKeyEvent(AxWMPLib._WMPOCXEvents_KeyDownEvent e)
+		{
+			// TODO ログの修正
+			Logger.Instance.InfoFormat("キー押下イベント実行 [イベントID:{0}]", e);
+			foreach (KeyValuePair<KeyInput, ShortcutCommands> data in keyMap)
+			{
+				KeyInput input = data.Key;
+				ShortcutCommands command = data.Value;
+
+				if ((e.nKeyCode == (short)input.Key) &&
+					(true/* 修飾キーの確認をする input.ModifierKey*/))
+				{
+					ExecCommand(command);
+				}
+			}
+		}
+
+	//-------------------------------------------------------------
 		// 概要：マウスジェスチャー実行
 		//-------------------------------------------------------------
 		public void ExecGesture(string gesture)
@@ -52,16 +85,6 @@ namespace PeerstPlayer.Model.Shortcut
 				Logger.Instance.InfoFormat("マウスジェスチャー実行 [ジェスチャー:{0}, コマンドID:{1}]", gesture, commandId);
 				ExecCommand(commandId);
 			}
-		}
-
-		//-------------------------------------------------------------
-		// 概要：イベント実行
-		//-------------------------------------------------------------
-		public void RaiseEvent(ShortcutEvents eventId)
-		{
-			Logger.Instance.InfoFormat("イベント実行 [イベントID:{0}]", eventId);
-			ShortcutCommands commandId = eventMap[eventId];
-			ExecCommand(commandId);
 		}
 
 		//-------------------------------------------------------------
@@ -77,7 +100,7 @@ namespace PeerstPlayer.Model.Shortcut
 
 			return String.Empty;
 		}
-	
+
 		//-------------------------------------------------------------
 		// 概要：イベントの設定
 		//-------------------------------------------------------------
@@ -103,9 +126,9 @@ namespace PeerstPlayer.Model.Shortcut
 		private void SettingGesture()
 		{
 			// TODO 設定によって切り替えを行う
-			gestureMap.Add("↓→", ShortcutCommands.Close);
-			gestureMap.Add("↓", ShortcutCommands.OpenPeerstViewer);
-			gestureMap.Add("↓↑", ShortcutCommands.UpdateChannelInfo);
+			gestureMap.Add("↓→",	ShortcutCommands.Close);
+			gestureMap.Add("↓",	ShortcutCommands.OpenPeerstViewer);
+			gestureMap.Add("↓↑",	ShortcutCommands.UpdateChannelInfo);
 		}
 
 		//-------------------------------------------------------------
@@ -114,7 +137,7 @@ namespace PeerstPlayer.Model.Shortcut
 		private void SettingKey()
 		{
 			// TODO 設定によって切り替えを行う
-			//keyMap.Add(Keys.T, ShortcutCommands.TopMost);
+			keyMap.Add(new KeyInput(Keys.T), ShortcutCommands.TopMost);
 		}
 
 		//-------------------------------------------------------------

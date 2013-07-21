@@ -89,6 +89,7 @@
       <DependentUpon>WriteField.cs</DependentUpon>
     </Compile>
     <Compile Include="Model\PlayerSettings.cs" />
+    <Compile Include="Model\Shortcut\KeyInput.cs" />
     <Compile Include="Model\Shortcut\ShortcutCommands.cs" />
     <Compile Include="Model\Shortcut\ShortcutEvents.cs" />
     <Compile Include="Model\Shortcut\ShortcutManager.cs" />
