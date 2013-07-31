@@ -208,7 +208,19 @@ namespace PeerstPlayer.Model.Shortcut
 			// ステータスバーの表示切り替え
 			commandMap.Add(ShortcutCommands.VisibleStatusBar, () =>
 			{
-				statusBar.WriteFieldVisible = !statusBar.WriteFieldVisible;
+				// ウィンドウ最大化時は一度通常に戻す
+				if (form.WindowState == FormWindowState.Maximized)
+				{
+					form.WindowState = FormWindowState.Normal;
+					statusBar.WriteFieldVisible = !statusBar.WriteFieldVisible;
+					form.WindowState = FormWindowState.Maximized;
+				}
+				else
+				{
+					statusBar.WriteFieldVisible = !statusBar.WriteFieldVisible;
+				}
+
+				// ステータスバーにフォーカス
 				if (statusBar.WriteFieldVisible)
 				{
 					statusBar.Focus();
