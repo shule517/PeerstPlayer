@@ -39,10 +39,16 @@ namespace PeerstLib.Bbs
 			string tag = tagMatch.Groups[1].Value;
 
 			// 書き込み失敗
-			if (title.StartsWith("ERROR") || title.StartsWith("ＥＲＲＯＲ"))
+			if (title.StartsWith("ERROR") || title.StartsWith("ＥＲＲＯＲ") || tag.StartsWith("error"))
 			{
 				Logger.Instance.ErrorFormat("レス書き込み：異常 [実行結果:{0}]", html);
-				throw new Exception();
+
+				// エラー内容の取得
+				Regex errorRegex = new Regex("<b>(.*)</b>");
+				Match errorMatch = errorRegex.Match(html);
+				string error = errorMatch.Groups[1].Value;
+
+				throw new ArgumentException(WebUtil.DeleteHtmlTag(error));
 			}
 
 			Logger.Instance.DebugFormat("レス書き込み：正常 [実行結果:{0}]", title);

@@ -152,7 +152,7 @@ namespace PeerstLib.Bbs.Strategy
 			string[] lines = datText.Replace("\r\n", "\n").Split('\n');
 			ResList = AnalyzeDatText(lines);
 
-			Logger.Instance.DebugFormat("レス一覧取得：正常 [レス取得数：{0}]", ThreadList.Count);
+			Logger.Instance.DebugFormat("レス一覧取得：正常 [レス取得数：{0}]", ResList.Count);
 		}
 
 		//-------------------------------------------------------------

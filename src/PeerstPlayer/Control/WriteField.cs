@@ -244,11 +244,11 @@ namespace PeerstPlayer.Control
 				Logger.Instance.InfoFormat("レス書き込み：成功 [掲示板:{0} スレッド:{1}, 本文:{2}]", operationBbs.BbsInfo.BbsName, operationBbs.SelectThread.ThreadTitle, message);
 				writeFieldTextBox.Text = "";
 			}
-			catch
+			catch (ArgumentException exception)
 			{
-				Logger.Instance.ErrorFormat("レス書き込み：失敗 [掲示板:{0} スレッド:{1}, 本文:{2}]", operationBbs.BbsInfo.BbsName, operationBbs.SelectThread.ThreadTitle, message);
+				Logger.Instance.ErrorFormat("レス書き込み：失敗 [エラー内容{0} 掲示板:{1} スレッド:{2}, 本文:{3}]", exception.Message, operationBbs.BbsInfo.BbsName, operationBbs.SelectThread.ThreadTitle, message);
 				MessageBox.Show(
-					string.Format("レス書き込みに失敗しました。\n\n掲示板：{0}\nスレッド：{1}\n本文：{2}", operationBbs.BbsInfo.BbsName, operationBbs.SelectThread.ThreadTitle, message),
+					string.Format("{0}\n\n掲示板：{1}\nスレッド：{2}\n本文：{3}", exception.Message, operationBbs.BbsInfo.BbsName, operationBbs.SelectThread.ThreadTitle, message),
 					"Error!!");
 				writeFieldTextBox.Text = message;
 			}
