@@ -19,6 +19,9 @@ namespace PeerstLib.Bbs.Strategy
 		// 公開プロパティ
 		//-------------------------------------------------------------
 
+		// YYかきこのドメイン
+		public const string Domain = "yy";
+
 		// スレッドURL
 		public override string ThreadUrl
 		{

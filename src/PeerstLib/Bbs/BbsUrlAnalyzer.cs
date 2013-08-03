@@ -2,6 +2,7 @@
 using System.Text;
 using System.Text.RegularExpressions;
 using PeerstLib.Bbs.Data;
+using PeerstLib.Bbs.Strategy;
 using PeerstLib.Utility;
 
 namespace PeerstLib.Bbs
@@ -36,13 +37,13 @@ namespace PeerstLib.Bbs
 			}
 
 			// したらば
-			if (uri.Host == "jbbs.livedoor.jp")
+			if (uri.Host == ShitarabaBbsStrategy.Domain)
 			{
 				Logger.Instance.DebugFormat("掲示板サーバ：したらば [HOST:{0}]", uri.Host);
 				return AnalyzeShitaraba(threadUrl);
 			}
 			// YY
-			else if (uri.Host.StartsWith("yy"))
+			else if (uri.Host.StartsWith(YYKakikoBbsStrategy.Domain))
 			{
 				Logger.Instance.DebugFormat("掲示板サーバ：わいわいKakiko [HOST:{0}]", uri.Host);
 				return AnalayzeYY(threadUrl, uri.Host);
@@ -84,7 +85,7 @@ namespace PeerstLib.Bbs
 			const int boardNoIndex = 3;
 			const int threadNoIndex = 4;
 
-			Regex regex = new Regex(@"http://jbbs.livedoor.jp(/bbs/read.cgi)?/(\w*)/(\w*)/?(\w*)?/?");
+			Regex regex = new Regex(String.Format(@"http://{0}(/bbs/read.cgi)?/(\w*)/(\w*)/?(\w*)?/?", ShitarabaBbsStrategy.Domain));
 			Match match = regex.Match(url);
 
 			string threadUrl = match.Groups[threadUrlIndex].Value;

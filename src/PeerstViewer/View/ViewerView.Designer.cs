@@ -205,7 +205,7 @@
 			this.textBoxUrl.Name = "textBoxUrl";
 			this.textBoxUrl.Size = new System.Drawing.Size(776, 19);
 			this.textBoxUrl.TabIndex = 2;
-			this.textBoxUrl.Text = "http://jbbs.livedoor.jp/bbs/read.cgi/game/45037/1362306973/";
+			this.textBoxUrl.Text = "スレッドURL";
 			// 
 			// splitContainerThreadList
 			// 
