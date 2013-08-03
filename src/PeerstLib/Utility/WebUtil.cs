@@ -27,12 +27,12 @@ namespace PeerstLib.Utility
 				wc.Proxy = null; // 遅延回避のため
 				byte[] data = wc.DownloadData(url);
 				string result = encoding.GetString(data);
-				Logger.Instance.DebugFormat("HTMLの取得:正常");
+				Logger.Instance.DebugFormat("HTMLの取得:正常 [url:{0}]", url);
 				return result;
 			}
 			catch
 			{
-				Logger.Instance.Error("HTMLの取得:異常");
+				Logger.Instance.ErrorFormat("HTMLの取得:異常 [url:{0}]", url);
 				return "";
 			}
 		}
