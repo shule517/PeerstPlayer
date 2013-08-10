@@ -35,12 +35,14 @@
 			// 
 			// wmp
 			// 
-			this.wmp.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.wmp.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
 			this.wmp.Enabled = true;
-			this.wmp.Location = new System.Drawing.Point(0, 0);
+			this.wmp.Location = new System.Drawing.Point(-1, -1);
 			this.wmp.Name = "wmp";
 			this.wmp.OcxState = ((System.Windows.Forms.AxHost.State)(resources.GetObject("wmp.OcxState")));
-			this.wmp.Size = new System.Drawing.Size(150, 150);
+			this.wmp.Size = new System.Drawing.Size(152, 152);
 			this.wmp.TabIndex = 0;
 			// 
 			// PecaPlayer
