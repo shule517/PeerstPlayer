@@ -103,32 +103,28 @@ namespace PeerstLib.Bbs.Strategy
 		{
 			Logger.Instance.DebugFormat("AnalyzeSubjectText(lines:{0})", lines);
 
-			const int threadNoStart = 0;
-			const int threadNoEnd = 10;
-			const int cgiLength = 5;
-			const int titleStart = threadNoEnd + cgiLength;
-
 			List<ThreadInfo> threadList = new List<ThreadInfo>();
 
 			foreach (string line in lines)
 			{
+				// 行末はスルー
 				if (String.IsNullOrEmpty(line))
 					continue;
 
-				// スレッドタイトル抽出
-				int titleEnd = line.LastIndexOf('(');
-				string threadTitle = line.Substring(titleStart, titleEnd - titleStart);
+				Regex regex = new Regex(@"(?<threadNo>[0-9]+)\.cgi,(?<threadTitle>.+)\((?<resCount>[0-9]+)\)");
+				Match match = regex.Match(line);
 
-				// レス数抽出
-				int resStart = titleEnd + 1;
-				string resCount = line.Substring(resStart, (line.Length - resStart - 1));
-				string threadNo = line.Substring(threadNoStart, threadNoEnd);
+				// 正規表現がヒットしなければスルー
+				if (match.Success == false) { continue; }
+
+				// データ抽出
+				string threadNo = match.Groups["threadNo"].Value;
+				string resCount = match.Groups["resCount"].Value;
 				double days = BbsUtil.GetThreadSince(threadNo);
-
 				ThreadInfo threadInfo = new ThreadInfo
 				{
 					ThreadNo = threadNo,
-					ThreadTitle = threadTitle.Trim(),
+					ThreadTitle = match.Groups["threadTitle"].Value.Trim(),
 					ResCount = int.Parse(resCount),
 					ThreadSpeed = BbsUtil.GetThreadSpeed(days, resCount),
 					ThreadSince = days
