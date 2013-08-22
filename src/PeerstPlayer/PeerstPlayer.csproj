@@ -60,32 +60,32 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Control\ChannelAutoRetry.cs" />
-    <Compile Include="Control\MovieDetail.cs">
+    <Compile Include="Controls\ChannelAutoRetry.cs" />
+    <Compile Include="Controls\MovieDetail.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Control\MovieDetail.Designer.cs">
+    <Compile Include="Controls\MovieDetail.Designer.cs">
       <DependentUpon>MovieDetail.cs</DependentUpon>
     </Compile>
-    <Compile Include="Control\PecaPlayer.cs">
+    <Compile Include="Controls\PecaPlayer.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Control\PecaPlayer.Designer.cs">
+    <Compile Include="Controls\PecaPlayer.Designer.cs">
       <DependentUpon>PecaPlayer.cs</DependentUpon>
     </Compile>
-    <Compile Include="Control\PecaPlayerEventManager.cs" />
-    <Compile Include="Control\WindowSnap.cs" />
-    <Compile Include="Control\StatusBar.cs">
+    <Compile Include="Controls\PecaPlayerEventManager.cs" />
+    <Compile Include="Controls\WindowSnap.cs" />
+    <Compile Include="Controls\StatusBar.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Control\StatusBar.Designer.cs">
+    <Compile Include="Controls\StatusBar.Designer.cs">
       <DependentUpon>StatusBar.cs</DependentUpon>
     </Compile>
-    <Compile Include="Control\WmpNativeWindow.cs" />
-    <Compile Include="Control\WriteField.cs">
+    <Compile Include="Controls\WmpNativeWindow.cs" />
+    <Compile Include="Controls\WriteField.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Control\WriteField.Designer.cs">
+    <Compile Include="Controls\WriteField.Designer.cs">
       <DependentUpon>WriteField.cs</DependentUpon>
     </Compile>
     <Compile Include="Model\PlayerSettings.cs" />
@@ -114,18 +114,18 @@
     <Compile Include="View\ThreadSelectView.Designer.cs">
       <DependentUpon>ThreadSelectView.cs</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="Control\MovieDetail.resx">
+    <EmbeddedResource Include="Controls\MovieDetail.resx">
       <DependentUpon>MovieDetail.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Control\PecaPlayer.resx">
+    <EmbeddedResource Include="Controls\PecaPlayer.resx">
       <DependentUpon>PecaPlayer.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Control\StatusBar.resx">
+    <EmbeddedResource Include="Controls\StatusBar.resx">
       <DependentUpon>StatusBar.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Control\WriteField.resx">
+    <EmbeddedResource Include="Controls\WriteField.resx">
       <DependentUpon>WriteField.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
