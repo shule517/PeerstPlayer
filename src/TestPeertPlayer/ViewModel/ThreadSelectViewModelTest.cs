@@ -1,7 +1,7 @@
 ﻿using System.Threading;
 using System.Windows.Forms;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using PeerstPlayer.ViewModel;
+using PeerstPlayer.Forms.ThreadSelect;
 
 namespace TestPeertPlayer.ViewModel
 {

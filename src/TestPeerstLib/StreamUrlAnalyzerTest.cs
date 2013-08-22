@@ -1,6 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using PeerstLib.Bbs.Data;
 using PeerstLib.PeerCast;
+using PeerstLib.PeerCast.Util;
 
 namespace TestPeerstLib
 {

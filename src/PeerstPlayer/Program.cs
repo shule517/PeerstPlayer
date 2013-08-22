@@ -1,11 +1,10 @@
 ﻿using System;
-using System.Linq;
-using System.Net.Configuration;
 using System.Reflection;
 using System.Threading;
 using System.Windows.Forms;
 using log4net;
-using PeerstLib.Utility;
+using PeerstLib.Util;
+using PeerstPlayer.Forms.Setting;
 
 namespace PeerstPlayer
 {

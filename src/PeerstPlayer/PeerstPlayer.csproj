@@ -35,7 +35,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>PeerstPlayer2.ico</ApplicationIcon>
+    <ApplicationIcon>PeerstPlayer.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="AxInterop.WMPLib, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
@@ -60,72 +60,72 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Controls\ChannelAutoRetry.cs" />
-    <Compile Include="Controls\MovieDetail.cs">
+    <Compile Include="Controls\PecaPlayer\ChannelAutoRetry.cs" />
+    <Compile Include="Controls\MovieDetail\MovieDetail.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Controls\MovieDetail.Designer.cs">
+    <Compile Include="Controls\MovieDetail\MovieDetail.Designer.cs">
       <DependentUpon>MovieDetail.cs</DependentUpon>
     </Compile>
-    <Compile Include="Controls\PecaPlayer.cs">
+    <Compile Include="Controls\PecaPlayer\PecaPlayer.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Controls\PecaPlayer.Designer.cs">
+    <Compile Include="Controls\PecaPlayer\PecaPlayer.Designer.cs">
       <DependentUpon>PecaPlayer.cs</DependentUpon>
     </Compile>
-    <Compile Include="Controls\PecaPlayerEventManager.cs" />
-    <Compile Include="Controls\WindowSnap.cs" />
-    <Compile Include="Controls\StatusBar.cs">
+    <Compile Include="Controls\PecaPlayer\PecaPlayerEventManager.cs" />
+    <Compile Include="Controls\PecaPlayer\WindowSnap.cs" />
+    <Compile Include="Controls\StatusBar\StatusBar.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Controls\StatusBar.Designer.cs">
+    <Compile Include="Controls\StatusBar\StatusBar.Designer.cs">
       <DependentUpon>StatusBar.cs</DependentUpon>
     </Compile>
-    <Compile Include="Controls\WmpNativeWindow.cs" />
-    <Compile Include="Controls\WriteField.cs">
+    <Compile Include="Controls\PecaPlayer\WmpNativeWindow.cs" />
+    <Compile Include="Controls\WriteField\WriteField.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Controls\WriteField.Designer.cs">
+    <Compile Include="Controls\WriteField\WriteField.Designer.cs">
       <DependentUpon>WriteField.cs</DependentUpon>
     </Compile>
-    <Compile Include="Model\PlayerSettings.cs" />
-    <Compile Include="Model\Shortcut\KeyInput.cs" />
-    <Compile Include="Model\Shortcut\ShortcutCommands.cs" />
-    <Compile Include="Model\Shortcut\ShortcutEvents.cs" />
-    <Compile Include="Model\Shortcut\ShortcutManager.cs" />
-    <Compile Include="ViewModel\ThreadSelectViewModel.cs" />
-    <Compile Include="View\PlayerSettingView.cs">
+    <Compile Include="Forms\Player\PlayerSettings.cs" />
+    <Compile Include="Shortcut\KeyInput.cs" />
+    <Compile Include="Shortcut\ShortcutCommands.cs" />
+    <Compile Include="Shortcut\ShortcutEvents.cs" />
+    <Compile Include="Shortcut\ShortcutManager.cs" />
+    <Compile Include="Forms\ThreadSelect\ThreadSelectViewModel.cs" />
+    <Compile Include="Forms\Setting\PlayerSettingView.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="View\PlayerSettingView.Designer.cs">
+    <Compile Include="Forms\Setting\PlayerSettingView.Designer.cs">
       <DependentUpon>PlayerSettingView.cs</DependentUpon>
     </Compile>
-    <Compile Include="View\PlayerView.cs">
+    <Compile Include="Forms\Player\PlayerView.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="View\PlayerView.Designer.cs">
+    <Compile Include="Forms\Player\PlayerView.Designer.cs">
       <DependentUpon>PlayerView.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="View\ThreadSelectView.cs">
+    <Compile Include="Forms\ThreadSelect\ThreadSelectView.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="View\ThreadSelectView.Designer.cs">
+    <Compile Include="Forms\ThreadSelect\ThreadSelectView.Designer.cs">
       <DependentUpon>ThreadSelectView.cs</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="Controls\MovieDetail.resx">
+    <EmbeddedResource Include="Controls\MovieDetail\MovieDetail.resx">
       <DependentUpon>MovieDetail.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Controls\PecaPlayer.resx">
+    <EmbeddedResource Include="Controls\PecaPlayer\PecaPlayer.resx">
       <DependentUpon>PecaPlayer.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Controls\StatusBar.resx">
+    <EmbeddedResource Include="Controls\StatusBar\StatusBar.resx">
       <DependentUpon>StatusBar.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Controls\WriteField.resx">
+    <EmbeddedResource Include="Controls\WriteField\WriteField.resx">
       <DependentUpon>WriteField.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
@@ -139,13 +139,13 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <EmbeddedResource Include="View\PlayerSettingView.resx">
+    <EmbeddedResource Include="Forms\Setting\PlayerSettingView.resx">
       <DependentUpon>PlayerSettingView.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="View\PlayerView.resx">
+    <EmbeddedResource Include="Forms\Player\PlayerView.resx">
       <DependentUpon>PlayerView.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="View\ThreadSelectView.resx">
+    <EmbeddedResource Include="Forms\ThreadSelect\ThreadSelectView.resx">
       <DependentUpon>ThreadSelectView.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="packages.config" />
@@ -169,7 +169,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="PeerstPlayer2.ico" />
+    <Content Include="PeerstPlayer.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\nuget.targets" />

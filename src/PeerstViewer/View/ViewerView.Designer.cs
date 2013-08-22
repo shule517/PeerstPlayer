@@ -52,7 +52,7 @@
 			this.labelMail = new System.Windows.Forms.Label();
 			this.textBoxMessage = new System.Windows.Forms.TextBox();
 			this.labelName = new System.Windows.Forms.Label();
-			this.threadListView = new PeerstLib.Control.BufferedListView();
+			this.threadListView = new PeerstLib.Controls.BufferedListView();
 			this.columnHeaderNo = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
 			this.threadTitleColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
 			this.resNumColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -428,7 +428,7 @@
 		private System.Windows.Forms.Label labelMail;
 		private System.Windows.Forms.TextBox textBoxMessage;
 		private System.Windows.Forms.Label labelName;
-		private PeerstLib.Control.BufferedListView threadListView;
+		private PeerstLib.Controls.BufferedListView threadListView;
 		private System.Windows.Forms.ColumnHeader columnHeaderNo;
 		private System.Windows.Forms.ColumnHeader threadTitleColumnHeader;
 		private System.Windows.Forms.ColumnHeader resNumColumnHeader;

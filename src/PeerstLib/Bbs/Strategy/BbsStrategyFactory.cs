@@ -1,6 +1,7 @@
 ﻿
 using PeerstLib.Bbs.Data;
-using PeerstLib.Utility;
+using PeerstLib.Bbs.Util;
+using PeerstLib.Util;
 namespace PeerstLib.Bbs.Strategy
 {
 	//-------------------------------------------------------------

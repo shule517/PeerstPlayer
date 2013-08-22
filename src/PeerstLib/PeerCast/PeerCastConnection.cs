@@ -3,7 +3,8 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using System.Xml.Linq;
 using PeerstLib.Bbs.Data;
-using PeerstLib.Utility;
+using PeerstLib.PeerCast.Data;
+using PeerstLib.Util;
 
 namespace PeerstLib.PeerCast
 {

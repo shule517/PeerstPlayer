@@ -49,37 +49,36 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Bbs\Data\BbsInfo.cs" />
-    <Compile Include="Bbs\BbsServer.cs" />
-    <Compile Include="Bbs\BbsUtil.cs" />
+    <Compile Include="Bbs\Data\BbsServer.cs" />
+    <Compile Include="Bbs\Util\BbsUtil.cs" />
     <Compile Include="Bbs\Data\ResInfo.cs" />
     <Compile Include="Bbs\Strategy\BbsStrategy.cs" />
     <Compile Include="Bbs\Strategy\BbsStrategyFactory.cs" />
     <Compile Include="Bbs\Strategy\NullBbsStrategy.cs" />
     <Compile Include="Bbs\Strategy\ShitarabaBbsStrategy.cs" />
     <Compile Include="Bbs\Strategy\YYKakikoBbsStrategy.cs" />
-    <Compile Include="Bbs\BbsUrlAnalyzer.cs" />
+    <Compile Include="Bbs\Util\BbsUrlAnalyzer.cs" />
     <Compile Include="Bbs\OperationBbs.cs" />
     <Compile Include="Bbs\Data\StreamUrlInfo.cs" />
     <Compile Include="Bbs\Data\ThreadInfo.cs" />
-    <Compile Include="Control\BufferedListView.cs">
+    <Compile Include="Controls\BufferedListView.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Control\ToolStripEx.cs">
+    <Compile Include="Controls\ToolStripEx.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Form\AspectRateKeepWindow.cs" />
-    <Compile Include="Form\FormUtility.cs" />
-    <Compile Include="Form\MouseGesture.cs" />
-    <Compile Include="Form\PecaPlayer.cs" />
-    <Compile Include="Form\Win32API.cs" />
-    <Compile Include="Utility\Logger.cs" />
-    <Compile Include="PeerCast\ChannelInfo.cs" />
-    <Compile Include="PeerCast\HostInfo.cs" />
+    <Compile Include="Forms\AspectRateKeepWindow.cs" />
+    <Compile Include="Forms\FormUtility.cs" />
+    <Compile Include="Forms\MouseGesture.cs" />
+    <Compile Include="Forms\Win32API.cs" />
+    <Compile Include="Util\Logger.cs" />
+    <Compile Include="PeerCast\Data\ChannelInfo.cs" />
+    <Compile Include="PeerCast\Data\HostInfo.cs" />
     <Compile Include="PeerCast\PeerCastConnection.cs" />
-    <Compile Include="PeerCast\RelayColor.cs" />
-    <Compile Include="PeerCast\StreamUrlAnalyzer.cs" />
+    <Compile Include="PeerCast\Data\RelayColor.cs" />
+    <Compile Include="PeerCast\Util\StreamUrlAnalyzer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Utility\WebUtil.cs" />
+    <Compile Include="Util\WebUtil.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

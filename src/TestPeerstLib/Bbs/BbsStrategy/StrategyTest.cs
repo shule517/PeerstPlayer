@@ -1,6 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using PeerstLib.Bbs;
 using PeerstLib.Bbs.Strategy;
+using PeerstLib.Bbs.Util;
 
 namespace TestPeerstLib.Bbs.Strategy
 {

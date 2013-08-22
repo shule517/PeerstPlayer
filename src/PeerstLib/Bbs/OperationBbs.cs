@@ -4,7 +4,7 @@ using System.ComponentModel;
 using System.Linq;
 using PeerstLib.Bbs.Data;
 using PeerstLib.Bbs.Strategy;
-using PeerstLib.Utility;
+using PeerstLib.Util;
 
 namespace PeerstLib.Bbs
 {

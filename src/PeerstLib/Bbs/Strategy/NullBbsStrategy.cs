@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Text;
 using PeerstLib.Bbs.Data;
-using PeerstLib.Utility;
+using PeerstLib.Util;
 
 namespace PeerstLib.Bbs.Strategy
 {

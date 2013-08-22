@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using System.Text;
 using System.Web;
 using PeerstLib.Bbs.Data;
-using PeerstLib.Utility;
+using PeerstLib.Util;
 using System.Linq;
 using System.Text.RegularExpressions;
+using PeerstLib.Bbs.Util;
 
 namespace PeerstLib.Bbs.Strategy
 {
