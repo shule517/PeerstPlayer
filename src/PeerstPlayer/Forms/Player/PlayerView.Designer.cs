@@ -1,4 +1,6 @@
 ﻿using PeerstLib.Controls;
+using PeerstPlayer.Controls.PecaPlayer;
+using PeerstPlayer.Controls.StatusBar;
 namespace PeerstPlayer.Forms.Setting
 {
 	partial class PlayerView
@@ -34,8 +36,8 @@ namespace PeerstPlayer.Forms.Setting
 			this.minToolStripButton = new System.Windows.Forms.ToolStripButton();
 			this.maxToolStripButton = new System.Windows.Forms.ToolStripButton();
 			this.closeToolStripButton = new System.Windows.Forms.ToolStripButton();
-			this.statusBar = new PeerstPlayer.Control.StatusBar();
-			this.pecaPlayer = new PeerstPlayer.Control.PecaPlayer();
+			this.statusBar = new StatusBarControl();
+			this.pecaPlayer = new PecaPlayerControl();
 			this.toolStrip.SuspendLayout();
 			this.SuspendLayout();
 			// 
@@ -135,8 +137,8 @@ namespace PeerstPlayer.Forms.Setting
 
 		#endregion
 
-		private Control.PecaPlayer pecaPlayer;
-		private Control.StatusBar statusBar;
+		private PecaPlayerControl pecaPlayer;
+		private StatusBarControl statusBar;
 		private ToolStripEx toolStrip;
 		private System.Windows.Forms.ToolStripButton minToolStripButton;
 		private System.Windows.Forms.ToolStripButton maxToolStripButton;

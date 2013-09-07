@@ -8,13 +8,13 @@ using PeerstLib.PeerCast.Util;
 using PeerstLib.Util;
 using WMPLib;
 
-namespace PeerstPlayer.Control
+namespace PeerstPlayer.Controls.PecaPlayer
 {
 	//-------------------------------------------------------------
 	// 概要：ペカプレイヤークラスコントロール
 	// 詳細：PeerCast対応の動画再生プレイヤー
 	//-------------------------------------------------------------
-	public partial class PecaPlayer : UserControl
+	public partial class PecaPlayerControl : UserControl
 	{
 		//-------------------------------------------------------------
 		// 公開プロパティ
@@ -139,7 +139,7 @@ namespace PeerstPlayer.Control
 		// 概要：コンストラクタ
 		// 詳細：コントロールの初期化
 		//-------------------------------------------------------------
-		public PecaPlayer()
+		public PecaPlayerControl()
 		{
 			Logger.Instance.Debug("PecaPlayer()");
 			InitializeComponent();

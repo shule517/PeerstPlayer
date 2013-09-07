@@ -3,9 +3,8 @@ using System.Drawing;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 using PeerstLib.Controls;
-using PeerstPlayer.Control;
 
-namespace PeerstLib.Forms
+namespace PeerstPlayer.Controls.PecaPlayer
 {
 	//-------------------------------------------------------------
 	// 概要：ウィンドウスナップクラス
@@ -13,7 +12,7 @@ namespace PeerstLib.Forms
 	public class WindowSnap : NativeWindow
 	{
 		System.Windows.Forms.Form form;
-		PecaPlayer pecaPlayer;
+		PecaPlayerControl pecaPlayer;
 
 		// スクリーン吸着距離
 		private const int ScreenMagnetDockDist = 20;
@@ -21,7 +20,7 @@ namespace PeerstLib.Forms
 		//-------------------------------------------------------------
 		// 概要：コンストラクタ
 		//-------------------------------------------------------------
-		public WindowSnap(System.Windows.Forms.Form form, PecaPlayer pecaPlayer)
+		public WindowSnap(System.Windows.Forms.Form form, PecaPlayerControl pecaPlayer)
 		{
 			this.form = form;
 			this.pecaPlayer = pecaPlayer;

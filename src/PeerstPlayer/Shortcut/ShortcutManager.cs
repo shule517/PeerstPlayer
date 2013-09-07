@@ -4,7 +4,8 @@ using System.Diagnostics;
 using System.IO;
 using System.Windows.Forms;
 using PeerstLib.Util;
-using PeerstPlayer.Control;
+using PeerstPlayer.Controls.PecaPlayer;
+using PeerstPlayer.Controls.StatusBar;
 using PeerstPlayer.Forms.Setting;
 
 namespace PeerstPlayer.Shortcut
@@ -33,7 +34,7 @@ namespace PeerstPlayer.Shortcut
 		//-------------------------------------------------------------
 		// 概要：初期化
 		//-------------------------------------------------------------
-		public void Init(PlayerView playerView, PecaPlayer pecaPlayer, Control.StatusBar statusBar)
+		public void Init(PlayerView playerView, PecaPlayerControl pecaPlayer, StatusBarControl statusBar)
 		{
 			CreateCommand(playerView, pecaPlayer, statusBar);
 
@@ -143,7 +144,7 @@ namespace PeerstPlayer.Shortcut
 		//-------------------------------------------------------------
 		// 概要：コマンド作成
 		//-------------------------------------------------------------
-		private void CreateCommand(Form form, PecaPlayer pecaPlayer, PeerstPlayer.Control.StatusBar statusBar)
+		private void CreateCommand(Form form, PecaPlayerControl pecaPlayer, StatusBarControl statusBar)
 		{
 			// 音量UP
 			commandMap.Add(ShortcutCommands.VolumeUp, () =>

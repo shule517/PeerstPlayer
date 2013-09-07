@@ -6,12 +6,12 @@ using PeerstLib.Util;
 using System.Linq;
 using PeerstPlayer.Forms.ThreadSelect;
 
-namespace PeerstPlayer.Control
+namespace PeerstPlayer.Controls.WriteField
 {
 	//-------------------------------------------------------------
 	// 概要：書き込み欄コントロール
 	//-------------------------------------------------------------
-	public partial class WriteField : UserControl
+	public partial class WriteFieldControl : UserControl
 	{
 		//-------------------------------------------------------------
 		// 公開プロパティ
@@ -57,7 +57,7 @@ namespace PeerstPlayer.Control
 		// 概要：コンストラクタ
 		// 詳細：イベントの設定
 		//-------------------------------------------------------------
-		public WriteField()
+		public WriteFieldControl()
 		{
 			InitializeComponent();
 

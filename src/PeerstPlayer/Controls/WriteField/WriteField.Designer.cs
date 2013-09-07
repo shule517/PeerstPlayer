@@ -1,6 +1,6 @@
-﻿namespace PeerstPlayer.Control
+﻿namespace PeerstPlayer.Controls.WriteField
 {
-	partial class WriteField
+	partial class WriteFieldControl
 	{
 		/// <summary> 
 		/// 必要なデザイナー変数です。
@@ -29,7 +29,7 @@
 		private void InitializeComponent()
 		{
 			this.components = new System.ComponentModel.Container();
-			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(WriteField));
+			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(WriteFieldControl));
 			this.writeFieldTextBox = new System.Windows.Forms.TextBox();
 			this.selectThreadLabel = new System.Windows.Forms.Label();
 			this.writeButton = new System.Windows.Forms.Button();

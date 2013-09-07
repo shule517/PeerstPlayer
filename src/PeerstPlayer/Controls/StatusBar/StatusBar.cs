@@ -2,12 +2,12 @@
 using System.Windows.Forms;
 using PeerstLib.Util;
 
-namespace PeerstPlayer.Control
+namespace PeerstPlayer.Controls.StatusBar
 {
 	//-------------------------------------------------------------
 	// 概要：ステータスバーコントロール
 	//-------------------------------------------------------------
-	public partial class StatusBar : UserControl
+	public partial class StatusBarControl : UserControl
 	{
 		//-------------------------------------------------------------
 		// 公開プロパティ
@@ -94,7 +94,7 @@ namespace PeerstPlayer.Control
 		// 概要：コンストラクタ
 		// 詳細：イベント登録
 		//-------------------------------------------------------------
-		public StatusBar()
+		public StatusBarControl()
 		{
 			Logger.Instance.Debug("StatusBar()");
 

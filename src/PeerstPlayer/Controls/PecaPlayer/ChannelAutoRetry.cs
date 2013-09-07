@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Windows.Forms;
+﻿using System.Windows.Forms;
 using PeerstLib.Util;
 
-namespace PeerstPlayer.Control
+namespace PeerstPlayer.Controls.PecaPlayer
 {
 	//-------------------------------------------------------------
 	// 概要：動画再接続クラス

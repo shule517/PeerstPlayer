@@ -2,9 +2,9 @@
 using System.Drawing;
 using System.Windows.Forms;
 using PeerstLib.Controls;
-using PeerstLib.Forms;
 using PeerstLib.PeerCast.Data;
 using PeerstLib.Util;
+using PeerstPlayer.Controls.PecaPlayer;
 using PeerstPlayer.Shortcut;
 using WMPLib;
 

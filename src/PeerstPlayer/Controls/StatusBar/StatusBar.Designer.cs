@@ -1,6 +1,8 @@
-﻿namespace PeerstPlayer.Control
+﻿using PeerstPlayer.Controls.MovieDetail;
+using PeerstPlayer.Controls.WriteField;
+namespace PeerstPlayer.Controls.StatusBar
 {
-	partial class StatusBar
+	partial class StatusBarControl
 	{
 		/// <summary> 
 		/// 必要なデザイナー変数です。
@@ -28,8 +30,8 @@
 		/// </summary>
 		private void InitializeComponent()
 		{
-			this.movieDetail = new PeerstPlayer.Control.MovieDetail();
-			this.writeField = new PeerstPlayer.Control.WriteField();
+			this.movieDetail = new MovieDetailControl();
+			this.writeField = new WriteFieldControl();
 			this.SuspendLayout();
 			// 
 			// movieDetail
@@ -69,7 +71,7 @@
 
 		#endregion
 
-		private WriteField writeField;
-		private MovieDetail movieDetail;
+		private WriteFieldControl writeField;
+		private MovieDetailControl movieDetail;
 	}
 }

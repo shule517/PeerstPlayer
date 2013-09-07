@@ -1,4 +1,5 @@
-﻿namespace TestPeertPlayer
+﻿using PeerstPlayer.Controls.PecaPlayer;
+namespace TestPeertPlayer
 {
 	partial class PecaPlayerForm
 	{
@@ -28,7 +29,7 @@
 		/// </summary>
 		private void InitializeComponent()
 		{
-			this.pecaPlayer = new PeerstPlayer.Control.PecaPlayer();
+			this.pecaPlayer = new PecaPlayerControl();
 			this.SuspendLayout();
 			// 
 			// pecaPlayer
@@ -52,6 +53,6 @@
 
 		#endregion
 
-		public PeerstPlayer.Control.PecaPlayer pecaPlayer;
+		public PecaPlayerControl pecaPlayer;
 	}
 }

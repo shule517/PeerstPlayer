@@ -2,7 +2,7 @@
 using System.Windows.Forms;
 using AxWMPLib;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using PeerstPlayer.Control;
+using PeerstPlayer.Controls.PecaPlayer;
 using TestPeerstLib;
 using WMPLib;
 
@@ -40,7 +40,7 @@ namespace TestPeertPlayer
 			PecaPlayerForm form = new PecaPlayerForm();
 			form.Show();
 
-			PecaPlayer pecaPlayer = form.pecaPlayer;
+			PecaPlayerControl pecaPlayer = form.pecaPlayer;
 			PrivateObject accessor = new PrivateObject(pecaPlayer);
 			AxWindowsMediaPlayer wmp = (AxWindowsMediaPlayer)accessor.GetField("wmp");
 			wmp.PlayStateChange += (sender, e) =>

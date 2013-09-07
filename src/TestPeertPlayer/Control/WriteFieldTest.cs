@@ -1,7 +1,7 @@
 ﻿using System.Threading;
 using System.Windows.Forms;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using PeerstPlayer.Control;
+using PeerstPlayer.Controls.WriteField;
 
 namespace TestPeertPlayer.Control
 {
@@ -61,7 +61,7 @@ namespace TestPeertPlayer.Control
 		private static void TestThreadTitle(string url, string threadTitle)
 		{
 			// URLを設定
-			WriteField writeField = new WriteField();
+			WriteFieldControl writeField = new WriteFieldControl();
 			writeField.SelectThreadUrl = url;
 
 			for (int i = 0; i < 30; i++)

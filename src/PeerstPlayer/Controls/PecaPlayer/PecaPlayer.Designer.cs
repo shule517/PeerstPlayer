@@ -1,6 +1,6 @@
-﻿namespace PeerstPlayer.Control
+﻿namespace PeerstPlayer.Controls.PecaPlayer
 {
-    partial class PecaPlayer
+    partial class PecaPlayerControl
     {
         /// <summary> 
         /// 必要なデザイナー変数です。
@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(PecaPlayer));
+			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(PecaPlayerControl));
 			this.wmp = new AxWMPLib.AxWindowsMediaPlayer();
 			((System.ComponentModel.ISupportInitialize)(this.wmp)).BeginInit();
 			this.SuspendLayout();

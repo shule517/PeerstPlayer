@@ -2,12 +2,12 @@
 using System.Windows.Forms;
 using PeerstLib.Util;
 
-namespace PeerstPlayer.Control
+namespace PeerstPlayer.Controls.MovieDetail
 {
 	//-------------------------------------------------------------
 	// 概要：動画詳細コントロールクラス
 	//-------------------------------------------------------------
-	public partial class MovieDetail : UserControl
+	public partial class MovieDetailControl : UserControl
 	{
 		//-------------------------------------------------------------
 		// 公開プロパティ
@@ -47,7 +47,7 @@ namespace PeerstPlayer.Control
 		// 概要：コンストラクタ
 		// 詳細：イベントの設定
 		//-------------------------------------------------------------
-		public MovieDetail()
+		public MovieDetailControl()
 		{
 			Logger.Instance.Debug("MovieDetail()");
 			InitializeComponent();

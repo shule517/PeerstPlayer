@@ -1,6 +1,6 @@
-﻿namespace PeerstPlayer.Control
+﻿namespace PeerstPlayer.Controls.MovieDetail
 {
-	partial class MovieDetail
+	partial class MovieDetailControl
 	{
 		/// <summary> 
 		/// 必要なデザイナー変数です。
@@ -79,7 +79,7 @@
 			this.movieStatusLabel.Text = "00:00:00";
 			this.movieStatusLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
 			// 
-			// MovieDetail
+			// MovieDetailControl
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -87,7 +87,7 @@
 			this.Controls.Add(this.movieStatusLabel);
 			this.Controls.Add(this.volumeLabel);
 			this.Controls.Add(this.ChannelDetailLabel);
-			this.Name = "MovieDetail";
+			this.Name = "MovieDetailControl";
 			this.Size = new System.Drawing.Size(480, 18);
 			this.ResumeLayout(false);
 			this.PerformLayout();

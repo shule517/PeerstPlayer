@@ -2,7 +2,7 @@
 using System.Windows.Forms;
 using AxWMPLib;
 
-namespace PeerstPlayer.Control
+namespace PeerstPlayer.Controls.PecaPlayer
 {
 	class PecaPlayerEventManager
 	{
