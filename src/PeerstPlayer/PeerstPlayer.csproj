@@ -89,6 +89,19 @@
       <DependentUpon>WriteField.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\Player\PlayerSettings.cs" />
+    <Compile Include="Shortcut\Command\CloseCommand.cs" />
+    <Compile Include="Shortcut\Command\IShortcutCommand.cs" />
+    <Compile Include="Shortcut\Command\MiniMuteCommand.cs" />
+    <Compile Include="Shortcut\Command\MuteCommand.cs" />
+    <Compile Include="Shortcut\Command\OpenPeerstViewerCommand.cs" />
+    <Compile Include="Shortcut\Command\ShowNewResCommand.cs" />
+    <Compile Include="Shortcut\Command\TopMostCommand.cs" />
+    <Compile Include="Shortcut\Command\UpdateChannelInfoCommand.cs" />
+    <Compile Include="Shortcut\Command\VisibleStatusBarCommand.cs" />
+    <Compile Include="Shortcut\Command\VolumeDownCommand.cs" />
+    <Compile Include="Shortcut\Command\VolumeUpCommand.cs" />
+    <Compile Include="Shortcut\Command\WindowMaximize.cs" />
+    <Compile Include="Shortcut\Command\WindowMinimize.cs" />
     <Compile Include="Shortcut\KeyInput.cs" />
     <Compile Include="Shortcut\ShortcutCommands.cs" />
     <Compile Include="Shortcut\ShortcutEvents.cs" />

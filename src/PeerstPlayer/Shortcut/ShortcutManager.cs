@@ -1,14 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.IO;
 using System.Windows.Forms;
-using PeerstLib.PeerCast.Util;
 using PeerstLib.Util;
 using PeerstPlayer.Controls.PecaPlayer;
 using PeerstPlayer.Controls.StatusBar;
-using PeerstPlayer.Forms.Player;
 using PeerstPlayer.Forms.Setting;
+using PeerstPlayer.Shortcut.Command;
 
 namespace PeerstPlayer.Shortcut
 {
@@ -25,7 +22,7 @@ namespace PeerstPlayer.Shortcut
 		private Dictionary<ShortcutEvents, ShortcutCommands> eventMap = new Dictionary<ShortcutEvents, ShortcutCommands>();
 
 		// コマンドMap (コマンド -> 実行処理を取得)
-		private Dictionary<ShortcutCommands, Action> commandMap = new Dictionary<ShortcutCommands, Action>();
+		private Dictionary<ShortcutCommands, IShortcutCommand> commandMap = new Dictionary<ShortcutCommands, IShortcutCommand>();
 
 		// マウスジェスチャーMap (ジェスチャー -> コマンドを取得)
 		private Dictionary<string, ShortcutCommands> gestureMap = new Dictionary<string, ShortcutCommands>();
@@ -59,7 +56,7 @@ namespace PeerstPlayer.Shortcut
 		//-------------------------------------------------------------
 		// 概要：キー押下イベント実行
 		//-------------------------------------------------------------
-		internal void RaiseKeyEvent(AxWMPLib._WMPOCXEvents_KeyDownEvent e)
+		public void RaiseKeyEvent(AxWMPLib._WMPOCXEvents_KeyDownEvent e)
 		{
 			// TODO ログの修正
 			Logger.Instance.InfoFormat("キー押下イベント実行 [イベントID:{0}]", e);
@@ -76,7 +73,7 @@ namespace PeerstPlayer.Shortcut
 			}
 		}
 
-	//-------------------------------------------------------------
+		//-------------------------------------------------------------
 		// 概要：マウスジェスチャー実行
 		//-------------------------------------------------------------
 		public void ExecGesture(string gesture)
@@ -97,7 +94,7 @@ namespace PeerstPlayer.Shortcut
 			ShortcutCommands commandId;
 			if (gestureMap.TryGetValue(gesture, out commandId))
 			{
-				return commandId.ToString();
+				return commandMap[commandId].Detail;
 			}
 
 			return String.Empty;
@@ -116,7 +113,7 @@ namespace PeerstPlayer.Shortcut
 			eventMap.Add(ShortcutEvents.DoubleClick,			ShortcutCommands.WindowMaximize);
 			eventMap.Add(ShortcutEvents.StatusbarRightClick,	ShortcutCommands.OpenPeerstViewer);
 			eventMap.Add(ShortcutEvents.StatusbarLeftClick,		ShortcutCommands.VisibleStatusBar);
-			eventMap.Add(ShortcutEvents.MinButtonClick,			ShortcutCommands.WindowMinimization);
+			eventMap.Add(ShortcutEvents.MinButtonClick,			ShortcutCommands.WindowMinimize);
 			eventMap.Add(ShortcutEvents.MaxButtonClick,			ShortcutCommands.WindowMaximize);
 			eventMap.Add(ShortcutEvents.CloseButtonClick,		ShortcutCommands.Close);
 			eventMap.Add(ShortcutEvents.ThreadTitleRightClick,	ShortcutCommands.OpenPeerstViewer);
@@ -148,118 +145,21 @@ namespace PeerstPlayer.Shortcut
 		//-------------------------------------------------------------
 		private void CreateCommand(Form form, PecaPlayerControl pecaPlayer, StatusBarControl statusBar)
 		{
-			// 音量UP
-			commandMap.Add(ShortcutCommands.VolumeUp, () =>
+			commandMap = new Dictionary<ShortcutCommands, IShortcutCommand>()
 			{
-				if (System.Windows.Forms.Control.ModifierKeys == Keys.Shift)
-				{
-					pecaPlayer.Volume += 1;
-				}
-				else if (System.Windows.Forms.Control.ModifierKeys == Keys.Control)
-				{
-					pecaPlayer.Volume += 5;
-				}
-				else
-				{
-					pecaPlayer.Volume += 10;
-				}
-			});
-			// 音量UP
-			commandMap.Add(ShortcutCommands.VolumeDown, () =>
-			{
-				if (System.Windows.Forms.Control.ModifierKeys == Keys.Shift)
-				{
-					pecaPlayer.Volume -= 1;
-				}
-				else if (System.Windows.Forms.Control.ModifierKeys == Keys.Control)
-				{
-					pecaPlayer.Volume -= 5;
-				}
-				else
-				{
-					pecaPlayer.Volume -= 10;
-				}
-			});
-			// ミュート切替
-			commandMap.Add(ShortcutCommands.Mute, () => pecaPlayer.Mute = !pecaPlayer.Mute);
-			// ウィンドウを最小化
-			commandMap.Add(ShortcutCommands.WindowMinimization, () => form.WindowState = FormWindowState.Minimized);
-			// ウィンドウを最大化
-			commandMap.Add(ShortcutCommands.WindowMaximize, () =>
-			{
-				if (form.WindowState == FormWindowState.Normal)
-				{
-					form.WindowState = FormWindowState.Maximized;
-				}
-				else
-				{
-					form.WindowState = FormWindowState.Normal;
-				}
-			});
-			// 最小化ミュート
-			commandMap.Add(ShortcutCommands.MiniMute, () =>
-			{
-				pecaPlayer.Mute = true;
-				form.WindowState = FormWindowState.Minimized;
-			});
-			// 閉じる
-			commandMap.Add(ShortcutCommands.Close, () =>
-			{
-				/*
-				// TODO 終了時のリレー切断
-				if (PlayerSettings.DisconnectRealyOnClose)
-				{
-					PeerCastOperate.DisconnectRelay();
-				}
-				 */
-
-				Application.Exit();
-			});
-			// ステータスバーの表示切り替え
-			commandMap.Add(ShortcutCommands.VisibleStatusBar, () =>
-			{
-				// ウィンドウ最大化時は一度通常に戻す
-				if (form.WindowState == FormWindowState.Maximized)
-				{
-					form.WindowState = FormWindowState.Normal;
-					statusBar.WriteFieldVisible = !statusBar.WriteFieldVisible;
-					form.WindowState = FormWindowState.Maximized;
-				}
-				else
-				{
-					statusBar.WriteFieldVisible = !statusBar.WriteFieldVisible;
-				}
-
-				// ステータスバーにフォーカス
-				if (statusBar.WriteFieldVisible)
-				{
-					statusBar.Focus();
-				}
-			});
-			// PeerstViewerを開く
-			commandMap.Add(ShortcutCommands.OpenPeerstViewer, () =>
-			{
-				// スレッド選択しているスレッドURLを開く
-				string viewerExePath = Path.Combine(Environment.CurrentDirectory, "PeerstViewer.exe");
-				string param = statusBar.SelectThreadUrl;
-				Logger.Instance.InfoFormat("PeerstViewer起動 [viewerExePath:{0} param:{1}]", viewerExePath, param);
-				Process.Start(viewerExePath, param);
-			});
-			// チャンネル情報更新
-			commandMap.Add(ShortcutCommands.UpdateChannelInfo, () =>
-			{
-				pecaPlayer.UpdateChannelInfo();
-			});
-			// 新着レス表示
-			commandMap.Add(ShortcutCommands.ShowNewRes, () =>
-			{
-				// TODO 新着レス表示の実装
-			});
-			// 最前列表示切り替え
-			commandMap.Add(ShortcutCommands.TopMost, () =>
-			{
-				form.TopMost = !form.TopMost;
-			});
+				{	ShortcutCommands.VolumeUp,			new VolumeUpCommand(pecaPlayer)					}, // 音量UP
+				{	ShortcutCommands.VolumeDown,		new VolumeDownCommand(pecaPlayer)				}, // 音量UP
+				{	ShortcutCommands.Mute,				new MuteCommand(pecaPlayer)						}, // ミュート切替
+				{	ShortcutCommands.WindowMinimize,	new WindowMinimize(form)						}, // ウィンドウを最小化
+				{	ShortcutCommands.WindowMaximize,	new WindowMaximize(form)						}, // ウィンドウを最大化
+				{	ShortcutCommands.MiniMute,			new MiniMuteCommand(form, pecaPlayer)			}, // 最小化ミュート
+				{	ShortcutCommands.Close,				new CloseCommand()								}, // 閉じる
+				{	ShortcutCommands.VisibleStatusBar,	new VisibleStatusBarCommand(form, statusBar)	}, // ステータスバーの表示切り替え
+				{	ShortcutCommands.OpenPeerstViewer,	new OpenPeerstViewerCommand(statusBar)			}, // PeerstViewerを開く
+				{	ShortcutCommands.UpdateChannelInfo,	new UpdateChannelInfoCommand(pecaPlayer)		}, // チャンネル情報更新
+				{	ShortcutCommands.ShowNewRes,		new ShowNewResCommand()							}, // 新着レス表示
+				{	ShortcutCommands.TopMost,			new TopMostCommand(form)						}, // 最前列表示切り替え
+			};
 		}
 
 		//-------------------------------------------------------------
@@ -268,7 +168,7 @@ namespace PeerstPlayer.Shortcut
 		private void ExecCommand(ShortcutCommands commandId)
 		{
 			Logger.Instance.InfoFormat("コマンド実行 [コマンドID:{0}]", commandId);
-			commandMap[commandId]();
+			commandMap[commandId].Execute();
 		}
 	}
 }

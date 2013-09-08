@@ -8,7 +8,7 @@ namespace PeerstPlayer.Shortcut
 		VolumeDown,			// 音量Down
 		Mute,				// ミュート切り替え
 		WindowMaximize,		// ウィンドウ最大化
-		WindowMinimization,	// ウィンドウ最小化
+		WindowMinimize,	// ウィンドウ最小化
 		MiniMute,			// 最小化ミュート
 		Close,				// 閉じる
 		OpenPeerstViewer,	// ビューワを開く
