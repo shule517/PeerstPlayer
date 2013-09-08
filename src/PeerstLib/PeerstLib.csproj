@@ -59,7 +59,6 @@
     <Compile Include="Bbs\Strategy\YYKakikoBbsStrategy.cs" />
     <Compile Include="Bbs\Util\BbsUrlAnalyzer.cs" />
     <Compile Include="Bbs\OperationBbs.cs" />
-    <Compile Include="Bbs\Data\StreamUrlInfo.cs" />
     <Compile Include="Bbs\Data\ThreadInfo.cs" />
     <Compile Include="Controls\BufferedListView.cs">
       <SubType>Component</SubType>
@@ -71,6 +70,7 @@
     <Compile Include="Forms\FormUtility.cs" />
     <Compile Include="Forms\MouseGesture.cs" />
     <Compile Include="Forms\Win32API.cs" />
+    <Compile Include="PeerCast\Data\StreamUrlInfo.cs" />
     <Compile Include="PeerCast\Util\PeerCastOperate.cs" />
     <Compile Include="Util\Logger.cs" />
     <Compile Include="PeerCast\Data\ChannelInfo.cs" />
