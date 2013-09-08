@@ -66,17 +66,20 @@ namespace PeerstPlayer.Shortcut
 		//-------------------------------------------------------------
 		public void RaiseKeyEvent(AxWMPLib._WMPOCXEvents_KeyDownEvent e)
 		{
-			// TODO ログの修正
-			Logger.Instance.InfoFormat("キー押下イベント実行 [イベントID:{0}]", e);
+			// 入力値をKeysへ変換
+			Keys key = (Keys)e.nKeyCode;
+			Keys modifierKey = (Keys)(e.nShiftState << 16);
+
+			Logger.Instance.InfoFormat("キー押下イベント実行 [イベントID:{0}, key{0}, modifierKey{1}]", key, modifierKey);
+
 			foreach (KeyValuePair<KeyInput, ShortcutCommands> data in keyMap)
 			{
 				KeyInput input = data.Key;
-				ShortcutCommands command = data.Value;
 
-				if ((e.nKeyCode == (short)input.Key) &&
-					(true/* 修飾キーの確認をする input.ModifierKey*/))
+				if ((key == input.Key) &&				// キー
+					(modifierKey == input.ModifierKey))	// 修飾キー
 				{
-					ExecCommand(command);
+					ExecCommand(data.Value);
 				}
 			}
 		}
