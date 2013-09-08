@@ -304,7 +304,10 @@ namespace PeerstPlayer.Forms.Setting
 
 					string gesture = mouseGesture.ToString();
 					string detail = shortcut.GetGestureDetail(gesture);
-					statusBar.ChannelDetail = string.Format("マウスジェスチャ：{0}{1}", gesture, (String.IsNullOrEmpty(detail) ? "" : "(" + detail + ")"));
+					if (!String.IsNullOrEmpty(gesture))
+					{
+						statusBar.ChannelDetail = string.Format("マウスジェスチャ： {0} {1}", gesture, (String.IsNullOrEmpty(detail) ? "" : "(" + detail + ")"));
+					}
 				}
 			};
 
