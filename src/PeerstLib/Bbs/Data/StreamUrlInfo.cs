@@ -1,5 +1,5 @@
 ﻿
-namespace PeerstLib.Bbs.Data
+namespace PeerstLib.PeerCast.Data
 {
 	//-------------------------------------------------------------
 	// 概要：ストリームURLから抽出した情報クラス

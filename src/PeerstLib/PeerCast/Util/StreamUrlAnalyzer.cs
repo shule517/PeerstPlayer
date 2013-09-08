@@ -1,5 +1,5 @@
 ﻿using System.Text.RegularExpressions;
-using PeerstLib.Bbs.Data;
+using PeerstLib.PeerCast.Data;
 using PeerstLib.Util;
 
 namespace PeerstLib.PeerCast.Util
