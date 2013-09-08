@@ -108,14 +108,29 @@ namespace PeerstPlayer.Forms.Setting
 			// マウスホイール
 			MouseWheel += (sender, e) =>
 			{
-				// 音量変更
-				if (e.Delta > 0)
+				if ((Control.MouseButtons & MouseButtons.Right) == MouseButtons.Right)
 				{
-					shortcut.RaiseEvent(ShortcutEvents.WheelUp);
+					// 右クリックマウスホイール
+					if (e.Delta > 0)
+					{
+						shortcut.RaiseEvent(ShortcutEvents.RightClickWheelUp);
+					}
+					else if (e.Delta < 0)
+					{
+						shortcut.RaiseEvent(ShortcutEvents.RightClickWheelDown);
+					}
 				}
-				else if (e.Delta < 0)
+				else
 				{
-					shortcut.RaiseEvent(ShortcutEvents.WheelDown);
+					// マウスホイール
+					if (e.Delta > 0)
+					{
+						shortcut.RaiseEvent(ShortcutEvents.WheelUp);
+					}
+					else if (e.Delta < 0)
+					{
+						shortcut.RaiseEvent(ShortcutEvents.WheelDown);
+					}
 				}
 			};
 

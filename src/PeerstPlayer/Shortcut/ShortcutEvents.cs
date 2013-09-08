@@ -16,5 +16,7 @@ namespace PeerstPlayer.Shortcut
 		CloseButtonClick,		// 閉じるボタン押下
 		ThreadTitleRightClick,	// スレッドタイトルを右クリック
 		StatusbarHover,			// ステータスバーをマウスホバー
+		RightClickWheelUp,		// 右クリック+ホイールUp
+		RightClickWheelDown,	// 右クリック+ホイールDown
 	};
 }

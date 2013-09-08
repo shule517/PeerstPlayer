@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Drawing;
 using System.Windows.Forms;
 using PeerstLib.Bbs.Data;
 using PeerstLib.PeerCast;
@@ -75,7 +76,25 @@ namespace PeerstPlayer.Controls.PecaPlayer
 		}
 
 		// クリック開始位置
-		public System.Drawing.Point ClickPoint { get; set; }
+		public Point ClickPoint { get; set; }
+
+		// アスペクト比
+		public float AspectRate
+		{
+			get { return (float)ImageWidth / (float)ImageHeight; }
+		}
+
+		// 動画の幅
+		public int ImageWidth
+		{
+			get { return ((wmp.currentMedia == null) || (wmp.currentMedia.imageSourceWidth == 0)) ? 800 : wmp.currentMedia.imageSourceWidth; }
+		}
+
+		// 動画の高さ
+		public int ImageHeight
+		{
+			get { return ((wmp.currentMedia == null) || (wmp.currentMedia.imageSourceHeight == 0)) ? 600 : wmp.currentMedia.imageSourceHeight; }
+		}
 
 		// マウス押下イベント
 		public event AxWMPLib._WMPOCXEvents_MouseDownEventHandler MouseDownEvent

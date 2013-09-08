@@ -49,8 +49,15 @@ namespace PeerstPlayer.Shortcut
 		public void RaiseEvent(ShortcutEvents eventId)
 		{
 			Logger.Instance.InfoFormat("イベント実行 [イベントID:{0}]", eventId);
-			ShortcutCommands commandId = eventMap[eventId];
-			ExecCommand(commandId);
+			ShortcutCommands commandId;
+			if (eventMap.TryGetValue(eventId, out commandId))
+			{
+				ExecCommand(commandId);
+			}
+			else
+			{
+				Logger.Instance.ErrorFormat("イベントに紐付くコマンドがありません [eventid : {0}]", eventId);
+			}
 		}
 
 		//-------------------------------------------------------------
@@ -118,6 +125,8 @@ namespace PeerstPlayer.Shortcut
 			eventMap.Add(ShortcutEvents.CloseButtonClick,		ShortcutCommands.Close);
 			eventMap.Add(ShortcutEvents.ThreadTitleRightClick,	ShortcutCommands.OpenPeerstViewer);
 			eventMap.Add(ShortcutEvents.StatusbarHover,			ShortcutCommands.ShowNewRes);
+			eventMap.Add(ShortcutEvents.RightClickWheelUp,		ShortcutCommands.WindowSizeDown);
+			eventMap.Add(ShortcutEvents.RightClickWheelDown,	ShortcutCommands.WindowSizeUp);
 		}
 
 		//-------------------------------------------------------------
@@ -148,7 +157,7 @@ namespace PeerstPlayer.Shortcut
 			commandMap = new Dictionary<ShortcutCommands, IShortcutCommand>()
 			{
 				{	ShortcutCommands.VolumeUp,			new VolumeUpCommand(pecaPlayer)					}, // 音量UP
-				{	ShortcutCommands.VolumeDown,		new VolumeDownCommand(pecaPlayer)				}, // 音量UP
+				{	ShortcutCommands.VolumeDown,		new VolumeDownCommand(pecaPlayer)				}, // 音量DOWN
 				{	ShortcutCommands.Mute,				new MuteCommand(pecaPlayer)						}, // ミュート切替
 				{	ShortcutCommands.WindowMinimize,	new WindowMinimize(form)						}, // ウィンドウを最小化
 				{	ShortcutCommands.WindowMaximize,	new WindowMaximize(form)						}, // ウィンドウを最大化
@@ -159,6 +168,8 @@ namespace PeerstPlayer.Shortcut
 				{	ShortcutCommands.UpdateChannelInfo,	new UpdateChannelInfoCommand(pecaPlayer)		}, // チャンネル情報更新
 				{	ShortcutCommands.ShowNewRes,		new ShowNewResCommand()							}, // 新着レス表示
 				{	ShortcutCommands.TopMost,			new TopMostCommand(form)						}, // 最前列表示切り替え
+				{	ShortcutCommands.WindowSizeUp,		new WindowSizeUpCommand(form, pecaPlayer)		}, // ウィンドウサイズUP
+				{	ShortcutCommands.WindowSizeDown,	new WindowSizeDownCommand(form, pecaPlayer)		}, // ウィンドウサイズDOWN
 			};
 		}
 
