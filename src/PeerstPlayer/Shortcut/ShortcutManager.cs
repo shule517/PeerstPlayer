@@ -6,6 +6,7 @@ using PeerstPlayer.Controls.PecaPlayer;
 using PeerstPlayer.Controls.StatusBar;
 using PeerstPlayer.Forms.Setting;
 using PeerstPlayer.Shortcut.Command;
+using PeerstPlayer.Shortcut.Data;
 
 namespace PeerstPlayer.Shortcut
 {

@@ -1,6 +1,6 @@
 ﻿using System.Windows.Forms;
 
-namespace PeerstPlayer.Shortcut
+namespace PeerstPlayer.Shortcut.Data
 {
 	//-------------------------------------------------------------
 	// 概要：キー入力情報クラス
