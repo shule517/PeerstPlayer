@@ -18,16 +18,16 @@ namespace PeerstPlayer.Shortcut
 		// 非公開プロパティ
 		//-------------------------------------------------------------
 
-		// イベントMap (イベント -> コマンドを取得)
-		private Dictionary<ShortcutEvents, ShortcutCommands> eventMap = new Dictionary<ShortcutEvents, ShortcutCommands>();
-
-		// コマンドMap (コマンド -> 実行処理を取得)
+		// コマンドMap (コマンドID -> コマンドクラスを取得)
 		private Dictionary<ShortcutCommands, IShortcutCommand> commandMap = new Dictionary<ShortcutCommands, IShortcutCommand>();
 
-		// マウスジェスチャーMap (ジェスチャー -> コマンドを取得)
+		// イベントMap (イベントID -> コマンドIDを取得)
+		private Dictionary<ShortcutEvents, ShortcutCommands> eventMap = new Dictionary<ShortcutEvents, ShortcutCommands>();
+
+		// マウスジェスチャーMap (ジェスチャー -> コマンドIDを取得)
 		private Dictionary<string, ShortcutCommands> gestureMap = new Dictionary<string, ShortcutCommands>();
 
-		// KeyMap (キー入力 -> コマンドを取得)
+		// キー入力Map (キー入力 -> コマンドIDを取得)
 		private Dictionary<Keys, ShortcutCommands> keyMap = new Dictionary<Keys, ShortcutCommands>();
 
 		//-------------------------------------------------------------
@@ -108,6 +108,43 @@ namespace PeerstPlayer.Shortcut
 		}
 
 		//-------------------------------------------------------------
+		// 概要：コマンド実行
+		//-------------------------------------------------------------
+		private void ExecCommand(ShortcutCommands commandId)
+		{
+			Logger.Instance.InfoFormat("コマンド実行 [コマンドID:{0}]", commandId);
+			commandMap[commandId].Execute();
+		}
+
+		//-------------------------------------------------------------
+		// 概要：コマンド作成
+		//-------------------------------------------------------------
+		private void CreateCommand(Form form, PecaPlayerControl pecaPlayer, StatusBarControl statusBar)
+		{
+			commandMap = new Dictionary<ShortcutCommands, IShortcutCommand>()
+			{
+				{	ShortcutCommands.VolumeUp,			new VolumeUpCommand(pecaPlayer)					}, // 音量UP
+				{	ShortcutCommands.VolumeDown,		new VolumeDownCommand(pecaPlayer)				}, // 音量DOWN
+				{	ShortcutCommands.Mute,				new MuteCommand(pecaPlayer)						}, // ミュート切替
+				{	ShortcutCommands.WindowMinimize,	new WindowMinimize(form)						}, // ウィンドウを最小化
+				{	ShortcutCommands.WindowMaximize,	new WindowMaximize(form)						}, // ウィンドウを最大化
+				{	ShortcutCommands.MiniMute,			new MiniMuteCommand(form, pecaPlayer)			}, // 最小化ミュート
+				{	ShortcutCommands.Close,				new CloseCommand(form, pecaPlayer)				}, // 閉じる
+				{	ShortcutCommands.VisibleStatusBar,	new VisibleStatusBarCommand(form, statusBar)	}, // ステータスバーの表示切り替え
+				{	ShortcutCommands.OpenPeerstViewer,	new OpenPeerstViewerCommand(statusBar)			}, // PeerstViewerを開く
+				{	ShortcutCommands.UpdateChannelInfo,	new UpdateChannelInfoCommand(pecaPlayer)		}, // チャンネル情報更新
+				{	ShortcutCommands.ShowNewRes,		new ShowNewResCommand()							}, // 新着レス表示
+				{	ShortcutCommands.TopMost,			new TopMostCommand(form)						}, // 最前列表示切り替え
+				{	ShortcutCommands.WindowSizeUp,		new WindowSizeUpCommand(form, pecaPlayer)		}, // ウィンドウサイズUP
+				{	ShortcutCommands.WindowSizeDown,	new WindowSizeDownCommand(form, pecaPlayer)		}, // ウィンドウサイズDOWN
+				{	ShortcutCommands.DisconnectRelay,	new DisconnectRelayCommand(form, pecaPlayer)	}, // リレー切断
+				{	ShortcutCommands.Bump,				new BumpCommand(pecaPlayer)						}, // Bump
+				// TODO 画面分割		{	ShortcutCommands.ScreenSplit,	new ScreenSplitWidthCommand(form, pecaPlayer)	}, // 画面分割
+				// TODO 動画にフィット	{	ShortcutCommands.FitMovieSize,	new FitMovieSizeCommand(form, pecaPlayer)		}, // 黒枠を消す
+			};
+		}
+
+		//-------------------------------------------------------------
 		// 概要：イベントの設定
 		//-------------------------------------------------------------
 		private void SettingEvent()
@@ -155,43 +192,6 @@ namespace PeerstPlayer.Shortcut
 			keyMap.Add(Keys.Delete,			ShortcutCommands.Mute);
 			keyMap.Add(Keys.Enter,			ShortcutCommands.WindowMaximize);
 			keyMap.Add(Keys.Escape,			ShortcutCommands.Close);
-		}
-
-		//-------------------------------------------------------------
-		// 概要：コマンド作成
-		//-------------------------------------------------------------
-		private void CreateCommand(Form form, PecaPlayerControl pecaPlayer, StatusBarControl statusBar)
-		{
-			commandMap = new Dictionary<ShortcutCommands, IShortcutCommand>()
-			{
-				{	ShortcutCommands.VolumeUp,			new VolumeUpCommand(pecaPlayer)					}, // 音量UP
-				{	ShortcutCommands.VolumeDown,		new VolumeDownCommand(pecaPlayer)				}, // 音量DOWN
-				{	ShortcutCommands.Mute,				new MuteCommand(pecaPlayer)						}, // ミュート切替
-				{	ShortcutCommands.WindowMinimize,	new WindowMinimize(form)						}, // ウィンドウを最小化
-				{	ShortcutCommands.WindowMaximize,	new WindowMaximize(form)						}, // ウィンドウを最大化
-				{	ShortcutCommands.MiniMute,			new MiniMuteCommand(form, pecaPlayer)			}, // 最小化ミュート
-				{	ShortcutCommands.Close,				new CloseCommand(form, pecaPlayer)				}, // 閉じる
-				{	ShortcutCommands.VisibleStatusBar,	new VisibleStatusBarCommand(form, statusBar)	}, // ステータスバーの表示切り替え
-				{	ShortcutCommands.OpenPeerstViewer,	new OpenPeerstViewerCommand(statusBar)			}, // PeerstViewerを開く
-				{	ShortcutCommands.UpdateChannelInfo,	new UpdateChannelInfoCommand(pecaPlayer)		}, // チャンネル情報更新
-				{	ShortcutCommands.ShowNewRes,		new ShowNewResCommand()							}, // 新着レス表示
-				{	ShortcutCommands.TopMost,			new TopMostCommand(form)						}, // 最前列表示切り替え
-				{	ShortcutCommands.WindowSizeUp,		new WindowSizeUpCommand(form, pecaPlayer)		}, // ウィンドウサイズUP
-				{	ShortcutCommands.WindowSizeDown,	new WindowSizeDownCommand(form, pecaPlayer)		}, // ウィンドウサイズDOWN
-				{	ShortcutCommands.DisconnectRelay,	new DisconnectRelayCommand(form, pecaPlayer)			}, // リレー切断
-				{	ShortcutCommands.Bump,				new BumpCommand(pecaPlayer)						}, // Bump
-			// TODO 画面分割		{	ShortcutCommands.ScreenSplit,	new ScreenSplitWidthCommand(form, pecaPlayer)	}, // 画面分割
-			// TODO 動画にフィット	{	ShortcutCommands.FitMovieSize,	new FitMovieSizeCommand(form, pecaPlayer)		}, // 黒枠を消す
-			};
-		}
-
-		//-------------------------------------------------------------
-		// 概要：コマンド実行
-		//-------------------------------------------------------------
-		private void ExecCommand(ShortcutCommands commandId)
-		{
-			Logger.Instance.InfoFormat("コマンド実行 [コマンドID:{0}]", commandId);
-			commandMap[commandId].Execute();
 		}
 	}
 }
