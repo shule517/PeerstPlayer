@@ -11,6 +11,11 @@ namespace PeerstPlayer.Forms.Player
 		/// </summary>
 		static public bool DisconnectRealyOnClose { get; set; }
 
+		/// <summary>
+		/// ウィンドウスナップ有効
+		/// </summary>
+		static public bool WindowSnapEnable { get; set; }
+
 		// - ステータスバーフォント : Font
 		// - ステータスバー表示項目 : List
 		// - 終了時位置保存 : boolean
@@ -22,7 +27,6 @@ namespace PeerstPlayer.Forms.Player
 		// - 初期音量 : int
 		// - 初期最前列表示 : boolean
 		// - アスペクト比固定 : boolean
-		// - ウィンドウ吸着 : boolean
 		// - 書き込み欄(Ctrl+Enter) : boolean
 		// - レスが1000のスレを表示するか : boolean
 
@@ -33,6 +37,7 @@ namespace PeerstPlayer.Forms.Player
 		static PlayerSettings()
 		{
 			DisconnectRealyOnClose = true;
+			WindowSnapEnable = true;
 		}
 
 		static void Load()

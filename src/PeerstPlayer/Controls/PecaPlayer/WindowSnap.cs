@@ -3,6 +3,7 @@ using System.Drawing;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 using PeerstLib.Controls;
+using PeerstPlayer.Forms.Player;
 
 namespace PeerstPlayer.Controls.PecaPlayer
 {
@@ -36,8 +37,12 @@ namespace PeerstPlayer.Controls.PecaPlayer
 		{
 			if ((WindowMessage)m.Msg == WindowMessage.WM_MOVING)
 			{
-				SnapScreen(m);
-				SnapWindow(m);
+				// ウィンドウスナップを実行
+				if (PlayerSettings.WindowSnapEnable)
+				{
+					SnapScreen(m);
+					SnapWindow(m);
+				}
 			}
 
 			base.WndProc(ref m);
