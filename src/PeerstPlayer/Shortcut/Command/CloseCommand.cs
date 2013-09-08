@@ -1,4 +1,6 @@
 ﻿using System.Windows.Forms;
+using PeerstPlayer.Controls.PecaPlayer;
+using PeerstPlayer.Forms.Player;
 
 namespace PeerstPlayer.Shortcut.Command
 {
@@ -7,15 +9,26 @@ namespace PeerstPlayer.Shortcut.Command
 	/// </summary>
 	class CloseCommand : IShortcutCommand
 	{
+		private Form form;
+		private PecaPlayerControl pecaPlayer;
+
+		public CloseCommand(Form form, PecaPlayerControl pecaPlayer)
+		{
+			this.form = form;
+			this.pecaPlayer = pecaPlayer;
+		}
+
 		public void Execute()
 		{
-			/*
-			// TODO 終了時のリレー切断
+			// 非表示ミュート
+			form.Visible = false;
+			pecaPlayer.Mute = true;
+
+			// 終了時のリレー切断
 			if (PlayerSettings.DisconnectRealyOnClose)
 			{
-				PeerCastOperate.DisconnectRelay();
+				pecaPlayer.DisconnectRelay();
 			}
-			 */
 
 			Application.Exit();
 		}

@@ -18,5 +18,7 @@ namespace PeerstPlayer.Shortcut
 		TopMost,			// 最前列表示切り替え
 		WindowSizeUp,		// ウィンドウサイズUP
 		WindowSizeDown,		// ウィンドウサイズDOWN
+		DisconnectRelay,	// リレー切断
+		Bump,				// Bump
 	};
 }

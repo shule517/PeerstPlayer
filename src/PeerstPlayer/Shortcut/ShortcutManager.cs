@@ -142,6 +142,7 @@ namespace PeerstPlayer.Shortcut
 			gestureMap.Add("↓→",	ShortcutCommands.Close);
 			gestureMap.Add("↓",	ShortcutCommands.OpenPeerstViewer);
 			gestureMap.Add("↓↑",	ShortcutCommands.UpdateChannelInfo);
+			gestureMap.Add("↑",	ShortcutCommands.Bump);
 		}
 
 		//-------------------------------------------------------------
@@ -151,6 +152,13 @@ namespace PeerstPlayer.Shortcut
 		{
 			// TODO 設定によって切り替えを行う
 			keyMap.Add(new KeyInput(Keys.T), ShortcutCommands.TopMost);
+			keyMap.Add(new KeyInput(Keys.Alt | Keys.B), ShortcutCommands.Bump);
+			keyMap.Add(new KeyInput(Keys.Alt | Keys.X), ShortcutCommands.DisconnectRelay);
+			keyMap.Add(new KeyInput(Keys.Up), ShortcutCommands.VolumeUp);
+			keyMap.Add(new KeyInput(Keys.Down), ShortcutCommands.VolumeDown);
+			keyMap.Add(new KeyInput(Keys.Delete), ShortcutCommands.Mute);
+			keyMap.Add(new KeyInput(Keys.Enter), ShortcutCommands.WindowMaximize);
+			keyMap.Add(new KeyInput(Keys.Escape), ShortcutCommands.Close);
 		}
 
 		//-------------------------------------------------------------
@@ -166,7 +174,7 @@ namespace PeerstPlayer.Shortcut
 				{	ShortcutCommands.WindowMinimize,	new WindowMinimize(form)						}, // ウィンドウを最小化
 				{	ShortcutCommands.WindowMaximize,	new WindowMaximize(form)						}, // ウィンドウを最大化
 				{	ShortcutCommands.MiniMute,			new MiniMuteCommand(form, pecaPlayer)			}, // 最小化ミュート
-				{	ShortcutCommands.Close,				new CloseCommand()								}, // 閉じる
+				{	ShortcutCommands.Close,				new CloseCommand(form, pecaPlayer)				}, // 閉じる
 				{	ShortcutCommands.VisibleStatusBar,	new VisibleStatusBarCommand(form, statusBar)	}, // ステータスバーの表示切り替え
 				{	ShortcutCommands.OpenPeerstViewer,	new OpenPeerstViewerCommand(statusBar)			}, // PeerstViewerを開く
 				{	ShortcutCommands.UpdateChannelInfo,	new UpdateChannelInfoCommand(pecaPlayer)		}, // チャンネル情報更新
@@ -174,9 +182,10 @@ namespace PeerstPlayer.Shortcut
 				{	ShortcutCommands.TopMost,			new TopMostCommand(form)						}, // 最前列表示切り替え
 				{	ShortcutCommands.WindowSizeUp,		new WindowSizeUpCommand(form, pecaPlayer)		}, // ウィンドウサイズUP
 				{	ShortcutCommands.WindowSizeDown,	new WindowSizeDownCommand(form, pecaPlayer)		}, // ウィンドウサイズDOWN
+				{	ShortcutCommands.DisconnectRelay,	new DisconnectRelayCommand(form, pecaPlayer)			}, // リレー切断
+				{	ShortcutCommands.Bump,				new BumpCommand(pecaPlayer)						}, // Bump
 			// TODO 画面分割		{	ShortcutCommands.ScreenSplit,	new ScreenSplitWidthCommand(form, pecaPlayer)	}, // 画面分割
 			// TODO 動画にフィット	{	ShortcutCommands.FitMovieSize,	new FitMovieSizeCommand(form, pecaPlayer)		}, // 黒枠を消す
-			// TODO Bump
 			};
 		}
 

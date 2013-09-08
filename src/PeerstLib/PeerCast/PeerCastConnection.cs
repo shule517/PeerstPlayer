@@ -1,8 +1,5 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Text.RegularExpressions;
+﻿using System.Text;
 using System.Xml.Linq;
-using PeerstLib.Bbs.Data;
 using PeerstLib.PeerCast.Data;
 using PeerstLib.PeerCast.Util;
 using PeerstLib.Util;
@@ -20,6 +17,9 @@ namespace PeerstLib.PeerCast
 
 		// ストリームURL情報(接続先)
 		private StreamUrlInfo urlInfo = null;
+
+		// チャンネル情報
+		private ChannelInfo channelInfo = new ChannelInfo();
 
 		//-------------------------------------------------------------
 		// 概要：ストリーム情報の初期化
@@ -46,14 +46,48 @@ namespace PeerstLib.PeerCast
 				Logger.Instance.DebugFormat("ViewXMLの取得結果：正常 [xmlUrl:{0}]", xmlUrl);
 
 				// ViewXMLの解析
-				return ViewXMLAnalyzer.AnlyzeViewXML(elements, urlInfo.StreamId);
+				channelInfo = ViewXMLAnalyzer.AnlyzeViewXML(elements, urlInfo.StreamId);
+				return channelInfo;
 			}
 			catch
 			{
 				Logger.Instance.ErrorFormat("ViewXMLの取得結果：異常 [xmlUrl:{0}]", xmlUrl);
-				return new ChannelInfo();
+				channelInfo = new ChannelInfo();
+				return channelInfo;
 			}
 		}
 
+		/// <summary>
+		/// Bump
+		/// </summary>
+		public void Bump()
+		{
+			string url = string.Format("/admin?cmd=bump&id={0}", urlInfo.StreamId);
+			WebUtil.SendCommand(urlInfo.Host, int.Parse(urlInfo.PortNo), url, Encoding.GetEncoding("Shift_JIS"));
+		}
+
+		/// <summary>
+		/// リレー切断
+		/// </summary>
+		public void DisconnectRelay()
+		{
+			// 配信中はリレー切断しない
+			if (channelInfo.Status.Equals("BROADCAST"))
+			{
+				return;
+			}
+
+			string url = string.Format("/admin?cmd=stop&id={0}", urlInfo.StreamId);
+			WebUtil.SendCommand(urlInfo.Host, int.Parse(urlInfo.PortNo), url, Encoding.GetEncoding("Shift_JIS"));
+		}
+
+		/// <summary>
+		/// リレーキープ
+		/// </summary>
+		public void RelayKeep()
+		{
+			string url = string.Format("/admin?cmd=keep&id={0}", urlInfo.StreamId);
+			WebUtil.SendCommand(urlInfo.Host, int.Parse(urlInfo.PortNo), url, Encoding.GetEncoding("Shift_JIS"));
+		}
 	}
 }
