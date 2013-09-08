@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Windows.Forms;
+using PeerstLib.PeerCast.Util;
 using PeerstLib.Util;
 using PeerstPlayer.Controls.PecaPlayer;
 using PeerstPlayer.Controls.StatusBar;
+using PeerstPlayer.Forms.Player;
 using PeerstPlayer.Forms.Setting;
 
 namespace PeerstPlayer.Shortcut
@@ -203,6 +205,14 @@ namespace PeerstPlayer.Shortcut
 			// 閉じる
 			commandMap.Add(ShortcutCommands.Close, () =>
 			{
+				/*
+				// TODO 終了時のリレー切断
+				if (PlayerSettings.DisconnectRealyOnClose)
+				{
+					PeerCastOperate.DisconnectRelay();
+				}
+				 */
+
 				Application.Exit();
 			});
 			// ステータスバーの表示切り替え

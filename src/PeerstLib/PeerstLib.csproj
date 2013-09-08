@@ -71,6 +71,7 @@
     <Compile Include="Forms\FormUtility.cs" />
     <Compile Include="Forms\MouseGesture.cs" />
     <Compile Include="Forms\Win32API.cs" />
+    <Compile Include="PeerCast\Util\PeerCastOperate.cs" />
     <Compile Include="Util\Logger.cs" />
     <Compile Include="PeerCast\Data\ChannelInfo.cs" />
     <Compile Include="PeerCast\Data\HostInfo.cs" />
