@@ -106,7 +106,6 @@
     <Compile Include="Shortcut\Command\WindowMinimize.cs" />
     <Compile Include="Shortcut\Command\WindowSizeDownCommand.cs" />
     <Compile Include="Shortcut\Command\WindowSizeUpCommand.cs" />
-    <Compile Include="Shortcut\Data\KeyInput.cs" />
     <Compile Include="Shortcut\ShortcutCommands.cs" />
     <Compile Include="Shortcut\ShortcutEvents.cs" />
     <Compile Include="Shortcut\ShortcutManager.cs" />

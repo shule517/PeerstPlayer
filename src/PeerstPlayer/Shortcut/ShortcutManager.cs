@@ -6,7 +6,6 @@ using PeerstPlayer.Controls.PecaPlayer;
 using PeerstPlayer.Controls.StatusBar;
 using PeerstPlayer.Forms.Setting;
 using PeerstPlayer.Shortcut.Command;
-using PeerstPlayer.Shortcut.Data;
 
 namespace PeerstPlayer.Shortcut
 {
@@ -29,7 +28,7 @@ namespace PeerstPlayer.Shortcut
 		private Dictionary<string, ShortcutCommands> gestureMap = new Dictionary<string, ShortcutCommands>();
 
 		// KeyMap (キー入力 -> コマンドを取得)
-		private Dictionary<KeyInput, ShortcutCommands> keyMap = new Dictionary<KeyInput, ShortcutCommands>();
+		private Dictionary<Keys, ShortcutCommands> keyMap = new Dictionary<Keys, ShortcutCommands>();
 
 		//-------------------------------------------------------------
 		// 概要：初期化
@@ -67,20 +66,17 @@ namespace PeerstPlayer.Shortcut
 		public void RaiseKeyEvent(AxWMPLib._WMPOCXEvents_KeyDownEvent e)
 		{
 			// 入力値をKeysへ変換
-			Keys key = (Keys)e.nKeyCode;
+			Keys keyCode = (Keys)e.nKeyCode;
 			Keys modifierKey = (Keys)(e.nShiftState << 16);
+			Keys key = keyCode | modifierKey;
 
-			Logger.Instance.InfoFormat("キー押下イベント実行 [イベントID:{0}, key{0}, modifierKey{1}]", key, modifierKey);
+			Logger.Instance.InfoFormat("キー押下イベント実行 [イベントID:{0}, keyCode{0}, modifierKey{1}]", keyCode, modifierKey);
 
-			foreach (KeyValuePair<KeyInput, ShortcutCommands> data in keyMap)
+			// コマンド実行
+			ShortcutCommands command;
+			if (keyMap.TryGetValue(key, out command))
 			{
-				KeyInput input = data.Key;
-
-				if ((key == input.Key) &&				// キー
-					(modifierKey == input.ModifierKey))	// 修飾キー
-				{
-					ExecCommand(data.Value);
-				}
+				ExecCommand(command);
 			}
 		}
 
@@ -151,14 +147,14 @@ namespace PeerstPlayer.Shortcut
 		private void SettingKey()
 		{
 			// TODO 設定によって切り替えを行う
-			keyMap.Add(new KeyInput(Keys.T), ShortcutCommands.TopMost);
-			keyMap.Add(new KeyInput(Keys.Alt | Keys.B), ShortcutCommands.Bump);
-			keyMap.Add(new KeyInput(Keys.Alt | Keys.X), ShortcutCommands.DisconnectRelay);
-			keyMap.Add(new KeyInput(Keys.Up), ShortcutCommands.VolumeUp);
-			keyMap.Add(new KeyInput(Keys.Down), ShortcutCommands.VolumeDown);
-			keyMap.Add(new KeyInput(Keys.Delete), ShortcutCommands.Mute);
-			keyMap.Add(new KeyInput(Keys.Enter), ShortcutCommands.WindowMaximize);
-			keyMap.Add(new KeyInput(Keys.Escape), ShortcutCommands.Close);
+			keyMap.Add(Keys.T,				ShortcutCommands.TopMost);
+			keyMap.Add(Keys.Alt | Keys.B,	ShortcutCommands.Bump);
+			keyMap.Add(Keys.Alt | Keys.X,	ShortcutCommands.DisconnectRelay);
+			keyMap.Add(Keys.Up,				ShortcutCommands.VolumeUp);
+			keyMap.Add(Keys.Down,			ShortcutCommands.VolumeDown);
+			keyMap.Add(Keys.Delete,			ShortcutCommands.Mute);
+			keyMap.Add(Keys.Enter,			ShortcutCommands.WindowMaximize);
+			keyMap.Add(Keys.Escape,			ShortcutCommands.Close);
 		}
 
 		//-------------------------------------------------------------
