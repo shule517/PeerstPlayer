@@ -139,6 +139,8 @@ namespace PeerstPlayer.Shortcut
 				{	ShortcutCommands.WindowSizeDown,	new WindowSizeDownCommand(form, pecaPlayer)		}, // ウィンドウサイズDOWN
 				{	ShortcutCommands.DisconnectRelay,	new DisconnectRelayCommand(form, pecaPlayer)	}, // リレー切断
 				{	ShortcutCommands.Bump,				new BumpCommand(pecaPlayer)						}, // Bump
+				{	ShortcutCommands.WindowSize,		new WindowSizeCommand(form, pecaPlayer)			}, // ウィンドウサイズ指定
+				{	ShortcutCommands.WindowScale,		new WindowScaleCommand(form, pecaPlayer)		}, // ウィンドウサイズ拡大率指定
 				// TODO 画面分割		{	ShortcutCommands.ScreenSplit,	new ScreenSplitWidthCommand(form, pecaPlayer)	}, // 画面分割
 				// TODO 動画にフィット	{	ShortcutCommands.FitMovieSize,	new FitMovieSizeCommand(form, pecaPlayer)		}, // 黒枠を消す
 			};
@@ -190,8 +192,10 @@ namespace PeerstPlayer.Shortcut
 			keyMap.Add(Keys.Up,				ShortcutCommands.VolumeUp);
 			keyMap.Add(Keys.Down,			ShortcutCommands.VolumeDown);
 			keyMap.Add(Keys.Delete,			ShortcutCommands.Mute);
-			keyMap.Add(Keys.Enter,			ShortcutCommands.WindowMaximize);
+			keyMap.Add(Keys.Enter,			ShortcutCommands.VisibleStatusBar);
 			keyMap.Add(Keys.Escape,			ShortcutCommands.Close);
+			keyMap.Add(Keys.D1,				ShortcutCommands.WindowScale);
+			keyMap.Add(Keys.Alt | Keys.D1,	ShortcutCommands.WindowSize);
 		}
 	}
 }

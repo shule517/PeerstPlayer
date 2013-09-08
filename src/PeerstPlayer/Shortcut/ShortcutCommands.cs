@@ -20,5 +20,7 @@ namespace PeerstPlayer.Shortcut
 		WindowSizeDown,		// ウィンドウサイズDOWN
 		DisconnectRelay,	// リレー切断
 		Bump,				// Bump
+		WindowSize,			// ウィンドウサイズ指定
+		WindowScale,	// ウィンドウ拡大率指定
 	};
 }
