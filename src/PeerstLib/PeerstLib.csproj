@@ -72,6 +72,7 @@
     <Compile Include="Forms\Win32API.cs" />
     <Compile Include="PeerCast\Data\StreamUrlInfo.cs" />
     <Compile Include="PeerCast\Util\PeerCastOperate.cs" />
+    <Compile Include="PeerCast\Util\ViewXMLAnalyzer.cs" />
     <Compile Include="Util\Logger.cs" />
     <Compile Include="PeerCast\Data\ChannelInfo.cs" />
     <Compile Include="PeerCast\Data\HostInfo.cs" />
