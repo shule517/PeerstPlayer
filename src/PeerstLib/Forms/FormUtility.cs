@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Drawing;
+using System.IO;
 using PeerstLib.Util;
 
 namespace PeerstLib.Controls
@@ -26,6 +27,23 @@ namespace PeerstLib.Controls
 		{
 			Logger.Instance.DebugFormat("ShowContextMenu(handle:{0})", handle);
 			Win32API.SendMessage(handle, (int)WindowMessage.WM_CONTEXTMENU, new IntPtr(mousePositon.X), new IntPtr(mousePositon.Y));
+		}
+
+		//-------------------------------------------------------------
+		// 概要：EXEが存在するフォルダパスを取得
+		//-------------------------------------------------------------
+		public static string GetExeFolderPath()
+		{
+			if (Environment.GetCommandLineArgs().Length <= 0)
+			{
+				Logger.Instance.Error("EXEが存在するフォルダパス：取得失敗 [コマンドラインが空]");
+				return string.Empty;
+			}
+
+			string exePath = Environment.GetCommandLineArgs()[0];
+			DirectoryInfo dirInfo = Directory.GetParent(exePath);
+
+			return dirInfo.FullName;
 		}
 	}
 }

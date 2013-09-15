@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using System.IO;
+using PeerstLib.Controls;
 using PeerstLib.Util;
 using PeerstPlayer.Controls.StatusBar;
 
@@ -20,18 +21,10 @@ namespace PeerstPlayer.Shortcut.Command
 
 		public void Execute()
 		{
-			if (Environment.GetCommandLineArgs().Length <= 0)
-			{
-				Logger.Instance.Error("PeerstViewer起動失敗 [コマンドラインが空]");
-				return;
-			}
-
-			// exeの親フォルダパス取得
-			string exePath = Environment.GetCommandLineArgs()[0];
-			DirectoryInfo dirInfo = Directory.GetParent(exePath);
+			string folderPath = FormUtility.GetExeFolderPath();
 
 			// スレッド選択しているスレッドURLを開く
-			string viewerExePath = Path.Combine(dirInfo.FullName, "PeerstViewer.exe");
+			string viewerExePath = Path.Combine(folderPath, "PeerstViewer.exe");
 			string param = statusBar.SelectThreadUrl;
 			Logger.Instance.InfoFormat("PeerstViewer起動 [viewerExePath:{0} param:{1}]", viewerExePath, param);
 			Process.Start(viewerExePath, param);
