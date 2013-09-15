@@ -17,7 +17,7 @@ namespace PeerstPlayer.Shortcut.Command
 			this.pecaPlayer = pecaPlayer;
 		}
 
-		public void Execute()
+		public void Execute(CommandArgs commandArgs)
 		{
 			int height = (int)(pecaPlayer.ImageHeight * 0.1);
 			form.Width -= (int)(height * pecaPlayer.AspectRate);

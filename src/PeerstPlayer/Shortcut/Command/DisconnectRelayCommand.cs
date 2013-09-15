@@ -18,7 +18,7 @@ namespace PeerstPlayer.Shortcut.Command
 			this.pecaPlayer = pecaPlayer;
 		}
 
-		public void Execute()
+		public void Execute(CommandArgs commandArgs)
 		{
 			// リレー切断に時間がかかるため非表示にする
 			form.Visible = false;

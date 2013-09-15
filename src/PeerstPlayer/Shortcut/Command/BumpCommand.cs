@@ -15,7 +15,7 @@ namespace PeerstPlayer.Shortcut.Command
 			this.pecaPlayer = pecaPlayer;
 		}
 
-		void IShortcutCommand.Execute()
+		void IShortcutCommand.Execute(CommandArgs commandArgs)
 		{
 			pecaPlayer.Bump();
 		}

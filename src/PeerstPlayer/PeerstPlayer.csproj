@@ -102,8 +102,10 @@
     <Compile Include="Shortcut\Command\WindowSizeDownCommand.cs" />
     <Compile Include="Shortcut\Command\WindowSizeUpCommand.cs" />
     <Compile Include="Shortcut\Command\WmpMenuCommand.cs" />
+    <Compile Include="Shortcut\CommandArgs.cs" />
     <Compile Include="Shortcut\ShortcutCommands.cs" />
     <Compile Include="Shortcut\ShortcutEvents.cs" />
+    <Compile Include="Shortcut\ShortcutInfo.cs" />
     <Compile Include="Shortcut\ShortcutManager.cs" />
     <Compile Include="Forms\ThreadSelect\ThreadSelectViewModel.cs" />
     <Compile Include="Forms\Setting\PlayerSettingView.cs">

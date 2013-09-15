@@ -6,7 +6,7 @@ namespace PeerstPlayer.Shortcut.Command
 	/// </summary>
 	class ShowNewResCommand : IShortcutCommand
 	{
-		public void Execute()
+		public void Execute(CommandArgs commandArgs)
 		{
 			// TODO 未実装
 		}

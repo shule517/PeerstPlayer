@@ -18,7 +18,7 @@ namespace PeerstPlayer.Shortcut.Command
 			this.pecaPlayer = pecaPlayer;
 		}
 
-		public void Execute()
+		public void Execute(CommandArgs commandArgs)
 		{
 			// 非表示ミュート
 			form.Visible = false;

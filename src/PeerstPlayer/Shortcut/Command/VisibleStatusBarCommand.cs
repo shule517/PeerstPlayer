@@ -17,7 +17,7 @@ namespace PeerstPlayer.Shortcut.Command
 			this.statusBar = statusBar;
 		}
 
-		public void Execute()
+		public void Execute(CommandArgs commandArgs)
 		{
 			// ウィンドウ最大化時は一度通常に戻す
 			if (form.WindowState == FormWindowState.Maximized)

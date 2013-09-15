@@ -358,7 +358,7 @@ namespace PeerstPlayer.Forms.Setting
 			// WMPメニュー押下
 			wmpMenuToolStripMenuItem.Click += (sender, e) =>
 			{
-				shortcut.ExecCommand(ShortcutCommands.WmpMenu);
+				shortcut.ExecCommand(new ShortcutInfo(ShortcutCommands.WmpMenu, new CommandArgs()));
 			};
 		}
 	}

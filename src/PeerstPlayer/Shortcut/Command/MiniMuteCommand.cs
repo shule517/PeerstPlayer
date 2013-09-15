@@ -17,7 +17,7 @@ namespace PeerstPlayer.Shortcut.Command
 			this.pecaPlayer = pecaPlayer;
 		}
 
-		public void Execute()
+		public void Execute(CommandArgs commandArgs)
 		{
 			form.WindowState = FormWindowState.Minimized;
 			pecaPlayer.Mute = true;

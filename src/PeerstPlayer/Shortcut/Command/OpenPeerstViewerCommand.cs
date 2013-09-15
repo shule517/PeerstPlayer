@@ -19,7 +19,7 @@ namespace PeerstPlayer.Shortcut.Command
 			this.statusBar = statusBar;
 		}
 
-		public void Execute()
+		public void Execute(CommandArgs commandArgs)
 		{
 			string folderPath = FormUtility.GetExeFolderPath();
 

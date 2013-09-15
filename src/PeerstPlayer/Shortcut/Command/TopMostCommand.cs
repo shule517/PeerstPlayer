@@ -13,7 +13,7 @@ namespace PeerstPlayer.Shortcut.Command
 			this.form = form;
 		}
 
-		public void Execute()
+		public void Execute(CommandArgs commandArgs)
 		{
 			form.TopMost = !form.TopMost;
 		}

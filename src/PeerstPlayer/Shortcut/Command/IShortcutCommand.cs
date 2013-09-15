@@ -9,7 +9,7 @@ namespace PeerstPlayer.Shortcut.Command
 		/// <summary>
 		/// コマンドを実行
 		/// </summary>
-		void Execute();
+		void Execute(CommandArgs commandArgs);
 
 		/// <summary>
 		/// コマンドの詳細

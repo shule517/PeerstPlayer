@@ -18,9 +18,12 @@ namespace PeerstPlayer.Shortcut.Command
 			this.pecaPlayer = pecaPlayer;
 		}
 
-		public void Execute()
+		public void Execute(CommandArgs commandArgs)
 		{
-			form.Size = new Size(pecaPlayer.ImageWidth, pecaPlayer.ImageHeight);
+			WindowScaleCommandArgs args = (WindowScaleCommandArgs)commandArgs;
+			int width = (int)(pecaPlayer.ImageWidth * args.Scale);
+			int height = (int)(pecaPlayer.ImageHeight * args.Scale);
+			form.Size = new Size(width, height);
 		}
 
 		public string Detail

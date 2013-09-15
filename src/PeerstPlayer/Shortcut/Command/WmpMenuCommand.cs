@@ -20,7 +20,7 @@ namespace PeerstPlayer.Shortcut.Command
 			this.pecaPlayer = pecaPlayer;
 		}
 
-		public void Execute()
+		public void Execute(CommandArgs commandArgs)
 		{
 			pecaPlayer.EnableContextMenu = true;
 			FormUtility.ShowContextMenu(this.pecaPlayer.WMPHandle, Cursor.Position);
