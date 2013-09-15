@@ -12,6 +12,9 @@ namespace PeerstPlayer.Forms.Setting
 		{
 			InitializeComponent();
 
+			// 親ウィンドウの中心に表示
+			StartPosition = FormStartPosition.CenterParent;
+
 			// チェックボックスの表示
 			Shown += (sender, e) =>
 			{
