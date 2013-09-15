@@ -5,6 +5,7 @@ using PeerstLib.Controls;
 using PeerstLib.PeerCast.Data;
 using PeerstLib.Util;
 using PeerstPlayer.Controls.PecaPlayer;
+using PeerstPlayer.Forms.Player;
 using PeerstPlayer.Shortcut;
 using WMPLib;
 
@@ -41,9 +42,6 @@ namespace PeerstPlayer.Forms.Setting
 
 			Shown += (senderObject, eventArg) =>
 			{
-				// 書き込み欄の非表示
-				statusBar.WriteFieldVisible = false;
-
 				// コマンドライン引数のログ出力
 				string[] commandLine = Environment.GetCommandLineArgs();
 				foreach (string arg in commandLine)
@@ -58,6 +56,12 @@ namespace PeerstPlayer.Forms.Setting
 					Logger.Instance.InfoFormat("チャンネル名:{0}", name);
 					statusBar.ChannelDetail = name;
 				}
+
+				// 設定の読み込み
+				PlayerSettings.Load();
+
+				// 書き込み欄の非表示
+				statusBar.WriteFieldVisible = false; // TODO 読み込んだ設定を反映する
 
 				// チャンネル名設定後、画面表示
 				Application.DoEvents();

@@ -88,7 +88,8 @@
     <Compile Include="Controls\WriteField\WriteField.Designer.cs">
       <DependentUpon>WriteField.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\Player\PlayerSettings.cs" />
+    <Compile Include="Settings\PlayerSettings.cs" />
+    <Compile Include="Settings\PlayerSettingsInfo.cs" />
     <Compile Include="Shortcut\Command\BumpCommand.cs" />
     <Compile Include="Shortcut\Command\CloseCommand.cs" />
     <Compile Include="Shortcut\Command\DisconnectRelayCommand.cs" />

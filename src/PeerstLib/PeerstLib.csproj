@@ -79,6 +79,7 @@
     <Compile Include="PeerCast\Data\RelayColor.cs" />
     <Compile Include="PeerCast\Util\StreamUrlAnalyzer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Util\Serializer.cs" />
     <Compile Include="Util\WebUtil.cs" />
   </ItemGroup>
   <ItemGroup>

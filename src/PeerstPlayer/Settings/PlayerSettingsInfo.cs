@@ -1,20 +1,25 @@
 ﻿
-namespace PeerstPlayer.Forms.Player
+namespace PeerstPlayer.Settings
 {
-	//-------------------------------------------------------------
-	// 概要：動画プレイヤーの設定情報クラス
-	//-------------------------------------------------------------
-	static class PlayerSettings
+	/// <summary>
+	/// プレイヤーの設定情報クラス
+	/// </summary>
+	public class PlayerSettingsInfo
 	{
 		/// <summary>
 		/// 終了時にリレー切断をするか
 		/// </summary>
-		static public bool DisconnectRealyOnClose { get; set; }
+		public bool DisconnectRealyOnClose = true;
 
 		/// <summary>
 		/// ウィンドウスナップ有効
 		/// </summary>
-		static public bool WindowSnapEnable { get; set; }
+		public bool WindowSnapEnable = true;
+
+		/// <summary>
+		/// 初期最前列表示
+		/// </summary>
+		public bool TopMost = false;
 
 		// - ステータスバーフォント : Font
 		// - ステータスバー表示項目 : List
@@ -25,7 +30,6 @@ namespace PeerstPlayer.Forms.Player
 		// - 初期表示ステータスバー表示 : boolean
 		// - 初期音量ミュート : boolean
 		// - 初期音量 : int
-		// - 初期最前列表示 : boolean
 		// - アスペクト比固定 : boolean
 		// - 書き込み欄(Ctrl+Enter) : boolean
 		// - レスが1000のスレを表示するか : boolean
@@ -33,21 +37,5 @@ namespace PeerstPlayer.Forms.Player
 		// TODO 別クラスに持つ？
 		// - マウスジェスチャー : List
 		// - ショートカット : List
-
-		static PlayerSettings()
-		{
-			DisconnectRealyOnClose = true;
-			WindowSnapEnable = true;
-		}
-
-		static void Load()
-		{
-			// TODO 設定の読み込み
-		}
-
-		static void Save()
-		{
-			// TODO 設定の保存
-		}
-	}
+	};
 }
