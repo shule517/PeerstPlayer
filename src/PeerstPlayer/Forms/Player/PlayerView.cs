@@ -57,12 +57,6 @@ namespace PeerstPlayer.Forms.Setting
 					statusBar.ChannelDetail = name;
 				}
 
-				// 設定の読み込み
-				PlayerSettings.Load();
-
-				// 書き込み欄の非表示
-				statusBar.WriteFieldVisible = false; // TODO 読み込んだ設定を反映する
-
 				// チャンネル名設定後、画面表示
 				Application.DoEvents();
 
@@ -80,9 +74,31 @@ namespace PeerstPlayer.Forms.Setting
 				// イベントの初期化
 				InitEvent();
 
+				// 設定の読み込み
+				LoadSetting();
+
 				// ウィンドウスナップ
 				new WindowSnap(this, pecaPlayer);
 			};
+		}
+
+		/// <summary>
+		/// 設定の読み込み
+		/// </summary>
+		private void LoadSetting()
+		{
+			// 設定の読み込み
+			PlayerSettings.Load();
+
+			// 書き込み欄の非表示
+			statusBar.WriteFieldVisible = PlayerSettings.WriteFieldVisible;
+			if (statusBar.WriteFieldVisible)
+			{
+				statusBar.Focus();
+			}
+
+			// 最前列表示
+			TopMost = PlayerSettings.TopMost;
 		}
 
 		//-------------------------------------------------------------
@@ -279,9 +295,7 @@ namespace PeerstPlayer.Forms.Setting
 					if (string.IsNullOrEmpty(gesture))
 					{
 						// コンテキストメニュー表示
-						pecaPlayer.EnableContextMenu = true;
-						FormUtility.ShowContextMenu(this.pecaPlayer.WMPHandle, MousePosition);
-						pecaPlayer.EnableContextMenu = false;
+						contextMenuStrip.Show(MousePosition);
 					}
 					else if (isGesturing)
 					{
@@ -328,6 +342,23 @@ namespace PeerstPlayer.Forms.Setting
 				Logger.Instance.Debug("FormClosed");
 				pecaPlayer.Close();
 				statusBar.Close();
+			};
+
+			//-----------------------------------------------------
+			// コンテキストメニュー
+			//-----------------------------------------------------
+
+			// 設定メニュー押下
+			settingToolStripMenuItem.Click += (sender, e) =>
+			{
+				PlayerSettingView view = new PlayerSettingView();
+				view.ShowDialog();
+			};
+
+			// WMPメニュー押下
+			wmpMenuToolStripMenuItem.Click += (sender, e) =>
+			{
+				shortcut.ExecCommand(ShortcutCommands.WmpMenu);
 			};
 		}
 	}

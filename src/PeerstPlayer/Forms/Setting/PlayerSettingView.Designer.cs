@@ -40,8 +40,16 @@
 			this.mouseGesturePage = new System.Windows.Forms.TabPage();
 			this.saveButton = new System.Windows.Forms.Button();
 			this.cancelButton = new System.Windows.Forms.Button();
+			this.disconnectRealyOnCloseCheckBox = new System.Windows.Forms.CheckBox();
+			this.topMostCheckBox = new System.Windows.Forms.CheckBox();
+			this.windowSnapEnableCheckBox = new System.Windows.Forms.CheckBox();
+			this.aspectRateFixCheckBox = new System.Windows.Forms.CheckBox();
+			this.writeFieldVisibleCheckBox = new System.Windows.Forms.CheckBox();
 			this.tabControl.SuspendLayout();
 			this.settingPage.SuspendLayout();
+			this.windowGroupBox.SuspendLayout();
+			this.initGroupBox.SuspendLayout();
+			this.closeGroupBox.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// tabControl
@@ -53,7 +61,7 @@
 			this.tabControl.Location = new System.Drawing.Point(0, 0);
 			this.tabControl.Name = "tabControl";
 			this.tabControl.SelectedIndex = 0;
-			this.tabControl.Size = new System.Drawing.Size(519, 333);
+			this.tabControl.Size = new System.Drawing.Size(519, 256);
 			this.tabControl.TabIndex = 0;
 			// 
 			// settingPage
@@ -66,14 +74,16 @@
 			this.settingPage.Location = new System.Drawing.Point(4, 22);
 			this.settingPage.Name = "settingPage";
 			this.settingPage.Padding = new System.Windows.Forms.Padding(3);
-			this.settingPage.Size = new System.Drawing.Size(511, 307);
+			this.settingPage.Size = new System.Drawing.Size(511, 230);
 			this.settingPage.TabIndex = 0;
 			this.settingPage.Text = "各種設定";
 			this.settingPage.UseVisualStyleBackColor = true;
 			// 
 			// windowGroupBox
 			// 
-			this.windowGroupBox.Location = new System.Drawing.Point(256, 228);
+			this.windowGroupBox.Controls.Add(this.aspectRateFixCheckBox);
+			this.windowGroupBox.Controls.Add(this.windowSnapEnableCheckBox);
+			this.windowGroupBox.Location = new System.Drawing.Point(8, 6);
 			this.windowGroupBox.Name = "windowGroupBox";
 			this.windowGroupBox.Size = new System.Drawing.Size(242, 68);
 			this.windowGroupBox.TabIndex = 4;
@@ -82,7 +92,7 @@
 			// 
 			// volumeGroupBox
 			// 
-			this.volumeGroupBox.Location = new System.Drawing.Point(256, 154);
+			this.volumeGroupBox.Location = new System.Drawing.Point(256, 80);
 			this.volumeGroupBox.Name = "volumeGroupBox";
 			this.volumeGroupBox.Size = new System.Drawing.Size(242, 68);
 			this.volumeGroupBox.TabIndex = 3;
@@ -91,7 +101,9 @@
 			// 
 			// initGroupBox
 			// 
-			this.initGroupBox.Location = new System.Drawing.Point(256, 80);
+			this.initGroupBox.Controls.Add(this.writeFieldVisibleCheckBox);
+			this.initGroupBox.Controls.Add(this.topMostCheckBox);
+			this.initGroupBox.Location = new System.Drawing.Point(8, 80);
 			this.initGroupBox.Name = "initGroupBox";
 			this.initGroupBox.Size = new System.Drawing.Size(242, 68);
 			this.initGroupBox.TabIndex = 2;
@@ -100,7 +112,8 @@
 			// 
 			// closeGroupBox
 			// 
-			this.closeGroupBox.Location = new System.Drawing.Point(256, 6);
+			this.closeGroupBox.Controls.Add(this.disconnectRealyOnCloseCheckBox);
+			this.closeGroupBox.Location = new System.Drawing.Point(8, 154);
 			this.closeGroupBox.Name = "closeGroupBox";
 			this.closeGroupBox.Size = new System.Drawing.Size(242, 68);
 			this.closeGroupBox.TabIndex = 1;
@@ -109,9 +122,9 @@
 			// 
 			// statusBarGroupBox
 			// 
-			this.statusBarGroupBox.Location = new System.Drawing.Point(8, 6);
+			this.statusBarGroupBox.Location = new System.Drawing.Point(256, 6);
 			this.statusBarGroupBox.Name = "statusBarGroupBox";
-			this.statusBarGroupBox.Size = new System.Drawing.Size(242, 290);
+			this.statusBarGroupBox.Size = new System.Drawing.Size(242, 68);
 			this.statusBarGroupBox.TabIndex = 0;
 			this.statusBarGroupBox.TabStop = false;
 			this.statusBarGroupBox.Text = "ステータスバー";
@@ -138,36 +151,96 @@
 			// saveButton
 			// 
 			this.saveButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-			this.saveButton.Location = new System.Drawing.Point(351, 339);
+			this.saveButton.Location = new System.Drawing.Point(351, 263);
 			this.saveButton.Name = "saveButton";
 			this.saveButton.Size = new System.Drawing.Size(75, 23);
 			this.saveButton.TabIndex = 1;
 			this.saveButton.Text = "保存";
 			this.saveButton.UseVisualStyleBackColor = true;
+			this.saveButton.Click += new System.EventHandler(this.saveButton_Click);
 			// 
 			// cancelButton
 			// 
 			this.cancelButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-			this.cancelButton.Location = new System.Drawing.Point(432, 339);
+			this.cancelButton.Location = new System.Drawing.Point(432, 263);
 			this.cancelButton.Name = "cancelButton";
 			this.cancelButton.Size = new System.Drawing.Size(75, 23);
 			this.cancelButton.TabIndex = 2;
 			this.cancelButton.Text = "キャンセル";
 			this.cancelButton.UseVisualStyleBackColor = true;
+			this.cancelButton.Click += new System.EventHandler(this.cancelButton_Click);
+			// 
+			// disconnectRealyOnCloseCheckBox
+			// 
+			this.disconnectRealyOnCloseCheckBox.AutoSize = true;
+			this.disconnectRealyOnCloseCheckBox.Location = new System.Drawing.Point(9, 18);
+			this.disconnectRealyOnCloseCheckBox.Name = "disconnectRealyOnCloseCheckBox";
+			this.disconnectRealyOnCloseCheckBox.Size = new System.Drawing.Size(74, 16);
+			this.disconnectRealyOnCloseCheckBox.TabIndex = 5;
+			this.disconnectRealyOnCloseCheckBox.Text = "リレー切断";
+			this.disconnectRealyOnCloseCheckBox.UseVisualStyleBackColor = true;
+			// 
+			// topMostCheckBox
+			// 
+			this.topMostCheckBox.AutoSize = true;
+			this.topMostCheckBox.Location = new System.Drawing.Point(6, 40);
+			this.topMostCheckBox.Name = "topMostCheckBox";
+			this.topMostCheckBox.Size = new System.Drawing.Size(84, 16);
+			this.topMostCheckBox.TabIndex = 6;
+			this.topMostCheckBox.Text = "最前列表示";
+			this.topMostCheckBox.UseVisualStyleBackColor = true;
+			// 
+			// windowSnapEnableCheckBox
+			// 
+			this.windowSnapEnableCheckBox.AutoSize = true;
+			this.windowSnapEnableCheckBox.Location = new System.Drawing.Point(9, 18);
+			this.windowSnapEnableCheckBox.Name = "windowSnapEnableCheckBox";
+			this.windowSnapEnableCheckBox.Size = new System.Drawing.Size(126, 16);
+			this.windowSnapEnableCheckBox.TabIndex = 7;
+			this.windowSnapEnableCheckBox.Text = "ウィンドウスナップ有効";
+			this.windowSnapEnableCheckBox.UseVisualStyleBackColor = true;
+			// 
+			// aspectRateFixCheckBox
+			// 
+			this.aspectRateFixCheckBox.AutoSize = true;
+			this.aspectRateFixCheckBox.Enabled = false;
+			this.aspectRateFixCheckBox.Location = new System.Drawing.Point(9, 40);
+			this.aspectRateFixCheckBox.Name = "aspectRateFixCheckBox";
+			this.aspectRateFixCheckBox.Size = new System.Drawing.Size(104, 16);
+			this.aspectRateFixCheckBox.TabIndex = 8;
+			this.aspectRateFixCheckBox.Text = "アスペクト比固定";
+			this.aspectRateFixCheckBox.UseVisualStyleBackColor = true;
+			// 
+			// writeFieldVisibleCheckBox
+			// 
+			this.writeFieldVisibleCheckBox.AutoSize = true;
+			this.writeFieldVisibleCheckBox.Location = new System.Drawing.Point(6, 18);
+			this.writeFieldVisibleCheckBox.Name = "writeFieldVisibleCheckBox";
+			this.writeFieldVisibleCheckBox.Size = new System.Drawing.Size(104, 16);
+			this.writeFieldVisibleCheckBox.TabIndex = 9;
+			this.writeFieldVisibleCheckBox.Text = "書き込み欄表示";
+			this.writeFieldVisibleCheckBox.UseVisualStyleBackColor = true;
 			// 
 			// PlayerSettingView
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(519, 374);
+			this.ClientSize = new System.Drawing.Size(519, 298);
 			this.Controls.Add(this.cancelButton);
 			this.Controls.Add(this.saveButton);
 			this.Controls.Add(this.tabControl);
 			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
 			this.Name = "PlayerSettingView";
 			this.Text = "設定";
+			this.TopMost = true;
 			this.tabControl.ResumeLayout(false);
 			this.settingPage.ResumeLayout(false);
+			this.windowGroupBox.ResumeLayout(false);
+			this.windowGroupBox.PerformLayout();
+			this.initGroupBox.ResumeLayout(false);
+			this.initGroupBox.PerformLayout();
+			this.closeGroupBox.ResumeLayout(false);
+			this.closeGroupBox.PerformLayout();
 			this.ResumeLayout(false);
 
 		}
@@ -185,6 +258,11 @@
 		private System.Windows.Forms.GroupBox initGroupBox;
 		private System.Windows.Forms.GroupBox closeGroupBox;
 		private System.Windows.Forms.GroupBox statusBarGroupBox;
+		private System.Windows.Forms.CheckBox disconnectRealyOnCloseCheckBox;
+		private System.Windows.Forms.CheckBox windowSnapEnableCheckBox;
+		private System.Windows.Forms.CheckBox topMostCheckBox;
+		private System.Windows.Forms.CheckBox aspectRateFixCheckBox;
+		private System.Windows.Forms.CheckBox writeFieldVisibleCheckBox;
 
 	}
 }

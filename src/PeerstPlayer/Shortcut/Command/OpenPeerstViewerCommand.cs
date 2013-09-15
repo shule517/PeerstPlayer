@@ -27,7 +27,15 @@ namespace PeerstPlayer.Shortcut.Command
 			string viewerExePath = Path.Combine(folderPath, "PeerstViewer.exe");
 			string param = statusBar.SelectThreadUrl;
 			Logger.Instance.InfoFormat("PeerstViewer起動 [viewerExePath:{0} param:{1}]", viewerExePath, param);
-			Process.Start(viewerExePath, param);
+
+			try
+			{
+				Process.Start(viewerExePath, param);
+			}
+			catch
+			{
+				Logger.Instance.Error("PeerstViewer起動失敗");
+			}
 		}
 
 		public string Detail

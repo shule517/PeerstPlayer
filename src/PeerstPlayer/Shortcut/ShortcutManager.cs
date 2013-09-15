@@ -110,7 +110,7 @@ namespace PeerstPlayer.Shortcut
 		//-------------------------------------------------------------
 		// 概要：コマンド実行
 		//-------------------------------------------------------------
-		private void ExecCommand(ShortcutCommands commandId)
+		public void ExecCommand(ShortcutCommands commandId)
 		{
 			Logger.Instance.InfoFormat("コマンド実行 [コマンドID:{0}]", commandId);
 			commandMap[commandId].Execute();
@@ -141,6 +141,7 @@ namespace PeerstPlayer.Shortcut
 				{	ShortcutCommands.Bump,				new BumpCommand(pecaPlayer)						}, // Bump
 				{	ShortcutCommands.WindowSize,		new WindowSizeCommand(form, pecaPlayer)			}, // ウィンドウサイズ指定
 				{	ShortcutCommands.WindowScale,		new WindowScaleCommand(form, pecaPlayer)		}, // ウィンドウサイズ拡大率指定
+				{	ShortcutCommands.WmpMenu,			new WmpMenuCommand(pecaPlayer)					}, // WMPメニュー表示
 				// TODO 画面分割		{	ShortcutCommands.ScreenSplit,	new ScreenSplitWidthCommand(form, pecaPlayer)	}, // 画面分割
 				// TODO 動画にフィット	{	ShortcutCommands.FitMovieSize,	new FitMovieSizeCommand(form, pecaPlayer)		}, // 黒枠を消す
 			};

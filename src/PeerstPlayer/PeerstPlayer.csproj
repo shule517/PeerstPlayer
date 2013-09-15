@@ -101,6 +101,7 @@
     <Compile Include="Shortcut\Command\WindowSizeCommand.cs" />
     <Compile Include="Shortcut\Command\WindowSizeDownCommand.cs" />
     <Compile Include="Shortcut\Command\WindowSizeUpCommand.cs" />
+    <Compile Include="Shortcut\Command\WmpMenuCommand.cs" />
     <Compile Include="Shortcut\ShortcutCommands.cs" />
     <Compile Include="Shortcut\ShortcutEvents.cs" />
     <Compile Include="Shortcut\ShortcutManager.cs" />

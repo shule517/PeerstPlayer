@@ -21,16 +21,24 @@ namespace PeerstPlayer.Settings
 		/// </summary>
 		public bool TopMost = false;
 
+		/// <summary>
+		/// アスペクト比固定
+		/// </summary>
+		public bool AspectRateFix = true;
+
+		/// <summary>
+		/// 書き込み欄表示
+		/// </summary>
+		public bool WriteFieldVisible = true;
+		
 		// - ステータスバーフォント : Font
 		// - ステータスバー表示項目 : List
 		// - 終了時位置保存 : boolean
 		// - 終了時音量保存 : boolean
-		// - 初期表示書き込み欄表示 : boolean
 		// - 初期表示フレーム表示 : boolean
 		// - 初期表示ステータスバー表示 : boolean
 		// - 初期音量ミュート : boolean
 		// - 初期音量 : int
-		// - アスペクト比固定 : boolean
 		// - 書き込み欄(Ctrl+Enter) : boolean
 		// - レスが1000のスレを表示するか : boolean
 

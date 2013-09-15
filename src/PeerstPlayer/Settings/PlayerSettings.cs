@@ -38,6 +38,33 @@ namespace PeerstPlayer.Forms.Player
 			set { info.WindowSnapEnable = value; }
 		}
 
+		/// <summary>
+		/// 最前列表示
+		/// </summary>
+		public static bool TopMost
+		{
+			get { return info.TopMost; }
+			set { info.TopMost = value; }
+		}
+
+		/// <summary>
+		/// アスペクト比固定
+		/// </summary>
+		public static bool AspectRateFix
+		{
+			get { return info.AspectRateFix; }
+			set { info.AspectRateFix = value; }
+		}
+
+		/// <summary>
+		/// 書き込み欄表示
+		/// </summary>
+		public static bool WriteFieldVisible
+		{
+			get { return info.WriteFieldVisible; }
+			set { info.WriteFieldVisible = value; }
+		}
+
 		static PlayerSettings()
 		{
 		}

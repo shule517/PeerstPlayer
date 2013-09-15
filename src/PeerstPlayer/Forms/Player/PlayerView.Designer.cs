@@ -31,14 +31,19 @@ namespace PeerstPlayer.Forms.Setting
 		/// </summary>
 		private void InitializeComponent()
 		{
+			this.components = new System.ComponentModel.Container();
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(PlayerView));
 			this.toolStrip = new PeerstLib.Controls.ToolStripEx();
 			this.minToolStripButton = new System.Windows.Forms.ToolStripButton();
 			this.maxToolStripButton = new System.Windows.Forms.ToolStripButton();
 			this.closeToolStripButton = new System.Windows.Forms.ToolStripButton();
-			this.statusBar = new StatusBarControl();
-			this.pecaPlayer = new PecaPlayerControl();
+			this.statusBar = new PeerstPlayer.Controls.StatusBar.StatusBarControl();
+			this.pecaPlayer = new PeerstPlayer.Controls.PecaPlayer.PecaPlayerControl();
+			this.contextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
+			this.settingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.wmpMenuToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.toolStrip.SuspendLayout();
+			this.contextMenuStrip.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// toolStrip
@@ -107,6 +112,7 @@ namespace PeerstPlayer.Forms.Setting
 			// pecaPlayer
 			// 
 			this.pecaPlayer.ChannelInfo = null;
+			this.pecaPlayer.ClickPoint = new System.Drawing.Point(0, 0);
 			this.pecaPlayer.EnableContextMenu = false;
 			this.pecaPlayer.Location = new System.Drawing.Point(0, 0);
 			this.pecaPlayer.Margin = new System.Windows.Forms.Padding(0);
@@ -115,6 +121,26 @@ namespace PeerstPlayer.Forms.Setting
 			this.pecaPlayer.Size = new System.Drawing.Size(480, 360);
 			this.pecaPlayer.TabIndex = 0;
 			this.pecaPlayer.Volume = 50;
+			// 
+			// contextMenuStrip
+			// 
+			this.contextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.settingToolStripMenuItem,
+            this.wmpMenuToolStripMenuItem});
+			this.contextMenuStrip.Name = "contextMenuStrip";
+			this.contextMenuStrip.Size = new System.Drawing.Size(154, 70);
+			// 
+			// settingToolStripMenuItem
+			// 
+			this.settingToolStripMenuItem.Name = "settingToolStripMenuItem";
+			this.settingToolStripMenuItem.Size = new System.Drawing.Size(153, 22);
+			this.settingToolStripMenuItem.Text = "設定";
+			// 
+			// wmpMenuToolStripMenuItem
+			// 
+			this.wmpMenuToolStripMenuItem.Name = "wmpMenuToolStripMenuItem";
+			this.wmpMenuToolStripMenuItem.Size = new System.Drawing.Size(153, 22);
+			this.wmpMenuToolStripMenuItem.Text = "WMPメニュー";
 			// 
 			// PlayerView
 			// 
@@ -130,6 +156,7 @@ namespace PeerstPlayer.Forms.Setting
 			this.Name = "PlayerView";
 			this.toolStrip.ResumeLayout(false);
 			this.toolStrip.PerformLayout();
+			this.contextMenuStrip.ResumeLayout(false);
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
@@ -143,6 +170,9 @@ namespace PeerstPlayer.Forms.Setting
 		private System.Windows.Forms.ToolStripButton minToolStripButton;
 		private System.Windows.Forms.ToolStripButton maxToolStripButton;
 		private System.Windows.Forms.ToolStripButton closeToolStripButton;
+		private System.Windows.Forms.ContextMenuStrip contextMenuStrip;
+		private System.Windows.Forms.ToolStripMenuItem settingToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem wmpMenuToolStripMenuItem;
 	}
 }
 
