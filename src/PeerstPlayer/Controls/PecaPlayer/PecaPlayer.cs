@@ -274,6 +274,7 @@ namespace PeerstPlayer.Controls.PecaPlayer
 		//-------------------------------------------------------------
 		public void Bump()
 		{
+			if (pecaConnect == null) return;
 			pecaConnect.Bump();
 		}
 
@@ -282,6 +283,7 @@ namespace PeerstPlayer.Controls.PecaPlayer
 		//-------------------------------------------------------------
 		public void DisconnectRelay()
 		{
+			if (pecaConnect == null) return;
 			pecaConnect.DisconnectRelay();
 		}
 
