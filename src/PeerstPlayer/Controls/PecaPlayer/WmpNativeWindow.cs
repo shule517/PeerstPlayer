@@ -37,6 +37,11 @@ namespace PeerstPlayer.Controls.PecaPlayer
 					DoubleClick(this, new EventArgs());
 					break;
 
+				case WindowMessage.WM_MOUSEMOVE:
+					// マウスカーソルの更新
+					Cursor.Current = Cursors.Arrow;
+					break;
+
 				default:
 					break;
 			}
