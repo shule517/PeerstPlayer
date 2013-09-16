@@ -138,5 +138,13 @@ namespace PeerstPlayer.Controls.StatusBar
 			Logger.Instance.Debug("Close()");
 			writeField.Close();
 		}
+
+		//-------------------------------------------------------------
+		// 概要：新着レス取得
+		//-------------------------------------------------------------
+		public string ReadNewRes()
+		{
+			return writeField.ReadNewRes();
+		}
 	}
 }

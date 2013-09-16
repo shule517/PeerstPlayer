@@ -78,7 +78,9 @@ namespace PeerstPlayer.Controls.WriteField
 			// マウスオーバー時に新着レス表示の設定
 			selectThreadLabel.MouseHover += (sender, e) =>
 			{
-				ShowNewRes();
+				string newRes = ReadNewRes();
+				newResToolTip.SetToolTip(selectThreadLabel, newRes);
+
 			};
 
 			// 書き込みボタン押下
@@ -113,9 +115,9 @@ namespace PeerstPlayer.Controls.WriteField
 		}
 
 		//-------------------------------------------------------------
-		// 概要：新着レス表示
+		// 概要：新着レス取得
 		//-------------------------------------------------------------
-		private void ShowNewRes()
+		public string ReadNewRes()
 		{
 			operationBbs.ReadThread();
 
@@ -129,7 +131,7 @@ namespace PeerstPlayer.Controls.WriteField
 				}
 			}
 
-			newResToolTip.SetToolTip(selectThreadLabel, message);
+			return message;
 		}
 
 		//-------------------------------------------------------------

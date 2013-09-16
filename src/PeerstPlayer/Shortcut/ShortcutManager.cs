@@ -165,7 +165,7 @@ namespace PeerstPlayer.Shortcut
 				{	ShortcutCommands.VisibleStatusBar,	new VisibleStatusBarCommand(form, statusBar)	}, // ステータスバーの表示切り替え
 				{	ShortcutCommands.OpenPeerstViewer,	new OpenPeerstViewerCommand(statusBar)			}, // PeerstViewerを開く
 				{	ShortcutCommands.UpdateChannelInfo,	new UpdateChannelInfoCommand(pecaPlayer)		}, // チャンネル情報更新
-				{	ShortcutCommands.ShowNewRes,		new ShowNewResCommand()							}, // 新着レス表示
+				{	ShortcutCommands.ShowNewRes,		new ShowNewResCommand(form, statusBar)			}, // 新着レス表示
 				{	ShortcutCommands.TopMost,			new TopMostCommand(form)						}, // 最前列表示切り替え
 				{	ShortcutCommands.WindowSizeUp,		new WindowSizeUpCommand(form, pecaPlayer)		}, // ウィンドウサイズUP
 				{	ShortcutCommands.WindowSizeDown,	new WindowSizeDownCommand(form, pecaPlayer)		}, // ウィンドウサイズDOWN
