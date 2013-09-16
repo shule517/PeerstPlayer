@@ -40,8 +40,21 @@ namespace PeerstPlayer.Forms.Setting
 			this.statusBar = new PeerstPlayer.Controls.StatusBar.StatusBarControl();
 			this.pecaPlayer = new PeerstPlayer.Controls.PecaPlayer.PecaPlayerControl();
 			this.contextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
-			this.settingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.SizeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.scale50PerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.scale75PerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.scale100PerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.scale150PerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.scale200PerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.sizeToolStripSeparator = new System.Windows.Forms.ToolStripSeparator();
+			this.size160x120ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.size320x240ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.size480x360ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.size640x480ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.size800x600ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.wmpMenuToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+			this.settingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.toolStrip.SuspendLayout();
 			this.contextMenuStrip.SuspendLayout();
 			this.SuspendLayout();
@@ -125,22 +138,112 @@ namespace PeerstPlayer.Forms.Setting
 			// contextMenuStrip
 			// 
 			this.contextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.settingToolStripMenuItem,
-            this.wmpMenuToolStripMenuItem});
+            this.SizeToolStripMenuItem,
+            this.wmpMenuToolStripMenuItem,
+            this.toolStripSeparator2,
+            this.settingToolStripMenuItem});
 			this.contextMenuStrip.Name = "contextMenuStrip";
-			this.contextMenuStrip.Size = new System.Drawing.Size(154, 70);
+			this.contextMenuStrip.Size = new System.Drawing.Size(154, 76);
 			// 
-			// settingToolStripMenuItem
+			// SizeToolStripMenuItem
 			// 
-			this.settingToolStripMenuItem.Name = "settingToolStripMenuItem";
-			this.settingToolStripMenuItem.Size = new System.Drawing.Size(153, 22);
-			this.settingToolStripMenuItem.Text = "設定";
+			this.SizeToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.scale50PerToolStripMenuItem,
+            this.scale75PerToolStripMenuItem,
+            this.scale100PerToolStripMenuItem,
+            this.scale150PerToolStripMenuItem,
+            this.scale200PerToolStripMenuItem,
+            this.sizeToolStripSeparator,
+            this.size160x120ToolStripMenuItem,
+            this.size320x240ToolStripMenuItem,
+            this.size480x360ToolStripMenuItem,
+            this.size640x480ToolStripMenuItem,
+            this.size800x600ToolStripMenuItem});
+			this.SizeToolStripMenuItem.Name = "SizeToolStripMenuItem";
+			this.SizeToolStripMenuItem.Size = new System.Drawing.Size(153, 22);
+			this.SizeToolStripMenuItem.Text = "サイズ";
+			// 
+			// scale50PerToolStripMenuItem
+			// 
+			this.scale50PerToolStripMenuItem.Name = "scale50PerToolStripMenuItem";
+			this.scale50PerToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+			this.scale50PerToolStripMenuItem.Text = "50%";
+			// 
+			// scale75PerToolStripMenuItem
+			// 
+			this.scale75PerToolStripMenuItem.Name = "scale75PerToolStripMenuItem";
+			this.scale75PerToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+			this.scale75PerToolStripMenuItem.Text = "75%";
+			// 
+			// scale100PerToolStripMenuItem
+			// 
+			this.scale100PerToolStripMenuItem.Name = "scale100PerToolStripMenuItem";
+			this.scale100PerToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+			this.scale100PerToolStripMenuItem.Text = "100%";
+			// 
+			// scale150PerToolStripMenuItem
+			// 
+			this.scale150PerToolStripMenuItem.Name = "scale150PerToolStripMenuItem";
+			this.scale150PerToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+			this.scale150PerToolStripMenuItem.Text = "150%";
+			// 
+			// scale200PerToolStripMenuItem
+			// 
+			this.scale200PerToolStripMenuItem.Name = "scale200PerToolStripMenuItem";
+			this.scale200PerToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+			this.scale200PerToolStripMenuItem.Text = "200%";
+			// 
+			// sizeToolStripSeparator
+			// 
+			this.sizeToolStripSeparator.Name = "sizeToolStripSeparator";
+			this.sizeToolStripSeparator.Size = new System.Drawing.Size(149, 6);
+			// 
+			// size160x120ToolStripMenuItem
+			// 
+			this.size160x120ToolStripMenuItem.Name = "size160x120ToolStripMenuItem";
+			this.size160x120ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+			this.size160x120ToolStripMenuItem.Text = "160 x 120";
+			// 
+			// size320x240ToolStripMenuItem
+			// 
+			this.size320x240ToolStripMenuItem.Name = "size320x240ToolStripMenuItem";
+			this.size320x240ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+			this.size320x240ToolStripMenuItem.Text = "320 x 240";
+			// 
+			// size480x360ToolStripMenuItem
+			// 
+			this.size480x360ToolStripMenuItem.Name = "size480x360ToolStripMenuItem";
+			this.size480x360ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+			this.size480x360ToolStripMenuItem.Text = "480 x 360";
+			// 
+			// size640x480ToolStripMenuItem
+			// 
+			this.size640x480ToolStripMenuItem.Name = "size640x480ToolStripMenuItem";
+			this.size640x480ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+			this.size640x480ToolStripMenuItem.Text = "640 x 480";
+			// 
+			// size800x600ToolStripMenuItem
+			// 
+			this.size800x600ToolStripMenuItem.Name = "size800x600ToolStripMenuItem";
+			this.size800x600ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+			this.size800x600ToolStripMenuItem.Text = "800 x 600";
 			// 
 			// wmpMenuToolStripMenuItem
 			// 
 			this.wmpMenuToolStripMenuItem.Name = "wmpMenuToolStripMenuItem";
 			this.wmpMenuToolStripMenuItem.Size = new System.Drawing.Size(153, 22);
 			this.wmpMenuToolStripMenuItem.Text = "WMPメニュー";
+			// 
+			// toolStripSeparator2
+			// 
+			this.toolStripSeparator2.Name = "toolStripSeparator2";
+			this.toolStripSeparator2.Size = new System.Drawing.Size(150, 6);
+			// 
+			// settingToolStripMenuItem
+			// 
+			this.settingToolStripMenuItem.Name = "settingToolStripMenuItem";
+			this.settingToolStripMenuItem.Size = new System.Drawing.Size(153, 22);
+			this.settingToolStripMenuItem.Text = "設定";
 			// 
 			// PlayerView
 			// 
@@ -173,6 +276,19 @@ namespace PeerstPlayer.Forms.Setting
 		private System.Windows.Forms.ContextMenuStrip contextMenuStrip;
 		private System.Windows.Forms.ToolStripMenuItem settingToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem wmpMenuToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem SizeToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem scale50PerToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem scale75PerToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem scale100PerToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem scale150PerToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem scale200PerToolStripMenuItem;
+		private System.Windows.Forms.ToolStripSeparator sizeToolStripSeparator;
+		private System.Windows.Forms.ToolStripMenuItem size160x120ToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem size320x240ToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem size480x360ToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem size640x480ToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem size800x600ToolStripMenuItem;
+		private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
 	}
 }
 
