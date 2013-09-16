@@ -14,14 +14,14 @@ namespace PeerstPlayer.Shortcut.Command
 			this.form = form;
 		}
 
-		public void Execute(CommandArgs commandArgs)
+		void IShortcutCommand.Execute(CommandArgs commandArgs)
 		{
 			form.WindowState = FormWindowState.Minimized;
 		}
 
-		public string Detail
+		string IShortcutCommand.GetDetail(CommandArgs commandArgs)
 		{
-			get { return "ウィンドウを最小化"; }
+			return "ウィンドウを最小化";
 		}
 	}
 }

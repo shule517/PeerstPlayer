@@ -29,9 +29,9 @@ namespace PeerstPlayer.Shortcut.Command
 			Application.Exit();
 		}
 
-		public string Detail
+		string IShortcutCommand.GetDetail(CommandArgs commandArgs)
 		{
-			get { return "リレー切断"; }
+			return "リレー切断";
 		}
 	}
 }

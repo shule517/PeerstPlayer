@@ -19,16 +19,18 @@ namespace PeerstPlayer.Shortcut.Command
 			this.pecaPlayer = pecaPlayer;
 		}
 
-		public void Execute(CommandArgs commandArgs)
+		void IShortcutCommand.Execute(CommandArgs commandArgs)
 		{
 			WindowSizeCommandArgs args = (WindowSizeCommandArgs)commandArgs;
 			Size size = args.Size;
 			form.Size = new Size(size.Width, size.Height);
 		}
 
-		public string Detail
+		string IShortcutCommand.GetDetail(CommandArgs commandArgs)
 		{
-			get { return "サイズ"; }
+			WindowSizeCommandArgs args = (WindowSizeCommandArgs)commandArgs;
+			Size size = args.Size;
+			return string.Format("サイズ変更 ({0}x{1})", size.Width, size.Height);
 		}
 	}
 }

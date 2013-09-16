@@ -12,7 +12,7 @@ namespace PeerstPlayer.Shortcut
 		/// コマンド
 		/// </summary>
 		[DataMember]
-		public ShortcutCommands command;
+		public Commands command;
 
 		/// <summary>
 		/// コマンドの引数
@@ -20,7 +20,7 @@ namespace PeerstPlayer.Shortcut
 		[DataMember]
 		public CommandArgs args;
 
-		public ShortcutInfo(ShortcutCommands command, CommandArgs args)
+		public ShortcutInfo(Commands command, CommandArgs args)
 		{
 			this.command = command;
 			this.args = args;

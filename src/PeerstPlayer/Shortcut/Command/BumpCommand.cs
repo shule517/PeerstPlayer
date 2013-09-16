@@ -20,9 +20,9 @@ namespace PeerstPlayer.Shortcut.Command
 			pecaPlayer.Bump();
 		}
 
-		string IShortcutCommand.Detail
+		string IShortcutCommand.GetDetail(CommandArgs commandArgs)
 		{
-			get { return "Bump"; }
+			return "Bump";
 		}
 	}
 }

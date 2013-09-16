@@ -17,7 +17,7 @@ namespace PeerstPlayer.Shortcut.Command
 			this.statusBar = statusBar;
 		}
 
-		public void Execute(CommandArgs commandArgs)
+		void IShortcutCommand.Execute(CommandArgs commandArgs)
 		{
 			// TODO バルーンの表示方法を考える
 			/*
@@ -26,9 +26,9 @@ namespace PeerstPlayer.Shortcut.Command
 			 */
 		}
 
-		public string Detail
+		string IShortcutCommand.GetDetail(CommandArgs commandArgs)
 		{
-			get { return "新着レスを表示"; }
+			return "新着レス表示";
 		}
 	}
 }

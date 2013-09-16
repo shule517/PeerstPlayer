@@ -15,7 +15,7 @@ namespace PeerstPlayer.Shortcut.Command
 			this.pecaPlayer = pecaPlayer;
 		}
 
-		public void Execute(CommandArgs commandArgs)
+		void IShortcutCommand.Execute(CommandArgs commandArgs)
 		{
 			if (System.Windows.Forms.Control.ModifierKeys == Keys.Shift)
 			{
@@ -31,9 +31,10 @@ namespace PeerstPlayer.Shortcut.Command
 			}
 		}
 
-		public string Detail
+		string IShortcutCommand.GetDetail(CommandArgs commandArgs)
 		{
-			get { return "音量を下げる"; }
+			// TODO return string.Format("音量：{}", commandArgs.);
+			return "音量を下げる";
 		}
 	}
 }

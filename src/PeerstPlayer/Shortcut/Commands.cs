@@ -2,7 +2,7 @@
 namespace PeerstPlayer.Shortcut
 {
 	// コマンド実行
-	public enum ShortcutCommands
+	public enum Commands
 	{
 		VolumeUp,			// 音量UP
 		VolumeDown,			// 音量DOWN
@@ -20,8 +20,20 @@ namespace PeerstPlayer.Shortcut
 		WindowSizeDown,		// ウィンドウサイズDOWN
 		DisconnectRelay,	// リレー切断
 		Bump,				// Bump
-		WindowSize,			// ウィンドウサイズ指定
-		WindowScale,		// ウィンドウ拡大率指定
 		WmpMenu,			// WMPメニュー表示
+
+		// ウィンドウ拡大率指定
+		WindowScale50Per,
+		WindowScale75Per,
+		WindowScale100Per,
+		WindowScale150Per,
+		WindowScale200Per,
+	
+		// ウィンドウサイズ指定
+		WindowSize160x120,
+		WindowSize320x240,
+		WindowSize480x360,
+		WindowSize640x480,
+		WindowSize800x600,
 	};
 }

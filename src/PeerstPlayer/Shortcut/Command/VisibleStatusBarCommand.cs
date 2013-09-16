@@ -17,7 +17,7 @@ namespace PeerstPlayer.Shortcut.Command
 			this.statusBar = statusBar;
 		}
 
-		public void Execute(CommandArgs commandArgs)
+		void IShortcutCommand.Execute(CommandArgs commandArgs)
 		{
 			// ウィンドウ最大化時は一度通常に戻す
 			if (form.WindowState == FormWindowState.Maximized)
@@ -38,9 +38,9 @@ namespace PeerstPlayer.Shortcut.Command
 			}
 		}
 
-		public string Detail
+		string IShortcutCommand.GetDetail(CommandArgs commandArgs)
 		{
-			get { return "ステータスバーを表示切り替え"; }
+			return "ステータスバー表示";
 		}
 	}
 }

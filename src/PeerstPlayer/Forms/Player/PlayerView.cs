@@ -364,28 +364,18 @@ namespace PeerstPlayer.Forms.Setting
 			//-----------------------------------------------------
 
 			// 拡大率
-			scale50PerToolStripMenuItem.Click += (sender, e) =>
-				shortcut.ExecCommand(new ShortcutInfo(ShortcutCommands.WindowScale, new WindowScaleCommandArgs(0.5f)));
-			scale75PerToolStripMenuItem.Click += (sender, e) =>
-				shortcut.ExecCommand(new ShortcutInfo(ShortcutCommands.WindowScale, new WindowScaleCommandArgs(0.75f)));
-			scale100PerToolStripMenuItem.Click += (sender, e) =>
-				shortcut.ExecCommand(new ShortcutInfo(ShortcutCommands.WindowScale, new WindowScaleCommandArgs(1.0f)));
-			scale150PerToolStripMenuItem.Click += (sender, e) =>
-				shortcut.ExecCommand(new ShortcutInfo(ShortcutCommands.WindowScale, new WindowScaleCommandArgs(1.5f)));
-			scale200PerToolStripMenuItem.Click += (sender, e) =>
-				shortcut.ExecCommand(new ShortcutInfo(ShortcutCommands.WindowScale, new WindowScaleCommandArgs(2.0f)));
+			scale50PerToolStripMenuItem.Click += (sender, e) =>	 shortcut.ExecCommand(Commands.WindowScale50Per);
+			scale75PerToolStripMenuItem.Click += (sender, e) =>	 shortcut.ExecCommand(Commands.WindowScale75Per);
+			scale100PerToolStripMenuItem.Click += (sender, e) => shortcut.ExecCommand(Commands.WindowScale100Per);
+			scale150PerToolStripMenuItem.Click += (sender, e) => shortcut.ExecCommand(Commands.WindowScale150Per);
+			scale200PerToolStripMenuItem.Click += (sender, e) => shortcut.ExecCommand(Commands.WindowScale200Per);
 
 			// サイズ変更
-			size160x120ToolStripMenuItem.Click += (sender, e) =>
-				shortcut.ExecCommand(new ShortcutInfo(ShortcutCommands.WindowSize, new WindowSizeCommandArgs(160, 120)));
-			size320x240ToolStripMenuItem.Click += (sender, e) =>
-				shortcut.ExecCommand(new ShortcutInfo(ShortcutCommands.WindowSize, new WindowSizeCommandArgs(320, 240)));
-			size480x360ToolStripMenuItem.Click += (sender, e) =>
-				shortcut.ExecCommand(new ShortcutInfo(ShortcutCommands.WindowSize, new WindowSizeCommandArgs(480, 360)));
-			size640x480ToolStripMenuItem.Click += (sender, e) =>
-				shortcut.ExecCommand(new ShortcutInfo(ShortcutCommands.WindowSize, new WindowSizeCommandArgs(640, 480)));
-			size800x600ToolStripMenuItem.Click += (sender, e) =>
-				shortcut.ExecCommand(new ShortcutInfo(ShortcutCommands.WindowSize, new WindowSizeCommandArgs(800, 600)));
+			size160x120ToolStripMenuItem.Click += (sender, e) => shortcut.ExecCommand(Commands.WindowSize160x120);
+			size320x240ToolStripMenuItem.Click += (sender, e) => shortcut.ExecCommand(Commands.WindowSize320x240);
+			size480x360ToolStripMenuItem.Click += (sender, e) => shortcut.ExecCommand(Commands.WindowSize480x360);
+			size640x480ToolStripMenuItem.Click += (sender, e) => shortcut.ExecCommand(Commands.WindowSize640x480);
+			size800x600ToolStripMenuItem.Click += (sender, e) => shortcut.ExecCommand(Commands.WindowSize800x600);
 
 			// 設定メニュー押下
 			settingToolStripMenuItem.Click += (sender, e) =>
@@ -397,7 +387,7 @@ namespace PeerstPlayer.Forms.Setting
 			// WMPメニュー押下
 			wmpMenuToolStripMenuItem.Click += (sender, e) =>
 			{
-				shortcut.ExecCommand(new ShortcutInfo(ShortcutCommands.WmpMenu, new CommandArgs()));
+				shortcut.ExecCommand(Commands.WmpMenu);
 			};
 		}
 

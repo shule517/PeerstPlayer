@@ -14,7 +14,7 @@ namespace PeerstPlayer.Shortcut.Command
 			this.form = form;
 		}
 
-		public void Execute(CommandArgs commandArgs)
+		void IShortcutCommand.Execute(CommandArgs commandArgs)
 		{
 			if (form.WindowState == FormWindowState.Normal)
 			{
@@ -26,9 +26,9 @@ namespace PeerstPlayer.Shortcut.Command
 			}
 		}
 
-		public string Detail
+		string IShortcutCommand.GetDetail(CommandArgs commandArgs)
 		{
-			get { return "ウィンドウを最大化"; }
+			return "ウィンドウを最大化";
 		}
 	}
 }

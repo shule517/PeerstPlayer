@@ -18,15 +18,15 @@ namespace PeerstPlayer.Shortcut
 	{
 		// イベントMap (イベントID -> コマンドIDを取得)
 		[DataMember]
-		public Dictionary<ShortcutEvents, ShortcutInfo> eventMap = new Dictionary<ShortcutEvents,ShortcutInfo>();
+		public Dictionary<ShortcutEvents, Commands> EventMap = new Dictionary<ShortcutEvents, Commands>();
 
 		// マウスジェスチャーMap (ジェスチャー -> コマンドIDを取得)
 		[DataMember]
-		public Dictionary<string, ShortcutInfo> gestureMap = new Dictionary<string,ShortcutInfo>();
+		public Dictionary<string, Commands> GestureMap = new Dictionary<string, Commands>();
 	
 		// キー入力Map (キー入力 -> コマンドIDを取得)
 		[DataMember]
-		public Dictionary<KeyInput, ShortcutInfo> keyMap = new Dictionary<KeyInput,ShortcutInfo>();
+		public Dictionary<KeyInput, Commands> KeyMap = new Dictionary<KeyInput, Commands>();
 	}
 
 	//-------------------------------------------------------------
@@ -51,7 +51,11 @@ namespace PeerstPlayer.Shortcut
 		/// <summary>
 		/// コマンドMap (コマンドID -> コマンドクラスを取得)
 		/// </summary>
-		private Dictionary<ShortcutCommands, IShortcutCommand> commandMap = new Dictionary<ShortcutCommands, IShortcutCommand>();
+		private Dictionary<Commands, ShortcutCommand> commandMap = new Dictionary<Commands, ShortcutCommand>();
+		public Dictionary<Commands, ShortcutCommand> CommandMap
+		{
+			get { return commandMap; }
+		}
 
 		//-------------------------------------------------------------
 		// 概要：初期化
@@ -69,10 +73,14 @@ namespace PeerstPlayer.Shortcut
 			catch
 			{
 				Logger.Instance.Error("ショートカット設定ファイルの読み込みに失敗したため、デフォルト設定を読み込みます。");
-				SettingEvent();
-				SettingGesture();
-				SettingKey();
-				SettingSerializer.SaveSettings<ShortcutSettings>("ShortcutSettings.xml", settings);
+				LoadDefaultSettings();
+			}
+
+			// 設定ファイルが壊れている場合
+			if ((settings.EventMap == null) || (settings.GestureMap == null) || (settings.KeyMap == null))
+			{
+				Logger.Instance.Error("ショートカット設定ファイルが壊れているため、デフォルト設定を読み込みます。");
+				LoadDefaultSettings();
 			}
 		}
 
@@ -82,10 +90,10 @@ namespace PeerstPlayer.Shortcut
 		public void RaiseEvent(ShortcutEvents eventId)
 		{
 			Logger.Instance.InfoFormat("イベント実行 [イベントID:{0}]", eventId);
-			ShortcutInfo shortcut;
-			if (settings.eventMap.TryGetValue(eventId, out shortcut))
+			Commands commands;
+			if (settings.EventMap.TryGetValue(eventId, out commands))
 			{
-				ExecCommand(shortcut);
+				ExecCommand(commands);
 			}
 			else
 			{
@@ -105,10 +113,10 @@ namespace PeerstPlayer.Shortcut
 			Logger.Instance.InfoFormat("キー押下イベント実行 [イベントID:{0}, keyCode{0}, modifierKey{1}]", keyCode, modifierKey);
 
 			// コマンド実行
-			ShortcutInfo shortcut;
-			if (settings.keyMap.TryGetValue(new KeyInput(modifierKey, keyCode), out shortcut))
+			Commands commands;
+			if (settings.KeyMap.TryGetValue(new KeyInput(modifierKey, keyCode), out commands))
 			{
-				ExecCommand(shortcut);
+				ExecCommand(commands);
 			}
 		}
 
@@ -117,11 +125,11 @@ namespace PeerstPlayer.Shortcut
 		//-------------------------------------------------------------
 		public void ExecGesture(string gesture)
 		{
-			ShortcutInfo shortcut;
-			if (settings.gestureMap.TryGetValue(gesture, out shortcut))
+			Commands commands;
+			if (settings.GestureMap.TryGetValue(gesture, out commands))
 			{
-				Logger.Instance.InfoFormat("マウスジェスチャー実行 [ジェスチャー:{0}, コマンドID:{1}]", gesture, shortcut);
-				ExecCommand(shortcut);
+				Logger.Instance.InfoFormat("マウスジェスチャー実行 [ジェスチャー:{0}, コマンドID:{1}]", gesture, commands);
+				ExecCommand(commands);
 			}
 		}
 
@@ -130,10 +138,10 @@ namespace PeerstPlayer.Shortcut
 		//-------------------------------------------------------------
 		public string GetGestureDetail(string gesture)
 		{
-			ShortcutInfo shortcut;
-			if (settings.gestureMap.TryGetValue(gesture, out shortcut))
+			Commands commands;
+			if (settings.GestureMap.TryGetValue(gesture, out commands))
 			{
-				return commandMap[shortcut.command].Detail;
+				return commandMap[commands].Detail;
 			}
 
 			return String.Empty;
@@ -142,10 +150,10 @@ namespace PeerstPlayer.Shortcut
 		//-------------------------------------------------------------
 		// 概要：コマンド実行
 		//-------------------------------------------------------------
-		public void ExecCommand(ShortcutInfo shortcut)
+		public void ExecCommand(Commands commands)
 		{
-			Logger.Instance.InfoFormat("コマンド実行 [コマンドID:{0}]", shortcut.command);
-			commandMap[shortcut.command].Execute(shortcut.args);
+			Logger.Instance.InfoFormat("コマンド実行 [コマンドID:{0}]", commands);
+			commandMap[commands].Execute();
 		}
 
 		//-------------------------------------------------------------
@@ -153,29 +161,37 @@ namespace PeerstPlayer.Shortcut
 		//-------------------------------------------------------------
 		private void CreateCommand(Form form, PecaPlayerControl pecaPlayer, StatusBarControl statusBar)
 		{
-			commandMap = new Dictionary<ShortcutCommands, IShortcutCommand>()
+			commandMap = new Dictionary<Commands, ShortcutCommand>()
 			{
-				{	ShortcutCommands.VolumeUp,			new VolumeUpCommand(pecaPlayer)					}, // 音量UP
-				{	ShortcutCommands.VolumeDown,		new VolumeDownCommand(pecaPlayer)				}, // 音量DOWN
-				{	ShortcutCommands.Mute,				new MuteCommand(pecaPlayer)						}, // ミュート切替
-				{	ShortcutCommands.WindowMinimize,	new WindowMinimize(form)						}, // ウィンドウを最小化
-				{	ShortcutCommands.WindowMaximize,	new WindowMaximize(form)						}, // ウィンドウを最大化
-				{	ShortcutCommands.MiniMute,			new MiniMuteCommand(form, pecaPlayer)			}, // 最小化ミュート
-				{	ShortcutCommands.Close,				new CloseCommand(form, pecaPlayer)				}, // 閉じる
-				{	ShortcutCommands.VisibleStatusBar,	new VisibleStatusBarCommand(form, statusBar)	}, // ステータスバーの表示切り替え
-				{	ShortcutCommands.OpenPeerstViewer,	new OpenPeerstViewerCommand(statusBar)			}, // PeerstViewerを開く
-				{	ShortcutCommands.UpdateChannelInfo,	new UpdateChannelInfoCommand(pecaPlayer)		}, // チャンネル情報更新
-				{	ShortcutCommands.ShowNewRes,		new ShowNewResCommand(form, statusBar)			}, // 新着レス表示
-				{	ShortcutCommands.TopMost,			new TopMostCommand(form)						}, // 最前列表示切り替え
-				{	ShortcutCommands.WindowSizeUp,		new WindowSizeUpCommand(form, pecaPlayer)		}, // ウィンドウサイズUP
-				{	ShortcutCommands.WindowSizeDown,	new WindowSizeDownCommand(form, pecaPlayer)		}, // ウィンドウサイズDOWN
-				{	ShortcutCommands.DisconnectRelay,	new DisconnectRelayCommand(form, pecaPlayer)	}, // リレー切断
-				{	ShortcutCommands.Bump,				new BumpCommand(pecaPlayer)						}, // Bump
-				{	ShortcutCommands.WindowSize,		new WindowSizeCommand(form, pecaPlayer)			}, // ウィンドウサイズ指定
-				{	ShortcutCommands.WindowScale,		new WindowScaleCommand(form, pecaPlayer)		}, // ウィンドウサイズ拡大率指定
-				{	ShortcutCommands.WmpMenu,			new WmpMenuCommand(pecaPlayer)					}, // WMPメニュー表示
-				// TODO 画面分割		{	ShortcutCommands.ScreenSplit,	new ScreenSplitWidthCommand(form, pecaPlayer)	}, // 画面分割
-				// TODO 動画にフィット	{	ShortcutCommands.FitMovieSize,	new FitMovieSizeCommand(form, pecaPlayer)		}, // 黒枠を消す
+				{	Commands.VolumeUp,			new ShortcutCommand(new VolumeUpCommand(pecaPlayer), new CommandArgs())				}, // 音量UP
+				{	Commands.VolumeDown,		new ShortcutCommand(new VolumeDownCommand(pecaPlayer), new CommandArgs())			}, // 音量DOWN
+				{	Commands.Mute,				new ShortcutCommand(new MuteCommand(pecaPlayer), new CommandArgs())					}, // ミュート切替
+				{	Commands.WindowMinimize,	new ShortcutCommand(new WindowMinimize(form), new CommandArgs())					}, // ウィンドウを最小化
+				{	Commands.WindowMaximize,	new ShortcutCommand(new WindowMaximize(form), new CommandArgs())					}, // ウィンドウを最大化
+				{	Commands.MiniMute,			new ShortcutCommand(new MiniMuteCommand(form, pecaPlayer), new CommandArgs())		}, // 最小化ミュート
+				{	Commands.Close,				new ShortcutCommand(new CloseCommand(form, pecaPlayer), new CommandArgs())			}, // 閉じる
+				{	Commands.VisibleStatusBar,	new ShortcutCommand(new VisibleStatusBarCommand(form, statusBar), new CommandArgs())}, // ステータスバーの表示切り替え
+				{	Commands.OpenPeerstViewer,	new ShortcutCommand(new OpenPeerstViewerCommand(statusBar), new CommandArgs())		}, // PeerstViewerを開く
+				{	Commands.UpdateChannelInfo,	new ShortcutCommand(new UpdateChannelInfoCommand(pecaPlayer), new CommandArgs())	}, // チャンネル情報更新
+				{	Commands.ShowNewRes,		new ShortcutCommand(new ShowNewResCommand(form, statusBar), new CommandArgs())		}, // 新着レス表示
+				{	Commands.TopMost,			new ShortcutCommand(new TopMostCommand(form), new CommandArgs())					}, // 最前列表示切り替え
+				{	Commands.WindowSizeUp,		new ShortcutCommand(new WindowSizeUpCommand(form, pecaPlayer), new CommandArgs())	}, // ウィンドウサイズUP
+				{	Commands.WindowSizeDown,	new ShortcutCommand(new WindowSizeDownCommand(form, pecaPlayer), new CommandArgs())	}, // ウィンドウサイズDOWN
+				{	Commands.DisconnectRelay,	new ShortcutCommand(new DisconnectRelayCommand(form, pecaPlayer), new CommandArgs())}, // リレー切断
+				{	Commands.Bump,				new ShortcutCommand(new BumpCommand(pecaPlayer), new CommandArgs())					}, // Bump
+				{	Commands.WindowSize160x120,	new ShortcutCommand(new WindowSizeCommand(form, pecaPlayer), new WindowSizeCommandArgs(160, 120))	}, // ウィンドウサイズ指定
+				{	Commands.WindowSize320x240,	new ShortcutCommand(new WindowSizeCommand(form, pecaPlayer), new WindowSizeCommandArgs(320, 240))	}, // ウィンドウサイズ指定
+				{	Commands.WindowSize480x360,	new ShortcutCommand(new WindowSizeCommand(form, pecaPlayer), new WindowSizeCommandArgs(480, 360))	}, // ウィンドウサイズ指定
+				{	Commands.WindowSize640x480,	new ShortcutCommand(new WindowSizeCommand(form, pecaPlayer), new WindowSizeCommandArgs(640, 480))	}, // ウィンドウサイズ指定
+				{	Commands.WindowSize800x600,	new ShortcutCommand(new WindowSizeCommand(form, pecaPlayer), new WindowSizeCommandArgs(800, 600))	}, // ウィンドウサイズ指定
+				{	Commands.WindowScale50Per,	new ShortcutCommand(new WindowScaleCommand(form, pecaPlayer), new WindowScaleCommandArgs(0.5f))		}, // ウィンドウサイズ拡大率指定
+				{	Commands.WindowScale75Per,	new ShortcutCommand(new WindowScaleCommand(form, pecaPlayer), new WindowScaleCommandArgs(0.75f))	}, // ウィンドウサイズ拡大率指定
+				{	Commands.WindowScale100Per,	new ShortcutCommand(new WindowScaleCommand(form, pecaPlayer), new WindowScaleCommandArgs(1.0f))		}, // ウィンドウサイズ拡大率指定
+				{	Commands.WindowScale150Per,	new ShortcutCommand(new WindowScaleCommand(form, pecaPlayer), new WindowScaleCommandArgs(1.5f))		}, // ウィンドウサイズ拡大率指定
+				{	Commands.WindowScale200Per,	new ShortcutCommand(new WindowScaleCommand(form, pecaPlayer), new WindowScaleCommandArgs(2.0f))		}, // ウィンドウサイズ拡大率指定
+				{	Commands.WmpMenu,			new ShortcutCommand(new WmpMenuCommand(pecaPlayer), new CommandArgs())				}, // WMPメニュー表示
+				// TODO 画面分割		{	Commands.ScreenSplit,	new ScreenSplitWidthCommand(form, pecaPlayer)	}, // 画面分割
+				// TODO 動画にフィット	{	Commands.FitMovieSize,	new FitMovieSizeCommand(form, pecaPlayer)		}, // 黒枠を消す
 			};
 		}
 
@@ -184,21 +200,38 @@ namespace PeerstPlayer.Shortcut
 		//-------------------------------------------------------------
 		private void SettingEvent()
 		{
-			settings.eventMap.Add(ShortcutEvents.WheelUp, new ShortcutInfo(ShortcutCommands.VolumeUp, CommandArgs.Empty));
-			settings.eventMap.Add(ShortcutEvents.WheelDown, new ShortcutInfo(ShortcutCommands.VolumeDown, CommandArgs.Empty));
-			settings.eventMap.Add(ShortcutEvents.MiddleClick, new ShortcutInfo(ShortcutCommands.MiniMute, CommandArgs.Empty));
-			settings.eventMap.Add(ShortcutEvents.Mute, new ShortcutInfo(ShortcutCommands.Mute, CommandArgs.Empty));
-			settings.eventMap.Add(ShortcutEvents.DoubleClick, new ShortcutInfo(ShortcutCommands.WindowMaximize, CommandArgs.Empty));
-			settings.eventMap.Add(ShortcutEvents.StatusbarRightClick, new ShortcutInfo(ShortcutCommands.OpenPeerstViewer, CommandArgs.Empty));
-			settings.eventMap.Add(ShortcutEvents.StatusbarLeftClick, new ShortcutInfo(ShortcutCommands.VisibleStatusBar, CommandArgs.Empty));
-			settings.eventMap.Add(ShortcutEvents.MinButtonClick, new ShortcutInfo(ShortcutCommands.WindowMinimize, CommandArgs.Empty));
-			settings.eventMap.Add(ShortcutEvents.MaxButtonClick, new ShortcutInfo(ShortcutCommands.WindowMaximize, CommandArgs.Empty));
-			settings.eventMap.Add(ShortcutEvents.CloseButtonClick, new ShortcutInfo(ShortcutCommands.Close, CommandArgs.Empty));
-			settings.eventMap.Add(ShortcutEvents.ThreadTitleRightClick, new ShortcutInfo(ShortcutCommands.OpenPeerstViewer, CommandArgs.Empty));
-			settings.eventMap.Add(ShortcutEvents.StatusbarHover, new ShortcutInfo(ShortcutCommands.ShowNewRes, CommandArgs.Empty));
-			settings.eventMap.Add(ShortcutEvents.RightClickWheelUp, new ShortcutInfo(ShortcutCommands.WindowSizeDown, CommandArgs.Empty));
-			settings.eventMap.Add(ShortcutEvents.RightClickWheelDown, new ShortcutInfo(ShortcutCommands.WindowSizeUp, CommandArgs.Empty));
-			settings.eventMap.Add(ShortcutEvents.MovieStart, new ShortcutInfo(ShortcutCommands.WindowScale, new WindowScaleCommandArgs(1.0f)));
+			/*
+			settings.EventMap.Add(ShortcutEvents.WheelUp, new ShortcutInfo(Commands.VolumeUp, CommandArgs.Empty));
+			settings.EventMap.Add(ShortcutEvents.WheelDown, new ShortcutInfo(Commands.VolumeDown, CommandArgs.Empty));
+			settings.EventMap.Add(ShortcutEvents.MiddleClick, new ShortcutInfo(Commands.MiniMute, CommandArgs.Empty));
+			settings.EventMap.Add(ShortcutEvents.Mute, new ShortcutInfo(Commands.Mute, CommandArgs.Empty));
+			settings.EventMap.Add(ShortcutEvents.DoubleClick, new ShortcutInfo(Commands.WindowMaximize, CommandArgs.Empty));
+			settings.EventMap.Add(ShortcutEvents.StatusbarRightClick, new ShortcutInfo(Commands.OpenPeerstViewer, CommandArgs.Empty));
+			settings.EventMap.Add(ShortcutEvents.StatusbarLeftClick, new ShortcutInfo(Commands.VisibleStatusBar, CommandArgs.Empty));
+			settings.EventMap.Add(ShortcutEvents.MinButtonClick, new ShortcutInfo(Commands.WindowMinimize, CommandArgs.Empty));
+			settings.EventMap.Add(ShortcutEvents.MaxButtonClick, new ShortcutInfo(Commands.WindowMaximize, CommandArgs.Empty));
+			settings.EventMap.Add(ShortcutEvents.CloseButtonClick, new ShortcutInfo(Commands.Close, CommandArgs.Empty));
+			settings.EventMap.Add(ShortcutEvents.ThreadTitleRightClick, new ShortcutInfo(Commands.OpenPeerstViewer, CommandArgs.Empty));
+			settings.EventMap.Add(ShortcutEvents.StatusbarHover, new ShortcutInfo(Commands.ShowNewRes, CommandArgs.Empty));
+			settings.EventMap.Add(ShortcutEvents.RightClickWheelUp, new ShortcutInfo(Commands.WindowSizeDown, CommandArgs.Empty));
+			settings.EventMap.Add(ShortcutEvents.RightClickWheelDown, new ShortcutInfo(Commands.WindowSizeUp, CommandArgs.Empty));
+			settings.EventMap.Add(ShortcutEvents.MovieStart, new ShortcutInfo(Commands.WindowScale, new WindowScaleCommandArgs(1.0f)));
+			 */
+			settings.EventMap.Add(ShortcutEvents.WheelUp, Commands.VolumeUp);
+			settings.EventMap.Add(ShortcutEvents.WheelDown, Commands.VolumeDown);
+			settings.EventMap.Add(ShortcutEvents.MiddleClick, Commands.MiniMute);
+			settings.EventMap.Add(ShortcutEvents.Mute, Commands.Mute);
+			settings.EventMap.Add(ShortcutEvents.DoubleClick, Commands.WindowMaximize);
+			settings.EventMap.Add(ShortcutEvents.StatusbarRightClick, Commands.OpenPeerstViewer);
+			settings.EventMap.Add(ShortcutEvents.StatusbarLeftClick, Commands.VisibleStatusBar);
+			settings.EventMap.Add(ShortcutEvents.MinButtonClick, Commands.WindowMinimize);
+			settings.EventMap.Add(ShortcutEvents.MaxButtonClick, Commands.WindowMaximize);
+			settings.EventMap.Add(ShortcutEvents.CloseButtonClick, Commands.Close);
+			settings.EventMap.Add(ShortcutEvents.ThreadTitleRightClick, Commands.OpenPeerstViewer);
+			settings.EventMap.Add(ShortcutEvents.StatusbarHover, Commands.ShowNewRes);
+			settings.EventMap.Add(ShortcutEvents.RightClickWheelUp, Commands.WindowSizeDown);
+			settings.EventMap.Add(ShortcutEvents.RightClickWheelDown, Commands.WindowSizeUp);
+			settings.EventMap.Add(ShortcutEvents.MovieStart, Commands.WindowScale100Per);
 		}
 
 		//-------------------------------------------------------------
@@ -206,10 +239,16 @@ namespace PeerstPlayer.Shortcut
 		//-------------------------------------------------------------
 		private void SettingGesture()
 		{
-			settings.gestureMap.Add("↓→", new ShortcutInfo(ShortcutCommands.Close, CommandArgs.Empty));
-			settings.gestureMap.Add("↓", new ShortcutInfo(ShortcutCommands.OpenPeerstViewer, CommandArgs.Empty));
-			settings.gestureMap.Add("↓↑", new ShortcutInfo(ShortcutCommands.UpdateChannelInfo, CommandArgs.Empty));
-			settings.gestureMap.Add("↑", new ShortcutInfo(ShortcutCommands.Bump, CommandArgs.Empty));
+			/*
+			settings.GestureMap.Add("↓→", new ShortcutInfo(Commands.Close, CommandArgs.Empty));
+			settings.GestureMap.Add("↓", new ShortcutInfo(Commands.OpenPeerstViewer, CommandArgs.Empty));
+			settings.GestureMap.Add("↓↑", new ShortcutInfo(Commands.UpdateChannelInfo, CommandArgs.Empty));
+			settings.GestureMap.Add("↑", new ShortcutInfo(Commands.Bump, CommandArgs.Empty));
+			 */
+			settings.GestureMap.Add("↓→", Commands.Close);
+			settings.GestureMap.Add("↓", Commands.OpenPeerstViewer);
+			settings.GestureMap.Add("↓↑", Commands.UpdateChannelInfo);
+			settings.GestureMap.Add("↑", Commands.Bump);
 		}
 
 		//-------------------------------------------------------------
@@ -217,24 +256,58 @@ namespace PeerstPlayer.Shortcut
 		//-------------------------------------------------------------
 		private void SettingKey()
 		{
-			settings.keyMap.Add(new KeyInput(Keys.T), new ShortcutInfo(ShortcutCommands.TopMost, CommandArgs.Empty));
-			settings.keyMap.Add(new KeyInput(Keys.Alt, Keys.B), new ShortcutInfo(ShortcutCommands.Bump, CommandArgs.Empty));
-			settings.keyMap.Add(new KeyInput(Keys.Alt, Keys.X), new ShortcutInfo(ShortcutCommands.DisconnectRelay, CommandArgs.Empty));
-			settings.keyMap.Add(new KeyInput(Keys.Up), new ShortcutInfo(ShortcutCommands.VolumeUp, CommandArgs.Empty));
-			settings.keyMap.Add(new KeyInput(Keys.Down), new ShortcutInfo(ShortcutCommands.VolumeDown, CommandArgs.Empty));
-			settings.keyMap.Add(new KeyInput(Keys.Delete), new ShortcutInfo(ShortcutCommands.Mute, CommandArgs.Empty));
-			settings.keyMap.Add(new KeyInput(Keys.Enter), new ShortcutInfo(ShortcutCommands.VisibleStatusBar, CommandArgs.Empty));
-			settings.keyMap.Add(new KeyInput(Keys.Escape), new ShortcutInfo(ShortcutCommands.Close, CommandArgs.Empty));
-			settings.keyMap.Add(new KeyInput(Keys.D1), new ShortcutInfo(ShortcutCommands.WindowScale, new WindowScaleCommandArgs(0.5f)));
-			settings.keyMap.Add(new KeyInput(Keys.D2), new ShortcutInfo(ShortcutCommands.WindowScale, new WindowScaleCommandArgs(0.75f)));
-			settings.keyMap.Add(new KeyInput(Keys.D3), new ShortcutInfo(ShortcutCommands.WindowScale, new WindowScaleCommandArgs(1.0f)));
-			settings.keyMap.Add(new KeyInput(Keys.D4), new ShortcutInfo(ShortcutCommands.WindowScale, new WindowScaleCommandArgs(1.5f)));
-			settings.keyMap.Add(new KeyInput(Keys.D5), new ShortcutInfo(ShortcutCommands.WindowScale, new WindowScaleCommandArgs(2.0f)));
-			settings.keyMap.Add(new KeyInput(Keys.Alt, Keys.D1), new ShortcutInfo(ShortcutCommands.WindowSize, new WindowSizeCommandArgs(160, 120)));
-			settings.keyMap.Add(new KeyInput(Keys.Alt, Keys.D2), new ShortcutInfo(ShortcutCommands.WindowSize, new WindowSizeCommandArgs(320, 240)));
-			settings.keyMap.Add(new KeyInput(Keys.Alt, Keys.D3), new ShortcutInfo(ShortcutCommands.WindowSize, new WindowSizeCommandArgs(480, 360)));
-			settings.keyMap.Add(new KeyInput(Keys.Alt, Keys.D4), new ShortcutInfo(ShortcutCommands.WindowSize, new WindowSizeCommandArgs(640, 480)));
-			settings.keyMap.Add(new KeyInput(Keys.Alt, Keys.D5), new ShortcutInfo(ShortcutCommands.WindowSize, new WindowSizeCommandArgs(800, 600)));
+			/*
+			settings.KeyMap.Add(new KeyInput(Keys.T), new ShortcutInfo(Commands.TopMost, CommandArgs.Empty));
+			settings.KeyMap.Add(new KeyInput(Keys.Alt, Keys.B), new ShortcutInfo(Commands.Bump, CommandArgs.Empty));
+			settings.KeyMap.Add(new KeyInput(Keys.Alt, Keys.X), new ShortcutInfo(Commands.DisconnectRelay, CommandArgs.Empty));
+			settings.KeyMap.Add(new KeyInput(Keys.Up), new ShortcutInfo(Commands.VolumeUp, CommandArgs.Empty));
+			settings.KeyMap.Add(new KeyInput(Keys.Down), new ShortcutInfo(Commands.VolumeDown, CommandArgs.Empty));
+			settings.KeyMap.Add(new KeyInput(Keys.Delete), new ShortcutInfo(Commands.Mute, CommandArgs.Empty));
+			settings.KeyMap.Add(new KeyInput(Keys.Enter), new ShortcutInfo(Commands.VisibleStatusBar, CommandArgs.Empty));
+			settings.KeyMap.Add(new KeyInput(Keys.Escape), new ShortcutInfo(Commands.Close, CommandArgs.Empty));
+			settings.KeyMap.Add(new KeyInput(Keys.D1), new ShortcutInfo(Commands.WindowScale, new WindowScaleCommandArgs(0.5f)));
+			settings.KeyMap.Add(new KeyInput(Keys.D2), new ShortcutInfo(Commands.WindowScale, new WindowScaleCommandArgs(0.75f)));
+			settings.KeyMap.Add(new KeyInput(Keys.D3), new ShortcutInfo(Commands.WindowScale, new WindowScaleCommandArgs(1.0f)));
+			settings.KeyMap.Add(new KeyInput(Keys.D4), new ShortcutInfo(Commands.WindowScale, new WindowScaleCommandArgs(1.5f)));
+			settings.KeyMap.Add(new KeyInput(Keys.D5), new ShortcutInfo(Commands.WindowScale, new WindowScaleCommandArgs(2.0f)));
+			settings.KeyMap.Add(new KeyInput(Keys.Alt, Keys.D1), new ShortcutInfo(Commands.WindowSize, new WindowSizeCommandArgs(160, 120)));
+			settings.KeyMap.Add(new KeyInput(Keys.Alt, Keys.D2), new ShortcutInfo(Commands.WindowSize, new WindowSizeCommandArgs(320, 240)));
+			settings.KeyMap.Add(new KeyInput(Keys.Alt, Keys.D3), new ShortcutInfo(Commands.WindowSize, new WindowSizeCommandArgs(480, 360)));
+			settings.KeyMap.Add(new KeyInput(Keys.Alt, Keys.D4), new ShortcutInfo(Commands.WindowSize, new WindowSizeCommandArgs(640, 480)));
+			settings.KeyMap.Add(new KeyInput(Keys.Alt, Keys.D5), new ShortcutInfo(Commands.WindowSize, new WindowSizeCommandArgs(800, 600)));
+			 */
+
+			settings.KeyMap.Add(new KeyInput(Keys.T), Commands.TopMost);
+			settings.KeyMap.Add(new KeyInput(Keys.Alt, Keys.B), Commands.Bump);
+			settings.KeyMap.Add(new KeyInput(Keys.Alt, Keys.X), Commands.DisconnectRelay);
+			settings.KeyMap.Add(new KeyInput(Keys.Up), Commands.VolumeUp);
+			settings.KeyMap.Add(new KeyInput(Keys.Down), Commands.VolumeDown);
+			settings.KeyMap.Add(new KeyInput(Keys.Delete), Commands.Mute);
+			settings.KeyMap.Add(new KeyInput(Keys.Enter), Commands.VisibleStatusBar);
+			settings.KeyMap.Add(new KeyInput(Keys.Escape), Commands.Close);
+			settings.KeyMap.Add(new KeyInput(Keys.D1), Commands.WindowScale50Per);
+			settings.KeyMap.Add(new KeyInput(Keys.D2), Commands.WindowScale75Per);
+			settings.KeyMap.Add(new KeyInput(Keys.D3), Commands.WindowScale100Per);
+			settings.KeyMap.Add(new KeyInput(Keys.D4), Commands.WindowScale150Per);
+			settings.KeyMap.Add(new KeyInput(Keys.D5), Commands.WindowScale200Per);
+			settings.KeyMap.Add(new KeyInput(Keys.Alt, Keys.D1), Commands.WindowSize160x120);
+			settings.KeyMap.Add(new KeyInput(Keys.Alt, Keys.D2), Commands.WindowSize320x240);
+			settings.KeyMap.Add(new KeyInput(Keys.Alt, Keys.D3), Commands.WindowSize480x360);
+			settings.KeyMap.Add(new KeyInput(Keys.Alt, Keys.D4), Commands.WindowSize640x480);
+			settings.KeyMap.Add(new KeyInput(Keys.Alt, Keys.D5), Commands.WindowSize800x600);
+		}
+
+		/// <summary>
+		/// ショートカットのデフォルト設定読み込み
+		/// </summary>
+		private void LoadDefaultSettings()
+		{
+			settings = new ShortcutSettings();
+
+			SettingEvent();
+			SettingGesture();
+			SettingKey();
+			SettingSerializer.SaveSettings<ShortcutSettings>("ShortcutSettings.xml", settings);
 		}
 	}
 }

@@ -20,16 +20,16 @@ namespace PeerstPlayer.Shortcut.Command
 			this.pecaPlayer = pecaPlayer;
 		}
 
-		public void Execute(CommandArgs commandArgs)
+		void IShortcutCommand.Execute(CommandArgs commandArgs)
 		{
 			pecaPlayer.EnableContextMenu = true;
 			FormUtility.ShowContextMenu(this.pecaPlayer.WMPHandle, Cursor.Position);
 			pecaPlayer.EnableContextMenu = false;
 		}
 
-		public string Detail
+		string IShortcutCommand.GetDetail(CommandArgs commandArgs)
 		{
-			get { return "WMPメニュー表示"; }
+			return "WMPメニュー表示";
 		}
 	}
 }

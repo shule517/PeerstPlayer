@@ -83,6 +83,7 @@
     </Compile>
     <Compile Include="Settings\PlayerSettings.cs" />
     <Compile Include="Settings\PlayerSettingsInfo.cs" />
+    <Compile Include="Shortcut\Commands.cs" />
     <Compile Include="Shortcut\Command\BumpCommand.cs" />
     <Compile Include="Shortcut\Command\CloseCommand.cs" />
     <Compile Include="Shortcut\Command\DisconnectRelayCommand.cs" />
@@ -105,7 +106,7 @@
     <Compile Include="Shortcut\Command\WmpMenuCommand.cs" />
     <Compile Include="Shortcut\CommandArgs.cs" />
     <Compile Include="Shortcut\KeyInput.cs" />
-    <Compile Include="Shortcut\ShortcutCommands.cs" />
+    <Compile Include="Shortcut\ShortcutCommand.cs" />
     <Compile Include="Shortcut\ShortcutEvents.cs" />
     <Compile Include="Shortcut\ShortcutInfo.cs" />
     <Compile Include="Shortcut\ShortcutManager.cs" />

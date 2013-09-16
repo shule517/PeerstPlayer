@@ -19,7 +19,7 @@ namespace PeerstPlayer.Shortcut.Command
 			this.statusBar = statusBar;
 		}
 
-		public void Execute(CommandArgs commandArgs)
+		void IShortcutCommand.Execute(CommandArgs commandArgs)
 		{
 			string folderPath = FormUtility.GetExeFolderPath();
 
@@ -38,9 +38,9 @@ namespace PeerstPlayer.Shortcut.Command
 			}
 		}
 
-		public string Detail
+		string IShortcutCommand.GetDetail(CommandArgs commandArgs)
 		{
-			get { return "PeerstViewerを開く"; }
+			return "スレッドビューワを開く";
 		}
 	}
 }

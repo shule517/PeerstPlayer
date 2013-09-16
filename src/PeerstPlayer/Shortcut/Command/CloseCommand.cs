@@ -33,9 +33,9 @@ namespace PeerstPlayer.Shortcut.Command
 			Application.Exit();
 		}
 
-		public string Detail
+		string IShortcutCommand.GetDetail(CommandArgs commandArgs)
 		{
-			get { return "PeerstPlayerを終了"; }
+			return "終了する";
 		}
 	}
 }

@@ -4,7 +4,7 @@ namespace PeerstPlayer.Shortcut.Command
 	/// <summary>
 	/// ショートカットコマンドインターフェイス
 	/// </summary>
-	interface IShortcutCommand
+	public interface IShortcutCommand
 	{
 		/// <summary>
 		/// コマンドを実行
@@ -14,6 +14,6 @@ namespace PeerstPlayer.Shortcut.Command
 		/// <summary>
 		/// コマンドの詳細
 		/// </summary>
-		string Detail { get; }
+		string GetDetail(CommandArgs commandArgs);
 	}
 }

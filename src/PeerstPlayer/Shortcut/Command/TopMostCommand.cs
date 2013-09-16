@@ -1,4 +1,5 @@
 ﻿
+using System.Windows.Forms;
 namespace PeerstPlayer.Shortcut.Command
 {
 	/// <summary>
@@ -6,21 +7,21 @@ namespace PeerstPlayer.Shortcut.Command
 	/// </summary>
 	class TopMostCommand : IShortcutCommand
 	{
-		private System.Windows.Forms.Form form;
+		private Form form;
 
-		public TopMostCommand(System.Windows.Forms.Form form)
+		public TopMostCommand(Form form)
 		{
 			this.form = form;
 		}
 
-		public void Execute(CommandArgs commandArgs)
+		void IShortcutCommand.Execute(CommandArgs commandArgs)
 		{
 			form.TopMost = !form.TopMost;
 		}
 
-		public string Detail
+		string IShortcutCommand.GetDetail(CommandArgs commandArgs)
 		{
-			get { return "最前列表示を切り替える"; }
+			return string.Format("最前列表示切り替え"); 
 		}
 	}
 }

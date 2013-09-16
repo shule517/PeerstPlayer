@@ -14,14 +14,14 @@ namespace PeerstPlayer.Shortcut.Command
 			this.pecaPlayer = pecaPlayer;
 		}
 
-		public void Execute(CommandArgs commandArgs)
+		void IShortcutCommand.Execute(CommandArgs commandArgs)
 		{
 			pecaPlayer.UpdateChannelInfo();
 		}
 
-		public string Detail
+		string IShortcutCommand.GetDetail(CommandArgs commandArgs)
 		{
-			get { return "チャンネル情報を更新"; }
+			return "チャンネル情報を更新";
 		}
 	}
 }

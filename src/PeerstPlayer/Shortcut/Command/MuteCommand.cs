@@ -19,9 +19,9 @@ namespace PeerstPlayer.Shortcut.Command
 			pecaPlayer.Mute = !pecaPlayer.Mute;
 		}
 
-		public string Detail
+		string IShortcutCommand.GetDetail(CommandArgs commandArgs)
 		{
-			get { return "ミュート"; }
+			return "ミュート";
 		}
 	}
 }

@@ -17,15 +17,15 @@ namespace PeerstPlayer.Shortcut.Command
 			this.pecaPlayer = pecaPlayer;
 		}
 
-		public void Execute(CommandArgs commandArgs)
+		void IShortcutCommand.Execute(CommandArgs commandArgs)
 		{
 			form.WindowState = FormWindowState.Minimized;
 			pecaPlayer.Mute = true;
 		}
 
-		public string Detail
+		string IShortcutCommand.GetDetail(CommandArgs commandArgs)
 		{
-			get { return "最小化ミュート"; }
+			return "最小化ミュート";
 		}
 	}
 }

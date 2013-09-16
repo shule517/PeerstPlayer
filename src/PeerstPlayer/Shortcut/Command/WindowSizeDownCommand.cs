@@ -17,16 +17,19 @@ namespace PeerstPlayer.Shortcut.Command
 			this.pecaPlayer = pecaPlayer;
 		}
 
-		public void Execute(CommandArgs commandArgs)
+		void IShortcutCommand.Execute(CommandArgs commandArgs)
 		{
 			int height = (int)(pecaPlayer.ImageHeight * 0.1);
 			form.Width -= (int)(height * pecaPlayer.AspectRate);
 			form.Height -= height;
 		}
 
-		public string Detail
+		string IShortcutCommand.GetDetail(CommandArgs commandArgs)
 		{
-			get { return "ウィンドウサイズを小さく"; }
+			int size = (int)(pecaPlayer.ImageHeight * 0.1);
+			int width = form.Width - (int)(size * pecaPlayer.AspectRate);
+			int height = form.Height - size;
+			return string.Format("サイズ-10%");
 		}
 	}
 }

@@ -18,7 +18,7 @@ namespace PeerstPlayer.Shortcut.Command
 			this.pecaPlayer = pecaPlayer;
 		}
 
-		public void Execute(CommandArgs commandArgs)
+		void IShortcutCommand.Execute(CommandArgs commandArgs)
 		{
 			WindowScaleCommandArgs args = (WindowScaleCommandArgs)commandArgs;
 			int width = (int)(pecaPlayer.ImageWidth * args.Scale);
@@ -26,9 +26,10 @@ namespace PeerstPlayer.Shortcut.Command
 			form.Size = new Size(width, height);
 		}
 
-		public string Detail
+		string IShortcutCommand.GetDetail(CommandArgs commandArgs)
 		{
-			get { return string.Format("ウィンドウサイズ変更({0}x{1})", pecaPlayer.ImageWidth, pecaPlayer.ImageHeight); }
+			WindowScaleCommandArgs args = (WindowScaleCommandArgs)commandArgs;
+			return string.Format("拡大率 ({0}%)", args.Scale * 100);
 		}
 	}
 }
