@@ -48,6 +48,32 @@ namespace PeerstLib.PeerCast.Data
 		//-------------------------------------------------------------
 		public ChannelInfo()
 		{
+			Name = string.Empty;
+			Id = string.Empty;
+			Bitrate = string.Empty;
+			Type = string.Empty;
+			Genre = string.Empty;
+			Desc = string.Empty;
+			Url = string.Empty;
+			Uptime = string.Empty;
+			Comment = string.Empty;
+			Skips = string.Empty;
+			Age = string.Empty;
+			Bcflags = string.Empty;
+			
+			Listeners = string.Empty;
+			Relays = string.Empty;
+			Hosts = string.Empty;
+			Status = string.Empty;
+			Firewalled = string.Empty;
+			RelayColor = Data.RelayColor.None;
+			
+			TrackTitle = string.Empty;
+			TrackArtist = string.Empty;
+			TrackAlbum = string.Empty;
+			TrackGenre = string.Empty;
+			TrackContact = string.Empty;
+
 			HostList = new List<HostInfo>();
 		}
 	}
