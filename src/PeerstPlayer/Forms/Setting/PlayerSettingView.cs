@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Windows.Forms;
+using PeerstLib.Util;
 using PeerstPlayer.Forms.Player;
 using PeerstPlayer.Shortcut;
 using PeerstPlayer.Shortcut.Command;
@@ -35,25 +36,29 @@ namespace PeerstPlayer.Forms.Setting
 				writeFieldVisibleCheckBox.Checked = PlayerSettings.WriteFieldVisible;
 
 				// ショートカット表示
+				shortcutListView.Items.Clear();
 				foreach (KeyValuePair<Commands, ShortcutCommand> commandPair in shortcut.CommandMap)
 				{
 					ListViewItem item = new ListViewItem();
-
 					item.Text = shortcut.CommandMap[commandPair.Key].Detail;
 					item.Tag = commandPair.Key;
 
-					string inputKey = "-";
+					ListViewItem.ListViewSubItem subItem = new ListViewItem.ListViewSubItem();
+					subItem.Text = "-";
+					subItem.Tag = null;
+
 					foreach (KeyValuePair<KeyInput, Commands> keyPair in shortcut.Settings.KeyMap)
 					{
 						if (commandPair.Key == keyPair.Value)
 						{
 							string modifiers = (keyPair.Key.Modifiers == Keys.None) ? "" : ", " + keyPair.Key.Modifiers.ToString();
-							inputKey = keyPair.Key.Key + modifiers;
+							subItem.Text = keyPair.Key.Key + modifiers;
+							subItem.Tag = keyPair.Key;
 							break;
 						}
 					}
 
-					item.SubItems.Add(inputKey);
+					item.SubItems.Add(subItem);
 					shortcutListView.Items.Add(item);
 				}
 			};
@@ -74,9 +79,32 @@ namespace PeerstPlayer.Forms.Setting
 				if (shortcutListView.SelectedIndices.Count <= 0) return;
 				if (e.KeyData == Keys.ProcessKey) return;
 
+
+				// 同じキー入力は削除
+				foreach (ListViewItem item in shortcutListView.Items)
+				{
+					object tag = item.SubItems[1].Tag;	// KeyInput
+
+					if ((tag == null))
+					{
+						continue;
+					}
+
+					KeyInput keyInput = (KeyInput)tag;
+
+					if ((keyInput.Key == e.KeyCode) && (keyInput.Modifiers == e.Modifiers))
+					{
+						item.SubItems[1].Text = "-";
+						item.SubItems[1].Tag = null;
+					}
+				}
+
+				// ショートカット登録
 				int index = shortcutListView.SelectedIndices[0];
 				shortcutListView.Items[index].SubItems[1].Text = e.KeyData.ToString();
+				shortcutListView.Items[index].SubItems[1].Tag = new KeyInput(e.Modifiers, e.KeyCode);
 
+				// キー入力を無視
 				e.Handled = true;
 			};
 
@@ -105,6 +133,22 @@ namespace PeerstPlayer.Forms.Setting
 			Close();
 
 			// ショートカット設定
+			shortcut.Settings.KeyMap = new Dictionary<KeyInput, Commands>();
+			foreach (ListViewItem item in shortcutListView.Items)
+			{
+				object tag1 = item.Tag;				// Commands
+				object tag2 = item.SubItems[1].Tag;	// KeyInput
+
+				if ((tag1 == null) || (tag2 == null))
+				{
+					continue;
+				}
+
+				Commands command = (Commands)tag1;
+				KeyInput keyInput = (KeyInput)tag2;
+				shortcut.Settings.KeyMap.Add(keyInput, command);
+			}
+			SettingSerializer.SaveSettings<ShortcutSettings>("ShortcutSettings.xml", shortcut.Settings);
 		}
 
 		/// <summary>
