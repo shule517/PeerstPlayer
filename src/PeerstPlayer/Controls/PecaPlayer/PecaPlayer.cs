@@ -2,7 +2,6 @@
 using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
-using PeerstLib.Bbs.Data;
 using PeerstLib.PeerCast;
 using PeerstLib.PeerCast.Data;
 using PeerstLib.PeerCast.Util;
@@ -21,11 +20,19 @@ namespace PeerstPlayer.Controls.PecaPlayer
 		// 公開プロパティ
 		//-------------------------------------------------------------
 
-		// チャンネル情報
+		/// <summary>
+		/// チャンネル情報
+		/// </summary>
 		public ChannelInfo ChannelInfo { get; set; }
+
+		/// <summary>
+		/// チャンネル情報変更イベント
+		/// </summary>
 		public event EventHandler ChannelInfoChange = delegate { };
 
-		// 音量
+		/// <summary>
+		/// 音量
+		/// </summary>
 		public int Volume
 		{
 			get { return wmp.settings.volume; }
@@ -35,9 +42,15 @@ namespace PeerstPlayer.Controls.PecaPlayer
 				VolumeChange(this, new EventArgs());
 			}
 		}
+
+		/// <summary>
+		/// 音量変更イベント
+		/// </summary>
 		public event EventHandler VolumeChange = delegate { };
 
-		// ミュート
+		/// <summary>
+		/// ミュート
+		/// </summary>
 		public bool Mute
 		{
 			get { return wmp.settings.mute; }
@@ -48,7 +61,9 @@ namespace PeerstPlayer.Controls.PecaPlayer
 			}
 		}
 
-		// 再生時間
+		/// <summary>
+		/// 再生時間
+		/// </summary>
 		public string Duration
 		{
 			get
@@ -63,74 +78,117 @@ namespace PeerstPlayer.Controls.PecaPlayer
 			}
 		}
 
-		// バッファー率
+		/// <summary>
+		/// バッファー率
+		/// </summary>
 		public int BufferingProgress
 		{
 			get { return wmp.network.bufferingProgress; }
 		}
 
-		// 再生状態
+		/// <summary>
+		/// 再生状態
+		/// </summary>
 		public WMPPlayState PlayState
 		{
 			get { return wmp.playState; }
 		}
 
-		// クリック開始位置
+		/// <summary>
+		/// 動画再生状態
+		/// </summary>
+		public WMPOpenState OpenState
+		{
+			get { return wmp.openState; }
+		}
+
+		/// <summary>
+		/// 動画再生状態変更イベント
+		/// </summary>
+		public event AxWMPLib._WMPOCXEvents_OpenStateChangeEventHandler OpenStateChange
+		{
+			add { wmp.OpenStateChange += value; }
+			remove { wmp.OpenStateChange -= value; }
+		}
+
+		/// <summary>
+		/// クリック開始位置(マウスジェスチャ用)
+		/// </summary>
 		public Point ClickPoint { get; set; }
 
-		// アスペクト比
+		/// <summary>
+		/// アスペクト比
+		/// </summary>
 		public float AspectRate
 		{
 			get { return (float)ImageWidth / (float)ImageHeight; }
 		}
 
-		// 動画の幅
+		/// <summary>
+		/// 動画の幅
+		/// </summary>
 		public int ImageWidth
 		{
 			get { return ((wmp.currentMedia == null) || (wmp.currentMedia.imageSourceWidth == 0)) ? 800 : wmp.currentMedia.imageSourceWidth; }
 		}
 
-		// 動画の高さ
+		/// <summary>
+		/// 動画の高さ
+		/// </summary>
 		public int ImageHeight
 		{
 			get { return ((wmp.currentMedia == null) || (wmp.currentMedia.imageSourceHeight == 0)) ? 600 : wmp.currentMedia.imageSourceHeight; }
 		}
 
-		// マウス押下イベント
+		/// <summary>
+		/// マウス押下イベント
+		/// </summary>
 		public event AxWMPLib._WMPOCXEvents_MouseDownEventHandler MouseDownEvent
 		{
 			add { wmp.MouseDownEvent += value; }
 			remove { wmp.MouseDownEvent -= value; }
 		}
 
-		// マウスアップイベント
+		/// <summary>
+		///  マウスアップイベント
+		/// </summary>
 		public event AxWMPLib._WMPOCXEvents_MouseUpEventHandler MouseUpEvent
 		{
 			add { wmp.MouseUpEvent += value; }
 			remove { wmp.MouseUpEvent -= value; }
 		}
 
-		// マウス移動イベント
+		/// <summary>
+		///  マウス移動イベント
+		/// </summary>
 		public event AxWMPLib._WMPOCXEvents_MouseMoveEventHandler MouseMoveEvent
 		{
 			add { wmp.MouseMoveEvent += value; }
 			remove { wmp.MouseMoveEvent -= value; }
 		}
 
-		// キー押下イベント
+		/// <summary>
+		/// キー押下イベント
+		/// </summary>
 		public event AxWMPLib._WMPOCXEvents_KeyDownEventHandler KeyDownEvent
 		{
 			add { wmp.KeyDownEvent += value; }
 			remove { wmp.KeyDownEvent -= value; }
 		}
 
-		// ダブルクリックイベント
+		/// <summary>
+		/// ダブルクリックイベント
+		/// </summary>
 		public event EventHandler DoubleClickEvent = delegate { };
 
-		// WMPのハンドル
+		/// <summary>
+		/// WMPのハンドル
+		/// </summary>
 		public IntPtr WMPHandle { get { return wmp.Handle; } }
 
-		// コンテキストメニューの有効
+		/// <summary>
+		/// コンテキストメニューの有効
+		/// </summary>
 		public bool EnableContextMenu
 		{
 			get { return wmp.enableContextMenu; }
@@ -141,10 +199,14 @@ namespace PeerstPlayer.Controls.PecaPlayer
 		// 非公開プロパティ
 		//-------------------------------------------------------------
 
-		// PeerCast通信
+		/// <summary>
+		/// PeerCast通信
+		/// </summary>
 		private PeerCastConnection pecaConnect = null;
 
-		// チャンネル更新用
+		/// <summary>
+		/// チャンネル更新用
+		/// </summary>
 		private BackgroundWorker updateChannelInfoWorker = new BackgroundWorker();
 
 		//-------------------------------------------------------------

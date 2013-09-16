@@ -18,5 +18,6 @@ namespace PeerstPlayer.Shortcut
 		StatusbarHover,			// ステータスバーをマウスホバー
 		RightClickWheelUp,		// 右クリック+ホイールUp
 		RightClickWheelDown,	// 右クリック+ホイールDown
+		MovieStart,				// 動画再生開始
 	};
 }

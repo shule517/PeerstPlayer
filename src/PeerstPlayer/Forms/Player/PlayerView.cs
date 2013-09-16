@@ -350,6 +350,15 @@ namespace PeerstPlayer.Forms.Setting
 				statusBar.Close();
 			};
 
+			// 動画再生イベント
+			pecaPlayer.OpenStateChange += (sender, e) =>
+			{
+				if (pecaPlayer.OpenState == WMPOpenState.wmposMediaOpen)
+				{
+					shortcut.RaiseEvent(ShortcutEvents.MovieStart);
+				}
+			};
+
 			//-----------------------------------------------------
 			// コンテキストメニュー
 			//-----------------------------------------------------

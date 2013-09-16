@@ -198,6 +198,7 @@ namespace PeerstPlayer.Shortcut
 			settings.eventMap.Add(ShortcutEvents.StatusbarHover, new ShortcutInfo(ShortcutCommands.ShowNewRes, CommandArgs.Empty));
 			settings.eventMap.Add(ShortcutEvents.RightClickWheelUp, new ShortcutInfo(ShortcutCommands.WindowSizeDown, CommandArgs.Empty));
 			settings.eventMap.Add(ShortcutEvents.RightClickWheelDown, new ShortcutInfo(ShortcutCommands.WindowSizeUp, CommandArgs.Empty));
+			settings.eventMap.Add(ShortcutEvents.MovieStart, new ShortcutInfo(ShortcutCommands.WindowScale, new WindowScaleCommandArgs(1.0f)));
 		}
 
 		//-------------------------------------------------------------
