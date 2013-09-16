@@ -14,7 +14,7 @@ namespace PeerstPlayer.Shortcut
 	/// ショートカット設定
 	/// </summary>
 	[DataContract(Name = "ShortcutSettings")]
-	class ShortcutSettings
+	public class ShortcutSettings
 	{
 		// イベントMap (イベントID -> コマンドIDを取得)
 		[DataMember]
@@ -32,7 +32,7 @@ namespace PeerstPlayer.Shortcut
 	//-------------------------------------------------------------
 	// 概要：ショートカットコマンドクラス
 	//-------------------------------------------------------------
-	class ShortcutManager
+	public class ShortcutManager
 	{
 		//-------------------------------------------------------------
 		// 非公開プロパティ
@@ -41,7 +41,12 @@ namespace PeerstPlayer.Shortcut
 		/// <summary>
 		/// ショートカット設定
 		/// </summary>
-		ShortcutSettings settings = new ShortcutSettings();
+		ShortcutSettings settings = new ShortcutSettings(); 
+		public ShortcutSettings Settings
+		{
+			get { return settings; }
+			set { settings = value; }
+		}
 
 		/// <summary>
 		/// コマンドMap (コマンドID -> コマンドクラスを取得)

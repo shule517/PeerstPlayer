@@ -8,7 +8,7 @@ namespace PeerstPlayer.Shortcut
 	/// キー入力情報
 	/// </summary>
 	[DataContract(Name = "KeyInput")]
-	class KeyInput : IEquatable<KeyInput>
+	public class KeyInput : IEquatable<KeyInput>
 	{
 		/// <summary>
 		/// 修飾キー
