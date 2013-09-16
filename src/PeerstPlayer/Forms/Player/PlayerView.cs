@@ -55,6 +55,7 @@ namespace PeerstPlayer.Forms.Setting
 					string name = commandLine[2];
 					Logger.Instance.InfoFormat("チャンネル名:{0}", name);
 					statusBar.ChannelDetail = name;
+					Text = name;
 				}
 
 				// チャンネル名設定後、画面表示
@@ -107,6 +108,7 @@ namespace PeerstPlayer.Forms.Setting
 		public void Open(string url)
 		{
 			Logger.Instance.DebugFormat("Open(url:{0})", url);
+			Text = string.Empty;
 			pecaPlayer.Open(url);
 		}
 
@@ -162,12 +164,16 @@ namespace PeerstPlayer.Forms.Setting
 				// TODO 文字が空の場合は、スペースを空けない
 				statusBar.ChannelDetail = String.Format("{0} {1}{2} {3}", info.Name, (string.IsNullOrEmpty(info.Genre) ? "" : string.Format("[{0}] ", info.Genre)), info.Desc, info.Comment);
 
-				// 初回だけコンタクトURLを設定する
-				// TODO コンタクトURLが変更されたら、通知後にURL変更
+				// 初回のみの設定
 				if (isFirst)
 				{
+					// コンタクトURL設定
+					// TODO コンタクトURLが変更されたら、通知後にURL変更
 					statusBar.SelectThreadUrl = info.Url;
 					isFirst = false;
+
+					// タイトル設定
+					Text = info.Name;
 				}
 			};
 
@@ -360,6 +366,20 @@ namespace PeerstPlayer.Forms.Setting
 			{
 				shortcut.ExecCommand(new ShortcutInfo(ShortcutCommands.WmpMenu, new CommandArgs()));
 			};
+		}
+
+		/// <summary>
+		/// タイトルバー非表示
+		/// </summary>
+		protected override CreateParams CreateParams
+		{
+			get
+			{
+				const int WS_CAPTION = 0x00C00000;
+				CreateParams param = base.CreateParams;
+				param.Style &= ~WS_CAPTION;
+				return param;
+			}
 		}
 	}
 }
