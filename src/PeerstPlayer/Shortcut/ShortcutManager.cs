@@ -200,23 +200,6 @@ namespace PeerstPlayer.Shortcut
 		//-------------------------------------------------------------
 		private void SettingEvent()
 		{
-			/*
-			settings.EventMap.Add(ShortcutEvents.WheelUp, new ShortcutInfo(Commands.VolumeUp, CommandArgs.Empty));
-			settings.EventMap.Add(ShortcutEvents.WheelDown, new ShortcutInfo(Commands.VolumeDown, CommandArgs.Empty));
-			settings.EventMap.Add(ShortcutEvents.MiddleClick, new ShortcutInfo(Commands.MiniMute, CommandArgs.Empty));
-			settings.EventMap.Add(ShortcutEvents.Mute, new ShortcutInfo(Commands.Mute, CommandArgs.Empty));
-			settings.EventMap.Add(ShortcutEvents.DoubleClick, new ShortcutInfo(Commands.WindowMaximize, CommandArgs.Empty));
-			settings.EventMap.Add(ShortcutEvents.StatusbarRightClick, new ShortcutInfo(Commands.OpenPeerstViewer, CommandArgs.Empty));
-			settings.EventMap.Add(ShortcutEvents.StatusbarLeftClick, new ShortcutInfo(Commands.VisibleStatusBar, CommandArgs.Empty));
-			settings.EventMap.Add(ShortcutEvents.MinButtonClick, new ShortcutInfo(Commands.WindowMinimize, CommandArgs.Empty));
-			settings.EventMap.Add(ShortcutEvents.MaxButtonClick, new ShortcutInfo(Commands.WindowMaximize, CommandArgs.Empty));
-			settings.EventMap.Add(ShortcutEvents.CloseButtonClick, new ShortcutInfo(Commands.Close, CommandArgs.Empty));
-			settings.EventMap.Add(ShortcutEvents.ThreadTitleRightClick, new ShortcutInfo(Commands.OpenPeerstViewer, CommandArgs.Empty));
-			settings.EventMap.Add(ShortcutEvents.StatusbarHover, new ShortcutInfo(Commands.ShowNewRes, CommandArgs.Empty));
-			settings.EventMap.Add(ShortcutEvents.RightClickWheelUp, new ShortcutInfo(Commands.WindowSizeDown, CommandArgs.Empty));
-			settings.EventMap.Add(ShortcutEvents.RightClickWheelDown, new ShortcutInfo(Commands.WindowSizeUp, CommandArgs.Empty));
-			settings.EventMap.Add(ShortcutEvents.MovieStart, new ShortcutInfo(Commands.WindowScale, new WindowScaleCommandArgs(1.0f)));
-			 */
 			settings.EventMap.Add(ShortcutEvents.WheelUp, Commands.VolumeUp);
 			settings.EventMap.Add(ShortcutEvents.WheelDown, Commands.VolumeDown);
 			settings.EventMap.Add(ShortcutEvents.MiddleClick, Commands.MiniMute);
@@ -239,12 +222,6 @@ namespace PeerstPlayer.Shortcut
 		//-------------------------------------------------------------
 		private void SettingGesture()
 		{
-			/*
-			settings.GestureMap.Add("↓→", new ShortcutInfo(Commands.Close, CommandArgs.Empty));
-			settings.GestureMap.Add("↓", new ShortcutInfo(Commands.OpenPeerstViewer, CommandArgs.Empty));
-			settings.GestureMap.Add("↓↑", new ShortcutInfo(Commands.UpdateChannelInfo, CommandArgs.Empty));
-			settings.GestureMap.Add("↑", new ShortcutInfo(Commands.Bump, CommandArgs.Empty));
-			 */
 			settings.GestureMap.Add("↓→", Commands.Close);
 			settings.GestureMap.Add("↓", Commands.OpenPeerstViewer);
 			settings.GestureMap.Add("↓↑", Commands.UpdateChannelInfo);
@@ -256,27 +233,6 @@ namespace PeerstPlayer.Shortcut
 		//-------------------------------------------------------------
 		private void SettingKey()
 		{
-			/*
-			settings.KeyMap.Add(new KeyInput(Keys.T), new ShortcutInfo(Commands.TopMost, CommandArgs.Empty));
-			settings.KeyMap.Add(new KeyInput(Keys.Alt, Keys.B), new ShortcutInfo(Commands.Bump, CommandArgs.Empty));
-			settings.KeyMap.Add(new KeyInput(Keys.Alt, Keys.X), new ShortcutInfo(Commands.DisconnectRelay, CommandArgs.Empty));
-			settings.KeyMap.Add(new KeyInput(Keys.Up), new ShortcutInfo(Commands.VolumeUp, CommandArgs.Empty));
-			settings.KeyMap.Add(new KeyInput(Keys.Down), new ShortcutInfo(Commands.VolumeDown, CommandArgs.Empty));
-			settings.KeyMap.Add(new KeyInput(Keys.Delete), new ShortcutInfo(Commands.Mute, CommandArgs.Empty));
-			settings.KeyMap.Add(new KeyInput(Keys.Enter), new ShortcutInfo(Commands.VisibleStatusBar, CommandArgs.Empty));
-			settings.KeyMap.Add(new KeyInput(Keys.Escape), new ShortcutInfo(Commands.Close, CommandArgs.Empty));
-			settings.KeyMap.Add(new KeyInput(Keys.D1), new ShortcutInfo(Commands.WindowScale, new WindowScaleCommandArgs(0.5f)));
-			settings.KeyMap.Add(new KeyInput(Keys.D2), new ShortcutInfo(Commands.WindowScale, new WindowScaleCommandArgs(0.75f)));
-			settings.KeyMap.Add(new KeyInput(Keys.D3), new ShortcutInfo(Commands.WindowScale, new WindowScaleCommandArgs(1.0f)));
-			settings.KeyMap.Add(new KeyInput(Keys.D4), new ShortcutInfo(Commands.WindowScale, new WindowScaleCommandArgs(1.5f)));
-			settings.KeyMap.Add(new KeyInput(Keys.D5), new ShortcutInfo(Commands.WindowScale, new WindowScaleCommandArgs(2.0f)));
-			settings.KeyMap.Add(new KeyInput(Keys.Alt, Keys.D1), new ShortcutInfo(Commands.WindowSize, new WindowSizeCommandArgs(160, 120)));
-			settings.KeyMap.Add(new KeyInput(Keys.Alt, Keys.D2), new ShortcutInfo(Commands.WindowSize, new WindowSizeCommandArgs(320, 240)));
-			settings.KeyMap.Add(new KeyInput(Keys.Alt, Keys.D3), new ShortcutInfo(Commands.WindowSize, new WindowSizeCommandArgs(480, 360)));
-			settings.KeyMap.Add(new KeyInput(Keys.Alt, Keys.D4), new ShortcutInfo(Commands.WindowSize, new WindowSizeCommandArgs(640, 480)));
-			settings.KeyMap.Add(new KeyInput(Keys.Alt, Keys.D5), new ShortcutInfo(Commands.WindowSize, new WindowSizeCommandArgs(800, 600)));
-			 */
-
 			settings.KeyMap.Add(new KeyInput(Keys.T), Commands.TopMost);
 			settings.KeyMap.Add(new KeyInput(Keys.Alt, Keys.B), Commands.Bump);
 			settings.KeyMap.Add(new KeyInput(Keys.Alt, Keys.X), Commands.DisconnectRelay);
