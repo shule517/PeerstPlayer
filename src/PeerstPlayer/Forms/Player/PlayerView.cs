@@ -351,10 +351,7 @@ namespace PeerstPlayer.Forms.Setting
 			};
 
 			// 動画再生イベント
-			pecaPlayer.MovieStart += (sender, e) =>
-			{
-				shortcut.RaiseEvent(ShortcutEvents.MovieStart);
-			};
+			pecaPlayer.MovieStart += (sender, e) => shortcut.RaiseEvent(ShortcutEvents.MovieStart);
 
 			//-----------------------------------------------------
 			// コンテキストメニュー

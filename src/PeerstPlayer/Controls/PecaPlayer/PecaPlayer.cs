@@ -297,7 +297,6 @@ namespace PeerstPlayer.Controls.PecaPlayer
 					if (!String.IsNullOrEmpty(chInfo.Name))
 					{
 						ChannelInfo = chInfo;
-						MovieStart(this, new EventArgs());
 						return;
 					}
 
