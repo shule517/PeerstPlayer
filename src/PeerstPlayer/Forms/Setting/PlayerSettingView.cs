@@ -34,42 +34,26 @@ namespace PeerstPlayer.Forms.Setting
 				topMostCheckBox.Checked = PlayerSettings.TopMost;
 				writeFieldVisibleCheckBox.Checked = PlayerSettings.WriteFieldVisible;
 
-				// ショートカット表示
+				// ショートカット・ジェスチャー表示
 				shortcutListView.Items.Clear();
+				gestureListView.Items.Clear();
 				foreach (KeyValuePair<Commands, ShortcutCommand> commandPair in shortcut.CommandMap)
 				{
-					ListViewItem item = new ListViewItem();
-					item.Text = shortcut.CommandMap[commandPair.Key].Detail;
-					item.Tag = commandPair.Key;
+					// ショートカットのアイテム追加
+					ListViewItem keyItem = CreateKeyItem(shortcut, commandPair);
+					shortcutListView.Items.Add(keyItem);
 
-					ListViewItem.ListViewSubItem subItem = new ListViewItem.ListViewSubItem();
-					subItem.Text = "-";
-					subItem.Tag = null;
-
-					foreach (KeyValuePair<KeyInput, Commands> keyPair in shortcut.Settings.KeyMap)
-					{
-						if (commandPair.Key == keyPair.Value)
-						{
-							subItem.Text = ConvertKeyInputToString(keyPair.Key);
-							subItem.Tag = keyPair.Key;
-							break;
-						}
-					}
-
-					item.SubItems.Add(subItem);
-					shortcutListView.Items.Add(item);
+					// ジェスチャーのアイテム追加
+					ListViewItem gestureItem = createGestureItem(shortcut, commandPair);
+					gestureListView.Items.Add(gestureItem);
 				}
 			};
 
 			// Tab遷移しないようにする
-			shortcutListView.PreviewKeyDown += (sender, e) =>
-			{
-				e.IsInputKey = true;
-			};
+			shortcutListView.PreviewKeyDown += (sender, e) => e.IsInputKey = true;
 
 			// ショートカット設定時にエラー音がならないようにする
-			shortcutListView.KeyPress += (sender, e) =>
-				e.Handled = true;
+			shortcutListView.KeyPress += (sender, e) => e.Handled = true;
 
 			// ショートカット入力
 			shortcutListView.KeyDown += (sender, e) =>
@@ -115,6 +99,60 @@ namespace PeerstPlayer.Forms.Setting
 				shortcutListView.Items[index].SubItems[1].Text = "-";
 				shortcutListView.Items[index].SubItems[1].Tag = null;
 			};
+		}
+
+		/// <summary>
+		/// ショートカットのアイテム作成
+		/// </summary>
+		private ListViewItem CreateKeyItem(ShortcutManager shortcut, KeyValuePair<Commands, ShortcutCommand> commandPair)
+		{
+			ListViewItem item = new ListViewItem();
+			item.Text = shortcut.CommandMap[commandPair.Key].Detail;
+			item.Tag = commandPair.Key;
+
+			ListViewItem.ListViewSubItem subItem = new ListViewItem.ListViewSubItem();
+			subItem.Text = "-";
+			subItem.Tag = null;
+
+			foreach (KeyValuePair<KeyInput, Commands> keyPair in shortcut.Settings.KeyMap)
+			{
+				if (commandPair.Key == keyPair.Value)
+				{
+					subItem.Text = ConvertKeyInputToString(keyPair.Key);
+					subItem.Tag = keyPair.Key;
+					break;
+				}
+			}
+
+			item.SubItems.Add(subItem);
+			return item;
+		}
+
+		/// <summary>
+		/// ジェスチャーのアイテム作成
+		/// </summary>
+		private ListViewItem createGestureItem(ShortcutManager shortcut, KeyValuePair<Commands, ShortcutCommand> commandPair)
+		{
+			ListViewItem item = new ListViewItem();
+			item.Text = shortcut.CommandMap[commandPair.Key].Detail;
+			item.Tag = commandPair.Key;
+
+			ListViewItem.ListViewSubItem subItem = new ListViewItem.ListViewSubItem();
+			subItem.Text = "-";
+			subItem.Tag = null;
+
+			foreach (KeyValuePair<string, Commands> keyPair in shortcut.Settings.GestureMap)
+			{
+				if (commandPair.Key == keyPair.Value)
+				{
+					subItem.Text = keyPair.Key;
+					subItem.Tag = keyPair.Key;
+					break;
+				}
+			}
+
+			item.SubItems.Add(subItem);
+			return item;
 		}
 
 		/// <summary>
