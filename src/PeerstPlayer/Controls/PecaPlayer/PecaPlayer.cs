@@ -103,13 +103,9 @@ namespace PeerstPlayer.Controls.PecaPlayer
 		}
 
 		/// <summary>
-		/// 動画再生状態変更イベント
+		/// 動画再生開始イベント
 		/// </summary>
-		public event AxWMPLib._WMPOCXEvents_OpenStateChangeEventHandler OpenStateChange
-		{
-			add { wmp.OpenStateChange += value; }
-			remove { wmp.OpenStateChange -= value; }
-		}
+		public event EventHandler MovieStart = delegate { };
 
 		/// <summary>
 		/// クリック開始位置(マウスジェスチャ用)
@@ -209,6 +205,11 @@ namespace PeerstPlayer.Controls.PecaPlayer
 		/// </summary>
 		private BackgroundWorker updateChannelInfoWorker = new BackgroundWorker();
 
+		/// <summary>
+		/// 初回ファイルオープンフラグ(MovieStartに使用)
+		/// </summary>
+		private bool isFirstMediaOpen = true;
+
 		//-------------------------------------------------------------
 		// 定義
 		//-------------------------------------------------------------
@@ -264,6 +265,9 @@ namespace PeerstPlayer.Controls.PecaPlayer
 			StreamUrlInfo info = StreamUrlAnalyzer.GetUrlInfo(streamUrl);
 			pecaConnect = new PeerCastConnection(info);
 
+			// 初回ファイルオープンフラグをリセット
+			isFirstMediaOpen = true;
+
 			// 動画の再生
 			wmp.URL = streamUrl;
 
@@ -274,6 +278,13 @@ namespace PeerstPlayer.Controls.PecaPlayer
 				// 動画切替時に、音量が初期化されるための対応
 				// TODO ミュート時に音量が変わらないようにする
 				VolumeChange(this, new EventArgs());
+
+				// 動画再生開始イベント
+				if ((wmp.openState == WMPOpenState.wmposMediaOpen) && isFirstMediaOpen)
+				{
+					isFirstMediaOpen = false;
+					MovieStart(this, new EventArgs());
+				}
 			};
 
 			// チャンネル更新スレッド
@@ -286,6 +297,7 @@ namespace PeerstPlayer.Controls.PecaPlayer
 					if (!String.IsNullOrEmpty(chInfo.Name))
 					{
 						ChannelInfo = chInfo;
+						MovieStart(this, new EventArgs());
 						return;
 					}
 
