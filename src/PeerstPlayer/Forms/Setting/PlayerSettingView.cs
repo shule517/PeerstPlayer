@@ -3,7 +3,6 @@ using System.Windows.Forms;
 using PeerstLib.Util;
 using PeerstPlayer.Forms.Player;
 using PeerstPlayer.Shortcut;
-using PeerstPlayer.Shortcut.Command;
 
 namespace PeerstPlayer.Forms.Setting
 {
@@ -51,8 +50,7 @@ namespace PeerstPlayer.Forms.Setting
 					{
 						if (commandPair.Key == keyPair.Value)
 						{
-							string modifiers = (keyPair.Key.Modifiers == Keys.None) ? "" : ", " + keyPair.Key.Modifiers.ToString();
-							subItem.Text = keyPair.Key.Key + modifiers;
+							subItem.Text = ConvertKeyInputToString(keyPair.Key);
 							subItem.Tag = keyPair.Key;
 							break;
 						}
@@ -79,7 +77,6 @@ namespace PeerstPlayer.Forms.Setting
 				if (shortcutListView.SelectedIndices.Count <= 0) return;
 				if (e.KeyData == Keys.ProcessKey) return;
 
-
 				// 同じキー入力は削除
 				foreach (ListViewItem item in shortcutListView.Items)
 				{
@@ -100,9 +97,10 @@ namespace PeerstPlayer.Forms.Setting
 				}
 
 				// ショートカット登録
+				KeyInput input = new KeyInput(e.Modifiers, e.KeyCode);
 				int index = shortcutListView.SelectedIndices[0];
-				shortcutListView.Items[index].SubItems[1].Text = e.KeyData.ToString();
-				shortcutListView.Items[index].SubItems[1].Tag = new KeyInput(e.Modifiers, e.KeyCode);
+				shortcutListView.Items[index].SubItems[1].Text = ConvertKeyInputToString(input);
+				shortcutListView.Items[index].SubItems[1].Tag = input;
 
 				// キー入力を無視
 				e.Handled = true;
@@ -117,6 +115,17 @@ namespace PeerstPlayer.Forms.Setting
 				shortcutListView.Items[index].SubItems[1].Text = "-";
 				shortcutListView.Items[index].SubItems[1].Tag = null;
 			};
+		}
+
+		/// <summary>
+		/// KeyInputを文字列に変換
+		/// </summary>
+		private string ConvertKeyInputToString(KeyInput input)
+		{
+			string key = new KeysConverter().ConvertToInvariantString(input.Key);
+			string modifiers = input.Modifiers.ToString();
+			string text = (input.Modifiers == Keys.None) ? key : modifiers + " + " + key;
+			return text;
 		}
 
 		/// <summary>
