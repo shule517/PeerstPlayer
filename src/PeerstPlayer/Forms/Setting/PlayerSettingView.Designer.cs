@@ -35,13 +35,19 @@
 			this.aspectRateFixCheckBox = new System.Windows.Forms.CheckBox();
 			this.windowSnapEnableCheckBox = new System.Windows.Forms.CheckBox();
 			this.volumeGroupBox = new System.Windows.Forms.GroupBox();
+			this.volumeLabel = new System.Windows.Forms.Label();
 			this.initGroupBox = new System.Windows.Forms.GroupBox();
 			this.writeFieldVisibleCheckBox = new System.Windows.Forms.CheckBox();
 			this.topMostCheckBox = new System.Windows.Forms.CheckBox();
 			this.closeGroupBox = new System.Windows.Forms.GroupBox();
 			this.disconnectRealyOnCloseCheckBox = new System.Windows.Forms.CheckBox();
 			this.statusBarGroupBox = new System.Windows.Forms.GroupBox();
+			this.statusBarLabel = new System.Windows.Forms.Label();
 			this.shortcutPage = new System.Windows.Forms.TabPage();
+			this.gestureLabel = new System.Windows.Forms.Label();
+			this.gestureListView = new System.Windows.Forms.ListView();
+			this.gestureCommandColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+			this.gestureColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
 			this.keyLabel = new System.Windows.Forms.Label();
 			this.shortcutListView = new System.Windows.Forms.ListView();
 			this.commandColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -49,12 +55,6 @@
 			this.mouseGesturePage = new System.Windows.Forms.TabPage();
 			this.saveButton = new System.Windows.Forms.Button();
 			this.cancelButton = new System.Windows.Forms.Button();
-			this.gestureListView = new System.Windows.Forms.ListView();
-			this.gestureCommandColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-			this.gestureColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-			this.gestureLabel = new System.Windows.Forms.Label();
-			this.statusBarLabel = new System.Windows.Forms.Label();
-			this.volumeLabel = new System.Windows.Forms.Label();
 			this.tabControl.SuspendLayout();
 			this.settingPage.SuspendLayout();
 			this.windowGroupBox.SuspendLayout();
@@ -134,6 +134,15 @@
 			this.volumeGroupBox.TabStop = false;
 			this.volumeGroupBox.Text = "音量";
 			// 
+			// volumeLabel
+			// 
+			this.volumeLabel.AutoSize = true;
+			this.volumeLabel.Location = new System.Drawing.Point(6, 19);
+			this.volumeLabel.Name = "volumeLabel";
+			this.volumeLabel.Size = new System.Drawing.Size(53, 12);
+			this.volumeLabel.TabIndex = 6;
+			this.volumeLabel.Text = "※未実装";
+			// 
 			// initGroupBox
 			// 
 			this.initGroupBox.Controls.Add(this.writeFieldVisibleCheckBox);
@@ -195,6 +204,15 @@
 			this.statusBarGroupBox.TabStop = false;
 			this.statusBarGroupBox.Text = "ステータスバー";
 			// 
+			// statusBarLabel
+			// 
+			this.statusBarLabel.AutoSize = true;
+			this.statusBarLabel.Location = new System.Drawing.Point(6, 19);
+			this.statusBarLabel.Name = "statusBarLabel";
+			this.statusBarLabel.Size = new System.Drawing.Size(53, 12);
+			this.statusBarLabel.TabIndex = 5;
+			this.statusBarLabel.Text = "※未実装";
+			// 
 			// shortcutPage
 			// 
 			this.shortcutPage.Controls.Add(this.gestureLabel);
@@ -208,6 +226,40 @@
 			this.shortcutPage.TabIndex = 1;
 			this.shortcutPage.Text = "ショートカット";
 			this.shortcutPage.UseVisualStyleBackColor = true;
+			// 
+			// gestureLabel
+			// 
+			this.gestureLabel.AutoSize = true;
+			this.gestureLabel.Location = new System.Drawing.Point(302, 220);
+			this.gestureLabel.Name = "gestureLabel";
+			this.gestureLabel.Size = new System.Drawing.Size(115, 12);
+			this.gestureLabel.TabIndex = 4;
+			this.gestureLabel.Text = "※まだ登録できません。";
+			// 
+			// gestureListView
+			// 
+			this.gestureListView.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.gestureCommandColumnHeader,
+            this.gestureColumnHeader});
+			this.gestureListView.FullRowSelect = true;
+			this.gestureListView.GridLines = true;
+			this.gestureListView.Location = new System.Drawing.Point(304, 16);
+			this.gestureListView.MultiSelect = false;
+			this.gestureListView.Name = "gestureListView";
+			this.gestureListView.Size = new System.Drawing.Size(290, 196);
+			this.gestureListView.TabIndex = 3;
+			this.gestureListView.UseCompatibleStateImageBehavior = false;
+			this.gestureListView.View = System.Windows.Forms.View.Details;
+			// 
+			// gestureCommandColumnHeader
+			// 
+			this.gestureCommandColumnHeader.Text = "コマンド";
+			this.gestureCommandColumnHeader.Width = 140;
+			// 
+			// gestureColumnHeader
+			// 
+			this.gestureColumnHeader.Text = "マウスジェスチャー";
+			this.gestureColumnHeader.Width = 127;
 			// 
 			// keyLabel
 			// 
@@ -241,7 +293,7 @@
 			// shortcutColumnHeader
 			// 
 			this.shortcutColumnHeader.Text = "ショートカット";
-			this.shortcutColumnHeader.Width = 140;
+			this.shortcutColumnHeader.Width = 127;
 			// 
 			// mouseGesturePage
 			// 
@@ -273,58 +325,6 @@
 			this.cancelButton.Text = "キャンセル";
 			this.cancelButton.UseVisualStyleBackColor = true;
 			this.cancelButton.Click += new System.EventHandler(this.cancelButton_Click);
-			// 
-			// gestureListView
-			// 
-			this.gestureListView.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.gestureCommandColumnHeader,
-            this.gestureColumnHeader});
-			this.gestureListView.FullRowSelect = true;
-			this.gestureListView.GridLines = true;
-			this.gestureListView.Location = new System.Drawing.Point(304, 16);
-			this.gestureListView.MultiSelect = false;
-			this.gestureListView.Name = "gestureListView";
-			this.gestureListView.Size = new System.Drawing.Size(290, 196);
-			this.gestureListView.TabIndex = 3;
-			this.gestureListView.UseCompatibleStateImageBehavior = false;
-			this.gestureListView.View = System.Windows.Forms.View.Details;
-			// 
-			// gestureCommandColumnHeader
-			// 
-			this.gestureCommandColumnHeader.Text = "コマンド";
-			this.gestureCommandColumnHeader.Width = 140;
-			// 
-			// gestureColumnHeader
-			// 
-			this.gestureColumnHeader.Text = "マウスジェスチャー";
-			this.gestureColumnHeader.Width = 140;
-			// 
-			// gestureLabel
-			// 
-			this.gestureLabel.AutoSize = true;
-			this.gestureLabel.Location = new System.Drawing.Point(302, 220);
-			this.gestureLabel.Name = "gestureLabel";
-			this.gestureLabel.Size = new System.Drawing.Size(115, 12);
-			this.gestureLabel.TabIndex = 4;
-			this.gestureLabel.Text = "※まだ登録できません。";
-			// 
-			// statusBarLabel
-			// 
-			this.statusBarLabel.AutoSize = true;
-			this.statusBarLabel.Location = new System.Drawing.Point(6, 19);
-			this.statusBarLabel.Name = "statusBarLabel";
-			this.statusBarLabel.Size = new System.Drawing.Size(53, 12);
-			this.statusBarLabel.TabIndex = 5;
-			this.statusBarLabel.Text = "※未実装";
-			// 
-			// volumeLabel
-			// 
-			this.volumeLabel.AutoSize = true;
-			this.volumeLabel.Location = new System.Drawing.Point(6, 19);
-			this.volumeLabel.Name = "volumeLabel";
-			this.volumeLabel.Size = new System.Drawing.Size(53, 12);
-			this.volumeLabel.TabIndex = 6;
-			this.volumeLabel.Text = "※未実装";
 			// 
 			// PlayerSettingView
 			// 

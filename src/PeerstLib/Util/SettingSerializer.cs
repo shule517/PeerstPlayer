@@ -41,7 +41,7 @@ namespace PeerstLib.Util
 
 			// 逆シリアライズ
 			DataContractSerializer serializer = new DataContractSerializer(typeof(T), knownTypes);
-			using (FileStream fs = new FileStream(fileName, FileMode.Open))
+			using (FileStream fs = new FileStream(fileName, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
 			{
 				return (T)serializer.ReadObject(fs);
 			}
