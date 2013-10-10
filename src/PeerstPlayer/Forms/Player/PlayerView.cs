@@ -173,7 +173,7 @@ namespace PeerstPlayer.Forms.Setting
 					isFirst = false;
 
 					// タイトル設定
-					Text = info.Name;
+					Win32API.SetWindowText(Handle, info.Name);
 				}
 			};
 

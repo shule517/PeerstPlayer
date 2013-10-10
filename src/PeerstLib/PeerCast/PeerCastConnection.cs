@@ -36,8 +36,8 @@ namespace PeerstLib.PeerCast
 		//-------------------------------------------------------------
 		public ChannelInfo GetChannelInfo()
 		{
-			Logger.Instance.DebugFormat("GetChannelInfo(Host:{0}, PortNo:{1}, StreamId:{2})", urlInfo.Host, urlInfo.PortNo, urlInfo.StreamId);
 			string xmlUrl = string.Format("http://{0}:{1}/admin?cmd=viewxml", urlInfo.Host, urlInfo.PortNo);
+			Logger.Instance.DebugFormat("GetChannelInfo(Host:{0}, PortNo:{1}, StreamId:{2} xmlUrl:{3})", urlInfo.Host, urlInfo.PortNo, urlInfo.StreamId, xmlUrl);
 
 			try
 			{
