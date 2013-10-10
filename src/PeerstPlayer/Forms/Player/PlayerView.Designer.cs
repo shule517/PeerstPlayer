@@ -52,6 +52,9 @@ namespace PeerstPlayer.Forms.Setting
 			this.size480x360ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.size640x480ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.size800x600ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.functionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.topMostToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.updateChannelInfoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.wmpMenuToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
 			this.settingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -139,11 +142,12 @@ namespace PeerstPlayer.Forms.Setting
 			// 
 			this.contextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.SizeToolStripMenuItem,
-            this.wmpMenuToolStripMenuItem,
+            this.functionToolStripMenuItem,
+            this.settingToolStripMenuItem,
             this.toolStripSeparator2,
-            this.settingToolStripMenuItem});
+            this.wmpMenuToolStripMenuItem});
 			this.contextMenuStrip.Name = "contextMenuStrip";
-			this.contextMenuStrip.Size = new System.Drawing.Size(154, 76);
+			this.contextMenuStrip.Size = new System.Drawing.Size(154, 98);
 			// 
 			// SizeToolStripMenuItem
 			// 
@@ -166,67 +170,88 @@ namespace PeerstPlayer.Forms.Setting
 			// scale50PerToolStripMenuItem
 			// 
 			this.scale50PerToolStripMenuItem.Name = "scale50PerToolStripMenuItem";
-			this.scale50PerToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+			this.scale50PerToolStripMenuItem.Size = new System.Drawing.Size(133, 22);
 			this.scale50PerToolStripMenuItem.Text = "50%";
 			// 
 			// scale75PerToolStripMenuItem
 			// 
 			this.scale75PerToolStripMenuItem.Name = "scale75PerToolStripMenuItem";
-			this.scale75PerToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+			this.scale75PerToolStripMenuItem.Size = new System.Drawing.Size(133, 22);
 			this.scale75PerToolStripMenuItem.Text = "75%";
 			// 
 			// scale100PerToolStripMenuItem
 			// 
 			this.scale100PerToolStripMenuItem.Name = "scale100PerToolStripMenuItem";
-			this.scale100PerToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+			this.scale100PerToolStripMenuItem.Size = new System.Drawing.Size(133, 22);
 			this.scale100PerToolStripMenuItem.Text = "100%";
 			// 
 			// scale150PerToolStripMenuItem
 			// 
 			this.scale150PerToolStripMenuItem.Name = "scale150PerToolStripMenuItem";
-			this.scale150PerToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+			this.scale150PerToolStripMenuItem.Size = new System.Drawing.Size(133, 22);
 			this.scale150PerToolStripMenuItem.Text = "150%";
 			// 
 			// scale200PerToolStripMenuItem
 			// 
 			this.scale200PerToolStripMenuItem.Name = "scale200PerToolStripMenuItem";
-			this.scale200PerToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+			this.scale200PerToolStripMenuItem.Size = new System.Drawing.Size(133, 22);
 			this.scale200PerToolStripMenuItem.Text = "200%";
 			// 
 			// sizeToolStripSeparator
 			// 
 			this.sizeToolStripSeparator.Name = "sizeToolStripSeparator";
-			this.sizeToolStripSeparator.Size = new System.Drawing.Size(149, 6);
+			this.sizeToolStripSeparator.Size = new System.Drawing.Size(130, 6);
 			// 
 			// size160x120ToolStripMenuItem
 			// 
 			this.size160x120ToolStripMenuItem.Name = "size160x120ToolStripMenuItem";
-			this.size160x120ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+			this.size160x120ToolStripMenuItem.Size = new System.Drawing.Size(133, 22);
 			this.size160x120ToolStripMenuItem.Text = "160 x 120";
 			// 
 			// size320x240ToolStripMenuItem
 			// 
 			this.size320x240ToolStripMenuItem.Name = "size320x240ToolStripMenuItem";
-			this.size320x240ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+			this.size320x240ToolStripMenuItem.Size = new System.Drawing.Size(133, 22);
 			this.size320x240ToolStripMenuItem.Text = "320 x 240";
 			// 
 			// size480x360ToolStripMenuItem
 			// 
 			this.size480x360ToolStripMenuItem.Name = "size480x360ToolStripMenuItem";
-			this.size480x360ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+			this.size480x360ToolStripMenuItem.Size = new System.Drawing.Size(133, 22);
 			this.size480x360ToolStripMenuItem.Text = "480 x 360";
 			// 
 			// size640x480ToolStripMenuItem
 			// 
 			this.size640x480ToolStripMenuItem.Name = "size640x480ToolStripMenuItem";
-			this.size640x480ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+			this.size640x480ToolStripMenuItem.Size = new System.Drawing.Size(133, 22);
 			this.size640x480ToolStripMenuItem.Text = "640 x 480";
 			// 
 			// size800x600ToolStripMenuItem
 			// 
 			this.size800x600ToolStripMenuItem.Name = "size800x600ToolStripMenuItem";
-			this.size800x600ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+			this.size800x600ToolStripMenuItem.Size = new System.Drawing.Size(133, 22);
 			this.size800x600ToolStripMenuItem.Text = "800 x 600";
+			// 
+			// functionToolStripMenuItem
+			// 
+			this.functionToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.topMostToolStripMenuItem,
+            this.updateChannelInfoToolStripMenuItem});
+			this.functionToolStripMenuItem.Name = "functionToolStripMenuItem";
+			this.functionToolStripMenuItem.Size = new System.Drawing.Size(153, 22);
+			this.functionToolStripMenuItem.Text = "機能";
+			// 
+			// topMostToolStripMenuItem
+			// 
+			this.topMostToolStripMenuItem.Name = "topMostToolStripMenuItem";
+			this.topMostToolStripMenuItem.Size = new System.Drawing.Size(184, 22);
+			this.topMostToolStripMenuItem.Text = "最前列表示";
+			// 
+			// updateChannelInfoToolStripMenuItem
+			// 
+			this.updateChannelInfoToolStripMenuItem.Name = "updateChannelInfoToolStripMenuItem";
+			this.updateChannelInfoToolStripMenuItem.Size = new System.Drawing.Size(184, 22);
+			this.updateChannelInfoToolStripMenuItem.Text = "チャンネル情報更新";
 			// 
 			// wmpMenuToolStripMenuItem
 			// 
@@ -289,6 +314,9 @@ namespace PeerstPlayer.Forms.Setting
 		private System.Windows.Forms.ToolStripMenuItem size640x480ToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem size800x600ToolStripMenuItem;
 		private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
+		private System.Windows.Forms.ToolStripMenuItem functionToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem updateChannelInfoToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem topMostToolStripMenuItem;
 	}
 }
 
