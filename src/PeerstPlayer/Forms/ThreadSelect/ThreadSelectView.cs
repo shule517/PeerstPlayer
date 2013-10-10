@@ -81,8 +81,10 @@ namespace PeerstPlayer.Forms.ThreadSelect
 			Logger.Instance.Debug("Open()");
 
 			StartPosition = FormStartPosition.CenterParent;
-			updateButton_Click(this, new EventArgs());
 			ShowDialog();
+
+			// ウィンドウ表示後、更新開始
+			updateButton_Click(this, new EventArgs());
 		}
 
 		//-------------------------------------------------------------
