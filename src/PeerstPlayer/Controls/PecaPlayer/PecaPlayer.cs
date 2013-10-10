@@ -49,6 +49,11 @@ namespace PeerstPlayer.Controls.PecaPlayer
 		public event EventHandler VolumeChange = delegate { };
 
 		/// <summary>
+		/// 動画サイズ変更イベント
+		/// </summary>
+		public event EventHandler MovieSizeChange = delegate { };
+
+		/// <summary>
 		/// ミュート
 		/// </summary>
 		public bool Mute
@@ -340,6 +345,15 @@ namespace PeerstPlayer.Controls.PecaPlayer
 				Logger.Instance.Info("チャンネル更新開始");
 				updateChannelInfoWorker.RunWorkerAsync();
 			}
+		}
+
+		//-------------------------------------------------------------
+		// 概要：動画サイズ設定
+		//-------------------------------------------------------------
+		public void SetSize(int width, int height)
+		{
+			Size = new Size(width, height);
+			MovieSizeChange(this, new EventArgs());
 		}
 
 		//-------------------------------------------------------------

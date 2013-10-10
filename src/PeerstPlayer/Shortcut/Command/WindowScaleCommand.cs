@@ -20,10 +20,16 @@ namespace PeerstPlayer.Shortcut.Command
 
 		void IShortcutCommand.Execute(CommandArgs commandArgs)
 		{
+			// ウィンドウ最大化時は実行しない
+			if (form.WindowState == FormWindowState.Maximized)
+			{
+				return;
+			}
+
 			WindowScaleCommandArgs args = (WindowScaleCommandArgs)commandArgs;
 			int width = (int)(pecaPlayer.ImageWidth * args.Scale);
 			int height = (int)(pecaPlayer.ImageHeight * args.Scale);
-			form.Size = new Size(width, height);
+			pecaPlayer.SetSize(width, height);
 		}
 
 		string IShortcutCommand.GetDetail(CommandArgs commandArgs)

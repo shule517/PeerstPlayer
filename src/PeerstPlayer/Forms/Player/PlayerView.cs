@@ -74,6 +74,9 @@ namespace PeerstPlayer.Forms.Setting
 				// チャンネル名設定後、画面表示
 				Application.DoEvents();
 
+				// プレイヤーをフォーカス
+				pecaPlayer.Focus();
+
 				// 動画再生
 				if (Environment.GetCommandLineArgs().Length > 1)
 				{
@@ -211,6 +214,19 @@ namespace PeerstPlayer.Forms.Setting
 
 				// 高さ
 				pecaPlayer.Height = ClientSize.Height - statusBar.Height;
+				statusBar.Top = pecaPlayer.Bottom;
+			};
+
+			// 動画サイズ変更
+			pecaPlayer.MovieSizeChange += (sender, e) =>
+			{
+				// Formサイズ変更
+				ClientSize = new Size(pecaPlayer.Width, pecaPlayer.Height + statusBar.Height);
+
+				// 幅
+				statusBar.Width = pecaPlayer.Width;
+
+				// 高さ
 				statusBar.Top = pecaPlayer.Bottom;
 			};
 
