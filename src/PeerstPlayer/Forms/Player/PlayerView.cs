@@ -380,7 +380,9 @@ namespace PeerstPlayer.Forms.Setting
 			// 機能
 			topMostToolStripMenuItem.Click += (sender, e) => shortcut.ExecCommand(Commands.TopMost);
 			updateChannelInfoToolStripMenuItem.Click += (sender, e) => shortcut.ExecCommand(Commands.UpdateChannelInfo);
+			muteToolStripMenuItem.Click += (sender, e) => shortcut.ExecCommand(Commands.Mute);
 			functionToolStripMenuItem.DropDownOpening += (sender, e) => topMostToolStripMenuItem.Checked = TopMost;
+			functionToolStripMenuItem.DropDownOpening += (sender, e) => muteToolStripMenuItem.Checked = pecaPlayer.Mute;
 
 			// 設定メニュー押下
 			settingToolStripMenuItem.Click += (sender, e) =>

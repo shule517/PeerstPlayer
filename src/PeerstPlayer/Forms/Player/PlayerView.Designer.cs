@@ -55,9 +55,10 @@ namespace PeerstPlayer.Forms.Setting
 			this.functionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.topMostToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.updateChannelInfoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.wmpMenuToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
 			this.settingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+			this.wmpMenuToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.muteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.toolStrip.SuspendLayout();
 			this.contextMenuStrip.SuspendLayout();
 			this.SuspendLayout();
@@ -236,7 +237,8 @@ namespace PeerstPlayer.Forms.Setting
 			// 
 			this.functionToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.topMostToolStripMenuItem,
-            this.updateChannelInfoToolStripMenuItem});
+            this.updateChannelInfoToolStripMenuItem,
+            this.muteToolStripMenuItem});
 			this.functionToolStripMenuItem.Name = "functionToolStripMenuItem";
 			this.functionToolStripMenuItem.Size = new System.Drawing.Size(153, 22);
 			this.functionToolStripMenuItem.Text = "機能";
@@ -253,22 +255,28 @@ namespace PeerstPlayer.Forms.Setting
 			this.updateChannelInfoToolStripMenuItem.Size = new System.Drawing.Size(184, 22);
 			this.updateChannelInfoToolStripMenuItem.Text = "チャンネル情報更新";
 			// 
-			// wmpMenuToolStripMenuItem
+			// settingToolStripMenuItem
 			// 
-			this.wmpMenuToolStripMenuItem.Name = "wmpMenuToolStripMenuItem";
-			this.wmpMenuToolStripMenuItem.Size = new System.Drawing.Size(153, 22);
-			this.wmpMenuToolStripMenuItem.Text = "WMPメニュー";
+			this.settingToolStripMenuItem.Name = "settingToolStripMenuItem";
+			this.settingToolStripMenuItem.Size = new System.Drawing.Size(153, 22);
+			this.settingToolStripMenuItem.Text = "設定";
 			// 
 			// toolStripSeparator2
 			// 
 			this.toolStripSeparator2.Name = "toolStripSeparator2";
 			this.toolStripSeparator2.Size = new System.Drawing.Size(150, 6);
 			// 
-			// settingToolStripMenuItem
+			// wmpMenuToolStripMenuItem
 			// 
-			this.settingToolStripMenuItem.Name = "settingToolStripMenuItem";
-			this.settingToolStripMenuItem.Size = new System.Drawing.Size(153, 22);
-			this.settingToolStripMenuItem.Text = "設定";
+			this.wmpMenuToolStripMenuItem.Name = "wmpMenuToolStripMenuItem";
+			this.wmpMenuToolStripMenuItem.Size = new System.Drawing.Size(153, 22);
+			this.wmpMenuToolStripMenuItem.Text = "WMPメニュー";
+			// 
+			// muteToolStripMenuItem
+			// 
+			this.muteToolStripMenuItem.Name = "muteToolStripMenuItem";
+			this.muteToolStripMenuItem.Size = new System.Drawing.Size(184, 22);
+			this.muteToolStripMenuItem.Text = "ミュート";
 			// 
 			// PlayerView
 			// 
@@ -317,6 +325,7 @@ namespace PeerstPlayer.Forms.Setting
 		private System.Windows.Forms.ToolStripMenuItem functionToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem updateChannelInfoToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem topMostToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem muteToolStripMenuItem;
 	}
 }
 
