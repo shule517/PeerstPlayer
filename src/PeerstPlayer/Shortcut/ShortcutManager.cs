@@ -179,6 +179,8 @@ namespace PeerstPlayer.Shortcut
 				{	Commands.WindowSizeDown,	new ShortcutCommand(new WindowSizeDownCommand(form, pecaPlayer), new CommandArgs())	}, // ウィンドウサイズDOWN
 				{	Commands.DisconnectRelay,	new ShortcutCommand(new DisconnectRelayCommand(form, pecaPlayer), new CommandArgs())}, // リレー切断
 				{	Commands.Bump,				new ShortcutCommand(new BumpCommand(pecaPlayer), new CommandArgs())					}, // Bump
+				{	Commands.WmpMenu,			new ShortcutCommand(new WmpMenuCommand(pecaPlayer), new CommandArgs())				}, // WMPメニュー表示
+				{	Commands.FitMovieSize,		new ShortcutCommand(new FitMovieSizeCommand(form, pecaPlayer), new CommandArgs())	}, // 黒枠を消す
 				{	Commands.WindowSize160x120,	new ShortcutCommand(new WindowSizeCommand(form, pecaPlayer), new WindowSizeCommandArgs(160, 120))	}, // ウィンドウサイズ指定
 				{	Commands.WindowSize320x240,	new ShortcutCommand(new WindowSizeCommand(form, pecaPlayer), new WindowSizeCommandArgs(320, 240))	}, // ウィンドウサイズ指定
 				{	Commands.WindowSize480x360,	new ShortcutCommand(new WindowSizeCommand(form, pecaPlayer), new WindowSizeCommandArgs(480, 360))	}, // ウィンドウサイズ指定
@@ -189,9 +191,7 @@ namespace PeerstPlayer.Shortcut
 				{	Commands.WindowScale100Per,	new ShortcutCommand(new WindowScaleCommand(form, pecaPlayer), new WindowScaleCommandArgs(1.0f))		}, // ウィンドウサイズ拡大率指定
 				{	Commands.WindowScale150Per,	new ShortcutCommand(new WindowScaleCommand(form, pecaPlayer), new WindowScaleCommandArgs(1.5f))		}, // ウィンドウサイズ拡大率指定
 				{	Commands.WindowScale200Per,	new ShortcutCommand(new WindowScaleCommand(form, pecaPlayer), new WindowScaleCommandArgs(2.0f))		}, // ウィンドウサイズ拡大率指定
-				{	Commands.WmpMenu,			new ShortcutCommand(new WmpMenuCommand(pecaPlayer), new CommandArgs())				}, // WMPメニュー表示
 				// TODO 画面分割		{	Commands.ScreenSplit,	new ScreenSplitWidthCommand(form, pecaPlayer)	}, // 画面分割
-				// TODO 動画にフィット	{	Commands.FitMovieSize,	new FitMovieSizeCommand(form, pecaPlayer)		}, // 黒枠を消す
 			};
 		}
 
@@ -234,6 +234,7 @@ namespace PeerstPlayer.Shortcut
 		private void SettingKey()
 		{
 			settings.KeyMap.Add(new KeyInput(Keys.T), Commands.TopMost);
+			settings.KeyMap.Add(new KeyInput(Keys.F), Commands.FitMovieSize);
 			settings.KeyMap.Add(new KeyInput(Keys.Alt, Keys.B), Commands.Bump);
 			settings.KeyMap.Add(new KeyInput(Keys.Alt, Keys.X), Commands.DisconnectRelay);
 			settings.KeyMap.Add(new KeyInput(Keys.Up), Commands.VolumeUp);

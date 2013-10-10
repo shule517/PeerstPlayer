@@ -392,6 +392,7 @@ namespace PeerstPlayer.Forms.Setting
 			size480x360ToolStripMenuItem.Click += (sender, e) => shortcut.ExecCommand(Commands.WindowSize480x360);
 			size640x480ToolStripMenuItem.Click += (sender, e) => shortcut.ExecCommand(Commands.WindowSize640x480);
 			size800x600ToolStripMenuItem.Click += (sender, e) => shortcut.ExecCommand(Commands.WindowSize800x600);
+			fitMovieSizeToolStripMenuItem.Click += (sender, e) => shortcut.ExecCommand(Commands.FitMovieSize);
 
 			// 機能
 			topMostToolStripMenuItem.Click += (sender, e) => shortcut.ExecCommand(Commands.TopMost);

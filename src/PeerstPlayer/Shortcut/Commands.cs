@@ -21,6 +21,7 @@ namespace PeerstPlayer.Shortcut
 		DisconnectRelay,	// リレー切断
 		Bump,				// Bump
 		WmpMenu,			// WMPメニュー表示
+		FitMovieSize,		// 動画サイズに合わせる
 
 		// ウィンドウ拡大率指定
 		WindowScale50Per,
@@ -28,7 +29,7 @@ namespace PeerstPlayer.Shortcut
 		WindowScale100Per,
 		WindowScale150Per,
 		WindowScale200Per,
-	
+
 		// ウィンドウサイズ指定
 		WindowSize160x120,
 		WindowSize320x240,

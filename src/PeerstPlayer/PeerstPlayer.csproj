@@ -94,6 +94,7 @@
     <Compile Include="Shortcut\Command\BumpCommand.cs" />
     <Compile Include="Shortcut\Command\CloseCommand.cs" />
     <Compile Include="Shortcut\Command\DisconnectRelayCommand.cs" />
+    <Compile Include="Shortcut\Command\FitMovieSizeCommand.cs" />
     <Compile Include="Shortcut\Command\IShortcutCommand.cs" />
     <Compile Include="Shortcut\Command\MiniMuteCommand.cs" />
     <Compile Include="Shortcut\Command\MuteCommand.cs" />

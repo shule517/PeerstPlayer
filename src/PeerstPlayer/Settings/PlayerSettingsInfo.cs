@@ -41,9 +41,5 @@ namespace PeerstPlayer.Settings
 		// - 初期音量 : int
 		// - 書き込み欄(Ctrl+Enter) : boolean
 		// - レスが1000のスレを表示するか : boolean
-
-		// TODO 別クラスに持つ？
-		// - マウスジェスチャー : List
-		// - ショートカット : List
 	};
 }
