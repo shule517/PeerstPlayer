@@ -40,23 +40,36 @@ namespace PeerstPlayer.Forms.Setting
 		{
 			InitializeComponent();
 
+			// コマンドライン引数のログ出力
+			string[] commandLine = Environment.GetCommandLineArgs();
+			foreach (string arg in commandLine)
+			{
+				Logger.Instance.InfoFormat("コマンドライン引数[{0}]", arg);
+			}
+
+			// チャンネル名表示
+			if (Environment.GetCommandLineArgs().Length > 2)
+			{
+				string name = commandLine[2];
+				Logger.Instance.InfoFormat("チャンネル名:{0}", name);
+				statusBar.ChannelDetail = name;
+				Win32API.SetWindowText(Handle, String.Format("{0} - PeerstPlayer", name));
+			}
+			else
+			{
+				// タイトル設定
+				Win32API.SetWindowText(Handle, "PeerstPlayer");
+			}
+
+			// イベントの初期化
+			InitEvent();
+
+			// 設定の読み込み
+			LoadSetting();
+
 			Shown += (senderObject, eventArg) =>
 			{
-				// コマンドライン引数のログ出力
-				string[] commandLine = Environment.GetCommandLineArgs();
-				foreach (string arg in commandLine)
-				{
-					Logger.Instance.InfoFormat("コマンドライン引数[{0}]", arg);
-				}
-
-				// チャンネル名表示
-				if (Environment.GetCommandLineArgs().Length > 2)
-				{
-					string name = commandLine[2];
-					Logger.Instance.InfoFormat("チャンネル名:{0}", name);
-					statusBar.ChannelDetail = name;
-					Text = name;
-				}
+				Logger.Instance.InfoFormat("画面表示 - Shownイベント開始");
 
 				// チャンネル名設定後、画面表示
 				Application.DoEvents();
@@ -71,12 +84,6 @@ namespace PeerstPlayer.Forms.Setting
 
 				// ショートカットの初期化
 				shortcut.Init(this, pecaPlayer, statusBar);
-
-				// イベントの初期化
-				InitEvent();
-
-				// 設定の読み込み
-				LoadSetting();
 
 				// ウィンドウスナップ
 				new WindowSnap(this, pecaPlayer);
@@ -108,7 +115,6 @@ namespace PeerstPlayer.Forms.Setting
 		public void Open(string url)
 		{
 			Logger.Instance.DebugFormat("Open(url:{0})", url);
-			Text = string.Empty;
 			pecaPlayer.Open(url);
 		}
 
@@ -173,7 +179,7 @@ namespace PeerstPlayer.Forms.Setting
 					isFirst = false;
 
 					// タイトル設定
-					Win32API.SetWindowText(Handle, info.Name);
+					Win32API.SetWindowText(Handle, String.Format("{0} - PeerstPlayer", info.Name));
 				}
 			};
 

@@ -212,8 +212,8 @@ namespace PeerstPlayer.Shortcut
 			settings.EventMap.Add(ShortcutEvents.CloseButtonClick, Commands.Close);
 			settings.EventMap.Add(ShortcutEvents.ThreadTitleRightClick, Commands.OpenPeerstViewer);
 			settings.EventMap.Add(ShortcutEvents.StatusbarHover, Commands.ShowNewRes);
-			settings.EventMap.Add(ShortcutEvents.RightClickWheelUp, Commands.WindowSizeDown);
-			settings.EventMap.Add(ShortcutEvents.RightClickWheelDown, Commands.WindowSizeUp);
+			settings.EventMap.Add(ShortcutEvents.RightClickWheelUp, Commands.WindowSizeUp);
+			settings.EventMap.Add(ShortcutEvents.RightClickWheelDown, Commands.WindowSizeDown);
 			settings.EventMap.Add(ShortcutEvents.MovieStart, Commands.WindowScale100Per);
 		}
 
