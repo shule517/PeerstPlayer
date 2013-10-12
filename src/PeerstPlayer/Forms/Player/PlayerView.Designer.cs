@@ -52,6 +52,8 @@ namespace PeerstPlayer.Forms.Setting
 			this.size480x360ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.size640x480ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.size800x600ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+			this.fitMovieSizeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.functionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.topMostToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.updateChannelInfoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -59,8 +61,7 @@ namespace PeerstPlayer.Forms.Setting
 			this.settingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
 			this.wmpMenuToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.fitMovieSizeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+			this.bumpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.toolStrip.SuspendLayout();
 			this.contextMenuStrip.SuspendLayout();
 			this.SuspendLayout();
@@ -237,12 +238,24 @@ namespace PeerstPlayer.Forms.Setting
 			this.size800x600ToolStripMenuItem.Size = new System.Drawing.Size(160, 22);
 			this.size800x600ToolStripMenuItem.Text = "800 x 600";
 			// 
+			// toolStripSeparator1
+			// 
+			this.toolStripSeparator1.Name = "toolStripSeparator1";
+			this.toolStripSeparator1.Size = new System.Drawing.Size(157, 6);
+			// 
+			// fitMovieSizeToolStripMenuItem
+			// 
+			this.fitMovieSizeToolStripMenuItem.Name = "fitMovieSizeToolStripMenuItem";
+			this.fitMovieSizeToolStripMenuItem.Size = new System.Drawing.Size(160, 22);
+			this.fitMovieSizeToolStripMenuItem.Text = "動画に合わせる";
+			// 
 			// functionToolStripMenuItem
 			// 
 			this.functionToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.topMostToolStripMenuItem,
             this.updateChannelInfoToolStripMenuItem,
-            this.muteToolStripMenuItem});
+            this.muteToolStripMenuItem,
+            this.bumpToolStripMenuItem});
 			this.functionToolStripMenuItem.Name = "functionToolStripMenuItem";
 			this.functionToolStripMenuItem.Size = new System.Drawing.Size(153, 22);
 			this.functionToolStripMenuItem.Text = "機能";
@@ -282,16 +295,11 @@ namespace PeerstPlayer.Forms.Setting
 			this.wmpMenuToolStripMenuItem.Size = new System.Drawing.Size(153, 22);
 			this.wmpMenuToolStripMenuItem.Text = "WMPメニュー";
 			// 
-			// fitMovieSizeToolStripMenuItem
+			// bumpToolStripMenuItem
 			// 
-			this.fitMovieSizeToolStripMenuItem.Name = "fitMovieSizeToolStripMenuItem";
-			this.fitMovieSizeToolStripMenuItem.Size = new System.Drawing.Size(160, 22);
-			this.fitMovieSizeToolStripMenuItem.Text = "動画に合わせる";
-			// 
-			// toolStripSeparator1
-			// 
-			this.toolStripSeparator1.Name = "toolStripSeparator1";
-			this.toolStripSeparator1.Size = new System.Drawing.Size(157, 6);
+			this.bumpToolStripMenuItem.Name = "bumpToolStripMenuItem";
+			this.bumpToolStripMenuItem.Size = new System.Drawing.Size(184, 22);
+			this.bumpToolStripMenuItem.Text = "Bump(再接続)";
 			// 
 			// PlayerView
 			// 
@@ -343,6 +351,7 @@ namespace PeerstPlayer.Forms.Setting
 		private System.Windows.Forms.ToolStripMenuItem muteToolStripMenuItem;
 		private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
 		private System.Windows.Forms.ToolStripMenuItem fitMovieSizeToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem bumpToolStripMenuItem;
 	}
 }
 

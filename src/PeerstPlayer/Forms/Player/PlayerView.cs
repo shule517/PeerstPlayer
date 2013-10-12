@@ -411,6 +411,7 @@ namespace PeerstPlayer.Forms.Setting
 			topMostToolStripMenuItem.Click += (sender, e) => shortcut.ExecCommand(Commands.TopMost);
 			updateChannelInfoToolStripMenuItem.Click += (sender, e) => shortcut.ExecCommand(Commands.UpdateChannelInfo);
 			muteToolStripMenuItem.Click += (sender, e) => shortcut.ExecCommand(Commands.Mute);
+			bumpToolStripMenuItem.Click += (sender, e) => shortcut.ExecCommand(Commands.Bump);
 			functionToolStripMenuItem.DropDownOpening += (sender, e) => topMostToolStripMenuItem.Checked = TopMost;
 			functionToolStripMenuItem.DropDownOpening += (sender, e) => muteToolStripMenuItem.Checked = pecaPlayer.Mute;
 

@@ -175,12 +175,12 @@ namespace PeerstPlayer.Shortcut
 		{
 			Logger.Instance.InfoFormat("コマンド実行 [コマンドID:{0}]", commands);
 
-			// コマンド実行
-			ShortcutCommand command = commandMap[commands];
-			command.Execute();
-
 			// コマンド実行イベント -> 実行内容を通知
+			ShortcutCommand command = commandMap[commands];
 			CommandExecuted(this, new CommnadExecutedEventArgs { Command = commands, Detail = command.Detail });
+
+			// コマンド実行
+			command.Execute();
 		}
 
 		//-------------------------------------------------------------
