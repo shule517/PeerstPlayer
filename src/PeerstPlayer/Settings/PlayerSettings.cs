@@ -65,6 +65,15 @@ namespace PeerstPlayer.Forms.Player
 			set { info.WriteFieldVisible = value; }
 		}
 
+		/// <summary>
+		/// マウスジェスチャーの感度
+		/// </summary>
+		public static int MouseGestureInterval
+		{
+			get { return info.MouseGestureInterval; }
+			set { info.MouseGestureInterval = value; }
+		}
+
 		static PlayerSettings()
 		{
 		}

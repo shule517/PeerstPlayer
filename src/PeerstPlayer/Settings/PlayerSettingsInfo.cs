@@ -30,7 +30,12 @@ namespace PeerstPlayer.Settings
 		/// 書き込み欄表示
 		/// </summary>
 		public bool WriteFieldVisible = true;
-		
+
+		/// <summary>
+		/// マウスジェスチャーの感度
+		/// </summary>
+		public int MouseGestureInterval = 10;
+
 		// - ステータスバーフォント : Font
 		// - ステータスバー表示項目 : List
 		// - 終了時位置保存 : boolean

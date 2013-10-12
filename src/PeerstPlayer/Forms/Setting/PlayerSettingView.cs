@@ -36,16 +36,11 @@ namespace PeerstPlayer.Forms.Setting
 
 				// ショートカット・ジェスチャー表示
 				shortcutListView.Items.Clear();
-				gestureListView.Items.Clear();
 				foreach (KeyValuePair<Commands, ShortcutCommand> commandPair in shortcut.CommandMap)
 				{
 					// ショートカットのアイテム追加
 					ListViewItem keyItem = CreateKeyItem(shortcut, commandPair);
 					shortcutListView.Items.Add(keyItem);
-
-					// ジェスチャーのアイテム追加
-					ListViewItem gestureItem = createGestureItem(shortcut, commandPair);
-					gestureListView.Items.Add(gestureItem);
 				}
 			};
 
@@ -61,7 +56,7 @@ namespace PeerstPlayer.Forms.Setting
 				if (shortcutListView.SelectedIndices.Count <= 0) return;
 				if (e.KeyData == Keys.ProcessKey) return;
 
-				// 同じキー入力は削除
+				// 同じキー入力を削除
 				foreach (ListViewItem item in shortcutListView.Items)
 				{
 					object tag = item.SubItems[1].Tag;	// KeyInput
@@ -91,14 +86,65 @@ namespace PeerstPlayer.Forms.Setting
 			};
 
 			// ダブルクリックでコマンド削除
-			shortcutListView.DoubleClick += (sender, e) =>
+			shortcutListView.MouseDoubleClick += (sender, e) =>
 			{
 				if (shortcutListView.SelectedIndices.Count <= 0) return;
 
-				int index = shortcutListView.SelectedIndices[0];
-				shortcutListView.Items[index].SubItems[1].Text = "-";
-				shortcutListView.Items[index].SubItems[1].Tag = null;
+				if (e.Button == MouseButtons.Left)
+				{
+					int index = shortcutListView.SelectedIndices[0];
+					shortcutListView.Items[index].SubItems[1].Text = "-";
+					shortcutListView.Items[index].SubItems[1].Tag = null;
+				}
+				else if (e.Button == System.Windows.Forms.MouseButtons.Right)
+				{
+					int index = shortcutListView.SelectedIndices[0];
+					shortcutListView.Items[index].SubItems[2].Text = "-";
+					shortcutListView.Items[index].SubItems[2].Tag = null;
+				}
 			};
+
+			// マウスジェスチャ
+			MouseGesture mouseGesture = new MouseGesture();
+			mouseGesture.Interval = PlayerSettings.MouseGestureInterval;
+			bool gestureing = false;
+			shortcutListView.MouseDown += (sender, e) =>
+			{
+				if (e.Button == MouseButtons.Right)
+				{
+					mouseGesture.Start();
+					gestureing = true;
+				}
+			};
+			shortcutListView.MouseMove += (sender, e) =>
+			{
+				if (shortcutListView.SelectedIndices.Count <= 0) return;
+				if (gestureing == false) return;
+
+				mouseGesture.Moving(e.Location);
+
+				int index = shortcutListView.SelectedIndices[0];
+
+				string gesture = mouseGesture.ToString();
+				if (string.IsNullOrEmpty(gesture)) return;
+				if (shortcutListView.Items[index].SubItems[2].Text == mouseGesture.ToString()) return;
+
+				// 同じジェスチャを削除
+				foreach (ListViewItem item in shortcutListView.Items)
+				{
+					string text = item.SubItems[2].Text;
+					if (gesture == text)
+					{
+						item.SubItems[2].Text = "-";
+						item.SubItems[2].Tag = null;
+					}
+				}
+
+				// ジェスチャを登録
+				shortcutListView.Items[index].SubItems[2].Text = gesture;
+				shortcutListView.Items[index].SubItems[2].Tag = null;
+			};
+			shortcutListView.MouseUp += (sender, e) => gestureing = false;
 		}
 
 		/// <summary>
@@ -110,33 +156,19 @@ namespace PeerstPlayer.Forms.Setting
 			item.Text = shortcut.CommandMap[commandPair.Key].Detail;
 			item.Tag = commandPair.Key;
 
-			ListViewItem.ListViewSubItem subItem = new ListViewItem.ListViewSubItem();
-			subItem.Text = "-";
-			subItem.Tag = null;
+			ListViewItem.ListViewSubItem shortcutSubItem = GetShortcutSubItem(shortcut, commandPair, item);
+			ListViewItem.ListViewSubItem gestureSubItem = GetGestureSubItem(shortcut, commandPair, item);
+			item.SubItems.Add(shortcutSubItem);
+			item.SubItems.Add(gestureSubItem);
 
-			foreach (KeyValuePair<KeyInput, Commands> keyPair in shortcut.Settings.KeyMap)
-			{
-				if (commandPair.Key == keyPair.Value)
-				{
-					subItem.Text = ConvertKeyInputToString(keyPair.Key);
-					subItem.Tag = keyPair.Key;
-					break;
-				}
-			}
-
-			item.SubItems.Add(subItem);
 			return item;
 		}
 
 		/// <summary>
-		/// ジェスチャーのアイテム作成
+		/// マウスジェスチャのアイテム取得
 		/// </summary>
-		private ListViewItem createGestureItem(ShortcutManager shortcut, KeyValuePair<Commands, ShortcutCommand> commandPair)
+		private static ListViewItem.ListViewSubItem GetGestureSubItem(ShortcutManager shortcut, KeyValuePair<Commands, ShortcutCommand> commandPair, ListViewItem item)
 		{
-			ListViewItem item = new ListViewItem();
-			item.Text = shortcut.CommandMap[commandPair.Key].Detail;
-			item.Tag = commandPair.Key;
-
 			ListViewItem.ListViewSubItem subItem = new ListViewItem.ListViewSubItem();
 			subItem.Text = "-";
 			subItem.Tag = null;
@@ -151,8 +183,29 @@ namespace PeerstPlayer.Forms.Setting
 				}
 			}
 
-			item.SubItems.Add(subItem);
-			return item;
+			return subItem;
+		}
+
+		/// <summary>
+		/// ショートカットのアイテム取得
+		/// </summary>
+		private ListViewItem.ListViewSubItem GetShortcutSubItem(ShortcutManager shortcut, KeyValuePair<Commands, ShortcutCommand> commandPair, ListViewItem item)
+		{
+			ListViewItem.ListViewSubItem subItem = new ListViewItem.ListViewSubItem();
+			subItem.Text = "-";
+			subItem.Tag = null;
+
+			foreach (KeyValuePair<KeyInput, Commands> keyPair in shortcut.Settings.KeyMap)
+			{
+				if (commandPair.Key == keyPair.Value)
+				{
+					subItem.Text = ConvertKeyInputToString(keyPair.Key);
+					subItem.Tag = keyPair.Key;
+					break;
+				}
+			}
+
+			return subItem;
 		}
 
 		/// <summary>
@@ -181,19 +234,33 @@ namespace PeerstPlayer.Forms.Setting
 
 			// ショートカット設定
 			shortcut.Settings.KeyMap = new Dictionary<KeyInput, Commands>();
+			shortcut.Settings.GestureMap = new Dictionary<string, Commands>();
 			foreach (ListViewItem item in shortcutListView.Items)
 			{
 				object tag1 = item.Tag;				// Commands
 				object tag2 = item.SubItems[1].Tag;	// KeyInput
 
-				if ((tag1 == null) || (tag2 == null))
+				// コマンド取得失敗
+				if (tag1 == null)
 				{
 					continue;
 				}
 
-				Commands command = (Commands)tag1;
-				KeyInput keyInput = (KeyInput)tag2;
-				shortcut.Settings.KeyMap.Add(keyInput, command);
+				Commands command = (Commands)item.Tag;
+
+				// ショートカット設定
+				if (tag2 != null)
+				{
+					KeyInput keyInput = (KeyInput)item.SubItems[1].Tag;
+					shortcut.Settings.KeyMap.Add(keyInput, command);
+				}
+
+				// マウスジェスチャ設定
+				string gesture = item.SubItems[2].Text;
+				if (gesture != "-")
+				{
+					shortcut.Settings.GestureMap.Add(gesture, command);
+				}
 			}
 			SettingSerializer.SaveSettings<ShortcutSettings>("ShortcutSettings.xml", shortcut.Settings);
 		}

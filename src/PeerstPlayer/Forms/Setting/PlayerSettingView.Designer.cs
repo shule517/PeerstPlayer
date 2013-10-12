@@ -1,4 +1,5 @@
-﻿namespace PeerstPlayer.Forms.Setting
+﻿using PeerstLib.Controls;
+namespace PeerstPlayer.Forms.Setting
 {
 	partial class PlayerSettingView
 	{
@@ -44,14 +45,11 @@
 			this.statusBarGroupBox = new System.Windows.Forms.GroupBox();
 			this.statusBarLabel = new System.Windows.Forms.Label();
 			this.shortcutPage = new System.Windows.Forms.TabPage();
-			this.gestureLabel = new System.Windows.Forms.Label();
-			this.gestureListView = new System.Windows.Forms.ListView();
-			this.gestureCommandColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-			this.gestureColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
 			this.keyLabel = new System.Windows.Forms.Label();
-			this.shortcutListView = new System.Windows.Forms.ListView();
+			this.shortcutListView = new PeerstLib.Controls.BufferedListView();
 			this.commandColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
 			this.shortcutColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+			this.gestureColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
 			this.mouseGesturePage = new System.Windows.Forms.TabPage();
 			this.saveButton = new System.Windows.Forms.Button();
 			this.cancelButton = new System.Windows.Forms.Button();
@@ -67,14 +65,16 @@
 			// 
 			// tabControl
 			// 
+			this.tabControl.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
 			this.tabControl.Controls.Add(this.settingPage);
 			this.tabControl.Controls.Add(this.shortcutPage);
 			this.tabControl.Controls.Add(this.mouseGesturePage);
-			this.tabControl.Dock = System.Windows.Forms.DockStyle.Top;
 			this.tabControl.Location = new System.Drawing.Point(0, 0);
 			this.tabControl.Name = "tabControl";
 			this.tabControl.SelectedIndex = 0;
-			this.tabControl.Size = new System.Drawing.Size(612, 279);
+			this.tabControl.Size = new System.Drawing.Size(461, 362);
 			this.tabControl.TabIndex = 0;
 			// 
 			// settingPage
@@ -87,7 +87,7 @@
 			this.settingPage.Location = new System.Drawing.Point(4, 22);
 			this.settingPage.Name = "settingPage";
 			this.settingPage.Padding = new System.Windows.Forms.Padding(3);
-			this.settingPage.Size = new System.Drawing.Size(604, 253);
+			this.settingPage.Size = new System.Drawing.Size(453, 336);
 			this.settingPage.TabIndex = 0;
 			this.settingPage.Text = "各種設定";
 			this.settingPage.UseVisualStyleBackColor = true;
@@ -98,7 +98,7 @@
 			this.windowGroupBox.Controls.Add(this.windowSnapEnableCheckBox);
 			this.windowGroupBox.Location = new System.Drawing.Point(8, 10);
 			this.windowGroupBox.Name = "windowGroupBox";
-			this.windowGroupBox.Size = new System.Drawing.Size(290, 74);
+			this.windowGroupBox.Size = new System.Drawing.Size(200, 74);
 			this.windowGroupBox.TabIndex = 4;
 			this.windowGroupBox.TabStop = false;
 			this.windowGroupBox.Text = "ウィンドウ";
@@ -127,9 +127,9 @@
 			// volumeGroupBox
 			// 
 			this.volumeGroupBox.Controls.Add(this.volumeLabel);
-			this.volumeGroupBox.Location = new System.Drawing.Point(302, 90);
+			this.volumeGroupBox.Location = new System.Drawing.Point(216, 90);
 			this.volumeGroupBox.Name = "volumeGroupBox";
-			this.volumeGroupBox.Size = new System.Drawing.Size(290, 74);
+			this.volumeGroupBox.Size = new System.Drawing.Size(200, 74);
 			this.volumeGroupBox.TabIndex = 3;
 			this.volumeGroupBox.TabStop = false;
 			this.volumeGroupBox.Text = "音量";
@@ -149,7 +149,7 @@
 			this.initGroupBox.Controls.Add(this.topMostCheckBox);
 			this.initGroupBox.Location = new System.Drawing.Point(8, 90);
 			this.initGroupBox.Name = "initGroupBox";
-			this.initGroupBox.Size = new System.Drawing.Size(290, 74);
+			this.initGroupBox.Size = new System.Drawing.Size(200, 74);
 			this.initGroupBox.TabIndex = 2;
 			this.initGroupBox.TabStop = false;
 			this.initGroupBox.Text = "初期表示";
@@ -179,7 +179,7 @@
 			this.closeGroupBox.Controls.Add(this.disconnectRealyOnCloseCheckBox);
 			this.closeGroupBox.Location = new System.Drawing.Point(8, 170);
 			this.closeGroupBox.Name = "closeGroupBox";
-			this.closeGroupBox.Size = new System.Drawing.Size(290, 74);
+			this.closeGroupBox.Size = new System.Drawing.Size(200, 74);
 			this.closeGroupBox.TabIndex = 1;
 			this.closeGroupBox.TabStop = false;
 			this.closeGroupBox.Text = "終了時";
@@ -197,9 +197,9 @@
 			// statusBarGroupBox
 			// 
 			this.statusBarGroupBox.Controls.Add(this.statusBarLabel);
-			this.statusBarGroupBox.Location = new System.Drawing.Point(302, 10);
+			this.statusBarGroupBox.Location = new System.Drawing.Point(216, 10);
 			this.statusBarGroupBox.Name = "statusBarGroupBox";
-			this.statusBarGroupBox.Size = new System.Drawing.Size(290, 74);
+			this.statusBarGroupBox.Size = new System.Drawing.Size(200, 74);
 			this.statusBarGroupBox.TabIndex = 0;
 			this.statusBarGroupBox.TabStop = false;
 			this.statusBarGroupBox.Text = "ステータスバー";
@@ -215,72 +215,42 @@
 			// 
 			// shortcutPage
 			// 
-			this.shortcutPage.Controls.Add(this.gestureLabel);
-			this.shortcutPage.Controls.Add(this.gestureListView);
 			this.shortcutPage.Controls.Add(this.keyLabel);
 			this.shortcutPage.Controls.Add(this.shortcutListView);
 			this.shortcutPage.Location = new System.Drawing.Point(4, 22);
 			this.shortcutPage.Name = "shortcutPage";
 			this.shortcutPage.Padding = new System.Windows.Forms.Padding(3);
-			this.shortcutPage.Size = new System.Drawing.Size(604, 253);
+			this.shortcutPage.Size = new System.Drawing.Size(453, 336);
 			this.shortcutPage.TabIndex = 1;
 			this.shortcutPage.Text = "ショートカット";
 			this.shortcutPage.UseVisualStyleBackColor = true;
 			// 
-			// gestureLabel
-			// 
-			this.gestureLabel.AutoSize = true;
-			this.gestureLabel.Location = new System.Drawing.Point(302, 220);
-			this.gestureLabel.Name = "gestureLabel";
-			this.gestureLabel.Size = new System.Drawing.Size(115, 12);
-			this.gestureLabel.TabIndex = 4;
-			this.gestureLabel.Text = "※まだ登録できません。";
-			// 
-			// gestureListView
-			// 
-			this.gestureListView.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.gestureCommandColumnHeader,
-            this.gestureColumnHeader});
-			this.gestureListView.FullRowSelect = true;
-			this.gestureListView.GridLines = true;
-			this.gestureListView.Location = new System.Drawing.Point(304, 16);
-			this.gestureListView.MultiSelect = false;
-			this.gestureListView.Name = "gestureListView";
-			this.gestureListView.Size = new System.Drawing.Size(290, 196);
-			this.gestureListView.TabIndex = 3;
-			this.gestureListView.UseCompatibleStateImageBehavior = false;
-			this.gestureListView.View = System.Windows.Forms.View.Details;
-			// 
-			// gestureCommandColumnHeader
-			// 
-			this.gestureCommandColumnHeader.Text = "コマンド";
-			this.gestureCommandColumnHeader.Width = 140;
-			// 
-			// gestureColumnHeader
-			// 
-			this.gestureColumnHeader.Text = "マウスジェスチャー";
-			this.gestureColumnHeader.Width = 127;
-			// 
 			// keyLabel
 			// 
+			this.keyLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
 			this.keyLabel.AutoSize = true;
-			this.keyLabel.Location = new System.Drawing.Point(8, 220);
+			this.keyLabel.Location = new System.Drawing.Point(8, 261);
 			this.keyLabel.Name = "keyLabel";
-			this.keyLabel.Size = new System.Drawing.Size(201, 24);
+			this.keyLabel.Size = new System.Drawing.Size(274, 72);
 			this.keyLabel.TabIndex = 2;
-			this.keyLabel.Text = "【登録】：コマンドを選択後、キー入力\r\n【削除】：削除したいコマンドをダブルクリック";
+			this.keyLabel.Text = "【登録方法】\r\n　ショートカット：コマンドを選択後、キー入力\r\n　マウスジェスチャ：コマンドを選択後、マウスジェスチャ入力\r\n【削除方法】\r\n　ショートカット：削" +
+    "除したいショートカットをダブルクリック(左)\r\n　マウスジェスチャ：削除したいジェスチャをダブルクリック(右)";
 			// 
 			// shortcutListView
 			// 
+			this.shortcutListView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
 			this.shortcutListView.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.commandColumnHeader,
-            this.shortcutColumnHeader});
+            this.shortcutColumnHeader,
+            this.gestureColumnHeader});
 			this.shortcutListView.FullRowSelect = true;
 			this.shortcutListView.GridLines = true;
-			this.shortcutListView.Location = new System.Drawing.Point(8, 16);
+			this.shortcutListView.Location = new System.Drawing.Point(8, 6);
 			this.shortcutListView.MultiSelect = false;
 			this.shortcutListView.Name = "shortcutListView";
-			this.shortcutListView.Size = new System.Drawing.Size(290, 196);
+			this.shortcutListView.Size = new System.Drawing.Size(434, 252);
 			this.shortcutListView.TabIndex = 1;
 			this.shortcutListView.UseCompatibleStateImageBehavior = false;
 			this.shortcutListView.View = System.Windows.Forms.View.Details;
@@ -295,11 +265,16 @@
 			this.shortcutColumnHeader.Text = "ショートカット";
 			this.shortcutColumnHeader.Width = 127;
 			// 
+			// gestureColumnHeader
+			// 
+			this.gestureColumnHeader.Text = "マウスジェスチャ";
+			this.gestureColumnHeader.Width = 127;
+			// 
 			// mouseGesturePage
 			// 
 			this.mouseGesturePage.Location = new System.Drawing.Point(4, 22);
 			this.mouseGesturePage.Name = "mouseGesturePage";
-			this.mouseGesturePage.Size = new System.Drawing.Size(604, 253);
+			this.mouseGesturePage.Size = new System.Drawing.Size(423, 253);
 			this.mouseGesturePage.TabIndex = 2;
 			this.mouseGesturePage.Text = "イベント登録";
 			this.mouseGesturePage.UseVisualStyleBackColor = true;
@@ -307,7 +282,7 @@
 			// saveButton
 			// 
 			this.saveButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-			this.saveButton.Location = new System.Drawing.Point(441, 285);
+			this.saveButton.Location = new System.Drawing.Point(290, 368);
 			this.saveButton.Name = "saveButton";
 			this.saveButton.Size = new System.Drawing.Size(75, 23);
 			this.saveButton.TabIndex = 1;
@@ -318,7 +293,7 @@
 			// cancelButton
 			// 
 			this.cancelButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-			this.cancelButton.Location = new System.Drawing.Point(522, 285);
+			this.cancelButton.Location = new System.Drawing.Point(371, 368);
 			this.cancelButton.Name = "cancelButton";
 			this.cancelButton.Size = new System.Drawing.Size(75, 23);
 			this.cancelButton.TabIndex = 2;
@@ -330,7 +305,7 @@
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(612, 314);
+			this.ClientSize = new System.Drawing.Size(461, 397);
 			this.Controls.Add(this.cancelButton);
 			this.Controls.Add(this.saveButton);
 			this.Controls.Add(this.tabControl);
@@ -374,16 +349,13 @@
 		private System.Windows.Forms.CheckBox topMostCheckBox;
 		private System.Windows.Forms.CheckBox aspectRateFixCheckBox;
 		private System.Windows.Forms.CheckBox writeFieldVisibleCheckBox;
-		private System.Windows.Forms.ListView shortcutListView;
+		private BufferedListView shortcutListView;
 		private System.Windows.Forms.ColumnHeader commandColumnHeader;
 		private System.Windows.Forms.ColumnHeader shortcutColumnHeader;
 		private System.Windows.Forms.Label keyLabel;
-		private System.Windows.Forms.ListView gestureListView;
-		private System.Windows.Forms.ColumnHeader gestureCommandColumnHeader;
-		private System.Windows.Forms.ColumnHeader gestureColumnHeader;
-		private System.Windows.Forms.Label gestureLabel;
 		private System.Windows.Forms.Label volumeLabel;
 		private System.Windows.Forms.Label statusBarLabel;
+		private System.Windows.Forms.ColumnHeader gestureColumnHeader;
 
 	}
 }

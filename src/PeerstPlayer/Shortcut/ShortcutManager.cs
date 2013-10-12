@@ -200,7 +200,7 @@ namespace PeerstPlayer.Shortcut
 				{	Commands.VisibleStatusBar,		new ShortcutCommand(new VisibleStatusBarCommand(form, statusBar), new CommandArgs())}, // ステータスバーの表示切り替え
 				{	Commands.OpenPeerstViewer,		new ShortcutCommand(new OpenPeerstViewerCommand(statusBar), new CommandArgs())		}, // PeerstViewerを開く
 				{	Commands.UpdateChannelInfo,		new ShortcutCommand(new UpdateChannelInfoCommand(pecaPlayer), new CommandArgs())	}, // チャンネル情報更新
-				{	Commands.ShowNewRes,			new ShortcutCommand(new ShowNewResCommand(form, statusBar), new CommandArgs())		}, // 新着レス表示
+				//{	Commands.ShowNewRes,			new ShortcutCommand(new ShowNewResCommand(form, statusBar), new CommandArgs())		}, // 新着レス表示
 				{	Commands.TopMost,				new ShortcutCommand(new TopMostCommand(form), new CommandArgs())					}, // 最前列表示切り替え
 				{	Commands.WindowSizeUp,			new ShortcutCommand(new WindowSizeUpCommand(form, pecaPlayer), new CommandArgs())	}, // ウィンドウサイズUP
 				{	Commands.WindowSizeDown,		new ShortcutCommand(new WindowSizeDownCommand(form, pecaPlayer), new CommandArgs())	}, // ウィンドウサイズDOWN

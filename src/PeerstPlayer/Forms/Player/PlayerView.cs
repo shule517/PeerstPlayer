@@ -26,9 +26,6 @@ namespace PeerstPlayer.Forms.Setting
 		//-------------------------------------------------------------
 		// 定義
 		//-------------------------------------------------------------
-
-		// マウスジェスチャーの感度
-		const int MouseGestureInterval = 10;
 		
 		// 動画ステータスの更新間隔
 		const int MovieStatusUpdateInterval = 500;
@@ -238,7 +235,7 @@ namespace PeerstPlayer.Forms.Setting
 
 			// マウスジェスチャー
 			MouseGesture mouseGesture = new MouseGesture();
-			mouseGesture.Interval = MouseGestureInterval;
+			mouseGesture.Interval = PlayerSettings.MouseGestureInterval;
 			bool isGesturing = false;
 
 			// タイマーイベント
