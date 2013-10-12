@@ -36,5 +36,17 @@ namespace PeerstPlayer.Shortcut
 		WindowSize480x360,
 		WindowSize640x480,
 		WindowSize800x600,
+
+		// 画面分割
+		ScreenSplitWidthx5,
+		ScreenSplitWidthx4,
+		ScreenSplitWidthx3,
+		ScreenSplitWidthx2,
+		ScreenSplitWidthx1,
+		ScreenSplitHeightx5,
+		ScreenSplitHeightx4,
+		ScreenSplitHeightx3,
+		ScreenSplitHeightx2,
+		ScreenSplitHeightx1,
 	};
 }

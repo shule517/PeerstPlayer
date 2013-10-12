@@ -47,4 +47,23 @@ namespace PeerstPlayer.Shortcut
 			this.Size = new Size(width, height);
 		}
 	}
+
+	/// <summary>
+	/// 画面分割コマンドの引数
+	/// </summary>
+	[DataContract(Name = "ScreenSplitCommandArgs")]
+	public class ScreenSplitCommandArgs : CommandArgs
+	{
+		/// <summary>
+		/// 画面分割数
+		/// </summary>
+		[DataMember]
+		public int WidthNum;	// 幅分割数
+		public int HeightNum;	// 高さ分割数
+		public ScreenSplitCommandArgs(int widthNum, int heightNum)
+		{
+			this.WidthNum = widthNum;
+			this.HeightNum = heightNum;
+		}
+	}
 }

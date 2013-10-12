@@ -99,6 +99,7 @@
     <Compile Include="Shortcut\Command\MiniMuteCommand.cs" />
     <Compile Include="Shortcut\Command\MuteCommand.cs" />
     <Compile Include="Shortcut\Command\OpenPeerstViewerCommand.cs" />
+    <Compile Include="Shortcut\Command\ScreenSplitCommand.cs" />
     <Compile Include="Shortcut\Command\ShowNewResCommand.cs" />
     <Compile Include="Shortcut\Command\TopMostCommand.cs" />
     <Compile Include="Shortcut\Command\UpdateChannelInfoCommand.cs" />
