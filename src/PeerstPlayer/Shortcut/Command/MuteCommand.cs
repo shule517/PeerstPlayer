@@ -21,7 +21,7 @@ namespace PeerstPlayer.Shortcut.Command
 
 		string IShortcutCommand.GetDetail(CommandArgs commandArgs)
 		{
-			return "ミュート";
+			return "音量 (ミュート)";
 		}
 	}
 }

@@ -11,6 +11,22 @@ using PeerstPlayer.Shortcut.Command;
 namespace PeerstPlayer.Shortcut
 {
 	/// <summary>
+	/// コマンド実行イベント引数
+	/// </summary>
+	class CommnadExecutedEventArgs : EventArgs
+	{
+		/// <summary>
+		/// 実行コマンド
+		/// </summary>
+		public Commands Command;
+
+		/// <summary>
+		/// 実行コマンド内容
+		/// </summary>
+		public string Detail;
+	}
+
+	/// <summary>
 	/// ショートカット設定
 	/// </summary>
 	[DataContract(Name = "ShortcutSettings")]
@@ -34,6 +50,11 @@ namespace PeerstPlayer.Shortcut
 	//-------------------------------------------------------------
 	public class ShortcutManager
 	{
+		/// <summary>
+		/// コマンド実行イベント
+		/// </summary>
+		public event EventHandler CommandExecuted = delegate { };
+
 		//-------------------------------------------------------------
 		// 非公開プロパティ
 		//-------------------------------------------------------------
@@ -153,7 +174,13 @@ namespace PeerstPlayer.Shortcut
 		public void ExecCommand(Commands commands)
 		{
 			Logger.Instance.InfoFormat("コマンド実行 [コマンドID:{0}]", commands);
-			commandMap[commands].Execute();
+
+			// コマンド実行
+			ShortcutCommand command = commandMap[commands];
+			command.Execute();
+
+			// コマンド実行イベント -> 実行内容を通知
+			CommandExecuted(this, new CommnadExecutedEventArgs { Command = commands, Detail = command.Detail });
 		}
 
 		//-------------------------------------------------------------
@@ -220,10 +247,10 @@ namespace PeerstPlayer.Shortcut
 			settings.EventMap.Add(ShortcutEvents.MaxButtonClick, Commands.WindowMaximize);
 			settings.EventMap.Add(ShortcutEvents.CloseButtonClick, Commands.Close);
 			settings.EventMap.Add(ShortcutEvents.ThreadTitleRightClick, Commands.OpenPeerstViewer);
-			settings.EventMap.Add(ShortcutEvents.StatusbarHover, Commands.ShowNewRes);
 			settings.EventMap.Add(ShortcutEvents.RightClickWheelUp, Commands.WindowSizeUp);
 			settings.EventMap.Add(ShortcutEvents.RightClickWheelDown, Commands.WindowSizeDown);
 			settings.EventMap.Add(ShortcutEvents.MovieStart, Commands.WindowScale100Per);
+			// settings.EventMap.Add(ShortcutEvents.StatusbarHover, Commands.ShowNewRes);
 		}
 
 		//-------------------------------------------------------------

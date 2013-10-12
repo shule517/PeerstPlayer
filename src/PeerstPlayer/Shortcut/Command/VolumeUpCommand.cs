@@ -33,7 +33,7 @@ namespace PeerstPlayer.Shortcut.Command
 
 		string IShortcutCommand.GetDetail(CommandArgs commandArgs)
 		{
-			return "音量を上げる";
+			return "音量 (上げる)";
 		}
 	}
 }

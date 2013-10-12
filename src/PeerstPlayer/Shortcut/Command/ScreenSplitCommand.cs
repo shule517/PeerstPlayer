@@ -1,9 +1,4 @@
 ﻿using PeerstPlayer.Controls.PecaPlayer;
-using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 
 namespace PeerstPlayer.Shortcut.Command
@@ -55,14 +50,14 @@ namespace PeerstPlayer.Shortcut.Command
 
 			if (args.WidthNum > 0)
 			{
-				return string.Format("画面分割:幅{0}分割", args.WidthNum);
+				return string.Format("サイズ (画面幅{0}分の1)", args.WidthNum);
 			}
 			else if (args.HeightNum > 0)
 			{
-				return string.Format("画面分割:高さ{0}分割", args.HeightNum);
+				return string.Format("サイズ (画面高さ{0}分の1)", args.HeightNum);
 			}
 
-			return "画面分割";
+			return string.Empty;
 		}
 	}
 }

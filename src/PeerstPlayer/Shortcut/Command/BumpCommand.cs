@@ -22,7 +22,7 @@ namespace PeerstPlayer.Shortcut.Command
 
 		string IShortcutCommand.GetDetail(CommandArgs commandArgs)
 		{
-			return "Bump";
+			return "再接続(Bump)する";
 		}
 	}
 }

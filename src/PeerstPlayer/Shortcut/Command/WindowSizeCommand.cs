@@ -30,7 +30,7 @@ namespace PeerstPlayer.Shortcut.Command
 		{
 			WindowSizeCommandArgs args = (WindowSizeCommandArgs)commandArgs;
 			Size size = args.Size;
-			return string.Format("サイズ変更 ({0}x{1})", size.Width, size.Height);
+			return string.Format("サイズ ({0}x{1})", size.Width, size.Height);
 		}
 	}
 }

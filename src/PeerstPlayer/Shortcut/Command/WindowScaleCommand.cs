@@ -35,7 +35,7 @@ namespace PeerstPlayer.Shortcut.Command
 		string IShortcutCommand.GetDetail(CommandArgs commandArgs)
 		{
 			WindowScaleCommandArgs args = (WindowScaleCommandArgs)commandArgs;
-			return string.Format("拡大率 ({0}%)", args.Scale * 100);
+			return string.Format("サイズ ({0}%)", args.Scale * 100);
 		}
 	}
 }

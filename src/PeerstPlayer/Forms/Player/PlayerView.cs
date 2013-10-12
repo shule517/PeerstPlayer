@@ -352,7 +352,8 @@ namespace PeerstPlayer.Forms.Setting
 					string detail = shortcut.GetGestureDetail(gesture);
 					if (!String.IsNullOrEmpty(gesture))
 					{
-						statusBar.ChannelDetail = string.Format("マウスジェスチャ： {0} {1}", gesture, (String.IsNullOrEmpty(detail) ? "" : "(" + detail + ")"));
+						string message = string.Format("ジェスチャ： {0} {1}", gesture, (String.IsNullOrEmpty(detail) ? "" : "(" + detail + ")"));
+						statusBar.ShowMessage(message);
 					}
 				}
 			};
@@ -374,6 +375,18 @@ namespace PeerstPlayer.Forms.Setting
 
 			// 動画再生イベント
 			pecaPlayer.MovieStart += (sender, e) => shortcut.RaiseEvent(ShortcutEvents.MovieStart);
+
+			// コマンド実行内容の表示
+			shortcut.CommandExecuted += (sender, e) =>
+			{
+				CommnadExecutedEventArgs args = (CommnadExecutedEventArgs)e;
+
+				// ステータスバー表示切り替えはメッセージを出さない
+				if (args.Command != Commands.VisibleStatusBar)
+				{
+					statusBar.ShowMessage(string.Format("コマンド： {0}", args.Detail));
+				}
+			};
 
 			//-----------------------------------------------------
 			// コンテキストメニュー

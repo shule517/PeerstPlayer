@@ -29,7 +29,7 @@ namespace PeerstPlayer.Shortcut.Command
 			int size = (int)(pecaPlayer.ImageHeight * 0.1);
 			int width = form.Width - (int)(size * pecaPlayer.AspectRate);
 			int height = form.Height - size;
-			return string.Format("サイズ-10%");
+			return string.Format("サイズ (-10%)");
 		}
 	}
 }

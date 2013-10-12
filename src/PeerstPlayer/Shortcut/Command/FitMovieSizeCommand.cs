@@ -43,7 +43,7 @@ namespace PeerstPlayer.Shortcut.Command
 
 		string IShortcutCommand.GetDetail(CommandArgs commandArgs)
 		{
-			return "動画サイズに合わせる";
+			return "サイズ (黒枠を消す)";
 		}
 	}
 }

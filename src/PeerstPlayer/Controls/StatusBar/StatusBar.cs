@@ -13,35 +13,50 @@ namespace PeerstPlayer.Controls.StatusBar
 		// 公開プロパティ
 		//-------------------------------------------------------------
 
-		// チャンネル詳細
+		/// <summary>
+		/// チャンネル詳細
+		/// </summary>
+		string channelDetail = "";
 		public string ChannelDetail
 		{
-			get { return movieDetail.ChannelDetail; }
-			set { movieDetail.ChannelDetail = value; }
+			get { return channelDetail; }
+			set
+			{
+				channelDetail = value;
+				if (messageDisplayTimer.Enabled == false) { movieDetail.ChannelDetail = value; }
+			}
 		}
 
-		// 動画ステータス
+		/// <summary>
+		/// 動画ステータス
+		/// </summary>
 		public string MovieStatus
 		{
 			get { return movieDetail.MovieStatus; }
 			set { movieDetail.MovieStatus = value; }
 		}
 
-		// 音量
+		/// <summary>
+		/// 音量
+		/// </summary>
 		public string Volume
 		{
 			get { return movieDetail.Volume; }
 			set { movieDetail.Volume = value; }
 		}
 		
-		// 選択スレッドURL
+		/// <summary>
+		/// 選択スレッドURL
+		/// </summary>
 		public string SelectThreadUrl
 		{
 			get { return writeField.SelectThreadUrl; }
 			set { writeField.SelectThreadUrl = value; }
 		}
 
-		// 書き込み欄の表示
+		/// <summary>
+		/// 書き込み欄の表示
+		/// </summary>
 		public bool WriteFieldVisible
 		{
 			get { return writeField.Visible; }
@@ -67,33 +82,43 @@ namespace PeerstPlayer.Controls.StatusBar
 			}
 		}
 
-		// 高さ変更イベント
+		/// <summary>
+		/// 高さ変更イベント
+		/// </summary>
 		public event EventHandler HeightChanged = delegate { };
 
-		// ステータスバークリックイベント
+		/// <summary>
+		/// ステータスバークリックイベント
+		/// </summary>
 		public event MouseEventHandler ChannelDetailClick = delegate { };
 
-		// スレッドタイトル右クリック
+		/// <summary>
+		/// スレッドタイトル右クリック
+		/// </summary>
 		public event EventHandler ThreadTitleRightClick = delegate { };
 
-		// 音量クリックイベント
+		/// <summary>
+		/// 音量クリックイベント
+		/// </summary>
 		public event EventHandler VolumeClick
 		{
 			add { movieDetail.VolumeClick += value; }
 			remove { movieDetail.VolumeClick -= value; }
 		}
 
-		// マウスホバーイベント
+		/// <summary>
+		/// マウスホバーイベント
+		/// </summary>
 		public event EventHandler MouseHoverEvent
 		{
 			add { movieDetail.MouseHoverEvent += value; }
 			remove { movieDetail.MouseHoverEvent -= value; }
 		}
 
-		//-------------------------------------------------------------
-		// 概要：コンストラクタ
-		// 詳細：イベント登録
-		//-------------------------------------------------------------
+		/// <summary>
+		/// コンストラクタ
+		/// イベント登録
+		/// </summary>
 		public StatusBarControl()
 		{
 			Logger.Instance.Debug("StatusBar()");
@@ -119,10 +144,10 @@ namespace PeerstPlayer.Controls.StatusBar
 			};
 		}
 		
-		//-------------------------------------------------------------
-		// 概要：サイズ変更イベント
-		// 詳細：書き込み欄のサイズ自動調節
-		//-------------------------------------------------------------
+		/// <summary>
+		/// サイズ変更イベント
+		/// 書き込み欄のサイズ自動調節
+		/// </summary>
 		private void writeField_SizeChanged(object sender, EventArgs e)
 		{
 			Logger.Instance.Debug("writeField_SizeChanged()");
@@ -130,21 +155,42 @@ namespace PeerstPlayer.Controls.StatusBar
 			movieDetail.Top = writeField.Height;
 		}
 
-		//-------------------------------------------------------------
-		// 概要：終了処理
-		//-------------------------------------------------------------
+		/// <summary>
+		/// 終了処理
+		/// </summary>
 		public void Close()
 		{
 			Logger.Instance.Debug("Close()");
 			writeField.Close();
 		}
 
-		//-------------------------------------------------------------
-		// 概要：新着レス取得
-		//-------------------------------------------------------------
+		/// <summary>
+		/// 新着レス取得
+		/// </summary>
 		public string ReadNewRes()
 		{
 			return writeField.ReadNewRes();
+		}
+
+		/// <summary>
+		/// メッセージ表示時間
+		/// </summary>
+		private const int MessageDisplayTime = 2000;
+		Timer messageDisplayTimer = new Timer();
+
+		/// <summary>
+		/// メッセージ表示
+		/// </summary>
+		public void ShowMessage(string text)
+		{
+			messageDisplayTimer.Stop();
+			movieDetail.ChannelDetail = text;
+			messageDisplayTimer.Interval = MessageDisplayTime;
+			messageDisplayTimer.Tick += (sender, e) =>
+			{
+				movieDetail.ChannelDetail = channelDetail;
+			};
+			messageDisplayTimer.Start();
 		}
 	}
 }
