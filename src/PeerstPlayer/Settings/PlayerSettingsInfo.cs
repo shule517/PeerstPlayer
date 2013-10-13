@@ -36,6 +36,16 @@ namespace PeerstPlayer.Settings
 		/// </summary>
 		public int MouseGestureInterval = 10;
 
+		/// <summary>
+		/// FPS表示
+		/// </summary>
+		public bool DisplayFps = true;
+
+		/// <summary>
+		/// ビットレート表示
+		/// </summary>
+		public bool DisplayBitrate = true;
+
 		// - ステータスバーフォント : Font
 		// - ステータスバー表示項目 : List
 		// - 終了時位置保存 : boolean

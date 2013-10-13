@@ -385,5 +385,25 @@ namespace PeerstPlayer.Controls.PecaPlayer
 				updateChannelInfoWorker.CancelAsync();
 			}
 		}
+
+		/// <summary>
+		/// 現在のフレームレート
+		/// </summary>
+		public int NowFrameRate { get { return wmp.network.frameRate / 100; } }
+
+		/// <summary>
+		/// フレームレート
+		/// </summary>
+		public int FrameRate { get { return wmp.network.encodedFrameRate; } }
+
+		/// <summary>
+		/// 現在のビットレート
+		/// </summary>
+		public int NowBitrate { get { return wmp.network.bandWidth / 1000; } }
+
+		/// <summary>
+		/// ビットレート
+		/// </summary>
+		public int Bitrate { get { return wmp.network.bitRate / 1000; } }
 	}
 }

@@ -168,7 +168,7 @@ namespace PeerstPlayer.Forms.Setting
 			{
 				ChannelInfo info = pecaPlayer.ChannelInfo;
 				// TODO 文字が空の場合は、スペースを空けない
-				statusBar.ChannelDetail = String.Format("{0} {1}{2} {3}", info.Name, (string.IsNullOrEmpty(info.Genre) ? "" : string.Format("[{0}] ", info.Genre)), info.Desc, info.Comment);
+				UpdateChannelDetail(info);
 
 				// 初回のみの設定
 				if (isFirst)
@@ -243,9 +243,9 @@ namespace PeerstPlayer.Forms.Setting
 			timer.Interval = MovieStatusUpdateInterval;
 			timer.Tick += (sender, e) =>
 			{
+				// 自動表示ボタンの表示切り替え
 				if (!RectangleToScreen(ClientRectangle).Contains(MousePosition))
 				{
-					// 自動表示ボタンの表示切り替え
 					if (toolStrip.Visible)
 					{
 						toolStrip.Visible = false;
@@ -279,6 +279,9 @@ namespace PeerstPlayer.Forms.Setting
 				{
 					statusBar.MovieStatus = pecaPlayer.Duration;
 				}
+
+				// 動画情報を更新
+				statusBar.UpdateMovieInfo(pecaPlayer.NowFrameRate, pecaPlayer.FrameRate, pecaPlayer.NowBitrate, pecaPlayer.Bitrate);
 			};
 			timer.Start();
 
@@ -312,7 +315,7 @@ namespace PeerstPlayer.Forms.Setting
 					ChannelInfo info = pecaPlayer.ChannelInfo;
 					if (info != null)
 					{
-						statusBar.ChannelDetail = String.Format("{0} {1}{2} {3}", info.Name, (string.IsNullOrEmpty(info.Genre) ? "" : string.Format("[{0}] ", info.Genre)), info.Desc, info.Comment);
+						UpdateChannelDetail(info);
 					}
 
 					// マウスジェスチャーが実行されていなければ
@@ -424,6 +427,14 @@ namespace PeerstPlayer.Forms.Setting
 			{
 				shortcut.ExecCommand(Commands.WmpMenu);
 			};
+		}
+
+		/// <summary>
+		/// チャンネル詳細を更新
+		/// </summary>
+		private void UpdateChannelDetail(ChannelInfo info)
+		{
+			statusBar.ChannelDetail = String.Format("{0} {1}{2} {3}", info.Name, (string.IsNullOrEmpty(info.Genre) ? "" : string.Format("[{0}] ", info.Genre)), info.Desc, info.Comment);
 		}
 
 		/// <summary>

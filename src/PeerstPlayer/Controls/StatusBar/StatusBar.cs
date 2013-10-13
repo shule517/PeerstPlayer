@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 using PeerstLib.Util;
+using PeerstPlayer.Forms.Player;
 
 namespace PeerstPlayer.Controls.StatusBar
 {
@@ -23,7 +24,10 @@ namespace PeerstPlayer.Controls.StatusBar
 			set
 			{
 				channelDetail = value;
-				if (messageDisplayTimer.Enabled == false) { movieDetail.ChannelDetail = value; }
+				if (messageDisplayTimer.Enabled == false)
+				{
+					UpdateChannelDetail();
+				}
 			}
 		}
 
@@ -143,7 +147,22 @@ namespace PeerstPlayer.Controls.StatusBar
 				ThreadTitleRightClick(sender, e);
 			};
 		}
-		
+
+		/// <summary>
+		/// 動画詳細を更新
+		/// </summary>
+		private int nowFps = 0;
+		private int fps = 0;
+		private int nowBitrate = 0;
+		private int bitrate = 0;
+		public void UpdateMovieInfo(int nowFps, int fps, int nowBitrate, int bitrate)
+		{
+			this.nowFps = nowFps;
+			this.fps = fps;
+			this.nowBitrate = nowBitrate;
+			this.bitrate = bitrate;
+		}
+
 		/// <summary>
 		/// サイズ変更イベント
 		/// 書き込み欄のサイズ自動調節
@@ -188,9 +207,44 @@ namespace PeerstPlayer.Controls.StatusBar
 			messageDisplayTimer.Interval = MessageDisplayTime;
 			messageDisplayTimer.Tick += (sender, e) =>
 			{
-				movieDetail.ChannelDetail = channelDetail;
+				UpdateChannelDetail();
 			};
 			messageDisplayTimer.Start();
+		}
+
+		/// <summary>
+		/// 動画詳細を更新
+		/// </summary>
+		private void UpdateChannelDetail()
+		{
+			string detail = channelDetail;
+	
+			if (PlayerSettings.DisplayFps || PlayerSettings.DisplayBitrate)
+			{
+				detail += " (";
+			}
+
+			if (PlayerSettings.DisplayFps)
+			{
+				detail += string.Format("{0}fps", fps);
+			}
+
+			if (PlayerSettings.DisplayFps && PlayerSettings.DisplayBitrate)
+			{
+				detail += " ";
+			}
+				
+			if (PlayerSettings.DisplayBitrate)
+			{
+				detail += string.Format("{0}kbps", bitrate);
+			}
+
+			if (PlayerSettings.DisplayFps || PlayerSettings.DisplayBitrate)
+			{
+				detail += ")";
+			}
+
+			movieDetail.ChannelDetail = detail;
 		}
 	}
 }

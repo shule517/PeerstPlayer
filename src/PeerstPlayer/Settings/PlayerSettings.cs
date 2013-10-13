@@ -74,6 +74,24 @@ namespace PeerstPlayer.Forms.Player
 			set { info.MouseGestureInterval = value; }
 		}
 
+		/// <summary>
+		/// FPS表示
+		/// </summary>
+		public static bool DisplayFps
+		{
+			get { return info.DisplayFps; }
+			set { info.DisplayFps = value; }
+		}
+
+		/// <summary>
+		/// ビットレート表示
+		/// </summary>
+		public static bool DisplayBitrate
+		{
+			get { return info.DisplayBitrate; }
+			set { info.DisplayBitrate = value; }
+		}
+
 		static PlayerSettings()
 		{
 		}

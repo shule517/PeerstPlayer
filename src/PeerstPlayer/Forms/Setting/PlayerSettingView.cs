@@ -34,6 +34,10 @@ namespace PeerstPlayer.Forms.Setting
 				topMostCheckBox.Checked = PlayerSettings.TopMost;
 				writeFieldVisibleCheckBox.Checked = PlayerSettings.WriteFieldVisible;
 
+				// チェックボックスの設定(ステータスバー)
+				displayFpsCheckBox.Checked = PlayerSettings.DisplayFps;
+				displayBitrateCheckBox.Checked = PlayerSettings.DisplayBitrate;
+
 				// ショートカット・ジェスチャー表示
 				shortcutListView.Items.Clear();
 				foreach (KeyValuePair<Commands, ShortcutCommand> commandPair in shortcut.CommandMap)
@@ -229,6 +233,11 @@ namespace PeerstPlayer.Forms.Setting
 			PlayerSettings.WindowSnapEnable = windowSnapEnableCheckBox.Checked;
 			PlayerSettings.TopMost = topMostCheckBox.Checked;
 			PlayerSettings.WriteFieldVisible = writeFieldVisibleCheckBox.Checked;
+	
+			// チェックボックスの設定(ステータスバー)
+			PlayerSettings.DisplayFps = displayFpsCheckBox.Checked;
+			PlayerSettings.DisplayBitrate = displayBitrateCheckBox.Checked;
+
 			PlayerSettings.Save();
 			Close();
 

@@ -58,10 +58,10 @@ namespace PeerstPlayer.Forms.Setting
 			this.topMostToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.updateChannelInfoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.muteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.bumpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.settingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
 			this.wmpMenuToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.bumpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.toolStrip.SuspendLayout();
 			this.contextMenuStrip.SuspendLayout();
 			this.SuspendLayout();
@@ -69,51 +69,55 @@ namespace PeerstPlayer.Forms.Setting
 			// toolStrip
 			// 
 			this.toolStrip.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.toolStrip.BackColor = System.Drawing.SystemColors.Control;
+			this.toolStrip.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
 			this.toolStrip.Dock = System.Windows.Forms.DockStyle.None;
 			this.toolStrip.GripMargin = new System.Windows.Forms.Padding(0);
-			this.toolStrip.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
 			this.toolStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.minToolStripButton,
             this.maxToolStripButton,
             this.closeToolStripButton});
-			this.toolStrip.Location = new System.Drawing.Point(410, 0);
+			this.toolStrip.Location = new System.Drawing.Point(373, 0);
 			this.toolStrip.Name = "toolStrip";
 			this.toolStrip.Padding = new System.Windows.Forms.Padding(0);
 			this.toolStrip.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
-			this.toolStrip.Size = new System.Drawing.Size(71, 25);
+			this.toolStrip.Size = new System.Drawing.Size(107, 25);
 			this.toolStrip.TabIndex = 3;
 			// 
 			// minToolStripButton
 			// 
-			this.minToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+			this.minToolStripButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+			this.minToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
 			this.minToolStripButton.Font = new System.Drawing.Font("Marlett", 9F);
+			this.minToolStripButton.ForeColor = System.Drawing.Color.Black;
 			this.minToolStripButton.Image = ((System.Drawing.Image)(resources.GetObject("minToolStripButton.Image")));
-			this.minToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
 			this.minToolStripButton.Name = "minToolStripButton";
 			this.minToolStripButton.Size = new System.Drawing.Size(23, 22);
-			this.minToolStripButton.Text = "0";
 			this.minToolStripButton.ToolTipText = "最小化";
 			// 
 			// maxToolStripButton
 			// 
-			this.maxToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+			this.maxToolStripButton.BackColor = System.Drawing.SystemColors.Control;
+			this.maxToolStripButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+			this.maxToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
 			this.maxToolStripButton.Font = new System.Drawing.Font("Marlett", 9F);
+			this.maxToolStripButton.ForeColor = System.Drawing.Color.Black;
 			this.maxToolStripButton.Image = ((System.Drawing.Image)(resources.GetObject("maxToolStripButton.Image")));
-			this.maxToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
 			this.maxToolStripButton.Name = "maxToolStripButton";
 			this.maxToolStripButton.Size = new System.Drawing.Size(23, 22);
-			this.maxToolStripButton.Text = "1";
 			this.maxToolStripButton.ToolTipText = "最大化";
 			// 
 			// closeToolStripButton
 			// 
-			this.closeToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+			this.closeToolStripButton.BackColor = System.Drawing.SystemColors.Control;
+			this.closeToolStripButton.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("closeToolStripButton.BackgroundImage")));
+			this.closeToolStripButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+			this.closeToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
 			this.closeToolStripButton.Font = new System.Drawing.Font("Marlett", 9F);
+			this.closeToolStripButton.ForeColor = System.Drawing.Color.Black;
 			this.closeToolStripButton.Image = ((System.Drawing.Image)(resources.GetObject("closeToolStripButton.Image")));
-			this.closeToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
 			this.closeToolStripButton.Name = "closeToolStripButton";
 			this.closeToolStripButton.Size = new System.Drawing.Size(23, 22);
-			this.closeToolStripButton.Text = "r";
 			this.closeToolStripButton.ToolTipText = "閉じる";
 			// 
 			// statusBar
@@ -278,6 +282,12 @@ namespace PeerstPlayer.Forms.Setting
 			this.muteToolStripMenuItem.Size = new System.Drawing.Size(184, 22);
 			this.muteToolStripMenuItem.Text = "ミュート";
 			// 
+			// bumpToolStripMenuItem
+			// 
+			this.bumpToolStripMenuItem.Name = "bumpToolStripMenuItem";
+			this.bumpToolStripMenuItem.Size = new System.Drawing.Size(184, 22);
+			this.bumpToolStripMenuItem.Text = "Bump(再接続)";
+			// 
 			// settingToolStripMenuItem
 			// 
 			this.settingToolStripMenuItem.Name = "settingToolStripMenuItem";
@@ -294,12 +304,6 @@ namespace PeerstPlayer.Forms.Setting
 			this.wmpMenuToolStripMenuItem.Name = "wmpMenuToolStripMenuItem";
 			this.wmpMenuToolStripMenuItem.Size = new System.Drawing.Size(153, 22);
 			this.wmpMenuToolStripMenuItem.Text = "WMPメニュー";
-			// 
-			// bumpToolStripMenuItem
-			// 
-			this.bumpToolStripMenuItem.Name = "bumpToolStripMenuItem";
-			this.bumpToolStripMenuItem.Size = new System.Drawing.Size(184, 22);
-			this.bumpToolStripMenuItem.Text = "Bump(再接続)";
 			// 
 			// PlayerView
 			// 

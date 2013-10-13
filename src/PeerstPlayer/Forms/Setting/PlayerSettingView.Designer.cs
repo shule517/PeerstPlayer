@@ -33,30 +33,28 @@ namespace PeerstPlayer.Forms.Setting
 			this.tabControl = new System.Windows.Forms.TabControl();
 			this.settingPage = new System.Windows.Forms.TabPage();
 			this.windowGroupBox = new System.Windows.Forms.GroupBox();
+			this.volumeLabel = new System.Windows.Forms.Label();
 			this.aspectRateFixCheckBox = new System.Windows.Forms.CheckBox();
 			this.windowSnapEnableCheckBox = new System.Windows.Forms.CheckBox();
-			this.volumeGroupBox = new System.Windows.Forms.GroupBox();
-			this.volumeLabel = new System.Windows.Forms.Label();
 			this.initGroupBox = new System.Windows.Forms.GroupBox();
 			this.writeFieldVisibleCheckBox = new System.Windows.Forms.CheckBox();
 			this.topMostCheckBox = new System.Windows.Forms.CheckBox();
 			this.closeGroupBox = new System.Windows.Forms.GroupBox();
 			this.disconnectRealyOnCloseCheckBox = new System.Windows.Forms.CheckBox();
 			this.statusBarGroupBox = new System.Windows.Forms.GroupBox();
-			this.statusBarLabel = new System.Windows.Forms.Label();
+			this.displayBitrateCheckBox = new System.Windows.Forms.CheckBox();
+			this.displayFpsCheckBox = new System.Windows.Forms.CheckBox();
 			this.shortcutPage = new System.Windows.Forms.TabPage();
 			this.keyLabel = new System.Windows.Forms.Label();
 			this.shortcutListView = new PeerstLib.Controls.BufferedListView();
 			this.commandColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
 			this.shortcutColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
 			this.gestureColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-			this.mouseGesturePage = new System.Windows.Forms.TabPage();
 			this.saveButton = new System.Windows.Forms.Button();
 			this.cancelButton = new System.Windows.Forms.Button();
 			this.tabControl.SuspendLayout();
 			this.settingPage.SuspendLayout();
 			this.windowGroupBox.SuspendLayout();
-			this.volumeGroupBox.SuspendLayout();
 			this.initGroupBox.SuspendLayout();
 			this.closeGroupBox.SuspendLayout();
 			this.statusBarGroupBox.SuspendLayout();
@@ -70,7 +68,6 @@ namespace PeerstPlayer.Forms.Setting
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.tabControl.Controls.Add(this.settingPage);
 			this.tabControl.Controls.Add(this.shortcutPage);
-			this.tabControl.Controls.Add(this.mouseGesturePage);
 			this.tabControl.Location = new System.Drawing.Point(0, 0);
 			this.tabControl.Name = "tabControl";
 			this.tabControl.SelectedIndex = 0;
@@ -80,7 +77,6 @@ namespace PeerstPlayer.Forms.Setting
 			// settingPage
 			// 
 			this.settingPage.Controls.Add(this.windowGroupBox);
-			this.settingPage.Controls.Add(this.volumeGroupBox);
 			this.settingPage.Controls.Add(this.initGroupBox);
 			this.settingPage.Controls.Add(this.closeGroupBox);
 			this.settingPage.Controls.Add(this.statusBarGroupBox);
@@ -94,14 +90,24 @@ namespace PeerstPlayer.Forms.Setting
 			// 
 			// windowGroupBox
 			// 
+			this.windowGroupBox.Controls.Add(this.volumeLabel);
 			this.windowGroupBox.Controls.Add(this.aspectRateFixCheckBox);
 			this.windowGroupBox.Controls.Add(this.windowSnapEnableCheckBox);
 			this.windowGroupBox.Location = new System.Drawing.Point(8, 10);
 			this.windowGroupBox.Name = "windowGroupBox";
-			this.windowGroupBox.Size = new System.Drawing.Size(200, 74);
+			this.windowGroupBox.Size = new System.Drawing.Size(200, 125);
 			this.windowGroupBox.TabIndex = 4;
 			this.windowGroupBox.TabStop = false;
 			this.windowGroupBox.Text = "ウィンドウ";
+			// 
+			// volumeLabel
+			// 
+			this.volumeLabel.AutoSize = true;
+			this.volumeLabel.Location = new System.Drawing.Point(7, 66);
+			this.volumeLabel.Name = "volumeLabel";
+			this.volumeLabel.Size = new System.Drawing.Size(89, 12);
+			this.volumeLabel.TabIndex = 6;
+			this.volumeLabel.Text = "動画再生開始時";
 			// 
 			// aspectRateFixCheckBox
 			// 
@@ -109,9 +115,9 @@ namespace PeerstPlayer.Forms.Setting
 			this.aspectRateFixCheckBox.Enabled = false;
 			this.aspectRateFixCheckBox.Location = new System.Drawing.Point(9, 40);
 			this.aspectRateFixCheckBox.Name = "aspectRateFixCheckBox";
-			this.aspectRateFixCheckBox.Size = new System.Drawing.Size(104, 16);
+			this.aspectRateFixCheckBox.Size = new System.Drawing.Size(113, 16);
 			this.aspectRateFixCheckBox.TabIndex = 8;
-			this.aspectRateFixCheckBox.Text = "アスペクト比固定";
+			this.aspectRateFixCheckBox.Text = "アスペクト比を維持";
 			this.aspectRateFixCheckBox.UseVisualStyleBackColor = true;
 			// 
 			// windowSnapEnableCheckBox
@@ -124,32 +130,13 @@ namespace PeerstPlayer.Forms.Setting
 			this.windowSnapEnableCheckBox.Text = "ウィンドウスナップ有効";
 			this.windowSnapEnableCheckBox.UseVisualStyleBackColor = true;
 			// 
-			// volumeGroupBox
-			// 
-			this.volumeGroupBox.Controls.Add(this.volumeLabel);
-			this.volumeGroupBox.Location = new System.Drawing.Point(216, 90);
-			this.volumeGroupBox.Name = "volumeGroupBox";
-			this.volumeGroupBox.Size = new System.Drawing.Size(200, 74);
-			this.volumeGroupBox.TabIndex = 3;
-			this.volumeGroupBox.TabStop = false;
-			this.volumeGroupBox.Text = "音量";
-			// 
-			// volumeLabel
-			// 
-			this.volumeLabel.AutoSize = true;
-			this.volumeLabel.Location = new System.Drawing.Point(6, 19);
-			this.volumeLabel.Name = "volumeLabel";
-			this.volumeLabel.Size = new System.Drawing.Size(53, 12);
-			this.volumeLabel.TabIndex = 6;
-			this.volumeLabel.Text = "※未実装";
-			// 
 			// initGroupBox
 			// 
 			this.initGroupBox.Controls.Add(this.writeFieldVisibleCheckBox);
 			this.initGroupBox.Controls.Add(this.topMostCheckBox);
-			this.initGroupBox.Location = new System.Drawing.Point(8, 90);
+			this.initGroupBox.Location = new System.Drawing.Point(8, 158);
 			this.initGroupBox.Name = "initGroupBox";
-			this.initGroupBox.Size = new System.Drawing.Size(200, 74);
+			this.initGroupBox.Size = new System.Drawing.Size(200, 64);
 			this.initGroupBox.TabIndex = 2;
 			this.initGroupBox.TabStop = false;
 			this.initGroupBox.Text = "初期表示";
@@ -177,9 +164,9 @@ namespace PeerstPlayer.Forms.Setting
 			// closeGroupBox
 			// 
 			this.closeGroupBox.Controls.Add(this.disconnectRealyOnCloseCheckBox);
-			this.closeGroupBox.Location = new System.Drawing.Point(8, 170);
+			this.closeGroupBox.Location = new System.Drawing.Point(8, 228);
 			this.closeGroupBox.Name = "closeGroupBox";
-			this.closeGroupBox.Size = new System.Drawing.Size(200, 74);
+			this.closeGroupBox.Size = new System.Drawing.Size(200, 43);
 			this.closeGroupBox.TabIndex = 1;
 			this.closeGroupBox.TabStop = false;
 			this.closeGroupBox.Text = "終了時";
@@ -196,22 +183,34 @@ namespace PeerstPlayer.Forms.Setting
 			// 
 			// statusBarGroupBox
 			// 
-			this.statusBarGroupBox.Controls.Add(this.statusBarLabel);
+			this.statusBarGroupBox.Controls.Add(this.displayBitrateCheckBox);
+			this.statusBarGroupBox.Controls.Add(this.displayFpsCheckBox);
 			this.statusBarGroupBox.Location = new System.Drawing.Point(216, 10);
 			this.statusBarGroupBox.Name = "statusBarGroupBox";
-			this.statusBarGroupBox.Size = new System.Drawing.Size(200, 74);
+			this.statusBarGroupBox.Size = new System.Drawing.Size(200, 67);
 			this.statusBarGroupBox.TabIndex = 0;
 			this.statusBarGroupBox.TabStop = false;
 			this.statusBarGroupBox.Text = "ステータスバー";
 			// 
-			// statusBarLabel
+			// displayBitrateCheckBox
 			// 
-			this.statusBarLabel.AutoSize = true;
-			this.statusBarLabel.Location = new System.Drawing.Point(6, 19);
-			this.statusBarLabel.Name = "statusBarLabel";
-			this.statusBarLabel.Size = new System.Drawing.Size(53, 12);
-			this.statusBarLabel.TabIndex = 5;
-			this.statusBarLabel.Text = "※未実装";
+			this.displayBitrateCheckBox.AutoSize = true;
+			this.displayBitrateCheckBox.Location = new System.Drawing.Point(8, 44);
+			this.displayBitrateCheckBox.Name = "displayBitrateCheckBox";
+			this.displayBitrateCheckBox.Size = new System.Drawing.Size(107, 16);
+			this.displayBitrateCheckBox.TabIndex = 10;
+			this.displayBitrateCheckBox.Text = "ビットレートを表示";
+			this.displayBitrateCheckBox.UseVisualStyleBackColor = true;
+			// 
+			// displayFpsCheckBox
+			// 
+			this.displayFpsCheckBox.AutoSize = true;
+			this.displayFpsCheckBox.Location = new System.Drawing.Point(8, 22);
+			this.displayFpsCheckBox.Name = "displayFpsCheckBox";
+			this.displayFpsCheckBox.Size = new System.Drawing.Size(78, 16);
+			this.displayFpsCheckBox.TabIndex = 9;
+			this.displayFpsCheckBox.Text = "FPSを表示";
+			this.displayFpsCheckBox.UseVisualStyleBackColor = true;
 			// 
 			// shortcutPage
 			// 
@@ -270,15 +269,6 @@ namespace PeerstPlayer.Forms.Setting
 			this.gestureColumnHeader.Text = "マウスジェスチャ";
 			this.gestureColumnHeader.Width = 127;
 			// 
-			// mouseGesturePage
-			// 
-			this.mouseGesturePage.Location = new System.Drawing.Point(4, 22);
-			this.mouseGesturePage.Name = "mouseGesturePage";
-			this.mouseGesturePage.Size = new System.Drawing.Size(423, 253);
-			this.mouseGesturePage.TabIndex = 2;
-			this.mouseGesturePage.Text = "イベント登録";
-			this.mouseGesturePage.UseVisualStyleBackColor = true;
-			// 
 			// saveButton
 			// 
 			this.saveButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
@@ -317,8 +307,6 @@ namespace PeerstPlayer.Forms.Setting
 			this.settingPage.ResumeLayout(false);
 			this.windowGroupBox.ResumeLayout(false);
 			this.windowGroupBox.PerformLayout();
-			this.volumeGroupBox.ResumeLayout(false);
-			this.volumeGroupBox.PerformLayout();
 			this.initGroupBox.ResumeLayout(false);
 			this.initGroupBox.PerformLayout();
 			this.closeGroupBox.ResumeLayout(false);
@@ -336,11 +324,9 @@ namespace PeerstPlayer.Forms.Setting
 		private System.Windows.Forms.TabControl tabControl;
 		private System.Windows.Forms.TabPage settingPage;
 		private System.Windows.Forms.TabPage shortcutPage;
-		private System.Windows.Forms.TabPage mouseGesturePage;
 		private System.Windows.Forms.Button saveButton;
 		private System.Windows.Forms.Button cancelButton;
 		private System.Windows.Forms.GroupBox windowGroupBox;
-		private System.Windows.Forms.GroupBox volumeGroupBox;
 		private System.Windows.Forms.GroupBox initGroupBox;
 		private System.Windows.Forms.GroupBox closeGroupBox;
 		private System.Windows.Forms.GroupBox statusBarGroupBox;
@@ -354,8 +340,9 @@ namespace PeerstPlayer.Forms.Setting
 		private System.Windows.Forms.ColumnHeader shortcutColumnHeader;
 		private System.Windows.Forms.Label keyLabel;
 		private System.Windows.Forms.Label volumeLabel;
-		private System.Windows.Forms.Label statusBarLabel;
 		private System.Windows.Forms.ColumnHeader gestureColumnHeader;
+		private System.Windows.Forms.CheckBox displayBitrateCheckBox;
+		private System.Windows.Forms.CheckBox displayFpsCheckBox;
 
 	}
 }
