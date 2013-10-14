@@ -61,12 +61,12 @@ namespace PeerstPlayer.Forms.Setting
 			// イベントの初期化
 			InitEvent();
 
-			// 設定の読み込み
-			LoadSetting();
-
 			Shown += (senderObject, eventArg) =>
 			{
 				Logger.Instance.InfoFormat("画面表示 - Shownイベント開始");
+
+				// 設定の読み込み
+				LoadSetting();
 
 				// チャンネル名設定後、画面表示
 				Application.DoEvents();
