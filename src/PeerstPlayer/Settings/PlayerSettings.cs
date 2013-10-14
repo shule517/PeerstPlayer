@@ -92,6 +92,15 @@ namespace PeerstPlayer.Forms.Player
 			set { info.DisplayBitrate = value; }
 		}
 
+		/// <summary>
+		/// 初期音量
+		/// </summary>
+		public static int InitVolume
+		{
+			get { return info.InitVolume; }
+			set { info.InitVolume = value; }
+		}
+
 		static PlayerSettings()
 		{
 		}

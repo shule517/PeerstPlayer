@@ -110,6 +110,9 @@ namespace PeerstPlayer.Forms.Setting
 
 			// 最前列表示
 			TopMost = PlayerSettings.TopMost;
+
+			// 初期音量設定
+			pecaPlayer.Volume = PlayerSettings.InitVolume;
 		}
 
 		//-------------------------------------------------------------

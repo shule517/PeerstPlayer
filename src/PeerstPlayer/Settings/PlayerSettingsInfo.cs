@@ -46,6 +46,11 @@ namespace PeerstPlayer.Settings
 		/// </summary>
 		public bool DisplayBitrate = true;
 
+		/// <summary>
+		/// 初期音量
+		/// </summary>
+		public int InitVolume = 50;
+
 		// - ステータスバーフォント : Font
 		// - ステータスバー表示項目 : List
 		// - 終了時位置保存 : boolean

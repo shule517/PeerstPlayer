@@ -33,7 +33,7 @@ namespace PeerstPlayer.Forms.Setting
 			this.tabControl = new System.Windows.Forms.TabControl();
 			this.settingPage = new System.Windows.Forms.TabPage();
 			this.windowGroupBox = new System.Windows.Forms.GroupBox();
-			this.volumeLabel = new System.Windows.Forms.Label();
+			this.initVolumeLabel = new System.Windows.Forms.Label();
 			this.aspectRateFixCheckBox = new System.Windows.Forms.CheckBox();
 			this.windowSnapEnableCheckBox = new System.Windows.Forms.CheckBox();
 			this.initGroupBox = new System.Windows.Forms.GroupBox();
@@ -52,6 +52,7 @@ namespace PeerstPlayer.Forms.Setting
 			this.gestureColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
 			this.saveButton = new System.Windows.Forms.Button();
 			this.cancelButton = new System.Windows.Forms.Button();
+			this.initVolumeTextBox = new System.Windows.Forms.TextBox();
 			this.tabControl.SuspendLayout();
 			this.settingPage.SuspendLayout();
 			this.windowGroupBox.SuspendLayout();
@@ -90,7 +91,6 @@ namespace PeerstPlayer.Forms.Setting
 			// 
 			// windowGroupBox
 			// 
-			this.windowGroupBox.Controls.Add(this.volumeLabel);
 			this.windowGroupBox.Controls.Add(this.aspectRateFixCheckBox);
 			this.windowGroupBox.Controls.Add(this.windowSnapEnableCheckBox);
 			this.windowGroupBox.Location = new System.Drawing.Point(8, 10);
@@ -100,14 +100,14 @@ namespace PeerstPlayer.Forms.Setting
 			this.windowGroupBox.TabStop = false;
 			this.windowGroupBox.Text = "ウィンドウ";
 			// 
-			// volumeLabel
+			// initVolumeLabel
 			// 
-			this.volumeLabel.AutoSize = true;
-			this.volumeLabel.Location = new System.Drawing.Point(7, 66);
-			this.volumeLabel.Name = "volumeLabel";
-			this.volumeLabel.Size = new System.Drawing.Size(89, 12);
-			this.volumeLabel.TabIndex = 6;
-			this.volumeLabel.Text = "動画再生開始時";
+			this.initVolumeLabel.AutoSize = true;
+			this.initVolumeLabel.Location = new System.Drawing.Point(7, 65);
+			this.initVolumeLabel.Name = "initVolumeLabel";
+			this.initVolumeLabel.Size = new System.Drawing.Size(59, 12);
+			this.initVolumeLabel.TabIndex = 6;
+			this.initVolumeLabel.Text = "初期音量：";
 			// 
 			// aspectRateFixCheckBox
 			// 
@@ -131,11 +131,13 @@ namespace PeerstPlayer.Forms.Setting
 			// 
 			// initGroupBox
 			// 
+			this.initGroupBox.Controls.Add(this.initVolumeLabel);
+			this.initGroupBox.Controls.Add(this.initVolumeTextBox);
 			this.initGroupBox.Controls.Add(this.writeFieldVisibleCheckBox);
 			this.initGroupBox.Controls.Add(this.topMostCheckBox);
 			this.initGroupBox.Location = new System.Drawing.Point(8, 158);
 			this.initGroupBox.Name = "initGroupBox";
-			this.initGroupBox.Size = new System.Drawing.Size(200, 64);
+			this.initGroupBox.Size = new System.Drawing.Size(200, 111);
 			this.initGroupBox.TabIndex = 2;
 			this.initGroupBox.TabStop = false;
 			this.initGroupBox.Text = "初期表示";
@@ -163,7 +165,7 @@ namespace PeerstPlayer.Forms.Setting
 			// closeGroupBox
 			// 
 			this.closeGroupBox.Controls.Add(this.disconnectRealyOnCloseCheckBox);
-			this.closeGroupBox.Location = new System.Drawing.Point(8, 228);
+			this.closeGroupBox.Location = new System.Drawing.Point(8, 275);
 			this.closeGroupBox.Name = "closeGroupBox";
 			this.closeGroupBox.Size = new System.Drawing.Size(200, 43);
 			this.closeGroupBox.TabIndex = 1;
@@ -290,6 +292,14 @@ namespace PeerstPlayer.Forms.Setting
 			this.cancelButton.UseVisualStyleBackColor = true;
 			this.cancelButton.Click += new System.EventHandler(this.cancelButton_Click);
 			// 
+			// initVolumeTextBox
+			// 
+			this.initVolumeTextBox.Location = new System.Drawing.Point(72, 62);
+			this.initVolumeTextBox.Name = "initVolumeTextBox";
+			this.initVolumeTextBox.Size = new System.Drawing.Size(35, 19);
+			this.initVolumeTextBox.TabIndex = 10;
+			this.initVolumeTextBox.Text = "50";
+			// 
 			// PlayerSettingView
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -338,10 +348,11 @@ namespace PeerstPlayer.Forms.Setting
 		private System.Windows.Forms.ColumnHeader commandColumnHeader;
 		private System.Windows.Forms.ColumnHeader shortcutColumnHeader;
 		private System.Windows.Forms.Label keyLabel;
-		private System.Windows.Forms.Label volumeLabel;
+		private System.Windows.Forms.Label initVolumeLabel;
 		private System.Windows.Forms.ColumnHeader gestureColumnHeader;
 		private System.Windows.Forms.CheckBox displayBitrateCheckBox;
 		private System.Windows.Forms.CheckBox displayFpsCheckBox;
+		private System.Windows.Forms.TextBox initVolumeTextBox;
 
 	}
 }

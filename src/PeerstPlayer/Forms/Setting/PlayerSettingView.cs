@@ -34,6 +34,7 @@ namespace PeerstPlayer.Forms.Setting
 				aspectRateFixCheckBox.Checked = PlayerSettings.AspectRateFix;
 				topMostCheckBox.Checked = PlayerSettings.TopMost;
 				writeFieldVisibleCheckBox.Checked = PlayerSettings.WriteFieldVisible;
+				initVolumeTextBox.Text = PlayerSettings.InitVolume.ToString();
 
 				// チェックボックスの設定(ステータスバー)
 				displayFpsCheckBox.Checked = PlayerSettings.DisplayFps;
@@ -235,6 +236,13 @@ namespace PeerstPlayer.Forms.Setting
 			PlayerSettings.AspectRateFix = aspectRateFixCheckBox.Checked;
 			PlayerSettings.TopMost = topMostCheckBox.Checked;
 			PlayerSettings.WriteFieldVisible = writeFieldVisibleCheckBox.Checked;
+
+			// 初期音量
+			int initVolume = 0;
+			if (int.TryParse(initVolumeTextBox.Text, out initVolume))
+			{
+				PlayerSettings.InitVolume = initVolume;
+			}
 	
 			// チェックボックスの設定(ステータスバー)
 			PlayerSettings.DisplayFps = displayFpsCheckBox.Checked;
