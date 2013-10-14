@@ -62,6 +62,7 @@ namespace PeerstPlayer.Forms.Setting
 			this.settingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
 			this.wmpMenuToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.openViewerToolStripButton = new System.Windows.Forms.ToolStripButton();
 			this.toolStrip.SuspendLayout();
 			this.contextMenuStrip.SuspendLayout();
 			this.SuspendLayout();
@@ -74,14 +75,15 @@ namespace PeerstPlayer.Forms.Setting
 			this.toolStrip.Dock = System.Windows.Forms.DockStyle.None;
 			this.toolStrip.GripMargin = new System.Windows.Forms.Padding(0);
 			this.toolStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.openViewerToolStripButton,
             this.minToolStripButton,
             this.maxToolStripButton,
             this.closeToolStripButton});
-			this.toolStrip.Location = new System.Drawing.Point(373, 0);
+			this.toolStrip.Location = new System.Drawing.Point(381, 0);
 			this.toolStrip.Name = "toolStrip";
 			this.toolStrip.Padding = new System.Windows.Forms.Padding(0);
 			this.toolStrip.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
-			this.toolStrip.Size = new System.Drawing.Size(107, 25);
+			this.toolStrip.Size = new System.Drawing.Size(99, 25);
 			this.toolStrip.TabIndex = 3;
 			// 
 			// minToolStripButton
@@ -110,7 +112,6 @@ namespace PeerstPlayer.Forms.Setting
 			// closeToolStripButton
 			// 
 			this.closeToolStripButton.BackColor = System.Drawing.SystemColors.Control;
-			this.closeToolStripButton.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("closeToolStripButton.BackgroundImage")));
 			this.closeToolStripButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
 			this.closeToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
 			this.closeToolStripButton.Font = new System.Drawing.Font("Marlett", 9F);
@@ -305,6 +306,18 @@ namespace PeerstPlayer.Forms.Setting
 			this.wmpMenuToolStripMenuItem.Size = new System.Drawing.Size(153, 22);
 			this.wmpMenuToolStripMenuItem.Text = "WMPメニュー";
 			// 
+			// openViewerToolStripButton
+			// 
+			this.openViewerToolStripButton.BackColor = System.Drawing.SystemColors.Control;
+			this.openViewerToolStripButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+			this.openViewerToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+			this.openViewerToolStripButton.Font = new System.Drawing.Font("Marlett", 9F);
+			this.openViewerToolStripButton.ForeColor = System.Drawing.Color.Black;
+			this.openViewerToolStripButton.Image = ((System.Drawing.Image)(resources.GetObject("openViewerToolStripButton.Image")));
+			this.openViewerToolStripButton.Name = "openViewerToolStripButton";
+			this.openViewerToolStripButton.Size = new System.Drawing.Size(23, 22);
+			this.openViewerToolStripButton.ToolTipText = "Viewerを開く";
+			// 
 			// PlayerView
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -356,6 +369,7 @@ namespace PeerstPlayer.Forms.Setting
 		private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
 		private System.Windows.Forms.ToolStripMenuItem fitMovieSizeToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem bumpToolStripMenuItem;
+		private System.Windows.Forms.ToolStripButton openViewerToolStripButton;
 	}
 }
 

@@ -123,6 +123,8 @@ namespace PeerstPlayer.Forms.Setting
 		//-------------------------------------------------------------
 		private void InitEvent()
 		{
+			// スレッドビューワを開く
+			openViewerToolStripButton.Click += (sender, e) => shortcut.ExecCommand(Commands.OpenPeerstViewer);
 			// 最小化ボタン
 			minToolStripButton.Click += (sender, e) => shortcut.RaiseEvent(ShortcutEvents.MinButtonClick);
 			// 最大化ボタン
