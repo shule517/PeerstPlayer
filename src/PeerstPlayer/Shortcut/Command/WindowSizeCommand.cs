@@ -23,7 +23,7 @@ namespace PeerstPlayer.Shortcut.Command
 		{
 			WindowSizeCommandArgs args = (WindowSizeCommandArgs)commandArgs;
 			Size size = args.Size;
-			form.Size = new Size(size.Width, size.Height);
+			pecaPlayer.SetSize(size.Width, size.Height);
 		}
 
 		string IShortcutCommand.GetDetail(CommandArgs commandArgs)
