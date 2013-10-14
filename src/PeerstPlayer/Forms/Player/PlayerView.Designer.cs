@@ -34,6 +34,7 @@ namespace PeerstPlayer.Forms.Setting
 			this.components = new System.ComponentModel.Container();
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(PlayerView));
 			this.toolStrip = new PeerstLib.Controls.ToolStripEx();
+			this.openViewerToolStripButton = new System.Windows.Forms.ToolStripButton();
 			this.minToolStripButton = new System.Windows.Forms.ToolStripButton();
 			this.maxToolStripButton = new System.Windows.Forms.ToolStripButton();
 			this.closeToolStripButton = new System.Windows.Forms.ToolStripButton();
@@ -54,6 +55,16 @@ namespace PeerstPlayer.Forms.Setting
 			this.size800x600ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
 			this.fitMovieSizeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.画面分割ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.screenSplitWidthx5ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.screenSplitWidthx4ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.screenSplitWidthx3ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.screenSplitWidthx2ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
+			this.screenSplitHeightx5ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.screenSplitHeightx4ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.screenSplitHeightx3ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.screenSplitHeightx2ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.functionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.topMostToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.updateChannelInfoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -62,7 +73,6 @@ namespace PeerstPlayer.Forms.Setting
 			this.settingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
 			this.wmpMenuToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.openViewerToolStripButton = new System.Windows.Forms.ToolStripButton();
 			this.toolStrip.SuspendLayout();
 			this.contextMenuStrip.SuspendLayout();
 			this.SuspendLayout();
@@ -85,6 +95,18 @@ namespace PeerstPlayer.Forms.Setting
 			this.toolStrip.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
 			this.toolStrip.Size = new System.Drawing.Size(99, 25);
 			this.toolStrip.TabIndex = 3;
+			// 
+			// openViewerToolStripButton
+			// 
+			this.openViewerToolStripButton.BackColor = System.Drawing.SystemColors.Control;
+			this.openViewerToolStripButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+			this.openViewerToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+			this.openViewerToolStripButton.Font = new System.Drawing.Font("Marlett", 9F);
+			this.openViewerToolStripButton.ForeColor = System.Drawing.Color.Black;
+			this.openViewerToolStripButton.Image = ((System.Drawing.Image)(resources.GetObject("openViewerToolStripButton.Image")));
+			this.openViewerToolStripButton.Name = "openViewerToolStripButton";
+			this.openViewerToolStripButton.Size = new System.Drawing.Size(23, 22);
+			this.openViewerToolStripButton.ToolTipText = "Viewerを開く";
 			// 
 			// minToolStripButton
 			// 
@@ -151,12 +173,13 @@ namespace PeerstPlayer.Forms.Setting
 			// 
 			this.contextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.SizeToolStripMenuItem,
+            this.画面分割ToolStripMenuItem,
             this.functionToolStripMenuItem,
             this.settingToolStripMenuItem,
             this.toolStripSeparator2,
             this.wmpMenuToolStripMenuItem});
 			this.contextMenuStrip.Name = "contextMenuStrip";
-			this.contextMenuStrip.Size = new System.Drawing.Size(154, 98);
+			this.contextMenuStrip.Size = new System.Drawing.Size(154, 120);
 			// 
 			// SizeToolStripMenuItem
 			// 
@@ -254,6 +277,75 @@ namespace PeerstPlayer.Forms.Setting
 			this.fitMovieSizeToolStripMenuItem.Size = new System.Drawing.Size(160, 22);
 			this.fitMovieSizeToolStripMenuItem.Text = "動画に合わせる";
 			// 
+			// 画面分割ToolStripMenuItem
+			// 
+			this.画面分割ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.screenSplitWidthx5ToolStripMenuItem,
+            this.screenSplitWidthx4ToolStripMenuItem,
+            this.screenSplitWidthx3ToolStripMenuItem,
+            this.screenSplitWidthx2ToolStripMenuItem,
+            this.toolStripSeparator3,
+            this.screenSplitHeightx5ToolStripMenuItem,
+            this.screenSplitHeightx4ToolStripMenuItem,
+            this.screenSplitHeightx3ToolStripMenuItem,
+            this.screenSplitHeightx2ToolStripMenuItem});
+			this.画面分割ToolStripMenuItem.Name = "画面分割ToolStripMenuItem";
+			this.画面分割ToolStripMenuItem.Size = new System.Drawing.Size(153, 22);
+			this.画面分割ToolStripMenuItem.Text = "画面分割";
+			// 
+			// screenSplitWidthx5ToolStripMenuItem
+			// 
+			this.screenSplitWidthx5ToolStripMenuItem.Name = "screenSplitWidthx5ToolStripMenuItem";
+			this.screenSplitWidthx5ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+			this.screenSplitWidthx5ToolStripMenuItem.Text = "幅：5分の1";
+			// 
+			// screenSplitWidthx4ToolStripMenuItem
+			// 
+			this.screenSplitWidthx4ToolStripMenuItem.Name = "screenSplitWidthx4ToolStripMenuItem";
+			this.screenSplitWidthx4ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+			this.screenSplitWidthx4ToolStripMenuItem.Text = "幅：4分の1";
+			// 
+			// screenSplitWidthx3ToolStripMenuItem
+			// 
+			this.screenSplitWidthx3ToolStripMenuItem.Name = "screenSplitWidthx3ToolStripMenuItem";
+			this.screenSplitWidthx3ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+			this.screenSplitWidthx3ToolStripMenuItem.Text = "幅：3分の1";
+			// 
+			// screenSplitWidthx2ToolStripMenuItem
+			// 
+			this.screenSplitWidthx2ToolStripMenuItem.Name = "screenSplitWidthx2ToolStripMenuItem";
+			this.screenSplitWidthx2ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+			this.screenSplitWidthx2ToolStripMenuItem.Text = "幅：2分の1";
+			// 
+			// toolStripSeparator3
+			// 
+			this.toolStripSeparator3.Name = "toolStripSeparator3";
+			this.toolStripSeparator3.Size = new System.Drawing.Size(149, 6);
+			// 
+			// screenSplitHeightx5ToolStripMenuItem
+			// 
+			this.screenSplitHeightx5ToolStripMenuItem.Name = "screenSplitHeightx5ToolStripMenuItem";
+			this.screenSplitHeightx5ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+			this.screenSplitHeightx5ToolStripMenuItem.Text = "高さ：5分の1";
+			// 
+			// screenSplitHeightx4ToolStripMenuItem
+			// 
+			this.screenSplitHeightx4ToolStripMenuItem.Name = "screenSplitHeightx4ToolStripMenuItem";
+			this.screenSplitHeightx4ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+			this.screenSplitHeightx4ToolStripMenuItem.Text = "高さ：4分の1";
+			// 
+			// screenSplitHeightx3ToolStripMenuItem
+			// 
+			this.screenSplitHeightx3ToolStripMenuItem.Name = "screenSplitHeightx3ToolStripMenuItem";
+			this.screenSplitHeightx3ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+			this.screenSplitHeightx3ToolStripMenuItem.Text = "高さ：3分の1";
+			// 
+			// screenSplitHeightx2ToolStripMenuItem
+			// 
+			this.screenSplitHeightx2ToolStripMenuItem.Name = "screenSplitHeightx2ToolStripMenuItem";
+			this.screenSplitHeightx2ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+			this.screenSplitHeightx2ToolStripMenuItem.Text = "高さ：2分の1";
+			// 
 			// functionToolStripMenuItem
 			// 
 			this.functionToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -305,18 +397,6 @@ namespace PeerstPlayer.Forms.Setting
 			this.wmpMenuToolStripMenuItem.Name = "wmpMenuToolStripMenuItem";
 			this.wmpMenuToolStripMenuItem.Size = new System.Drawing.Size(153, 22);
 			this.wmpMenuToolStripMenuItem.Text = "WMPメニュー";
-			// 
-			// openViewerToolStripButton
-			// 
-			this.openViewerToolStripButton.BackColor = System.Drawing.SystemColors.Control;
-			this.openViewerToolStripButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-			this.openViewerToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-			this.openViewerToolStripButton.Font = new System.Drawing.Font("Marlett", 9F);
-			this.openViewerToolStripButton.ForeColor = System.Drawing.Color.Black;
-			this.openViewerToolStripButton.Image = ((System.Drawing.Image)(resources.GetObject("openViewerToolStripButton.Image")));
-			this.openViewerToolStripButton.Name = "openViewerToolStripButton";
-			this.openViewerToolStripButton.Size = new System.Drawing.Size(23, 22);
-			this.openViewerToolStripButton.ToolTipText = "Viewerを開く";
 			// 
 			// PlayerView
 			// 
@@ -370,6 +450,16 @@ namespace PeerstPlayer.Forms.Setting
 		private System.Windows.Forms.ToolStripMenuItem fitMovieSizeToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem bumpToolStripMenuItem;
 		private System.Windows.Forms.ToolStripButton openViewerToolStripButton;
+		private System.Windows.Forms.ToolStripMenuItem 画面分割ToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem screenSplitWidthx5ToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem screenSplitWidthx4ToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem screenSplitWidthx3ToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem screenSplitWidthx2ToolStripMenuItem;
+		private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
+		private System.Windows.Forms.ToolStripMenuItem screenSplitHeightx5ToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem screenSplitHeightx4ToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem screenSplitHeightx3ToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem screenSplitHeightx2ToolStripMenuItem;
 	}
 }
 

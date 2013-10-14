@@ -409,6 +409,16 @@ namespace PeerstPlayer.Forms.Setting
 			size800x600ToolStripMenuItem.Click += (sender, e) => shortcut.ExecCommand(Commands.WindowSize800x600);
 			fitMovieSizeToolStripMenuItem.Click += (sender, e) => shortcut.ExecCommand(Commands.FitMovieSize);
 
+			// 画面分割
+			screenSplitWidthx5ToolStripMenuItem.Click += (sender, e) => shortcut.ExecCommand(Commands.ScreenSplitWidthx5);
+			screenSplitWidthx4ToolStripMenuItem.Click += (sender, e) => shortcut.ExecCommand(Commands.ScreenSplitWidthx4);
+			screenSplitWidthx3ToolStripMenuItem.Click += (sender, e) => shortcut.ExecCommand(Commands.ScreenSplitWidthx3);
+			screenSplitWidthx2ToolStripMenuItem.Click += (sender, e) => shortcut.ExecCommand(Commands.ScreenSplitWidthx2);
+			screenSplitHeightx5ToolStripMenuItem.Click += (sender, e) => shortcut.ExecCommand(Commands.ScreenSplitHeightx5);
+			screenSplitHeightx4ToolStripMenuItem.Click += (sender, e) => shortcut.ExecCommand(Commands.ScreenSplitHeightx4);
+			screenSplitHeightx3ToolStripMenuItem.Click += (sender, e) => shortcut.ExecCommand(Commands.ScreenSplitHeightx3);
+			screenSplitHeightx2ToolStripMenuItem.Click += (sender, e) => shortcut.ExecCommand(Commands.ScreenSplitHeightx2);
+
 			// 機能
 			topMostToolStripMenuItem.Click += (sender, e) => shortcut.ExecCommand(Commands.TopMost);
 			updateChannelInfoToolStripMenuItem.Click += (sender, e) => shortcut.ExecCommand(Commands.UpdateChannelInfo);
