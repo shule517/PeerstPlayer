@@ -2,8 +2,9 @@
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 using PeerstLib.Controls;
+using PeerstPlayer.Forms.Player;
 
-namespace PeerstLib.Forms
+namespace PeerstPlayer.Controls.PecaPlayer
 {
 	//-------------------------------------------------------------
 	// 概要：アスペクト比維持クラス
@@ -20,13 +21,19 @@ namespace PeerstLib.Forms
 		const int WMSZ_BOTTOMLEFT = 7;
 		const int WMSZ_BOTTOMRIGHT = 8;
 
+		private Form form;
+		private PecaPlayerControl pecaPlayer;
+
 		//-------------------------------------------------------------
 		// 概要：コンストラクタ
 		//-------------------------------------------------------------
-		public AspectRateKeepWindow(IntPtr handle)
+		public AspectRateKeepWindow(Form form, PecaPlayerControl pecaPlayer)
 		{
+			this.form = form;
+			this.pecaPlayer = pecaPlayer;
+
 			// サブクラスウィンドウの設定
-			AssignHandle(handle);
+			AssignHandle(form.Handle);
 		}
 
 		//-------------------------------------------------------------
@@ -38,7 +45,10 @@ namespace PeerstLib.Forms
 			switch ((WindowMessage)m.Msg)
 			{
 				case WindowMessage.WM_SIZING:
-					KeepAspectRate(m);
+					if (PlayerSettings.AspectRateFix)
+					{
+						KeepAspectRate(m);
+					}
 					break;
 
 				default:
@@ -59,9 +69,13 @@ namespace PeerstLib.Forms
 			int right = Marshal.ReadInt32(m.LParam, 8);
 			int bottom = Marshal.ReadInt32(m.LParam, 12);
 
-			// 幅/高さの取得
-			int width = right - left;
-			int height = bottom - top;
+			// 幅・高さの取得
+			int formWidth = right - left;
+			int formHeight = bottom - top;
+
+			// フレーム幅・高さの取得
+			int frameWidth = form.Width - pecaPlayer.Width;
+			int frameHeight = form.Height - pecaPlayer.Height;
 
 			// ドラッグされている辺に応じて、新たなサイズを指定
 			switch (m.WParam.ToInt32())
@@ -71,12 +85,11 @@ namespace PeerstLib.Forms
 				// 右
 				case WMSZ_RIGHT:
 					{
-						// TODO 動画サイズに対してアスペクト比維持する
-						bottom = top + (int)(width * (800 / 600));
-						/*
-						int panelWidth = width;
-						B = T;// +(int)(panelWidth * wmp.AspectRate) + dif.Height;
-						*/
+						// 動画の幅に合わせて、フォームの高さを設定する
+						int movieWidth = formWidth - frameWidth;
+						int movieHeight = (int)(movieWidth / pecaPlayer.AspectRate);
+						int newHeight = movieHeight + frameHeight;
+						bottom = top + newHeight;
 					}
 					break;
 				// 上
@@ -84,12 +97,11 @@ namespace PeerstLib.Forms
 				// 下
 				case WMSZ_BOTTOM:
 					{
-						// TODO 動画サイズに対してアスペクト比維持する
-						right = left + (int)(height * (800 / 600));
-						/*
-						int panelHeight = height;// -(panelStatusLabel.Visible ? panelStatusLabel.Height : 0) - (panelResBox.Visible ? panelResBox.Height : 0) - (Size - ClientSize).Height;
-						R = (int)(L * 0.75);// +(int)(panelHeight * (1 / wmp.AspectRate)) + dif.Width;
-						*/
+						// 動画の高さに合わせて、フォームの幅を設定する
+						int movieHeight = formHeight - frameHeight;
+						int movieWidth = (int)(movieHeight * pecaPlayer.AspectRate);
+						int newWidth = movieWidth + frameWidth;
+						right = left + newWidth;
 					}
 					break;
 			}

@@ -60,6 +60,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controls\PecaPlayer\AspectRateKeepWindow.cs" />
     <Compile Include="Controls\PecaPlayer\ChannelAutoRetry.cs" />
     <Compile Include="Controls\MovieDetail\MovieDetail.cs">
       <SubType>UserControl</SubType>

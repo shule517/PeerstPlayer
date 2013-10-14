@@ -31,6 +31,7 @@ namespace PeerstPlayer.Forms.Setting
 				// チェックボックスの表示
 				disconnectRealyOnCloseCheckBox.Checked = PlayerSettings.DisconnectRealyOnClose;
 				windowSnapEnableCheckBox.Checked = PlayerSettings.WindowSnapEnable;
+				aspectRateFixCheckBox.Checked = PlayerSettings.AspectRateFix;
 				topMostCheckBox.Checked = PlayerSettings.TopMost;
 				writeFieldVisibleCheckBox.Checked = PlayerSettings.WriteFieldVisible;
 
@@ -231,6 +232,7 @@ namespace PeerstPlayer.Forms.Setting
 			// プレイヤー設定
 			PlayerSettings.DisconnectRealyOnClose = disconnectRealyOnCloseCheckBox.Checked;
 			PlayerSettings.WindowSnapEnable = windowSnapEnableCheckBox.Checked;
+			PlayerSettings.AspectRateFix = aspectRateFixCheckBox.Checked;
 			PlayerSettings.TopMost = topMostCheckBox.Checked;
 			PlayerSettings.WriteFieldVisible = writeFieldVisibleCheckBox.Checked;
 	
@@ -238,6 +240,7 @@ namespace PeerstPlayer.Forms.Setting
 			PlayerSettings.DisplayFps = displayFpsCheckBox.Checked;
 			PlayerSettings.DisplayBitrate = displayBitrateCheckBox.Checked;
 
+			// 設定を保存
 			PlayerSettings.Save();
 			Close();
 

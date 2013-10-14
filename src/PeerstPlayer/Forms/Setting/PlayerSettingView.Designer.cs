@@ -112,7 +112,6 @@ namespace PeerstPlayer.Forms.Setting
 			// aspectRateFixCheckBox
 			// 
 			this.aspectRateFixCheckBox.AutoSize = true;
-			this.aspectRateFixCheckBox.Enabled = false;
 			this.aspectRateFixCheckBox.Location = new System.Drawing.Point(9, 40);
 			this.aspectRateFixCheckBox.Name = "aspectRateFixCheckBox";
 			this.aspectRateFixCheckBox.Size = new System.Drawing.Size(113, 16);

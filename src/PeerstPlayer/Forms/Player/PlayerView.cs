@@ -87,6 +87,9 @@ namespace PeerstPlayer.Forms.Setting
 
 				// ウィンドウスナップ
 				new WindowSnap(this, pecaPlayer);
+
+				// アスペクト比維持
+				new AspectRateKeepWindow(this, pecaPlayer);
 			};
 		}
 

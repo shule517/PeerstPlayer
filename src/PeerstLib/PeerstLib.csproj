@@ -67,7 +67,6 @@
     <Compile Include="Controls\ToolStripEx.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Forms\AspectRateKeepWindow.cs" />
     <Compile Include="Forms\FormUtility.cs" />
     <Compile Include="Forms\MouseGesture.cs" />
     <Compile Include="Forms\Win32API.cs" />
