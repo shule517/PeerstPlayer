@@ -33,10 +33,11 @@ namespace PeerstPlayer.Forms.Setting
 			this.tabControl = new System.Windows.Forms.TabControl();
 			this.settingPage = new System.Windows.Forms.TabPage();
 			this.windowGroupBox = new System.Windows.Forms.GroupBox();
-			this.initVolumeLabel = new System.Windows.Forms.Label();
 			this.aspectRateFixCheckBox = new System.Windows.Forms.CheckBox();
 			this.windowSnapEnableCheckBox = new System.Windows.Forms.CheckBox();
 			this.initGroupBox = new System.Windows.Forms.GroupBox();
+			this.initVolumeLabel = new System.Windows.Forms.Label();
+			this.initVolumeTextBox = new System.Windows.Forms.TextBox();
 			this.writeFieldVisibleCheckBox = new System.Windows.Forms.CheckBox();
 			this.topMostCheckBox = new System.Windows.Forms.CheckBox();
 			this.closeGroupBox = new System.Windows.Forms.GroupBox();
@@ -52,7 +53,6 @@ namespace PeerstPlayer.Forms.Setting
 			this.gestureColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
 			this.saveButton = new System.Windows.Forms.Button();
 			this.cancelButton = new System.Windows.Forms.Button();
-			this.initVolumeTextBox = new System.Windows.Forms.TextBox();
 			this.tabControl.SuspendLayout();
 			this.settingPage.SuspendLayout();
 			this.windowGroupBox.SuspendLayout();
@@ -93,21 +93,12 @@ namespace PeerstPlayer.Forms.Setting
 			// 
 			this.windowGroupBox.Controls.Add(this.aspectRateFixCheckBox);
 			this.windowGroupBox.Controls.Add(this.windowSnapEnableCheckBox);
-			this.windowGroupBox.Location = new System.Drawing.Point(8, 10);
+			this.windowGroupBox.Location = new System.Drawing.Point(11, 14);
 			this.windowGroupBox.Name = "windowGroupBox";
-			this.windowGroupBox.Size = new System.Drawing.Size(200, 125);
+			this.windowGroupBox.Size = new System.Drawing.Size(210, 67);
 			this.windowGroupBox.TabIndex = 4;
 			this.windowGroupBox.TabStop = false;
 			this.windowGroupBox.Text = "ウィンドウ";
-			// 
-			// initVolumeLabel
-			// 
-			this.initVolumeLabel.AutoSize = true;
-			this.initVolumeLabel.Location = new System.Drawing.Point(7, 65);
-			this.initVolumeLabel.Name = "initVolumeLabel";
-			this.initVolumeLabel.Size = new System.Drawing.Size(59, 12);
-			this.initVolumeLabel.TabIndex = 6;
-			this.initVolumeLabel.Text = "初期音量：";
 			// 
 			// aspectRateFixCheckBox
 			// 
@@ -135,12 +126,29 @@ namespace PeerstPlayer.Forms.Setting
 			this.initGroupBox.Controls.Add(this.initVolumeTextBox);
 			this.initGroupBox.Controls.Add(this.writeFieldVisibleCheckBox);
 			this.initGroupBox.Controls.Add(this.topMostCheckBox);
-			this.initGroupBox.Location = new System.Drawing.Point(8, 158);
+			this.initGroupBox.Location = new System.Drawing.Point(231, 14);
 			this.initGroupBox.Name = "initGroupBox";
-			this.initGroupBox.Size = new System.Drawing.Size(200, 111);
+			this.initGroupBox.Size = new System.Drawing.Size(210, 90);
 			this.initGroupBox.TabIndex = 2;
 			this.initGroupBox.TabStop = false;
 			this.initGroupBox.Text = "初期表示";
+			// 
+			// initVolumeLabel
+			// 
+			this.initVolumeLabel.AutoSize = true;
+			this.initVolumeLabel.Location = new System.Drawing.Point(7, 65);
+			this.initVolumeLabel.Name = "initVolumeLabel";
+			this.initVolumeLabel.Size = new System.Drawing.Size(59, 12);
+			this.initVolumeLabel.TabIndex = 6;
+			this.initVolumeLabel.Text = "初期音量：";
+			// 
+			// initVolumeTextBox
+			// 
+			this.initVolumeTextBox.Location = new System.Drawing.Point(72, 62);
+			this.initVolumeTextBox.Name = "initVolumeTextBox";
+			this.initVolumeTextBox.Size = new System.Drawing.Size(35, 19);
+			this.initVolumeTextBox.TabIndex = 10;
+			this.initVolumeTextBox.Text = "50";
 			// 
 			// writeFieldVisibleCheckBox
 			// 
@@ -165,9 +173,9 @@ namespace PeerstPlayer.Forms.Setting
 			// closeGroupBox
 			// 
 			this.closeGroupBox.Controls.Add(this.disconnectRealyOnCloseCheckBox);
-			this.closeGroupBox.Location = new System.Drawing.Point(8, 275);
+			this.closeGroupBox.Location = new System.Drawing.Point(231, 115);
 			this.closeGroupBox.Name = "closeGroupBox";
-			this.closeGroupBox.Size = new System.Drawing.Size(200, 43);
+			this.closeGroupBox.Size = new System.Drawing.Size(210, 41);
 			this.closeGroupBox.TabIndex = 1;
 			this.closeGroupBox.TabStop = false;
 			this.closeGroupBox.Text = "終了時";
@@ -186,9 +194,9 @@ namespace PeerstPlayer.Forms.Setting
 			// 
 			this.statusBarGroupBox.Controls.Add(this.displayBitrateCheckBox);
 			this.statusBarGroupBox.Controls.Add(this.displayFpsCheckBox);
-			this.statusBarGroupBox.Location = new System.Drawing.Point(216, 10);
+			this.statusBarGroupBox.Location = new System.Drawing.Point(11, 89);
 			this.statusBarGroupBox.Name = "statusBarGroupBox";
-			this.statusBarGroupBox.Size = new System.Drawing.Size(200, 67);
+			this.statusBarGroupBox.Size = new System.Drawing.Size(210, 67);
 			this.statusBarGroupBox.TabIndex = 0;
 			this.statusBarGroupBox.TabStop = false;
 			this.statusBarGroupBox.Text = "ステータスバー";
@@ -291,14 +299,6 @@ namespace PeerstPlayer.Forms.Setting
 			this.cancelButton.Text = "キャンセル";
 			this.cancelButton.UseVisualStyleBackColor = true;
 			this.cancelButton.Click += new System.EventHandler(this.cancelButton_Click);
-			// 
-			// initVolumeTextBox
-			// 
-			this.initVolumeTextBox.Location = new System.Drawing.Point(72, 62);
-			this.initVolumeTextBox.Name = "initVolumeTextBox";
-			this.initVolumeTextBox.Size = new System.Drawing.Size(35, 19);
-			this.initVolumeTextBox.TabIndex = 10;
-			this.initVolumeTextBox.Text = "50";
 			// 
 			// PlayerSettingView
 			// 
