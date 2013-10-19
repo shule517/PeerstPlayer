@@ -1,12 +1,13 @@
-﻿using System;
-using System.Drawing;
-using System.Windows.Forms;
-using PeerstLib.Controls;
+﻿using PeerstLib.Controls;
 using PeerstLib.PeerCast.Data;
 using PeerstLib.Util;
 using PeerstPlayer.Controls.PecaPlayer;
+using PeerstPlayer.Controls.StatusBar;
 using PeerstPlayer.Forms.Player;
 using PeerstPlayer.Shortcut;
+using System;
+using System.Drawing;
+using System.Windows.Forms;
 using WMPLib;
 
 namespace PeerstPlayer.Forms.Setting
@@ -289,7 +290,19 @@ namespace PeerstPlayer.Forms.Setting
 				}
 
 				// 動画情報を更新
-				statusBar.UpdateMovieInfo(pecaPlayer.NowFrameRate, pecaPlayer.FrameRate, pecaPlayer.NowBitrate, pecaPlayer.Bitrate);
+				ChannelInfo info = pecaPlayer.ChannelInfo ?? new ChannelInfo();
+				statusBar.UpdateMovieInfo(
+					new MovieInfo()
+					{
+						NowFps = pecaPlayer.NowFrameRate,
+						Fps = pecaPlayer.FrameRate,
+						NowBitrate = pecaPlayer.NowBitrate,
+						Bitrate = pecaPlayer.Bitrate,
+						ListenerNumber = info.Listeners,
+						RelayNumber = info.Relays,
+						Status = info.Status,
+						StreamType = info.Type,
+					});
 			};
 			timer.Start();
 

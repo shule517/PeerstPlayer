@@ -318,7 +318,7 @@ namespace PeerstPlayer.Controls.PecaPlayer
 						return;
 					}
 
-					System.Threading.Thread.Sleep(3000);
+					System.Threading.Thread.Sleep(1000);
 				}
 			};
 			updateChannelInfoWorker.RunWorkerCompleted += (sender, e) =>

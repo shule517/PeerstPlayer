@@ -43,6 +43,11 @@ namespace PeerstPlayer.Settings
 		public bool DisplayFps = true;
 
 		/// <summary>
+		/// リスナー数表示
+		/// </summary>
+		public bool DisplayListenerNumber = true;
+
+		/// <summary>
 		/// ビットレート表示
 		/// </summary>
 		public bool DisplayBitrate = true;

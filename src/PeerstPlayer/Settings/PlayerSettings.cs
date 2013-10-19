@@ -1,9 +1,9 @@
 ﻿
-using System;
 using PeerstLib.Controls;
 using PeerstLib.Util;
 using PeerstPlayer.Settings;
 using PeerstPlayer.Shortcut;
+using System;
 namespace PeerstPlayer.Forms.Player
 {
 	/// <summary>
@@ -91,6 +91,15 @@ namespace PeerstPlayer.Forms.Player
 		{
 			get { return info.DisplayBitrate; }
 			set { info.DisplayBitrate = value; }
+		}
+
+		/// <summary>
+		/// リスナー数表示
+		/// </summary>
+		public static bool DisplayListenerNumber
+		{
+			get { return info.DisplayListenerNumber; }
+			set { info.DisplayListenerNumber = value; }
 		}
 
 		/// <summary>

@@ -149,18 +149,16 @@ namespace PeerstPlayer.Controls.StatusBar
 		}
 
 		/// <summary>
+		/// 動画情報
+		/// </summary>
+		MovieInfo movieInfo = new MovieInfo();
+
+		/// <summary>
 		/// 動画詳細を更新
 		/// </summary>
-		private int nowFps = 0;
-		private int fps = 0;
-		private int nowBitrate = 0;
-		private int bitrate = 0;
-		public void UpdateMovieInfo(int nowFps, int fps, int nowBitrate, int bitrate)
+		public void UpdateMovieInfo(MovieInfo movieInfo)
 		{
-			this.nowFps = nowFps;
-			this.fps = fps;
-			this.nowBitrate = nowBitrate;
-			this.bitrate = bitrate;
+			this.movieInfo = movieInfo;
 		}
 
 		/// <summary>
@@ -224,27 +222,81 @@ namespace PeerstPlayer.Controls.StatusBar
 				detail += " (";
 			}
 
+			// FPS表示
 			if (PlayerSettings.DisplayFps)
 			{
-				detail += string.Format("{0}fps", fps);
+				detail += string.Format("{0}fps", movieInfo.Fps);
 			}
 
 			if (PlayerSettings.DisplayFps && PlayerSettings.DisplayBitrate)
 			{
 				detail += " ";
 			}
-				
+
+			// ビットレート表示
 			if (PlayerSettings.DisplayBitrate)
 			{
-				detail += string.Format("{0}kbps", bitrate);
+				detail += string.Format("{0}kbps", movieInfo.Bitrate);
 			}
 
-			if (PlayerSettings.DisplayFps || PlayerSettings.DisplayBitrate)
+			// リスナー数表示
+			if (PlayerSettings.DisplayListenerNumber)
+			{
+				detail += string.Format("[{0}/{1}]", movieInfo.ListenerNumber, movieInfo.RelayNumber);
+			}
+
+			if (PlayerSettings.DisplayFps || PlayerSettings.DisplayBitrate || PlayerSettings.DisplayListenerNumber)
 			{
 				detail += ")";
 			}
 
 			movieDetail.ChannelDetail = detail;
 		}
+	}
+
+	/// <summary>
+	/// 動画詳細情報
+	/// </summary>
+	public class MovieInfo
+	{
+		/// <summary>
+		/// 現在のFPS
+		/// </summary>
+		public int NowFps = 0;
+
+		/// <summary>
+		/// FPS
+		/// </summary>
+		public int Fps = 0;
+
+		/// <summary>
+		/// 現在のビットレート
+		/// </summary>
+		public int NowBitrate = 0;
+
+		/// <summary>
+		/// ビットレート
+		/// </summary>
+		public int Bitrate = 0;
+
+		/// <summary>
+		/// リスナー数
+		/// </summary>
+		public string ListenerNumber;
+
+		/// <summary>
+		/// リレー数
+		/// </summary>
+		public string RelayNumber;
+
+		/// <summary>
+		/// ストリームタイプ
+		/// </summary>
+		public string StreamType;
+
+		/// <summary>
+		/// ステータス
+		/// </summary>
+		public string Status;
 	}
 }
