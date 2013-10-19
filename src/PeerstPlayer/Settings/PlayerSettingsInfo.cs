@@ -51,6 +51,21 @@ namespace PeerstPlayer.Settings
 		/// </summary>
 		public int InitVolume = 50;
 
+		/// <summary>
+		/// 音量変更：キー押下なし
+		/// </summary>
+		public int VolumeChangeNone = 10;
+
+		/// <summary>
+		/// 音量変更：Ctrlキー押下
+		/// </summary>
+		public int VolumeChangeCtrl = 5;
+
+		/// <summary>
+		/// 音量変更：Shiftキー押下
+		/// </summary>
+		public int VolumeChangeShift = 1;
+
 		// - ステータスバーフォント : Font
 		// - ステータスバー表示項目 : List
 		// - 終了時位置保存 : boolean
@@ -58,7 +73,6 @@ namespace PeerstPlayer.Settings
 		// - 初期表示フレーム表示 : boolean
 		// - 初期表示ステータスバー表示 : boolean
 		// - 初期音量ミュート : boolean
-		// - 初期音量 : int
 		// - 書き込み欄(Ctrl+Enter) : boolean
 		// - レスが1000のスレを表示するか : boolean
 	};

@@ -101,6 +101,33 @@ namespace PeerstPlayer.Forms.Player
 			set { info.InitVolume = value; }
 		}
 
+		/// <summary>
+		/// 音量変更：キー押下なし
+		/// </summary>
+		public static int VolumeChangeNone
+		{
+			get { return info.VolumeChangeNone; }
+			set { info.VolumeChangeNone = value; }
+		}
+
+		/// <summary>
+		/// 音量変更：Ctrlキー押下
+		/// </summary>
+		public static int VolumeChangeCtrl
+		{
+			get { return info.VolumeChangeCtrl; }
+			set { info.VolumeChangeCtrl = value; }
+		}
+
+		/// <summary>
+		/// 音量変更：Shiftキー押下
+		/// </summary>
+		public static int VolumeChangeShift
+		{
+			get { return info.VolumeChangeShift; }
+			set { info.VolumeChangeShift = value; }
+		}
+
 		static PlayerSettings()
 		{
 		}

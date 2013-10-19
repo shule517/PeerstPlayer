@@ -47,7 +47,7 @@
 			this.checkBox.Location = new System.Drawing.Point(5, 268);
 			this.checkBox.Name = "checkBox";
 			this.checkBox.Size = new System.Drawing.Size(142, 16);
-			this.checkBox.TabIndex = 1;
+			this.checkBox.TabIndex = 3;
 			this.checkBox.Text = "ストップしたスレッドを表示";
 			this.checkBox.UseVisualStyleBackColor = true;
 			this.checkBox.CheckedChanged += new System.EventHandler(this.checkBox_CheckedChanged);
@@ -59,7 +59,7 @@
 			this.urlTextBox.Location = new System.Drawing.Point(0, 2);
 			this.urlTextBox.Name = "urlTextBox";
 			this.urlTextBox.Size = new System.Drawing.Size(441, 19);
-			this.urlTextBox.TabIndex = 2;
+			this.urlTextBox.TabIndex = 0;
 			this.urlTextBox.Text = "http://";
 			this.urlTextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.urlTextBox_KeyDown);
 			// 
@@ -69,7 +69,7 @@
 			this.updateButton.Location = new System.Drawing.Point(440, 0);
 			this.updateButton.Name = "updateButton";
 			this.updateButton.Size = new System.Drawing.Size(75, 23);
-			this.updateButton.TabIndex = 3;
+			this.updateButton.TabIndex = 1;
 			this.updateButton.Text = "更新";
 			this.updateButton.UseVisualStyleBackColor = true;
 			this.updateButton.Click += new System.EventHandler(this.updateButton_Click);
@@ -91,7 +91,7 @@
 			this.threadListView.MultiSelect = false;
 			this.threadListView.Name = "threadListView";
 			this.threadListView.Size = new System.Drawing.Size(515, 242);
-			this.threadListView.TabIndex = 0;
+			this.threadListView.TabIndex = 2;
 			this.threadListView.UseCompatibleStateImageBehavior = false;
 			this.threadListView.View = System.Windows.Forms.View.Details;
 			this.threadListView.KeyDown += new System.Windows.Forms.KeyEventHandler(this.threadListView_KeyDown);

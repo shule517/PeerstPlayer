@@ -40,6 +40,11 @@ namespace PeerstPlayer.Forms.Setting
 				displayFpsCheckBox.Checked = PlayerSettings.DisplayFps;
 				displayBitrateCheckBox.Checked = PlayerSettings.DisplayBitrate;
 
+				// 音量変化
+				volumeChangeNoneTextBox.Text = PlayerSettings.VolumeChangeNone.ToString();
+				volumeChangeCtrlTextBox.Text = PlayerSettings.VolumeChangeCtrl.ToString();
+				volumeChangeShiftTextBox.Text = PlayerSettings.VolumeChangeShift.ToString();
+
 				// ショートカット・ジェスチャー表示
 				shortcutListView.Items.Clear();
 				foreach (KeyValuePair<Commands, ShortcutCommand> commandPair in shortcut.CommandMap)
@@ -236,6 +241,10 @@ namespace PeerstPlayer.Forms.Setting
 			PlayerSettings.AspectRateFix = aspectRateFixCheckBox.Checked;
 			PlayerSettings.TopMost = topMostCheckBox.Checked;
 			PlayerSettings.WriteFieldVisible = writeFieldVisibleCheckBox.Checked;
+	
+			// チェックボックスの設定(ステータスバー)
+			PlayerSettings.DisplayFps = displayFpsCheckBox.Checked;
+			PlayerSettings.DisplayBitrate = displayBitrateCheckBox.Checked;
 
 			// 初期音量
 			int initVolume = 0;
@@ -243,10 +252,23 @@ namespace PeerstPlayer.Forms.Setting
 			{
 				PlayerSettings.InitVolume = initVolume;
 			}
-	
-			// チェックボックスの設定(ステータスバー)
-			PlayerSettings.DisplayFps = displayFpsCheckBox.Checked;
-			PlayerSettings.DisplayBitrate = displayBitrateCheckBox.Checked;
+
+			// 音量変化
+			int volumeChangeNone = 10;
+			if (int.TryParse(volumeChangeNoneTextBox.Text, out volumeChangeNone))
+			{
+				PlayerSettings.VolumeChangeNone = volumeChangeNone;
+			}
+			int volumeChangeCtrl = 5;
+			if (int.TryParse(volumeChangeCtrlTextBox.Text, out volumeChangeCtrl))
+			{
+				PlayerSettings.VolumeChangeCtrl = volumeChangeCtrl;
+			}
+			int volumeChangeShift = 1;
+			if (int.TryParse(volumeChangeShiftTextBox.Text, out volumeChangeShift))
+			{
+				PlayerSettings.VolumeChangeShift = volumeChangeShift;
+			}
 
 			// 設定を保存
 			PlayerSettings.Save();

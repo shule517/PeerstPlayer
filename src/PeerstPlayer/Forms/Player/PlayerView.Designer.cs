@@ -53,14 +53,14 @@ namespace PeerstPlayer.Forms.Setting
 			this.size480x360ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.size640x480ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.size800x600ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+			this.fitMovieSizeToolStripSeparator = new System.Windows.Forms.ToolStripSeparator();
 			this.fitMovieSizeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.画面分割ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.screenSplitWidthx5ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.screenSplitWidthx4ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.screenSplitWidthx3ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.screenSplitWidthx2ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
+			this.screenSplitToolStripSeparator = new System.Windows.Forms.ToolStripSeparator();
 			this.screenSplitHeightx5ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.screenSplitHeightx4ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.screenSplitHeightx3ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -69,17 +69,17 @@ namespace PeerstPlayer.Forms.Setting
 			this.topMostToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.updateChannelInfoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.bumpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.settingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
-			this.wmpMenuToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.volumeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.volumeUpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.volumeDownToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.muteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
+			this.volumeToolStripSeparator = new System.Windows.Forms.ToolStripSeparator();
 			this.volumeBalanceLeftToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.volumeBalanceMiddleToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.volumeBalanceRightToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.settingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.wmpMenuToolStripSeparator = new System.Windows.Forms.ToolStripSeparator();
+			this.wmpMenuToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.toolStrip.SuspendLayout();
 			this.contextMenuStrip.SuspendLayout();
 			this.SuspendLayout();
@@ -101,7 +101,7 @@ namespace PeerstPlayer.Forms.Setting
 			this.toolStrip.Padding = new System.Windows.Forms.Padding(0);
 			this.toolStrip.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
 			this.toolStrip.Size = new System.Drawing.Size(99, 25);
-			this.toolStrip.TabIndex = 3;
+			this.toolStrip.TabIndex = 2;
 			// 
 			// openViewerToolStripButton
 			// 
@@ -175,6 +175,7 @@ namespace PeerstPlayer.Forms.Setting
 			this.pecaPlayer.Size = new System.Drawing.Size(480, 360);
 			this.pecaPlayer.TabIndex = 0;
 			this.pecaPlayer.Volume = 50;
+			this.pecaPlayer.VolumeBalance = 0;
 			// 
 			// contextMenuStrip
 			// 
@@ -184,7 +185,7 @@ namespace PeerstPlayer.Forms.Setting
             this.functionToolStripMenuItem,
             this.volumeToolStripMenuItem,
             this.settingToolStripMenuItem,
-            this.toolStripSeparator2,
+            this.wmpMenuToolStripSeparator,
             this.wmpMenuToolStripMenuItem});
 			this.contextMenuStrip.Name = "contextMenuStrip";
 			this.contextMenuStrip.Size = new System.Drawing.Size(154, 142);
@@ -203,7 +204,7 @@ namespace PeerstPlayer.Forms.Setting
             this.size480x360ToolStripMenuItem,
             this.size640x480ToolStripMenuItem,
             this.size800x600ToolStripMenuItem,
-            this.toolStripSeparator1,
+            this.fitMovieSizeToolStripSeparator,
             this.fitMovieSizeToolStripMenuItem});
 			this.SizeToolStripMenuItem.Name = "SizeToolStripMenuItem";
 			this.SizeToolStripMenuItem.Size = new System.Drawing.Size(153, 22);
@@ -274,10 +275,10 @@ namespace PeerstPlayer.Forms.Setting
 			this.size800x600ToolStripMenuItem.Size = new System.Drawing.Size(160, 22);
 			this.size800x600ToolStripMenuItem.Text = "800 x 600";
 			// 
-			// toolStripSeparator1
+			// fitMovieSizeToolStripSeparator
 			// 
-			this.toolStripSeparator1.Name = "toolStripSeparator1";
-			this.toolStripSeparator1.Size = new System.Drawing.Size(157, 6);
+			this.fitMovieSizeToolStripSeparator.Name = "fitMovieSizeToolStripSeparator";
+			this.fitMovieSizeToolStripSeparator.Size = new System.Drawing.Size(157, 6);
 			// 
 			// fitMovieSizeToolStripMenuItem
 			// 
@@ -292,7 +293,7 @@ namespace PeerstPlayer.Forms.Setting
             this.screenSplitWidthx4ToolStripMenuItem,
             this.screenSplitWidthx3ToolStripMenuItem,
             this.screenSplitWidthx2ToolStripMenuItem,
-            this.toolStripSeparator3,
+            this.screenSplitToolStripSeparator,
             this.screenSplitHeightx5ToolStripMenuItem,
             this.screenSplitHeightx4ToolStripMenuItem,
             this.screenSplitHeightx3ToolStripMenuItem,
@@ -304,54 +305,54 @@ namespace PeerstPlayer.Forms.Setting
 			// screenSplitWidthx5ToolStripMenuItem
 			// 
 			this.screenSplitWidthx5ToolStripMenuItem.Name = "screenSplitWidthx5ToolStripMenuItem";
-			this.screenSplitWidthx5ToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
+			this.screenSplitWidthx5ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
 			this.screenSplitWidthx5ToolStripMenuItem.Text = "幅：5分の1";
 			// 
 			// screenSplitWidthx4ToolStripMenuItem
 			// 
 			this.screenSplitWidthx4ToolStripMenuItem.Name = "screenSplitWidthx4ToolStripMenuItem";
-			this.screenSplitWidthx4ToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
+			this.screenSplitWidthx4ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
 			this.screenSplitWidthx4ToolStripMenuItem.Text = "幅：4分の1";
 			// 
 			// screenSplitWidthx3ToolStripMenuItem
 			// 
 			this.screenSplitWidthx3ToolStripMenuItem.Name = "screenSplitWidthx3ToolStripMenuItem";
-			this.screenSplitWidthx3ToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
+			this.screenSplitWidthx3ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
 			this.screenSplitWidthx3ToolStripMenuItem.Text = "幅：3分の1";
 			// 
 			// screenSplitWidthx2ToolStripMenuItem
 			// 
 			this.screenSplitWidthx2ToolStripMenuItem.Name = "screenSplitWidthx2ToolStripMenuItem";
-			this.screenSplitWidthx2ToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
+			this.screenSplitWidthx2ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
 			this.screenSplitWidthx2ToolStripMenuItem.Text = "幅：2分の1";
 			// 
-			// toolStripSeparator3
+			// screenSplitToolStripSeparator
 			// 
-			this.toolStripSeparator3.Name = "toolStripSeparator3";
-			this.toolStripSeparator3.Size = new System.Drawing.Size(147, 6);
+			this.screenSplitToolStripSeparator.Name = "screenSplitToolStripSeparator";
+			this.screenSplitToolStripSeparator.Size = new System.Drawing.Size(149, 6);
 			// 
 			// screenSplitHeightx5ToolStripMenuItem
 			// 
 			this.screenSplitHeightx5ToolStripMenuItem.Name = "screenSplitHeightx5ToolStripMenuItem";
-			this.screenSplitHeightx5ToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
+			this.screenSplitHeightx5ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
 			this.screenSplitHeightx5ToolStripMenuItem.Text = "高さ：5分の1";
 			// 
 			// screenSplitHeightx4ToolStripMenuItem
 			// 
 			this.screenSplitHeightx4ToolStripMenuItem.Name = "screenSplitHeightx4ToolStripMenuItem";
-			this.screenSplitHeightx4ToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
+			this.screenSplitHeightx4ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
 			this.screenSplitHeightx4ToolStripMenuItem.Text = "高さ：4分の1";
 			// 
 			// screenSplitHeightx3ToolStripMenuItem
 			// 
 			this.screenSplitHeightx3ToolStripMenuItem.Name = "screenSplitHeightx3ToolStripMenuItem";
-			this.screenSplitHeightx3ToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
+			this.screenSplitHeightx3ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
 			this.screenSplitHeightx3ToolStripMenuItem.Text = "高さ：3分の1";
 			// 
 			// screenSplitHeightx2ToolStripMenuItem
 			// 
 			this.screenSplitHeightx2ToolStripMenuItem.Name = "screenSplitHeightx2ToolStripMenuItem";
-			this.screenSplitHeightx2ToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
+			this.screenSplitHeightx2ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
 			this.screenSplitHeightx2ToolStripMenuItem.Text = "高さ：2分の1";
 			// 
 			// functionToolStripMenuItem
@@ -382,30 +383,13 @@ namespace PeerstPlayer.Forms.Setting
 			this.bumpToolStripMenuItem.Size = new System.Drawing.Size(184, 22);
 			this.bumpToolStripMenuItem.Text = "Bump(再接続)";
 			// 
-			// settingToolStripMenuItem
-			// 
-			this.settingToolStripMenuItem.Name = "settingToolStripMenuItem";
-			this.settingToolStripMenuItem.Size = new System.Drawing.Size(153, 22);
-			this.settingToolStripMenuItem.Text = "設定";
-			// 
-			// toolStripSeparator2
-			// 
-			this.toolStripSeparator2.Name = "toolStripSeparator2";
-			this.toolStripSeparator2.Size = new System.Drawing.Size(150, 6);
-			// 
-			// wmpMenuToolStripMenuItem
-			// 
-			this.wmpMenuToolStripMenuItem.Name = "wmpMenuToolStripMenuItem";
-			this.wmpMenuToolStripMenuItem.Size = new System.Drawing.Size(153, 22);
-			this.wmpMenuToolStripMenuItem.Text = "WMPメニュー";
-			// 
 			// volumeToolStripMenuItem
 			// 
 			this.volumeToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.volumeUpToolStripMenuItem,
             this.volumeDownToolStripMenuItem,
             this.muteToolStripMenuItem,
-            this.toolStripSeparator4,
+            this.volumeToolStripSeparator,
             this.volumeBalanceLeftToolStripMenuItem,
             this.volumeBalanceMiddleToolStripMenuItem,
             this.volumeBalanceRightToolStripMenuItem});
@@ -431,10 +415,10 @@ namespace PeerstPlayer.Forms.Setting
 			this.muteToolStripMenuItem.Size = new System.Drawing.Size(160, 22);
 			this.muteToolStripMenuItem.Text = "ミュート";
 			// 
-			// toolStripSeparator4
+			// volumeToolStripSeparator
 			// 
-			this.toolStripSeparator4.Name = "toolStripSeparator4";
-			this.toolStripSeparator4.Size = new System.Drawing.Size(157, 6);
+			this.volumeToolStripSeparator.Name = "volumeToolStripSeparator";
+			this.volumeToolStripSeparator.Size = new System.Drawing.Size(157, 6);
 			// 
 			// volumeBalanceLeftToolStripMenuItem
 			// 
@@ -453,6 +437,23 @@ namespace PeerstPlayer.Forms.Setting
 			this.volumeBalanceRightToolStripMenuItem.Name = "volumeBalanceRightToolStripMenuItem";
 			this.volumeBalanceRightToolStripMenuItem.Size = new System.Drawing.Size(160, 22);
 			this.volumeBalanceRightToolStripMenuItem.Text = "バランス：右";
+			// 
+			// settingToolStripMenuItem
+			// 
+			this.settingToolStripMenuItem.Name = "settingToolStripMenuItem";
+			this.settingToolStripMenuItem.Size = new System.Drawing.Size(153, 22);
+			this.settingToolStripMenuItem.Text = "設定";
+			// 
+			// wmpMenuToolStripSeparator
+			// 
+			this.wmpMenuToolStripSeparator.Name = "wmpMenuToolStripSeparator";
+			this.wmpMenuToolStripSeparator.Size = new System.Drawing.Size(150, 6);
+			// 
+			// wmpMenuToolStripMenuItem
+			// 
+			this.wmpMenuToolStripMenuItem.Name = "wmpMenuToolStripMenuItem";
+			this.wmpMenuToolStripMenuItem.Size = new System.Drawing.Size(153, 22);
+			this.wmpMenuToolStripMenuItem.Text = "WMPメニュー";
 			// 
 			// PlayerView
 			// 
@@ -497,11 +498,11 @@ namespace PeerstPlayer.Forms.Setting
 		private System.Windows.Forms.ToolStripMenuItem size480x360ToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem size640x480ToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem size800x600ToolStripMenuItem;
-		private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
+		private System.Windows.Forms.ToolStripSeparator wmpMenuToolStripSeparator;
 		private System.Windows.Forms.ToolStripMenuItem functionToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem updateChannelInfoToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem topMostToolStripMenuItem;
-		private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
+		private System.Windows.Forms.ToolStripSeparator fitMovieSizeToolStripSeparator;
 		private System.Windows.Forms.ToolStripMenuItem fitMovieSizeToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem bumpToolStripMenuItem;
 		private System.Windows.Forms.ToolStripButton openViewerToolStripButton;
@@ -510,7 +511,7 @@ namespace PeerstPlayer.Forms.Setting
 		private System.Windows.Forms.ToolStripMenuItem screenSplitWidthx4ToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem screenSplitWidthx3ToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem screenSplitWidthx2ToolStripMenuItem;
-		private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
+		private System.Windows.Forms.ToolStripSeparator screenSplitToolStripSeparator;
 		private System.Windows.Forms.ToolStripMenuItem screenSplitHeightx5ToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem screenSplitHeightx4ToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem screenSplitHeightx3ToolStripMenuItem;
@@ -519,7 +520,7 @@ namespace PeerstPlayer.Forms.Setting
 		private System.Windows.Forms.ToolStripMenuItem volumeUpToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem volumeDownToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem muteToolStripMenuItem;
-		private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
+		private System.Windows.Forms.ToolStripSeparator volumeToolStripSeparator;
 		private System.Windows.Forms.ToolStripMenuItem volumeBalanceLeftToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem volumeBalanceMiddleToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem volumeBalanceRightToolStripMenuItem;

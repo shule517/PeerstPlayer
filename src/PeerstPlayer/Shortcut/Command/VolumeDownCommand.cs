@@ -1,5 +1,6 @@
 ﻿using System.Windows.Forms;
 using PeerstPlayer.Controls.PecaPlayer;
+using PeerstPlayer.Forms.Player;
 
 namespace PeerstPlayer.Shortcut.Command
 {
@@ -19,15 +20,15 @@ namespace PeerstPlayer.Shortcut.Command
 		{
 			if (System.Windows.Forms.Control.ModifierKeys == Keys.Shift)
 			{
-				pecaPlayer.Volume -= 1;
+				pecaPlayer.Volume -= PlayerSettings.VolumeChangeShift;
 			}
 			else if (System.Windows.Forms.Control.ModifierKeys == Keys.Control)
 			{
-				pecaPlayer.Volume -= 5;
+				pecaPlayer.Volume -= PlayerSettings.VolumeChangeCtrl;
 			}
 			else
 			{
-				pecaPlayer.Volume -= 10;
+				pecaPlayer.Volume -= PlayerSettings.VolumeChangeNone;
 			}
 		}
 
