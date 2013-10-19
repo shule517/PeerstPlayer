@@ -190,24 +190,27 @@ namespace PeerstPlayer.Shortcut
 		{
 			commandMap = new Dictionary<Commands, ShortcutCommand>()
 			{
-				{	Commands.VolumeUp,				new ShortcutCommand(new VolumeUpCommand(pecaPlayer), new CommandArgs())				}, // 音量UP
-				{	Commands.VolumeDown,			new ShortcutCommand(new VolumeDownCommand(pecaPlayer), new CommandArgs())			}, // 音量DOWN
-				{	Commands.Mute,					new ShortcutCommand(new MuteCommand(pecaPlayer), new CommandArgs())					}, // ミュート切替
-				{	Commands.WindowMinimize,		new ShortcutCommand(new WindowMinimize(form), new CommandArgs())					}, // ウィンドウを最小化
-				{	Commands.WindowMaximize,		new ShortcutCommand(new WindowMaximize(form), new CommandArgs())					}, // ウィンドウを最大化
-				{	Commands.MiniMute,				new ShortcutCommand(new MiniMuteCommand(form, pecaPlayer), new CommandArgs())		}, // 最小化ミュート
-				{	Commands.Close,					new ShortcutCommand(new CloseCommand(form, pecaPlayer), new CommandArgs())			}, // 閉じる
-				{	Commands.VisibleStatusBar,		new ShortcutCommand(new VisibleStatusBarCommand(form, statusBar), new CommandArgs())}, // ステータスバーの表示切り替え
-				{	Commands.OpenPeerstViewer,		new ShortcutCommand(new OpenPeerstViewerCommand(statusBar), new CommandArgs())		}, // PeerstViewerを開く
-				{	Commands.UpdateChannelInfo,		new ShortcutCommand(new UpdateChannelInfoCommand(pecaPlayer), new CommandArgs())	}, // チャンネル情報更新
-				//{	Commands.ShowNewRes,			new ShortcutCommand(new ShowNewResCommand(form, statusBar), new CommandArgs())		}, // 新着レス表示
-				{	Commands.TopMost,				new ShortcutCommand(new TopMostCommand(form), new CommandArgs())					}, // 最前列表示切り替え
-				{	Commands.WindowSizeUp,			new ShortcutCommand(new WindowSizeUpCommand(form, pecaPlayer), new CommandArgs())	}, // ウィンドウサイズUP
-				{	Commands.WindowSizeDown,		new ShortcutCommand(new WindowSizeDownCommand(form, pecaPlayer), new CommandArgs())	}, // ウィンドウサイズDOWN
-				{	Commands.DisconnectRelay,		new ShortcutCommand(new DisconnectRelayCommand(form, pecaPlayer), new CommandArgs())}, // リレー切断
-				{	Commands.Bump,					new ShortcutCommand(new BumpCommand(pecaPlayer), new CommandArgs())					}, // Bump
-				{	Commands.WmpMenu,				new ShortcutCommand(new WmpMenuCommand(pecaPlayer), new CommandArgs())				}, // WMPメニュー表示
-				{	Commands.FitMovieSize,			new ShortcutCommand(new FitMovieSizeCommand(form, pecaPlayer), new CommandArgs())	}, // 黒枠を消す
+				{	Commands.VolumeUp,				new ShortcutCommand(new VolumeUpCommand(pecaPlayer), new CommandArgs())								}, // 音量UP
+				{	Commands.VolumeDown,			new ShortcutCommand(new VolumeDownCommand(pecaPlayer), new CommandArgs())							}, // 音量DOWN
+				{	Commands.VolumeBalanceLeft,		new ShortcutCommand(new VolumeBalanceCommand(pecaPlayer), new VolumeBalanceCommandArgs(VolumeBalanceCommandArgs.BalanceLeft))	}, // 音量バランス：左
+				{	Commands.VolumeBalanceMiddle,	new ShortcutCommand(new VolumeBalanceCommand(pecaPlayer), new VolumeBalanceCommandArgs(VolumeBalanceCommandArgs.BalanceMiddle))	}, // 音量バランス：中央
+				{	Commands.VolumeBalanceRight,	new ShortcutCommand(new VolumeBalanceCommand(pecaPlayer), new VolumeBalanceCommandArgs(VolumeBalanceCommandArgs.BalanceRight))	}, // 音量バランス：右
+				{	Commands.Mute,					new ShortcutCommand(new MuteCommand(pecaPlayer), new CommandArgs())									}, // ミュート切替
+				{	Commands.WindowMinimize,		new ShortcutCommand(new WindowMinimize(form), new CommandArgs())									}, // ウィンドウを最小化
+				{	Commands.WindowMaximize,		new ShortcutCommand(new WindowMaximize(form), new CommandArgs())									}, // ウィンドウを最大化
+				{	Commands.MiniMute,				new ShortcutCommand(new MiniMuteCommand(form, pecaPlayer), new CommandArgs())						}, // 最小化ミュート
+				{	Commands.Close,					new ShortcutCommand(new CloseCommand(form, pecaPlayer), new CommandArgs())							}, // 閉じる
+				{	Commands.VisibleStatusBar,		new ShortcutCommand(new VisibleStatusBarCommand(form, statusBar), new CommandArgs())				}, // ステータスバーの表示切り替え
+				{	Commands.OpenPeerstViewer,		new ShortcutCommand(new OpenPeerstViewerCommand(statusBar), new CommandArgs())						}, // PeerstViewerを開く
+				{	Commands.UpdateChannelInfo,		new ShortcutCommand(new UpdateChannelInfoCommand(pecaPlayer), new CommandArgs())					}, // チャンネル情報更新
+				//{	Commands.ShowNewRes,			new ShortcutCommand(new ShowNewResCommand(form, statusBar), new CommandArgs())						}, // 新着レス表示
+				{	Commands.TopMost,				new ShortcutCommand(new TopMostCommand(form), new CommandArgs())									}, // 最前列表示切り替え
+				{	Commands.WindowSizeUp,			new ShortcutCommand(new WindowSizeUpCommand(form, pecaPlayer), new CommandArgs())					}, // ウィンドウサイズUP
+				{	Commands.WindowSizeDown,		new ShortcutCommand(new WindowSizeDownCommand(form, pecaPlayer), new CommandArgs())					}, // ウィンドウサイズDOWN
+				{	Commands.DisconnectRelay,		new ShortcutCommand(new DisconnectRelayCommand(form, pecaPlayer), new CommandArgs())				}, // リレー切断
+				{	Commands.Bump,					new ShortcutCommand(new BumpCommand(pecaPlayer), new CommandArgs())									}, // Bump
+				{	Commands.WmpMenu,				new ShortcutCommand(new WmpMenuCommand(pecaPlayer), new CommandArgs())								}, // WMPメニュー表示
+				{	Commands.FitMovieSize,			new ShortcutCommand(new FitMovieSizeCommand(form, pecaPlayer), new CommandArgs())					}, // 黒枠を消す
 				{	Commands.WindowSize160x120,		new ShortcutCommand(new WindowSizeCommand(form, pecaPlayer), new WindowSizeCommandArgs(160, 120))	}, // ウィンドウサイズ指定
 				{	Commands.WindowSize320x240,		new ShortcutCommand(new WindowSizeCommand(form, pecaPlayer), new WindowSizeCommandArgs(320, 240))	}, // ウィンドウサイズ指定
 				{	Commands.WindowSize480x360,		new ShortcutCommand(new WindowSizeCommand(form, pecaPlayer), new WindowSizeCommandArgs(480, 360))	}, // ウィンドウサイズ指定
@@ -275,6 +278,9 @@ namespace PeerstPlayer.Shortcut
 			settings.KeyMap.Add(new KeyInput(Keys.Alt, Keys.X), Commands.DisconnectRelay);
 			settings.KeyMap.Add(new KeyInput(Keys.Up), Commands.VolumeUp);
 			settings.KeyMap.Add(new KeyInput(Keys.Down), Commands.VolumeDown);
+			settings.KeyMap.Add(new KeyInput(Keys.Control, Keys.Left), Commands.VolumeBalanceLeft);
+			settings.KeyMap.Add(new KeyInput(Keys.Control, Keys.Down), Commands.VolumeBalanceMiddle);
+			settings.KeyMap.Add(new KeyInput(Keys.Control, Keys.Right), Commands.VolumeBalanceRight);
 			settings.KeyMap.Add(new KeyInput(Keys.Delete), Commands.Mute);
 			settings.KeyMap.Add(new KeyInput(Keys.Enter), Commands.VisibleStatusBar);
 			settings.KeyMap.Add(new KeyInput(Keys.Escape), Commands.Close);

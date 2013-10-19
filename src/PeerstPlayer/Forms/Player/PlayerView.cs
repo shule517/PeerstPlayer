@@ -428,10 +428,20 @@ namespace PeerstPlayer.Forms.Setting
 			// 機能
 			topMostToolStripMenuItem.Click += (sender, e) => shortcut.ExecCommand(Commands.TopMost);
 			updateChannelInfoToolStripMenuItem.Click += (sender, e) => shortcut.ExecCommand(Commands.UpdateChannelInfo);
-			muteToolStripMenuItem.Click += (sender, e) => shortcut.ExecCommand(Commands.Mute);
 			bumpToolStripMenuItem.Click += (sender, e) => shortcut.ExecCommand(Commands.Bump);
 			functionToolStripMenuItem.DropDownOpening += (sender, e) => topMostToolStripMenuItem.Checked = TopMost;
-			functionToolStripMenuItem.DropDownOpening += (sender, e) => muteToolStripMenuItem.Checked = pecaPlayer.Mute;
+
+			// 音量
+			volumeUpToolStripMenuItem.Click += (sender, e) => shortcut.ExecCommand(Commands.VolumeUp);
+			volumeDownToolStripMenuItem.Click += (sender, e) => shortcut.ExecCommand(Commands.VolumeDown);
+			muteToolStripMenuItem.Click += (sender, e) => shortcut.ExecCommand(Commands.Mute);
+			volumeBalanceLeftToolStripMenuItem.Click += (sender, e) => shortcut.ExecCommand(Commands.VolumeBalanceLeft);
+			volumeBalanceMiddleToolStripMenuItem.Click += (sender, e) => shortcut.ExecCommand(Commands.VolumeBalanceMiddle);
+			volumeBalanceRightToolStripMenuItem.Click += (sender, e) => shortcut.ExecCommand(Commands.VolumeBalanceRight);
+			volumeToolStripMenuItem.DropDownOpening += (sender, e) => muteToolStripMenuItem.Checked = pecaPlayer.Mute;
+			volumeToolStripMenuItem.DropDownOpening += (sender, e) => volumeBalanceLeftToolStripMenuItem.Checked = (pecaPlayer.VolumeBalance == VolumeBalanceCommandArgs.BalanceLeft);
+			volumeToolStripMenuItem.DropDownOpening += (sender, e) => volumeBalanceMiddleToolStripMenuItem.Checked = (pecaPlayer.VolumeBalance == VolumeBalanceCommandArgs.BalanceMiddle);
+			volumeToolStripMenuItem.DropDownOpening += (sender, e) => volumeBalanceRightToolStripMenuItem.Checked = (pecaPlayer.VolumeBalance == VolumeBalanceCommandArgs.BalanceRight);
 
 			// 設定メニュー押下
 			settingToolStripMenuItem.Click += (sender, e) =>

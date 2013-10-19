@@ -6,6 +6,9 @@ namespace PeerstPlayer.Shortcut
 	{
 		VolumeUp,			// 音量UP
 		VolumeDown,			// 音量DOWN
+		VolumeBalanceLeft,	// 音量バランス：左
+		VolumeBalanceMiddle,// 音量バランス：中央
+		VolumeBalanceRight,	// 音量バランス：右
 		Mute,				// ミュート切り替え
 		WindowMaximize,		// ウィンドウ最大化
 		WindowMinimize,		// ウィンドウ最小化

@@ -105,6 +105,7 @@
     <Compile Include="Shortcut\Command\TopMostCommand.cs" />
     <Compile Include="Shortcut\Command\UpdateChannelInfoCommand.cs" />
     <Compile Include="Shortcut\Command\VisibleStatusBarCommand.cs" />
+    <Compile Include="Shortcut\Command\VolumeBalanceCommand.cs" />
     <Compile Include="Shortcut\Command\VolumeDownCommand.cs" />
     <Compile Include="Shortcut\Command\VolumeUpCommand.cs" />
     <Compile Include="Shortcut\Command\WindowMaximize.cs" />

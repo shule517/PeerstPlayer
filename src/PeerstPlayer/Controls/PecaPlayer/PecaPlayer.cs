@@ -44,6 +44,19 @@ namespace PeerstPlayer.Controls.PecaPlayer
 		}
 
 		/// <summary>
+		/// 音量バランス
+		/// </summary>
+		public int VolumeBalance
+		{
+			get { return wmp.settings.balance; }
+			set
+			{
+				wmp.settings.balance = value;
+				VolumeChange(this, new EventArgs());
+			}
+		}
+
+		/// <summary>
 		/// 音量変更イベント
 		/// </summary>
 		public event EventHandler VolumeChange = delegate { };
