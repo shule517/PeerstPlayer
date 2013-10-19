@@ -67,7 +67,7 @@ namespace TestPeertPlayer.Control
 			for (int i = 0; i < 30; i++)
 			{
 				Application.DoEvents();
-				Thread.Sleep(100);
+				Thread.Sleep(150);
 			}
 
 			// スレッドタイトルのチェック
