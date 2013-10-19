@@ -5,6 +5,7 @@ using PeerstLib.Bbs;
 using PeerstLib.Util;
 using System.Linq;
 using PeerstPlayer.Forms.ThreadSelect;
+using System.ComponentModel;
 
 namespace PeerstPlayer.Controls.WriteField
 {
@@ -46,6 +47,9 @@ namespace PeerstPlayer.Controls.WriteField
 		// スレッド選択画面
 		private ThreadSelectView threadSelectView = new ThreadSelectView();
 
+		// 新着レス取得Worker
+		BackgroundWorker showNewResWorker = new BackgroundWorker();
+
 		//-------------------------------------------------------------
 		// 定義
 		//-------------------------------------------------------------
@@ -75,12 +79,26 @@ namespace PeerstPlayer.Controls.WriteField
 				}
 			};
 
-			// マウスオーバー時に新着レス表示の設定
+			// 新着レス表示処理
+			string newRes = "";
+			showNewResWorker.WorkerSupportsCancellation = true; // キャンセル処理を許可
+			showNewResWorker.DoWork += (sender, e) =>
+			{
+				newRes = ReadNewRes();
+			};
+			showNewResWorker.RunWorkerCompleted += (sender, e) =>
+			{
+				newResToolTip.SetToolTip(selectThreadLabel, newRes);
+			};
+
+			// マウスオーバー時に新着レス表示
 			selectThreadLabel.MouseHover += (sender, e) =>
 			{
-				string newRes = ReadNewRes();
-				newResToolTip.SetToolTip(selectThreadLabel, newRes);
-
+				// 新着レス表示の実行
+				if (!showNewResWorker.IsBusy)
+				{
+					showNewResWorker.RunWorkerAsync();
+				}
 			};
 
 			// 書き込みボタン押下
