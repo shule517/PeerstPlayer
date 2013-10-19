@@ -96,7 +96,13 @@ namespace PeerstPlayer.Controls.WriteField
 			// スレッド一覧情報更新イベント
 			threadSelectView.ThreadListChange += (sender, e) => operationBbs.ChangeUrl(threadSelectView.ThreadUrl);
 			// スレッド変更イベント
-			threadSelectView.ThreadChange += (sender, e) => operationBbs.ChangeUrl(threadSelectView.ThreadUrl);
+			threadSelectView.ThreadChange += (sender, e) =>
+			{
+				// スレッド情報の更新
+				ThreadSelectEventArgs args = (ThreadSelectEventArgs)e;
+				operationBbs = args.OperationBbs;
+				UpdateThreadTitle();
+			};
 			// スレッドタイトルの更新
 			operationBbs.ThreadListChange += (sender, e) => UpdateThreadTitle();
 

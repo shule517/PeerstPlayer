@@ -184,5 +184,13 @@ namespace PeerstLib.Bbs
 				changeUrlWorker.CancelAsync();
 			}
 		}
+
+		/// <summary>
+		/// オブジェクトのコピー
+		/// </summary>
+		public OperationBbs Clone()
+		{
+			return (OperationBbs)MemberwiseClone();
+		}
 	}
 }

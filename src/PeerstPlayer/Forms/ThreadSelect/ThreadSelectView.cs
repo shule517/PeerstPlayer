@@ -3,6 +3,7 @@ using System.Drawing;
 using System.Windows.Forms;
 using PeerstLib.Bbs.Data;
 using PeerstLib.Util;
+using PeerstLib.Bbs;
 
 namespace PeerstPlayer.Forms.ThreadSelect
 {
@@ -206,7 +207,7 @@ namespace PeerstPlayer.Forms.ThreadSelect
 			// スレッド変更通知
 			viewModel.ChangeThread(selectThreadNo);
 			urlTextBox.Text = viewModel.ThreadUrl;
-			ThreadChange(this, new EventArgs());
+			ThreadChange(this, new ThreadSelectEventArgs(viewModel.CloneOperationBbs()));
 
 			// 非表示
 			Logger.Instance.InfoFormat("スレッド選択画面を非表示");
@@ -245,6 +246,22 @@ namespace PeerstPlayer.Forms.ThreadSelect
 		{
 			Logger.Instance.Debug("Kill()");
 			viewModel.Close();
+		}
+	}
+
+	/// <summary>
+	/// スレッド選択イベント
+	/// </summary>
+	public class ThreadSelectEventArgs : EventArgs
+	{
+		/// <summary>
+		/// スレッド選択済みの掲示板情報
+		/// </summary>
+		public OperationBbs OperationBbs;
+
+		public ThreadSelectEventArgs(OperationBbs operationBbs)
+		{
+			this.OperationBbs = operationBbs;
 		}
 	}
 }

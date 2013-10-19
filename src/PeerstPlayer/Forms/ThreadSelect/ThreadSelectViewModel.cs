@@ -15,59 +15,77 @@ namespace PeerstPlayer.Forms.ThreadSelect
 		// 公開プロパティ
 		//-------------------------------------------------------------
 
-		// スレッド一覧
+		/// <summary>
+		/// スレッド一覧
+		/// </summary>
 		public List<ThreadInfo> ThreadList { get { return operationBbs.ThreadList; } }
 
-		// スレッドURL
+		/// <summary>
+		/// スレッドURL
+		/// </summary>
 		public string ThreadUrl { get { return operationBbs.ThreadUrl; } }
 
-		// 選択スレッド番号
+		/// <summary>
+		/// 選択スレッド番号
+		/// </summary>
 		public string ThreadNo { get { return operationBbs.BbsInfo.ThreadNo; } }
 
-		// スレッド一覧変更イベント
+		/// <summary>
+		/// スレッド一覧変更イベント
+		/// </summary>
 		public event EventHandler ThreadListChange = delegate { };
 
 		//-------------------------------------------------------------
 		// 非公開プロパティ
 		//-------------------------------------------------------------
 
-		// 掲示板操作クラス
+		/// <summary>
+		/// 掲示板操作クラス
+		/// </summary>
 		private　OperationBbs operationBbs = new OperationBbs();
 
-		//-------------------------------------------------------------
-		// 概要：コンストラクタ
-		//-------------------------------------------------------------
+		/// <summary>
+		/// コンストラクタ
+		/// </summary>
 		public ThreadSelectViewModel()
 		{
 			Logger.Instance.DebugFormat("ThreadSelectViewModel()");
 			operationBbs.ThreadListChange += (sender, e) => ThreadListChange(this, new EventArgs());
 		}
 
-		//-------------------------------------------------------------
-		// 概要：スレッド一覧更新
-		//-------------------------------------------------------------
+		/// <summary>
+		/// スレッド一覧更新
+		/// </summary>
 		public void Update(string threadUrl)
 		{
 			Logger.Instance.DebugFormat("Update(threadUrl:{0})", threadUrl);
 			operationBbs.ChangeUrl(threadUrl);
 		}
 
-		//-------------------------------------------------------------
-		// 概要：スレッド変更
-		//-------------------------------------------------------------
+		/// <summary>
+		/// スレッド変更
+		/// </summary>
 		public void ChangeThread(string threadNo)
 		{
 			Logger.Instance.DebugFormat("ChangeThread(threadNo:{0})", threadNo);
 			operationBbs.ChangeThread(threadNo);
 		}
 
-		//-------------------------------------------------------------
-		// 概要：終了処理
-		//-------------------------------------------------------------
+		/// <summary>
+		/// 終了処理
+		/// </summary>
 		public void Close()
 		{
 			Logger.Instance.Debug("Close()");
 			operationBbs.Close();
+		}
+
+		/// <summary>
+		/// OprationBbsのコピー
+		/// </summary>
+		public OperationBbs CloneOperationBbs()
+		{
+			return (OperationBbs)operationBbs.Clone();
 		}
 	}
 }
