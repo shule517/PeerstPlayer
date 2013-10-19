@@ -218,40 +218,40 @@ namespace PeerstPlayer.Controls.StatusBar
 			string detail = channelDetail;
 
 			// データが取得できるまで非表示
-			if (movieInfo.Bitrate <= 0)
-				return;
-	
-			if (PlayerSettings.DisplayFps || PlayerSettings.DisplayBitrate)
+			if (movieInfo.Bitrate > 0)
 			{
-				detail += " (";
-			}
+				if (PlayerSettings.DisplayFps || PlayerSettings.DisplayBitrate)
+				{
+					detail += " (";
+				}
 
-			// FPS表示
-			if (PlayerSettings.DisplayFps)
-			{
-				detail += string.Format("{0}fps", movieInfo.Fps);
-			}
+				// FPS表示
+				if (PlayerSettings.DisplayFps)
+				{
+					detail += string.Format("{0}fps", movieInfo.Fps);
+				}
 
-			if (PlayerSettings.DisplayFps && PlayerSettings.DisplayBitrate)
-			{
-				detail += " ";
-			}
+				if (PlayerSettings.DisplayFps && PlayerSettings.DisplayBitrate)
+				{
+					detail += " ";
+				}
 
-			// ビットレート表示
-			if (PlayerSettings.DisplayBitrate)
-			{
-				detail += string.Format("{0}kbps", movieInfo.Bitrate);
-			}
+				// ビットレート表示
+				if (PlayerSettings.DisplayBitrate)
+				{
+					detail += string.Format("{0}kbps", movieInfo.Bitrate);
+				}
 
-			// リスナー数表示
-			if (PlayerSettings.DisplayListenerNumber)
-			{
-				detail += string.Format(" [{0}/{1}]", movieInfo.ListenerNumber, movieInfo.RelayNumber);
-			}
+				// リスナー数表示
+				if (PlayerSettings.DisplayListenerNumber)
+				{
+					detail += string.Format(" [{0}/{1}]", movieInfo.ListenerNumber, movieInfo.RelayNumber);
+				}
 
-			if (PlayerSettings.DisplayFps || PlayerSettings.DisplayBitrate)
-			{
-				detail += ")";
+				if (PlayerSettings.DisplayFps || PlayerSettings.DisplayBitrate)
+				{
+					detail += ")";
+				}
 			}
 
 			movieDetail.ChannelDetail = detail;

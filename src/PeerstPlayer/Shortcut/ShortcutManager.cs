@@ -175,6 +175,11 @@ namespace PeerstPlayer.Shortcut
 		{
 			Logger.Instance.InfoFormat("コマンド実行 [コマンドID:{0}]", commands);
 
+			if (commands == Commands.None)
+			{
+				return;
+			}
+
 			// コマンド実行イベント -> 実行内容を通知
 			ShortcutCommand command = commandMap[commands];
 			CommandExecuted(this, new CommnadExecutedEventArgs { Command = commands, Detail = command.Detail });
@@ -190,6 +195,7 @@ namespace PeerstPlayer.Shortcut
 		{
 			commandMap = new Dictionary<Commands, ShortcutCommand>()
 			{
+				{	Commands.None,					new ShortcutCommand(new NullCommand(), new CommandArgs())											}, // 処理なし
 				{	Commands.VolumeUp,				new ShortcutCommand(new VolumeUpCommand(pecaPlayer), new CommandArgs())								}, // 音量UP
 				{	Commands.VolumeDown,			new ShortcutCommand(new VolumeDownCommand(pecaPlayer), new CommandArgs())							}, // 音量DOWN
 				{	Commands.VolumeBalanceLeft,		new ShortcutCommand(new VolumeBalanceCommand(pecaPlayer), new VolumeBalanceCommandArgs(VolumeBalanceCommandArgs.BalanceLeft))	}, // 音量バランス：左

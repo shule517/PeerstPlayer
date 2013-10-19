@@ -4,6 +4,7 @@ namespace PeerstPlayer.Shortcut
 	// コマンド実行
 	public enum Commands
 	{
+		None,				// なし
 		VolumeUp,			// 音量UP
 		VolumeDown,			// 音量DOWN
 		VolumeBalanceLeft,	// 音量バランス：左

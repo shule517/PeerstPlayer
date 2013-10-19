@@ -50,6 +50,7 @@ namespace PeerstPlayer.Forms.Setting
 			this.closeGroupBox = new System.Windows.Forms.GroupBox();
 			this.disconnectRealyOnCloseCheckBox = new System.Windows.Forms.CheckBox();
 			this.statusBarGroupBox = new System.Windows.Forms.GroupBox();
+			this.listenerNumberCheckBox = new System.Windows.Forms.CheckBox();
 			this.displayBitrateCheckBox = new System.Windows.Forms.CheckBox();
 			this.displayFpsCheckBox = new System.Windows.Forms.CheckBox();
 			this.shortcutPage = new System.Windows.Forms.TabPage();
@@ -60,7 +61,8 @@ namespace PeerstPlayer.Forms.Setting
 			this.gestureColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
 			this.saveButton = new System.Windows.Forms.Button();
 			this.cancelButton = new System.Windows.Forms.Button();
-			this.listenerNumberCheckBox = new System.Windows.Forms.CheckBox();
+			this.movieStartGroupBox = new System.Windows.Forms.GroupBox();
+			this.movieStartComboBox = new System.Windows.Forms.ComboBox();
 			this.tabControl.SuspendLayout();
 			this.settingPage.SuspendLayout();
 			this.volumeChangeGroupBox.SuspendLayout();
@@ -69,6 +71,7 @@ namespace PeerstPlayer.Forms.Setting
 			this.closeGroupBox.SuspendLayout();
 			this.statusBarGroupBox.SuspendLayout();
 			this.shortcutPage.SuspendLayout();
+			this.movieStartGroupBox.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// tabControl
@@ -89,6 +92,7 @@ namespace PeerstPlayer.Forms.Setting
 			this.settingPage.Controls.Add(this.volumeChangeGroupBox);
 			this.settingPage.Controls.Add(this.windowGroupBox);
 			this.settingPage.Controls.Add(this.initGroupBox);
+			this.settingPage.Controls.Add(this.movieStartGroupBox);
 			this.settingPage.Controls.Add(this.closeGroupBox);
 			this.settingPage.Controls.Add(this.statusBarGroupBox);
 			this.settingPage.Location = new System.Drawing.Point(4, 22);
@@ -278,6 +282,16 @@ namespace PeerstPlayer.Forms.Setting
 			this.statusBarGroupBox.TabStop = false;
 			this.statusBarGroupBox.Text = "ステータスバー";
 			// 
+			// listenerNumberCheckBox
+			// 
+			this.listenerNumberCheckBox.AutoSize = true;
+			this.listenerNumberCheckBox.Location = new System.Drawing.Point(16, 62);
+			this.listenerNumberCheckBox.Name = "listenerNumberCheckBox";
+			this.listenerNumberCheckBox.Size = new System.Drawing.Size(105, 16);
+			this.listenerNumberCheckBox.TabIndex = 1;
+			this.listenerNumberCheckBox.Text = "リスナー数を表示";
+			this.listenerNumberCheckBox.UseVisualStyleBackColor = true;
+			// 
 			// displayBitrateCheckBox
 			// 
 			this.displayBitrateCheckBox.AutoSize = true;
@@ -377,15 +391,23 @@ namespace PeerstPlayer.Forms.Setting
 			this.cancelButton.UseVisualStyleBackColor = true;
 			this.cancelButton.Click += new System.EventHandler(this.cancelButton_Click);
 			// 
-			// listenerNumberCheckBox
+			// movieStartGroupBox
 			// 
-			this.listenerNumberCheckBox.AutoSize = true;
-			this.listenerNumberCheckBox.Location = new System.Drawing.Point(16, 62);
-			this.listenerNumberCheckBox.Name = "listenerNumberCheckBox";
-			this.listenerNumberCheckBox.Size = new System.Drawing.Size(105, 16);
-			this.listenerNumberCheckBox.TabIndex = 1;
-			this.listenerNumberCheckBox.Text = "リスナー数を表示";
-			this.listenerNumberCheckBox.UseVisualStyleBackColor = true;
+			this.movieStartGroupBox.Controls.Add(this.movieStartComboBox);
+			this.movieStartGroupBox.Location = new System.Drawing.Point(231, 162);
+			this.movieStartGroupBox.Name = "movieStartGroupBox";
+			this.movieStartGroupBox.Size = new System.Drawing.Size(210, 49);
+			this.movieStartGroupBox.TabIndex = 4;
+			this.movieStartGroupBox.TabStop = false;
+			this.movieStartGroupBox.Text = "動画再生時";
+			// 
+			// movieStartComboBox
+			// 
+			this.movieStartComboBox.FormattingEnabled = true;
+			this.movieStartComboBox.Location = new System.Drawing.Point(9, 18);
+			this.movieStartComboBox.Name = "movieStartComboBox";
+			this.movieStartComboBox.Size = new System.Drawing.Size(195, 20);
+			this.movieStartComboBox.TabIndex = 0;
 			// 
 			// PlayerSettingView
 			// 
@@ -413,6 +435,7 @@ namespace PeerstPlayer.Forms.Setting
 			this.statusBarGroupBox.PerformLayout();
 			this.shortcutPage.ResumeLayout(false);
 			this.shortcutPage.PerformLayout();
+			this.movieStartGroupBox.ResumeLayout(false);
 			this.ResumeLayout(false);
 
 		}
@@ -450,6 +473,8 @@ namespace PeerstPlayer.Forms.Setting
 		private System.Windows.Forms.Label volumeChangeNoneLabel;
 		private System.Windows.Forms.TextBox volumeChangeNoneTextBox;
 		private System.Windows.Forms.CheckBox listenerNumberCheckBox;
+		private System.Windows.Forms.GroupBox movieStartGroupBox;
+		private System.Windows.Forms.ComboBox movieStartComboBox;
 
 	}
 }

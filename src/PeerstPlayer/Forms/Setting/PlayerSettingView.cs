@@ -16,6 +16,48 @@ namespace PeerstPlayer.Forms.Setting
 		/// </summary>
 		private ShortcutManager shortcut;
 
+		#region 動画再生開始時のコマンド一覧
+
+		/// <summary>
+		/// 動画再生開始時のコマンド一覧
+		/// </summary>
+		private Commands[] movieStartCommandList = {
+
+			// 処理なし
+			Commands.None,
+
+			// 動画サイズに合わせる
+			Commands.FitMovieSize,
+			
+			// ウィンドウ拡大率指定
+			Commands.WindowScale50Per,
+			Commands.WindowScale75Per,
+			Commands.WindowScale100Per,
+			Commands.WindowScale150Per,
+			Commands.WindowScale200Per,
+			
+			// ウィンドウサイズ指定
+			Commands.WindowSize160x120,
+			Commands.WindowSize320x240,
+			Commands.WindowSize480x360,
+			Commands.WindowSize640x480,
+			Commands.WindowSize800x600,
+			
+			// 画面分割
+			Commands.ScreenSplitWidthx5,
+			Commands.ScreenSplitWidthx4,
+			Commands.ScreenSplitWidthx3,
+			Commands.ScreenSplitWidthx2,
+			Commands.ScreenSplitWidthx1,
+			Commands.ScreenSplitHeightx5,
+			Commands.ScreenSplitHeightx4,
+			Commands.ScreenSplitHeightx3,
+			Commands.ScreenSplitHeightx2,
+			Commands.ScreenSplitHeightx1,
+		};
+
+		#endregion
+		
 		public PlayerSettingView(ShortcutManager shortcut)
 		{
 			this.shortcut = shortcut;
@@ -45,6 +87,19 @@ namespace PeerstPlayer.Forms.Setting
 				volumeChangeNoneTextBox.Text = PlayerSettings.VolumeChangeNone.ToString();
 				volumeChangeCtrlTextBox.Text = PlayerSettings.VolumeChangeCtrl.ToString();
 				volumeChangeShiftTextBox.Text = PlayerSettings.VolumeChangeShift.ToString();
+
+				// 動画再生開始時のコマンド
+				movieStartComboBox.Items.Clear();
+				foreach (Commands command in movieStartCommandList)
+				{
+					string detail = shortcut.CommandMap[command].Detail;
+					movieStartComboBox.Items.Add(detail);
+
+					if (PlayerSettings.MovieStartCommand == command)
+					{
+						movieStartComboBox.SelectedIndex = (movieStartComboBox.Items.Count - 1);
+					}
+				}
 
 				// ショートカット・ジェスチャー表示
 				shortcutListView.Items.Clear();
@@ -270,6 +325,12 @@ namespace PeerstPlayer.Forms.Setting
 			if (int.TryParse(volumeChangeShiftTextBox.Text, out volumeChangeShift))
 			{
 				PlayerSettings.VolumeChangeShift = volumeChangeShift;
+			}
+
+			// 動画再生開始時のコマンド
+			if (movieStartComboBox.SelectedIndex != -1)
+			{
+				PlayerSettings.MovieStartCommand = movieStartCommandList[movieStartComboBox.SelectedIndex];
 			}
 
 			// 設定を保存
