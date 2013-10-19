@@ -216,6 +216,10 @@ namespace PeerstPlayer.Controls.StatusBar
 		private void UpdateChannelDetail()
 		{
 			string detail = channelDetail;
+
+			// データが取得できるまで非表示
+			if (movieInfo.Bitrate <= 0)
+				return;
 	
 			if (PlayerSettings.DisplayFps || PlayerSettings.DisplayBitrate)
 			{
@@ -242,7 +246,7 @@ namespace PeerstPlayer.Controls.StatusBar
 			// リスナー数表示
 			if (PlayerSettings.DisplayListenerNumber)
 			{
-				detail += string.Format("[{0}/{1}]", movieInfo.ListenerNumber, movieInfo.RelayNumber);
+				detail += string.Format(" [{0}/{1}]", movieInfo.ListenerNumber, movieInfo.RelayNumber);
 			}
 
 			if (PlayerSettings.DisplayFps || PlayerSettings.DisplayBitrate || PlayerSettings.DisplayListenerNumber)
