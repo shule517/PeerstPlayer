@@ -32,14 +32,21 @@ namespace PeerstPlayer.Forms.Setting
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(PlayerSettingView));
 			this.tabControl = new System.Windows.Forms.TabControl();
 			this.settingPage = new System.Windows.Forms.TabPage();
+			this.volumeChangeGroupBox = new System.Windows.Forms.GroupBox();
+			this.volumeChangeNoneLabel = new System.Windows.Forms.Label();
+			this.volumeChangeShiftLabel = new System.Windows.Forms.Label();
+			this.volumeChangeCtrlLabel = new System.Windows.Forms.Label();
+			this.volumeChangeCtrlTextBox = new System.Windows.Forms.TextBox();
+			this.volumeChangeNoneTextBox = new System.Windows.Forms.TextBox();
+			this.volumeChangeShiftTextBox = new System.Windows.Forms.TextBox();
 			this.windowGroupBox = new System.Windows.Forms.GroupBox();
 			this.aspectRateFixCheckBox = new System.Windows.Forms.CheckBox();
 			this.windowSnapEnableCheckBox = new System.Windows.Forms.CheckBox();
 			this.initGroupBox = new System.Windows.Forms.GroupBox();
 			this.initVolumeLabel = new System.Windows.Forms.Label();
-			this.initVolumeTextBox = new System.Windows.Forms.TextBox();
 			this.writeFieldVisibleCheckBox = new System.Windows.Forms.CheckBox();
 			this.topMostCheckBox = new System.Windows.Forms.CheckBox();
+			this.initVolumeTextBox = new System.Windows.Forms.TextBox();
 			this.closeGroupBox = new System.Windows.Forms.GroupBox();
 			this.disconnectRealyOnCloseCheckBox = new System.Windows.Forms.CheckBox();
 			this.statusBarGroupBox = new System.Windows.Forms.GroupBox();
@@ -53,21 +60,15 @@ namespace PeerstPlayer.Forms.Setting
 			this.gestureColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
 			this.saveButton = new System.Windows.Forms.Button();
 			this.cancelButton = new System.Windows.Forms.Button();
-			this.volumeChangeCtrlTextBox = new System.Windows.Forms.TextBox();
-			this.volumeChangeCtrlLabel = new System.Windows.Forms.Label();
-			this.volumeChangeShiftTextBox = new System.Windows.Forms.TextBox();
-			this.volumeChangeShiftLabel = new System.Windows.Forms.Label();
-			this.volumeChangeGroupBox = new System.Windows.Forms.GroupBox();
-			this.volumeChangeNoneTextBox = new System.Windows.Forms.TextBox();
-			this.volumeChangeNoneLabel = new System.Windows.Forms.Label();
+			this.listenerNumberCheckBox = new System.Windows.Forms.CheckBox();
 			this.tabControl.SuspendLayout();
 			this.settingPage.SuspendLayout();
+			this.volumeChangeGroupBox.SuspendLayout();
 			this.windowGroupBox.SuspendLayout();
 			this.initGroupBox.SuspendLayout();
 			this.closeGroupBox.SuspendLayout();
 			this.statusBarGroupBox.SuspendLayout();
 			this.shortcutPage.SuspendLayout();
-			this.volumeChangeGroupBox.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// tabControl
@@ -97,6 +98,72 @@ namespace PeerstPlayer.Forms.Setting
 			this.settingPage.TabIndex = 0;
 			this.settingPage.Text = "各種設定";
 			this.settingPage.UseVisualStyleBackColor = true;
+			// 
+			// volumeChangeGroupBox
+			// 
+			this.volumeChangeGroupBox.Controls.Add(this.volumeChangeNoneLabel);
+			this.volumeChangeGroupBox.Controls.Add(this.volumeChangeShiftLabel);
+			this.volumeChangeGroupBox.Controls.Add(this.volumeChangeCtrlLabel);
+			this.volumeChangeGroupBox.Controls.Add(this.volumeChangeCtrlTextBox);
+			this.volumeChangeGroupBox.Controls.Add(this.volumeChangeNoneTextBox);
+			this.volumeChangeGroupBox.Controls.Add(this.volumeChangeShiftTextBox);
+			this.volumeChangeGroupBox.Location = new System.Drawing.Point(11, 194);
+			this.volumeChangeGroupBox.Name = "volumeChangeGroupBox";
+			this.volumeChangeGroupBox.Size = new System.Drawing.Size(210, 102);
+			this.volumeChangeGroupBox.TabIndex = 2;
+			this.volumeChangeGroupBox.TabStop = false;
+			this.volumeChangeGroupBox.Text = "音量変化";
+			// 
+			// volumeChangeNoneLabel
+			// 
+			this.volumeChangeNoneLabel.AutoSize = true;
+			this.volumeChangeNoneLabel.Location = new System.Drawing.Point(52, 24);
+			this.volumeChangeNoneLabel.Name = "volumeChangeNoneLabel";
+			this.volumeChangeNoneLabel.Size = new System.Drawing.Size(74, 12);
+			this.volumeChangeNoneLabel.TabIndex = 0;
+			this.volumeChangeNoneLabel.Text = "ホイール回転：";
+			// 
+			// volumeChangeShiftLabel
+			// 
+			this.volumeChangeShiftLabel.AutoSize = true;
+			this.volumeChangeShiftLabel.Location = new System.Drawing.Point(14, 74);
+			this.volumeChangeShiftLabel.Name = "volumeChangeShiftLabel";
+			this.volumeChangeShiftLabel.Size = new System.Drawing.Size(112, 12);
+			this.volumeChangeShiftLabel.TabIndex = 4;
+			this.volumeChangeShiftLabel.Text = "Shift + ホイール回転：";
+			// 
+			// volumeChangeCtrlLabel
+			// 
+			this.volumeChangeCtrlLabel.AutoSize = true;
+			this.volumeChangeCtrlLabel.Location = new System.Drawing.Point(19, 49);
+			this.volumeChangeCtrlLabel.Name = "volumeChangeCtrlLabel";
+			this.volumeChangeCtrlLabel.Size = new System.Drawing.Size(107, 12);
+			this.volumeChangeCtrlLabel.TabIndex = 2;
+			this.volumeChangeCtrlLabel.Text = "Ctrl + ホイール回転：";
+			// 
+			// volumeChangeCtrlTextBox
+			// 
+			this.volumeChangeCtrlTextBox.Location = new System.Drawing.Point(135, 46);
+			this.volumeChangeCtrlTextBox.Name = "volumeChangeCtrlTextBox";
+			this.volumeChangeCtrlTextBox.Size = new System.Drawing.Size(35, 19);
+			this.volumeChangeCtrlTextBox.TabIndex = 3;
+			this.volumeChangeCtrlTextBox.Text = "5";
+			// 
+			// volumeChangeNoneTextBox
+			// 
+			this.volumeChangeNoneTextBox.Location = new System.Drawing.Point(135, 21);
+			this.volumeChangeNoneTextBox.Name = "volumeChangeNoneTextBox";
+			this.volumeChangeNoneTextBox.Size = new System.Drawing.Size(35, 19);
+			this.volumeChangeNoneTextBox.TabIndex = 1;
+			this.volumeChangeNoneTextBox.Text = "10";
+			// 
+			// volumeChangeShiftTextBox
+			// 
+			this.volumeChangeShiftTextBox.Location = new System.Drawing.Point(135, 71);
+			this.volumeChangeShiftTextBox.Name = "volumeChangeShiftTextBox";
+			this.volumeChangeShiftTextBox.Size = new System.Drawing.Size(35, 19);
+			this.volumeChangeShiftTextBox.TabIndex = 5;
+			this.volumeChangeShiftTextBox.Text = "1";
 			// 
 			// windowGroupBox
 			// 
@@ -151,14 +218,6 @@ namespace PeerstPlayer.Forms.Setting
 			this.initVolumeLabel.TabIndex = 2;
 			this.initVolumeLabel.Text = "初期音量：";
 			// 
-			// initVolumeTextBox
-			// 
-			this.initVolumeTextBox.Location = new System.Drawing.Point(81, 62);
-			this.initVolumeTextBox.Name = "initVolumeTextBox";
-			this.initVolumeTextBox.Size = new System.Drawing.Size(35, 19);
-			this.initVolumeTextBox.TabIndex = 3;
-			this.initVolumeTextBox.Text = "50";
-			// 
 			// writeFieldVisibleCheckBox
 			// 
 			this.writeFieldVisibleCheckBox.AutoSize = true;
@@ -178,6 +237,14 @@ namespace PeerstPlayer.Forms.Setting
 			this.topMostCheckBox.TabIndex = 1;
 			this.topMostCheckBox.Text = "最前列表示";
 			this.topMostCheckBox.UseVisualStyleBackColor = true;
+			// 
+			// initVolumeTextBox
+			// 
+			this.initVolumeTextBox.Location = new System.Drawing.Point(81, 62);
+			this.initVolumeTextBox.Name = "initVolumeTextBox";
+			this.initVolumeTextBox.Size = new System.Drawing.Size(35, 19);
+			this.initVolumeTextBox.TabIndex = 3;
+			this.initVolumeTextBox.Text = "50";
 			// 
 			// closeGroupBox
 			// 
@@ -201,11 +268,12 @@ namespace PeerstPlayer.Forms.Setting
 			// 
 			// statusBarGroupBox
 			// 
+			this.statusBarGroupBox.Controls.Add(this.listenerNumberCheckBox);
 			this.statusBarGroupBox.Controls.Add(this.displayBitrateCheckBox);
 			this.statusBarGroupBox.Controls.Add(this.displayFpsCheckBox);
 			this.statusBarGroupBox.Location = new System.Drawing.Point(11, 89);
 			this.statusBarGroupBox.Name = "statusBarGroupBox";
-			this.statusBarGroupBox.Size = new System.Drawing.Size(210, 67);
+			this.statusBarGroupBox.Size = new System.Drawing.Size(210, 99);
 			this.statusBarGroupBox.TabIndex = 1;
 			this.statusBarGroupBox.TabStop = false;
 			this.statusBarGroupBox.Text = "ステータスバー";
@@ -309,71 +377,15 @@ namespace PeerstPlayer.Forms.Setting
 			this.cancelButton.UseVisualStyleBackColor = true;
 			this.cancelButton.Click += new System.EventHandler(this.cancelButton_Click);
 			// 
-			// volumeChangeCtrlTextBox
+			// listenerNumberCheckBox
 			// 
-			this.volumeChangeCtrlTextBox.Location = new System.Drawing.Point(135, 46);
-			this.volumeChangeCtrlTextBox.Name = "volumeChangeCtrlTextBox";
-			this.volumeChangeCtrlTextBox.Size = new System.Drawing.Size(35, 19);
-			this.volumeChangeCtrlTextBox.TabIndex = 3;
-			this.volumeChangeCtrlTextBox.Text = "5";
-			// 
-			// volumeChangeCtrlLabel
-			// 
-			this.volumeChangeCtrlLabel.AutoSize = true;
-			this.volumeChangeCtrlLabel.Location = new System.Drawing.Point(19, 49);
-			this.volumeChangeCtrlLabel.Name = "volumeChangeCtrlLabel";
-			this.volumeChangeCtrlLabel.Size = new System.Drawing.Size(107, 12);
-			this.volumeChangeCtrlLabel.TabIndex = 2;
-			this.volumeChangeCtrlLabel.Text = "Ctrl + ホイール回転：";
-			// 
-			// volumeChangeShiftTextBox
-			// 
-			this.volumeChangeShiftTextBox.Location = new System.Drawing.Point(135, 71);
-			this.volumeChangeShiftTextBox.Name = "volumeChangeShiftTextBox";
-			this.volumeChangeShiftTextBox.Size = new System.Drawing.Size(35, 19);
-			this.volumeChangeShiftTextBox.TabIndex = 5;
-			this.volumeChangeShiftTextBox.Text = "1";
-			// 
-			// volumeChangeShiftLabel
-			// 
-			this.volumeChangeShiftLabel.AutoSize = true;
-			this.volumeChangeShiftLabel.Location = new System.Drawing.Point(14, 74);
-			this.volumeChangeShiftLabel.Name = "volumeChangeShiftLabel";
-			this.volumeChangeShiftLabel.Size = new System.Drawing.Size(112, 12);
-			this.volumeChangeShiftLabel.TabIndex = 4;
-			this.volumeChangeShiftLabel.Text = "Shift + ホイール回転：";
-			// 
-			// volumeChangeGroupBox
-			// 
-			this.volumeChangeGroupBox.Controls.Add(this.volumeChangeNoneLabel);
-			this.volumeChangeGroupBox.Controls.Add(this.volumeChangeShiftLabel);
-			this.volumeChangeGroupBox.Controls.Add(this.volumeChangeCtrlLabel);
-			this.volumeChangeGroupBox.Controls.Add(this.volumeChangeCtrlTextBox);
-			this.volumeChangeGroupBox.Controls.Add(this.volumeChangeNoneTextBox);
-			this.volumeChangeGroupBox.Controls.Add(this.volumeChangeShiftTextBox);
-			this.volumeChangeGroupBox.Location = new System.Drawing.Point(11, 162);
-			this.volumeChangeGroupBox.Name = "volumeChangeGroupBox";
-			this.volumeChangeGroupBox.Size = new System.Drawing.Size(210, 102);
-			this.volumeChangeGroupBox.TabIndex = 2;
-			this.volumeChangeGroupBox.TabStop = false;
-			this.volumeChangeGroupBox.Text = "音量変化";
-			// 
-			// volumeChangeNoneTextBox
-			// 
-			this.volumeChangeNoneTextBox.Location = new System.Drawing.Point(135, 21);
-			this.volumeChangeNoneTextBox.Name = "volumeChangeNoneTextBox";
-			this.volumeChangeNoneTextBox.Size = new System.Drawing.Size(35, 19);
-			this.volumeChangeNoneTextBox.TabIndex = 1;
-			this.volumeChangeNoneTextBox.Text = "10";
-			// 
-			// volumeChangeNoneLabel
-			// 
-			this.volumeChangeNoneLabel.AutoSize = true;
-			this.volumeChangeNoneLabel.Location = new System.Drawing.Point(52, 24);
-			this.volumeChangeNoneLabel.Name = "volumeChangeNoneLabel";
-			this.volumeChangeNoneLabel.Size = new System.Drawing.Size(74, 12);
-			this.volumeChangeNoneLabel.TabIndex = 0;
-			this.volumeChangeNoneLabel.Text = "ホイール回転：";
+			this.listenerNumberCheckBox.AutoSize = true;
+			this.listenerNumberCheckBox.Location = new System.Drawing.Point(16, 62);
+			this.listenerNumberCheckBox.Name = "listenerNumberCheckBox";
+			this.listenerNumberCheckBox.Size = new System.Drawing.Size(105, 16);
+			this.listenerNumberCheckBox.TabIndex = 1;
+			this.listenerNumberCheckBox.Text = "リスナー数を表示";
+			this.listenerNumberCheckBox.UseVisualStyleBackColor = true;
 			// 
 			// PlayerSettingView
 			// 
@@ -389,6 +401,8 @@ namespace PeerstPlayer.Forms.Setting
 			this.TopMost = true;
 			this.tabControl.ResumeLayout(false);
 			this.settingPage.ResumeLayout(false);
+			this.volumeChangeGroupBox.ResumeLayout(false);
+			this.volumeChangeGroupBox.PerformLayout();
 			this.windowGroupBox.ResumeLayout(false);
 			this.windowGroupBox.PerformLayout();
 			this.initGroupBox.ResumeLayout(false);
@@ -399,8 +413,6 @@ namespace PeerstPlayer.Forms.Setting
 			this.statusBarGroupBox.PerformLayout();
 			this.shortcutPage.ResumeLayout(false);
 			this.shortcutPage.PerformLayout();
-			this.volumeChangeGroupBox.ResumeLayout(false);
-			this.volumeChangeGroupBox.PerformLayout();
 			this.ResumeLayout(false);
 
 		}
@@ -437,6 +449,7 @@ namespace PeerstPlayer.Forms.Setting
 		private System.Windows.Forms.TextBox volumeChangeShiftTextBox;
 		private System.Windows.Forms.Label volumeChangeNoneLabel;
 		private System.Windows.Forms.TextBox volumeChangeNoneTextBox;
+		private System.Windows.Forms.CheckBox listenerNumberCheckBox;
 
 	}
 }

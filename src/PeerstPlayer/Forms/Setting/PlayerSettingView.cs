@@ -39,6 +39,7 @@ namespace PeerstPlayer.Forms.Setting
 				// チェックボックスの設定(ステータスバー)
 				displayFpsCheckBox.Checked = PlayerSettings.DisplayFps;
 				displayBitrateCheckBox.Checked = PlayerSettings.DisplayBitrate;
+				listenerNumberCheckBox.Checked = PlayerSettings.DisplayListenerNumber;
 
 				// 音量変化
 				volumeChangeNoneTextBox.Text = PlayerSettings.VolumeChangeNone.ToString();
@@ -245,6 +246,7 @@ namespace PeerstPlayer.Forms.Setting
 			// チェックボックスの設定(ステータスバー)
 			PlayerSettings.DisplayFps = displayFpsCheckBox.Checked;
 			PlayerSettings.DisplayBitrate = displayBitrateCheckBox.Checked;
+			PlayerSettings.DisplayListenerNumber = listenerNumberCheckBox.Checked;
 
 			// 初期音量
 			int initVolume = 0;

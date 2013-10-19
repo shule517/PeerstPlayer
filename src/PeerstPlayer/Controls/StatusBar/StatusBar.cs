@@ -249,7 +249,7 @@ namespace PeerstPlayer.Controls.StatusBar
 				detail += string.Format(" [{0}/{1}]", movieInfo.ListenerNumber, movieInfo.RelayNumber);
 			}
 
-			if (PlayerSettings.DisplayFps || PlayerSettings.DisplayBitrate || PlayerSettings.DisplayListenerNumber)
+			if (PlayerSettings.DisplayFps || PlayerSettings.DisplayBitrate)
 			{
 				detail += ")";
 			}
