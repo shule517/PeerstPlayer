@@ -3,6 +3,7 @@ using System;
 using PeerstLib.Controls;
 using PeerstLib.Util;
 using PeerstPlayer.Settings;
+using PeerstPlayer.Shortcut;
 namespace PeerstPlayer.Forms.Player
 {
 	/// <summary>
@@ -126,6 +127,15 @@ namespace PeerstPlayer.Forms.Player
 		{
 			get { return info.VolumeChangeShift; }
 			set { info.VolumeChangeShift = value; }
+		}
+
+		/// <summary>
+		/// 動画再生開始時に実行するコマンド
+		/// </summary>
+		public static Commands MovieStartCommand
+		{
+			get { return info.MovieStartCommand; }
+			set { info.MovieStartCommand = value; }
 		}
 
 		static PlayerSettings()

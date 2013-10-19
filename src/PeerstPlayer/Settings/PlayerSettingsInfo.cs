@@ -1,4 +1,5 @@
 ﻿
+using PeerstPlayer.Shortcut;
 namespace PeerstPlayer.Settings
 {
 	/// <summary>
@@ -65,6 +66,11 @@ namespace PeerstPlayer.Settings
 		/// 音量変更：Shiftキー押下
 		/// </summary>
 		public int VolumeChangeShift = 1;
+
+		/// <summary>
+		/// 動画再生開始時に実行するコマンド
+		/// </summary>
+		public Commands MovieStartCommand = Commands.FitMovieSize;
 
 		// - ステータスバーフォント : Font
 		// - ステータスバー表示項目 : List

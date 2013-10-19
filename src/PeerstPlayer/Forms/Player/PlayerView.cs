@@ -382,7 +382,7 @@ namespace PeerstPlayer.Forms.Setting
 			};
 
 			// 動画再生イベント
-			pecaPlayer.MovieStart += (sender, e) => shortcut.RaiseEvent(ShortcutEvents.MovieStart);
+			pecaPlayer.MovieStart += (sender, e) => shortcut.ExecCommand(PlayerSettings.MovieStartCommand);
 
 			// コマンド実行内容の表示
 			shortcut.CommandExecuted += (sender, e) =>
