@@ -113,6 +113,7 @@ namespace PeerstLib.Bbs.Strategy
 
 			// リクエスト作成
 			HttpWebRequest webRequest = (HttpWebRequest)WebRequest.Create(writeUrl);
+			webRequest.Proxy = null;
 			webRequest.Method = "POST";
 			webRequest.ContentType = "application/x-www-form-urlencoded";
 			webRequest.ContentLength = requestData.Length;
