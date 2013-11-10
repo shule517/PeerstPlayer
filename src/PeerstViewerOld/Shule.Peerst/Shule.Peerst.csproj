@@ -1,0 +1,90 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{F5B9B548-CB1C-4065-82CC-B4344DA0C337}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Shule.Peerst</RootNamespace>
+    <AssemblyName>Shule.Peerst</AssemblyName>
+    <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="BBS\BbsFactory.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="BBS\BbsServer.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="BBS\Data\BbsInfo.cs" />
+    <Compile Include="BBS\BbsUrlAnalyzer.cs" />
+    <Compile Include="BBS\Data\ResInfo.cs" />
+    <Compile Include="BBS\Data\ThreadInfo.cs" />
+    <Compile Include="BBS\OperationBbs.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="BBS\Strategy\BbsStrategy.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="BBS\Strategy\IBbsStrategy.cs" />
+    <Compile Include="BBS\Strategy\NullBbsStrategy.cs" />
+    <Compile Include="BBS\Strategy\ShitarabaBbsStrategy.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="BBS\Strategy\YYKakikoBbsStrategy.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Form\BufferedListView.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Form\FormUtility.cs" />
+    <Compile Include="Form\MouseGesture.cs" />
+    <Compile Include="Form\Win32API.cs" />
+    <Compile Include="Observer\Observable.cs" />
+    <Compile Include="Observer\Observer.cs" />
+    <Compile Include="PeerCast\PeerCastManager.cs" />
+    <Compile Include="PeerCast\StreamUrlAnalyzer.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Util\InitFile.cs" />
+    <Compile Include="Web\WebUtility.cs" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
