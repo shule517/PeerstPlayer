@@ -149,10 +149,6 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\PeerstPlayer\PeerstPlayer.csproj">
-      <Project>{420c2f43-b4b3-46b3-81fe-edfaf580129a}</Project>
-      <Name>PeerstPlayer</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Shule.Peerst\Shule.Peerst.csproj">
       <Project>{f5b9b548-cb1c-4065-82cc-b4344da0c337}</Project>
       <Name>Shule.Peerst</Name>
