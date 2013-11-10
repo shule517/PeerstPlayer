@@ -38,6 +38,9 @@ namespace PeerstPlayer.Forms.Setting
 		{
 			InitializeComponent();
 
+			// Toastの初期化
+			ToastMessage.Init(this.statusBar);
+
 			// コマンドライン引数のログ出力
 			string[] commandLine = Environment.GetCommandLineArgs();
 			foreach (string arg in commandLine)
@@ -374,7 +377,7 @@ namespace PeerstPlayer.Forms.Setting
 					if (!String.IsNullOrEmpty(gesture))
 					{
 						string message = string.Format("ジェスチャ： {0} {1}", gesture, (String.IsNullOrEmpty(detail) ? "" : "(" + detail + ")"));
-						statusBar.ShowMessage(message);
+						ToastMessage.Show(message);
 					}
 				}
 			};
@@ -409,7 +412,7 @@ namespace PeerstPlayer.Forms.Setting
 				// ステータスバー表示切り替えはメッセージを出さない
 				if (args.Command != Commands.VisibleStatusBar)
 				{
-					statusBar.ShowMessage(string.Format("コマンド： {0}", args.Detail));
+					ToastMessage.Show(string.Format("コマンド： {0}", args.Detail));
 				}
 			};
 

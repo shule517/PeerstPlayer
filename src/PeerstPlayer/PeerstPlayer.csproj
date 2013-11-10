@@ -83,6 +83,7 @@
       <DependentUpon>StatusBar.cs</DependentUpon>
     </Compile>
     <Compile Include="Controls\PecaPlayer\WmpNativeWindow.cs" />
+    <Compile Include="Controls\StatusBar\ToastMessage.cs" />
     <Compile Include="Controls\WriteField\WriteField.cs">
       <SubType>UserControl</SubType>
     </Compile>
