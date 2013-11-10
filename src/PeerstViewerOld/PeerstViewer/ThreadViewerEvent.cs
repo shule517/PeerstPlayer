@@ -1,5 +1,4 @@
 ﻿using PeerstViewer.Settings;
-using Shule.Peerst.BBS;
 using Shule.Peerst.Form;
 using Shule.Peerst.Util;
 using System;
@@ -10,6 +9,8 @@ using System.Drawing;
 using System.IO;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
+using PeerstLib.Bbs;
+using PeerstLib.Bbs.Data;
 
 namespace PeerstViewer
 {
@@ -23,12 +24,16 @@ namespace PeerstViewer
 			textBoxMessage.ReadOnly = true;
 
 			// スレッド書き込み
-			bool isSuccess = operationBbs.Write(textBoxName.Text, textBoxMail.Text, textBoxMessage.Text);
-			if (isSuccess)
+			try
+			{
+				operationBbs.Write("", "sage", textBoxMessage.Text);
+			}
+			catch
 			{
 				textBoxMessage.Text = "";
 				Reload(true);
 			}
+
 			textBoxMessage.ReadOnly = false;
 		}
 
@@ -295,12 +300,19 @@ namespace PeerstViewer
 			{
 				textBoxMessage.ReadOnly = true;
 
-				if (operationBbs.Write(textBoxName.Text, textBoxMail.Text, textBoxMessage.Text))
+				try
 				{
-					textBoxMessage.Text = "";
-					Reload(true);
-					WriteCheck = true;
+					operationBbs.Write("", "sage", textBoxMessage.Text);
 				}
+				catch
+				{
+					return;
+				}
+
+				textBoxMessage.Text = "";
+				Reload(true);
+				WriteCheck = true;
+
 				textBoxMessage.ReadOnly = false;
 			}
 			// 全選択
@@ -421,8 +433,10 @@ namespace PeerstViewer
 		private void backgroundWorkerReload_DoWork(object sender, EventArgs e)
 		{
 			BbsInfo bbsUrl = operationBbs.BbsInfo;
-			resList = operationBbs.ReadThread(bbsUrl.ThreadNo);
+			operationBbs.ReadThread();
 
+			resList = operationBbs.ResList;
+			
 			try
 			{
 				// 新着を太文字から変更
@@ -542,7 +556,7 @@ text-decoration:underline;
 			html += res.Date;
 
 			// ID
-			if (res.ID != "")
+			if (res.Id != "")
 			{
 				html += @" <font color=""blue"">ID:";
 
@@ -552,12 +566,12 @@ text-decoration:underline;
 					html += "<nobr>";
 				}
 
-				html += "</font><ID>" + res.ID + "</ID></nobr>";
+				html += "</font><ID>" + res.Id + "</ID></nobr>";
 			}
 			html += "</font><br><ul>";
 
 			// 本文
-			html += res.Text;
+			html += res.Message;
 
 			// ドキュメントに追加
 			DocumentText += html + "</ul><hr></nobr>\n";

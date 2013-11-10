@@ -1,8 +1,9 @@
 ﻿using PeerstViewer.Settings;
-using Shule.Peerst.BBS;
 using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
+using PeerstLib.Bbs;
+using PeerstLib.Bbs.Data;
 
 namespace PeerstViewer
 {
@@ -11,7 +12,7 @@ namespace PeerstViewer
 		/// <summary>
 		/// 掲示板操作クラス
 		/// </summary>
-		OperationBbs operationBbs = new OperationBbs();
+		PeerstLib.Bbs.OperationBbs operationBbs = new PeerstLib.Bbs.OperationBbs();
 
 		/// <summary>
 		/// 現在取得している次のレス番号
@@ -312,12 +313,12 @@ text-decoration:underline;
 		/// </summary>
 		void ThreadListUpdate()
 		{
-			BbsInfo bbsUrl = operationBbs.BbsInfo;
+			PeerstLib.Bbs.Data.BbsInfo bbsInfo = operationBbs.BbsInfo;
 
 			try
 			{
 				// 取得できていなかったら、URLを直接ブラウザで開く
-				if ((bbsUrl.BBSServer == BbsServer.UnSupport) || (bbsUrl.BoadGenre == "") || (bbsUrl.BoadNo == ""))
+				if ((bbsInfo.BbsServer == BbsServer.UnSupport) || (bbsInfo.BoardGenre == "") || (bbsInfo.BoardNo == ""))
 				{
 					string url = comboBox.Text;
 					if (isEnableUrl(url))
@@ -334,13 +335,13 @@ text-decoration:underline;
 				else
 				{
 					// タイトルバーに板名表示
-					Text = operationBbs.BbsName;
+					Text = bbsInfo.BbsName;
 
 					// スレッド一覧更新
-					if ((bbsUrl.BBSServer != BbsServer.UnSupport) && (bbsUrl.BoadGenre != "") && (bbsUrl.BoadNo != ""))
+					if ((bbsInfo.BbsServer != BbsServer.UnSupport) && (bbsInfo.BoardGenre != "") && (bbsInfo.BoardNo != ""))
 					{
 						// スレッド一覧を取得
-						operationBbs.UpdateThreadInfo();
+						operationBbs.UpdateThreadList();
 
 						// コンボボックスにセット
 						comboBox.Items.Clear();
@@ -352,7 +353,7 @@ text-decoration:underline;
 					}
 
 					// 指定スレッドを選択する
-					if ((bbsUrl.BBSServer != BbsServer.UnSupport) && (bbsUrl.BoadGenre != "") && (bbsUrl.BoadNo != "") && (bbsUrl.ThreadNo != ""))
+					if ((bbsInfo.BbsServer != BbsServer.UnSupport) && (bbsInfo.BoardGenre != "") && (bbsInfo.BoardNo != "") && (bbsInfo.ThreadNo != ""))
 					{
 						// コンボボックスのスレッドを選択
 						int index = 0;
@@ -360,7 +361,7 @@ text-decoration:underline;
 						// 指定スレッドのindexを取得
 						for (int i = 0; i < operationBbs.ThreadList.Count; i++)
 						{
-							if (bbsUrl.ThreadNo == operationBbs.ThreadList[i].ThreadNo)
+							if (bbsInfo.ThreadNo == operationBbs.ThreadList[i].ThreadNo)
 							{
 								index = i;
 								break;
