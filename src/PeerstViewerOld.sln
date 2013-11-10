@@ -5,8 +5,6 @@ VisualStudioVersion = 12.0.20827.3
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PeerstViewer", "PeerstViewerOld\PeerstViewer\PeerstViewer.csproj", "{7D40F4D3-FB0E-484F-8BF7-B16C71155168}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shule.Peerst", "PeerstViewerOld\Shule.Peerst\Shule.Peerst.csproj", "{F5B9B548-CB1C-4065-82CC-B4344DA0C337}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PeerstLib", "PeerstLib\PeerstLib.csproj", "{4444C01D-47A2-43A4-B6A0-67CE167F3537}"
 EndProject
 Global
@@ -19,10 +17,6 @@ Global
 		{7D40F4D3-FB0E-484F-8BF7-B16C71155168}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7D40F4D3-FB0E-484F-8BF7-B16C71155168}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7D40F4D3-FB0E-484F-8BF7-B16C71155168}.Release|Any CPU.Build.0 = Release|Any CPU
-		{F5B9B548-CB1C-4065-82CC-B4344DA0C337}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F5B9B548-CB1C-4065-82CC-B4344DA0C337}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F5B9B548-CB1C-4065-82CC-B4344DA0C337}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F5B9B548-CB1C-4065-82CC-B4344DA0C337}.Release|Any CPU.Build.0 = Release|Any CPU
 		{4444C01D-47A2-43A4-B6A0-67CE167F3537}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{4444C01D-47A2-43A4-B6A0-67CE167F3537}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4444C01D-47A2-43A4-B6A0-67CE167F3537}.Release|Any CPU.ActiveCfg = Release|Any CPU

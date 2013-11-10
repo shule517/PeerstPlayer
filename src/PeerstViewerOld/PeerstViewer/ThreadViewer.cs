@@ -30,11 +30,6 @@ namespace PeerstViewer
 		int ScrollPosY = 0;
 
 		/// <summary>
-		/// Viewerの設定情報
-		/// </summary>
-		ViewerSettingsInfo settings = new ViewerSettingsInfo();
-
-		/// <summary>
 		/// １番下までスクロールするか
 		/// </summary>
 		bool IsScrollBottom = true;
@@ -401,7 +396,7 @@ text-decoration:underline;
 			// ウィンドウ設定
 			Left = ViewerSettings.X;
 			Top = ViewerSettings.Y;
-			Width = ViewerSettings.Wdith;
+			Width = ViewerSettings.Width;
 			Height = ViewerSettings.Height;
 			TopMost = ViewerSettings.TopMost;
 

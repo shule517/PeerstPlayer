@@ -40,10 +40,10 @@ namespace PeerstViewer.Settings
 		/// <summary>
 		/// 初期幅
 		/// </summary>
-		public static int Wdith
+		public static int Width
 		{
-			get { return info.Wdith; }
-			set { info.Wdith = value; }
+			get { return info.Width; }
+			set { info.Width = value; }
 		}
 
 		/// <summary>

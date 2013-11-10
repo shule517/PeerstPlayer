@@ -157,10 +157,6 @@
       <Project>{4444c01d-47a2-43a4-b6a0-67ce167f3537}</Project>
       <Name>PeerstLib</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Shule.Peerst\Shule.Peerst.csproj">
-      <Project>{f5b9b548-cb1c-4065-82cc-b4344da0c337}</Project>
-      <Name>Shule.Peerst</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

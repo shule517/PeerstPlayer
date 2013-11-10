@@ -4,7 +4,7 @@ namespace PeerstViewer.Settings
 	/// <summary>
 	/// Viewerの設定情報
 	/// </summary>
-	class ViewerSettingsInfo
+	public class ViewerSettingsInfo
 	{
 		/// <summary>
 		/// 初期位置X
@@ -19,7 +19,7 @@ namespace PeerstViewer.Settings
 		/// <summary>
 		/// 初期幅
 		/// </summary>
-		public int Wdith = 800;
+		public int Width = 800;
 
 		/// <summary>
 		/// 初期高さ
