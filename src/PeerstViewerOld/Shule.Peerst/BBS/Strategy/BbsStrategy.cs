@@ -298,7 +298,7 @@ namespace Shule.Peerst.BBS
 					ThreadInfo thread = new ThreadInfo(threadTitle, threadNo, int.Parse(resNum));
 					threadList.Add(thread);
 				}
-				catch (Exception e)
+				catch
 				{
 				}
 			}

@@ -1,16 +1,14 @@
-﻿using PeerstPlayer;
+﻿using Shule.Peerst.BBS;
+using Shule.Peerst.Form;
+using Shule.Peerst.Util;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
-using System.Text;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
-using Shule.Peerst.Util;
-using Shule.Peerst.BBS;
-using Shule.Peerst.Form;
 
 namespace PeerstViewer
 {
