@@ -1,6 +1,6 @@
-﻿using System;
+﻿using PeerstLib.Util;
+using System;
 using System.Text.RegularExpressions;
-using PeerstLib.Util;
 
 namespace PeerstLib.Bbs.Util
 {

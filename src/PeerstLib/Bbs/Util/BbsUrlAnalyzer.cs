@@ -1,9 +1,9 @@
-﻿using System;
-using System.Text;
-using System.Text.RegularExpressions;
-using PeerstLib.Bbs.Data;
+﻿using PeerstLib.Bbs.Data;
 using PeerstLib.Bbs.Strategy;
 using PeerstLib.Util;
+using System;
+using System.Text;
+using System.Text.RegularExpressions;
 
 namespace PeerstLib.Bbs.Util
 {
