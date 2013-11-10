@@ -140,7 +140,7 @@ namespace PeerstLib.Bbs.Strategy
 				sr.Close();
 				responseStream.Close();
 			}
-			catch (Exception ex)
+			catch
 			{
 				throw;
 			}
