@@ -629,14 +629,14 @@ text-decoration:underline;
 			IniFile iniFile = new IniFile(FormUtility.GetExeFileDirectory() + "\\PeerstPlayer.ini");
 
 			// 位置を保存
-			if (SaveLocationOnClose)
+			if (ViewerSettings.SaveLocationOnClose)
 			{
 				iniFile.Write("Viewer", "X", Left.ToString());
 				iniFile.Write("Viewer", "Y", Top.ToString());
 			}
 
 			// サイズを保存
-			if (SaveSizeOnClose)
+			if (ViewerSettings.SaveSizeOnClose)
 			{
 				if (WindowState != FormWindowState.Maximized)
 				{
@@ -671,7 +671,7 @@ text-decoration:underline;
 		{
 			IniFile iniFile = new IniFile(FormUtility.GetExeFileDirectory() + "\\PeerstPlayer.ini");
 			iniFile.Write("Viewer", "SaveLocationOnClose", (!位置を保存するToolStripMenuItem.Checked).ToString());
-			SaveLocationOnClose = !位置を保存するToolStripMenuItem.Checked;
+			ViewerSettings.SaveLocationOnClose = !位置を保存するToolStripMenuItem.Checked;
 		}
 
 		/// <summary>
@@ -681,7 +681,7 @@ text-decoration:underline;
 		{
 			IniFile iniFile = new IniFile(FormUtility.GetExeFileDirectory() + "\\PeerstPlayer.ini");
 			iniFile.Write("Viewer", "SaveSizeOnClose", (!サイズを保存するToolStripMenuItem.Checked).ToString());
-			SaveSizeOnClose = !サイズを保存するToolStripMenuItem.Checked;
+			ViewerSettings.SaveSizeOnClose = !サイズを保存するToolStripMenuItem.Checked;
 		}
 
 		#endregion

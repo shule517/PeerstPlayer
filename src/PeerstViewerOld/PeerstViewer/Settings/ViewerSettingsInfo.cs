@@ -54,17 +54,17 @@ namespace PeerstViewer.Settings
 		/// <summary>
 		/// フォント名
 		/// </summary>
-		public string FontName = "";
+		public string FontName = @"<body bgcolor=""#E6EEF3"" style=""font-family:'※※※','ＭＳ Ｐゴシック','ＭＳＰゴシック','MSPゴシック','MS Pゴシック';font-size:16px;line-height:18px;"" >";
 
 		/// <summary>
 		/// 書き込み欄の高さ
 		/// </summary>
-		public int WriteHeight = 50;
+		public int WriteHeight = 215;
 
 		/// <summary>
 		/// 折り返し表示
 		/// </summary>
-		public bool NoBR = true;
+		public bool NoBR = false;
 
 		/// <summary>
 		/// 終了時に位置を保存
