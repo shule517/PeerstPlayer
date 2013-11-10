@@ -1,10 +1,8 @@
-﻿using PeerstPlayer;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Windows.Forms;
-using Shule.Peerst.Util;
+﻿using PeerstViewer.Settings;
 using Shule.Peerst.Form;
+using Shule.Peerst.Util;
+using System;
+using System.Windows.Forms;
 
 namespace PeerstViewer
 {
@@ -130,7 +128,7 @@ namespace PeerstViewer
 			IniFile iniFile = new IniFile(FormUtility.GetExeFileDirectory() + "\\PeerstPlayer.ini");
 			iniFile.Write("Viewer", "NoBR", (!折り返し表示ToolStripMenuItem.Checked).ToString());
 
-			NoBR = (!折り返し表示ToolStripMenuItem.Checked);
+			ViewerSettings.NoBR = (!折り返し表示ToolStripMenuItem.Checked);
 		}
 
 		/// <summary>

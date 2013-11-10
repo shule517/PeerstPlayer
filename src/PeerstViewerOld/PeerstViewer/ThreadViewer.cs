@@ -1,18 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Text;
-using System.Windows.Forms;
-using System.Text.RegularExpressions;
-using System.IO;
-using PeerstPlayer;
-using System.Runtime.InteropServices;
-using System.Diagnostics;
-using Shule.Peerst.Util;
+﻿using PeerstViewer.Settings;
 using Shule.Peerst.BBS;
 using Shule.Peerst.Form;
+using Shule.Peerst.Util;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Text;
+using System.Windows.Forms;
 
 namespace PeerstViewer
 {
@@ -39,19 +33,14 @@ namespace PeerstViewer
 		int ScrollPosY = 0;
 
 		/// <summary>
+		/// Viewerの設定情報
+		/// </summary>
+		ViewerSettingsInfo settings = new ViewerSettingsInfo();
+
+		/// <summary>
 		/// １番下までスクロールするか
 		/// </summary>
 		bool IsScrollBottom = true;
-
-		/// <summary>
-		/// 初期リロード時に最下位までスクロール
-		/// </summary>
-		bool ScrollBottomOnOpen = true;
-
-		/// <summary>
-		/// 折りかえり表示
-		/// </summary>
-		bool NoBR = true;
 
 		/// <summary>
 		/// 終了時に位置保存するか
@@ -247,7 +236,7 @@ namespace PeerstViewer
 			try
 			{
 				InitDocumentText();
-				IsScrollBottom = ScrollBottomOnOpen;
+				IsScrollBottom = ViewerSettings.ScrollBottom;
 
 				ResList.Clear();
 				resList.Clear();
@@ -703,6 +692,38 @@ H = Retry
 				writer.Close();
 			}
 
+			// 設定の読み込み
+			ViewerSettings.Load();
+
+			Left = ViewerSettings.X;
+			Top = ViewerSettings.Y;
+			Width = ViewerSettings.Wdith;
+			Height = ViewerSettings.Height;
+			TopMost = ViewerSettings.TopMost;
+
+			switch (ViewerSettings.AutoReloadInterval)
+			{
+				case 7:
+					toolStripComboBoxReloadTime.SelectedIndex = 0;
+					break;
+				case 10:
+					toolStripComboBoxReloadTime.SelectedIndex = 1;
+					break;
+				case 15:
+					toolStripComboBoxReloadTime.SelectedIndex = 2;
+					break;
+				case 20:
+					toolStripComboBoxReloadTime.SelectedIndex = 3;
+					break;
+				case 25:
+					toolStripComboBoxReloadTime.SelectedIndex = 4;
+					break;
+				case 30:
+					toolStripComboBoxReloadTime.SelectedIndex = 5;
+					break;
+			}
+
+			/*
 			#region 初期設定
 
 			// デフォルト
@@ -880,6 +901,7 @@ H = Retry
 			iniFile.Write("Viewer", "WriteHeight", splitContainer.SplitterDistance.ToString());
 
 			#endregion
+			 */
 		}
 	}
 }

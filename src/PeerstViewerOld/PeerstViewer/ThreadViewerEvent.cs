@@ -1,4 +1,5 @@
-﻿using Shule.Peerst.BBS;
+﻿using PeerstViewer.Settings;
+using Shule.Peerst.BBS;
 using Shule.Peerst.Form;
 using Shule.Peerst.Util;
 using System;
@@ -507,7 +508,7 @@ text-decoration:underline;
 			string html = "";
 
 			// 折り返し
-			if (!NoBR)
+			if (!ViewerSettings.NoBR)
 			{
 				html += "<nobr>";
 			}
@@ -546,7 +547,7 @@ text-decoration:underline;
 				html += @" <font color=""blue"">ID:";
 
 				// 折り返し
-				if (!NoBR)
+				if (!ViewerSettings.NoBR)
 				{
 					html += "<nobr>";
 				}

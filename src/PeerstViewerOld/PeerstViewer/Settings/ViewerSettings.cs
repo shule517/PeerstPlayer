@@ -22,7 +22,7 @@ namespace PeerstViewer.Settings
 		/// <summary>
 		/// 初期位置X
 		/// </summary>
-		public int X
+		public static int X
 		{
 			get { return info.X; }
 			set { info.X = value; }
@@ -31,7 +31,7 @@ namespace PeerstViewer.Settings
 		/// <summary>
 		/// 初期位置Y
 		/// </summary>
-		public int Y
+		public static int Y
 		{
 			get { return info.Y; }
 			set { info.Y = value; }
@@ -40,7 +40,7 @@ namespace PeerstViewer.Settings
 		/// <summary>
 		/// 初期幅
 		/// </summary>
-		public int Wdith
+		public static int Wdith
 		{
 			get { return info.Wdith; }
 			set { info.Wdith = value; }
@@ -49,7 +49,7 @@ namespace PeerstViewer.Settings
 		/// <summary>
 		/// 初期高さ
 		/// </summary>
-		public int Height
+		public static int Height
 		{
 			get { return info.Height; }
 			set { info.Height = value; }
@@ -58,7 +58,7 @@ namespace PeerstViewer.Settings
 		/// <summary>
 		/// 最前列表示
 		/// </summary>
-		public bool TopMost
+		public static bool TopMost
 		{
 			get { return info.TopMost; }
 			set { info.TopMost = value; }
@@ -67,7 +67,7 @@ namespace PeerstViewer.Settings
 		/// <summary>
 		/// 自動更新をするか
 		/// </summary>
-		public bool AutoReload
+		public static bool AutoReload
 		{
 			get { return info.AutoReload; }
 			set { info.AutoReload = value; }
@@ -76,7 +76,7 @@ namespace PeerstViewer.Settings
 		/// <summary>
 		/// 自動更新時間
 		/// </summary>
-		public int AutoReloadInterval
+		public static int AutoReloadInterval
 		{
 			get { return info.AutoReloadInterval; }
 			set { info.AutoReloadInterval = value; }
@@ -85,7 +85,7 @@ namespace PeerstViewer.Settings
 		/// <summary>
 		/// 書き込み欄を表示するか
 		/// </summary>
-		public bool WriteView
+		public static bool WriteView
 		{
 			get { return info.WriteView; }
 			set { info.WriteView = value; }
@@ -94,7 +94,7 @@ namespace PeerstViewer.Settings
 		/// <summary>
 		/// 初期スレッド更新時に最下位までスクロールすか
 		/// </summary>
-		public bool ScrollBottom
+		public static bool ScrollBottom
 		{
 			get { return info.ScrollBottom; }
 			set { info.ScrollBottom = value; }
@@ -103,7 +103,7 @@ namespace PeerstViewer.Settings
 		/// <summary>
 		/// フォント名
 		/// </summary>
-		public string FontName
+		public static string FontName
 		{
 			get { return info.FontName; }
 			set { info.FontName = value; }
@@ -112,7 +112,7 @@ namespace PeerstViewer.Settings
 		/// <summary>
 		/// 書き込み欄の高さ
 		/// </summary>
-		public int WriteHeight
+		public static int WriteHeight
 		{
 			get { return info.WriteHeight; }
 			set { info.WriteHeight = value; }
@@ -121,7 +121,7 @@ namespace PeerstViewer.Settings
 		/// <summary>
 		/// 折り返し表示
 		/// </summary>
-		public bool NoBR
+		public static bool NoBR
 		{
 			get { return info.NoBR; }
 			set { info.NoBR = value; }
@@ -130,7 +130,7 @@ namespace PeerstViewer.Settings
 		/// <summary>
 		/// 終了時に位置を保存
 		/// </summary>
-		bool SaveLocationOnClose
+		public static bool SaveLocationOnClose
 		{
 			get { return info.SaveLocationOnClose; }
 			set { info.SaveLocationOnClose = value; }
@@ -139,7 +139,7 @@ namespace PeerstViewer.Settings
 		/// <summary>
 		/// 終了時にサイズを保存
 		/// </summary>
-		bool SaveSizeOnClose
+		public static bool SaveSizeOnClose
 		{
 			get { return info.SaveSizeOnClose; }
 			set { info.SaveSizeOnClose = value; }
