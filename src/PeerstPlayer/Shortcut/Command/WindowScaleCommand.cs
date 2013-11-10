@@ -20,8 +20,8 @@ namespace PeerstPlayer.Shortcut.Command
 
 		void IShortcutCommand.Execute(CommandArgs commandArgs)
 		{
-			// ウィンドウ最大化時は実行しない
-			if (form.WindowState == FormWindowState.Maximized)
+			// ウィンドウ状態が通常の場合にのみ実行する
+			if (form.WindowState != FormWindowState.Normal)
 			{
 				return;
 			}

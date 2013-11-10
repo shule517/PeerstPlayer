@@ -19,6 +19,12 @@ namespace PeerstPlayer.Shortcut.Command
 
 		void IShortcutCommand.Execute(CommandArgs commandArgs)
 		{
+			// ウィンドウ状態が通常の場合にのみ実行する
+			if (form.WindowState != FormWindowState.Normal)
+			{
+				return;
+			}
+
 			int height = (int)(pecaPlayer.ImageHeight * 0.1);
 			form.Width -= (int)(height * pecaPlayer.AspectRate);
 			form.Height -= height;

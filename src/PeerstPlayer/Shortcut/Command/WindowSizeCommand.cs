@@ -21,6 +21,12 @@ namespace PeerstPlayer.Shortcut.Command
 
 		void IShortcutCommand.Execute(CommandArgs commandArgs)
 		{
+			// ウィンドウ状態が通常の場合にのみ実行する
+			if (form.WindowState != FormWindowState.Normal)
+			{
+				return;
+			}
+
 			WindowSizeCommandArgs args = (WindowSizeCommandArgs)commandArgs;
 			Size size = args.Size;
 			pecaPlayer.SetSize(size.Width, size.Height);
