@@ -6,6 +6,7 @@ using PeerstLib.Util;
 using System.Linq;
 using PeerstPlayer.Forms.ThreadSelect;
 using System.ComponentModel;
+using PeerstPlayer.Controls.StatusBar;
 
 namespace PeerstPlayer.Controls.WriteField
 {
@@ -106,51 +107,65 @@ namespace PeerstPlayer.Controls.WriteField
 
 			// レス書き込み処理
 			writeResWorker.WorkerSupportsCancellation = true;
-			ArgumentException exception = new ArgumentException();
-			string message = writeFieldTextBox.Text;
 			writeResWorker.DoWork += (sender, e) =>
 			{
-				e.Result = true;
+				string message = writeFieldTextBox.Text;
+
+				WriteResResult result = new WriteResResult();
+				result.WriteResult = true;
+				result.Message = message;
 
 				// レス書き込み
 				try
 				{
-					WriteRes();
+					Logger.Instance.InfoFormat("レス書き込み [掲示板:{0} スレッド:{1}, 本文:{2}]", operationBbs.BbsInfo.BbsName, operationBbs.SelectThread.ThreadTitle, message);
+
+					operationBbs.Write("", "sage", message);
+					Logger.Instance.InfoFormat("レス書き込み：成功 [掲示板:{0} スレッド:{1}, 本文:{2}]", operationBbs.BbsInfo.BbsName, operationBbs.SelectThread.ThreadTitle, message);
 				}
-				catch (ArgumentException ex)
+				catch (Exception ex)
 				{
-					exception = ex;
-					e.Result = false;
+					result.WriteResult = false;
+					result.Exception = ex;
 					Logger.Instance.ErrorFormat("レス書き込み：失敗 [エラー内容{0} 掲示板:{1} スレッド:{2}, 本文:{3}]", ex.Message, operationBbs.BbsInfo.BbsName, operationBbs.SelectThread.ThreadTitle, message);
+				}
+				finally
+				{
+					e.Result = result;
 				}
 			};
 			// 書き込み完了処理
 			writeResWorker.RunWorkerCompleted += (sender, e) =>
 			{
-				if ((bool)e.Result)
+				WriteResResult result = (WriteResResult)e.Result;
+
+				// 書き込み欄を有効
+				writeFieldTextBox.Enabled = true;
+				writeFieldTextBox.BackColor = Color.White;
+
+				// 書き込み成功
+				if (result.WriteResult)
 				{
+					ToastMessage.Show("レス書き込みが完了しました。");
 					writeFieldTextBox.Text = "";
 				}
+				// 書き込み失敗
 				else
 				{
-					writeFieldTextBox.Text = message;
-					MessageBox.Show(
-						string.Format("{0}\n\n掲示板：{1}\nスレッド：{2}\n本文：{3}", exception.Message, operationBbs.BbsInfo.BbsName, operationBbs.SelectThread.ThreadTitle, message),
-						"Error!!");
+					ToastMessage.Show(string.Format("レス書き込みに失敗しました。[{0}]", result.Exception.Message));
+					writeFieldTextBox.Text = result.Message;
+					Logger.Instance.ErrorFormat("{0}\n\n掲示板：{1}\nスレッド：{2}\n本文：{3}", result.Exception.Message, operationBbs.BbsInfo.BbsName, operationBbs.SelectThread.ThreadTitle, result.Message);
 				}
+
+				// 書き込み欄をフォーカス
+				writeFieldTextBox.Focus();
 			};
 
 			// 書き込みボタン押下
 			writeButton.Click += (sender, e) =>
 			{
 				// レス書き込み
-				if (!writeResWorker.IsBusy)
-				{
-					writeResWorker.RunWorkerAsync();
-				}
-
-				// 書き込み欄をフォーカス
-				writeFieldTextBox.Focus();
+				WriteRes();
 			};
 
 			// スレッド一覧情報更新イベント
@@ -280,11 +295,13 @@ namespace PeerstPlayer.Controls.WriteField
 		//-------------------------------------------------------------
 		private void writeFieldTextBox_KeyDown(object sender, KeyEventArgs e)
 		{
+			// Ctrl+A : 全選択
 			if ((e.Modifiers == Keys.Control) && (e.KeyCode == Keys.A))
 			{
 				Logger.Instance.Debug("全選択");
 				writeFieldTextBox.SelectAll();
 			}
+			// レス書き込み
 			else if (((e.Modifiers == Keys.Control) && (e.KeyCode == Keys.Enter)) ||	// Ctrl + Enter
 					((e.Modifiers == Keys.Shift) && (e.KeyCode == Keys.Enter)))			// Shift + Enter
 			{
@@ -292,10 +309,7 @@ namespace PeerstPlayer.Controls.WriteField
 				e.SuppressKeyPress = true;
 
 				// レス書き込み
-				if (!writeResWorker.IsBusy)
-				{
-					writeResWorker.RunWorkerAsync();
-				}
+				WriteRes();
 			}
 		}
 
@@ -304,11 +318,15 @@ namespace PeerstPlayer.Controls.WriteField
 		//-------------------------------------------------------------
 		private void WriteRes()
 		{
-			string message = writeFieldTextBox.Text;
-			Logger.Instance.InfoFormat("レス書き込み [掲示板:{0} スレッド:{1}, 本文:{2}]", operationBbs.BbsInfo.BbsName, operationBbs.SelectThread.ThreadTitle, message);
+			if (!writeResWorker.IsBusy)
+			{
+				ToastMessage.Show("書き込み中...");
+				writeResWorker.RunWorkerAsync();
 
-			operationBbs.Write("", "sage", message);
-			Logger.Instance.InfoFormat("レス書き込み：成功 [掲示板:{0} スレッド:{1}, 本文:{2}]", operationBbs.BbsInfo.BbsName, operationBbs.SelectThread.ThreadTitle, message);
+				// 書き込み欄を無効
+				writeFieldTextBox.Enabled = false;
+				writeFieldTextBox.BackColor = Color.LightGray;
+			}
 		}
 
 		//-------------------------------------------------------------
@@ -320,5 +338,12 @@ namespace PeerstPlayer.Controls.WriteField
 			operationBbs.Close();
 			threadSelectView.Kill();
 		}
+	}
+
+	class WriteResResult
+	{
+		public bool WriteResult;
+		public string Message;
+		public Exception Exception;
 	}
 }

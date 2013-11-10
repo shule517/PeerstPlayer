@@ -6,6 +6,7 @@ using System.Text.RegularExpressions;
 using PeerstLib.Bbs.Data;
 using PeerstLib.Bbs.Util;
 using PeerstLib.Util;
+using System;
 
 namespace PeerstLib.Bbs.Strategy
 {
@@ -54,6 +55,9 @@ namespace PeerstLib.Bbs.Strategy
 
 		// 書き込みリクエストURL
 		protected abstract string writeUrl { get; }
+
+		// 書き込みタイムアウト時間
+		private int WriteResTimeOut = 5*1000;
 
 		//-------------------------------------------------------------
 		// 概要：スレッド変更
@@ -118,22 +122,31 @@ namespace PeerstLib.Bbs.Strategy
 			webRequest.ContentType = "application/x-www-form-urlencoded";
 			webRequest.ContentLength = requestData.Length;
 			webRequest.Referer = writeUrl;
+			webRequest.Timeout = WriteResTimeOut;
 
 			// POST送信
 			Stream requestStream = webRequest.GetRequestStream();
 			requestStream.Write(requestData, 0, requestData.Length);
 			requestStream.Close();
 
-			// リクエスト受信
-			HttpWebResponse webResponse = (HttpWebResponse)webRequest.GetResponse();
-			Stream responseStream = webResponse.GetResponseStream();
-			StreamReader sr = new StreamReader(responseStream, encoding);
-			string html = sr.ReadToEnd();
-			sr.Close();
-			responseStream.Close();
+			string response = "";
+			try
+			{
+				// リクエスト受信
+				HttpWebResponse webResponse = (HttpWebResponse)webRequest.GetResponse();
+				Stream responseStream = webResponse.GetResponseStream();
+				StreamReader sr = new StreamReader(responseStream, encoding);
+				response = sr.ReadToEnd();
+				sr.Close();
+				responseStream.Close();
+			}
+			catch (Exception ex)
+			{
+				throw;
+			}
 
 			// 書き込みエラーチェック
-			return BbsUtil.CheckWriteError(html);
+			return BbsUtil.CheckWriteError(response);
 		}
 
 		//-------------------------------------------------------------
