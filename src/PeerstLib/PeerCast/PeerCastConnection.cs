@@ -71,18 +71,23 @@ namespace PeerstLib.PeerCast
 		/// </summary>
 		public void DisconnectRelay()
 		{
+			// チャンネル情報を取得
+			GetChannelInfo();
+
 			// 配信中はリレー切断しない
 			if (channelInfo.Status.Equals("BROADCAST"))
 			{
+				Logger.Instance.Debug("配信中のため、リレー切断しない");
 				return;
 			}
 
 			// ローカル接続が２本以上あればリレー切断しない
-			int relays = 0;
-			if (int.TryParse(channelInfo.Relays, out relays))
+			int listeners = 0;
+			if (int.TryParse(channelInfo.Listeners, out listeners))
 			{
-				if (relays >= 2)
+				if (listeners >= 2)
 				{
+					Logger.Instance.Debug("２本以上チャンネル接続があるため、リレー切断しない");
 					return;
 				}
 			}
