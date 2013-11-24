@@ -77,6 +77,16 @@ namespace PeerstLib.PeerCast
 				return;
 			}
 
+			// ローカル接続が２本以上あればリレー切断しない
+			int relays = 0;
+			if (int.TryParse(channelInfo.Relays, out relays))
+			{
+				if (relays >= 2)
+				{
+					return;
+				}
+			}
+
 			string url = string.Format("/admin?cmd=stop&id={0}", urlInfo.StreamId);
 			WebUtil.SendCommand(urlInfo.Host, int.Parse(urlInfo.PortNo), url, Encoding.GetEncoding("Shift_JIS"));
 		}
