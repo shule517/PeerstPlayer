@@ -1,9 +1,9 @@
-﻿using System;
-using System.Drawing;
-using System.Windows.Forms;
+﻿using PeerstLib.Bbs;
 using PeerstLib.Bbs.Data;
 using PeerstLib.Util;
-using PeerstLib.Bbs;
+using System;
+using System.Drawing;
+using System.Windows.Forms;
 
 namespace PeerstPlayer.Forms.ThreadSelect
 {
@@ -207,7 +207,8 @@ namespace PeerstPlayer.Forms.ThreadSelect
 			// スレッド変更通知
 			viewModel.ChangeThread(selectThreadNo);
 			urlTextBox.Text = viewModel.ThreadUrl;
-			ThreadChange(this, new ThreadSelectEventArgs(viewModel.CloneOperationBbs()));
+			OperationBbs operationBbs = viewModel.CloneOperationBbs();
+			ThreadChange(this, new ThreadSelectEventArgs(operationBbs));
 
 			// 非表示
 			Logger.Instance.InfoFormat("スレッド選択画面を非表示");

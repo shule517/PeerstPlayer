@@ -58,6 +58,15 @@ namespace PeerstLib.Bbs.Strategy
 		// 書き込みタイムアウト時間
 		private int WriteResTimeOut = 5*1000;
 
+		/// <summary>
+		/// コンストラクタ
+		/// </summary>
+		public BbsStrategy()
+		{
+			ThreadList = new List<ThreadInfo>();
+			ResList = new List<ResInfo>();
+		}
+
 		//-------------------------------------------------------------
 		// 概要：スレッド変更
 		//-------------------------------------------------------------

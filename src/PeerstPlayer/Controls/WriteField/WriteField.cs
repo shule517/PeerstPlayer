@@ -1,12 +1,12 @@
-﻿using System;
-using System.Drawing;
-using System.Windows.Forms;
-using PeerstLib.Bbs;
+﻿using PeerstLib.Bbs;
 using PeerstLib.Util;
-using System.Linq;
-using PeerstPlayer.Forms.ThreadSelect;
-using System.ComponentModel;
 using PeerstPlayer.Controls.StatusBar;
+using PeerstPlayer.Forms.ThreadSelect;
+using System;
+using System.ComponentModel;
+using System.Drawing;
+using System.Linq;
+using System.Windows.Forms;
 
 namespace PeerstPlayer.Controls.WriteField
 {
@@ -168,8 +168,6 @@ namespace PeerstPlayer.Controls.WriteField
 				WriteRes();
 			};
 
-			// スレッド一覧情報更新イベント
-			threadSelectView.ThreadListChange += (sender, e) => operationBbs.ChangeUrl(threadSelectView.ThreadUrl);
 			// スレッド変更イベント
 			threadSelectView.ThreadChange += (sender, e) =>
 			{

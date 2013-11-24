@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Windows.Forms;
 
 namespace PeerstLib.Bbs
 {
@@ -37,7 +38,7 @@ namespace PeerstLib.Bbs
 		// 選択スレッド情報
 		public ThreadInfo SelectThread
 		{
-			get { return ThreadList.Single(thread => (thread.ThreadNo == BbsInfo.ThreadNo)); }
+			get { return strategy.ThreadList.Single(thread => (thread.ThreadNo == BbsInfo.ThreadNo)); }
 		}
 
 		// スレッドURL
@@ -92,7 +93,6 @@ namespace PeerstLib.Bbs
 			updateThreadListWorker.DoWork += (sender, e) =>
 			{
 				strategy.UpdateThreadList();
-				strategy.UpdateBbsName();
 			};
 			updateThreadListWorker.RunWorkerCompleted += (sender, e) =>
 			{
@@ -190,6 +190,11 @@ namespace PeerstLib.Bbs
 		/// </summary>
 		public OperationBbs Clone()
 		{
+			while (changeUrlWorker.IsBusy || updateThreadListWorker.IsBusy)
+			{
+				Application.DoEvents();
+			}
+
 			return (OperationBbs)MemberwiseClone();
 		}
 	}
