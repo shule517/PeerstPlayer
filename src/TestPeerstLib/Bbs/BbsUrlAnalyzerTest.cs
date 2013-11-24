@@ -1,5 +1,4 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using PeerstLib.Bbs;
 using PeerstLib.Bbs.Data;
 using PeerstLib.Bbs.Util;
 
@@ -14,7 +13,117 @@ namespace TestPeerstLib.Bbs
 		[TestMethod]
 		public void BbsUrlAnalyzer_Analyze()
 		{
-			// したらば
+			// 新したらば
+			CheckBbsInfo("http://jbbs.shitaraba.net/game/45037/",
+				new BbsInfo
+				{
+					Url = "http://jbbs.shitaraba.net/game/45037/",
+					BoardGenre = "game",
+					BoardNo = "45037",
+					ThreadNo = null,
+					BbsServer = BbsServer.Shitaraba,
+				});
+			CheckBbsInfo("http://jbbs.shitaraba.net/game/45037",
+				new BbsInfo
+				{
+					Url = "http://jbbs.shitaraba.net/game/45037/",
+					BoardGenre = "game",
+					BoardNo = "45037",
+					ThreadNo = null,
+					BbsServer = BbsServer.Shitaraba,
+				});
+			CheckBbsInfo("http://jbbs.shitaraba.net/game/45037/1286755510/",
+				new BbsInfo
+				{
+					Url = "http://jbbs.shitaraba.net/game/45037/1286755510/",
+					BoardGenre = "game",
+					BoardNo = "45037",
+					ThreadNo = "1286755510",
+					BbsServer = BbsServer.Shitaraba,
+				});
+			CheckBbsInfo("http://jbbs.shitaraba.net/game/45037/1286755510",
+				new BbsInfo
+				{
+					Url = "http://jbbs.shitaraba.net/game/45037/1286755510/",
+					BoardGenre = "game",
+					BoardNo = "45037",
+					ThreadNo = "1286755510",
+					BbsServer = BbsServer.Shitaraba,
+				});
+			CheckBbsInfo("http://jbbs.shitaraba.net/bbs/read.cgi/game/45037/",
+				new BbsInfo
+				{
+					Url = "http://jbbs.shitaraba.net/bbs/read.cgi/game/45037/",
+					BoardGenre = "game",
+					BoardNo = "45037",
+					ThreadNo = null,
+					BbsServer = BbsServer.Shitaraba,
+				});
+			CheckBbsInfo("http://jbbs.shitaraba.net/bbs/read.cgi/game/45037",
+				new BbsInfo
+				{
+					Url = "http://jbbs.shitaraba.net/bbs/read.cgi/game/45037/",
+					BoardGenre = "game",
+					BoardNo = "45037",
+					ThreadNo = null,
+					BbsServer = BbsServer.Shitaraba,
+				});
+			CheckBbsInfo("http://jbbs.shitaraba.net/bbs/read.cgi/game/45037/1286755510/",
+				new BbsInfo
+				{
+					Url = "http://jbbs.shitaraba.net/bbs/read.cgi/game/45037/1286755510/",
+					BoardGenre = "game",
+					BoardNo = "45037",
+					ThreadNo = "1286755510",
+					BbsServer = BbsServer.Shitaraba,
+				});
+			CheckBbsInfo("http://jbbs.shitaraba.net/bbs/read.cgi/game/45037/1286755510",
+				new BbsInfo
+				{
+					Url = "http://jbbs.shitaraba.net/bbs/read.cgi/game/45037/1286755510/",
+					BoardGenre = "game",
+					BoardNo = "45037",
+					ThreadNo = "1286755510",
+					BbsServer = BbsServer.Shitaraba,
+				});
+			CheckBbsInfo("http://jbbs.shitaraba.net/bbs/read.cgi/game/45037/1286755510/l50",
+				new BbsInfo
+				{
+					Url = "http://jbbs.shitaraba.net/bbs/read.cgi/game/45037/1286755510/",
+					BoardGenre = "game",
+					BoardNo = "45037",
+					ThreadNo = "1286755510",
+					BbsServer = BbsServer.Shitaraba,
+				});
+			CheckBbsInfo("http://jbbs.shitaraba.net/bbs/read.cgi/game/45037/1286755510/50",
+				new BbsInfo
+				{
+					Url = "http://jbbs.shitaraba.net/bbs/read.cgi/game/45037/1286755510/",
+					BoardGenre = "game",
+					BoardNo = "45037",
+					ThreadNo = "1286755510",
+					BbsServer = BbsServer.Shitaraba,
+				});
+			CheckBbsInfo("http://jbbs.shitaraba.net/bbs/read.cgi/game/45037/1286755510/50-",
+				new BbsInfo
+				{
+					Url = "http://jbbs.shitaraba.net/bbs/read.cgi/game/45037/1286755510/",
+					BoardGenre = "game",
+					BoardNo = "45037",
+					ThreadNo = "1286755510",
+					BbsServer = BbsServer.Shitaraba,
+				});
+			CheckBbsInfo("http://jbbs.shitaraba.net/bbs/read.cgi/game/45037/1286755510/50n-",
+				new BbsInfo
+				{
+					Url = "http://jbbs.shitaraba.net/bbs/read.cgi/game/45037/1286755510/",
+					BoardGenre = "game",
+					BoardNo = "45037",
+					ThreadNo = "1286755510",
+					BbsServer = BbsServer.Shitaraba,
+				});
+
+			// 旧したらば
 			CheckBbsInfo("http://jbbs.livedoor.jp/game/45037/",
 				new BbsInfo
 				{
@@ -199,6 +308,7 @@ namespace TestPeerstLib.Bbs
 				});
 
 			// 2ch互換
+			/*
 			CheckBbsInfo("http://sepia0330.dyndns.org/eicar/",
 				new BbsInfo
 				{
@@ -217,6 +327,7 @@ namespace TestPeerstLib.Bbs
 					ThreadNo = "1363498700",
 					BbsServer = BbsServer.YYKakiko,
 				});
+			 */
 
 			// 未対応
 			CheckBbsInfo("",

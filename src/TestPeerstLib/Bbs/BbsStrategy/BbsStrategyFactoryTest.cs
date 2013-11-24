@@ -13,7 +13,21 @@ namespace TestPeerstLib.Bbs
 		[TestMethod]
 		public void BbsStrategyFactory_Create()
 		{
-			// したらば
+			// 新したらば
+			CheckStrategy("http://jbbs.shitaraba.net/game/45037/", typeof(ShitarabaBbsStrategy));
+			CheckStrategy("http://jbbs.shitaraba.net/game/45037", typeof(ShitarabaBbsStrategy));
+			CheckStrategy("http://jbbs.shitaraba.net/game/45037/1286755510/", typeof(ShitarabaBbsStrategy));
+			CheckStrategy("http://jbbs.shitaraba.net/game/45037/1286755510", typeof(ShitarabaBbsStrategy));
+			CheckStrategy("http://jbbs.shitaraba.net/bbs/read.cgi/game/45037/", typeof(ShitarabaBbsStrategy));
+			CheckStrategy("http://jbbs.shitaraba.net/bbs/read.cgi/game/45037", typeof(ShitarabaBbsStrategy));
+			CheckStrategy("http://jbbs.shitaraba.net/bbs/read.cgi/game/45037/1286755510/", typeof(ShitarabaBbsStrategy));
+			CheckStrategy("http://jbbs.shitaraba.net/bbs/read.cgi/game/45037/1286755510", typeof(ShitarabaBbsStrategy));
+			CheckStrategy("http://jbbs.shitaraba.net/bbs/read.cgi/game/45037/1286755510/l50", typeof(ShitarabaBbsStrategy));
+			CheckStrategy("http://jbbs.shitaraba.net/bbs/read.cgi/game/45037/1286755510/50", typeof(ShitarabaBbsStrategy));
+			CheckStrategy("http://jbbs.shitaraba.net/bbs/read.cgi/game/45037/1286755510/50-", typeof(ShitarabaBbsStrategy));
+			CheckStrategy("http://jbbs.shitaraba.net/bbs/read.cgi/game/45037/1286755510/50n-", typeof(ShitarabaBbsStrategy));
+
+			// 旧したらば
 			CheckStrategy("http://jbbs.livedoor.jp/game/45037/", typeof(ShitarabaBbsStrategy));
 			CheckStrategy("http://jbbs.livedoor.jp/game/45037", typeof(ShitarabaBbsStrategy));
 			CheckStrategy("http://jbbs.livedoor.jp/game/45037/1286755510/", typeof(ShitarabaBbsStrategy));
@@ -38,8 +52,8 @@ namespace TestPeerstLib.Bbs
 			CheckStrategy("http://yy25.60.kg/peercastjikkyou", typeof(YYKakikoBbsStrategy));
 
 			// 2ch互換
-			CheckStrategy("http://sepia0330.dyndns.org/eicar/", typeof(YYKakikoBbsStrategy));	// TODO 別サーバタイプとする？
-			CheckStrategy("http://sepia0330.dyndns.org/eicar", typeof(YYKakikoBbsStrategy));
+			//CheckStrategy("http://sepia0330.dyndns.org/eicar/", typeof(YYKakikoBbsStrategy));	// TODO 別サーバタイプとする？
+			//CheckStrategy("http://sepia0330.dyndns.org/eicar", typeof(YYKakikoBbsStrategy));
 
 			// 未対応
 			CheckStrategy("", typeof(NullBbsStrategy));

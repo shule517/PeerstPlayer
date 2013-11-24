@@ -6,7 +6,7 @@ namespace TestPeerstLib
 	public static class TestSettings
 	{
 		// PeerCast動画
-		public static string StreamUrl = "http://localhost:7145/pls/BCFF60B0A56E77509D3A1EE98F1794DE?tip=113.197.174.108:7144";
+		public static string StreamUrl = "http://localhost:7145/pls/900DEB6DF526A220CAC96D1E4043E772?tip=220.100.23.59:7000";
 
 		// ローカル動画(WMV)
 		public static string LocalMoviePath

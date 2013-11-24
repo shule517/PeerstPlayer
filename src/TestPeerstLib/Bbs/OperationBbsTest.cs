@@ -14,8 +14,22 @@ namespace TestPeerstLib
 		[TestMethod]
 		public void OperationBbs_UpdateBbsName()
 		{
-			// したらば
-			CheckBbsName("http://jbbs.livedoor.jp/game/45037/",	"シュール・備長炭と愉快な仲間たち");
+			// 新したらば
+			CheckBbsName("http://jbbs.shitaraba.net/game/45037/", "シュール・備長炭と愉快な仲間たち");
+			CheckBbsName("http://jbbs.shitaraba.net/game/45037", "シュール・備長炭と愉快な仲間たち");
+			CheckBbsName("http://jbbs.shitaraba.net/game/45037/1286755510/", "シュール・備長炭と愉快な仲間たち");
+			CheckBbsName("http://jbbs.shitaraba.net/game/45037/1286755510", "シュール・備長炭と愉快な仲間たち");
+			CheckBbsName("http://jbbs.shitaraba.net/bbs/read.cgi/game/45037/", "シュール・備長炭と愉快な仲間たち");
+			CheckBbsName("http://jbbs.shitaraba.net/bbs/read.cgi/game/45037", "シュール・備長炭と愉快な仲間たち");
+			CheckBbsName("http://jbbs.shitaraba.net/bbs/read.cgi/game/45037/1286755510/", "シュール・備長炭と愉快な仲間たち");
+			CheckBbsName("http://jbbs.shitaraba.net/bbs/read.cgi/game/45037/1286755510", "シュール・備長炭と愉快な仲間たち");
+			CheckBbsName("http://jbbs.shitaraba.net/bbs/read.cgi/game/45037/1286755510/l50", "シュール・備長炭と愉快な仲間たち");
+			CheckBbsName("http://jbbs.shitaraba.net/bbs/read.cgi/game/45037/1286755510/50", "シュール・備長炭と愉快な仲間たち");
+			CheckBbsName("http://jbbs.shitaraba.net/bbs/read.cgi/game/45037/1286755510/50-", "シュール・備長炭と愉快な仲間たち");
+			CheckBbsName("http://jbbs.shitaraba.net/bbs/read.cgi/game/45037/1286755510/50n-", "シュール・備長炭と愉快な仲間たち");
+
+			// 旧したらば
+			CheckBbsName("http://jbbs.livedoor.jp/game/45037/", "シュール・備長炭と愉快な仲間たち");
 			CheckBbsName("http://jbbs.livedoor.jp/game/45037", "シュール・備長炭と愉快な仲間たち");
 			CheckBbsName("http://jbbs.livedoor.jp/game/45037/1286755510/", "シュール・備長炭と愉快な仲間たち");
 			CheckBbsName("http://jbbs.livedoor.jp/game/45037/1286755510", "シュール・備長炭と愉快な仲間たち");
@@ -39,8 +53,8 @@ namespace TestPeerstLib
 			CheckBbsName("http://yy25.60.kg/peercastjikkyou", "今からpeercastでゲーム実況配信");
 
 			// 2ch互換
-			CheckBbsName("http://sepia0330.dyndns.org/eicar/", "これは酷いな避難所BBS");	// TODO 別サーバタイプとする？
-			CheckBbsName("http://sepia0330.dyndns.org/eicar", "これは酷いな避難所BBS");
+			//CheckBbsName("http://sepia0330.dyndns.org/eicar/", "これは酷いな避難所BBS");	// TODO 別サーバタイプとする？
+			//CheckBbsName("http://sepia0330.dyndns.org/eicar", "これは酷いな避難所BBS");
 
 			// 未対応
 			CheckBbsName("", "");
@@ -70,7 +84,37 @@ namespace TestPeerstLib
 		public void OperationBbs_Write()
 		{
 			//-------------------------------------------------------------
-			// したらば
+			// 新したらば
+			//-------------------------------------------------------------
+
+			// TODO 2013/11/24時点ではAPIが対応されていないため、テストに失敗する
+
+			// 正常書き込み
+			CheckWrite(true, "http://jbbs.shitaraba.net/bbs/read.cgi/game/45037/1310263750/", "シュール", "sage", "message");
+
+			// 時間制限
+			CheckWrite(false, "http://jbbs.shitaraba.net/bbs/read.cgi/game/45037/1310263750/", "シュール", "sage", "message");
+
+			// 本文なし
+			CheckWrite(false, "http://jbbs.shitaraba.net/bbs/read.cgi/game/45037/1310263750/", "", "", "");
+
+			// 過去ログ
+			CheckWrite(false, "http://jbbs.shitaraba.net/game/43934/1232972032/", "シュール", "sage", "message");
+
+			// 掲示板番号が不正
+			CheckWrite(false, "http://jbbs.shitaraba.net/bbs/read.cgi/game/99999/1268147268/", "シュール", "sage", "message");
+
+			// スレッド番号が不正（パラメータ間違い）
+			CheckWrite(false, "http://jbbs.shitaraba.net/bbs/read.cgi/game/45037/126814727/", "シュール", "sage", "message");
+
+			// 該当するスレッドは存在しない
+			CheckWrite(false, "http://jbbs.shitaraba.net/bbs/read.cgi/game/45037/9999999999/", "シュール", "sage", "message");
+
+			// 1000レス
+			CheckWrite(false, "http://jbbs.shitaraba.net/bbs/read.cgi/game/45037/1268147268/", "シュール", "sage", "message");
+
+			//-------------------------------------------------------------
+			// 旧したらば
 			//-------------------------------------------------------------
 
 			// 正常書き込み

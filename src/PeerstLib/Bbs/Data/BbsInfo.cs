@@ -10,6 +10,9 @@ namespace PeerstLib.Bbs.Data
 		// 公開プロパティ
 		//-------------------------------------------------------------
 
+		// 掲示板サーバのホスト
+		public string Host { get; set; }
+
 		// URL
 		public string Url { get; set; }
 

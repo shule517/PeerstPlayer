@@ -21,7 +21,7 @@ namespace PeerstLib.Bbs.Strategy
 		//-------------------------------------------------------------
 
 		// したらばのドメイン
-		public const string Domain = "jbbs.livedoor.jp";
+		public const string Domain = "jbbs";
 
 		// スレッドURL
 		public override string ThreadUrl
@@ -30,11 +30,11 @@ namespace PeerstLib.Bbs.Strategy
 			{
 				if (ThreadSelected)
 				{
-					return String.Format("http://{0}/bbs/read.cgi/{1}/{2}/{3}/", Domain, BbsInfo.BoardGenre, BbsInfo.BoardNo, BbsInfo.ThreadNo);
+					return String.Format("http://{0}/bbs/read.cgi/{1}/{2}/{3}/", BbsInfo.Host, BbsInfo.BoardGenre, BbsInfo.BoardNo, BbsInfo.ThreadNo);
 				}
 				else
 				{
-					return String.Format("http://{0}/{1}/{2}/", Domain, BbsInfo.BoardGenre, BbsInfo.BoardNo);
+					return String.Format("http://{0}/{1}/{2}/", BbsInfo.Host, BbsInfo.BoardGenre, BbsInfo.BoardNo);
 				}
 			}
 		}
@@ -49,25 +49,25 @@ namespace PeerstLib.Bbs.Strategy
 		// スレッド一覧URL
 		protected override string subjectUrl
 		{
-			get { return String.Format("http://{0}/{1}/{2}/subject.txt", Domain, BbsInfo.BoardGenre, BbsInfo.BoardNo); }
+			get { return String.Format("http://{0}/{1}/{2}/subject.txt", BbsInfo.Host, BbsInfo.BoardGenre, BbsInfo.BoardNo); }
 		}
 
 		// スレッド情報URL
 		protected override string datUrl
 		{
-			get { return String.Format("http://{0}/bbs/rawmode.cgi/{1}/{2}/{3}/", Domain, BbsInfo.BoardGenre, BbsInfo.BoardNo, BbsInfo.ThreadNo); }
+			get { return String.Format("http://{0}/bbs/rawmode.cgi/{1}/{2}/{3}/", BbsInfo.Host, BbsInfo.BoardGenre, BbsInfo.BoardNo, BbsInfo.ThreadNo); }
 		}
 
 		// 板URL
 		protected override string boardUrl
 		{
-			get { return String.Format("http://{0}/{1}/{2}/", Domain, BbsInfo.BoardGenre, BbsInfo.BoardNo); }
+			get { return String.Format("http://{0}/{1}/{2}/", BbsInfo.Host, BbsInfo.BoardGenre, BbsInfo.BoardNo); }
 		}
 
 		// 書き込みリクエストURL
 		protected override string writeUrl
 		{
-			get { return String.Format("http://{0}/bbs/write.cgi", Domain); }
+			get { return String.Format("http://{0}/bbs/write.cgi", BbsInfo.Host); }
 		}
 
 		//-------------------------------------------------------------

@@ -37,10 +37,10 @@ namespace PeerstLib.Bbs.Util
 			}
 
 			// したらば
-			if (uri.Host == ShitarabaBbsStrategy.Domain)
+			if (uri.Host.StartsWith(ShitarabaBbsStrategy.Domain))
 			{
 				Logger.Instance.DebugFormat("掲示板サーバ：したらば [HOST:{0}]", uri.Host);
-				return AnalyzeShitaraba(threadUrl);
+				return AnalyzeShitaraba(uri.Host, threadUrl);
 			}
 			// YY
 			else if (uri.Host.StartsWith(YYKakikoBbsStrategy.Domain))
@@ -76,7 +76,7 @@ namespace PeerstLib.Bbs.Util
 		// 概要：したらばURLの解析
 		// 詳細：掲示板情報を取得する
 		//-------------------------------------------------------------
-		private static BbsInfo AnalyzeShitaraba(string url)
+		private static BbsInfo AnalyzeShitaraba(string host, string url)
 		{
 			Logger.Instance.DebugFormat("AnalyzeShitaraba(url:{0})", url);
 
@@ -85,7 +85,7 @@ namespace PeerstLib.Bbs.Util
 			const int boardNoIndex = 3;
 			const int threadNoIndex = 4;
 
-			Regex regex = new Regex(String.Format(@"http://{0}(/bbs/read.cgi)?/(\w*)/(\w*)/?(\w*)?/?", ShitarabaBbsStrategy.Domain));
+			Regex regex = new Regex(String.Format(@"http://{0}(/bbs/read.cgi)?/(\w*)/(\w*)/?(\w*)?/?", host));
 			Match match = regex.Match(url);
 
 			string threadUrl = match.Groups[threadUrlIndex].Value;
@@ -94,6 +94,7 @@ namespace PeerstLib.Bbs.Util
 			string threadNo = match.Groups[threadNoIndex].Value;
 			return new BbsInfo
 			{
+				Host = host,
 				Url = (threadUrl.EndsWith("/") ? threadUrl : String.Format("{0}/", threadUrl)),
 				BoardGenre = String.IsNullOrEmpty(genre) ? null : genre,
 				BoardNo = String.IsNullOrEmpty(boardNo) ? null : boardNo,
@@ -124,6 +125,7 @@ namespace PeerstLib.Bbs.Util
 			string threadNo = match.Groups[threadNoIndex].Value;
 			return new BbsInfo
 			{
+				Host = String.IsNullOrEmpty(host) ? null : host,
 				Url = (threadUrl.EndsWith("/") ? threadUrl : String.Format("{0}/", threadUrl)),
 				BoardGenre = String.IsNullOrEmpty(host) ? null : host,
 				BoardNo = String.IsNullOrEmpty(boardNo) ? null : boardNo,

@@ -14,12 +14,22 @@ namespace TestPeertPlayer.Control
 		[TestMethod]
 		public void WriteFieldTest_SelectThreadUrl_Change()
 		{
-			// したらば：スレッド設定有り
+			// 新したらば：スレッド設定有り
+			TestThreadTitle(
+				"http://jbbs.shitaraba.net/bbs/read.cgi/game/45037/1352127309/",
+				"スレッド[ 【qwebview.html】当たり前だろ！シュールch75【流行らない・・】 ] (1000)");
+
+			// 新したらば：スレッド設定無し
+			TestThreadTitle(
+				"http://jbbs.shitaraba.net/bbs/read.cgi/game/45037/",
+				"掲示板[ シュール・備長炭と愉快な仲間たち ] スレッドを選択してください");
+
+			// 旧したらば：スレッド設定有り
 			TestThreadTitle(
 				"http://jbbs.livedoor.jp/bbs/read.cgi/game/45037/1352127309/",
 				"スレッド[ 【qwebview.html】当たり前だろ！シュールch75【流行らない・・】 ] (1000)");
 
-			// したらば：スレッド設定無し
+			// 旧したらば：スレッド設定無し
 			TestThreadTitle(
 				"http://jbbs.livedoor.jp/bbs/read.cgi/game/45037/",
 				"掲示板[ シュール・備長炭と愉快な仲間たち ] スレッドを選択してください");
@@ -35,6 +45,7 @@ namespace TestPeertPlayer.Control
 				"掲示板[ シャクレ ] スレッドを選択してください");
 
 			// 2ch互換：スレッド設定有り
+			/*
 			TestThreadTitle(
 				"http://sepia0330.dyndns.org/test/read.cgi/eicar/1346411572/l50",
 				"スレッド[ これは酷いな142 ] (1001)");
@@ -43,6 +54,7 @@ namespace TestPeertPlayer.Control
 			TestThreadTitle(
 				"http://sepia0330.dyndns.org/eicar/",
 				"掲示板[ これは酷いな避難所BBS ] スレッドを選択してください");
+			 */
 
 			// 未対応URL
 			TestThreadTitle(
