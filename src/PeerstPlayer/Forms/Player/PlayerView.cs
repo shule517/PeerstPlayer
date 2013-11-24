@@ -198,6 +198,11 @@ namespace PeerstPlayer.Forms.Setting
 			// ステータスバーのサイズ変更
 			statusBar.HeightChanged += (sender, e) =>
 			{
+				// 最大化時はサイズ変更しない
+				if (WindowState == FormWindowState.Maximized)
+				{
+					return;
+				}
 				this.ClientSize = new Size(ClientSize.Width, (pecaPlayer.Height + statusBar.Height));
 			};
 
