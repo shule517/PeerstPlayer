@@ -35,22 +35,23 @@
 			// 
 			// wmp
 			// 
-			this.wmp.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+			this.wmp.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.wmp.Enabled = true;
-			this.wmp.Location = new System.Drawing.Point(-1, -1);
+			this.wmp.Location = new System.Drawing.Point(0, 0);
+			this.wmp.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
 			this.wmp.Name = "wmp";
 			this.wmp.OcxState = ((System.Windows.Forms.AxHost.State)(resources.GetObject("wmp.OcxState")));
-			this.wmp.Size = new System.Drawing.Size(152, 152);
+			this.wmp.Size = new System.Drawing.Size(200, 188);
 			this.wmp.TabIndex = 0;
 			// 
-			// PecaPlayer
+			// PecaPlayerControl
 			// 
-			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
+			this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.Controls.Add(this.wmp);
-			this.Name = "PecaPlayer";
+			this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+			this.Name = "PecaPlayerControl";
+			this.Size = new System.Drawing.Size(200, 188);
 			((System.ComponentModel.ISupportInitialize)(this.wmp)).EndInit();
 			this.ResumeLayout(false);
 
