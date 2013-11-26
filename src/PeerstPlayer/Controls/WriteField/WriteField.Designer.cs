@@ -40,11 +40,11 @@
 			// 
 			this.writeFieldTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			this.writeFieldTextBox.Location = new System.Drawing.Point(0, 20);
+			this.writeFieldTextBox.Location = new System.Drawing.Point(0, 16);
 			this.writeFieldTextBox.Margin = new System.Windows.Forms.Padding(0);
 			this.writeFieldTextBox.Multiline = true;
 			this.writeFieldTextBox.Name = "writeFieldTextBox";
-			this.writeFieldTextBox.Size = new System.Drawing.Size(599, 23);
+			this.writeFieldTextBox.Size = new System.Drawing.Size(450, 19);
 			this.writeFieldTextBox.TabIndex = 0;
 			this.writeFieldTextBox.TextChanged += new System.EventHandler(this.writeFieldTextBox_TextChanged);
 			this.writeFieldTextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.writeFieldTextBox_KeyDown);
@@ -58,7 +58,7 @@
 			this.selectThreadLabel.Location = new System.Drawing.Point(0, 0);
 			this.selectThreadLabel.Margin = new System.Windows.Forms.Padding(0);
 			this.selectThreadLabel.Name = "selectThreadLabel";
-			this.selectThreadLabel.Size = new System.Drawing.Size(640, 20);
+			this.selectThreadLabel.Size = new System.Drawing.Size(480, 16);
 			this.selectThreadLabel.TabIndex = 2;
 			this.selectThreadLabel.Text = "読み込み中...";
 			this.selectThreadLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -66,11 +66,12 @@
 			// writeButton
 			// 
 			this.writeButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.writeButton.AutoSize = true;
 			this.writeButton.Image = ((System.Drawing.Image)(resources.GetObject("writeButton.Image")));
-			this.writeButton.Location = new System.Drawing.Point(600, 19);
+			this.writeButton.Location = new System.Drawing.Point(450, 14);
 			this.writeButton.Margin = new System.Windows.Forms.Padding(0);
 			this.writeButton.Name = "writeButton";
-			this.writeButton.Size = new System.Drawing.Size(40, 29);
+			this.writeButton.Size = new System.Drawing.Size(30, 23);
 			this.writeButton.TabIndex = 3;
 			this.writeButton.UseVisualStyleBackColor = true;
 			// 
@@ -85,14 +86,14 @@
 			// 
 			// WriteFieldControl
 			// 
-			this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
+			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.Controls.Add(this.writeButton);
 			this.Controls.Add(this.selectThreadLabel);
 			this.Controls.Add(this.writeFieldTextBox);
 			this.Margin = new System.Windows.Forms.Padding(0);
 			this.Name = "WriteFieldControl";
-			this.Size = new System.Drawing.Size(640, 44);
+			this.Size = new System.Drawing.Size(480, 35);
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
