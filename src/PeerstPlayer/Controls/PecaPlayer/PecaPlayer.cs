@@ -402,7 +402,7 @@ namespace PeerstPlayer.Controls.PecaPlayer
 		/// <summary>
 		/// 現在のフレームレート
 		/// </summary>
-		public int NowFrameRate { get { return wmp.network.frameRate / 100; } }
+		public int NowFrameRate { get { try { return wmp.network.frameRate / 100; } catch { return 0; } } }
 
 		/// <summary>
 		/// フレームレート
