@@ -228,7 +228,7 @@ namespace PeerstPlayer.Controls.StatusBar
 				// FPS表示
 				if (PlayerSettings.DisplayFps)
 				{
-					detail += string.Format("{0}fps", movieInfo.Fps);
+					detail += string.Format("{0}fps", movieInfo.NowFps);
 				}
 
 				if (PlayerSettings.DisplayFps && PlayerSettings.DisplayBitrate)
@@ -239,7 +239,7 @@ namespace PeerstPlayer.Controls.StatusBar
 				// ビットレート表示
 				if (PlayerSettings.DisplayBitrate)
 				{
-					detail += string.Format("{0}kbps", movieInfo.Bitrate);
+					detail += string.Format("{0}kbps", movieInfo.NowBitrate);
 				}
 
 				// リスナー数表示
