@@ -68,6 +68,7 @@
     <Compile Include="Controls\MovieDetail\MovieDetail.Designer.cs">
       <DependentUpon>MovieDetail.cs</DependentUpon>
     </Compile>
+    <Compile Include="Controls\PecaPlayer\IMoviePlayer.cs" />
     <Compile Include="Controls\PecaPlayer\PecaPlayer.cs">
       <SubType>UserControl</SubType>
     </Compile>

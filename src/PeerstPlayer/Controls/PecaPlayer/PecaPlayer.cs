@@ -1,11 +1,11 @@
-﻿using System;
-using System.ComponentModel;
-using System.Drawing;
-using System.Windows.Forms;
-using PeerstLib.PeerCast;
+﻿using PeerstLib.PeerCast;
 using PeerstLib.PeerCast.Data;
 using PeerstLib.PeerCast.Util;
 using PeerstLib.Util;
+using System;
+using System.ComponentModel;
+using System.Drawing;
+using System.Windows.Forms;
 using WMPLib;
 
 namespace PeerstPlayer.Controls.PecaPlayer
@@ -213,6 +213,8 @@ namespace PeerstPlayer.Controls.PecaPlayer
 		// 非公開プロパティ
 		//-------------------------------------------------------------
 
+		private AxWMPLib.AxWindowsMediaPlayer wmp = null;
+
 		/// <summary>
 		/// PeerCast通信
 		/// </summary>
@@ -243,6 +245,26 @@ namespace PeerstPlayer.Controls.PecaPlayer
 		{
 			Logger.Instance.Debug("PecaPlayer()");
 			InitializeComponent();
+
+			// コントロールに登録
+			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(PecaPlayerControl));
+			this.wmp = new AxWMPLib.AxWindowsMediaPlayer();
+			((System.ComponentModel.ISupportInitialize)(this.wmp)).BeginInit();
+			this.SuspendLayout();
+			// 
+			// wmp
+			// 
+			this.wmp.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.wmp.Enabled = true;
+			this.wmp.Location = new System.Drawing.Point(0, 0);
+			this.wmp.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+			this.wmp.Name = "wmp";
+			this.wmp.OcxState = ((System.Windows.Forms.AxHost.State)(resources.GetObject("wmp.OcxState")));
+			this.wmp.Size = new System.Drawing.Size(200, 188);
+			this.wmp.TabIndex = 0;
+			this.Controls.Add(this.wmp);
+			((System.ComponentModel.ISupportInitialize)(this.wmp)).EndInit();
+			this.ResumeLayout(false);
 
 			// 初期設定
 			wmp.uiMode = "none";
