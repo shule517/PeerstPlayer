@@ -56,7 +56,7 @@ namespace PeerstLib.Bbs.Strategy
 		protected abstract string writeUrl { get; }
 
 		// 書き込みタイムアウト時間
-		private int WriteResTimeOut = 5*1000;
+		private int WriteResTimeOut = 10*1000;
 
 		/// <summary>
 		/// コンストラクタ
