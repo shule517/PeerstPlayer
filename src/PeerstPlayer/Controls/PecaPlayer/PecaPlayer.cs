@@ -2,6 +2,7 @@
 using PeerstLib.PeerCast.Data;
 using PeerstLib.PeerCast.Util;
 using PeerstLib.Util;
+using PeerstPlayer.Controls.MoviePlayer;
 using System;
 using System.ComponentModel;
 using System.Drawing;
@@ -35,12 +36,8 @@ namespace PeerstPlayer.Controls.PecaPlayer
 		/// </summary>
 		public int Volume
 		{
-			get { return wmp.settings.volume; }
-			set
-			{
-				wmp.settings.volume = value;
-				VolumeChange(this, new EventArgs());
-			}
+			get { return moviePlayer.Volume; }
+			set { moviePlayer.Volume = value; }
 		}
 
 		/// <summary>
@@ -48,18 +45,18 @@ namespace PeerstPlayer.Controls.PecaPlayer
 		/// </summary>
 		public int VolumeBalance
 		{
-			get { return wmp.settings.balance; }
-			set
-			{
-				wmp.settings.balance = value;
-				VolumeChange(this, new EventArgs());
-			}
+			get { return moviePlayer.VolumeBalance; }
+			set { moviePlayer.VolumeBalance = value; }
 		}
 
 		/// <summary>
 		/// 音量変更イベント
 		/// </summary>
-		public event EventHandler VolumeChange = delegate { };
+		public event EventHandler VolumeChange
+		{
+			add { moviePlayer.VolumeChange += value; }
+			remove { moviePlayer.VolumeChange -= value; }
+		}
 
 		/// <summary>
 		/// 動画サイズ変更イベント
@@ -71,12 +68,8 @@ namespace PeerstPlayer.Controls.PecaPlayer
 		/// </summary>
 		public bool Mute
 		{
-			get { return wmp.settings.mute; }
-			set
-			{
-				wmp.settings.mute = value;
-				VolumeChange(this, new EventArgs());
-			}
+			get { return moviePlayer.Mute; }
+			set { moviePlayer.Mute = value; }
 		}
 
 		/// <summary>
@@ -84,16 +77,7 @@ namespace PeerstPlayer.Controls.PecaPlayer
 		/// </summary>
 		public string Duration
 		{
-			get
-			{
-				string position = wmp.Ctlcontrols.currentPositionString;
-				if (position.Length == 5)
-				{
-					position = "00:" + position;
-				}
-
-				return position;
-			}
+			get { return moviePlayer.Duration; }
 		}
 
 		/// <summary>
@@ -101,7 +85,7 @@ namespace PeerstPlayer.Controls.PecaPlayer
 		/// </summary>
 		public int BufferingProgress
 		{
-			get { return wmp.network.bufferingProgress; }
+			get { return moviePlayer.BufferingProgress; }
 		}
 
 		/// <summary>
@@ -109,7 +93,7 @@ namespace PeerstPlayer.Controls.PecaPlayer
 		/// </summary>
 		public WMPPlayState PlayState
 		{
-			get { return wmp.playState; }
+			get { return moviePlayer.PlayState; }
 		}
 
 		/// <summary>
@@ -117,13 +101,17 @@ namespace PeerstPlayer.Controls.PecaPlayer
 		/// </summary>
 		public WMPOpenState OpenState
 		{
-			get { return wmp.openState; }
+			get { return moviePlayer.OpenState; }
 		}
 
 		/// <summary>
 		/// 動画再生開始イベント
 		/// </summary>
-		public event EventHandler MovieStart = delegate { };
+		public event EventHandler MovieStart
+		{
+			add { moviePlayer.MovieStart += value; }
+			remove { moviePlayer.MovieStart -= value; }
+		}
 
 		/// <summary>
 		/// クリック開始位置(マウスジェスチャ用)
@@ -135,7 +123,7 @@ namespace PeerstPlayer.Controls.PecaPlayer
 		/// </summary>
 		public float AspectRate
 		{
-			get { return (float)ImageWidth / (float)ImageHeight; }
+			get { return moviePlayer.AspectRate; }
 		}
 
 		/// <summary>
@@ -143,7 +131,7 @@ namespace PeerstPlayer.Controls.PecaPlayer
 		/// </summary>
 		public int ImageWidth
 		{
-			get { return ((wmp.currentMedia == null) || (wmp.currentMedia.imageSourceWidth == 0)) ? 800 : wmp.currentMedia.imageSourceWidth; }
+			get { return moviePlayer.ImageWidth; }
 		}
 
 		/// <summary>
@@ -151,7 +139,7 @@ namespace PeerstPlayer.Controls.PecaPlayer
 		/// </summary>
 		public int ImageHeight
 		{
-			get { return ((wmp.currentMedia == null) || (wmp.currentMedia.imageSourceHeight == 0)) ? 600 : wmp.currentMedia.imageSourceHeight; }
+			get { return moviePlayer.ImageHeight; }
 		}
 
 		/// <summary>
@@ -159,8 +147,8 @@ namespace PeerstPlayer.Controls.PecaPlayer
 		/// </summary>
 		public event AxWMPLib._WMPOCXEvents_MouseDownEventHandler MouseDownEvent
 		{
-			add { wmp.MouseDownEvent += value; }
-			remove { wmp.MouseDownEvent -= value; }
+			add { moviePlayer.MouseDownEvent += value; }
+			remove { moviePlayer.MouseDownEvent -= value; }
 		}
 
 		/// <summary>
@@ -168,8 +156,8 @@ namespace PeerstPlayer.Controls.PecaPlayer
 		/// </summary>
 		public event AxWMPLib._WMPOCXEvents_MouseUpEventHandler MouseUpEvent
 		{
-			add { wmp.MouseUpEvent += value; }
-			remove { wmp.MouseUpEvent -= value; }
+			add { moviePlayer.MouseUpEvent += value; }
+			remove { moviePlayer.MouseUpEvent -= value; }
 		}
 
 		/// <summary>
@@ -177,8 +165,8 @@ namespace PeerstPlayer.Controls.PecaPlayer
 		/// </summary>
 		public event AxWMPLib._WMPOCXEvents_MouseMoveEventHandler MouseMoveEvent
 		{
-			add { wmp.MouseMoveEvent += value; }
-			remove { wmp.MouseMoveEvent -= value; }
+			add { moviePlayer.MouseMoveEvent += value; }
+			remove { moviePlayer.MouseMoveEvent -= value; }
 		}
 
 		/// <summary>
@@ -186,34 +174,41 @@ namespace PeerstPlayer.Controls.PecaPlayer
 		/// </summary>
 		public event AxWMPLib._WMPOCXEvents_KeyDownEventHandler KeyDownEvent
 		{
-			add { wmp.KeyDownEvent += value; }
-			remove { wmp.KeyDownEvent -= value; }
+			add { moviePlayer.KeyDownEvent += value; }
+			remove { moviePlayer.KeyDownEvent -= value; }
 		}
 
 		/// <summary>
 		/// ダブルクリックイベント
 		/// </summary>
-		public event EventHandler DoubleClickEvent = delegate { };
+		public event EventHandler DoubleClickEvent
+		{
+			add { moviePlayer.DoubleClickEvent += value; }
+			remove { moviePlayer.DoubleClickEvent -= value; }
+		}
 
 		/// <summary>
 		/// WMPのハンドル
 		/// </summary>
-		public IntPtr WMPHandle { get { return wmp.Handle; } }
+		public IntPtr WMPHandle { get { return moviePlayer.WMPHandle; } }
 
 		/// <summary>
 		/// コンテキストメニューの有効
 		/// </summary>
 		public bool EnableContextMenu
 		{
-			get { return wmp.enableContextMenu; }
-			set { wmp.enableContextMenu = value; }
+			get { return moviePlayer.EnableContextMenu; }
+			set { moviePlayer.EnableContextMenu = value; }
 		}
 
 		//-------------------------------------------------------------
 		// 非公開プロパティ
 		//-------------------------------------------------------------
 
-		private AxWMPLib.AxWindowsMediaPlayer wmp = null;
+		/// <summary>
+		/// 動画プレイヤー
+		/// </summary>
+		private IMoviePlayer moviePlayer = null;
 
 		/// <summary>
 		/// PeerCast通信
@@ -225,17 +220,19 @@ namespace PeerstPlayer.Controls.PecaPlayer
 		/// </summary>
 		private BackgroundWorker updateChannelInfoWorker = new BackgroundWorker();
 
-		/// <summary>
-		/// 初回ファイルオープンフラグ(MovieStartに使用)
-		/// </summary>
-		private bool isFirstMediaOpen = true;
-
 		//-------------------------------------------------------------
 		// 定義
 		//-------------------------------------------------------------
 
-		// チャンネル更新間隔
+		/// <summary>
+		/// チャンネル更新間隔
+		/// </summary>
 		private const int UpdateInterval = 60000;
+
+		/// <summary>
+		/// チャンネル更新のリトライ回数
+		/// </summary>
+		private const int UpdateRetryCount = 5;
 
 		//-------------------------------------------------------------
 		// 概要：コンストラクタ
@@ -246,51 +243,20 @@ namespace PeerstPlayer.Controls.PecaPlayer
 			Logger.Instance.Debug("PecaPlayer()");
 			InitializeComponent();
 
-			// コントロールに登録
-			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(PecaPlayerControl));
-			this.wmp = new AxWMPLib.AxWindowsMediaPlayer();
-			((System.ComponentModel.ISupportInitialize)(this.wmp)).BeginInit();
-			this.SuspendLayout();
-			// 
-			// wmp
-			// 
-			this.wmp.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.wmp.Enabled = true;
-			this.wmp.Location = new System.Drawing.Point(0, 0);
-			this.wmp.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-			this.wmp.Name = "wmp";
-			this.wmp.OcxState = ((System.Windows.Forms.AxHost.State)(resources.GetObject("wmp.OcxState")));
-			this.wmp.Size = new System.Drawing.Size(200, 188);
-			this.wmp.TabIndex = 0;
-			this.Controls.Add(this.wmp);
-			((System.ComponentModel.ISupportInitialize)(this.wmp)).EndInit();
-			this.ResumeLayout(false);
-
-			// 初期設定
-			wmp.uiMode = "none";
-			wmp.stretchToFit = true;
-			wmp.enableContextMenu = false;
-
-			// キャンセル許可
+			// チャンネル情報更新スレッド：キャンセル許可
 			updateChannelInfoWorker.WorkerSupportsCancellation = true;
 
-			// ダブルクリックイベント
-			new WmpNativeWindow(wmp.Handle).DoubleClick += (sender, e) => DoubleClickEvent(sender, e);
+			// TODO FLVと切り替えを行う
+			this.SuspendLayout();
+			moviePlayer = new WindowsMediaPlayerControl();
+			this.Controls.Add(this.moviePlayer.MovieControl);
+			this.ResumeLayout(false);
 
-			// チャンネル自動リトライ
-			new ChannelAutoRetry(wmp);
-
-			// WMPフルスクリーンを無効
-			wmp.MouseDownEvent += (sender, e) =>
+			// ウィンドウドラッグ用
+			moviePlayer.MouseDownEvent += (sender, e) =>
 			{
-				// クリック開始位置を設定
-				ClickPoint = new System.Drawing.Point(e.fX, e.fY);
-
-				// WMPのフルクリーンを解除
-				if (wmp.fullScreen)
-				{
-					wmp.fullScreen = false;
-				}
+				// クリック開始位置を保持
+				ClickPoint = new Point(e.fX, e.fY);
 			};
 		}
 
@@ -302,51 +268,39 @@ namespace PeerstPlayer.Controls.PecaPlayer
 		{
 			Logger.Instance.DebugFormat("Open(streamUrl:{0})", streamUrl);
 
+			// PeerCast通信の準備
 			StreamUrlInfo info = StreamUrlAnalyzer.GetUrlInfo(streamUrl);
 			pecaConnect = new PeerCastConnection(info);
 
-			// 初回ファイルオープンフラグをリセット
-			isFirstMediaOpen = true;
-
-			// 動画の再生
-			wmp.URL = streamUrl;
-
-			// 再生変更イベント
-			wmp.OpenStateChange += (sender, e) =>
-			{
-				Logger.Instance.Debug(String.Format("OpenStateChange [{0}]", wmp.openState.ToString()));
-				// 動画切替時に、音量が初期化されるための対応
-				// TODO ミュート時に音量が変わらないようにする
-				VolumeChange(this, new EventArgs());
-
-				// 動画再生開始イベント
-				if ((wmp.openState == WMPOpenState.wmposMediaOpen) && isFirstMediaOpen)
-				{
-					isFirstMediaOpen = false;
-					MovieStart(this, new EventArgs());
-				}
-			};
+			// 動画再生開始
+			moviePlayer.PlayMoive(streamUrl);
 
 			// チャンネル更新スレッド
 			updateChannelInfoWorker.DoWork += (sender, e) =>
 			{
-				while (true)
+				for (int i = 0; i < UpdateRetryCount; i++)
 				{
-					Logger.Instance.Debug("チャンネル更新トライ");
+					Logger.Instance.DebugFormat("チャンネル更新トライ[{0}回目]", i+1);
 					ChannelInfo chInfo = pecaConnect.GetChannelInfo();
 					if (!String.IsNullOrEmpty(chInfo.Name))
 					{
 						ChannelInfo = chInfo;
+						e.Result = true;
 						return;
 					}
 
 					System.Threading.Thread.Sleep(1000);
 				}
+				Logger.Instance.Debug("チャンネル更新に失敗しました。");
+				e.Result = false;
 			};
 			updateChannelInfoWorker.RunWorkerCompleted += (sender, e) =>
 			{
-				Logger.Instance.InfoFormat("チャンネル更新完了 [チャンネル名:{0}] [ジャンル：{1}] [詳細:{2}] [コメント:{3}] [コンタクトURL:{4}]", ChannelInfo.Name, ChannelInfo.Genre, ChannelInfo.Desc, ChannelInfo.Comment, ChannelInfo.Url);
-				ChannelInfoChange(sender, e);
+				if ((bool)e.Result)
+				{
+					Logger.Instance.InfoFormat("チャンネル更新完了 [チャンネル名:{0}] [ジャンル：{1}] [詳細:{2}] [コメント:{3}] [コンタクトURL:{4}]", ChannelInfo.Name, ChannelInfo.Genre, ChannelInfo.Desc, ChannelInfo.Comment, ChannelInfo.Url);
+					ChannelInfoChange(sender, e);
+				}
 			};
 
 			// チャンネル情報の取得
@@ -357,11 +311,13 @@ namespace PeerstPlayer.Controls.PecaPlayer
 				// チャンネル更新
 				UpdateChannelInfo();
 
+				/*
 				// メモリリーク防止
-				if (wmp.Ctlcontrols != null)
+				if (moviePlayer.Ctlcontrols != null)
 				{
-					wmp.Ctlcontrols.play();
+					moviePlayer.Ctlcontrols.play();
 				}
+				 */
 			};
 			timer.Start();
 
@@ -424,21 +380,21 @@ namespace PeerstPlayer.Controls.PecaPlayer
 		/// <summary>
 		/// 現在のフレームレート
 		/// </summary>
-		public int NowFrameRate { get { try { return wmp.network.frameRate / 100; } catch { return 0; } } }
+		public int NowFrameRate { get { return moviePlayer.NowFrameRate; } }
 
 		/// <summary>
 		/// フレームレート
 		/// </summary>
-		public int FrameRate { get { return wmp.network.encodedFrameRate; } }
+		public int FrameRate { get { return moviePlayer.FrameRate; } }
 
 		/// <summary>
 		/// 現在のビットレート
 		/// </summary>
-		public int NowBitrate { get { return wmp.network.bandWidth / 1000; } }
+		public int NowBitrate { get { return moviePlayer.NowBitrate; } }
 
 		/// <summary>
 		/// ビットレート
 		/// </summary>
-		public int Bitrate { get { return wmp.network.bitRate / 1000; } }
+		public int Bitrate { get { return moviePlayer.Bitrate; } }
 	}
 }
