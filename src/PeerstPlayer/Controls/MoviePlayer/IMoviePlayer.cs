@@ -7,7 +7,7 @@ namespace PeerstPlayer.Controls.MoviePlayer
 	/// <summary>
 	/// 動画プレイヤーインターフェイス
 	/// </summary>
-	interface IMoviePlayer
+	public interface IMoviePlayer
 	{
 		/// <summary>
 		/// 音量
