@@ -5,6 +5,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using PeerstPlayer.Controls.PecaPlayer;
 using TestPeerstLib;
 using WMPLib;
+using PeerstPlayer.Controls.MoviePlayer;
 
 namespace TestPeertPlayer
 {
@@ -29,7 +30,7 @@ namespace TestPeertPlayer
 		}
 
 		//-------------------------------------------------------------
-		// 概要：PlayStateChangeが発生するか確認
+		// 概要：MovieStartイベントが発生するか確認
 		//-------------------------------------------------------------
 		private static void OpenTest(string streamUrl)
 		{
@@ -42,14 +43,10 @@ namespace TestPeertPlayer
 
 			PecaPlayerControl pecaPlayer = form.pecaPlayer;
 			PrivateObject accessor = new PrivateObject(pecaPlayer);
-			AxWindowsMediaPlayer wmp = (AxWindowsMediaPlayer)accessor.GetField("wmp");
-			wmp.PlayStateChange += (sender, e) =>
+			IMoviePlayer moviePlayer = (IMoviePlayer)accessor.GetField("moviePlayer");
+			moviePlayer.MovieStart += (sender, e) =>
 			{
-				WMPPlayState playState = wmp.playState;
-				if (playState == WMPPlayState.wmppsPlaying)
-				{
-					isPlaying = true;
-				}
+				isPlaying = true;
 			};
 
 			// テスト対象を実行
