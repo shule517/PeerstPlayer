@@ -66,6 +66,7 @@ package
 		private var video:Video = new Video();
 		private var netStr:NetStream = null;
 
+		//C#からのデータ受信
 		private function ChangeVolume(vol:String):void
 		{
 			if (netStr == null)
@@ -171,6 +172,7 @@ package
             stage.addEventListener(MouseEvent.MOUSE_UP, mouseUpHandler);
             stage.addEventListener(MouseEvent.MOUSE_MOVE, mouseMoveHandler);
             stage.addEventListener(MouseEvent.DOUBLE_CLICK, doubleClickHandler);
+            stage.addEventListener(KeyboardEvent.KEY_DOWN, keyDownHandler);
 		}
 		
 		//クリック
@@ -195,8 +197,13 @@ package
         }
         //ダブルクリックイベント
         private function doubleClickHandler(event:MouseEvent):void {
-            trace("doubleClickHandler");
+            trace("doubleClickHandler:" + (int)(event.localX).toString() + "," + (int)(event.localY).toString());
 			fscommand("DoubleClickEvent", (int)(event.localX).toString() + "," + (int)(event.localY).toString());
+        }
+        //キー押下イベント
+        private function keyDownHandler(event:KeyboardEvent):void {
+            trace("keyDownHandler:" + event.keyCode.toString() + "," + (event.shiftKey ? "1":"0"));
+			fscommand("KeyDownEvent", event.keyCode.toString() + "," + (event.shiftKey ? "1":"0"));
         }
 	}
 }
