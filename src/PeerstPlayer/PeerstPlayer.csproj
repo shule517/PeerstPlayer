@@ -230,6 +230,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="FlvPlayer.swf" />
     <Content Include="PeerstPlayer.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
