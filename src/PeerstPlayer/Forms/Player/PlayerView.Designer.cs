@@ -165,6 +165,7 @@ namespace PeerstPlayer.Forms.Setting
 			// 
 			// pecaPlayer
 			// 
+			this.pecaPlayer.BackColor = System.Drawing.Color.Black;
 			this.pecaPlayer.ChannelInfo = null;
 			this.pecaPlayer.ClickPoint = new System.Drawing.Point(0, 0);
 			this.pecaPlayer.EnableContextMenu = false;
@@ -213,78 +214,78 @@ namespace PeerstPlayer.Forms.Setting
 			// scale50PerToolStripMenuItem
 			// 
 			this.scale50PerToolStripMenuItem.Name = "scale50PerToolStripMenuItem";
-			this.scale50PerToolStripMenuItem.Size = new System.Drawing.Size(160, 22);
+			this.scale50PerToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
 			this.scale50PerToolStripMenuItem.Text = "50%";
 			// 
 			// scale75PerToolStripMenuItem
 			// 
 			this.scale75PerToolStripMenuItem.Name = "scale75PerToolStripMenuItem";
-			this.scale75PerToolStripMenuItem.Size = new System.Drawing.Size(160, 22);
+			this.scale75PerToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
 			this.scale75PerToolStripMenuItem.Text = "75%";
 			// 
 			// scale100PerToolStripMenuItem
 			// 
 			this.scale100PerToolStripMenuItem.Name = "scale100PerToolStripMenuItem";
-			this.scale100PerToolStripMenuItem.Size = new System.Drawing.Size(160, 22);
+			this.scale100PerToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
 			this.scale100PerToolStripMenuItem.Text = "100%";
 			// 
 			// scale150PerToolStripMenuItem
 			// 
 			this.scale150PerToolStripMenuItem.Name = "scale150PerToolStripMenuItem";
-			this.scale150PerToolStripMenuItem.Size = new System.Drawing.Size(160, 22);
+			this.scale150PerToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
 			this.scale150PerToolStripMenuItem.Text = "150%";
 			// 
 			// scale200PerToolStripMenuItem
 			// 
 			this.scale200PerToolStripMenuItem.Name = "scale200PerToolStripMenuItem";
-			this.scale200PerToolStripMenuItem.Size = new System.Drawing.Size(160, 22);
+			this.scale200PerToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
 			this.scale200PerToolStripMenuItem.Text = "200%";
 			// 
 			// sizeToolStripSeparator
 			// 
 			this.sizeToolStripSeparator.Name = "sizeToolStripSeparator";
-			this.sizeToolStripSeparator.Size = new System.Drawing.Size(157, 6);
+			this.sizeToolStripSeparator.Size = new System.Drawing.Size(149, 6);
 			// 
 			// size160x120ToolStripMenuItem
 			// 
 			this.size160x120ToolStripMenuItem.Name = "size160x120ToolStripMenuItem";
-			this.size160x120ToolStripMenuItem.Size = new System.Drawing.Size(160, 22);
+			this.size160x120ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
 			this.size160x120ToolStripMenuItem.Text = "160 x 120";
 			// 
 			// size320x240ToolStripMenuItem
 			// 
 			this.size320x240ToolStripMenuItem.Name = "size320x240ToolStripMenuItem";
-			this.size320x240ToolStripMenuItem.Size = new System.Drawing.Size(160, 22);
+			this.size320x240ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
 			this.size320x240ToolStripMenuItem.Text = "320 x 240";
 			// 
 			// size480x360ToolStripMenuItem
 			// 
 			this.size480x360ToolStripMenuItem.Name = "size480x360ToolStripMenuItem";
-			this.size480x360ToolStripMenuItem.Size = new System.Drawing.Size(160, 22);
+			this.size480x360ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
 			this.size480x360ToolStripMenuItem.Text = "480 x 360";
 			// 
 			// size640x480ToolStripMenuItem
 			// 
 			this.size640x480ToolStripMenuItem.Name = "size640x480ToolStripMenuItem";
-			this.size640x480ToolStripMenuItem.Size = new System.Drawing.Size(160, 22);
+			this.size640x480ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
 			this.size640x480ToolStripMenuItem.Text = "640 x 480";
 			// 
 			// size800x600ToolStripMenuItem
 			// 
 			this.size800x600ToolStripMenuItem.Name = "size800x600ToolStripMenuItem";
-			this.size800x600ToolStripMenuItem.Size = new System.Drawing.Size(160, 22);
+			this.size800x600ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
 			this.size800x600ToolStripMenuItem.Text = "800 x 600";
 			// 
 			// fitMovieSizeToolStripSeparator
 			// 
 			this.fitMovieSizeToolStripSeparator.Name = "fitMovieSizeToolStripSeparator";
-			this.fitMovieSizeToolStripSeparator.Size = new System.Drawing.Size(157, 6);
+			this.fitMovieSizeToolStripSeparator.Size = new System.Drawing.Size(149, 6);
 			// 
 			// fitMovieSizeToolStripMenuItem
 			// 
 			this.fitMovieSizeToolStripMenuItem.Name = "fitMovieSizeToolStripMenuItem";
-			this.fitMovieSizeToolStripMenuItem.Size = new System.Drawing.Size(160, 22);
-			this.fitMovieSizeToolStripMenuItem.Text = "動画に合わせる";
+			this.fitMovieSizeToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+			this.fitMovieSizeToolStripMenuItem.Text = "黒枠を消す";
 			// 
 			// 画面分割ToolStripMenuItem
 			// 
@@ -305,54 +306,54 @@ namespace PeerstPlayer.Forms.Setting
 			// screenSplitWidthx5ToolStripMenuItem
 			// 
 			this.screenSplitWidthx5ToolStripMenuItem.Name = "screenSplitWidthx5ToolStripMenuItem";
-			this.screenSplitWidthx5ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+			this.screenSplitWidthx5ToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
 			this.screenSplitWidthx5ToolStripMenuItem.Text = "幅：5分の1";
 			// 
 			// screenSplitWidthx4ToolStripMenuItem
 			// 
 			this.screenSplitWidthx4ToolStripMenuItem.Name = "screenSplitWidthx4ToolStripMenuItem";
-			this.screenSplitWidthx4ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+			this.screenSplitWidthx4ToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
 			this.screenSplitWidthx4ToolStripMenuItem.Text = "幅：4分の1";
 			// 
 			// screenSplitWidthx3ToolStripMenuItem
 			// 
 			this.screenSplitWidthx3ToolStripMenuItem.Name = "screenSplitWidthx3ToolStripMenuItem";
-			this.screenSplitWidthx3ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+			this.screenSplitWidthx3ToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
 			this.screenSplitWidthx3ToolStripMenuItem.Text = "幅：3分の1";
 			// 
 			// screenSplitWidthx2ToolStripMenuItem
 			// 
 			this.screenSplitWidthx2ToolStripMenuItem.Name = "screenSplitWidthx2ToolStripMenuItem";
-			this.screenSplitWidthx2ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+			this.screenSplitWidthx2ToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
 			this.screenSplitWidthx2ToolStripMenuItem.Text = "幅：2分の1";
 			// 
 			// screenSplitToolStripSeparator
 			// 
 			this.screenSplitToolStripSeparator.Name = "screenSplitToolStripSeparator";
-			this.screenSplitToolStripSeparator.Size = new System.Drawing.Size(149, 6);
+			this.screenSplitToolStripSeparator.Size = new System.Drawing.Size(147, 6);
 			// 
 			// screenSplitHeightx5ToolStripMenuItem
 			// 
 			this.screenSplitHeightx5ToolStripMenuItem.Name = "screenSplitHeightx5ToolStripMenuItem";
-			this.screenSplitHeightx5ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+			this.screenSplitHeightx5ToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
 			this.screenSplitHeightx5ToolStripMenuItem.Text = "高さ：5分の1";
 			// 
 			// screenSplitHeightx4ToolStripMenuItem
 			// 
 			this.screenSplitHeightx4ToolStripMenuItem.Name = "screenSplitHeightx4ToolStripMenuItem";
-			this.screenSplitHeightx4ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+			this.screenSplitHeightx4ToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
 			this.screenSplitHeightx4ToolStripMenuItem.Text = "高さ：4分の1";
 			// 
 			// screenSplitHeightx3ToolStripMenuItem
 			// 
 			this.screenSplitHeightx3ToolStripMenuItem.Name = "screenSplitHeightx3ToolStripMenuItem";
-			this.screenSplitHeightx3ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+			this.screenSplitHeightx3ToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
 			this.screenSplitHeightx3ToolStripMenuItem.Text = "高さ：3分の1";
 			// 
 			// screenSplitHeightx2ToolStripMenuItem
 			// 
 			this.screenSplitHeightx2ToolStripMenuItem.Name = "screenSplitHeightx2ToolStripMenuItem";
-			this.screenSplitHeightx2ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+			this.screenSplitHeightx2ToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
 			this.screenSplitHeightx2ToolStripMenuItem.Text = "高さ：2分の1";
 			// 
 			// functionToolStripMenuItem
