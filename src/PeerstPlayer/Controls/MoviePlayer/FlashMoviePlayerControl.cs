@@ -42,12 +42,15 @@ namespace PeerstPlayer.Controls.MoviePlayer
 			set { }
 		}
 
-		event EventHandler volumeChange = delegate { };
+		/// <summary>
+		/// 音量変化イベント
+		/// </summary>
 		event EventHandler IMoviePlayer.VolumeChange
 		{
 			add { volumeChange += value; }
 			remove { volumeChange -= value; }
 		}
+		event EventHandler volumeChange = delegate { };
 
 		event EventHandler IMoviePlayer.MovieStart
 		{
@@ -126,9 +129,10 @@ namespace PeerstPlayer.Controls.MoviePlayer
 
 		event AxWMPLib._WMPOCXEvents_KeyDownEventHandler IMoviePlayer.KeyDownEvent
 		{
-			add { }
-			remove { }
+			add { keyDownEvent += value; }
+			remove { keyDownEvent -= value; }
 		}
+		event AxWMPLib._WMPOCXEvents_KeyDownEventHandler keyDownEvent = delegate { };
 
 		IntPtr IMoviePlayer.WMPHandle
 		{
@@ -173,8 +177,10 @@ namespace PeerstPlayer.Controls.MoviePlayer
 				try
 				{
 					string[] arg = e.args.Split(new string[] { "," }, StringSplitOptions.None);
-					int x = int.Parse(arg[0]);
-					int y = int.Parse(arg[1]);
+					int x = 0;
+					int y = 0;
+					int.TryParse(arg[0], out x);
+					int.TryParse(arg[1], out y);
 
 					switch (e.command)
 					{
@@ -189,6 +195,9 @@ namespace PeerstPlayer.Controls.MoviePlayer
 							break;
 						case "DoubleClickEvent":
 							doubleClickEvent(this, new EventArgs());
+							break;
+						case "KeyDownEvent":
+							keyDownEvent(this, new AxWMPLib._WMPOCXEvents_KeyDownEvent((short)x, (short)y));
 							break;
 					}
 				}
