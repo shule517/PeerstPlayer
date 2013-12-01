@@ -49,12 +49,12 @@ namespace PeerstPlayer.Forms.Player
 		}
 
 		/// <summary>
-		/// ウィンドウ：ウィンドウ枠を表示するか
+		/// ウィンドウ：ウィンドウ枠を消す
 		/// </summary>
-		public static bool FrameVisible
+		public static bool FrameInvisible
 		{
-			get { return info.FrameVisible; }
-			set { info.FrameVisible = value; }
+			get { return info.FrameInvisible; }
+			set { info.FrameInvisible = value; }
 		}
 
 		/// <summary>

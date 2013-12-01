@@ -74,6 +74,7 @@ namespace PeerstPlayer.Forms.Setting
 				disconnectRealyOnCloseCheckBox.Checked = PlayerSettings.DisconnectRealyOnClose;
 				windowSnapEnableCheckBox.Checked = PlayerSettings.WindowSnapEnable;
 				aspectRateFixCheckBox.Checked = PlayerSettings.AspectRateFix;
+				frameInvisibleCheckBox.Checked = PlayerSettings.FrameInvisible;
 				topMostCheckBox.Checked = PlayerSettings.TopMost;
 				writeFieldVisibleCheckBox.Checked = PlayerSettings.WriteFieldVisible;
 				initVolumeTextBox.Text = PlayerSettings.InitVolume.ToString();
@@ -295,6 +296,7 @@ namespace PeerstPlayer.Forms.Setting
 			PlayerSettings.DisconnectRealyOnClose = disconnectRealyOnCloseCheckBox.Checked;
 			PlayerSettings.WindowSnapEnable = windowSnapEnableCheckBox.Checked;
 			PlayerSettings.AspectRateFix = aspectRateFixCheckBox.Checked;
+			PlayerSettings.FrameInvisible = frameInvisibleCheckBox.Checked;
 			PlayerSettings.TopMost = topMostCheckBox.Checked;
 			PlayerSettings.WriteFieldVisible = writeFieldVisibleCheckBox.Checked;
 	

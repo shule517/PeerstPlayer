@@ -23,9 +23,9 @@ namespace PeerstPlayer.Settings
 		public bool AspectRateFix = true;
 
 		/// <summary>
-		/// ウィンドウ：ウィンドウ枠を表示するか
+		/// ウィンドウ：ウィンドウ枠を消す
 		/// </summary>
-		public bool FrameVisible = true;
+		public bool FrameInvisible = false;
 
 		/// <summary>
 		/// 初期最前列表示

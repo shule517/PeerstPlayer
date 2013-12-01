@@ -106,7 +106,7 @@ namespace PeerstPlayer.Forms.Setting
 			PlayerSettings.Load();
 
 			// ウィンドウ枠を消す
-			if (!PlayerSettings.FrameVisible)
+			if (PlayerSettings.FrameInvisible)
 			{
 				FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
 			}
