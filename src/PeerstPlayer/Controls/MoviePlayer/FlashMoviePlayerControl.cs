@@ -20,10 +20,20 @@ namespace PeerstPlayer.Controls.MoviePlayer
 			flashManager = new FlashMoviePlayerManager(axShockwaveFlash);
 		}
 
+		int volume = 0;
 		int IMoviePlayer.Volume
 		{
-			get { return 0; }
-			set { volumeChange(this, new EventArgs()); }
+			get { return volume; }
+			set
+			{
+				if ((value < 0) || (100 < value))
+				{
+					return;
+				}
+				volume = value;
+				flashManager.ChangeVolume(value);
+				volumeChange(this, new EventArgs());
+			}
 		}
 
 		int IMoviePlayer.VolumeBalance
