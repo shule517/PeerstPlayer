@@ -72,6 +72,14 @@ namespace PeerstPlayer.Forms.Setting
 			{
 				Logger.Instance.InfoFormat("画面表示 - Shownイベント開始");
 
+				// 設定の反映
+				// 書き込み欄の非表示
+				statusBar.WriteFieldVisible = PlayerSettings.WriteFieldVisible;
+				if (statusBar.WriteFieldVisible)
+				{
+					statusBar.Focus();
+				}
+
 				// チャンネル名設定後、画面表示
 				Application.DoEvents();
 
@@ -109,13 +117,6 @@ namespace PeerstPlayer.Forms.Setting
 			if (PlayerSettings.FrameInvisible)
 			{
 				FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-			}
-
-			// 書き込み欄の非表示
-			statusBar.WriteFieldVisible = PlayerSettings.WriteFieldVisible;
-			if (statusBar.WriteFieldVisible)
-			{
-				statusBar.Focus();
 			}
 
 			// 最前列表示
