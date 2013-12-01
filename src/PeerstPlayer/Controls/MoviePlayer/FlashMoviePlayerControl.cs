@@ -9,20 +9,21 @@ namespace PeerstPlayer.Controls.MoviePlayer
 	/// </summary>
 	public partial class FlashMoviePlayerControl : UserControl, IMoviePlayer
 	{
+		private FlashMoviePlayerManager flashManager = null;
+
 		public FlashMoviePlayerControl()
 		{
 			InitializeComponent();
+			Dock = DockStyle.Fill;
 
-			MouseDown+= (e, sender) =>
-			{
-				mouseDownEvent(this, new AxWMPLib._WMPOCXEvents_MouseDownEvent(0 ,0, 0, 0));
-			};
+			// FlashManagerの初期化
+			flashManager = new FlashMoviePlayerManager(axShockwaveFlash);
 		}
 
 		int IMoviePlayer.Volume
 		{
 			get { return 0; }
-			set { }
+			set { volumeChange(this, new EventArgs()); }
 		}
 
 		int IMoviePlayer.VolumeBalance
@@ -31,10 +32,11 @@ namespace PeerstPlayer.Controls.MoviePlayer
 			set { }
 		}
 
+		event EventHandler volumeChange = delegate { };
 		event EventHandler IMoviePlayer.VolumeChange
 		{
-			add { }
-			remove { }
+			add { volumeChange += value; }
+			remove { volumeChange -= value; }
 		}
 
 		event EventHandler IMoviePlayer.MovieStart
@@ -46,7 +48,7 @@ namespace PeerstPlayer.Controls.MoviePlayer
 		bool IMoviePlayer.Mute
 		{
 			get { return false; }
-			set { }
+			set { volumeChange(this, new EventArgs()); }
 		}
 
 		string IMoviePlayer.Duration
@@ -84,29 +86,32 @@ namespace PeerstPlayer.Controls.MoviePlayer
 			get { return 600; }
 		}
 
-		event AxWMPLib._WMPOCXEvents_MouseDownEventHandler mouseDownEvent;
+		event AxWMPLib._WMPOCXEvents_MouseDownEventHandler mouseDownEvent = delegate { };
 		event AxWMPLib._WMPOCXEvents_MouseDownEventHandler IMoviePlayer.MouseDownEvent
 		{
 			add { mouseDownEvent += value; }
 			remove { mouseDownEvent -= value; }
 		}
 
+		event AxWMPLib._WMPOCXEvents_MouseUpEventHandler mouseUpEvent = delegate { };
 		event AxWMPLib._WMPOCXEvents_MouseUpEventHandler IMoviePlayer.MouseUpEvent
 		{
-			add { }
-			remove { }
+			add { mouseUpEvent += value; }
+			remove { mouseUpEvent -= value; }
 		}
 
+		event AxWMPLib._WMPOCXEvents_MouseMoveEventHandler mouseMoveEvent = delegate { };
 		event AxWMPLib._WMPOCXEvents_MouseMoveEventHandler IMoviePlayer.MouseMoveEvent
 		{
-			add { }
-			remove { }
+			add { mouseMoveEvent += value; }
+			remove { mouseMoveEvent += value; }
 		}
 
+		event EventHandler doubleClickEvent = delegate { };
 		event EventHandler IMoviePlayer.DoubleClickEvent
 		{
-			add { }
-			remove { }
+			add { doubleClickEvent += value; }
+			remove { doubleClickEvent -= value; }
 		}
 
 		event AxWMPLib._WMPOCXEvents_KeyDownEventHandler IMoviePlayer.KeyDownEvent
@@ -148,11 +153,41 @@ namespace PeerstPlayer.Controls.MoviePlayer
 
 		Control IMoviePlayer.MovieControl
 		{
-			get { return new Control(); }
+			get { return this; }
 		}
 
 		void IMoviePlayer.PlayMoive(string streamUrl)
 		{
+			axShockwaveFlash.FSCommand += (sender, e) =>
+			{
+				try
+				{
+					string[] arg = e.args.Split(new string[] { "," }, StringSplitOptions.None);
+					int x = int.Parse(arg[0]);
+					int y = int.Parse(arg[1]);
+
+					switch (e.command)
+					{
+						case "MouseDownEvent":
+							mouseDownEvent(this, new AxWMPLib._WMPOCXEvents_MouseDownEvent((short)Keys.LButton, 0, x, y));
+							break;
+						case "MouseUpEvent":
+							mouseUpEvent(this, new AxWMPLib._WMPOCXEvents_MouseUpEvent(0, 0, x, y));
+							break;
+						case "MouseMoveEvent":
+							mouseMoveEvent(this, new AxWMPLib._WMPOCXEvents_MouseMoveEvent(0, 0, x, y));
+							break;
+						case "DoubleClickEvent":
+							doubleClickEvent(this, new EventArgs());
+							break;
+					}
+				}
+				catch
+				{
+				}
+			};
+			axShockwaveFlash.LoadMovie(0, Environment.CurrentDirectory + "/FlvPlayer.swf");
+			flashManager.PlayVideo(streamUrl);
 		}
 	}
 }
