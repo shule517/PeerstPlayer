@@ -13,19 +13,24 @@ namespace PeerstPlayer.Settings
 		public bool DisconnectRealyOnClose = true;
 
 		/// <summary>
-		/// ウィンドウスナップ有効
+		/// ウィンドウ：ウィンドウスナップ有効
 		/// </summary>
 		public bool WindowSnapEnable = true;
+
+		/// <summary>
+		/// ウィンドウ：アスペクト比固定
+		/// </summary>
+		public bool AspectRateFix = true;
+
+		/// <summary>
+		/// ウィンドウ：ウィンドウ枠を表示するか
+		/// </summary>
+		public bool FrameVisible = true;
 
 		/// <summary>
 		/// 初期最前列表示
 		/// </summary>
 		public bool TopMost = false;
-
-		/// <summary>
-		/// アスペクト比固定
-		/// </summary>
-		public bool AspectRateFix = true;
 
 		/// <summary>
 		/// 書き込み欄表示
@@ -81,7 +86,6 @@ namespace PeerstPlayer.Settings
 		// - ステータスバー表示項目 : List
 		// - 終了時位置保存 : boolean
 		// - 終了時音量保存 : boolean
-		// - 初期表示フレーム表示 : boolean
 		// - 初期表示ステータスバー表示 : boolean
 		// - 初期音量ミュート : boolean
 		// - 書き込み欄(Ctrl+Enter) : boolean

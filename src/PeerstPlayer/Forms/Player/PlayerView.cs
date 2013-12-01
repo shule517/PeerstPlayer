@@ -65,12 +65,12 @@ namespace PeerstPlayer.Forms.Setting
 			// イベントの初期化
 			InitEvent();
 
+			// 設定の読み込み
+			LoadSetting();
+
 			Shown += (senderObject, eventArg) =>
 			{
 				Logger.Instance.InfoFormat("画面表示 - Shownイベント開始");
-
-				// 設定の読み込み
-				LoadSetting();
 
 				// チャンネル名設定後、画面表示
 				Application.DoEvents();
@@ -104,6 +104,12 @@ namespace PeerstPlayer.Forms.Setting
 		{
 			// 設定の読み込み
 			PlayerSettings.Load();
+
+			// ウィンドウ枠を消す
+			if (!PlayerSettings.FrameVisible)
+			{
+				FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+			}
 
 			// 書き込み欄の非表示
 			statusBar.WriteFieldVisible = PlayerSettings.WriteFieldVisible;
@@ -498,8 +504,10 @@ namespace PeerstPlayer.Forms.Setting
 			get
 			{
 				const int WS_CAPTION = 0x00C00000;
+				const int CS_DROPSHADOW = 0x00020000; 
 				CreateParams param = base.CreateParams;
-				param.Style &= ~WS_CAPTION;
+				param.Style &= ~WS_CAPTION;			// タイトルバー非表示
+				param.ClassStyle |= CS_DROPSHADOW;	// ウィンドウ周りに影を付ける
 				return param;
 			}
 		}

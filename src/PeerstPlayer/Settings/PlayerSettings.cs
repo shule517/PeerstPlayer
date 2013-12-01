@@ -31,12 +31,30 @@ namespace PeerstPlayer.Forms.Player
 		}
 
 		/// <summary>
-		/// ウィンドウスナップ有効
+		/// ウィンドウ：ウィンドウスナップ有効
 		/// </summary>
 		public static bool WindowSnapEnable
 		{
 			get { return info.WindowSnapEnable; }
 			set { info.WindowSnapEnable = value; }
+		}
+
+		/// <summary>
+		/// ウィンドウ：アスペクト比固定
+		/// </summary>
+		public static bool AspectRateFix
+		{
+			get { return info.AspectRateFix; }
+			set { info.AspectRateFix = value; }
+		}
+
+		/// <summary>
+		/// ウィンドウ：ウィンドウ枠を表示するか
+		/// </summary>
+		public static bool FrameVisible
+		{
+			get { return info.FrameVisible; }
+			set { info.FrameVisible = value; }
 		}
 
 		/// <summary>
@@ -46,15 +64,6 @@ namespace PeerstPlayer.Forms.Player
 		{
 			get { return info.TopMost; }
 			set { info.TopMost = value; }
-		}
-
-		/// <summary>
-		/// アスペクト比固定
-		/// </summary>
-		public static bool AspectRateFix
-		{
-			get { return info.AspectRateFix; }
-			set { info.AspectRateFix = value; }
 		}
 
 		/// <summary>
