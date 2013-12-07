@@ -187,8 +187,14 @@ namespace PeerstPlayer.Controls.MoviePlayer
 						case "MouseDownEvent":
 							mouseDownEvent(this, new AxWMPLib._WMPOCXEvents_MouseDownEvent((short)Keys.LButton, 0, x, y));
 							break;
+						case "RightDownEvent":
+							mouseDownEvent(this, new AxWMPLib._WMPOCXEvents_MouseDownEvent((short)Keys.RButton, 0, x, y));
+							break;
 						case "MouseUpEvent":
-							mouseUpEvent(this, new AxWMPLib._WMPOCXEvents_MouseUpEvent(0, 0, x, y));
+							mouseUpEvent(this, new AxWMPLib._WMPOCXEvents_MouseUpEvent((short)Keys.LButton, 0, x, y));
+							break;
+						case "RightUpEvent":
+							mouseUpEvent(this, new AxWMPLib._WMPOCXEvents_MouseUpEvent((short)Keys.RButton, 0, x, y));
 							break;
 						case "MouseMoveEvent":
 							mouseMoveEvent(this, new AxWMPLib._WMPOCXEvents_MouseMoveEvent(0, 0, x, y));

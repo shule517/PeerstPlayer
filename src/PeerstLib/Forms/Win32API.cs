@@ -15,6 +15,9 @@ namespace PeerstLib.Controls
 		[DllImport("user32.dll", EntryPoint = "SetWindowText")]
 		public static extern void SetWindowText(IntPtr hWnd, String text);
 
+		[DllImportAttribute("user32.dll")]
+		public static extern bool ReleaseCapture();
+	
 		/// <summary>
 		/// 座標を含むウインドウのハンドルを取得
 		/// </summary>

@@ -173,12 +173,24 @@ package
             stage.addEventListener(MouseEvent.MOUSE_MOVE, mouseMoveHandler);
             stage.addEventListener(MouseEvent.DOUBLE_CLICK, doubleClickHandler);
             stage.addEventListener(KeyboardEvent.KEY_DOWN, keyDownHandler);
+			stage.addEventListener(MouseEvent.RIGHT_MOUSE_DOWN, rightMouseDownHandler);
+			stage.addEventListener(MouseEvent.RIGHT_MOUSE_UP, rightMouseUpHandler);
 		}
 		
 		//クリック
         private function clickHandler(event:MouseEvent):void {
             trace("clickHandler");
 			fscommand("MouseClickEvent", (int)(event.localX).toString() + "," + (int)(event.localY).toString());
+        }
+		//右クリック
+        private function rightMouseDownHandler(event:MouseEvent):void {
+            trace("rightMouseDownHandler");
+			fscommand("RightDownEvent", (int)(event.localX).toString() + "," + (int)(event.localY).toString());
+        }
+		//右クリック
+        private function rightMouseUpHandler(event:MouseEvent):void {
+            trace("rightMouseUpHandler");
+			fscommand("RightUpEvent", (int)(event.localX).toString() + "," + (int)(event.localY).toString());
         }
         //マウスボタンを押した瞬間
         private function mouseDownHandler(event:MouseEvent):void {
