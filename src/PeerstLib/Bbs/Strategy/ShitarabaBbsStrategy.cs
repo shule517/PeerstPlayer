@@ -20,10 +20,19 @@ namespace PeerstLib.Bbs.Strategy
 		// 公開プロパティ
 		//-------------------------------------------------------------
 
-		// したらばのドメイン
+		/// <summary>
+		/// したらばのドメイン
+		/// </summary>
 		public const string Domain = "jbbs";
 
-		// スレッドURL
+		/// <summary>
+		/// ホスト
+		/// </summary>
+		private const string Host = "jbbs.shitaraba.net";
+
+		/// <summary>
+		/// スレッドURL
+		/// </summary>
 		public override string ThreadUrl
 		{
 			get
@@ -43,38 +52,50 @@ namespace PeerstLib.Bbs.Strategy
 		// 非公開プロパティ
 		//-------------------------------------------------------------
 
-		// 掲示板エンコード
+		/// <summary>
+		/// 掲示板エンコード
+		/// </summary>
 		protected override Encoding encoding { get { return Encoding.GetEncoding("EUC-JP"); } }
 
-		// スレッド一覧URL
+		/// <summary>
+		/// スレッド一覧URL
+		/// </summary>
 		protected override string subjectUrl
 		{
 			get { return String.Format("http://{0}/{1}/{2}/subject.txt", BbsInfo.Host, BbsInfo.BoardGenre, BbsInfo.BoardNo); }
 		}
 
-		// スレッド情報URL
+		/// <summary>
+		/// スレッド情報URL
+		/// </summary>
 		protected override string datUrl
 		{
 			get { return String.Format("http://{0}/bbs/rawmode.cgi/{1}/{2}/{3}/", BbsInfo.Host, BbsInfo.BoardGenre, BbsInfo.BoardNo, BbsInfo.ThreadNo); }
 		}
 
-		// 板URL
+		/// <summary>
+		/// 板URL
+		/// </summary>
 		protected override string boardUrl
 		{
 			get { return String.Format("http://{0}/{1}/{2}/", BbsInfo.Host, BbsInfo.BoardGenre, BbsInfo.BoardNo); }
 		}
 
-		// 書き込みリクエストURL
+		/// <summary>
+		/// 書き込みリクエストURL
+		/// </summary>
 		protected override string writeUrl
 		{
-			get { return String.Format("http://{0}/bbs/write.cgi", BbsInfo.Host); }
+			get { return String.Format("http://{0}/bbs/write.cgi", Host); }
 		}
 
 		//-------------------------------------------------------------
 		// 定義
 		//-------------------------------------------------------------
 
-		// レスデータのインデックス
+		/// <summary>
+		/// レスデータのインデックス
+		/// </summary>
 		enum DatIndex : int
 		{
 			ResNo = 0,
@@ -165,7 +186,7 @@ namespace PeerstLib.Bbs.Strategy
 		// 概要：スレッドデータ解析
 		// 詳細：datからレス一覧情報を作成する
 		//-------------------------------------------------------------
-		override protected List<ResInfo> AnalyzeDatText(string[] lines)
+		override protected List<ResInfo> AnalyzeDatText(string[] lines, bool isHtmlDecode)
 		{
 			Logger.Instance.DebugFormat("AnalyzeDatText(lines:{0})", lines);
 
@@ -178,14 +199,17 @@ namespace PeerstLib.Bbs.Strategy
 
 				String[] data = line.v.Split(new[] { "<>" }, StringSplitOptions.None);
 				
+				string mail = data[(int)DatIndex.Mail];
+				string message = data[(int)DatIndex.Message];
+				string name = data[(int)DatIndex.Name];
 				ResInfo resInfo = new ResInfo
 				{
 					ResNo	= data[(int)DatIndex.ResNo],
 					Date	= data[(int)DatIndex.Date],
 					Id		= data[(int)DatIndex.Id],
-					Mail	= HttpUtility.HtmlDecode(data[(int)DatIndex.Mail]),
-					Message	= HttpUtility.HtmlDecode(data[(int)DatIndex.Message]),
-					Name	= HttpUtility.HtmlDecode(data[(int)DatIndex.Name]),
+					Mail	= isHtmlDecode ? HttpUtility.HtmlDecode(mail) : mail,
+					Message = isHtmlDecode ? HttpUtility.HtmlDecode(message) : message,
+					Name	= isHtmlDecode ? HttpUtility.HtmlDecode(name) : name,
 				};
 				resList.Add(resInfo);
 			}

@@ -166,11 +166,11 @@ namespace PeerstLib.Bbs
 		//-------------------------------------------------------------
 		// 概要：スレッド読み込み
 		//-------------------------------------------------------------
-		public void ReadThread()
+		public void ReadThread(bool isHtmlDecode)
 		{
 			// 選択しているスレッドからデータを取得する
 			Logger.Instance.DebugFormat("ReadThread");
-			strategy.ReadThread();
+			strategy.ReadThread(isHtmlDecode);
 		}
 
 		//-------------------------------------------------------------

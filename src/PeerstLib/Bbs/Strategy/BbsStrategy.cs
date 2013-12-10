@@ -160,7 +160,7 @@ namespace PeerstLib.Bbs.Strategy
 		//-------------------------------------------------------------
 		// 概要：レス読み込み
 		//-------------------------------------------------------------
-		public void ReadThread()
+		public void ReadThread(bool isHtmlDecode)
 		{
 			if (!ThreadSelected)
 			{
@@ -173,7 +173,7 @@ namespace PeerstLib.Bbs.Strategy
 
 			string datText = WebUtil.GetHtml(datUrl, encoding);
 			string[] lines = datText.Replace("\r\n", "\n").Split('\n');
-			ResList = AnalyzeDatText(lines);
+			ResList = AnalyzeDatText(lines, isHtmlDecode);
 
 			Logger.Instance.DebugFormat("レス一覧取得：正常 [レス取得数：{0}]", ResList.Count);
 		}
@@ -195,7 +195,7 @@ namespace PeerstLib.Bbs.Strategy
 		//-------------------------------------------------------------
 		// 概要：スレッドデータ解析
 		//-------------------------------------------------------------
-		protected abstract List<ResInfo> AnalyzeDatText(string[] lines);
+		protected abstract List<ResInfo> AnalyzeDatText(string[] lines, bool isHtmlDecode);
 
 		//-------------------------------------------------------------
 		// 概要：書き込み用リクエストデータ作成

@@ -34,6 +34,8 @@ namespace PeerstViewer.ThreadViewer.Command
 		{
 			this.operationBbs = operationBbs;
 
+			// キャンセル可能
+			worker.WorkerSupportsCancellation = true;
 			worker.DoWork += (sender, e) => e.Result = UpdateDocumentText();
 			worker.RunWorkerCompleted += (sender, e) =>
 			{
@@ -50,17 +52,21 @@ namespace PeerstViewer.ThreadViewer.Command
 			string url = parameter as string;
 			if (url != null)
 			{
+				// スレッドURL変更＋更新
+				if (!worker.IsBusy)
+				{
+					worker.CancelAsync();
+				}
+
 				operationBbs.ChangeUrl(url);
 				operationBbs.ThreadListChange += (sender, e) =>
 				{
-					if (!worker.IsBusy)
-					{
-						worker.RunWorkerAsync();
-					}
+					worker.RunWorkerAsync();
 				};
 			}
 			else
 			{
+				// 更新のみ
 				if (!worker.IsBusy)
 				{
 					worker.RunWorkerAsync();
@@ -73,7 +79,7 @@ namespace PeerstViewer.ThreadViewer.Command
 		/// </summary>
 		private string UpdateDocumentText()
 		{
-			operationBbs.ReadThread();
+			operationBbs.ReadThread(false);
 
 			string documentText = @"<head>
 <style type=""text/css"">

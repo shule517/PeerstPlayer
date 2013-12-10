@@ -50,6 +50,9 @@ namespace PeerstViewer.ThreadViewer.Command
 		}
 	}
 
+	/// <summary>
+	/// レス書きコマンドの引数
+	/// </summary>
 	class WrireResCommandArg
 	{
 		public string Name;

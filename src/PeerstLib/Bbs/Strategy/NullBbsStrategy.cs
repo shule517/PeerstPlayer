@@ -67,7 +67,7 @@ namespace PeerstLib.Bbs.Strategy
 		// 概要：スレッドデータ解析
 		// 詳細：datからレス一覧情報を作成する
 		//-------------------------------------------------------------
-		override protected List<ResInfo> AnalyzeDatText(string[] lines)
+		override protected List<ResInfo> AnalyzeDatText(string[] lines, bool isHtmlDecode)
 		{
 			return new List<ResInfo>();
 		}

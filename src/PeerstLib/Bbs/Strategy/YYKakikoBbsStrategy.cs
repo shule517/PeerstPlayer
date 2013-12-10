@@ -159,7 +159,7 @@ namespace PeerstLib.Bbs.Strategy
 		// 概要：スレッドデータ解析
 		// 詳細：datからレス一覧情報を作成する
 		//-------------------------------------------------------------
-		override protected List<ResInfo> AnalyzeDatText(string[] lines)
+		override protected List<ResInfo> AnalyzeDatText(string[] lines, bool isHtmlDecode)
 		{
 			Logger.Instance.DebugFormat("AnalyzeDatText(lines:{0})", lines);
 
@@ -172,14 +172,17 @@ namespace PeerstLib.Bbs.Strategy
 
 				String[] data = line.v.Split(new[] { "<>" }, StringSplitOptions.None);
 
+				string mail = data[(int)DatIndex.Mail];
+				string message = data[(int)DatIndex.Message];
+				string name = data[(int)DatIndex.Name];
 				ResInfo resInfo = new ResInfo
 				{
 					ResNo	= (line.i + 1).ToString(),
 					Date	= data[(int)DatIndex.DateAndId],
 					Id		= "", // TODO IDを取得する
-					Mail	= HttpUtility.HtmlDecode(data[(int)DatIndex.Mail]),
-					Message = HttpUtility.HtmlDecode(data[(int)DatIndex.Message]),
-					Name	= HttpUtility.HtmlDecode(data[(int)DatIndex.Name]),
+					Mail	= isHtmlDecode ? HttpUtility.HtmlDecode(mail) : mail,
+					Message = isHtmlDecode ? HttpUtility.HtmlDecode(message) : message,
+					Name	= isHtmlDecode ? HttpUtility.HtmlDecode(name) : name,
 				};
 				resList.Add(resInfo);
 			}
