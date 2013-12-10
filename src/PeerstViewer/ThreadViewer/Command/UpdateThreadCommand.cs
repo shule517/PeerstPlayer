@@ -52,16 +52,15 @@ namespace PeerstViewer.ThreadViewer.Command
 			string url = parameter as string;
 			if (url != null)
 			{
-				// スレッドURL変更＋更新
-				if (!worker.IsBusy)
-				{
-					worker.CancelAsync();
-				}
-
 				operationBbs.ChangeUrl(url);
 				operationBbs.ThreadListChange += (sender, e) =>
 				{
-					worker.RunWorkerAsync();
+					// スレッドURL変更＋更新
+					if (!worker.IsBusy)
+					{
+						worker.CancelAsync();
+						worker.RunWorkerAsync();
+					}
 				};
 			}
 			else

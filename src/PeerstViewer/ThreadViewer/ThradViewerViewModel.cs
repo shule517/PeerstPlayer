@@ -25,6 +25,11 @@ namespace PeerstViewer.ThreadViewer
 		public string ThreadUrl { get { return operationBbs.ThreadUrl; } }
 
 		/// <summary>
+		/// 書き込みメッセージ
+		/// </summary>
+		public string Message { get { return ""; } }
+
+		/// <summary>
 		/// スレッド一覧
 		/// </summary>
 		public List<ThreadInfo> ThreadList { get { return operationBbs.ThreadList; } }

@@ -21,9 +21,42 @@ namespace PeerstViewer.ThreadViewer.Command
 		/// </summary>
 		public event PropertyChangedEventHandler PropertyChanged = delegate { };
 
+		/// <summary>
+		/// 掲示板書き込みスレッド
+		/// </summary>
+		private BackgroundWorker worker = new BackgroundWorker();
+
 		public WriteResCommand(OperationBbs operationBbs)
 		{
 			this.operationBbs = operationBbs;
+
+			worker.DoWork += (sender, e) =>
+			{
+				e.Result = null;
+
+				try
+				{
+					WrireResCommandArg arg = e.Argument as WrireResCommandArg;
+					operationBbs.Write(arg.Name, arg.Mail, arg.Message);
+				}
+				catch (Exception excetpion)
+				{
+					e.Result = excetpion;
+				}
+			};
+			worker.RunWorkerCompleted += (sender, e) =>
+			{
+				Exception exception = e.Result as Exception;
+
+				if (exception != null)
+				{
+					MessageBox.Show(exception.Message);
+				}
+				else
+				{
+					PropertyChanged(this, new PropertyChangedEventArgs("Message"));
+				}
+			};
 		}
 
 		/// <summary>
@@ -31,15 +64,9 @@ namespace PeerstViewer.ThreadViewer.Command
 		/// </summary>
 		public void Execute(object parameter)
 		{
-			try
+			if (!worker.IsBusy)
 			{
-				WrireResCommandArg arg = parameter as WrireResCommandArg;
-				operationBbs.Write(arg.Name, arg.Mail, arg.Message);
-				PropertyChanged(this, new PropertyChangedEventArgs("ClearWriteField"));
-			}
-			catch (Exception e)
-			{
-				MessageBox.Show(e.Message, "Error");
+				worker.RunWorkerAsync(parameter);
 			}
 		}
 
