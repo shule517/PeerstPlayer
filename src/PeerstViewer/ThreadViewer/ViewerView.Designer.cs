@@ -1,6 +1,6 @@
-﻿namespace PeerstViewer
+﻿namespace PeerstViewer.ThreadViewer
 {
-	partial class ViewerView
+	partial class ThreadViewerView
 	{
 		/// <summary>
 		/// 必要なデザイナー変数です。
@@ -28,7 +28,7 @@
 		/// </summary>
 		private void InitializeComponent()
 		{
-			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ViewerView));
+			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ThreadViewerView));
 			this.webBrowser = new System.Windows.Forms.WebBrowser();
 			this.toolStrip = new System.Windows.Forms.ToolStrip();
 			this.toolStripButtonUpdate = new System.Windows.Forms.ToolStripButton();
@@ -45,6 +45,8 @@
 			this.peerCast用ツール開発者バグ報告専用スレ41ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.textBoxUrl = new System.Windows.Forms.TextBox();
 			this.splitContainerThreadList = new System.Windows.Forms.SplitContainer();
+			this.toolStrip1 = new System.Windows.Forms.ToolStrip();
+			this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
 			this.splitContainerWriteField = new System.Windows.Forms.SplitContainer();
 			this.textBoxMail = new System.Windows.Forms.TextBox();
 			this.textBoxName = new System.Windows.Forms.TextBox();
@@ -58,17 +60,14 @@
 			this.resNumColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
 			this.resSpeedColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
 			this.sinecColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-			this.toolStrip1 = new System.Windows.Forms.ToolStrip();
-			this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
-			this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
 			this.toolStrip.SuspendLayout();
 			this.splitContainerThreadList.Panel1.SuspendLayout();
 			this.splitContainerThreadList.Panel2.SuspendLayout();
 			this.splitContainerThreadList.SuspendLayout();
+			this.toolStrip1.SuspendLayout();
 			this.splitContainerWriteField.Panel1.SuspendLayout();
 			this.splitContainerWriteField.Panel2.SuspendLayout();
 			this.splitContainerWriteField.SuspendLayout();
-			this.toolStrip1.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// webBrowser
@@ -77,7 +76,7 @@
 			this.webBrowser.Location = new System.Drawing.Point(0, 0);
 			this.webBrowser.MinimumSize = new System.Drawing.Size(20, 20);
 			this.webBrowser.Name = "webBrowser";
-			this.webBrowser.Size = new System.Drawing.Size(455, 181);
+			this.webBrowser.Size = new System.Drawing.Size(455, 270);
 			this.webBrowser.TabIndex = 0;
 			// 
 			// toolStrip
@@ -111,6 +110,7 @@
 			// toolStripButtonAutoUpdate
 			// 
 			this.toolStripButtonAutoUpdate.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+			this.toolStripButtonAutoUpdate.Enabled = false;
 			this.toolStripButtonAutoUpdate.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonAutoUpdate.Image")));
 			this.toolStripButtonAutoUpdate.ImageTransparentColor = System.Drawing.Color.Magenta;
 			this.toolStripButtonAutoUpdate.Name = "toolStripButtonAutoUpdate";
@@ -126,7 +126,7 @@
 			this.toolStripButtonBottom.Name = "toolStripButtonBottom";
 			this.toolStripButtonBottom.Overflow = System.Windows.Forms.ToolStripItemOverflow.Never;
 			this.toolStripButtonBottom.Size = new System.Drawing.Size(23, 20);
-			this.toolStripButtonBottom.Text = "toolStripButton3";
+			this.toolStripButtonBottom.Text = "下へスクロール";
 			// 
 			// toolStripButtonTop
 			// 
@@ -135,6 +135,7 @@
 			this.toolStripButtonTop.Name = "toolStripButtonTop";
 			this.toolStripButtonTop.Overflow = System.Windows.Forms.ToolStripItemOverflow.Never;
 			this.toolStripButtonTop.Size = new System.Drawing.Size(23, 20);
+			this.toolStripButtonTop.ToolTipText = "上へスクロール";
 			// 
 			// toolStripButtonThreadList
 			// 
@@ -162,6 +163,7 @@
             this.peerstPlayer総合スレ３ToolStripMenuItem,
             this.ものすごい勢いで下位配信を実況するスレ134620ゴミ目ToolStripMenuItem,
             this.peerCast用ツール開発者バグ報告専用スレ41ToolStripMenuItem});
+			this.toolStripDropDownButtonFavorite.Enabled = false;
 			this.toolStripDropDownButtonFavorite.Image = ((System.Drawing.Image)(resources.GetObject("toolStripDropDownButtonFavorite.Image")));
 			this.toolStripDropDownButtonFavorite.ImageTransparentColor = System.Drawing.Color.Magenta;
 			this.toolStripDropDownButtonFavorite.Name = "toolStripDropDownButtonFavorite";
@@ -226,6 +228,23 @@
 			this.splitContainerThreadList.SplitterWidth = 6;
 			this.splitContainerThreadList.TabIndex = 3;
 			// 
+			// toolStrip1
+			// 
+			this.toolStrip1.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
+			this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripLabel1});
+			this.toolStrip1.Location = new System.Drawing.Point(0, 0);
+			this.toolStrip1.Name = "toolStrip1";
+			this.toolStrip1.Size = new System.Drawing.Size(315, 25);
+			this.toolStrip1.TabIndex = 2;
+			this.toolStrip1.Text = "toolStrip1";
+			// 
+			// toolStripLabel1
+			// 
+			this.toolStripLabel1.Name = "toolStripLabel1";
+			this.toolStripLabel1.Size = new System.Drawing.Size(80, 22);
+			this.toolStripLabel1.Text = "スレッド一覧";
+			// 
 			// splitContainerWriteField
 			// 
 			this.splitContainerWriteField.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -246,14 +265,14 @@
 			this.splitContainerWriteField.Panel2.Controls.Add(this.textBoxMessage);
 			this.splitContainerWriteField.Panel2.Controls.Add(this.labelName);
 			this.splitContainerWriteField.Size = new System.Drawing.Size(455, 401);
-			this.splitContainerWriteField.SplitterDistance = 181;
+			this.splitContainerWriteField.SplitterDistance = 270;
 			this.splitContainerWriteField.SplitterWidth = 6;
 			this.splitContainerWriteField.TabIndex = 1;
 			// 
 			// textBoxMail
 			// 
 			this.textBoxMail.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-			this.textBoxMail.Location = new System.Drawing.Point(178, 187);
+			this.textBoxMail.Location = new System.Drawing.Point(178, 98);
 			this.textBoxMail.Name = "textBoxMail";
 			this.textBoxMail.Size = new System.Drawing.Size(100, 19);
 			this.textBoxMail.TabIndex = 11;
@@ -262,7 +281,7 @@
 			// textBoxName
 			// 
 			this.textBoxName.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-			this.textBoxName.Location = new System.Drawing.Point(33, 187);
+			this.textBoxName.Location = new System.Drawing.Point(33, 98);
 			this.textBoxName.Name = "textBoxName";
 			this.textBoxName.Size = new System.Drawing.Size(100, 19);
 			this.textBoxName.TabIndex = 10;
@@ -271,7 +290,7 @@
 			// 
 			this.buttonWrite.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			this.buttonWrite.Location = new System.Drawing.Point(284, 185);
+			this.buttonWrite.Location = new System.Drawing.Point(284, 96);
 			this.buttonWrite.Name = "buttonWrite";
 			this.buttonWrite.Size = new System.Drawing.Size(168, 23);
 			this.buttonWrite.TabIndex = 9;
@@ -282,7 +301,7 @@
 			// 
 			this.labelMail.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
 			this.labelMail.AutoSize = true;
-			this.labelMail.Location = new System.Drawing.Point(139, 190);
+			this.labelMail.Location = new System.Drawing.Point(139, 101);
 			this.labelMail.Name = "labelMail";
 			this.labelMail.Size = new System.Drawing.Size(33, 12);
 			this.labelMail.TabIndex = 8;
@@ -297,14 +316,14 @@
 			this.textBoxMessage.Multiline = true;
 			this.textBoxMessage.Name = "textBoxMessage";
 			this.textBoxMessage.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-			this.textBoxMessage.Size = new System.Drawing.Size(449, 182);
+			this.textBoxMessage.Size = new System.Drawing.Size(449, 93);
 			this.textBoxMessage.TabIndex = 6;
 			// 
 			// labelName
 			// 
 			this.labelName.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
 			this.labelName.AutoSize = true;
-			this.labelName.Location = new System.Drawing.Point(3, 190);
+			this.labelName.Location = new System.Drawing.Point(3, 101);
 			this.labelName.Name = "labelName";
 			this.labelName.Size = new System.Drawing.Size(29, 12);
 			this.labelName.TabIndex = 7;
@@ -355,34 +374,7 @@
 			// 
 			this.sinecColumnHeader.Text = "Since";
 			// 
-			// toolStrip1
-			// 
-			this.toolStrip1.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
-			this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripLabel1,
-            this.toolStripButton1});
-			this.toolStrip1.Location = new System.Drawing.Point(0, 0);
-			this.toolStrip1.Name = "toolStrip1";
-			this.toolStrip1.Size = new System.Drawing.Size(315, 25);
-			this.toolStrip1.TabIndex = 2;
-			this.toolStrip1.Text = "toolStrip1";
-			// 
-			// toolStripButton1
-			// 
-			this.toolStripButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-			this.toolStripButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton1.Image")));
-			this.toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
-			this.toolStripButton1.Name = "toolStripButton1";
-			this.toolStripButton1.Size = new System.Drawing.Size(23, 22);
-			this.toolStripButton1.Text = "toolStripButton1";
-			// 
-			// toolStripLabel1
-			// 
-			this.toolStripLabel1.Name = "toolStripLabel1";
-			this.toolStripLabel1.Size = new System.Drawing.Size(80, 22);
-			this.toolStripLabel1.Text = "スレッド一覧";
-			// 
-			// ViewerView
+			// ThreadViewerView
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -391,7 +383,7 @@
 			this.Controls.Add(this.textBoxUrl);
 			this.Controls.Add(this.toolStrip);
 			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-			this.Name = "ViewerView";
+			this.Name = "ThreadViewerView";
 			this.Text = "PeerstViewer";
 			this.toolStrip.ResumeLayout(false);
 			this.toolStrip.PerformLayout();
@@ -399,12 +391,12 @@
 			this.splitContainerThreadList.Panel1.PerformLayout();
 			this.splitContainerThreadList.Panel2.ResumeLayout(false);
 			this.splitContainerThreadList.ResumeLayout(false);
+			this.toolStrip1.ResumeLayout(false);
+			this.toolStrip1.PerformLayout();
 			this.splitContainerWriteField.Panel1.ResumeLayout(false);
 			this.splitContainerWriteField.Panel2.ResumeLayout(false);
 			this.splitContainerWriteField.Panel2.PerformLayout();
 			this.splitContainerWriteField.ResumeLayout(false);
-			this.toolStrip1.ResumeLayout(false);
-			this.toolStrip1.PerformLayout();
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
@@ -442,7 +434,6 @@
 		private System.Windows.Forms.ToolStripMenuItem お気に入りに追加ToolStripMenuItem;
 		private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
 		private System.Windows.Forms.ToolStrip toolStrip1;
-		private System.Windows.Forms.ToolStripButton toolStripButton1;
 		private System.Windows.Forms.ToolStripLabel toolStripLabel1;
 	}
 }

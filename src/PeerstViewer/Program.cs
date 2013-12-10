@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PeerstViewer.ThreadViewer;
+using System;
 using System.Windows.Forms;
 
 namespace PeerstViewer
@@ -13,7 +14,7 @@ namespace PeerstViewer
 		{
 			Application.EnableVisualStyles();
 			Application.SetCompatibleTextRenderingDefault(false);
-			Application.Run(new ViewerView());
+			Application.Run(new ThreadViewerView());
 		}
 	}
 }
