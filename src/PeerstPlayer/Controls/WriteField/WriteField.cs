@@ -198,7 +198,7 @@ namespace PeerstPlayer.Controls.WriteField
 		//-------------------------------------------------------------
 		public string ReadNewRes()
 		{
-			operationBbs.ReadThread();
+			operationBbs.ReadThread(true);
 
 			string message = "";
 			foreach (var res in operationBbs.ResList.Select((v, i) => new { v, i }))
