@@ -30,6 +30,11 @@ namespace PeerstViewer.ThreadViewer.Command
 		/// </summary>
 		private BackgroundWorker worker = new BackgroundWorker();
 
+		/// <summary>
+		/// 全体のドキュメント
+		/// </summary>
+		private string beforeDocumentText = "";
+
 		public UpdateThreadCommand(OperationBbs operationBbs)
 		{
 			this.operationBbs = operationBbs;
@@ -40,7 +45,13 @@ namespace PeerstViewer.ThreadViewer.Command
 			worker.RunWorkerCompleted += (sender, e) =>
 			{
 				DocumentText = e.Result as string;
-				PropertyChanged(this, new PropertyChangedEventArgs("DocumentText"));
+
+				// 更新があった時だけ通知
+				if (DocumentText != beforeDocumentText)
+				{
+					PropertyChanged(this, new PropertyChangedEventArgs("DocumentText"));
+				}
+				beforeDocumentText = DocumentText;
 			};
 		}
 

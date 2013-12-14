@@ -32,18 +32,6 @@ namespace PeerstViewer.ThreadViewer
 						webBrowser.Visible = false;
 						webBrowser.DocumentText = viewModel.DocumentText;
 						webBrowser.Visible = true;
-
-						// TODO スクロール位置の修正
-						if (toolStripButtonBottom.Checked)
-						{
-							// スレッドの最下位へ移動
-							ScrollToBottom();
-						}
-						else
-						{
-							// スクロール位置を復元
-							webBrowser.Document.Window.ScrollTo(ScrollPos.X, ScrollPos.Y);
-						}
 						break;
 					case "ThreadList":
 						threadListView.Items.Clear();
@@ -161,6 +149,17 @@ TT
 
 			webBrowser.DocumentCompleted += (sender, e) =>
 			{
+				if (toolStripButtonBottom.Checked)
+				{
+					// スレッドの最下位へ移動
+					ScrollToBottom();
+				}
+				else
+				{
+					// スクロール位置を復元
+					webBrowser.Document.Window.ScrollTo(ScrollPos.X, ScrollPos.Y);
+				}
+
 				webBrowser.Document.Window.Scroll += (sender_, e_) =>
 				{
 					// スクロール位置が最上位か
