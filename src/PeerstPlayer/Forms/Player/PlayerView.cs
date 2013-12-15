@@ -505,10 +505,8 @@ namespace PeerstPlayer.Forms.Setting
 			get
 			{
 				const int WS_CAPTION = 0x00C00000;
-				const int CS_DROPSHADOW = 0x00020000; 
 				CreateParams param = base.CreateParams;
 				param.Style &= ~WS_CAPTION;			// タイトルバー非表示
-				param.ClassStyle |= CS_DROPSHADOW;	// ウィンドウ周りに影を付ける
 				return param;
 			}
 		}
