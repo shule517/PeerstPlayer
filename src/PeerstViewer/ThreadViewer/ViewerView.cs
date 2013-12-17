@@ -147,6 +147,8 @@ TT
 				}
 			};
 
+			// 起動時に最下位にスクロールする
+			toolStripButtonBottom.Checked = true;
 			webBrowser.DocumentCompleted += (sender, e) =>
 			{
 				if (toolStripButtonBottom.Checked)
