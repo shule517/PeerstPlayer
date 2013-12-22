@@ -10,6 +10,7 @@ namespace PeerstViewer.ThreadViewer
 	public partial class ThreadViewerView : Form
 	{
 		private ThradViewerViewModel viewModel = new ThradViewerViewModel();
+		private ThreadViewerPresenter presenter;
 
 		private Point ScrollPos = new Point();
 
@@ -17,90 +18,26 @@ namespace PeerstViewer.ThreadViewer
 		{
 			InitializeComponent();
 
+			presenter = new ThreadViewerPresenter(webBrowser, threadListView);
+
 			// データバインド設定
 			// TODO データバインドするとブラウザにフォーカスを当てた時に更新が走ってしまう
 			//webBrowser.DataBindings.Add("DocumentText", viewModel, "DocumentText");
 			textBoxUrl.DataBindings.Add("Text", viewModel, "ThreadUrl");
 			textBoxMessage.DataBindings.Add("Text", viewModel, "Message");
 
-			viewModel.PropertyChanged += (sender, e) =>
-			{
-				switch (e.PropertyName)
-				{
-					case "DocumentText":
-						// 更新音を出さないために描画時は非表示にする
-						webBrowser.Visible = false;
-						webBrowser.DocumentText = viewModel.DocumentText;
-						webBrowser.Visible = true;
-						break;
-					case "ThreadList":
-						threadListView.Items.Clear();
-						foreach (var thread in viewModel.ThreadList.Where(x => (x.ResCount < x.MaxResCount)).Select((v, i) => new { Index = i, Value = v }))
-						{
-							ListViewItem item = new ListViewItem((thread.Index + 1).ToString());
-							item.SubItems.Add(thread.Value.ThreadTitle);
-							item.SubItems.Add(thread.Value.ResCount.ToString());
-							item.SubItems.Add(thread.Value.ThreadSpeed.ToString("0.0"));
-							item.SubItems.Add(thread.Value.ThreadSince.ToString("0.0"));
-							item.Tag = thread.Value.ThreadNo;
+			Init();
 
-							threadListView.Items.Add(item);
-						}
-						break;
-				}
-			};
-
-			// 初期表示設定
-			webBrowser.DocumentText = @"<head>
-<style type=""text/css"">
-<!--
-U
-{
-	color: #0000FF;
-}
-
-ul
-{
-	margin: 1px 1px 1px 30px;
-}
-
-TT
-{
-	color: #0000FF;
-	text-decoration:underline;
-}
--->
-</style>
-</head>
-<body bgcolor=""#E6EEF3"" style=""font-family:'※※※','ＭＳ Ｐゴシック','ＭＳＰゴシック','MSPゴシック','MS Pゴシック';font-size:16px;line-height:18px;"" >
-読み込み中...";
+			viewModel.PropertyChanged += (sender, e) => PropertyChanged(e);
 
 			// 自動更新
 			autoUpdateTimer.Tick += (sender, e) => viewModel.UpdateThread();
 
 			// スレッド一覧表示ボタン押下
-			toolStripButtonThreadList.MouseDown += (sender, e) =>
-			{
-				toolStripButtonThreadList.Checked = !toolStripButtonThreadList.Checked;
-				splitContainerThreadList.Panel1Collapsed = !toolStripButtonThreadList.Checked;
-			};
+			toolStripButtonThreadList.MouseDown += (sender, e) => ToggleThreadList();
 
 			// 書き込み欄表示ボタン押下
-			toolStripButtonWriteField.MouseDown += (sender, e) =>
-			{
-				toolStripButtonWriteField.Checked = !toolStripButtonWriteField.Checked;
-				splitContainerWriteField.Panel2Collapsed = !toolStripButtonWriteField.Checked;
-
-				if (toolStripButtonBottom.Checked)
-				{
-					ScrollToBottom();
-				}
-			};
-
-			splitContainerThreadList.Panel1Collapsed = true;
-			splitContainerWriteField.Panel2Collapsed = true;
-
-			toolStrip.CanOverflow = true;
+			toolStripButtonWriteField.MouseDown += (sender, e) => ToggleWriteField();
 
 			// スレッド一覧更新
 			viewModel.UpdateThreadList();
@@ -109,8 +46,8 @@ TT
 			toolStripButtonUpdate.Click += (sender, e) => viewModel.UpdateThread();
 
 			// スクロールボタン押下
-			toolStripButtonTop.Click += (sender, e) => ScrollToTop();
-			toolStripButtonBottom.Click += (sender, e) => ScrollToBottom();
+			toolStripButtonTop.Click += (sender, e) => presenter.ScrollToTop();
+			toolStripButtonBottom.Click += (sender, e) => presenter.ScrollToBottom();
 
 			// URL欄キー押下
 			textBoxUrl.KeyDown += (sender, e) =>
@@ -154,7 +91,7 @@ TT
 				if (toolStripButtonBottom.Checked)
 				{
 					// スレッドの最下位へ移動
-					ScrollToBottom();
+					presenter.ScrollToBottom();
 				}
 				else
 				{
@@ -179,20 +116,82 @@ TT
 			};
 		}
 
-		/// <summary>
-		/// 最上位へスクロール
-		/// </summary>
-		private void ScrollToTop()
+		private void Init()
 		{
-			webBrowser.Document.Window.ScrollTo(0, 0);
+
+			// 初期表示設定
+			webBrowser.DocumentText = @"<head>
+<style type=""text/css"">
+<!--
+U
+{
+	color: #0000FF;
+}
+
+ul
+{
+	margin: 1px 1px 1px 30px;
+}
+
+TT
+{
+	color: #0000FF;
+	text-decoration:underline;
+}
+-->
+</style>
+</head>
+<body bgcolor=""#E6EEF3"" style=""font-family:'※※※','ＭＳ Ｐゴシック','ＭＳＰゴシック','MSPゴシック','MS Pゴシック';font-size:16px;line-height:18px;"" >
+読み込み中...";
+
+			splitContainerThreadList.Panel1Collapsed = true;
+			splitContainerWriteField.Panel2Collapsed = true;
+
+			toolStrip.CanOverflow = true;
 		}
 
-		/// <summary>
-		/// 最下位へスクロール
-		/// </summary>
-		private void ScrollToBottom()
+		private void PropertyChanged(System.ComponentModel.PropertyChangedEventArgs e)
 		{
-			webBrowser.Document.Window.ScrollTo(0, webBrowser.Document.Body.ScrollRectangle.Bottom);
+			switch (e.PropertyName)
+			{
+				case "DocumentText":
+					// 更新音を出さないために描画時は非表示にする
+					webBrowser.Visible = false;
+					webBrowser.DocumentText = viewModel.DocumentText;
+					webBrowser.Visible = true;
+					break;
+				case "ThreadList":
+					threadListView.Items.Clear();
+					foreach (var thread in viewModel.ThreadList.Where(x => (x.ResCount < x.MaxResCount)).Select((v, i) => new { Index = i, Value = v }))
+					{
+						ListViewItem item = new ListViewItem((thread.Index + 1).ToString());
+						item.SubItems.Add(thread.Value.ThreadTitle);
+						item.SubItems.Add(thread.Value.ResCount.ToString());
+						item.SubItems.Add(thread.Value.ThreadSpeed.ToString("0.0"));
+						item.SubItems.Add(thread.Value.ThreadSince.ToString("0.0"));
+						item.Tag = thread.Value.ThreadNo;
+
+						threadListView.Items.Add(item);
+					}
+					break;
+			}
+		}
+
+		private void ToggleWriteField()
+		{
+			toolStripButtonWriteField.Checked = !toolStripButtonWriteField.Checked;
+			splitContainerWriteField.Panel2Collapsed = !toolStripButtonWriteField.Checked;
+
+			if (toolStripButtonBottom.Checked)
+			{
+				presenter.ScrollToBottom();
+			}
+		}
+
+		private void ToggleThreadList()
+		{
+			toolStripButtonThreadList.Checked = !toolStripButtonThreadList.Checked;
+			splitContainerThreadList.Panel1Collapsed = !toolStripButtonThreadList.Checked;
 		}
 	}
 }

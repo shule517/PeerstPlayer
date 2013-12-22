@@ -53,6 +53,7 @@
     <Compile Include="ThreadViewer\Command\UpdateThreadCommand.cs" />
     <Compile Include="ThreadViewer\Command\WriteResCommand.cs" />
     <Compile Include="ThreadViewer\ThradViewerViewModel.cs" />
+    <Compile Include="ThreadViewer\ThreadViewerPresenter.cs" />
     <Compile Include="ThreadViewer\ViewerView.cs">
       <SubType>Form</SubType>
     </Compile>
