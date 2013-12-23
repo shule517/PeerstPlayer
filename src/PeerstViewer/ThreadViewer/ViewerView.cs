@@ -10,26 +10,19 @@ namespace PeerstViewer.ThreadViewer
 	public partial class ThreadViewerView : Form
 	{
 		private ThradViewerViewModel viewModel = new ThradViewerViewModel();
-		private ThreadViewerPresenter presenter;
-
-		private Point ScrollPos = new Point();
 
 		public ThreadViewerView()
 		{
 			InitializeComponent();
 
-			presenter = new ThreadViewerPresenter(webBrowser, threadListView, toolStripButtonWriteField, splitContainerWriteField, toolStripButtonBottom, toolStripButtonThreadList, splitContainerThreadList, toolStrip);
+			Init();
 
 			//---------------------------------------------------
 			// データバインド設定
 			//---------------------------------------------------
 
-			// TODO データバインドするとブラウザにフォーカスを当てた時に更新が走ってしまう
-			//webBrowser.DataBindings.Add("DocumentText", viewModel, "DocumentText");
 			textBoxUrl.DataBindings.Add("Text", viewModel, "ThreadUrl");
 			textBoxMessage.DataBindings.Add("Text", viewModel, "Message");
-
-			presenter.Init();
 
 			//---------------------------------------------------
 			// ボタン押下
@@ -39,14 +32,14 @@ namespace PeerstViewer.ThreadViewer
 			toolStripButtonUpdate.Click += (sender, e) => viewModel.UpdateThread();
 
 			// スクロールボタン押下
-			toolStripButtonTop.Click += (sender, e) => presenter.ScrollToTop();
-			toolStripButtonBottom.Click += (sender, e) => presenter.ScrollToBottom();
+			toolStripButtonTop.Click += (sender, e) => threadViewer.ScrollToTop();
+			toolStripButtonBottom.Click += (sender, e) => threadViewer.ScrollToBottom();
 
 			// スレッド一覧表示ボタン押下
-			toolStripButtonThreadList.MouseDown += (sender, e) => presenter.ToggleThreadList();
+			toolStripButtonThreadList.MouseDown += (sender, e) => ToggleThreadList();
 	
 			// 書き込み欄表示ボタン押下
-			toolStripButtonWriteField.MouseDown += (sender, e) => presenter.ToggleWriteField();
+			toolStripButtonWriteField.MouseDown += (sender, e) => ToggleWriteField();
 
 			// 書き込みボタン押下
 			buttonWrite.Click += (sender, e) => viewModel.WriteRes(textBoxName.Text, textBoxMail.Text, textBoxMessage.Text);
@@ -92,32 +85,15 @@ namespace PeerstViewer.ThreadViewer
 
 			// 起動時に最下位にスクロールする
 			toolStripButtonBottom.Checked = true;
-			webBrowser.DocumentCompleted += (sender, e) =>
+			threadViewer.DocumentCompleted += (sender, e) =>
 			{
-				if (toolStripButtonBottom.Checked)
-				{
-					// スレッドの最下位へ移動
-					presenter.ScrollToBottom();
-				}
-				else
-				{
-					// スクロール位置を復元
-					webBrowser.Document.Window.ScrollTo(ScrollPos.X, ScrollPos.Y);
-				}
-
-				webBrowser.Document.Window.Scroll += (sender_, e_) =>
+				threadViewer.DocumentScroll += (sender_, e_) =>
 				{
 					// スクロール位置が最上位か
-					bool isTop = (webBrowser.Document.Body.ScrollRectangle.Top == 0);
-					toolStripButtonTop.Checked = isTop;
+					toolStripButtonTop.Checked = threadViewer.IsScrollTop;
 
 					// スクロールイ位置が最下位か
-					bool isBottom = (webBrowser.Document.Body.ScrollRectangle.Height - webBrowser.Document.Body.ScrollRectangle.Top <= webBrowser.Height + 4);
-					toolStripButtonBottom.Checked = isBottom;
-
-					// スクロール位置を保存
-					ScrollPos.X = webBrowser.Document.Body.ScrollRectangle.X;
-					ScrollPos.Y = webBrowser.Document.Body.ScrollRectangle.Y;
+					toolStripButtonBottom.Checked = threadViewer.IsScrollBottom;
 				};
 			};
 
@@ -128,16 +104,48 @@ namespace PeerstViewer.ThreadViewer
 			viewModel.UpdateThreadList();
 		}
 
+		/// <summary>
+		/// フォームの初期化
+		/// </summary>
+		private void Init()
+		{
+			splitContainerThreadList.Panel1Collapsed = true;
+			splitContainerWriteField.Panel2Collapsed = true;
+			toolStrip.CanOverflow = true;
+		}
 
+		/// <summary>
+		/// 書き込み欄表示切り替え
+		/// </summary>
+		private void ToggleWriteField()
+		{
+			toolStripButtonWriteField.Checked = !toolStripButtonWriteField.Checked;
+			splitContainerWriteField.Panel2Collapsed = !toolStripButtonWriteField.Checked;
+
+			if (toolStripButtonBottom.Checked)
+			{
+				threadViewer.ScrollToBottom();
+			}
+		}
+
+		/// <summary>
+		/// スレッド一覧表示切り替え
+		/// </summary>
+		private void ToggleThreadList()
+		{
+			toolStripButtonThreadList.Checked = !toolStripButtonThreadList.Checked;
+			splitContainerThreadList.Panel1Collapsed = !toolStripButtonThreadList.Checked;
+		}
+
+		/// <summary>
+		/// データ変更イベント
+		/// </summary>
 		private void PropertyChanged(System.ComponentModel.PropertyChangedEventArgs e)
 		{
 			switch (e.PropertyName)
 			{
 				case "DocumentText":
-					// 更新音を出さないために描画時は非表示にする
-					webBrowser.Visible = false;
-					webBrowser.DocumentText = viewModel.DocumentText;
-					webBrowser.Visible = true;
+					threadViewer.DocumentText = viewModel.DocumentText;
 					break;
 				case "ThreadList":
 					threadListView.Items.Clear();

@@ -30,7 +30,6 @@
 		{
 			this.components = new System.ComponentModel.Container();
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ThreadViewerView));
-			this.webBrowser = new System.Windows.Forms.WebBrowser();
 			this.toolStrip = new System.Windows.Forms.ToolStrip();
 			this.toolStripButtonUpdate = new System.Windows.Forms.ToolStripButton();
 			this.toolStripButtonAutoUpdate = new System.Windows.Forms.ToolStripButton();
@@ -47,12 +46,6 @@
 			this.splitContainerThreadList = new System.Windows.Forms.SplitContainer();
 			this.toolStrip1 = new System.Windows.Forms.ToolStrip();
 			this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
-			this.threadListView = new PeerstLib.Controls.BufferedListView();
-			this.columnHeaderNo = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-			this.threadTitleColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-			this.resNumColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-			this.resSpeedColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-			this.sinecColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
 			this.splitContainerWriteField = new System.Windows.Forms.SplitContainer();
 			this.textBoxMail = new System.Windows.Forms.TextBox();
 			this.textBoxName = new System.Windows.Forms.TextBox();
@@ -62,6 +55,13 @@
 			this.labelName = new System.Windows.Forms.Label();
 			this.autoUpdateTimer = new System.Windows.Forms.Timer(this.components);
 			this.textBoxUrl = new System.Windows.Forms.TextBox();
+			this.threadListView = new PeerstLib.Controls.BufferedListView();
+			this.columnHeaderNo = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+			this.threadTitleColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+			this.resNumColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+			this.resSpeedColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+			this.sinecColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+			this.threadViewer = new PeerstViewer.Controls.ThreadViewer.ThreadViewerControl();
 			this.toolStrip.SuspendLayout();
 			this.splitContainerThreadList.Panel1.SuspendLayout();
 			this.splitContainerThreadList.Panel2.SuspendLayout();
@@ -71,15 +71,6 @@
 			this.splitContainerWriteField.Panel2.SuspendLayout();
 			this.splitContainerWriteField.SuspendLayout();
 			this.SuspendLayout();
-			// 
-			// webBrowser
-			// 
-			this.webBrowser.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.webBrowser.Location = new System.Drawing.Point(0, 0);
-			this.webBrowser.MinimumSize = new System.Drawing.Size(20, 20);
-			this.webBrowser.Name = "webBrowser";
-			this.webBrowser.Size = new System.Drawing.Size(455, 270);
-			this.webBrowser.TabIndex = 0;
 			// 
 			// toolStrip
 			// 
@@ -238,51 +229,6 @@
 			this.toolStripLabel1.Size = new System.Drawing.Size(80, 22);
 			this.toolStripLabel1.Text = "スレッド一覧";
 			// 
-			// threadListView
-			// 
-			this.threadListView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-			this.threadListView.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.columnHeaderNo,
-            this.threadTitleColumnHeader,
-            this.resNumColumnHeader,
-            this.resSpeedColumnHeader,
-            this.sinecColumnHeader});
-			this.threadListView.FullRowSelect = true;
-			this.threadListView.GridLines = true;
-			this.threadListView.Location = new System.Drawing.Point(0, 28);
-			this.threadListView.MultiSelect = false;
-			this.threadListView.Name = "threadListView";
-			this.threadListView.Size = new System.Drawing.Size(312, 379);
-			this.threadListView.TabIndex = 1;
-			this.threadListView.UseCompatibleStateImageBehavior = false;
-			this.threadListView.View = System.Windows.Forms.View.Details;
-			// 
-			// columnHeaderNo
-			// 
-			this.columnHeaderNo.Text = "No";
-			this.columnHeaderNo.Width = 34;
-			// 
-			// threadTitleColumnHeader
-			// 
-			this.threadTitleColumnHeader.Text = "スレッドタイトル";
-			this.threadTitleColumnHeader.Width = 120;
-			// 
-			// resNumColumnHeader
-			// 
-			this.resNumColumnHeader.Text = "レス数";
-			this.resNumColumnHeader.Width = 43;
-			// 
-			// resSpeedColumnHeader
-			// 
-			this.resSpeedColumnHeader.Text = "勢い";
-			this.resSpeedColumnHeader.Width = 44;
-			// 
-			// sinecColumnHeader
-			// 
-			this.sinecColumnHeader.Text = "Since";
-			// 
 			// splitContainerWriteField
 			// 
 			this.splitContainerWriteField.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -292,7 +238,7 @@
 			// 
 			// splitContainerWriteField.Panel1
 			// 
-			this.splitContainerWriteField.Panel1.Controls.Add(this.webBrowser);
+			this.splitContainerWriteField.Panel1.Controls.Add(this.threadViewer);
 			// 
 			// splitContainerWriteField.Panel2
 			// 
@@ -380,6 +326,60 @@
 			this.textBoxUrl.Size = new System.Drawing.Size(776, 19);
 			this.textBoxUrl.TabIndex = 2;
 			// 
+			// threadListView
+			// 
+			this.threadListView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.threadListView.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeaderNo,
+            this.threadTitleColumnHeader,
+            this.resNumColumnHeader,
+            this.resSpeedColumnHeader,
+            this.sinecColumnHeader});
+			this.threadListView.FullRowSelect = true;
+			this.threadListView.GridLines = true;
+			this.threadListView.Location = new System.Drawing.Point(0, 28);
+			this.threadListView.MultiSelect = false;
+			this.threadListView.Name = "threadListView";
+			this.threadListView.Size = new System.Drawing.Size(312, 379);
+			this.threadListView.TabIndex = 1;
+			this.threadListView.UseCompatibleStateImageBehavior = false;
+			this.threadListView.View = System.Windows.Forms.View.Details;
+			// 
+			// columnHeaderNo
+			// 
+			this.columnHeaderNo.Text = "No";
+			this.columnHeaderNo.Width = 34;
+			// 
+			// threadTitleColumnHeader
+			// 
+			this.threadTitleColumnHeader.Text = "スレッドタイトル";
+			this.threadTitleColumnHeader.Width = 120;
+			// 
+			// resNumColumnHeader
+			// 
+			this.resNumColumnHeader.Text = "レス数";
+			this.resNumColumnHeader.Width = 43;
+			// 
+			// resSpeedColumnHeader
+			// 
+			this.resSpeedColumnHeader.Text = "勢い";
+			this.resSpeedColumnHeader.Width = 44;
+			// 
+			// sinecColumnHeader
+			// 
+			this.sinecColumnHeader.Text = "Since";
+			// 
+			// threadViewer
+			// 
+			this.threadViewer.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.threadViewer.DocumentText = "";
+			this.threadViewer.Location = new System.Drawing.Point(0, 0);
+			this.threadViewer.Name = "threadViewer";
+			this.threadViewer.Size = new System.Drawing.Size(455, 270);
+			this.threadViewer.TabIndex = 0;
+			// 
 			// ThreadViewerView
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -410,7 +410,6 @@
 
 		#endregion
 
-		private System.Windows.Forms.WebBrowser webBrowser;
 		private System.Windows.Forms.ToolStrip toolStrip;
 		private System.Windows.Forms.ToolStripButton toolStripButtonUpdate;
 		private System.Windows.Forms.ToolStripButton toolStripButtonAutoUpdate;
@@ -442,6 +441,7 @@
 		private System.Windows.Forms.ToolStrip toolStrip1;
 		private System.Windows.Forms.ToolStripLabel toolStripLabel1;
 		private System.Windows.Forms.Timer autoUpdateTimer;
+		private Controls.ThreadViewer.ThreadViewerControl threadViewer;
 	}
 }
 

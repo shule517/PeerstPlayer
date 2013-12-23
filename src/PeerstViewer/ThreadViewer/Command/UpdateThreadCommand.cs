@@ -1,4 +1,5 @@
 ﻿using PeerstLib.Bbs;
+using PeerstLib.Util;
 using System;
 using System.ComponentModel;
 using System.Windows.Input;
@@ -44,12 +45,24 @@ namespace PeerstViewer.ThreadViewer.Command
 			worker.DoWork += (sender, e) => e.Result = UpdateDocumentText();
 			worker.RunWorkerCompleted += (sender, e) =>
 			{
+				if ((e.Error != null) || e.Cancelled)
+				{
+					return;
+				}
+
 				DocumentText = e.Result as string;
 
 				// 更新があった時だけ通知
 				if (DocumentText != beforeDocumentText)
 				{
-					PropertyChanged(this, new PropertyChangedEventArgs("DocumentText"));
+					try
+					{
+						PropertyChanged(this, new PropertyChangedEventArgs("DocumentText"));
+					}
+					catch (Exception exception)
+					{
+						Logger.Instance.ErrorFormat("UpdateThreadCommandError : {0}", exception.Message);
+					}
 				}
 				beforeDocumentText = DocumentText;
 			};
