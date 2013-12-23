@@ -18,29 +18,22 @@ namespace PeerstViewer.ThreadViewer
 		{
 			InitializeComponent();
 
-			presenter = new ThreadViewerPresenter(webBrowser, threadListView);
+			presenter = new ThreadViewerPresenter(webBrowser, threadListView, toolStripButtonWriteField, splitContainerWriteField, toolStripButtonBottom, toolStripButtonThreadList, splitContainerThreadList, toolStrip);
 
+			//---------------------------------------------------
 			// データバインド設定
+			//---------------------------------------------------
+
 			// TODO データバインドするとブラウザにフォーカスを当てた時に更新が走ってしまう
 			//webBrowser.DataBindings.Add("DocumentText", viewModel, "DocumentText");
 			textBoxUrl.DataBindings.Add("Text", viewModel, "ThreadUrl");
 			textBoxMessage.DataBindings.Add("Text", viewModel, "Message");
 
-			Init();
+			presenter.Init();
 
-			viewModel.PropertyChanged += (sender, e) => PropertyChanged(e);
-
-			// 自動更新
-			autoUpdateTimer.Tick += (sender, e) => viewModel.UpdateThread();
-
-			// スレッド一覧表示ボタン押下
-			toolStripButtonThreadList.MouseDown += (sender, e) => ToggleThreadList();
-
-			// 書き込み欄表示ボタン押下
-			toolStripButtonWriteField.MouseDown += (sender, e) => ToggleWriteField();
-
-			// スレッド一覧更新
-			viewModel.UpdateThreadList();
+			//---------------------------------------------------
+			// ボタン押下
+			//---------------------------------------------------
 
 			// 更新ボタン押下
 			toolStripButtonUpdate.Click += (sender, e) => viewModel.UpdateThread();
@@ -48,6 +41,35 @@ namespace PeerstViewer.ThreadViewer
 			// スクロールボタン押下
 			toolStripButtonTop.Click += (sender, e) => presenter.ScrollToTop();
 			toolStripButtonBottom.Click += (sender, e) => presenter.ScrollToBottom();
+
+			// スレッド一覧表示ボタン押下
+			toolStripButtonThreadList.MouseDown += (sender, e) => presenter.ToggleThreadList();
+	
+			// 書き込み欄表示ボタン押下
+			toolStripButtonWriteField.MouseDown += (sender, e) => presenter.ToggleWriteField();
+
+			// 書き込みボタン押下
+			buttonWrite.Click += (sender, e) => viewModel.WriteRes(textBoxName.Text, textBoxMail.Text, textBoxMessage.Text);
+
+			//---------------------------------------------------
+			// イベント登録
+			//---------------------------------------------------
+
+			viewModel.PropertyChanged += (sender, e) => PropertyChanged(e);
+
+			// 自動更新
+			autoUpdateTimer.Tick += (sender, e) => viewModel.UpdateThread();
+
+			// レス書き込み
+			textBoxMessage.KeyDown += (sender, e) =>
+			{
+				if (((e.Modifiers == Keys.Control) && (e.KeyCode == Keys.Enter)) ||
+					((e.Modifiers == Keys.Shift) && (e.KeyCode == Keys.Enter)))
+				{
+					e.SuppressKeyPress = true;
+					viewModel.WriteRes(textBoxName.Text, textBoxMail.Text, textBoxMessage.Text);
+				}
+			};
 
 			// URL欄キー押下
 			textBoxUrl.KeyDown += (sender, e) =>
@@ -66,22 +88,6 @@ namespace PeerstViewer.ThreadViewer
 					return;
 				}
 				viewModel.ChangeThread(threadListView.Items[threadListView.SelectedItems[0].Index].Tag as string);
-			};
-
-			// URLの設定
-			textBoxUrl.Text = viewModel.ThreadUrl;
-
-			// 書き込みボタン押下
-			buttonWrite.Click += (sender, e) => viewModel.WriteRes(textBoxName.Text, textBoxMail.Text, textBoxMessage.Text);
-			// レス書き込み
-			textBoxMessage.KeyDown += (sender, e) =>
-			{
-				if (((e.Modifiers == Keys.Control) && (e.KeyCode == Keys.Enter)) ||
-					((e.Modifiers == Keys.Shift) && (e.KeyCode == Keys.Enter)))
-				{
-					e.SuppressKeyPress = true;
-					viewModel.WriteRes(textBoxName.Text, textBoxMail.Text, textBoxMessage.Text);
-				}
 			};
 
 			// 起動時に最下位にスクロールする
@@ -114,41 +120,14 @@ namespace PeerstViewer.ThreadViewer
 					ScrollPos.Y = webBrowser.Document.Body.ScrollRectangle.Y;
 				};
 			};
+
+			// URLの設定
+			textBoxUrl.Text = viewModel.ThreadUrl;
+
+			// スレッド一覧更新
+			viewModel.UpdateThreadList();
 		}
 
-		private void Init()
-		{
-
-			// 初期表示設定
-			webBrowser.DocumentText = @"<head>
-<style type=""text/css"">
-<!--
-U
-{
-	color: #0000FF;
-}
-
-ul
-{
-	margin: 1px 1px 1px 30px;
-}
-
-TT
-{
-	color: #0000FF;
-	text-decoration:underline;
-}
--->
-</style>
-</head>
-<body bgcolor=""#E6EEF3"" style=""font-family:'※※※','ＭＳ Ｐゴシック','ＭＳＰゴシック','MSPゴシック','MS Pゴシック';font-size:16px;line-height:18px;"" >
-読み込み中...";
-
-			splitContainerThreadList.Panel1Collapsed = true;
-			splitContainerWriteField.Panel2Collapsed = true;
-
-			toolStrip.CanOverflow = true;
-		}
 
 		private void PropertyChanged(System.ComponentModel.PropertyChangedEventArgs e)
 		{
@@ -175,23 +154,6 @@ TT
 					}
 					break;
 			}
-		}
-
-		private void ToggleWriteField()
-		{
-			toolStripButtonWriteField.Checked = !toolStripButtonWriteField.Checked;
-			splitContainerWriteField.Panel2Collapsed = !toolStripButtonWriteField.Checked;
-
-			if (toolStripButtonBottom.Checked)
-			{
-				presenter.ScrollToBottom();
-			}
-		}
-
-		private void ToggleThreadList()
-		{
-			toolStripButtonThreadList.Checked = !toolStripButtonThreadList.Checked;
-			splitContainerThreadList.Panel1Collapsed = !toolStripButtonThreadList.Checked;
 		}
 	}
 }
