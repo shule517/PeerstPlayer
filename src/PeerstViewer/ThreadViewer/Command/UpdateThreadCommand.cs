@@ -32,7 +32,12 @@ namespace PeerstViewer.ThreadViewer.Command
 		private BackgroundWorker worker = new BackgroundWorker();
 
 		/// <summary>
-		/// 全体のドキュメント
+		/// スレッドドキュメント生成
+		/// </summary>
+		private ThreadDocumentGenerator threadDocumentGenerator = new ThreadDocumentGenerator("./skin");
+
+		/// <summary>
+		/// 前回のドキュメント
 		/// </summary>
 		private string beforeDocumentText = "";
 
@@ -104,39 +109,7 @@ namespace PeerstViewer.ThreadViewer.Command
 		{
 			operationBbs.ReadThread(false);
 
-			string documentText = @"<head>
-<style type=""text/css"">
-<!--
-U
-{
-	color: #0000FF;
-}
-
-ul
-{
-	margin: 1px 1px 1px 30px;
-}
-
-TT
-{
-	color: #0000FF;
-	text-decoration:underline;
-}
--->
-</style>
-</head>
-<body bgcolor=""#E6EEF3"" style=""font-family:'※※※','ＭＳ Ｐゴシック','ＭＳＰゴシック','MSPゴシック','MS Pゴシック';font-size:16px;line-height:18px;"" >";
-
-			foreach (var res in operationBbs.ResList)
-			{
-				if (res.ResNo != "1")
-				{
-					documentText += "<hr>";
-				}
-				documentText += String.Format("<u><font color=#0000FF>{0}</font></u><font color=#999999> ： <font color=#228B22>{1}</font></font><ul>{2}</ul>\r\n", res.ResNo, res.Name.Replace("<b>", ""), res.Message);
-			}
-
-			return documentText;
+			return threadDocumentGenerator.Generate(operationBbs.ResList, operationBbs.ThreadUrl, operationBbs.SelectThread.ThreadTitle);
 		}
 
 		public event System.EventHandler CanExecuteChanged = delegate { };
