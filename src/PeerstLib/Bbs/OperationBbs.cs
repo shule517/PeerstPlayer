@@ -54,7 +54,17 @@ namespace PeerstLib.Bbs
 		/// </summary>
 		public ThreadInfo SelectThread
 		{
-			get { return strategy.ThreadList.Single(thread => (thread.ThreadNo == BbsInfo.ThreadNo)); }
+			get
+			{
+				try
+				{
+					return strategy.ThreadList.Single(thread => (thread.ThreadNo == BbsInfo.ThreadNo));
+				}
+				catch
+				{
+					return new ThreadInfo();
+				}
+			}
 		}
 
 		/// <summary>
