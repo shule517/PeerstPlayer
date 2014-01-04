@@ -48,6 +48,14 @@ namespace PeerstLib.Bbs.Strategy
 			}
 		}
 
+		/// <summary>
+		/// 板URL
+		/// </summary>
+		public override string BoardUrl
+		{
+			get { return String.Format("http://{0}/{1}/{2}/", BbsInfo.Host, BbsInfo.BoardGenre, BbsInfo.BoardNo); }
+		}
+
 		//-------------------------------------------------------------
 		// 非公開プロパティ
 		//-------------------------------------------------------------

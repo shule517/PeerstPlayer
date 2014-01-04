@@ -15,57 +15,93 @@ namespace PeerstLib.Bbs
 	//-------------------------------------------------------------
 	public class OperationBbs
 	{
-		// 掲示板情報
+		/// <summary>
+		/// 掲示板情報
+		/// </summary>
 		public BbsInfo BbsInfo
 		{
 			get { return strategy.BbsInfo; }
 		}
 
-		// スレッド一覧
+		/// <summary>
+		/// スレッド一覧
+		/// </summary>
 		public List<ThreadInfo> ThreadList
 		{
 			get { return strategy.ThreadList; }
 		}
+
+		/// <summary>
+		/// スレッド一覧更新イベント
+		/// </summary>
 		public event EventHandler ThreadListChange = delegate { };
 
-		// レス一覧
+		/// <summary>
+		/// レス一覧
+		/// </summary>
 		public List<ResInfo> ResList
 		{
 			get { return strategy.ResList; }
 		}
+
+		/// <summary>
+		/// レス一覧更新イベント
+		/// </summary>
 		public event EventHandler ResListChange = delegate { };
 
-		// 選択スレッド情報
+		/// <summary>
+		/// 選択スレッド情報
+		/// </summary>
 		public ThreadInfo SelectThread
 		{
 			get { return strategy.ThreadList.Single(thread => (thread.ThreadNo == BbsInfo.ThreadNo)); }
 		}
 
-		// スレッドURL
+		/// <summary>
+		/// スレッドURL
+		/// </summary>
 		public string ThreadUrl
 		{
 			get { return strategy.ThreadUrl; }
 		}
 
-		// スレッド選択状態
+		/// <summary>
+		/// 板URL
+		/// </summary>
+		public string BoardUrl
+		{
+			get { return strategy.BoardUrl; }
+		}
+
+		/// <summary>
+		/// スレッド選択状態
+		/// </summary>
 		public bool ThreadSelected
 		{
 			get { return strategy.ThreadSelected; }
 		}
 
-		// 有効状態
+		/// <summary>
+		/// 有効状態
+		/// </summary>
 		public bool Enabled
 		{
 			get { return (!string.IsNullOrEmpty(BbsInfo.BoardGenre)) && (!string.IsNullOrEmpty(BbsInfo.BoardNo)); }
 		}
 
-		// 掲示板ストラテジ
+		/// <summary>
+		/// 掲示板ストラテジ
+		/// </summary>
 		private BbsStrategy strategy = new NullBbsStrategy(new BbsInfo { BbsServer = BbsServer.UnSupport });
 
-		// URL変更Worker
+		/// <summary>
+		/// URL変更Worker
+		/// </summary>
 		BackgroundWorker changeUrlWorker = new BackgroundWorker();
 
-		// スレッド一覧更新Worker
+		/// <summary>
+		/// スレッド一覧更新Worker
+		/// </summary>
 		BackgroundWorker updateThreadListWorker = new BackgroundWorker();
 
 		//-------------------------------------------------------------

@@ -14,26 +14,43 @@ namespace PeerstLib.Bbs.Strategy
 		// 公開プロパティ
 		//-------------------------------------------------------------
 
-		// スレッドURL
+		/// <summary>
+		/// スレッドURL
+		/// </summary>
 		public override string ThreadUrl { get { return BbsInfo.Url; } }
+
+		/// <summary>
+		/// 板URL
+		/// </summary>
+		public override string BoardUrl { get { return boardUrl; } }
 
 		//-------------------------------------------------------------
 		// 非公開プロパティ
 		//-------------------------------------------------------------
 
-		// 掲示板エンコード
+		/// <summary>
+		/// 掲示板エンコード
+		/// </summary>
 		protected override Encoding encoding { get { return Encoding.Default; } }
 
-		// 掲示板一覧URL
+		/// <summary>
+		/// 掲示板一覧URL
+		/// </summary>
 		protected override string subjectUrl { get { return string.Empty; } }
 
-		// スレッド情報URL
+		/// <summary>
+		/// スレッド情報URL
+		/// </summary>
 		protected override string datUrl { get { return string.Empty; } }
 
-		// 板URL
+		/// <summary>
+		/// 板URL
+		/// </summary>
 		protected override string boardUrl { get { return string.Empty; } }
 
-		// 書き込みリクエストURL
+		/// <summary>
+		/// 書き込みリクエストURL
+		/// </summary>
 		protected override string writeUrl { get { return string.Empty; } }
 
 		//-------------------------------------------------------------

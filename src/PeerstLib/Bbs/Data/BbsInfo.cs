@@ -10,25 +10,39 @@ namespace PeerstLib.Bbs.Data
 		// 公開プロパティ
 		//-------------------------------------------------------------
 
-		// 掲示板サーバのホスト
+		/// <summary>
+		/// 掲示板サーバのホスト
+		/// </summary>
 		public string Host { get; set; }
 
-		// URL
+		/// <summary>
+		/// URL
+		/// </summary>
 		public string Url { get; set; }
 
-		// 板ジャンル
+		/// <summary>
+		/// 板ジャンル
+		/// </summary>
 		public string BoardGenre { get; set; }
 
-		// 掲示板番号
+		/// <summary>
+		/// 掲示板番号
+		/// </summary>
 		public string BoardNo { get; set; }
 
-		// スレッド番号
+		/// <summary>
+		/// スレッド番号
+		/// </summary>
 		public string ThreadNo { get; set; }
 
-		// 掲示板名
+		/// <summary>
+		/// 掲示板名
+		/// </summary>
 		public string BbsName { get; set; }
 
-		// 掲示板サーバ
+		/// <summary>
+		/// 掲示板サーバ
+		/// </summary>
 		public BbsServer BbsServer { get; set; }
 	}
 }

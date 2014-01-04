@@ -108,8 +108,7 @@ namespace PeerstViewer.ThreadViewer.Command
 		private string UpdateDocumentText()
 		{
 			operationBbs.ReadThread(false);
-
-			return threadDocumentGenerator.Generate(operationBbs.ResList, operationBbs.ThreadUrl, operationBbs.SelectThread.ThreadTitle);
+			return threadDocumentGenerator.Generate(operationBbs);
 		}
 
 		public event System.EventHandler CanExecuteChanged = delegate { };

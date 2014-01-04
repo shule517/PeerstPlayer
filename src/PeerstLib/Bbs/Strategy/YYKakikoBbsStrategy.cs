@@ -20,10 +20,14 @@ namespace PeerstLib.Bbs.Strategy
 		// 公開プロパティ
 		//-------------------------------------------------------------
 
-		// YYかきこのドメイン
+		/// <summary>
+		/// YYかきこのドメイン
+		/// </summary>
 		public const string Domain = "yy";
 
-		// スレッドURL
+		/// <summary>
+		/// スレッドURL
+		/// </summary>
 		public override string ThreadUrl
 		{
 			get
@@ -39,35 +43,53 @@ namespace PeerstLib.Bbs.Strategy
 			}
 		}
 
+		/// <summary>
+		/// 板URL
+		/// </summary>
+		public override string BoardUrl
+		{
+			get { return String.Format("http://{0}/{1}/", BbsInfo.BoardGenre, BbsInfo.BoardNo); }
+		}
+
 		//-------------------------------------------------------------
 		// 非公開プロパティ
 		//-------------------------------------------------------------
 
-		// 掲示板エンコード
+		/// <summary>
+		/// 掲示板エンコード
+		/// </summary>
 		protected override Encoding encoding
 		{
 			get { return Encoding.GetEncoding("Shift_JIS"); }
 		}
 
-		// 掲示板一覧URL
+		/// <summary>
+		/// 掲示板一覧URL
+		/// </summary>
 		protected override string subjectUrl
 		{
 			get { return String.Format("http://{0}/{1}/subject.txt", BbsInfo.BoardGenre, BbsInfo.BoardNo); }
 		}
 
-		// スレッド情報URL
+		/// <summary>
+		/// スレッド情報URL
+		/// </summary>
 		protected override string datUrl
 		{
 			get { return String.Format("http://{0}/{1}/dat/{2}.dat", BbsInfo.BoardGenre, BbsInfo.BoardNo, BbsInfo.ThreadNo); }
 		}
 
-		// 板URL
+		/// <summary>
+		/// 板URL
+		/// </summary>
 		protected override string boardUrl
 		{
 			get { return String.Format("http://{0}/{1}/", BbsInfo.BoardGenre, BbsInfo.BoardNo); }
 		}
 
-		// 書き込みリクエストURL
+		/// <summary>
+		/// 書き込みリクエストURL
+		/// </summary>
 		protected override string writeUrl
 		{
 			get { return "http://" + BbsInfo.BoardGenre + "/test/bbs.cgi"; }
@@ -77,7 +99,9 @@ namespace PeerstLib.Bbs.Strategy
 		// 定義
 		//-------------------------------------------------------------
 
-		// レスデータのインデックス
+		/// <summary>
+		/// レスデータのインデックス
+		/// </summary>
 		enum DatIndex : int
 		{
 			Name = 0,

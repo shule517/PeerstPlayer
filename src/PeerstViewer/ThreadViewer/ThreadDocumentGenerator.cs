@@ -1,6 +1,6 @@
 ﻿
+using PeerstLib.Bbs;
 using PeerstLib.Bbs.Data;
-using System.Collections.Generic;
 using System.IO;
 using System.Text;
 namespace PeerstViewer.ThreadViewer
@@ -16,16 +16,16 @@ namespace PeerstViewer.ThreadViewer
 		private const string PopupResFileName = "PopupRes.html";
 		private const string ResFileName = "Res.html";
 
-		private string FooterText = "Footer.html";
-		private string HeaderText = "Header.html";
-		private string NewResText = "NewRes.html";
-		private string PopupResText = "PopupRes.html";
-		private string ResText = "Res.html";
+		private string FooterText = string.Empty;
+		private string HeaderText = string.Empty;
+		private string NewResText = string.Empty;
+		private string PopupResText = string.Empty;
+		private string ResText = string.Empty;
 
 		/// <summary>
 		/// スキンのフォルダパス
 		/// </summary>
-		private string skinFolderPath = "";
+		private string skinFolderPath = string.Empty;
 
 		public ThreadDocumentGenerator(string skinFolderPath)
 		{
@@ -60,46 +60,53 @@ namespace PeerstViewer.ThreadViewer
 		/// <summary>
 		/// ドキュメント生成
 		/// </summary>
-		public string Generate(List<ResInfo> resList, string threadUrl, string threadName)
+		public string Generate(OperationBbs operationBbs)
 		{
-			string documentText = string.Empty;
-
 			// ヘッダー追加
-			documentText += ReplaceData(HeaderText, resList, threadUrl, threadName);
+			string documentText = ReplaceData(HeaderText, operationBbs);
 
-			foreach (var res in resList)
+			foreach (var res in operationBbs.ResList)
 			{
-				documentText += ResText
-					.Replace("<NUMBER/>", res.ResNo)
-					.Replace("<PLAINNUMBER/>", res.ResNo)
-					.Replace("<NAME/>", res.Name)
-					.Replace("<MAILNAME/>", string.Format("{0} : {1}", res.Mail, res.Name))
-					.Replace("<MAIL/>", res.Mail)
-					.Replace("<DATE/>", res.Date)
-					.Replace("<MESSAGE/>", res.Message)
-					.Replace("<THREADNAME/>", threadName)
-					.Replace("<THREADURL/>", threadUrl)
-					.Replace("<SKINPATH/>", skinFolderPath)
-					.Replace("<GETRESCOUNT/>", 0.ToString())
-					.Replace("<NEWRESCOUNT/>", resList.Count.ToString())
-					.Replace("<ALLRESCOUNT/>", resList.Count.ToString());
+				string resText = ReplaceResData(ResText, res);
+				documentText += ReplaceData(resText, operationBbs);
 			}
 
 			// フッター追加
-			documentText += ReplaceData(FooterText, resList, threadUrl, threadName);
+			documentText += ReplaceData(FooterText, operationBbs);
 
 			return documentText;
 		}
 
-		private string ReplaceData(string text, List<ResInfo> resList, string threadUrl, string threadName)
+		/// <summary>
+		/// レスデータの置換
+		/// </summary>
+		private static string ReplaceResData(string documentText, ResInfo res)
 		{
-			return text
-				.Replace("<THREADNAME/>", threadName)
-				.Replace("<THREADURL/>", threadUrl)
+			return documentText
+				.Replace("<NUMBER/>", res.ResNo)
+				.Replace("<PLAINNUMBER/>", res.ResNo)
+				.Replace("<NAME/>", res.Name)
+				.Replace("<MAILNAME/>", string.Format("{0} : {1}", res.Mail, res.Name))
+				.Replace("<MAIL/>", res.Mail)
+				.Replace("<DATE/>", res.Date)
+				.Replace("<MESSAGE/>", res.Message);
+		}
+
+		/// <summary>
+		/// 特殊文字列の置換
+		/// </summary>
+		private string ReplaceData(string documentText, OperationBbs operationBbs)
+		{
+			return documentText
+				.Replace("<THREADNAME/>", operationBbs.SelectThread.ThreadTitle)
+				.Replace("<THREADURL/>", operationBbs.ThreadUrl)
 				.Replace("<SKINPATH/>", skinFolderPath)
 				.Replace("<GETRESCOUNT/>", 0.ToString())
-				.Replace("<NEWRESCOUNT/>", resList.Count.ToString())
-				.Replace("<ALLRESCOUNT/>", resList.Count.ToString());
+				.Replace("<NEWRESCOUNT/>", operationBbs.ResList.Count.ToString())
+				.Replace("<ALLRESCOUNT/>", operationBbs.ResList.Count.ToString())
+				.Replace("<BBSNAME/>", operationBbs.BbsInfo.BbsName)
+				.Replace("<BOARDNAME/>", operationBbs.BbsInfo.BbsName)
+				.Replace("<BOARDURL/>", operationBbs.BoardUrl);
 		}
 	}
 }

@@ -18,44 +18,71 @@ namespace PeerstLib.Bbs.Strategy
 		// 公開プロパティ
 		//-------------------------------------------------------------
 
-		// 掲示板情報クラス
+		/// <summary>
+		/// 掲示板情報クラス
+		/// </summary>
 		public BbsInfo BbsInfo { get; set; }
 
-		// スレッド一覧
+		/// <summary>
+		/// スレッド一覧
+		/// </summary>
 		public List<ThreadInfo> ThreadList { get; set; }
 
-		// レス一覧
+		/// <summary>
+		/// レス一覧
+		/// </summary>
 		public List<ResInfo> ResList { get; set; }
 
-		// スレッド選択状態
+		/// <summary>
+		/// スレッド選択状態
+		/// </summary>
 		public bool ThreadSelected
 		{
 			get { return (!string.IsNullOrEmpty(BbsInfo.ThreadNo)); }
 		}
 
-		// スレッドURL
+		/// <summary>
+		/// スレッドURL
+		/// </summary>
 		public abstract string ThreadUrl { get; }
+
+		/// <summary>
+		/// 板URL
+		/// </summary>
+		public abstract string BoardUrl { get; }
 
 		//-------------------------------------------------------------
 		// 非公開プロパティ
 		//-------------------------------------------------------------
 
-		// 掲示板のエンコード
+		/// <summary>
+		/// 掲示板のエンコード
+		/// </summary>
 		protected abstract Encoding encoding { get; }
 
-		// スレッド一覧情報URL
+		/// <summary>
+		/// スレッド一覧情報URL
+		/// </summary>
 		protected abstract string subjectUrl { get; }
 
-		// スレッド情報取得
+		/// <summary>
+		/// スレッド情報取得
+		/// </summary>
 		protected abstract string datUrl { get; }
 
-		// 板URL
+		/// <summary>
+		/// 板URL
+		/// </summary>
 		protected abstract string boardUrl { get; }
 
-		// 書き込みリクエストURL
+		/// <summary>
+		/// 書き込みリクエストURL
+		/// </summary>
 		protected abstract string writeUrl { get; }
 
-		// 書き込みタイムアウト時間
+		/// <summary>
+		/// 書き込みタイムアウト時間
+		/// </summary>
 		private int WriteResTimeOut = 10*1000;
 
 		/// <summary>
