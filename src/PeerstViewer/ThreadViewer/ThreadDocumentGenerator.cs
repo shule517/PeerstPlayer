@@ -1,6 +1,7 @@
 ﻿
 using PeerstLib.Bbs;
 using PeerstLib.Bbs.Data;
+using System;
 using System.IO;
 using System.Text;
 namespace PeerstViewer.ThreadViewer
@@ -69,6 +70,7 @@ namespace PeerstViewer.ThreadViewer
 			{
 				string resText = ReplaceResData(ResText, res);
 				documentText += ReplaceData(resText, operationBbs);
+				documentText += Environment.NewLine;
 			}
 
 			// フッター追加
