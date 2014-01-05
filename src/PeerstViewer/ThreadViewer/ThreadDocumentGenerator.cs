@@ -16,12 +16,14 @@ namespace PeerstViewer.ThreadViewer
 		private const string NewResFileName = "NewRes.html";
 		private const string PopupResFileName = "PopupRes.html";
 		private const string ResFileName = "Res.html";
+		private const string NewMarkFileName = "NewMark.html";
 
 		private string FooterText = string.Empty;
 		private string HeaderText = string.Empty;
 		private string NewResText = string.Empty;
 		private string PopupResText = string.Empty;
 		private string ResText = string.Empty;
+		private string NewMarkText = string.Empty;
 
 		/// <summary>
 		/// スキンのフォルダパス
@@ -44,6 +46,7 @@ namespace PeerstViewer.ThreadViewer
 			NewResText = ReadFile(Path.Combine(skinFolderPath, NewResFileName));
 			PopupResText = ReadFile(Path.Combine(skinFolderPath, PopupResFileName));
 			ResText = ReadFile(Path.Combine(skinFolderPath, ResFileName));
+			NewMarkText = ReadFile(Path.Combine(skinFolderPath, NewMarkFileName));
 		}
 
 		/// <summary>
@@ -61,14 +64,31 @@ namespace PeerstViewer.ThreadViewer
 		/// <summary>
 		/// ドキュメント生成
 		/// </summary>
-		public string Generate(OperationBbs operationBbs)
+		public string Generate(OperationBbs operationBbs, int oldResNum)
 		{
 			// ヘッダー追加
 			string documentText = ReplaceData(HeaderText, operationBbs);
 
 			foreach (var res in operationBbs.ResList)
 			{
-				string resText = ReplaceResData(ResText, res);
+				string resText = string.Empty;
+				int resNo = 0;
+				int.TryParse(res.ResNo, out resNo);
+
+				if (resNo == oldResNum + 1)
+				{
+					resText = ReplaceResData(NewMarkText, res);
+				}
+
+				if (resNo <= oldResNum)
+				{
+					resText += ReplaceResData(ResText, res);
+				}
+				else
+				{
+					resText += ReplaceResData(NewResText, res);
+				}
+
 				documentText += ReplaceData(resText, operationBbs);
 				documentText += Environment.NewLine;
 			}
@@ -87,7 +107,7 @@ namespace PeerstViewer.ThreadViewer
 			return documentText
 				.Replace("<NUMBER/>", res.ResNo)
 				.Replace("<PLAINNUMBER/>", res.ResNo)
-				.Replace("<NAME/>", res.Name)
+				.Replace("<NAME/>", res.Name.Replace("<b>", ""))
 				.Replace("<MAILNAME/>", string.Format("{0} : {1}", res.Mail, res.Name))
 				.Replace("<MAIL/>", res.Mail)
 				.Replace("<DATE/>", res.Date)

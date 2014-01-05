@@ -111,6 +111,9 @@
     <Content Include="skin\Header.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="skin\NewMark.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="skin\NewRes.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

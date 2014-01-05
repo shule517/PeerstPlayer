@@ -85,15 +85,6 @@ namespace PeerstLib.Bbs.Strategy
 		/// </summary>
 		private int WriteResTimeOut = 10*1000;
 
-		/// <summary>
-		/// コンストラクタ
-		/// </summary>
-		public BbsStrategy()
-		{
-			ThreadList = new List<ThreadInfo>();
-			ResList = new List<ResInfo>();
-		}
-
 		//-------------------------------------------------------------
 		// 概要：スレッド変更
 		//-------------------------------------------------------------
@@ -211,6 +202,8 @@ namespace PeerstLib.Bbs.Strategy
 		protected BbsStrategy(BbsInfo bbsInfo)
 		{
 			Logger.Instance.DebugFormat("BbsStrategy(url:{0})", bbsInfo.Url);
+			ThreadList = new List<ThreadInfo>();
+			ResList = new List<ResInfo>();
 			this.BbsInfo = bbsInfo;
 		}
 
