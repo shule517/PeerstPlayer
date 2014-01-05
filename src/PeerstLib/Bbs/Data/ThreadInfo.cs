@@ -10,25 +10,39 @@ namespace PeerstLib.Bbs.Data
 		// 公開プロパティ
 		//-------------------------------------------------------------
 
-		// スレッド番号
+		/// <summary>
+		/// スレッド番号
+		/// </summary>
 		public string ThreadNo { get; set; }
 
-		// スレッドタイトル
+		/// <summary>
+		/// スレッドタイトル
+		/// </summary>
 		public string ThreadTitle { get; set; }
 
-		// レス数
+		/// <summary>
+		/// レス数
+		/// </summary>
 		public int ResCount { get; set; }
 	
-		// レス勢い
+		/// <summary>
+		/// レス勢い
+		/// </summary>
 		public float ThreadSpeed { get; set; }
 
-		// スレッド作成からの経過日数
+		/// <summary>
+		/// スレッド作成からの経過日数
+		/// </summary>
 		public double ThreadSince { get; set; }
 
-		// スレッドストップ
+		/// <summary>
+		/// スレッドストップ
+		/// </summary>
 		public bool IsStopThread { get { return ResCount >= MaxResCount; } }
 
-		// 最大レス数
+		/// <summary>
+		/// 最大レス数
+		/// </summary>
 		public int MaxResCount { get { return 1000; } } // TODO 掲示板情報から取得する
 	}
 }
