@@ -89,7 +89,8 @@ namespace PeerstViewer.ThreadViewer
 				.Replace("<MAILNAME/>", string.Format("{0} : {1}", res.Mail, res.Name))
 				.Replace("<MAIL/>", res.Mail)
 				.Replace("<DATE/>", res.Date)
-				.Replace("<MESSAGE/>", res.Message);
+				.Replace("<MESSAGE/>", res.Message)
+				.Replace("<ID/>", res.Id);
 		}
 
 		/// <summary>
