@@ -268,14 +268,14 @@ namespace PeerstPlayer.Forms.Setting
 			timer.Tick += (sender, e) =>
 			{
 				// 自動表示ボタンの表示切り替え
+				if (toolStrip.Visible && !IsVisibleToolStrip(PointToClient(MousePosition)))
+				{
+					toolStrip.Visible = false;
+				}
+
+				// 画面外に出たらマウスジェスチャー解除
 				if (!RectangleToScreen(ClientRectangle).Contains(MousePosition))
 				{
-					if (toolStrip.Visible)
-					{
-						toolStrip.Visible = false;
-					}
-
-					// 画面外に出たらマウスジェスチャー解除
 					isGesturing = false;
 				}
 
@@ -374,9 +374,10 @@ namespace PeerstPlayer.Forms.Setting
 			// マウス移動イベント
 			pecaPlayer.MouseMoveEvent += (sender, e) =>
 			{
-				if (!toolStrip.Visible)
+				// 自動表示ボタンの表示切り替え
+				if (toolStrip.Visible != IsVisibleToolStrip(new Point(e.fX, e.fY)))
 				{
-					toolStrip.Visible = true;
+					toolStrip.Visible = !toolStrip.Visible;
 				}
 
 				if (isGesturing)
@@ -487,6 +488,15 @@ namespace PeerstPlayer.Forms.Setting
 			{
 				shortcut.ExecCommand(Commands.WmpMenu);
 			};
+		}
+
+		/// <summary>
+		/// 自動表示ボタンの表示判定
+		/// </summary>
+		private bool IsVisibleToolStrip(Point mousePosition)
+		{
+			// 右上（幅３分の１・高さ３分の１）にマウスがきたら表示する
+			return new Rectangle((pecaPlayer.Width / 3 * 2), 0, (pecaPlayer.Width / 3), (pecaPlayer.Height / 3)).Contains(mousePosition);
 		}
 
 		/// <summary>
