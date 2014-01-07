@@ -63,6 +63,11 @@ namespace PeerstPlayer.Controls.MoviePlayer
 		}
 
 		/// <summary>
+		/// ミュート状態
+		/// WMPの仕様で、動画切替時にミュートが解除されるための対応
+		bool isMute = false;
+
+		/// <summary>
 		/// ミュート
 		/// </summary>
 		bool IMoviePlayer.Mute
@@ -71,6 +76,7 @@ namespace PeerstPlayer.Controls.MoviePlayer
 			set
 			{
 				wmp.settings.mute = value;
+				isMute = value;
 				volumeChange(this, new EventArgs());
 			}
 		}
@@ -262,9 +268,9 @@ namespace PeerstPlayer.Controls.MoviePlayer
 			wmp.OpenStateChange += (sender, e) =>
 			{
 				Logger.Instance.Debug(String.Format("OpenStateChange [{0}]", wmp.openState.ToString()));
-				// 動画切替時に、音量が初期化されるための対応
-				// TODO ミュート時に音量が変わらないようにする
-				volumeChange(this, new EventArgs());
+				
+				// 動画切替時に、ミュートが解除されるための対応
+				((IMoviePlayer)this).Mute = isMute;
 
 				// 動画再生開始イベント
 				if ((wmp.openState == WMPOpenState.wmposMediaOpen) && isFirstMediaOpen)
