@@ -40,6 +40,7 @@ namespace PeerstPlayer.Forms.Setting
 			this.volumeChangeNoneTextBox = new System.Windows.Forms.TextBox();
 			this.volumeChangeShiftTextBox = new System.Windows.Forms.TextBox();
 			this.windowGroupBox = new System.Windows.Forms.GroupBox();
+			this.frameInvisibleCheckBox = new System.Windows.Forms.CheckBox();
 			this.aspectRateFixCheckBox = new System.Windows.Forms.CheckBox();
 			this.windowSnapEnableCheckBox = new System.Windows.Forms.CheckBox();
 			this.initGroupBox = new System.Windows.Forms.GroupBox();
@@ -57,13 +58,12 @@ namespace PeerstPlayer.Forms.Setting
 			this.displayFpsCheckBox = new System.Windows.Forms.CheckBox();
 			this.shortcutPage = new System.Windows.Forms.TabPage();
 			this.keyLabel = new System.Windows.Forms.Label();
-			this.saveButton = new System.Windows.Forms.Button();
-			this.cancelButton = new System.Windows.Forms.Button();
-			this.frameInvisibleCheckBox = new System.Windows.Forms.CheckBox();
 			this.shortcutListView = new PeerstLib.Controls.BufferedListView();
 			this.commandColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
 			this.shortcutColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
 			this.gestureColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+			this.saveButton = new System.Windows.Forms.Button();
+			this.cancelButton = new System.Windows.Forms.Button();
 			this.tabControl.SuspendLayout();
 			this.settingPage.SuspendLayout();
 			this.volumeChangeGroupBox.SuspendLayout();
@@ -181,6 +181,16 @@ namespace PeerstPlayer.Forms.Setting
 			this.windowGroupBox.TabIndex = 0;
 			this.windowGroupBox.TabStop = false;
 			this.windowGroupBox.Text = "ウィンドウ";
+			// 
+			// frameInvisibleCheckBox
+			// 
+			this.frameInvisibleCheckBox.AutoSize = true;
+			this.frameInvisibleCheckBox.Location = new System.Drawing.Point(17, 64);
+			this.frameInvisibleCheckBox.Name = "frameInvisibleCheckBox";
+			this.frameInvisibleCheckBox.Size = new System.Drawing.Size(169, 16);
+			this.frameInvisibleCheckBox.TabIndex = 2;
+			this.frameInvisibleCheckBox.Text = "枠を消す（仮実装・要再起動）";
+			this.frameInvisibleCheckBox.UseVisualStyleBackColor = true;
 			// 
 			// aspectRateFixCheckBox
 			// 
@@ -355,38 +365,6 @@ namespace PeerstPlayer.Forms.Setting
 			this.keyLabel.Text = "【登録方法】\r\n　ショートカット：コマンドを選択後、キー入力\r\n　マウスジェスチャ：コマンドを選択後、マウスジェスチャ入力\r\n【削除方法】\r\n　ショートカット：削" +
     "除したいショートカットをダブルクリック(左)\r\n　マウスジェスチャ：削除したいジェスチャをダブルクリック(右)";
 			// 
-			// saveButton
-			// 
-			this.saveButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-			this.saveButton.Location = new System.Drawing.Point(290, 368);
-			this.saveButton.Name = "saveButton";
-			this.saveButton.Size = new System.Drawing.Size(75, 23);
-			this.saveButton.TabIndex = 1;
-			this.saveButton.Text = "保存";
-			this.saveButton.UseVisualStyleBackColor = true;
-			this.saveButton.Click += new System.EventHandler(this.saveButton_Click);
-			// 
-			// cancelButton
-			// 
-			this.cancelButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-			this.cancelButton.Location = new System.Drawing.Point(371, 368);
-			this.cancelButton.Name = "cancelButton";
-			this.cancelButton.Size = new System.Drawing.Size(75, 23);
-			this.cancelButton.TabIndex = 2;
-			this.cancelButton.Text = "キャンセル";
-			this.cancelButton.UseVisualStyleBackColor = true;
-			this.cancelButton.Click += new System.EventHandler(this.cancelButton_Click);
-			// 
-			// frameInvisibleCheckBox
-			// 
-			this.frameInvisibleCheckBox.AutoSize = true;
-			this.frameInvisibleCheckBox.Location = new System.Drawing.Point(17, 64);
-			this.frameInvisibleCheckBox.Name = "frameInvisibleCheckBox";
-			this.frameInvisibleCheckBox.Size = new System.Drawing.Size(169, 16);
-			this.frameInvisibleCheckBox.TabIndex = 2;
-			this.frameInvisibleCheckBox.Text = "枠を消す（仮実装・要再起動）";
-			this.frameInvisibleCheckBox.UseVisualStyleBackColor = true;
-			// 
 			// shortcutListView
 			// 
 			this.shortcutListView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -421,6 +399,28 @@ namespace PeerstPlayer.Forms.Setting
 			this.gestureColumnHeader.Text = "マウスジェスチャ";
 			this.gestureColumnHeader.Width = 127;
 			// 
+			// saveButton
+			// 
+			this.saveButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+			this.saveButton.Location = new System.Drawing.Point(290, 368);
+			this.saveButton.Name = "saveButton";
+			this.saveButton.Size = new System.Drawing.Size(75, 23);
+			this.saveButton.TabIndex = 1;
+			this.saveButton.Text = "保存";
+			this.saveButton.UseVisualStyleBackColor = true;
+			this.saveButton.Click += new System.EventHandler(this.saveButton_Click);
+			// 
+			// cancelButton
+			// 
+			this.cancelButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+			this.cancelButton.Location = new System.Drawing.Point(371, 368);
+			this.cancelButton.Name = "cancelButton";
+			this.cancelButton.Size = new System.Drawing.Size(75, 23);
+			this.cancelButton.TabIndex = 2;
+			this.cancelButton.Text = "キャンセル";
+			this.cancelButton.UseVisualStyleBackColor = true;
+			this.cancelButton.Click += new System.EventHandler(this.cancelButton_Click);
+			// 
 			// PlayerSettingView
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -432,7 +432,6 @@ namespace PeerstPlayer.Forms.Setting
 			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
 			this.Name = "PlayerSettingView";
 			this.Text = "設定";
-			this.TopMost = true;
 			this.tabControl.ResumeLayout(false);
 			this.settingPage.ResumeLayout(false);
 			this.volumeChangeGroupBox.ResumeLayout(false);

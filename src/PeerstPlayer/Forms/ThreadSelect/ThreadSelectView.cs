@@ -46,9 +46,6 @@ namespace PeerstPlayer.Forms.ThreadSelect
 		{
 			InitializeComponent();
 
-			// メインフォームを最前列表示にしていると隠れてしまうため
-			TopMost = true;
-
 			// スレッド一覧更新イベント
 			viewModel.ThreadListChange += (sender, e) =>
 			{

@@ -75,6 +75,7 @@ namespace PeerstPlayer.Controls.WriteField
 				if (e.Button == MouseButtons.Left)
 				{
 					// 選択スレッド画面を開く
+					threadSelectView.TopMost = ParentForm.TopMost;
 					threadSelectView.Open();
 				}
 				else if (e.Button == MouseButtons.Right)

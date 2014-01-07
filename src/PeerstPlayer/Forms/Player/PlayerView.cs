@@ -480,14 +480,12 @@ namespace PeerstPlayer.Forms.Setting
 			settingToolStripMenuItem.Click += (sender, e) =>
 			{
 				PlayerSettingView view = new PlayerSettingView(shortcut);
+				view.TopMost = TopMost;
 				view.ShowDialog();
 			};
 
 			// WMPメニュー押下
-			wmpMenuToolStripMenuItem.Click += (sender, e) =>
-			{
-				shortcut.ExecCommand(Commands.WmpMenu);
-			};
+			wmpMenuToolStripMenuItem.Click += (sender, e) => shortcut.ExecCommand(Commands.WmpMenu);
 		}
 
 		/// <summary>
