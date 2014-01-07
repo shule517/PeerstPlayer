@@ -1,6 +1,7 @@
 ﻿using System.Windows.Forms;
 using PeerstPlayer.Controls.PecaPlayer;
 using PeerstPlayer.Forms.Player;
+using System.Drawing;
 
 namespace PeerstPlayer.Shortcut.Command
 {
@@ -29,6 +30,11 @@ namespace PeerstPlayer.Shortcut.Command
 			{
 				pecaPlayer.DisconnectRelay();
 			}
+
+			// 終了時の位置とサイズを保存
+			PlayerSettings.ReturnPosition = form.Location;
+			PlayerSettings.ReturnSize = pecaPlayer.Size;
+			PlayerSettings.Save();
 
 			Application.Exit();
 		}

@@ -119,6 +119,18 @@ namespace PeerstPlayer.Forms.Setting
 				FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
 			}
 
+			// 終了時のサイズに復帰する
+			if (PlayerSettings.ReturnSizeOnClose)
+			{
+				pecaPlayer.SetSize(PlayerSettings.ReturnSize.Width, PlayerSettings.ReturnSize.Height);
+			}
+
+			// 終了時の位置に復帰する
+			if (PlayerSettings.ReturnPositionOnClose)
+			{
+				Location = PlayerSettings.ReturnPosition;
+			}
+
 			// 最前列表示
 			TopMost = PlayerSettings.TopMost;
 

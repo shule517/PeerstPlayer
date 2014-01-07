@@ -72,6 +72,8 @@ namespace PeerstPlayer.Forms.Setting
 			{
 				// チェックボックスの表示
 				disconnectRealyOnCloseCheckBox.Checked = PlayerSettings.DisconnectRealyOnClose;
+				returnPositionOnCloseCheckBox.Checked = PlayerSettings.ReturnPositionOnClose;
+				returnSizeOnCloseCheckBox.Checked = PlayerSettings.ReturnSizeOnClose;
 				windowSnapEnableCheckBox.Checked = PlayerSettings.WindowSnapEnable;
 				aspectRateFixCheckBox.Checked = PlayerSettings.AspectRateFix;
 				frameInvisibleCheckBox.Checked = PlayerSettings.FrameInvisible;
@@ -294,6 +296,8 @@ namespace PeerstPlayer.Forms.Setting
 		{
 			// プレイヤー設定
 			PlayerSettings.DisconnectRealyOnClose = disconnectRealyOnCloseCheckBox.Checked;
+			PlayerSettings.ReturnPositionOnClose = returnPositionOnCloseCheckBox.Checked;
+			PlayerSettings.ReturnSizeOnClose = returnSizeOnCloseCheckBox.Checked;
 			PlayerSettings.WindowSnapEnable = windowSnapEnableCheckBox.Checked;
 			PlayerSettings.AspectRateFix = aspectRateFixCheckBox.Checked;
 			PlayerSettings.FrameInvisible = frameInvisibleCheckBox.Checked;

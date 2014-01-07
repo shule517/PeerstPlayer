@@ -64,6 +64,8 @@ namespace PeerstPlayer.Forms.Setting
 			this.gestureColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
 			this.saveButton = new System.Windows.Forms.Button();
 			this.cancelButton = new System.Windows.Forms.Button();
+			this.returnPositionOnCloseCheckBox = new System.Windows.Forms.CheckBox();
+			this.returnSizeOnCloseCheckBox = new System.Windows.Forms.CheckBox();
 			this.tabControl.SuspendLayout();
 			this.settingPage.SuspendLayout();
 			this.volumeChangeGroupBox.SuspendLayout();
@@ -214,13 +216,15 @@ namespace PeerstPlayer.Forms.Setting
 			// 
 			// initGroupBox
 			// 
+			this.initGroupBox.Controls.Add(this.returnSizeOnCloseCheckBox);
+			this.initGroupBox.Controls.Add(this.returnPositionOnCloseCheckBox);
 			this.initGroupBox.Controls.Add(this.initVolumeLabel);
 			this.initGroupBox.Controls.Add(this.writeFieldVisibleCheckBox);
 			this.initGroupBox.Controls.Add(this.topMostCheckBox);
 			this.initGroupBox.Controls.Add(this.initVolumeTextBox);
 			this.initGroupBox.Location = new System.Drawing.Point(231, 14);
 			this.initGroupBox.Name = "initGroupBox";
-			this.initGroupBox.Size = new System.Drawing.Size(210, 90);
+			this.initGroupBox.Size = new System.Drawing.Size(210, 135);
 			this.initGroupBox.TabIndex = 3;
 			this.initGroupBox.TabStop = false;
 			this.initGroupBox.Text = "初期表示";
@@ -228,7 +232,7 @@ namespace PeerstPlayer.Forms.Setting
 			// initVolumeLabel
 			// 
 			this.initVolumeLabel.AutoSize = true;
-			this.initVolumeLabel.Location = new System.Drawing.Point(16, 65);
+			this.initVolumeLabel.Location = new System.Drawing.Point(16, 109);
 			this.initVolumeLabel.Name = "initVolumeLabel";
 			this.initVolumeLabel.Size = new System.Drawing.Size(59, 12);
 			this.initVolumeLabel.TabIndex = 2;
@@ -256,7 +260,7 @@ namespace PeerstPlayer.Forms.Setting
 			// 
 			// initVolumeTextBox
 			// 
-			this.initVolumeTextBox.Location = new System.Drawing.Point(81, 62);
+			this.initVolumeTextBox.Location = new System.Drawing.Point(81, 106);
 			this.initVolumeTextBox.Name = "initVolumeTextBox";
 			this.initVolumeTextBox.Size = new System.Drawing.Size(35, 19);
 			this.initVolumeTextBox.TabIndex = 3;
@@ -265,7 +269,7 @@ namespace PeerstPlayer.Forms.Setting
 			// movieStartGroupBox
 			// 
 			this.movieStartGroupBox.Controls.Add(this.movieStartComboBox);
-			this.movieStartGroupBox.Location = new System.Drawing.Point(231, 162);
+			this.movieStartGroupBox.Location = new System.Drawing.Point(231, 221);
 			this.movieStartGroupBox.Name = "movieStartGroupBox";
 			this.movieStartGroupBox.Size = new System.Drawing.Size(210, 49);
 			this.movieStartGroupBox.TabIndex = 4;
@@ -283,9 +287,9 @@ namespace PeerstPlayer.Forms.Setting
 			// closeGroupBox
 			// 
 			this.closeGroupBox.Controls.Add(this.disconnectRealyOnCloseCheckBox);
-			this.closeGroupBox.Location = new System.Drawing.Point(231, 115);
+			this.closeGroupBox.Location = new System.Drawing.Point(231, 155);
 			this.closeGroupBox.Name = "closeGroupBox";
-			this.closeGroupBox.Size = new System.Drawing.Size(210, 41);
+			this.closeGroupBox.Size = new System.Drawing.Size(210, 56);
 			this.closeGroupBox.TabIndex = 4;
 			this.closeGroupBox.TabStop = false;
 			this.closeGroupBox.Text = "終了時";
@@ -421,6 +425,26 @@ namespace PeerstPlayer.Forms.Setting
 			this.cancelButton.UseVisualStyleBackColor = true;
 			this.cancelButton.Click += new System.EventHandler(this.cancelButton_Click);
 			// 
+			// returnPositionOnCloseCheckBox
+			// 
+			this.returnPositionOnCloseCheckBox.AutoSize = true;
+			this.returnPositionOnCloseCheckBox.Location = new System.Drawing.Point(18, 62);
+			this.returnPositionOnCloseCheckBox.Name = "returnPositionOnCloseCheckBox";
+			this.returnPositionOnCloseCheckBox.Size = new System.Drawing.Size(146, 16);
+			this.returnPositionOnCloseCheckBox.TabIndex = 0;
+			this.returnPositionOnCloseCheckBox.Text = "終了時の位置に復帰する";
+			this.returnPositionOnCloseCheckBox.UseVisualStyleBackColor = true;
+			// 
+			// returnSizeOnCloseCheckBox
+			// 
+			this.returnSizeOnCloseCheckBox.AutoSize = true;
+			this.returnSizeOnCloseCheckBox.Location = new System.Drawing.Point(18, 84);
+			this.returnSizeOnCloseCheckBox.Name = "returnSizeOnCloseCheckBox";
+			this.returnSizeOnCloseCheckBox.Size = new System.Drawing.Size(151, 16);
+			this.returnSizeOnCloseCheckBox.TabIndex = 0;
+			this.returnSizeOnCloseCheckBox.Text = "終了時のサイズに復帰する";
+			this.returnSizeOnCloseCheckBox.UseVisualStyleBackColor = true;
+			// 
 			// PlayerSettingView
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -487,6 +511,8 @@ namespace PeerstPlayer.Forms.Setting
 		private System.Windows.Forms.GroupBox movieStartGroupBox;
 		private System.Windows.Forms.ComboBox movieStartComboBox;
 		private System.Windows.Forms.CheckBox frameInvisibleCheckBox;
+		private System.Windows.Forms.CheckBox returnSizeOnCloseCheckBox;
+		private System.Windows.Forms.CheckBox returnPositionOnCloseCheckBox;
 
 	}
 }

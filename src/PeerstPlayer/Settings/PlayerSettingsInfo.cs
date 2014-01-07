@@ -1,5 +1,6 @@
 ﻿
 using PeerstPlayer.Shortcut;
+using System.Drawing;
 namespace PeerstPlayer.Settings
 {
 	/// <summary>
@@ -82,11 +83,30 @@ namespace PeerstPlayer.Settings
 		/// </summary>
 		public Commands MovieStartCommand = Commands.FitMovieSize;
 
+		/// <summary>
+		/// 終了時のサイズに復帰するか
+		/// </summary>
+		public bool ReturnSizeOnClose = true;
+
+		/// <summary>
+		/// 復帰サイズ
+		/// </summary>
+		public Size ReturnSize = new Size(480, 360);
+
+		/// <summary>
+		/// 終了時の位置に復帰するか
+		/// </summary>
+		public bool ReturnPositionOnClose = true;
+
+		/// <summary>
+		/// 復帰サイズ
+		/// </summary>
+		public Point ReturnPosition = new Point(0, 0);
+
 		// - ステータスバーフォント : Font
 		// - ステータスバー表示項目 : List
 		// - 終了時位置保存 : boolean
 		// - 終了時音量保存 : boolean
-		// - 初期表示ステータスバー表示 : boolean
 		// - 初期音量ミュート : boolean
 		// - 書き込み欄(Ctrl+Enter) : boolean
 		// - レスが1000のスレを表示するか : boolean

@@ -4,6 +4,7 @@ using PeerstLib.Util;
 using PeerstPlayer.Settings;
 using PeerstPlayer.Shortcut;
 using System;
+using System.Drawing;
 namespace PeerstPlayer.Forms.Player
 {
 	/// <summary>
@@ -30,6 +31,42 @@ namespace PeerstPlayer.Forms.Player
 			set { info.DisconnectRealyOnClose = value; }
 		}
 
+		/// <summary>
+		/// 終了時にサイズを保存するか
+		/// </summary>
+		public static bool ReturnSizeOnClose
+		{
+			get { return info.ReturnSizeOnClose; }
+			set { info.ReturnSizeOnClose = value; }
+		}
+
+		/// <summary>
+		/// 復帰サイズ
+		/// </summary>
+		public static Size ReturnSize
+		{
+			get { return info.ReturnSize; }
+			set { info.ReturnSize = value; }
+		}
+
+		/// <summary>
+		/// 終了時に位置を保存するか
+		/// </summary>
+		public static bool ReturnPositionOnClose
+		{
+			get { return info.ReturnPositionOnClose; }
+			set { info.ReturnPositionOnClose = value; }
+		}
+
+		/// <summary>
+		/// 復帰サイズ
+		/// </summary>
+		public static Point ReturnPosition
+		{
+			get { return info.ReturnPosition; }
+			set { info.ReturnPosition = value; }
+		}
+	
 		/// <summary>
 		/// ウィンドウ：ウィンドウスナップ有効
 		/// </summary>
