@@ -28,6 +28,7 @@ namespace PeerstPlayer.Shortcut
 		FitMovieSize,		// 動画サイズに合わせる
 
 		// ウィンドウ拡大率指定
+		WindowScale25Per,
 		WindowScale50Per,
 		WindowScale75Per,
 		WindowScale100Per,

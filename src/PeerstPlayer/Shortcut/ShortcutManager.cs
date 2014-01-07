@@ -222,6 +222,7 @@ namespace PeerstPlayer.Shortcut
 				{	Commands.WindowSize480x360,		new ShortcutCommand(new WindowSizeCommand(form, pecaPlayer), new WindowSizeCommandArgs(480, 360))	}, // ウィンドウサイズ指定
 				{	Commands.WindowSize640x480,		new ShortcutCommand(new WindowSizeCommand(form, pecaPlayer), new WindowSizeCommandArgs(640, 480))	}, // ウィンドウサイズ指定
 				{	Commands.WindowSize800x600,		new ShortcutCommand(new WindowSizeCommand(form, pecaPlayer), new WindowSizeCommandArgs(800, 600))	}, // ウィンドウサイズ指定
+				{	Commands.WindowScale25Per,		new ShortcutCommand(new WindowScaleCommand(form, pecaPlayer), new WindowScaleCommandArgs(0.25f))	}, // ウィンドウサイズ拡大率指定
 				{	Commands.WindowScale50Per,		new ShortcutCommand(new WindowScaleCommand(form, pecaPlayer), new WindowScaleCommandArgs(0.5f))		}, // ウィンドウサイズ拡大率指定
 				{	Commands.WindowScale75Per,		new ShortcutCommand(new WindowScaleCommand(form, pecaPlayer), new WindowScaleCommandArgs(0.75f))	}, // ウィンドウサイズ拡大率指定
 				{	Commands.WindowScale100Per,		new ShortcutCommand(new WindowScaleCommand(form, pecaPlayer), new WindowScaleCommandArgs(1.0f))		}, // ウィンドウサイズ拡大率指定

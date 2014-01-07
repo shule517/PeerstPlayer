@@ -434,8 +434,9 @@ namespace PeerstPlayer.Forms.Setting
 			//-----------------------------------------------------
 
 			// 拡大率
-			scale50PerToolStripMenuItem.Click += (sender, e) =>	 shortcut.ExecCommand(Commands.WindowScale50Per);
-			scale75PerToolStripMenuItem.Click += (sender, e) =>	 shortcut.ExecCommand(Commands.WindowScale75Per);
+			scale25PerToolStripMenuItem.Click += (sender, e) => shortcut.ExecCommand(Commands.WindowScale25Per);
+			scale50PerToolStripMenuItem.Click += (sender, e) => shortcut.ExecCommand(Commands.WindowScale50Per);
+			scale75PerToolStripMenuItem.Click += (sender, e) => shortcut.ExecCommand(Commands.WindowScale75Per);
 			scale100PerToolStripMenuItem.Click += (sender, e) => shortcut.ExecCommand(Commands.WindowScale100Per);
 			scale150PerToolStripMenuItem.Click += (sender, e) => shortcut.ExecCommand(Commands.WindowScale150Per);
 			scale200PerToolStripMenuItem.Click += (sender, e) => shortcut.ExecCommand(Commands.WindowScale200Per);
