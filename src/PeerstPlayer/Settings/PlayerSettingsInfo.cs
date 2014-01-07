@@ -86,7 +86,7 @@ namespace PeerstPlayer.Settings
 		/// <summary>
 		/// 終了時のサイズに復帰するか
 		/// </summary>
-		public bool ReturnSizeOnClose = true;
+		public bool ReturnSizeOnClose = false;
 
 		/// <summary>
 		/// 復帰サイズ
@@ -96,7 +96,7 @@ namespace PeerstPlayer.Settings
 		/// <summary>
 		/// 終了時の位置に復帰するか
 		/// </summary>
-		public bool ReturnPositionOnClose = true;
+		public bool ReturnPositionOnClose = false;
 
 		/// <summary>
 		/// 復帰サイズ

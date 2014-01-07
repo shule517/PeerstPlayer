@@ -42,6 +42,7 @@ namespace PeerstPlayer.Forms.Setting
 			this.pecaPlayer = new PeerstPlayer.Controls.PecaPlayer.PecaPlayerControl();
 			this.contextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
 			this.SizeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.scale25PerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.scale50PerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.scale75PerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.scale100PerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -80,7 +81,6 @@ namespace PeerstPlayer.Forms.Setting
 			this.settingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.wmpMenuToolStripSeparator = new System.Windows.Forms.ToolStripSeparator();
 			this.wmpMenuToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.scale25PerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.toolStrip.SuspendLayout();
 			this.contextMenuStrip.SuspendLayout();
 			this.SuspendLayout();
@@ -214,80 +214,86 @@ namespace PeerstPlayer.Forms.Setting
 			this.SizeToolStripMenuItem.Size = new System.Drawing.Size(153, 22);
 			this.SizeToolStripMenuItem.Text = "サイズ";
 			// 
+			// scale25PerToolStripMenuItem
+			// 
+			this.scale25PerToolStripMenuItem.Name = "scale25PerToolStripMenuItem";
+			this.scale25PerToolStripMenuItem.Size = new System.Drawing.Size(136, 22);
+			this.scale25PerToolStripMenuItem.Text = "25%";
+			// 
 			// scale50PerToolStripMenuItem
 			// 
 			this.scale50PerToolStripMenuItem.Name = "scale50PerToolStripMenuItem";
-			this.scale50PerToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+			this.scale50PerToolStripMenuItem.Size = new System.Drawing.Size(136, 22);
 			this.scale50PerToolStripMenuItem.Text = "50%";
 			// 
 			// scale75PerToolStripMenuItem
 			// 
 			this.scale75PerToolStripMenuItem.Name = "scale75PerToolStripMenuItem";
-			this.scale75PerToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+			this.scale75PerToolStripMenuItem.Size = new System.Drawing.Size(136, 22);
 			this.scale75PerToolStripMenuItem.Text = "75%";
 			// 
 			// scale100PerToolStripMenuItem
 			// 
 			this.scale100PerToolStripMenuItem.Name = "scale100PerToolStripMenuItem";
-			this.scale100PerToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+			this.scale100PerToolStripMenuItem.Size = new System.Drawing.Size(136, 22);
 			this.scale100PerToolStripMenuItem.Text = "100%";
 			// 
 			// scale150PerToolStripMenuItem
 			// 
 			this.scale150PerToolStripMenuItem.Name = "scale150PerToolStripMenuItem";
-			this.scale150PerToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+			this.scale150PerToolStripMenuItem.Size = new System.Drawing.Size(136, 22);
 			this.scale150PerToolStripMenuItem.Text = "150%";
 			// 
 			// scale200PerToolStripMenuItem
 			// 
 			this.scale200PerToolStripMenuItem.Name = "scale200PerToolStripMenuItem";
-			this.scale200PerToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+			this.scale200PerToolStripMenuItem.Size = new System.Drawing.Size(136, 22);
 			this.scale200PerToolStripMenuItem.Text = "200%";
 			// 
 			// sizeToolStripSeparator
 			// 
 			this.sizeToolStripSeparator.Name = "sizeToolStripSeparator";
-			this.sizeToolStripSeparator.Size = new System.Drawing.Size(149, 6);
+			this.sizeToolStripSeparator.Size = new System.Drawing.Size(133, 6);
 			// 
 			// size160x120ToolStripMenuItem
 			// 
 			this.size160x120ToolStripMenuItem.Name = "size160x120ToolStripMenuItem";
-			this.size160x120ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+			this.size160x120ToolStripMenuItem.Size = new System.Drawing.Size(136, 22);
 			this.size160x120ToolStripMenuItem.Text = "160 x 120";
 			// 
 			// size320x240ToolStripMenuItem
 			// 
 			this.size320x240ToolStripMenuItem.Name = "size320x240ToolStripMenuItem";
-			this.size320x240ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+			this.size320x240ToolStripMenuItem.Size = new System.Drawing.Size(136, 22);
 			this.size320x240ToolStripMenuItem.Text = "320 x 240";
 			// 
 			// size480x360ToolStripMenuItem
 			// 
 			this.size480x360ToolStripMenuItem.Name = "size480x360ToolStripMenuItem";
-			this.size480x360ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+			this.size480x360ToolStripMenuItem.Size = new System.Drawing.Size(136, 22);
 			this.size480x360ToolStripMenuItem.Text = "480 x 360";
 			// 
 			// size640x480ToolStripMenuItem
 			// 
 			this.size640x480ToolStripMenuItem.Name = "size640x480ToolStripMenuItem";
-			this.size640x480ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+			this.size640x480ToolStripMenuItem.Size = new System.Drawing.Size(136, 22);
 			this.size640x480ToolStripMenuItem.Text = "640 x 480";
 			// 
 			// size800x600ToolStripMenuItem
 			// 
 			this.size800x600ToolStripMenuItem.Name = "size800x600ToolStripMenuItem";
-			this.size800x600ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+			this.size800x600ToolStripMenuItem.Size = new System.Drawing.Size(136, 22);
 			this.size800x600ToolStripMenuItem.Text = "800 x 600";
 			// 
 			// fitMovieSizeToolStripSeparator
 			// 
 			this.fitMovieSizeToolStripSeparator.Name = "fitMovieSizeToolStripSeparator";
-			this.fitMovieSizeToolStripSeparator.Size = new System.Drawing.Size(149, 6);
+			this.fitMovieSizeToolStripSeparator.Size = new System.Drawing.Size(133, 6);
 			// 
 			// fitMovieSizeToolStripMenuItem
 			// 
 			this.fitMovieSizeToolStripMenuItem.Name = "fitMovieSizeToolStripMenuItem";
-			this.fitMovieSizeToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+			this.fitMovieSizeToolStripMenuItem.Size = new System.Drawing.Size(136, 22);
 			this.fitMovieSizeToolStripMenuItem.Text = "黒枠を消す";
 			// 
 			// 画面分割ToolStripMenuItem
@@ -459,19 +465,12 @@ namespace PeerstPlayer.Forms.Setting
 			this.wmpMenuToolStripMenuItem.Size = new System.Drawing.Size(153, 22);
 			this.wmpMenuToolStripMenuItem.Text = "WMPメニュー";
 			// 
-			// scale25PerToolStripMenuItem
-			// 
-			this.scale25PerToolStripMenuItem.Name = "scale25PerToolStripMenuItem";
-			this.scale25PerToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-			this.scale25PerToolStripMenuItem.Text = "25%";
-			// 
 			// PlayerView
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.BackColor = System.Drawing.Color.Black;
 			this.ClientSize = new System.Drawing.Size(480, 379);
-			this.ControlBox = false;
 			this.Controls.Add(this.toolStrip);
 			this.Controls.Add(this.statusBar);
 			this.Controls.Add(this.pecaPlayer);
