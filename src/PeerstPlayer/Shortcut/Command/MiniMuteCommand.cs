@@ -21,6 +21,20 @@ namespace PeerstPlayer.Shortcut.Command
 		{
 			form.WindowState = FormWindowState.Minimized;
 			pecaPlayer.Mute = true;
+			form.Resize += form_Resize;
+		}
+
+		/// <summary>
+		/// 最小化を解除したらミュートを解除する
+		/// </summary>
+		void form_Resize(object sender, System.EventArgs e)
+		{
+			if (form.WindowState == FormWindowState.Normal)
+			{
+				pecaPlayer.Mute = false;
+			}
+
+			form.Resize -= form_Resize;
 		}
 
 		string IShortcutCommand.GetDetail(CommandArgs commandArgs)
