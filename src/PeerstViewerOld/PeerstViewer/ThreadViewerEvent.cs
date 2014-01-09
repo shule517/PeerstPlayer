@@ -430,7 +430,7 @@ namespace PeerstViewer
 		private void backgroundWorkerReload_DoWork(object sender, EventArgs e)
 		{
 			BbsInfo bbsUrl = operationBbs.BbsInfo;
-			operationBbs.ReadThread();
+			operationBbs.ReadThread(false);
 
 			resList = operationBbs.ResList;
 			
