@@ -1,4 +1,5 @@
-﻿using System.Drawing;
+﻿using PeerstLib.Util;
+using System.Drawing;
 using System.Windows.Forms;
 
 namespace PeerstViewer.Controls.ThreadViewer
@@ -13,7 +14,14 @@ namespace PeerstViewer.Controls.ThreadViewer
 		/// </summary>
 		public Rectangle ScrollRectangle
 		{
-			get { return webBrowser.Document.Body.ScrollRectangle; }
+			get
+			{
+				if (webBrowser.Document == null)
+				{
+					return new Rectangle();
+				}
+				return webBrowser.Document.Body.ScrollRectangle;
+			}
 		}
 
 		/// <summary>
@@ -33,6 +41,11 @@ namespace PeerstViewer.Controls.ThreadViewer
 		}
 
 		/// <summary>
+		/// 更新前に最下位か
+		/// </summary>
+		private bool IsScrollBottomLast = false;
+
+		/// <summary>
 		/// 表示する内容
 		/// </summary>
 		public string DocumentText
@@ -40,6 +53,9 @@ namespace PeerstViewer.Controls.ThreadViewer
 			get { return webBrowser.DocumentText; }
 			set
 			{
+				// 更新前のスクロール位置が最下位か
+				IsScrollBottomLast = IsScrollBottom;
+
 				// 更新音を出さないために描画時は非表示にする
 				webBrowser.Visible = false;
 				webBrowser.DocumentText = value;
@@ -76,7 +92,7 @@ namespace PeerstViewer.Controls.ThreadViewer
 
 			webBrowser.DocumentCompleted += (sender, e) =>
 			{
-				if (IsScrollTop)
+				if (IsScrollBottomLast)
 				{
 					// スレッドの最下位へ移動
 					ScrollToBottom();
