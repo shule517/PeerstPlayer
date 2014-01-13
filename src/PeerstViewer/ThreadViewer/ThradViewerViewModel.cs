@@ -1,6 +1,7 @@
 ﻿
 using PeerstLib.Bbs;
 using PeerstLib.Bbs.Data;
+using PeerstLib.Util;
 using PeerstViewer.ThreadViewer.Command;
 using System;
 using System.Collections.Generic;
@@ -41,6 +42,7 @@ namespace PeerstViewer.ThreadViewer
 
 		public ThradViewerViewModel()
 		{
+			Logger.Instance.Debug("ThradViewerViewModel()");
 			operationBbs = new OperationBbs();
 			updateThreadCommand = new UpdateThreadCommand(operationBbs);
 			writeResCommand = new WriteResCommand(operationBbs);
@@ -51,6 +53,7 @@ namespace PeerstViewer.ThreadViewer
 			if (Environment.GetCommandLineArgs().Length > 1)
 			{
 				string url = Environment.GetCommandLineArgs()[1];
+				Logger.Instance.DebugFormat("ThradViewerViewModel[url:{0}]", url);
 				ChangeUrl(url);
 			}
 		}
@@ -60,6 +63,7 @@ namespace PeerstViewer.ThreadViewer
 		/// </summary>
 		public void UpdateThread()
 		{
+			Logger.Instance.Debug("UpdateThread[]");
 			updateThreadCommand.Execute(new object());
 		}
 
@@ -68,6 +72,7 @@ namespace PeerstViewer.ThreadViewer
 		/// </summary>
 		public void ChangeUrl(string url)
 		{
+			Logger.Instance.DebugFormat("ChangeUrl[url:{0}]", url);
 			updateThreadCommand.Execute(url);
 			RaisePropertyChanged("ThreadUrl");
 		}
@@ -77,6 +82,7 @@ namespace PeerstViewer.ThreadViewer
 		/// </summary>
 		public void UpdateThreadList()
 		{
+			Logger.Instance.Debug("UpdateThreadList[]");
 			operationBbs.UpdateThreadList();
 			operationBbs.ThreadListChange += (sender, e) => RaisePropertyChanged("ThreadList");
 		}
@@ -86,6 +92,7 @@ namespace PeerstViewer.ThreadViewer
 		/// </summary>
 		public void ChangeThread(string threadNo)
 		{
+			Logger.Instance.DebugFormat("ChangeThread[threadNo:{0}]", threadNo);
 			operationBbs.ChangeThread(threadNo);
 			UpdateThread();
 			RaisePropertyChanged("ThreadUrl");
@@ -96,6 +103,7 @@ namespace PeerstViewer.ThreadViewer
 		/// </summary>
 		public void WriteRes(string name, string mail, string message)
 		{
+			Logger.Instance.DebugFormat("ChangeThread[name:{0}, mail:{1}, message:{2}]", name, mail, message);
 			writeResCommand.Execute(new WrireResCommandArg { Name = name, Mail = mail, Message = message });
 			UpdateThread();
 		}
@@ -118,6 +126,7 @@ namespace PeerstViewer.ThreadViewer
 			var d = PropertyChanged;
 			if (d != null)
 			{
+				Logger.Instance.DebugFormat("RaisePropertyChanged[propertyName:{0}]", propertyName);
 				d(this, new PropertyChangedEventArgs(propertyName));
 			}
 		}

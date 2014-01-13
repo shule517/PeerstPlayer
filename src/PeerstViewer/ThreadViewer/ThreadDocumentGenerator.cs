@@ -1,6 +1,7 @@
 ﻿
 using PeerstLib.Bbs;
 using PeerstLib.Bbs.Data;
+using PeerstLib.Util;
 using System;
 using System.IO;
 using System.Text;
@@ -32,6 +33,7 @@ namespace PeerstViewer.ThreadViewer
 
 		public ThreadDocumentGenerator(string skinFolderPath)
 		{
+			Logger.Instance.DebugFormat("ThreadDocumentGenerator[skinFolderPath:{0}]", skinFolderPath);
 			this.skinFolderPath = skinFolderPath;
 			ReadSkin(skinFolderPath);
 		}
@@ -41,6 +43,7 @@ namespace PeerstViewer.ThreadViewer
 		/// </summary>
 		public void ReadSkin(string skinFolderPath)
 		{
+			Logger.Instance.DebugFormat("ReadSkin[skinFolderPath:{0}]", skinFolderPath);
 			FooterText = ReadFile(Path.Combine(skinFolderPath, FooterFileName));
 			HeaderText = ReadFile(Path.Combine(skinFolderPath, HeaderFileName));
 			NewResText = ReadFile(Path.Combine(skinFolderPath, NewResFileName));
@@ -54,6 +57,7 @@ namespace PeerstViewer.ThreadViewer
 		/// </summary>
 		private string ReadFile(string filePath)
 		{
+			Logger.Instance.DebugFormat("ReadFile[filePath:{0}]", filePath);
 			string text;
 			StreamReader sr = new StreamReader(filePath, Encoding.GetEncoding("Shift_JIS"));
 			text = sr.ReadToEnd();
@@ -66,6 +70,8 @@ namespace PeerstViewer.ThreadViewer
 		/// </summary>
 		public string Generate(OperationBbs operationBbs, int oldResNum)
 		{
+			Logger.Instance.DebugFormat("Generate[oldResNum:{0}]", oldResNum);
+
 			// ヘッダー追加
 			string documentText = ReplaceData(HeaderText, operationBbs);
 

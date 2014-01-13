@@ -1,4 +1,5 @@
-﻿using System.Drawing;
+﻿using PeerstLib.Util;
+using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 
@@ -13,6 +14,7 @@ namespace PeerstViewer.ThreadViewer
 
 		public ThreadViewerView()
 		{
+			Logger.Instance.Debug("ThreadViewerView[]");
 			InitializeComponent();
 
 			Init();
@@ -109,6 +111,7 @@ namespace PeerstViewer.ThreadViewer
 		/// </summary>
 		private void Init()
 		{
+			Logger.Instance.Debug("Init[]");
 			splitContainerThreadList.Panel1Collapsed = true;
 			splitContainerWriteField.Panel2Collapsed = true;
 			toolStrip.CanOverflow = true;
@@ -119,6 +122,7 @@ namespace PeerstViewer.ThreadViewer
 		/// </summary>
 		private void ToggleWriteField()
 		{
+			Logger.Instance.Debug("ToggleWriteField[]");
 			toolStripButtonWriteField.Checked = !toolStripButtonWriteField.Checked;
 			splitContainerWriteField.Panel2Collapsed = !toolStripButtonWriteField.Checked;
 
@@ -133,6 +137,7 @@ namespace PeerstViewer.ThreadViewer
 		/// </summary>
 		private void ToggleThreadList()
 		{
+			Logger.Instance.Debug("ToggleThreadList[]");
 			toolStripButtonThreadList.Checked = !toolStripButtonThreadList.Checked;
 			splitContainerThreadList.Panel1Collapsed = !toolStripButtonThreadList.Checked;
 		}
@@ -142,6 +147,8 @@ namespace PeerstViewer.ThreadViewer
 		/// </summary>
 		private void PropertyChanged(System.ComponentModel.PropertyChangedEventArgs e)
 		{
+			Logger.Instance.DebugFormat("PropertyChanged[PropertyName:{0}]", e.PropertyName);
+
 			switch (e.PropertyName)
 			{
 				case "DocumentText":

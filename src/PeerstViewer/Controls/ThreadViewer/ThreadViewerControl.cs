@@ -16,11 +16,18 @@ namespace PeerstViewer.Controls.ThreadViewer
 		{
 			get
 			{
-				if (webBrowser.Document == null)
+				try
+				{
+					if (webBrowser.Document == null)
+					{
+						return new Rectangle();
+					}
+					return webBrowser.Document.Body.ScrollRectangle;
+				}
+				catch
 				{
 					return new Rectangle();
 				}
-				return webBrowser.Document.Body.ScrollRectangle;
 			}
 		}
 
@@ -88,10 +95,12 @@ namespace PeerstViewer.Controls.ThreadViewer
 
 		public ThreadViewerControl()
 		{
+			Logger.Instance.Debug("ThreadViewerControl()");
 			InitializeComponent();
 
 			webBrowser.DocumentCompleted += (sender, e) =>
 			{
+				Logger.Instance.Debug("webBrowser.DocumentCompleted()");
 				if (IsScrollBottomLast)
 				{
 					// スレッドの最下位へ移動
@@ -117,6 +126,7 @@ namespace PeerstViewer.Controls.ThreadViewer
 		/// </summary>
 		public void ScrollToTop()
 		{
+			Logger.Instance.Debug("ScrollToTop()");
 			webBrowser.Document.Window.ScrollTo(0, 0);
 		}
 
@@ -125,6 +135,7 @@ namespace PeerstViewer.Controls.ThreadViewer
 		/// </summary>
 		public void ScrollToBottom()
 		{
+			Logger.Instance.Debug("ScrollToBottom()");
 			webBrowser.Document.Window.ScrollTo(0, ScrollRectangle.Bottom);
 		}
 	}

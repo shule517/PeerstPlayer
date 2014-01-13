@@ -185,7 +185,7 @@ namespace PeerstLib.Bbs.Strategy
 		//-------------------------------------------------------------
 		override protected List<ResInfo> AnalyzeDatText(string[] lines, bool isHtmlDecode)
 		{
-			Logger.Instance.DebugFormat("AnalyzeDatText(lines:{0})", lines);
+			Logger.Instance.DebugFormat("AnalyzeDatText(isHtmlDecode:{0})", isHtmlDecode);
 
 			List<ResInfo> resList = new List<ResInfo>();
 

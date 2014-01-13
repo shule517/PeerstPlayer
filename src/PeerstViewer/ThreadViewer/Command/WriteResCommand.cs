@@ -1,4 +1,5 @@
 ﻿using PeerstLib.Bbs;
+using PeerstLib.Util;
 using System;
 using System.ComponentModel;
 using System.Windows.Forms;
@@ -28,10 +29,12 @@ namespace PeerstViewer.ThreadViewer.Command
 
 		public WriteResCommand(OperationBbs operationBbs)
 		{
+			Logger.Instance.Debug("WriteResCommand");
 			this.operationBbs = operationBbs;
 
 			worker.DoWork += (sender, e) =>
 			{
+				Logger.Instance.Debug("WriteResCommandWorker.DoWork");
 				e.Result = null;
 
 				try
@@ -41,19 +44,23 @@ namespace PeerstViewer.ThreadViewer.Command
 				}
 				catch (Exception excetpion)
 				{
+					Logger.Instance.ErrorFormat("WriteResCommandWorker.DoWork error : Message{0}\n{1}", excetpion.Message, excetpion.StackTrace);
 					e.Result = excetpion;
 				}
 			};
 			worker.RunWorkerCompleted += (sender, e) =>
 			{
+				Logger.Instance.Debug("WriteResCommandWorker.RunWorkerCompleted");
 				Exception exception = e.Result as Exception;
 
 				if (exception != null)
 				{
+					Logger.Instance.DebugFormat("WriteResCommandWorker.RunWorkerCompleted [Message:{0}]", exception.Message);
 					MessageBox.Show(exception.Message);
 				}
 				else
 				{
+					Logger.Instance.DebugFormat("WriteResCommandWorker.RunWorkerCompleted PropertyChanged(Message)");
 					PropertyChanged(this, new PropertyChangedEventArgs("Message"));
 				}
 			};
@@ -66,6 +73,7 @@ namespace PeerstViewer.ThreadViewer.Command
 		{
 			if (!worker.IsBusy)
 			{
+				Logger.Instance.DebugFormat("Execute");
 				worker.RunWorkerAsync(parameter);
 			}
 		}

@@ -43,6 +43,7 @@ namespace PeerstViewer.ThreadViewer.Command
 
 		public UpdateThreadCommand(OperationBbs operationBbs)
 		{
+			Logger.Instance.DebugFormat("UpdateThreadCommand");
 			this.operationBbs = operationBbs;
 
 			// キャンセル可能
@@ -50,8 +51,10 @@ namespace PeerstViewer.ThreadViewer.Command
 			worker.DoWork += (sender, e) => e.Result = UpdateDocumentText();
 			worker.RunWorkerCompleted += (sender, e) =>
 			{
+				Logger.Instance.Debug("UpdateThreadCommandWorker.RunWorkerCompleted");
 				if ((e.Error != null) || e.Cancelled)
 				{
+					Logger.Instance.Debug("RunWorkerCompleted Cancell");
 					return;
 				}
 
@@ -62,11 +65,12 @@ namespace PeerstViewer.ThreadViewer.Command
 				{
 					try
 					{
+						Logger.Instance.Debug("PropertyChangedEventArgs(DocumentText)");
 						PropertyChanged(this, new PropertyChangedEventArgs("DocumentText"));
 					}
 					catch (Exception exception)
 					{
-						Logger.Instance.ErrorFormat("UpdateThreadCommandError : {0}", exception.Message);
+						Logger.Instance.ErrorFormat("UpdateThreadCommandError : {0} {1}", exception.Message, exception.StackTrace);
 					}
 				}
 				beforeDocumentText = DocumentText;
@@ -79,15 +83,19 @@ namespace PeerstViewer.ThreadViewer.Command
 		public void Execute(object parameter)
 		{
 			string url = parameter as string;
+			Logger.Instance.DebugFormat("Execute[url:{0}]", url);
 			if (url != null)
 			{
 				operationBbs.ChangeUrl(url);
 				operationBbs.ThreadListChange += (sender, e) =>
 				{
+					Logger.Instance.Debug("ThreadListChange[]");
 					// スレッドURL変更＋更新
 					if (!worker.IsBusy)
 					{
+						Logger.Instance.Debug("UpdateThreadCommandWorker.CancelAsync");
 						worker.CancelAsync();
+						Logger.Instance.Debug("UpdateThreadCommandWorker.RunWorkerAsync : スレッドURL変更 + 更新");
 						worker.RunWorkerAsync();
 					}
 				};
@@ -97,6 +105,7 @@ namespace PeerstViewer.ThreadViewer.Command
 				// 更新のみ
 				if (!worker.IsBusy)
 				{
+					Logger.Instance.Debug("UpdateThreadCommandWorker.RunWorkerAsync : 更新のみ");
 					worker.RunWorkerAsync();
 				}
 			}
@@ -107,6 +116,7 @@ namespace PeerstViewer.ThreadViewer.Command
 		/// </summary>
 		private string UpdateDocumentText()
 		{
+			Logger.Instance.Debug("UpdateDocumentText[]");
 			int oldResNum = operationBbs.ResList.Count;
 			operationBbs.ReadThread(false);
 			return threadDocumentGenerator.Generate(operationBbs, oldResNum);
