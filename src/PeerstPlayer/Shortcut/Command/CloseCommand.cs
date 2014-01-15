@@ -32,8 +32,14 @@ namespace PeerstPlayer.Shortcut.Command
 			}
 
 			// 終了時の位置とサイズを保存
-			PlayerSettings.ReturnPosition = form.Location;
-			PlayerSettings.ReturnSize = pecaPlayer.Size;
+			if (PlayerSettings.SaveReturnPositionOnClose)
+			{
+				PlayerSettings.ReturnPosition = form.Location;
+			}
+			if (PlayerSettings.SaveReturnSizeOnClose)
+			{
+				PlayerSettings.ReturnSize = pecaPlayer.Size;
+			}
 			PlayerSettings.Save();
 
 			Application.Exit();

@@ -84,9 +84,9 @@ namespace PeerstPlayer.Settings
 		public Commands MovieStartCommand = Commands.FitMovieSize;
 
 		/// <summary>
-		/// 終了時のサイズに復帰するか
+		/// 起動時にウィンドウサイズを復帰するか
 		/// </summary>
-		public bool ReturnSizeOnClose = false;
+		public bool ReturnSizeOnStart = false;
 
 		/// <summary>
 		/// 復帰サイズ
@@ -94,14 +94,24 @@ namespace PeerstPlayer.Settings
 		public Size ReturnSize = new Size(480, 360);
 
 		/// <summary>
-		/// 終了時の位置に復帰するか
+		/// 起動時にウィンドウ位置を復帰するか
 		/// </summary>
-		public bool ReturnPositionOnClose = false;
+		public bool ReturnPositionOnStart = false;
 
 		/// <summary>
 		/// 復帰サイズ
 		/// </summary>
 		public Point ReturnPosition = new Point(0, 0);
+
+		/// <summary>
+		/// 終了時にウィンドウ位置を保存するか
+		/// </summary>
+		public bool SaveReturnPositionOnClose = false;
+
+		/// <summary>
+		/// 終了時にウィンドウサイズを保存するか
+		/// </summary>
+		public bool SaveReturnSizeOnClose = false;
 
 		// - ステータスバーフォント : Font
 		// - ステータスバー表示項目 : List

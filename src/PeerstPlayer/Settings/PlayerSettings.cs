@@ -32,16 +32,16 @@ namespace PeerstPlayer.Forms.Player
 		}
 
 		/// <summary>
-		/// 終了時にサイズを保存するか
+		/// 起動時にウィンドウサイズを保存するか
 		/// </summary>
-		public static bool ReturnSizeOnClose
+		public static bool ReturnSizeOnStart
 		{
-			get { return info.ReturnSizeOnClose; }
-			set { info.ReturnSizeOnClose = value; }
+			get { return info.ReturnSizeOnStart; }
+			set { info.ReturnSizeOnStart = value; }
 		}
 
 		/// <summary>
-		/// 復帰サイズ
+		/// 復帰ウィンドウサイズ
 		/// </summary>
 		public static Size ReturnSize
 		{
@@ -50,23 +50,41 @@ namespace PeerstPlayer.Forms.Player
 		}
 
 		/// <summary>
-		/// 終了時に位置を保存するか
+		/// 起動時にウィンドウ位置を保存するか
 		/// </summary>
-		public static bool ReturnPositionOnClose
+		public static bool ReturnPositionOnStart
 		{
-			get { return info.ReturnPositionOnClose; }
-			set { info.ReturnPositionOnClose = value; }
+			get { return info.ReturnPositionOnStart; }
+			set { info.ReturnPositionOnStart = value; }
 		}
 
 		/// <summary>
-		/// 復帰サイズ
+		/// 復帰ウィンドウ位置
 		/// </summary>
 		public static Point ReturnPosition
 		{
 			get { return info.ReturnPosition; }
 			set { info.ReturnPosition = value; }
 		}
-	
+
+		/// <summary>
+		/// 終了時にウィンドウ位置を保存するか
+		/// </summary>
+		public static bool SaveReturnPositionOnClose
+		{
+			get { return info.SaveReturnPositionOnClose; }
+			set { info.SaveReturnPositionOnClose = value; }
+		}
+
+		/// <summary>
+		/// 終了時にウィンドウサイズを保存するか
+		/// </summary>
+		public static bool SaveReturnSizeOnClose
+		{
+			get { return info.SaveReturnSizeOnClose; }
+			set { info.SaveReturnSizeOnClose = value; }
+		}
+
 		/// <summary>
 		/// ウィンドウ：ウィンドウスナップ有効
 		/// </summary>

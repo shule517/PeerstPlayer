@@ -72,14 +72,16 @@ namespace PeerstPlayer.Forms.Setting
 			{
 				// チェックボックスの表示
 				disconnectRealyOnCloseCheckBox.Checked = PlayerSettings.DisconnectRealyOnClose;
-				returnPositionOnCloseCheckBox.Checked = PlayerSettings.ReturnPositionOnClose;
-				returnSizeOnCloseCheckBox.Checked = PlayerSettings.ReturnSizeOnClose;
+				returnPositionOnStartCheckBox.Checked = PlayerSettings.ReturnPositionOnStart;
+				returnSizeOnStartCheckBox.Checked = PlayerSettings.ReturnSizeOnStart;
 				windowSnapEnableCheckBox.Checked = PlayerSettings.WindowSnapEnable;
 				aspectRateFixCheckBox.Checked = PlayerSettings.AspectRateFix;
 				frameInvisibleCheckBox.Checked = PlayerSettings.FrameInvisible;
 				topMostCheckBox.Checked = PlayerSettings.TopMost;
 				writeFieldVisibleCheckBox.Checked = PlayerSettings.WriteFieldVisible;
 				initVolumeTextBox.Text = PlayerSettings.InitVolume.ToString();
+				saveReturnPositionCheckBox.Checked = PlayerSettings.SaveReturnPositionOnClose;
+				saveReturnSizeCheckBox.Checked = PlayerSettings.SaveReturnSizeOnClose;
 
 				// チェックボックスの設定(ステータスバー)
 				displayFpsCheckBox.Checked = PlayerSettings.DisplayFps;
@@ -296,13 +298,15 @@ namespace PeerstPlayer.Forms.Setting
 		{
 			// プレイヤー設定
 			PlayerSettings.DisconnectRealyOnClose = disconnectRealyOnCloseCheckBox.Checked;
-			PlayerSettings.ReturnPositionOnClose = returnPositionOnCloseCheckBox.Checked;
-			PlayerSettings.ReturnSizeOnClose = returnSizeOnCloseCheckBox.Checked;
+			PlayerSettings.ReturnPositionOnStart = returnPositionOnStartCheckBox.Checked;
+			PlayerSettings.ReturnSizeOnStart = returnSizeOnStartCheckBox.Checked;
 			PlayerSettings.WindowSnapEnable = windowSnapEnableCheckBox.Checked;
 			PlayerSettings.AspectRateFix = aspectRateFixCheckBox.Checked;
 			PlayerSettings.FrameInvisible = frameInvisibleCheckBox.Checked;
 			PlayerSettings.TopMost = topMostCheckBox.Checked;
 			PlayerSettings.WriteFieldVisible = writeFieldVisibleCheckBox.Checked;
+			PlayerSettings.SaveReturnPositionOnClose = saveReturnPositionCheckBox.Checked;
+			PlayerSettings.SaveReturnSizeOnClose = saveReturnSizeCheckBox.Checked;
 	
 			// チェックボックスの設定(ステータスバー)
 			PlayerSettings.DisplayFps = displayFpsCheckBox.Checked;

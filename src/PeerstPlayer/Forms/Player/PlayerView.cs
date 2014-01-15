@@ -119,14 +119,14 @@ namespace PeerstPlayer.Forms.Setting
 				FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
 			}
 
-			// 終了時のサイズに復帰する
-			if (PlayerSettings.ReturnSizeOnClose)
+			// 起動時にウィンドウサイズを復帰する
+			if (PlayerSettings.ReturnSizeOnStart)
 			{
 				pecaPlayer.SetSize(PlayerSettings.ReturnSize.Width, PlayerSettings.ReturnSize.Height);
 			}
 
-			// 終了時の位置に復帰する
-			if (PlayerSettings.ReturnPositionOnClose)
+			// 起動時にウィンドウ位置を復帰する
+			if (PlayerSettings.ReturnPositionOnStart)
 			{
 				Location = PlayerSettings.ReturnPosition;
 			}
