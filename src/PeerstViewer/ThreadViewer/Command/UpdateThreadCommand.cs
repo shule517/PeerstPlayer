@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.IO;
 using System.Reflection;
 using System.Windows.Input;
+using PeerstLib.Controls;
 
 namespace PeerstViewer.ThreadViewer.Command
 {
@@ -36,7 +37,7 @@ namespace PeerstViewer.ThreadViewer.Command
 		/// <summary>
 		/// スレッドドキュメント生成
 		/// </summary>
-		private ThreadDocumentGenerator threadDocumentGenerator = new ThreadDocumentGenerator(Path.GetDirectoryName(Assembly.GetEntryAssembly().Location) + "/skin");
+		private ThreadDocumentGenerator threadDocumentGenerator = new ThreadDocumentGenerator(FormUtility.GetExeFolderPath() + "/skin");
 
 		/// <summary>
 		/// 前回のドキュメント
