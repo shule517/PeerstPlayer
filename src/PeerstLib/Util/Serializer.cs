@@ -15,9 +15,10 @@ namespace PeerstLib.Util
 		public static void Save(string filePath, Object data)
 		{
 			XmlSerializer serializer = new XmlSerializer(data.GetType());
-			FileStream fs = new FileStream(filePath, FileMode.Create);
-			serializer.Serialize(fs, data);
-			fs.Close();
+			using (FileStream fs = new FileStream(filePath, FileMode.Create))
+			{
+				serializer.Serialize(fs, data);
+			}
 		}
 
 		/// <summary>
@@ -26,11 +27,10 @@ namespace PeerstLib.Util
 		public static Object Load(string filePath, Type type)
 		{
 			XmlSerializer serializer = new XmlSerializer(type);
-			FileStream fs = new FileStream(filePath, FileMode.Open);
-			Object data = serializer.Deserialize(fs);
-			fs.Close();
-
-			return data;
+			using (FileStream fs = new FileStream(filePath, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
+			{
+				return serializer.Deserialize(fs); ;
+			}
 		}
 
 		/// <summary>
