@@ -59,10 +59,11 @@ namespace PeerstViewer.ThreadViewer
 		{
 			Logger.Instance.DebugFormat("ReadFile[filePath:{0}]", filePath);
 			string text;
-			StreamReader sr = new StreamReader(filePath, Encoding.GetEncoding("Shift_JIS"));
-			text = sr.ReadToEnd();
-			sr.Close();
-			return text;
+			using (StreamReader sr = new StreamReader(filePath, Encoding.GetEncoding("Shift_JIS")))
+			{
+				text = sr.ReadToEnd();
+				return text;
+			}
 		}
 
 		/// <summary>
