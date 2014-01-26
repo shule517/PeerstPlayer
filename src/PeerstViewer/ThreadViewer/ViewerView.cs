@@ -1,4 +1,5 @@
-﻿using PeerstLib.Util;
+﻿using PeerstLib.Mvvm;
+using PeerstLib.Util;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
@@ -50,7 +51,8 @@ namespace PeerstViewer.ThreadViewer
 			// イベント登録
 			//---------------------------------------------------
 
-			viewModel.PropertyChanged += (sender, e) => PropertyChanged(e);
+			viewModel.PropertyChanged += MvvmUtils.ToPropertyChangedEventHandler("DocumentText", this, () => threadViewer.DocumentText = viewModel.DocumentText);
+			viewModel.PropertyChanged += MvvmUtils.ToPropertyChangedEventHandler("ThreadList", this, ThreadListPropertyChanged);
 
 			// 自動更新
 			autoUpdateTimer.Tick += (sender, e) => viewModel.UpdateThread();
@@ -145,29 +147,19 @@ namespace PeerstViewer.ThreadViewer
 		/// <summary>
 		/// データ変更イベント
 		/// </summary>
-		private void PropertyChanged(System.ComponentModel.PropertyChangedEventArgs e)
+		private void ThreadListPropertyChanged()
 		{
-			Logger.Instance.DebugFormat("PropertyChanged[PropertyName:{0}]", e.PropertyName);
-
-			switch (e.PropertyName)
+			threadListView.Items.Clear();
+			foreach (var thread in viewModel.ThreadList.Where(x => (x.ResCount < x.MaxResCount)).Select((v, i) => new { Index = i, Value = v }))
 			{
-				case "DocumentText":
-					threadViewer.DocumentText = viewModel.DocumentText;
-					break;
-				case "ThreadList":
-					threadListView.Items.Clear();
-					foreach (var thread in viewModel.ThreadList.Where(x => (x.ResCount < x.MaxResCount)).Select((v, i) => new { Index = i, Value = v }))
-					{
-						ListViewItem item = new ListViewItem((thread.Index + 1).ToString());
-						item.SubItems.Add(thread.Value.ThreadTitle);
-						item.SubItems.Add(thread.Value.ResCount.ToString());
-						item.SubItems.Add(thread.Value.ThreadSpeed.ToString("0.0"));
-						item.SubItems.Add(thread.Value.ThreadSince.ToString("0.0"));
-						item.Tag = thread.Value.ThreadNo;
+				ListViewItem item = new ListViewItem((thread.Index + 1).ToString());
+				item.SubItems.Add(thread.Value.ThreadTitle);
+				item.SubItems.Add(thread.Value.ResCount.ToString());
+				item.SubItems.Add(thread.Value.ThreadSpeed.ToString("0.0"));
+				item.SubItems.Add(thread.Value.ThreadSince.ToString("0.0"));
+				item.Tag = thread.Value.ThreadNo;
 
-						threadListView.Items.Add(item);
-					}
-					break;
+				threadListView.Items.Add(item);
 			}
 		}
 	}
