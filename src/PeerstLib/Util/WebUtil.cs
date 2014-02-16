@@ -33,7 +33,7 @@ namespace PeerstLib.Util
 			catch
 			{
 				Logger.Instance.ErrorFormat("HTMLの取得:異常 [url:{0}]", url);
-				return "";
+				return string.Empty;
 			}
 		}
 
