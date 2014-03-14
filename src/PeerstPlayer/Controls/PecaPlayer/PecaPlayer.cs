@@ -248,7 +248,15 @@ namespace PeerstPlayer.Controls.PecaPlayer
 
 			// TODO FLVと切り替えを行う
 			this.SuspendLayout();
-			moviePlayer = new WindowsMediaPlayerControl();
+			string[] commandLineArgs = Environment.GetCommandLineArgs();
+			if (commandLineArgs.Length >= 2 && commandLineArgs[2] == "FLV")
+			{
+				moviePlayer = new FlashMoviePlayerControl();
+			}
+			else
+			{
+				moviePlayer = new WindowsMediaPlayerControl();
+			}
 			this.Controls.Add(this.moviePlayer.MovieControl);
 			this.ResumeLayout(false);
 
