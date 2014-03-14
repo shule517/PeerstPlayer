@@ -53,11 +53,15 @@ namespace PeerstPlayer.Controls.MoviePlayer
 		}
 		event EventHandler volumeChange = delegate { };
 
+		/// <summary>
+		/// 動画再生開始イベント
+		/// </summary>
 		event EventHandler IMoviePlayer.MovieStart
 		{
-			add { }
-			remove { }
+			add { movieStart += value; }
+			remove { movieStart -= value; }
 		}
+		event EventHandler movieStart = delegate { };
 
 		bool IMoviePlayer.Mute
 		{
@@ -87,17 +91,17 @@ namespace PeerstPlayer.Controls.MoviePlayer
 
 		float IMoviePlayer.AspectRate
 		{
-			get { return 1.0f; }
+			get { return (float)((IMoviePlayer)this).ImageWidth / (float)((IMoviePlayer)this).ImageHeight; }
 		}
 
 		int IMoviePlayer.ImageWidth
 		{
-			get { return 800; }
+			get { return flashManager.GetVideoWidth() == 0 ? 800 : flashManager.GetVideoWidth(); }
 		}
 
 		int IMoviePlayer.ImageHeight
 		{
-			get { return 600; }
+			get { return flashManager.GetVideoHeight() == 0 ? 600 : flashManager.GetVideoHeight(); }
 		}
 
 		event AxWMPLib._WMPOCXEvents_MouseDownEventHandler mouseDownEvent = delegate { };
@@ -171,6 +175,11 @@ namespace PeerstPlayer.Controls.MoviePlayer
 			get { return this; }
 		}
 
+		/// <summary>
+		/// 初回ファイルオープンフラグ(MovieStartに使用)
+		/// </summary>
+		private bool isFirstMediaOpen = true;
+
 		void IMoviePlayer.PlayMoive(string streamUrl)
 		{
 			axShockwaveFlash.FSCommand += (sender, e) =>
@@ -214,16 +223,36 @@ namespace PeerstPlayer.Controls.MoviePlayer
 			};
 			axShockwaveFlash.LoadMovie(0, Environment.CurrentDirectory + "/FlvPlayer.swf");
 			flashManager.PlayVideo(streamUrl);
+			flashManager.OpenStateChange += (sender, args) =>
+			{
+				// 動画再生開始イベント
+				if (isFirstMediaOpen)
+				{
+					var width = ((IMoviePlayer)this).ImageWidth;
+					var height = ((IMoviePlayer)this).ImageHeight;
+					axShockwaveFlash.Width = width;
+					axShockwaveFlash.Height = height;
+					isFirstMediaOpen = false;
+					movieStart(this, new EventArgs());
+				}
+			};
 		}
 
 		public void RaiseOnMouseDown(MouseButtons mouseButtons, int clicks, int x, int y, int delta)
 		{
 			mouseDownEvent(this, new AxWMPLib._WMPOCXEvents_MouseDownEvent((short)Keys.LButton, 0, x, y));
 		}
+
+		public void RaiseDoubleClick()
+		{
+			doubleClickEvent(this, new EventArgs());
+		}
 	}
 
 	public class ShockwaveFlashWrapper : AxShockwaveFlashObjects.AxShockwaveFlash
 	{
+		private bool dbFlag = false;
+
 		protected override void WndProc(ref Message m)
 		{
 			switch (m.Msg)
@@ -231,6 +260,18 @@ namespace PeerstPlayer.Controls.MoviePlayer
 				case (int)WindowMessage.WM_LBUTTONDOWN:
 					(Parent as FlashMoviePlayerControl).RaiseOnMouseDown(MouseButtons.Left, 0, (int)m.LParam & 0xFFFF, (int)m.LParam >> 16, 0);
 					return;
+				case (int)WindowMessage.WM_LBUTTONDBLCLK:
+					// ここで処理すると2回目のLBUTTONDOWN時に処理されてしまい、
+					// 挙動が少し変わってしまうのでフラグを立ててWM_LBUTTONUPで処理する
+					dbFlag = true;
+					break;
+				case (int)WindowMessage.WM_LBUTTONUP:
+					if (dbFlag)
+					{
+						(Parent as FlashMoviePlayerControl).RaiseDoubleClick();
+						dbFlag = false;
+					}
+					break;
 			}
 			base.WndProc(ref m);
 		}

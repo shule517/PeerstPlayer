@@ -65,6 +65,14 @@ package
 		
 		private var video:Video = new Video();
 		private var netStr:NetStream = null;
+		
+		private function Call(functionName:String, ...args):void
+		{
+			if (ExternalInterface.available)
+			{
+				ExternalInterface.call.apply(this, [functionName].concat(args));
+			}
+		}
 
 		//C#からのデータ受信
 		private function ChangeVolume(vol:String):void
@@ -93,9 +101,34 @@ package
 		//C#からのデータ受信
         private function SizeChanged(width:int, height:int):void
 		{
-			video.width = stage.stageWidth;
-			video.height = stage.stageHeight;
+			var w:Number = stage.stageWidth / video.videoWidth;
+			var h:Number = stage.stageHeight / video.videoHeight;
+			// 横の方が長い
+			if (w > h)
+			{
+				video.width = stage.stageHeight * video.videoWidth / video.videoHeight;
+				video.height = stage.stageHeight;
+			}
+			// 縦の方が長い
+			else
+			{
+				video.width = stage.stageWidth;
+				video.height = stage.stageWidth * video.videoHeight / video.videoWidth;
+			}
+			video.x = stage.stageWidth / 2 - video.width / 2;
+			video.y = stage.stageHeight / 2 - video.height / 2;
 		}
+		
+		private function GetVideoWidth():String
+		{
+			return video.videoWidth.toString();
+		}
+		
+		private function GetVideoHeight():String
+		{
+			return video.videoHeight.toString();
+		}
+		
 
 		//C#からのデータ受信
         private function PlayVideo(streamUrl:String):void
@@ -119,8 +152,11 @@ package
 
 			// メタ情報を取得した時の処理
 			netStr.client.onMetaData = function(obj:Object):void {
-				stage.stageWidth = obj.width;
-				stage.stageHeight = obj.height;
+				// stageWidth, stageHeightはここから変えられない　　はず
+				//stage.stageWidth = obj.width;
+				//stage.stageHeight = obj.height;
+				
+				Call("OpenStateChange");
 			}
 			
 			urlLoader.addEventListener(Event.COMPLETE, function (event:Event):void {
@@ -160,7 +196,9 @@ package
             if (ExternalInterface.available) {
                 ExternalInterface.addCallback("PlayVideo",PlayVideo);
                 ExternalInterface.addCallback("SizeChanged",SizeChanged);
-                ExternalInterface.addCallback("ChangeVolume",ChangeVolume);
+                ExternalInterface.addCallback("ChangeVolume", ChangeVolume);
+				ExternalInterface.addCallback("GetVideoWidth", GetVideoWidth);
+				ExternalInterface.addCallback("GetVideoHeight", GetVideoHeight);
 			}
 			
 			// ダブルクリックを有効
@@ -175,6 +213,16 @@ package
             stage.addEventListener(KeyboardEvent.KEY_DOWN, keyDownHandler);
 			stage.addEventListener(MouseEvent.RIGHT_MOUSE_DOWN, rightMouseDownHandler);
 			stage.addEventListener(MouseEvent.RIGHT_MOUSE_UP, rightMouseUpHandler);
+			
+			// リサイズされたときに呼び出されるイベント
+			stage.addEventListener(Event.RESIZE, function (e:Event):void{
+				SizeChanged(stage.stageWidth, stage.stageHeight);
+			});
+			
+			// ステージの拡大縮小を無効にする
+			stage.scaleMode = StageScaleMode.NO_SCALE;
+			// 表示基準位置を左上に設定
+			stage.align = StageAlign.TOP_LEFT
 		}
 		
 		//クリック
