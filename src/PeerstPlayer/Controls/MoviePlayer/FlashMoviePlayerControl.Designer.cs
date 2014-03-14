@@ -29,7 +29,7 @@
 		private void InitializeComponent()
 		{
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FlashMoviePlayerControl));
-			this.axShockwaveFlash = new AxShockwaveFlashObjects.AxShockwaveFlash();
+			this.axShockwaveFlash = new ShockwaveFlashWrapper();
 			((System.ComponentModel.ISupportInitialize)(this.axShockwaveFlash)).BeginInit();
 			this.SuspendLayout();
 			// 
@@ -57,6 +57,6 @@
 
 		#endregion
 
-		private AxShockwaveFlashObjects.AxShockwaveFlash axShockwaveFlash;
+		private ShockwaveFlashWrapper axShockwaveFlash;
 	}
 }

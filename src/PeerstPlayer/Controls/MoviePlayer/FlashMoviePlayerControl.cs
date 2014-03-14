@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows.Forms;
+using PeerstLib.Controls;
 using WMPLib;
 
 namespace PeerstPlayer.Controls.MoviePlayer
@@ -213,6 +214,25 @@ namespace PeerstPlayer.Controls.MoviePlayer
 			};
 			axShockwaveFlash.LoadMovie(0, Environment.CurrentDirectory + "/FlvPlayer.swf");
 			flashManager.PlayVideo(streamUrl);
+		}
+
+		public void RaiseOnMouseDown(MouseButtons mouseButtons, int clicks, int x, int y, int delta)
+		{
+			mouseDownEvent(this, new AxWMPLib._WMPOCXEvents_MouseDownEvent((short)Keys.LButton, 0, x, y));
+		}
+	}
+
+	public class ShockwaveFlashWrapper : AxShockwaveFlashObjects.AxShockwaveFlash
+	{
+		protected override void WndProc(ref Message m)
+		{
+			switch (m.Msg)
+			{
+				case (int)WindowMessage.WM_LBUTTONDOWN:
+					(Parent as FlashMoviePlayerControl).RaiseOnMouseDown(MouseButtons.Left, 0, (int)m.LParam & 0xFFFF, (int)m.LParam >> 16, 0);
+					return;
+			}
+			base.WndProc(ref m);
 		}
 	}
 }
