@@ -246,7 +246,6 @@ namespace PeerstPlayer.Controls.PecaPlayer
 			// チャンネル情報更新スレッド：キャンセル許可
 			updateChannelInfoWorker.WorkerSupportsCancellation = true;
 
-			// TODO FLVと切り替えを行う
 			this.SuspendLayout();
 			string[] commandLineArgs = Environment.GetCommandLineArgs();
 			if (commandLineArgs.Length >= 2 && commandLineArgs[2] == "FLV")

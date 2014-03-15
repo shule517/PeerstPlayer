@@ -2,7 +2,7 @@
 using System.Windows.Forms;
 using PeerstLib.Controls;
 
-namespace PeerstPlayer.Controls.PecaPlayer
+namespace PeerstPlayer.Controls.MoviePlayer
 {
 	//-------------------------------------------------------------
 	// 概要：WMPウィンドウのサブクラス化

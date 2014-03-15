@@ -1,8 +1,7 @@
-﻿using System;
+﻿using PeerstLib.Controls;
+using PeerstPlayer.Forms.Player;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
-using PeerstLib.Controls;
-using PeerstPlayer.Forms.Player;
 
 namespace PeerstPlayer.Controls.PecaPlayer
 {

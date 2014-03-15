@@ -1,5 +1,5 @@
-﻿using System.Windows.Forms;
-using PeerstLib.Util;
+﻿using PeerstLib.Util;
+using System.Windows.Forms;
 
 namespace PeerstPlayer.Controls.PecaPlayer
 {

@@ -100,15 +100,14 @@
     <Compile Include="Controls\PecaPlayer\PecaPlayer.Designer.cs">
       <DependentUpon>PecaPlayer.cs</DependentUpon>
     </Compile>
-    <Compile Include="Controls\PecaPlayer\PecaPlayerEventManager.cs" />
     <Compile Include="Controls\PecaPlayer\WindowSnap.cs" />
+    <Compile Include="Controls\MoviePlayer\WmpNativeWindow.cs" />
     <Compile Include="Controls\StatusBar\StatusBar.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Controls\StatusBar\StatusBar.Designer.cs">
       <DependentUpon>StatusBar.cs</DependentUpon>
     </Compile>
-    <Compile Include="Controls\PecaPlayer\WmpNativeWindow.cs" />
     <Compile Include="Controls\StatusBar\ToastMessage.cs" />
     <Compile Include="Controls\WriteField\WriteField.cs">
       <SubType>UserControl</SubType>
