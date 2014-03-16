@@ -49,9 +49,9 @@ namespace PeerstPlayer.Forms.Setting
 			}
 
 			// チャンネル名表示
-			if (Environment.GetCommandLineArgs().Length > 2)
+			if (Environment.GetCommandLineArgs().Length > 3)
 			{
-				string name = commandLine[2];
+				string name = commandLine[3];
 				Logger.Instance.InfoFormat("チャンネル名:{0}", name);
 				statusBar.ChannelDetail = name;
 				Win32API.SetWindowText(Handle, String.Format("{0} - PeerstPlayer", name));
