@@ -2,6 +2,7 @@ package
 {
 	import flash.display.Sprite;
 	import flash.events.Event;
+	import flash.events.TimerEvent;
 	import flash.text.StyleSheet;
 	import flash.text.TextField;
 	import flash.text.TextFieldAutoSize;
@@ -30,6 +31,7 @@ package
 	import flash.media.SoundTransform;
 	import flash.external.ExternalInterface;
 	import flash.system.fscommand;
+	import flash.utils.Timer;
 
 	/**
 	 * FPS 表示テスト
@@ -65,6 +67,15 @@ package
 		
 		private var video:Video = new Video();
 		private var netStr:NetStream = null;
+		private var streamUrl:String = null;
+		//前回の時刻など
+		private var prevTime:Number = 0;
+		private var prevBytesLoaded:uint = 0;
+		private var prevBitrate:int = 0;
+		//再接続監視タイマー
+		private var retryTimer:Timer = null;
+		private var volume:String = null;
+		private var retryPrevTime:Number = 0;
 		
 		private function Call(functionName:String, ...args):void
 		{
@@ -82,6 +93,7 @@ package
 				return;
 			}
 			
+			this.volume = vol;
 			var volume:Number = parseInt(vol);
 			
 			if (volume <= 0)
@@ -129,10 +141,52 @@ package
 			return video.videoHeight.toString();
 		}
 		
+		private function GetDurationString():String
+		{
+			var sec:String = new String(Math.floor(netStr.time % 60));
+			var min:String = new String(Math.floor(netStr.time /60 % 60));
+			var hour:String = new String(int(netStr.time / 60 / 60));
+			if (hour.length <= 1)
+			{
+				hour = "0" + hour;
+			}
+			return hour + ":" +
+				("0" + min.toString()).slice(-2) + ":" +
+				("0" + sec.toString()).slice(-2);
+		}
+		
+		private function GetNowFrameRate():String
+		{
+			return int(netStr.currentFPS).toString();
+		}
+		
+		private function GetFrameRate():String
+		{
+			return netStr.info.metaData["framerate"].toString();
+		}
+		
+		private function GetNowBitRate():String
+		{
+			var diffBytes:uint = netStr.bytesLoaded - prevBytesLoaded;
+			var diffTime:Number = netStr.time - prevTime;
+			var bitrate:int = int(diffBytes / diffTime * 8 / 1000);
+			// 0bpsになることが少なくないので、前回との平均を取ってみる
+			var averageBitrate:String = String((bitrate + prevBitrate) / 2);
+			prevBytesLoaded = netStr.bytesLoaded;
+			prevTime = netStr.time;
+			prevBitrate = bitrate;
+			return averageBitrate;
+		}
+		
+		private function GetBitRate():String
+		{
+			return String(netStr.info.metaData["audiodatarate"] + netStr.info.metaData["videodatarate"]);
+		}
 
 		//C#からのデータ受信
         private function PlayVideo(streamUrl:String):void
 		{
+			this.streamUrl = streamUrl;
 			// プレイリストURLをコマンドライン引数から取得
 			var playlistUrl:String = streamUrl;// "http://localhost:7145/pls/8519AAD80ED5D528069071AEE412E3B5?tip=202.122.25.235:7146";
 			var urlRequest:URLRequest = new URLRequest(playlistUrl);
@@ -155,6 +209,15 @@ package
 				// stageWidth, stageHeightはここから変えられない　　はず
 				//stage.stageWidth = obj.width;
 				//stage.stageHeight = obj.height;
+				
+				prevTime = netStr.time;
+				prevBytesLoaded = netStr.bytesLoaded;
+				prevBitrate = netStr.info.metaData["audiodatarate"] + netStr.info.metaData["videodatarate"];
+				
+				// 再接続時に音量が初期化されるので、一度変更済みであればここ変えておく
+				if (volume != null) {
+					ChangeVolume(volume);
+				}
 				
 				Call("OpenStateChange");
 			}
@@ -181,6 +244,7 @@ package
 				video.visible = true;
 			});
 			urlLoader.load(urlRequest);
+			netStr.addEventListener(NetStatusEvent.NET_STATUS, netStatusHandler);
 		}
 		
 		/**
@@ -199,6 +263,12 @@ package
                 ExternalInterface.addCallback("ChangeVolume", ChangeVolume);
 				ExternalInterface.addCallback("GetVideoWidth", GetVideoWidth);
 				ExternalInterface.addCallback("GetVideoHeight", GetVideoHeight);
+				ExternalInterface.addCallback("GetDurationString", GetDurationString);
+				ExternalInterface.addCallback("GetDurationString", GetDurationString);
+				ExternalInterface.addCallback("GetNowFrameRate", GetNowFrameRate);
+				ExternalInterface.addCallback("GetFrameRate", GetFrameRate);
+				ExternalInterface.addCallback("GetNowBitRate", GetNowBitRate);
+				ExternalInterface.addCallback("GetBitRate", GetBitRate);
 			}
 			
 			// ダブルクリックを有効
@@ -222,7 +292,33 @@ package
 			// ステージの拡大縮小を無効にする
 			stage.scaleMode = StageScaleMode.NO_SCALE;
 			// 表示基準位置を左上に設定
-			stage.align = StageAlign.TOP_LEFT
+			stage.align = StageAlign.TOP_LEFT;
+			
+			// 監視用タイマー
+			retryTimer = new Timer(5000);
+			retryTimer.addEventListener(TimerEvent.TIMER, retryTimerHandler);
+		}
+		
+		//ネットステータス
+		private function netStatusHandler(event:NetStatusEvent):void {
+			switch (event.info.code)
+			{
+				case "NetStream.Buffer.Empty":
+					retryPrevTime = netStr.time;
+					retryTimer.start();
+					break;
+			}
+		}
+		
+		//タイマー
+		private function retryTimerHandler(event:TimerEvent):void {
+			retryTimer.stop();
+			// NetStream.Buffer.Empty発動時からタイムが進んでいなければリコネクト
+			if (retryPrevTime == netStr.time)
+			{
+				netStr.close();
+				PlayVideo(streamUrl);
+			}
 		}
 		
 		//クリック
