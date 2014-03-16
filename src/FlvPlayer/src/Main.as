@@ -129,6 +129,19 @@ package
 			return video.videoHeight.toString();
 		}
 		
+		private function GetDurationString():String
+		{
+			var sec:String = new String(Math.floor(netStr.time % 60));
+			var min:String = new String(Math.floor(netStr.time /60 % 60));
+			var hour:String = new String(int(netStr.time / 60 / 60));
+			if (hour.length <= 1)
+			{
+				hour = "0" + hour;
+			}
+			return hour + ":" +
+				("0" + min.toString()).slice(-2) + ":" +
+				("0" + sec.toString()).slice(-2);
+		}
 
 		//C#からのデータ受信
         private function PlayVideo(streamUrl:String):void
@@ -199,6 +212,7 @@ package
                 ExternalInterface.addCallback("ChangeVolume", ChangeVolume);
 				ExternalInterface.addCallback("GetVideoWidth", GetVideoWidth);
 				ExternalInterface.addCallback("GetVideoHeight", GetVideoHeight);
+				ExternalInterface.addCallback("GetDurationString", GetDurationString);
 			}
 			
 			// ダブルクリックを有効

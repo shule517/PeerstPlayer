@@ -71,7 +71,7 @@ namespace PeerstPlayer.Controls.MoviePlayer
 
 		string IMoviePlayer.Duration
 		{
-			get { return String.Empty; }
+			get { return flashManager.GetDurationString(); }
 		}
 
 		int IMoviePlayer.BufferingProgress

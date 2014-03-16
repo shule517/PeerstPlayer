@@ -14,6 +14,7 @@ namespace PeerstPlayer.Controls.MoviePlayer
 		private const string ChangeVolumeMethod = "ChangeVolume";
 		private const string GetVideoWidthMethod = "GetVideoWidth";
 		private const string GetVideoHeightMethod = "GetVideoHeight";
+		private const string GetDurationStringMethod = "GetDurationString";
 
 		public FlashMoviePlayerManager(AxShockwaveFlash flash)
 		{
@@ -81,11 +82,20 @@ namespace PeerstPlayer.Controls.MoviePlayer
 		}
 
 		/// <summary>
-		/// ―サイズの取得
+		/// 横サイズの取得
 		/// </summary>
 		public int GetVideoHeight()
 		{
 			return int.Parse(CallFlashMethod(GetVideoHeightMethod).Replace("<string>", "").Replace("</string>", ""));
+		}
+
+		/// <summary>
+		/// 再生時間を取得
+		/// </summary>
+		/// <returns></returns>
+		public string GetDurationString()
+		{
+			return CallFlashMethod(GetDurationStringMethod).Replace("<string>", "").Replace("</string>", "");
 		}
 
 		/// <summary>
