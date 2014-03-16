@@ -152,22 +152,22 @@ namespace PeerstPlayer.Controls.MoviePlayer
 
 		int IMoviePlayer.NowFrameRate
 		{
-			get { return 0; }
+			get { return flashManager.GetNowFrameRate(); }
 		}
 
 		int IMoviePlayer.FrameRate
 		{
-			get { return 0; }
+			get { return flashManager.GetFrameRate(); }
 		}
 
 		int IMoviePlayer.NowBitrate
 		{
-			get { return 0; }
+			get { return flashManager.GetNowBitRate(); }
 		}
 
 		int IMoviePlayer.Bitrate
 		{
-			get { return 0; }
+			get { return flashManager.GetBitRate(); }
 		}
 
 		Control IMoviePlayer.MovieControl

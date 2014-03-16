@@ -65,6 +65,10 @@ package
 		
 		private var video:Video = new Video();
 		private var netStr:NetStream = null;
+		//前回の時刻など
+		private var prevTime:Number = 0;
+		private var prevBytesLoaded:uint = 0;
+		private var prevBitrate:int = 0;
 		
 		private function Call(functionName:String, ...args):void
 		{
@@ -142,6 +146,34 @@ package
 				("0" + min.toString()).slice(-2) + ":" +
 				("0" + sec.toString()).slice(-2);
 		}
+		
+		private function GetNowFrameRate():String
+		{
+			return int(netStr.currentFPS).toString();
+		}
+		
+		private function GetFrameRate():String
+		{
+			return netStr.info.metaData["framerate"].toString();
+		}
+		
+		private function GetNowBitRate():String
+		{
+			var diffBytes:uint = netStr.bytesLoaded - prevBytesLoaded;
+			var diffTime:Number = netStr.time - prevTime;
+			var bitrate:int = int(diffBytes / diffTime * 8 / 1000);
+			// 0bpsになることが少なくないので、前回との平均を取ってみる
+			var averageBitrate:String = String((bitrate + prevBitrate) / 2);
+			prevBytesLoaded = netStr.bytesLoaded;
+			prevTime = netStr.time;
+			prevBitrate = bitrate;
+			return averageBitrate;
+		}
+		
+		private function GetBitRate():String
+		{
+			return String(netStr.info.metaData["audiodatarate"] + netStr.info.metaData["videodatarate"]);
+		}
 
 		//C#からのデータ受信
         private function PlayVideo(streamUrl:String):void
@@ -168,6 +200,10 @@ package
 				// stageWidth, stageHeightはここから変えられない　　はず
 				//stage.stageWidth = obj.width;
 				//stage.stageHeight = obj.height;
+				
+				prevTime = netStr.time;
+				prevBytesLoaded = netStr.bytesLoaded;
+				prevBitrate = netStr.info.metaData["audiodatarate"] + netStr.info.metaData["videodatarate"];
 				
 				Call("OpenStateChange");
 			}
@@ -213,6 +249,11 @@ package
 				ExternalInterface.addCallback("GetVideoWidth", GetVideoWidth);
 				ExternalInterface.addCallback("GetVideoHeight", GetVideoHeight);
 				ExternalInterface.addCallback("GetDurationString", GetDurationString);
+				ExternalInterface.addCallback("GetDurationString", GetDurationString);
+				ExternalInterface.addCallback("GetNowFrameRate", GetNowFrameRate);
+				ExternalInterface.addCallback("GetFrameRate", GetFrameRate);
+				ExternalInterface.addCallback("GetNowBitRate", GetNowBitRate);
+				ExternalInterface.addCallback("GetBitRate", GetBitRate);
 			}
 			
 			// ダブルクリックを有効
@@ -236,7 +277,7 @@ package
 			// ステージの拡大縮小を無効にする
 			stage.scaleMode = StageScaleMode.NO_SCALE;
 			// 表示基準位置を左上に設定
-			stage.align = StageAlign.TOP_LEFT
+			stage.align = StageAlign.TOP_LEFT;
 		}
 		
 		//クリック

@@ -15,6 +15,10 @@ namespace PeerstPlayer.Controls.MoviePlayer
 		private const string GetVideoWidthMethod = "GetVideoWidth";
 		private const string GetVideoHeightMethod = "GetVideoHeight";
 		private const string GetDurationStringMethod = "GetDurationString";
+		private const string GetNowFrameRateMethod = "GetNowFrameRate";
+		private const string GetFrameRateMethod = "GetFrameRate";
+		private const string GetNowBitRateMethod = "GetNowBitRate";
+		private const string GetBitRateMethod = "GetBitRate";
 
 		public FlashMoviePlayerManager(AxShockwaveFlash flash)
 		{
@@ -78,7 +82,7 @@ namespace PeerstPlayer.Controls.MoviePlayer
 		/// </summary>
 		public int GetVideoWidth()
 		{
-			return int.Parse(CallFlashMethod(GetVideoWidthMethod).Replace("<string>", "").Replace("</string>", ""));
+			return int.Parse(CleanStringTag(CallFlashMethod(GetVideoWidthMethod)));
 		}
 
 		/// <summary>
@@ -86,7 +90,7 @@ namespace PeerstPlayer.Controls.MoviePlayer
 		/// </summary>
 		public int GetVideoHeight()
 		{
-			return int.Parse(CallFlashMethod(GetVideoHeightMethod).Replace("<string>", "").Replace("</string>", ""));
+			return int.Parse(CleanStringTag(CallFlashMethod(GetVideoHeightMethod)));
 		}
 
 		/// <summary>
@@ -95,7 +99,42 @@ namespace PeerstPlayer.Controls.MoviePlayer
 		/// <returns></returns>
 		public string GetDurationString()
 		{
-			return CallFlashMethod(GetDurationStringMethod).Replace("<string>", "").Replace("</string>", "");
+			return CleanStringTag(CallFlashMethod(GetDurationStringMethod));
+		}
+
+		/// <summary>
+		/// 現在のフレームレートを取得
+		/// </summary>
+		public int GetNowFrameRate()
+		{
+			return int.Parse(CleanStringTag(CallFlashMethod(GetNowFrameRateMethod)));
+		}
+
+		/// <summary>
+		/// フレームレートを取得
+		/// </summary>
+		/// <returns></returns>
+		public int GetFrameRate()
+		{
+			return int.Parse(CleanStringTag(CallFlashMethod(GetFrameRateMethod)));
+		}
+
+		/// <summary>
+		/// 現在のビットレートを取得
+		/// </summary>
+		/// <returns></returns>
+		public int GetNowBitRate()
+		{
+			return int.Parse(CleanStringTag(CallFlashMethod(GetNowBitRateMethod)));
+		}
+
+		/// <summary>
+		/// ビットレートを取得
+		/// </summary>
+		/// <returns></returns>
+		public int GetBitRate()
+		{
+			return int.Parse(CleanStringTag(CallFlashMethod(GetBitRateMethod)));
 		}
 
 		/// <summary>
@@ -131,6 +170,11 @@ namespace PeerstPlayer.Controls.MoviePlayer
 				return str;
 			}
 			return null;
+		}
+
+		private string CleanStringTag(string text)
+		{
+			return text.Replace("<string>", "").Replace("</string>", "");
 		}
 	}
 }
