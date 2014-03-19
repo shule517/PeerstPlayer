@@ -82,7 +82,9 @@ namespace PeerstPlayer.Controls.MoviePlayer
 		/// </summary>
 		public int GetVideoWidth()
 		{
-			return int.Parse(CleanStringTag(CallFlashMethod(GetVideoWidthMethod)));
+			int result;
+			int.TryParse(CallFlashMethod(GetVideoWidthMethod), out result);
+			return result;
 		}
 
 		/// <summary>
@@ -90,7 +92,9 @@ namespace PeerstPlayer.Controls.MoviePlayer
 		/// </summary>
 		public int GetVideoHeight()
 		{
-			return int.Parse(CleanStringTag(CallFlashMethod(GetVideoHeightMethod)));
+			int result;
+			int.TryParse(CallFlashMethod(GetVideoHeightMethod), out result);
+			return result;
 		}
 
 		/// <summary>
@@ -99,7 +103,7 @@ namespace PeerstPlayer.Controls.MoviePlayer
 		/// <returns></returns>
 		public string GetDurationString()
 		{
-			return CleanStringTag(CallFlashMethod(GetDurationStringMethod));
+			return CallFlashMethod(GetDurationStringMethod);
 		}
 
 		/// <summary>
@@ -107,7 +111,9 @@ namespace PeerstPlayer.Controls.MoviePlayer
 		/// </summary>
 		public int GetNowFrameRate()
 		{
-			return int.Parse(CleanStringTag(CallFlashMethod(GetNowFrameRateMethod)));
+			int result;
+			int.TryParse(CallFlashMethod(GetNowFrameRateMethod), out result);
+			return result;
 		}
 
 		/// <summary>
@@ -116,7 +122,9 @@ namespace PeerstPlayer.Controls.MoviePlayer
 		/// <returns></returns>
 		public int GetFrameRate()
 		{
-			return int.Parse(CleanStringTag(CallFlashMethod(GetFrameRateMethod)));
+			int result;
+			int.TryParse(CallFlashMethod(GetFrameRateMethod), out result);
+			return result;
 		}
 
 		/// <summary>
@@ -125,7 +133,9 @@ namespace PeerstPlayer.Controls.MoviePlayer
 		/// <returns></returns>
 		public int GetNowBitRate()
 		{
-			return int.Parse(CleanStringTag(CallFlashMethod(GetNowBitRateMethod)));
+			int result;
+			int.TryParse(CallFlashMethod(GetNowBitRateMethod), out result);
+			return result;
 		}
 
 		/// <summary>
@@ -134,7 +144,9 @@ namespace PeerstPlayer.Controls.MoviePlayer
 		/// <returns></returns>
 		public int GetBitRate()
 		{
-			return int.Parse(CleanStringTag(CallFlashMethod(GetBitRateMethod)));
+			int result;
+			int.TryParse(CallFlashMethod(GetBitRateMethod), out result);
+			return result;
 		}
 
 		/// <summary>
@@ -166,10 +178,9 @@ namespace PeerstPlayer.Controls.MoviePlayer
 				}
 				request += "</arguments></invoke>";
 
-				var str = flash.CallFunction(request);
-				return str;
+				return CleanStringTag(flash.CallFunction(request));
 			}
-			return null;
+			return "";
 		}
 
 		private string CleanStringTag(string text)

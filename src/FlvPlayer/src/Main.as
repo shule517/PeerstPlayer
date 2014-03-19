@@ -143,6 +143,11 @@ package
 		
 		private function GetDurationString():String
 		{
+			if (netStr == null)
+			{
+				return "00:00:00";
+			}
+			
 			var sec:String = new String(Math.floor(netStr.time % 60));
 			var min:String = new String(Math.floor(netStr.time /60 % 60));
 			var hour:String = new String(int(netStr.time / 60 / 60));
@@ -157,21 +162,33 @@ package
 		
 		private function GetNowFrameRate():String
 		{
+			if (netStr == null)
+			{
+				return "0";
+			}
 			return int(netStr.currentFPS).toString();
 		}
 		
 		private function GetFrameRate():String
 		{
+			if (netStr == null || netStr.info.metaData == null)
+			{
+				return "0";
+			}
 			return netStr.info.metaData["framerate"].toString();
 		}
 		
 		private function GetNowBitRate():String
 		{
+			if (netStr == null)
+			{
+				return "0";
+			}
 			var diffBytes:uint = netStr.bytesLoaded - prevBytesLoaded;
 			var diffTime:Number = netStr.time - prevTime;
 			var bitrate:int = int(diffBytes / diffTime * 8 / 1000);
 			// 0bpsになることが少なくないので、前回との平均を取ってみる
-			var averageBitrate:String = String((bitrate + prevBitrate) / 2);
+			var averageBitrate:String = String(Math.floor((bitrate + prevBitrate) / 2));
 			prevBytesLoaded = netStr.bytesLoaded;
 			prevTime = netStr.time;
 			prevBitrate = bitrate;
@@ -180,6 +197,10 @@ package
 		
 		private function GetBitRate():String
 		{
+			if (netStr == null || netStr.info.metaData == null)
+			{
+				return "0";
+			}
 			return String(netStr.info.metaData["audiodatarate"] + netStr.info.metaData["videodatarate"]);
 		}
 
@@ -196,6 +217,9 @@ package
 			var netCon:NetConnection = new NetConnection;
 			netCon.connect(null);
 			netStr = new NetStream(netCon);
+			// 非アクティブかつプレイヤーが他のウィンドウの裏に隠れている場合に
+			// 短時間バッファが発生して再生が遅れていく現象が緩和できるかも
+			netStr.bufferTime = 0.2;
 
 			// サウンドを制御するための変数
 			//var stf:soundTransform = netStr.soundTransform;
@@ -238,13 +262,21 @@ package
 				video.smoothing = true;
 
 				// videoをステージに追加
-				stage.addChild(video);
+				if (video.parent == null)
+				{
+					stage.addChild(video);
+				}
 
 				video.attachNetStream(netStr);
 				video.visible = true;
 			});
 			urlLoader.load(urlRequest);
 			netStr.addEventListener(NetStatusEvent.NET_STATUS, netStatusHandler);
+			
+			if (!retryTimer.running)
+			{
+				retryTimer.start();
+			}
 		}
 		
 		/**
@@ -295,7 +327,7 @@ package
 			stage.align = StageAlign.TOP_LEFT;
 			
 			// 監視用タイマー
-			retryTimer = new Timer(5000);
+			retryTimer = new Timer(2000);
 			retryTimer.addEventListener(TimerEvent.TIMER, retryTimerHandler);
 		}
 		
@@ -303,21 +335,32 @@ package
 		private function netStatusHandler(event:NetStatusEvent):void {
 			switch (event.info.code)
 			{
+				case "NetStream.Buffer.Full":
+					break;
 				case "NetStream.Buffer.Empty":
-					retryPrevTime = netStr.time;
-					retryTimer.start();
+					break;
+				case "NetStream.Buffer.Flush":
+					break;
+				case "NetStream.Play.Start":
+					break;
+				case "NetStream.Play.Stop":
+					break;
+				case "NetStream.Play.StreamNotFound":
 					break;
 			}
 		}
 		
 		//タイマー
 		private function retryTimerHandler(event:TimerEvent):void {
-			retryTimer.stop();
 			// NetStream.Buffer.Empty発動時からタイムが進んでいなければリコネクト
 			if (retryPrevTime == netStr.time)
 			{
 				netStr.close();
 				PlayVideo(streamUrl);
+			}
+			else
+			{
+				retryPrevTime = netStr.time;
 			}
 		}
 		
