@@ -218,7 +218,7 @@ namespace PeerstPlayer.Controls.StatusBar
 			string detail = channelDetail;
 
 			// データが取得できるまで非表示
-			if (movieInfo.Bitrate > 0)
+			if (!string.IsNullOrEmpty(movieInfo.Status))
 			{
 				if (PlayerSettings.DisplayFps || PlayerSettings.DisplayBitrate)
 				{
