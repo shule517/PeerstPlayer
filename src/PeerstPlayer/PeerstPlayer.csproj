@@ -110,6 +110,9 @@
       <DependentUpon>StatusBar.cs</DependentUpon>
     </Compile>
     <Compile Include="Controls\StatusBar\ToastMessage.cs" />
+    <Compile Include="Controls\WriteField\WatermarkTextBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Controls\WriteField\WriteField.cs">
       <SubType>UserControl</SubType>
     </Compile>

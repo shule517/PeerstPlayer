@@ -30,24 +30,11 @@
 		{
 			this.components = new System.ComponentModel.Container();
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(WriteFieldControl));
-			this.writeFieldTextBox = new System.Windows.Forms.TextBox();
 			this.selectThreadLabel = new System.Windows.Forms.Label();
 			this.writeButton = new System.Windows.Forms.Button();
 			this.newResToolTip = new System.Windows.Forms.ToolTip(this.components);
+			this.writeFieldTextBox = new Extentions.WatermarkTextBox();
 			this.SuspendLayout();
-			// 
-			// writeFieldTextBox
-			// 
-			this.writeFieldTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-			this.writeFieldTextBox.Location = new System.Drawing.Point(0, 16);
-			this.writeFieldTextBox.Margin = new System.Windows.Forms.Padding(0);
-			this.writeFieldTextBox.Multiline = true;
-			this.writeFieldTextBox.Name = "writeFieldTextBox";
-			this.writeFieldTextBox.Size = new System.Drawing.Size(450, 19);
-			this.writeFieldTextBox.TabIndex = 0;
-			this.writeFieldTextBox.TextChanged += new System.EventHandler(this.writeFieldTextBox_TextChanged);
-			this.writeFieldTextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.writeFieldTextBox_KeyDown);
 			// 
 			// selectThreadLabel
 			// 
@@ -84,13 +71,24 @@
 			this.newResToolTip.ShowAlways = true;
 			this.newResToolTip.ToolTipTitle = "新着レス";
 			// 
+			// writeFieldTextBox
+			// 
+			this.writeFieldTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.writeFieldTextBox.ForeColor = System.Drawing.Color.DarkGray;
+			this.writeFieldTextBox.Location = new System.Drawing.Point(0, 16);
+			this.writeFieldTextBox.Name = "writeFieldTextBox";
+			this.writeFieldTextBox.Size = new System.Drawing.Size(450, 19);
+			this.writeFieldTextBox.TabIndex = 4;
+			this.writeFieldTextBox.WatermarkText = "書き込み内容を入力してください";
+			// 
 			// WriteFieldControl
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+			this.Controls.Add(this.writeFieldTextBox);
 			this.Controls.Add(this.writeButton);
 			this.Controls.Add(this.selectThreadLabel);
-			this.Controls.Add(this.writeFieldTextBox);
 			this.Margin = new System.Windows.Forms.Padding(0);
 			this.Name = "WriteFieldControl";
 			this.Size = new System.Drawing.Size(480, 35);
@@ -101,9 +99,9 @@
 
 		#endregion
 
-		private System.Windows.Forms.TextBox writeFieldTextBox;
 		private System.Windows.Forms.Label selectThreadLabel;
 		private System.Windows.Forms.Button writeButton;
 		private System.Windows.Forms.ToolTip newResToolTip;
+		private Extentions.WatermarkTextBox writeFieldTextBox;
 	}
 }
