@@ -13,6 +13,7 @@ namespace PeerstPlayer.Controls.MoviePlayer
 		public event AxWMPLib._WMPOCXEvents_MouseUpEventHandler MouseUpEvent = delegate { };
 		public event AxWMPLib._WMPOCXEvents_MouseMoveEventHandler MouseMoveEvent = delegate { };
 		public event AxWMPLib._WMPOCXEvents_DoubleClickEventHandler DoubleClickEvent = delegate { };
+		public event AxWMPLib._WMPOCXEvents_KeyDownEventHandler KeyDownEvent = delegate { };
 	
 		public FlashNativeWindow(IntPtr handle)
 		{
@@ -51,6 +52,16 @@ namespace PeerstPlayer.Controls.MoviePlayer
 					break;
 				case (int)WindowMessage.WM_MOUSEMOVE:
 					MouseMoveEvent(this, new AxWMPLib._WMPOCXEvents_MouseMoveEvent((short)Keys.None, 0, (int)m.LParam & 0xFFFF, (int)m.LParam >> 16));
+					return;
+				case (int)WindowMessage.WM_KEYDOWN:
+					KeyDownEvent(this, new AxWMPLib._WMPOCXEvents_KeyDownEvent((short)m.WParam, 0));
+					return;
+				case (int)WindowMessage.WM_SYSKEYDOWN:
+					int shift	= ((Control.ModifierKeys & Keys.Shift) == Keys.Shift) ? 1 : 0;
+					int control = ((Control.ModifierKeys & Keys.Control) == Keys.Control) ? 1 : 0;
+					int alt = ((Control.ModifierKeys & Keys.Alt) == Keys.Alt) ? 1 : 0;
+					short shiftState = (short)(shift + (control << 1) + (alt << 2));
+					KeyDownEvent(this, new AxWMPLib._WMPOCXEvents_KeyDownEvent((short)m.WParam, shiftState));
 					return;
 			}
 			base.WndProc(ref m);

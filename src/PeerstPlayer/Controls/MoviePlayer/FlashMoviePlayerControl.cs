@@ -26,6 +26,7 @@ namespace PeerstPlayer.Controls.MoviePlayer
 			flash.MouseUpEvent += (sender, e) => mouseUpEvent(this, e);
 			flash.MouseMoveEvent += (sender, e) => mouseMoveEvent(this, e);
 			flash.DoubleClickEvent += (sender, e) => doubleClickEvent(this, e);
+			flash.KeyDownEvent += (sender, e) => keyDownEvent(this, e);
 		}
 
 		int volume = 0;
@@ -189,25 +190,6 @@ namespace PeerstPlayer.Controls.MoviePlayer
 
 		void IMoviePlayer.PlayMoive(string streamUrl)
 		{
-			axShockwaveFlash.FSCommand += (sender, e) =>
-			{
-				try
-				{
-					string[] arg = e.args.Split(new string[] { "," }, StringSplitOptions.None);
-					int arg1 = 0;
-					int arg2 = 0;
-					int.TryParse(arg[0], out arg1);
-					int.TryParse(arg[1], out arg2);
-
-					if (e.command == "KeyDownEvent")
-					{
-						keyDownEvent(this, new AxWMPLib._WMPOCXEvents_KeyDownEvent((short)arg1, (short)arg2));
-					}
-				}
-				catch
-				{
-				}
-			};
 			axShockwaveFlash.LoadMovie(0, Environment.CurrentDirectory + "/FlvPlayer.swf");
 			flashManager.PlayVideo(streamUrl);
 			flashManager.OpenStateChange += (sender, args) =>

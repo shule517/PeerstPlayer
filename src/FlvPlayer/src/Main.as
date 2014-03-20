@@ -4,9 +4,7 @@ package
 	import flash.display.StageAlign;
 	import flash.display.StageScaleMode;
 	import flash.events.Event;
-	import flash.events.KeyboardEvent;
 	import flash.external.ExternalInterface;
-	import flash.system.fscommand;
 
 	/**
 	 * FLV　Player
@@ -32,9 +30,6 @@ package
 			flvPlayer = new FlvPlayer(stage);
 			removeEventListener(Event.ADDED_TO_STAGE, init);
 
-			//　キー入力の判定
-			stage.addEventListener(KeyboardEvent.KEY_DOWN, keyDownHandler);
-
 			// ステージの拡大縮小を無効にする
 			stage.scaleMode = StageScaleMode.NO_SCALE;
 			// 表示基準位置を左上に設定
@@ -55,11 +50,5 @@ package
 				ExternalInterface.addCallback("GetBitRate", flvPlayer.GetBitRate);
 			}
 		}
-		
-		// キー押下イベント
-        private function keyDownHandler(event:KeyboardEvent):void {
-            trace("keyDownHandler:" + event.keyCode.toString() + "," + (event.shiftKey ? "1":"0"));
-			fscommand("KeyDownEvent", event.keyCode.toString() + "," + (event.shiftKey ? "1":"0"));
-        }
 	}
 }
