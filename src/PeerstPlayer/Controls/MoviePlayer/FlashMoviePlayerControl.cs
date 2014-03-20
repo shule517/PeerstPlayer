@@ -22,7 +22,11 @@ namespace PeerstPlayer.Controls.MoviePlayer
 
 			// Flashウィンドウをフックする
 			FlashNativeWindow flash = new FlashNativeWindow(axShockwaveFlash.Handle);
-			flash.MouseDownEvent += (sender, e) => mouseDownEvent(this, e);
+			flash.MouseDownEvent += (sender, e) =>
+			{
+				mouseDownEvent(this, e);
+				Focus();
+			};
 			flash.MouseUpEvent += (sender, e) => mouseUpEvent(this, e);
 			flash.MouseMoveEvent += (sender, e) => mouseMoveEvent(this, e);
 			flash.DoubleClickEvent += (sender, e) => doubleClickEvent(this, e);
