@@ -102,6 +102,12 @@ namespace PeerstPlayer.Forms.Setting
 
 				// アスペクト比維持
 				new AspectRateKeepWindow(this, pecaPlayer);
+
+				// WMPを使用していなければ「WMPメニュー」を灰色にする
+				if (!pecaPlayer.UsedWMP)
+				{
+					wmpMenuToolStripMenuItem.Enabled = false;
+				}
 			};
 		}
 

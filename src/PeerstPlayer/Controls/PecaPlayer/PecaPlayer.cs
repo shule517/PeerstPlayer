@@ -201,6 +201,11 @@ namespace PeerstPlayer.Controls.PecaPlayer
 			set { moviePlayer.EnableContextMenu = value; }
 		}
 
+		/// <summary>
+		/// WMPを使用しているか
+		/// </summary>
+		public bool UsedWMP { get { return moviePlayer is WindowsMediaPlayerControl; } }
+
 		//-------------------------------------------------------------
 		// 非公開プロパティ
 		//-------------------------------------------------------------
