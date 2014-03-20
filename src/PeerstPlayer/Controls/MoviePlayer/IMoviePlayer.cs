@@ -87,7 +87,7 @@ namespace PeerstPlayer.Controls.MoviePlayer
 		/// <summary>
 		/// ダブルクリックイベント
 		/// </summary>
-		event EventHandler DoubleClickEvent;
+		event AxWMPLib._WMPOCXEvents_DoubleClickEventHandler DoubleClickEvent;
 
 		/// <summary>
 		/// キー押下イベント

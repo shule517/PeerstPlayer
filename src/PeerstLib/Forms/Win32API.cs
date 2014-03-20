@@ -67,6 +67,8 @@ namespace PeerstLib.Controls
 		WM_CONTEXTMENU = 0x007B,
 		WM_KEYDOWN = 0x0100,
 		WM_SETFOCUS = 0x0007,
+		WM_RBUTTONUP = 0x0205,
+		WM_SYSKEYDOWN = 0x0104,
 	}
 
 	// 当たり判定

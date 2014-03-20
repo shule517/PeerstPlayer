@@ -19,6 +19,13 @@ namespace PeerstPlayer.Controls.MoviePlayer
 
 			// FlashManagerの初期化
 			flashManager = new FlashMoviePlayerManager(axShockwaveFlash);
+
+			// Flashウィンドウをフックする
+			FlashNativeWindow flash = new FlashNativeWindow(axShockwaveFlash.Handle);
+			flash.MouseDownEvent += (sender, e) => mouseDownEvent(this, e);
+			flash.MouseUpEvent += (sender, e) => mouseUpEvent(this, e);
+			flash.MouseMoveEvent += (sender, e) => mouseMoveEvent(this, e);
+			flash.DoubleClickEvent += (sender, e) => doubleClickEvent(this, e);
 		}
 
 		int volume = 0;
@@ -125,19 +132,19 @@ namespace PeerstPlayer.Controls.MoviePlayer
 			remove { mouseMoveEvent += value; }
 		}
 
-		event EventHandler doubleClickEvent = delegate { };
-		event EventHandler IMoviePlayer.DoubleClickEvent
+		event AxWMPLib._WMPOCXEvents_DoubleClickEventHandler doubleClickEvent = delegate { };
+		event AxWMPLib._WMPOCXEvents_DoubleClickEventHandler IMoviePlayer.DoubleClickEvent
 		{
 			add { doubleClickEvent += value; }
 			remove { doubleClickEvent -= value; }
 		}
 
+		event AxWMPLib._WMPOCXEvents_KeyDownEventHandler keyDownEvent = delegate { };
 		event AxWMPLib._WMPOCXEvents_KeyDownEventHandler IMoviePlayer.KeyDownEvent
 		{
 			add { keyDownEvent += value; }
 			remove { keyDownEvent -= value; }
 		}
-		event AxWMPLib._WMPOCXEvents_KeyDownEventHandler keyDownEvent = delegate { };
 
 		IntPtr IMoviePlayer.WMPHandle
 		{
@@ -187,34 +194,14 @@ namespace PeerstPlayer.Controls.MoviePlayer
 				try
 				{
 					string[] arg = e.args.Split(new string[] { "," }, StringSplitOptions.None);
-					int x = 0;
-					int y = 0;
-					int.TryParse(arg[0], out x);
-					int.TryParse(arg[1], out y);
+					int arg1 = 0;
+					int arg2 = 0;
+					int.TryParse(arg[0], out arg1);
+					int.TryParse(arg[1], out arg2);
 
-					switch (e.command)
+					if (e.command == "KeyDownEvent")
 					{
-						case "MouseDownEvent":
-							mouseDownEvent(this, new AxWMPLib._WMPOCXEvents_MouseDownEvent((short)Keys.LButton, 0, x, y));
-							break;
-						case "RightDownEvent":
-							mouseDownEvent(this, new AxWMPLib._WMPOCXEvents_MouseDownEvent((short)Keys.RButton, 0, x, y));
-							break;
-						case "MouseUpEvent":
-							mouseUpEvent(this, new AxWMPLib._WMPOCXEvents_MouseUpEvent((short)Keys.LButton, 0, x, y));
-							break;
-						case "RightUpEvent":
-							mouseUpEvent(this, new AxWMPLib._WMPOCXEvents_MouseUpEvent((short)Keys.RButton, 0, x, y));
-							break;
-						case "MouseMoveEvent":
-							mouseMoveEvent(this, new AxWMPLib._WMPOCXEvents_MouseMoveEvent(0, 0, x, y));
-							break;
-						case "DoubleClickEvent":
-							doubleClickEvent(this, new EventArgs());
-							break;
-						case "KeyDownEvent":
-							keyDownEvent(this, new AxWMPLib._WMPOCXEvents_KeyDownEvent((short)x, (short)y));
-							break;
+						keyDownEvent(this, new AxWMPLib._WMPOCXEvents_KeyDownEvent((short)arg1, (short)arg2));
 					}
 				}
 				catch
@@ -236,44 +223,6 @@ namespace PeerstPlayer.Controls.MoviePlayer
 					movieStart(this, new EventArgs());
 				}
 			};
-		}
-
-		public void RaiseOnMouseDown(MouseButtons mouseButtons, int clicks, int x, int y, int delta)
-		{
-			mouseDownEvent(this, new AxWMPLib._WMPOCXEvents_MouseDownEvent((short)Keys.LButton, 0, x, y));
-		}
-
-		public void RaiseDoubleClick()
-		{
-			doubleClickEvent(this, new EventArgs());
-		}
-	}
-
-	public class ShockwaveFlashWrapper : AxShockwaveFlashObjects.AxShockwaveFlash
-	{
-		private bool dbFlag = false;
-
-		protected override void WndProc(ref Message m)
-		{
-			switch (m.Msg)
-			{
-				case (int)WindowMessage.WM_LBUTTONDOWN:
-					(Parent as FlashMoviePlayerControl).RaiseOnMouseDown(MouseButtons.Left, 0, (int)m.LParam & 0xFFFF, (int)m.LParam >> 16, 0);
-					return;
-				case (int)WindowMessage.WM_LBUTTONDBLCLK:
-					// ここで処理すると2回目のLBUTTONDOWN時に処理されてしまい、
-					// 挙動が少し変わってしまうのでフラグを立ててWM_LBUTTONUPで処理する
-					dbFlag = true;
-					break;
-				case (int)WindowMessage.WM_LBUTTONUP:
-					if (dbFlag)
-					{
-						(Parent as FlashMoviePlayerControl).RaiseDoubleClick();
-						dbFlag = false;
-					}
-					break;
-			}
-			base.WndProc(ref m);
 		}
 	}
 }

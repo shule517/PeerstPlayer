@@ -14,7 +14,7 @@ namespace PeerstPlayer.Controls.MoviePlayer
 		//-------------------------------------------------------------
 
 		// ダブルクリックイベント
-		public event EventHandler DoubleClick = delegate { };
+		public event AxWMPLib._WMPOCXEvents_DoubleClickEventHandler DoubleClick = delegate { };
 
 		//-------------------------------------------------------------
 		// 概要：コンストラクタ
@@ -34,7 +34,7 @@ namespace PeerstPlayer.Controls.MoviePlayer
 			switch ((WindowMessage)m.Msg)
 			{
 				case WindowMessage.WM_LBUTTONUP:
-					DoubleClick(this, new EventArgs());
+					DoubleClick(this, new AxWMPLib._WMPOCXEvents_DoubleClickEvent((short)Keys.LButton, 0, (int)m.LParam & 0xFFFF, (int)m.LParam >> 16));
 					break;
 
 				case WindowMessage.WM_MOUSEMOVE:

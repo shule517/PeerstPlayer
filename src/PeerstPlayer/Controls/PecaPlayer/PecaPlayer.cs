@@ -181,7 +181,7 @@ namespace PeerstPlayer.Controls.PecaPlayer
 		/// <summary>
 		/// ダブルクリックイベント
 		/// </summary>
-		public event EventHandler DoubleClickEvent
+		public event AxWMPLib._WMPOCXEvents_DoubleClickEventHandler DoubleClickEvent
 		{
 			add { moviePlayer.DoubleClickEvent += value; }
 			remove { moviePlayer.DoubleClickEvent -= value; }

@@ -196,12 +196,12 @@ namespace PeerstPlayer.Controls.MoviePlayer
 		/// <summary>
 		/// ダブルクリックイベント
 		/// </summary>
-		event EventHandler IMoviePlayer.DoubleClickEvent
+		event AxWMPLib._WMPOCXEvents_DoubleClickEventHandler IMoviePlayer.DoubleClickEvent
 		{
 			add { doubleClickEvent += value; }
 			remove { doubleClickEvent -= value; }
 		}
-		event EventHandler doubleClickEvent = delegate { };
+		event AxWMPLib._WMPOCXEvents_DoubleClickEventHandler doubleClickEvent = delegate { };
 
 		/// <summary>
 		/// キー押下イベント

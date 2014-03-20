@@ -79,6 +79,7 @@
       <DependentUpon>FlashMoviePlayerControl.cs</DependentUpon>
     </Compile>
     <Compile Include="Controls\MoviePlayer\FlashMoviePlayerManager.cs" />
+    <Compile Include="Controls\MoviePlayer\FlashNativeWindow.cs" />
     <Compile Include="Controls\MoviePlayer\IMoviePlayer.cs" />
     <Compile Include="Controls\MoviePlayer\WindowsMediaPlayerControl.cs">
       <SubType>UserControl</SubType>
