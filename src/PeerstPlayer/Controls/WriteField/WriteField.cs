@@ -142,7 +142,7 @@ namespace PeerstPlayer.Controls.WriteField
 
 				// 書き込み欄を有効
 				writeFieldTextBox.Enabled = true;
-				writeFieldTextBox.BackColor = Color.White;
+				writeFieldTextBox.WatermarkText = "書き込み内容を入力してください";
 
 				// 書き込み成功
 				if (result.WriteResult)
@@ -238,7 +238,16 @@ namespace PeerstPlayer.Controls.WriteField
 			}
 
 			// 書き込み欄の有効/無効
-			writeFieldTextBox.Enabled = operationBbs.ThreadSelected;
+			if (!operationBbs.ThreadSelected)
+			{
+				writeFieldTextBox.WatermarkText = "スレッドを選択してください";
+				writeFieldTextBox.Enabled = false;
+			}
+			else
+			{
+				writeFieldTextBox.WatermarkText = "書き込み内容を入力してください";
+				writeFieldTextBox.Enabled = true;
+			}
 		}
 
 		//-------------------------------------------------------------
@@ -324,7 +333,6 @@ namespace PeerstPlayer.Controls.WriteField
 
 				// 書き込み欄を無効
 				writeFieldTextBox.Enabled = false;
-				writeFieldTextBox.BackColor = Color.LightGray;
 			}
 		}
 
