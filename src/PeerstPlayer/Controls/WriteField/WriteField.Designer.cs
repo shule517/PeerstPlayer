@@ -77,10 +77,11 @@
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.writeFieldTextBox.ForeColor = System.Drawing.Color.DarkGray;
 			this.writeFieldTextBox.Location = new System.Drawing.Point(0, 16);
+			this.writeFieldTextBox.Margin = new System.Windows.Forms.Padding(0);
 			this.writeFieldTextBox.Multiline = true;
 			this.writeFieldTextBox.Name = "writeFieldTextBox";
 			this.writeFieldTextBox.Size = new System.Drawing.Size(450, 19);
-			this.writeFieldTextBox.TabIndex = 4;
+			this.writeFieldTextBox.TabIndex = 0;
 			this.writeFieldTextBox.WatermarkText = "読み込み中...";
 			this.writeFieldTextBox.TextChanged += new System.EventHandler(this.writeFieldTextBox_TextChanged);
 			this.writeFieldTextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.writeFieldTextBox_KeyDown);

@@ -291,7 +291,15 @@ namespace PeerstPlayer.Controls.WriteField
 			// 書き込み欄の高さ自動調節
 			writeFieldTextBox.Height = writeFieldTextBox.PreferredSize.Height;
 			writeButton.Height = writeFieldTextBox.Height + 2;
-			Height = selectThreadLabel.Height + writeFieldTextBox.PreferredSize.Height;
+
+			if (Visible)
+			{
+				Height = selectThreadLabel.Height + writeFieldTextBox.PreferredSize.Height;
+			}
+			else
+			{
+				Height = 0;
+			}
 
 			// 高さの変更通知
 			HeightChanged(sender, e);
