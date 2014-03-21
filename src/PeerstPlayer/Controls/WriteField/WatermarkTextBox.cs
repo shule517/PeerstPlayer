@@ -174,6 +174,12 @@ namespace Extentions
 			{
 				this._WatermarkText = value;
 
+				// 入力中の場合は、設定しない
+				if (!this.empty)
+				{
+					return;
+				}
+
 				if (this.Text == string.Empty && value != string.Empty)
 				{
 					this.empty = true;
