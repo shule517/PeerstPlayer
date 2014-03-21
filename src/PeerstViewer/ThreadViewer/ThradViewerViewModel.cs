@@ -20,6 +20,11 @@ namespace PeerstViewer.ThreadViewer
 		/// </summary>
 		public string DocumentText { get { return updateThreadCommand.DocumentText; } }
 
+        /// <summary>
+        /// 差分
+        /// </summary>
+        public string DiffText { get { return updateThreadCommand.DiffText; } }
+
 		/// <summary>
 		/// スレッドURL
 		/// </summary>

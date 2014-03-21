@@ -19,6 +19,7 @@ namespace PeerstViewer.ThreadViewer.Command
 		/// </summary>
 		public string DocumentText;
 
+        public string DiffText;
 		/// <summary>
 		/// プロパティ変更イベント
 		/// </summary>
@@ -68,6 +69,7 @@ namespace PeerstViewer.ThreadViewer.Command
 				{
 					try
 					{
+                        DiffText = DocumentText.Replace(beforeDocumentText,"");
 						Logger.Instance.Debug("PropertyChangedEventArgs(DocumentText)");
 						PropertyChanged(this, new PropertyChangedEventArgs("DocumentText"));
 					}

@@ -52,23 +52,28 @@ namespace PeerstViewer.Controls.ThreadViewer
 		/// </summary>
 		private bool IsScrollBottomLast = false;
 
+        public void InvokeScript(string funcName,object[] objArgs)
+        {
+            webBrowser.Document.InvokeScript(funcName, objArgs);
+        }
 		/// <summary>
 		/// 表示する内容
 		/// </summary>
 		public string DocumentText
 		{
 			get { return webBrowser.DocumentText; }
-			set
-			{
-				// 更新前のスクロール位置が最下位か
-				IsScrollBottomLast = IsScrollBottom;
+            //set
+            //{
+            //    // 更新前のスクロール位置が最下位か
+            //    IsScrollBottomLast = IsScrollBottom;
 
-				// 更新音を出さないために描画時は非表示にする
-				webBrowser.Visible = false;
-				webBrowser.DocumentText = value;
-				webBrowser.Visible = true;
-			}
-		}
+            //    // 更新音を出さないために描画時は非表示にする
+            //    webBrowser.Visible = false;
+            //    webBrowser.DocumentText = value;
+            //    webBrowser.Visible = true;
+            //}
+            set { webBrowser.DocumentText = value; }
+        }
 
 		/// <summary>
 		/// 更新完了イベント

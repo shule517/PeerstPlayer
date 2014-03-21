@@ -34,7 +34,7 @@ namespace PeerstPlayer.Shortcut.Command
 			}
 			catch
 			{
-				Logger.Instance.Error("PeerstViewer起動失敗");
+                Logger.Instance.Error("PeerstViewer起動失敗:" + viewerExePath);
 			}
 		}
 
