@@ -194,7 +194,7 @@ namespace PeerstPlayer.Controls.MoviePlayer
 
 		void IMoviePlayer.PlayMoive(string streamUrl)
 		{
-			axShockwaveFlash.LoadMovie(0, Environment.CurrentDirectory + "/FlvPlayer.swf");
+			axShockwaveFlash.LoadMovie(0, FormUtility.GetExeFolderPath() + "/FlvPlayer.swf");
 			flashManager.PlayVideo(streamUrl);
 			flashManager.OpenStateChange += (sender, args) =>
 			{
