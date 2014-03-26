@@ -207,6 +207,7 @@ namespace PeerstPlayer.Controls.MoviePlayer
 					axShockwaveFlash.Height = height;
 					isFirstMediaOpen = false;
 					movieStart(this, new EventArgs());
+					flashManager.ChangeVolume(volume);
 				}
 			};
 		}

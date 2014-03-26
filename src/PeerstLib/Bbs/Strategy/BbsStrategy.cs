@@ -149,6 +149,7 @@ namespace PeerstLib.Bbs.Strategy
 			webRequest.ContentLength = requestData.Length;
 			webRequest.Referer = writeUrl;
 			webRequest.Timeout = WriteResTimeOut;
+			webRequest.UserAgent = "Monazilla/1.00";
 
 			// POST送信
 			Stream requestStream = webRequest.GetRequestStream();
