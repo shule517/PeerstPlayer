@@ -39,11 +39,19 @@ namespace PeerstPlayer.Controls.MoviePlayer
 			get { return volume; }
 			set
 			{
-				if ((value < 0) || (100 < value))
+				if (value < 0)
 				{
-					return;
+					volume = 0;
 				}
-				volume = value;
+				else if (100 < value)
+				{
+					volume = 100;
+				}
+				else
+				{
+					volume = value;
+				}
+
 				flashManager.ChangeVolume(value);
 				volumeChange(this, new EventArgs());
 			}
