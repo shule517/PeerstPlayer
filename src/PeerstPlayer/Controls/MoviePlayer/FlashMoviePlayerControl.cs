@@ -83,10 +83,23 @@ namespace PeerstPlayer.Controls.MoviePlayer
 		}
 		event EventHandler movieStart = delegate { };
 
+		private bool mute = false;
 		bool IMoviePlayer.Mute
 		{
-			get { return false; }
-			set { volumeChange(this, new EventArgs()); }
+			get { return mute; }
+			set
+			{
+				mute = value;
+				if (mute)
+				{
+					flashManager.ChangeVolume(0);
+				}
+				else
+				{
+					flashManager.ChangeVolume(volume);
+				}
+				volumeChange(this, new EventArgs());
+			}
 		}
 
 		string IMoviePlayer.Duration
