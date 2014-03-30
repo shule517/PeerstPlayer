@@ -32,6 +32,9 @@ namespace PeerstPlayer.Controls.MoviePlayer
 				case (int)WindowsMessage.WM_RBUTTONDOWN:
 					MouseDownEvent(this, new AxWMPLib._WMPOCXEvents_MouseDownEvent((short)Keys.RButton, 0, (int)m.LParam & 0xFFFF, (int)m.LParam >> 16));
 					return;
+				case (int)WindowsMessage.WM_MBUTTONDOWN:
+					MouseDownEvent(this, new AxWMPLib._WMPOCXEvents_MouseDownEvent((short)Keys.MButton, 0, (int)m.LParam & 0xFFFF, (int)m.LParam >> 16));
+					return;
 				case (int)WindowsMessage.WM_LBUTTONUP:
 					if (isDoubleClick)
 					{
