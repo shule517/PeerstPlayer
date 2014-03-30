@@ -247,6 +247,11 @@ namespace PeerstPlayer.Forms.Setting
 			// サイズ変更
 			SizeChanged += (sender, e) =>
 			{
+				if (WindowState != FormWindowState.Normal)
+				{
+					return;
+				}
+
 				// 幅
 				pecaPlayer.Width = ClientSize.Width;
 				statusBar.Width = ClientSize.Width;
