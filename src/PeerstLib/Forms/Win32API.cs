@@ -46,6 +46,23 @@ namespace PeerstLib.Controls
 		/// <returns>成功すればtrue</returns>
 		[DllImport("user32.dll")]
 		public static extern bool GetWindowRect(IntPtr hWnd, out RECT lpRect);
+
+	}
+
+	// ウィンドウ枠の当たり判定
+	public enum HitArea
+	{
+		HTNONE = 0,
+		HTCLIENT = 1,
+		HTCAPTION = 2,
+		HTLEFT = 10,
+		HTRIGHT = 11,
+		HTTOP = 12,
+		HTTOPLEFT = 13,
+		HTTOPRIGHT = 14,
+		HTBOTTOM = 15,
+		HTBOTTOMLEFT = 16,
+		HTBOTTOMRIGHT = 17,
 	}
 
 	// ウィンドウメッセージ
