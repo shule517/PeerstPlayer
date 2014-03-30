@@ -52,6 +52,9 @@ namespace PeerstPlayer.Controls.MoviePlayer
 					volume = value;
 				}
 
+				// 音量変更したらミュートを解除
+				mute = false;
+
 				flashManager.ChangeVolume(value);
 				volumeChange(this, new EventArgs());
 			}
