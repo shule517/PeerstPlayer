@@ -247,7 +247,7 @@ namespace PeerstPlayer.Forms.Setting
 			// サイズ変更
 			SizeChanged += (sender, e) =>
 			{
-				if (WindowState != FormWindowState.Normal)
+				if ((ClientSize.Width) == 0 || (ClientSize.Height == 0))
 				{
 					return;
 				}
