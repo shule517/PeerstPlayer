@@ -1,4 +1,5 @@
 ﻿using PeerstLib.Controls;
+using PeerstLib.Forms;
 using PeerstPlayer.Forms.Player;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
@@ -41,9 +42,9 @@ namespace PeerstPlayer.Controls.PecaPlayer
 		//-------------------------------------------------------------
 		protected override void WndProc(ref Message m)
 		{
-			switch ((WindowMessage)m.Msg)
+			switch ((WindowsMessage)m.Msg)
 			{
-				case WindowMessage.WM_SIZING:
+				case WindowsMessage.WM_SIZING:
 					if (PlayerSettings.AspectRateFix)
 					{
 						KeepAspectRate(m);

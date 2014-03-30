@@ -1,4 +1,5 @@
 ﻿using PeerstLib.Controls;
+using PeerstLib.Forms;
 using PeerstPlayer.Forms.Player;
 using System;
 using System.Drawing;
@@ -35,7 +36,7 @@ namespace PeerstPlayer.Controls.PecaPlayer
 		//-------------------------------------------------------------
 		protected override void WndProc(ref Message m)
 		{
-			if ((WindowMessage)m.Msg == WindowMessage.WM_MOVING)
+			if ((WindowsMessage)m.Msg == WindowsMessage.WM_MOVING)
 			{
 				// ウィンドウスナップを実行
 				if (PlayerSettings.WindowSnapEnable)

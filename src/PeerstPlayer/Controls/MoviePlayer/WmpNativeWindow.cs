@@ -3,6 +3,7 @@ using System.Windows.Forms;
 using PeerstLib.Controls;
 using AxWMPLib;
 using PeerstPlayer.Forms.Player;
+using PeerstLib.Forms;
 
 namespace PeerstPlayer.Controls.MoviePlayer
 {
@@ -82,7 +83,7 @@ namespace PeerstPlayer.Controls.MoviePlayer
 				HitArea area = GetHitArea(frameSize, e.fX, e.fY);
 				if (area != HitArea.HTNONE)
 				{
-					Win32API.SendMessage(wmp.Parent.Parent.Handle, (int)WindowMessage.WM_NCLBUTTONDOWN, new IntPtr((int)area), new IntPtr(0));
+					Win32API.SendMessage(wmp.Parent.Parent.Handle, (int)WindowsMessage.WM_NCLBUTTONDOWN, new IntPtr((int)area), new IntPtr(0));
 				}
 			};
 		}
@@ -152,9 +153,9 @@ namespace PeerstPlayer.Controls.MoviePlayer
 		//-------------------------------------------------------------
 		protected override void WndProc(ref Message m)
 		{
-			switch ((WindowMessage)m.Msg)
+			switch ((WindowsMessage)m.Msg)
 			{
-				case WindowMessage.WM_LBUTTONUP:
+				case WindowsMessage.WM_LBUTTONUP:
 					// ウィンドウにフォーカスがない場合にダブルクリックイベントが走ってしまうためのガード
 					if (wmp.Focused)
 					{
@@ -162,7 +163,7 @@ namespace PeerstPlayer.Controls.MoviePlayer
 					}
 					break;
 
-				case WindowMessage.WM_MOUSEMOVE:
+				case WindowsMessage.WM_MOUSEMOVE:
 					// マウスカーソルの更新
 					Cursor.Current = Cursors.Arrow;
 					break;

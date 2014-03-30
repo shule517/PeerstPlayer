@@ -3,6 +3,7 @@ using System.Drawing;
 using System.IO;
 using System.Reflection;
 using PeerstLib.Util;
+using PeerstLib.Forms;
 
 namespace PeerstLib.Controls
 {
@@ -18,7 +19,7 @@ namespace PeerstLib.Controls
 		public static void WindowDragStart(IntPtr handle)
 		{
 			Logger.Instance.DebugFormat("WindowDragStart(handle:{0})", handle);
-			Win32API.SendMessage(handle, (int)WindowMessage.WM_NCLBUTTONDOWN, new IntPtr((int)HitTest.Caption), new IntPtr(0));
+			Win32API.SendMessage(handle, (int)WindowsMessage.WM_NCLBUTTONDOWN, new IntPtr((int)HitTest.Caption), new IntPtr(0));
 		}
 
 		//-------------------------------------------------------------
@@ -27,7 +28,7 @@ namespace PeerstLib.Controls
 		public static void ShowContextMenu(IntPtr handle, Point mousePositon)
 		{
 			Logger.Instance.DebugFormat("ShowContextMenu(handle:{0})", handle);
-			Win32API.SendMessage(handle, (int)WindowMessage.WM_CONTEXTMENU, new IntPtr(mousePositon.X), new IntPtr(mousePositon.Y));
+			Win32API.SendMessage(handle, (int)WindowsMessage.WM_CONTEXTMENU, new IntPtr(mousePositon.X), new IntPtr(mousePositon.Y));
 		}
 
 		//-------------------------------------------------------------

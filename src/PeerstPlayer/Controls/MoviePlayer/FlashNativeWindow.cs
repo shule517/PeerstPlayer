@@ -1,4 +1,5 @@
 ﻿using PeerstLib.Controls;
+using PeerstLib.Forms;
 using System;
 using System.Windows.Forms;
 
@@ -25,13 +26,13 @@ namespace PeerstPlayer.Controls.MoviePlayer
 		{
 			switch (m.Msg)
 			{
-				case (int)WindowMessage.WM_LBUTTONDOWN:
+				case (int)WindowsMessage.WM_LBUTTONDOWN:
 					MouseDownEvent(this, new AxWMPLib._WMPOCXEvents_MouseDownEvent((short)Keys.LButton, 0, (int)m.LParam & 0xFFFF, (int)m.LParam >> 16));
 					return;
-				case (int)WindowMessage.WM_RBUTTONDOWN:
+				case (int)WindowsMessage.WM_RBUTTONDOWN:
 					MouseDownEvent(this, new AxWMPLib._WMPOCXEvents_MouseDownEvent((short)Keys.RButton, 0, (int)m.LParam & 0xFFFF, (int)m.LParam >> 16));
 					return;
-				case (int)WindowMessage.WM_LBUTTONUP:
+				case (int)WindowsMessage.WM_LBUTTONUP:
 					if (isDoubleClick)
 					{
 						DoubleClickEvent(this, new AxWMPLib._WMPOCXEvents_DoubleClickEvent((short)Keys.LButton, 0, (int)m.LParam & 0xFFFF, (int)m.LParam >> 16));
@@ -42,21 +43,21 @@ namespace PeerstPlayer.Controls.MoviePlayer
 						MouseUpEvent(this, new AxWMPLib._WMPOCXEvents_MouseUpEvent((short)Keys.LButton, 0, (int)m.LParam & 0xFFFF, (int)m.LParam >> 16));
 					}
 					break;
-				case (int)WindowMessage.WM_RBUTTONUP:
+				case (int)WindowsMessage.WM_RBUTTONUP:
 					MouseUpEvent(this, new AxWMPLib._WMPOCXEvents_MouseUpEvent((short)Keys.RButton, 0, (int)m.LParam & 0xFFFF, (int)m.LParam >> 16));
 					return;
-				case (int)WindowMessage.WM_LBUTTONDBLCLK:
+				case (int)WindowsMessage.WM_LBUTTONDBLCLK:
 					// ここで処理すると2回目のLBUTTONDOWN時に処理されてしまい、
 					// 挙動が少し変わってしまうのでフラグを立ててWM_LBUTTONUPで処理する
 					isDoubleClick = true;
 					break;
-				case (int)WindowMessage.WM_MOUSEMOVE:
+				case (int)WindowsMessage.WM_MOUSEMOVE:
 					MouseMoveEvent(this, new AxWMPLib._WMPOCXEvents_MouseMoveEvent((short)Keys.None, 0, (int)m.LParam & 0xFFFF, (int)m.LParam >> 16));
 					return;
-				case (int)WindowMessage.WM_KEYDOWN:
+				case (int)WindowsMessage.WM_KEYDOWN:
 					KeyDownEvent(this, new AxWMPLib._WMPOCXEvents_KeyDownEvent((short)m.WParam, 0));
 					return;
-				case (int)WindowMessage.WM_SYSKEYDOWN:
+				case (int)WindowsMessage.WM_SYSKEYDOWN:
 					int shift	= ((Control.ModifierKeys & Keys.Shift) == Keys.Shift) ? 1 : 0;
 					int control = ((Control.ModifierKeys & Keys.Control) == Keys.Control) ? 1 : 0;
 					int alt = ((Control.ModifierKeys & Keys.Alt) == Keys.Alt) ? 1 : 0;

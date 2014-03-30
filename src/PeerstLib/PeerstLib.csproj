@@ -71,6 +71,7 @@
     <Compile Include="Forms\FormUtility.cs" />
     <Compile Include="Forms\MouseGesture.cs" />
     <Compile Include="Forms\Win32API.cs" />
+    <Compile Include="Forms\WindowsMessage.cs" />
     <Compile Include="PeerCast\Data\StreamUrlInfo.cs" />
     <Compile Include="PeerCast\Util\ViewXMLAnalyzer.cs" />
     <Compile Include="Util\Logger.cs" />
