@@ -471,6 +471,7 @@ namespace PeerstPlayer.Forms.Setting
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.BackColor = System.Drawing.Color.Black;
 			this.ClientSize = new System.Drawing.Size(480, 379);
+			this.ControlBox = false;
 			this.Controls.Add(this.toolStrip);
 			this.Controls.Add(this.statusBar);
 			this.Controls.Add(this.pecaPlayer);

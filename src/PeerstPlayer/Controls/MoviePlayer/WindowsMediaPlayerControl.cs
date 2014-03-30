@@ -21,7 +21,7 @@ namespace PeerstPlayer.Controls.MoviePlayer
 			wmp.enableContextMenu = false;
 
 			// ダブルクリックイベント
-			new WmpNativeWindow(wmp.Handle).DoubleClick += (sender, e) => doubleClickEvent(sender, e);
+			new WmpNativeWindow(wmp).DoubleClick += (sender, e) => doubleClickEvent(sender, e);
 
 			// チャンネル自動リトライ
 			new ChannelAutoRetry(wmp);

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 using PeerstLib.Controls;
+using AxWMPLib;
 
 namespace PeerstPlayer.Controls.MoviePlayer
 {
@@ -13,16 +14,21 @@ namespace PeerstPlayer.Controls.MoviePlayer
 		// 公開プロパティ
 		//-------------------------------------------------------------
 
+		// WMP
+		AxWindowsMediaPlayer wmp;
+
 		// ダブルクリックイベント
 		public event AxWMPLib._WMPOCXEvents_DoubleClickEventHandler DoubleClick = delegate { };
 
 		//-------------------------------------------------------------
 		// 概要：コンストラクタ
 		//-------------------------------------------------------------
-		public WmpNativeWindow(IntPtr handle)
+		public WmpNativeWindow(AxWindowsMediaPlayer wmp)
 		{
+			this.wmp = wmp;
+
 			// サブクラスウィンドウの設定
-			AssignHandle(handle);
+			AssignHandle(wmp.Handle);
 		}
 
 		//-------------------------------------------------------------
@@ -34,7 +40,11 @@ namespace PeerstPlayer.Controls.MoviePlayer
 			switch ((WindowMessage)m.Msg)
 			{
 				case WindowMessage.WM_LBUTTONUP:
-					DoubleClick(this, new AxWMPLib._WMPOCXEvents_DoubleClickEvent((short)Keys.LButton, 0, (int)m.LParam & 0xFFFF, (int)m.LParam >> 16));
+					// ウィンドウにフォーカスがない場合にダブルクリックイベントが走ってしまうためのガード
+					if (wmp.Focused)
+					{
+						DoubleClick(this, new AxWMPLib._WMPOCXEvents_DoubleClickEvent((short)Keys.LButton, 0, (int)m.LParam & 0xFFFF, (int)m.LParam >> 16));
+					}
 					break;
 
 				case WindowMessage.WM_MOUSEMOVE:
