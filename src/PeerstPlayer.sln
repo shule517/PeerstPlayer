@@ -1,6 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Express 2012 for Windows Desktop
+# Visual Studio Express 2013 for Windows Desktop
+VisualStudioVersion = 12.0.21005.1
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PeerstPlayer", "PeerstPlayer\PeerstPlayer.csproj", "{F95F9F85-885B-4907-8253-921DBE380065}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PeerstViewer", "PeerstViewer\PeerstViewer.csproj", "{E32B0944-2FEB-47AB-AF19-EC49E16DC7CC}"

@@ -2,6 +2,7 @@
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
+using System;
 
 namespace PeerstViewer.ThreadViewer
 {
@@ -102,7 +103,22 @@ namespace PeerstViewer.ThreadViewer
 			// URLの設定
 			textBoxUrl.Text = viewModel.ThreadUrl;
 
-			// スレッド一覧更新
+            //レス表示エリアの初期化
+            threadViewer.DocumentText = @"<html><body><script type=""text/javascript""> 
+function addRes(res) { 
+    var element = document.createElement('div');
+    element.innerHTML = res;
+    var objResArea = document.getElementById(""resArea"");; 
+    objResArea.appendChild(element);
+}
+function clearRes() { 
+    var objResArea = document.getElementById(""resArea"");; 
+    objResArea.innerHTML = """";
+}
+</script>
+<div id=""resArea""></div></body></html>";
+
+            // スレッド一覧更新
 			viewModel.UpdateThreadList();
 		}
 
@@ -152,7 +168,10 @@ namespace PeerstViewer.ThreadViewer
 			switch (e.PropertyName)
 			{
 				case "DocumentText":
-					threadViewer.DocumentText = viewModel.DocumentText;
+                    //threadViewer.DocumentText = viewModel.DocumentText;
+                    Object[] objArray = new Object[1];
+                    objArray[0] = viewModel.DiffText;
+                    threadViewer.InvokeScript("addRes", objArray);
 					break;
 				case "ThreadList":
 					threadListView.Items.Clear();

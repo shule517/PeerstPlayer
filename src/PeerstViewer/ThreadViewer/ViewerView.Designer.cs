@@ -374,7 +374,7 @@
 			// threadViewer
 			// 
 			this.threadViewer.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.threadViewer.DocumentText = "";
+            //this.threadViewer.DocumentText = "";
 			this.threadViewer.Location = new System.Drawing.Point(0, 0);
 			this.threadViewer.Name = "threadViewer";
 			this.threadViewer.Size = new System.Drawing.Size(455, 270);
