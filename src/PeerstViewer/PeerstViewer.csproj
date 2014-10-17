@@ -74,6 +74,9 @@
     <Compile Include="Controls\ThreadViewer\ThreadViewerControl.Designer.cs">
       <DependentUpon>ThreadViewerControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="Controls\WebBrowserEx.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="ThreadViewer\Command\UpdateThreadCommand.cs" />
     <Compile Include="ThreadViewer\Command\WriteResCommand.cs" />
     <Compile Include="ThreadViewer\ThradViewerViewModel.cs" />

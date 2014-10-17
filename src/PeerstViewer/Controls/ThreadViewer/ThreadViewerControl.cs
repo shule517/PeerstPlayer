@@ -1,6 +1,7 @@
 ﻿using PeerstLib.Util;
 using System.Drawing;
 using System.Windows.Forms;
+using System.Diagnostics;
 
 namespace PeerstViewer.Controls.ThreadViewer
 {
@@ -137,6 +138,12 @@ namespace PeerstViewer.Controls.ThreadViewer
 		{
 			Logger.Instance.Debug("ScrollToBottom()");
 			webBrowser.Document.Window.ScrollTo(0, ScrollRectangle.Bottom);
+		}
+
+		private void webBrowser_NewWindow3(object sender, WebBrowserNewWindow3EventArgs e)
+		{
+			Process.Start(e.bstrUrl);
+			e.Cancel = true;
 		}
 	}
 }
