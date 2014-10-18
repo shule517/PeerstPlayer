@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Windows.Forms;
 using PeerstLib.Util;
 using PeerstPlayer.Forms.Player;
@@ -93,6 +94,9 @@ namespace PeerstPlayer.Forms.Setting
 				volumeChangeCtrlTextBox.Text = PlayerSettings.VolumeChangeCtrl.ToString();
 				volumeChangeShiftTextBox.Text = PlayerSettings.VolumeChangeShift.ToString();
 
+				// スクリーンショット
+				screenshotFolderTextBox.Text = PlayerSettings.ScreenshotFolder;
+
 				// 動画再生開始時のコマンド
 				movieStartComboBox.Items.Clear();
 				foreach (Commands command in movieStartCommandList)
@@ -113,6 +117,17 @@ namespace PeerstPlayer.Forms.Setting
 					// ショートカットのアイテム追加
 					ListViewItem keyItem = CreateKeyItem(shortcut, commandPair);
 					shortcutListView.Items.Add(keyItem);
+				}
+			};
+
+			// スクリーンショットを保存するフォルダを選ぶダイアログを表示するボタン
+			browseScreenshotFolderButton.Click += (sender, args) =>
+			{
+				folderBrowserDialog.RootFolder = Environment.SpecialFolder.Desktop;
+				folderBrowserDialog.SelectedPath = PlayerSettings.ScreenshotFolder;
+				if (folderBrowserDialog.ShowDialog() == DialogResult.OK)
+				{
+					screenshotFolderTextBox.Text = folderBrowserDialog.SelectedPath;
 				}
 			};
 
@@ -342,6 +357,9 @@ namespace PeerstPlayer.Forms.Setting
 			{
 				PlayerSettings.MovieStartCommand = movieStartCommandList[movieStartComboBox.SelectedIndex];
 			}
+
+			// スクリーンショット
+			PlayerSettings.ScreenshotFolder = screenshotFolderTextBox.Text;
 
 			// 設定を保存
 			PlayerSettings.Save();

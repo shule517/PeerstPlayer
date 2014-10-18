@@ -116,7 +116,7 @@ namespace PeerstPlayer.Settings
 		/// <summary>
 		/// スクリーンショットを保存するフォルダ
 		/// </summary>
-		public string ScreenshotFolder = "SS";
+		public string ScreenshotFolder = "Screenshot";
 
 		// - ステータスバーフォント : Font
 		// - ステータスバー表示項目 : List

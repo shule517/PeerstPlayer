@@ -1,15 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices;
-using System.Text;
 using System.Threading;
-using System.Windows.Forms;
-using PeerstLib.Controls;
 using PeerstPlayer.Controls.PecaPlayer;
 using PeerstPlayer.Forms.Player;
 
@@ -30,7 +24,7 @@ namespace PeerstPlayer.Shortcut.Command
 				Thread.Sleep(50);
 
 				// // SSのディレクトリが存在していなければ作る
-				if (Directory.Exists(PlayerSettings.ScreenshotFolder))
+				if (!Directory.Exists(PlayerSettings.ScreenshotFolder))
 				{
 					Directory.CreateDirectory(PlayerSettings.ScreenshotFolder);
 				}
