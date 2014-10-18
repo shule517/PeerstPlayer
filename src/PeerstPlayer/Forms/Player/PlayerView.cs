@@ -216,7 +216,15 @@ namespace PeerstPlayer.Forms.Setting
 					isFirst = false;
 
 					// タイトル設定
-					Win32API.SetWindowText(Handle, String.Format("{0} - PeerstPlayer", info.Name));
+					if (Environment.GetCommandLineArgs().Length > 3)
+					{
+						var name = Environment.GetCommandLineArgs()[3];
+						Win32API.SetWindowText(Handle, String.Format("{0} - PeerstPlayer", name));
+					}
+					else
+					{
+						Win32API.SetWindowText(Handle, String.Format("{0} - PeerstPlayer", info.Name));
+					}
 				}
 			};
 
@@ -528,7 +536,15 @@ namespace PeerstPlayer.Forms.Setting
 		/// </summary>
 		private void UpdateChannelDetail(ChannelInfo info)
 		{
-			statusBar.ChannelDetail = String.Format("{0} {1}{2} {3}", info.Name, (string.IsNullOrEmpty(info.Genre) ? "" : string.Format("[{0}] ", info.Genre)), info.Desc, info.Comment);
+			if (Environment.GetCommandLineArgs().Length > 3)
+			{
+				var name = Environment.GetCommandLineArgs()[3];
+				statusBar.ChannelDetail = String.Format("{0} {1}{2} {3}", name, (string.IsNullOrEmpty(info.Genre) ? "" : string.Format("[{0}] ", info.Genre)), info.Desc, info.Comment);
+			}
+			else
+			{
+				statusBar.ChannelDetail = String.Format("{0} {1}{2} {3}", info.Name, (string.IsNullOrEmpty(info.Genre) ? "" : string.Format("[{0}] ", info.Genre)), info.Desc, info.Comment);				
+			}
 		}
 
 		/// <summary>
