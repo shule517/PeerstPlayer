@@ -34,6 +34,11 @@ namespace PeerstLib.Bbs.Strategy
 		protected override Encoding encoding { get { return Encoding.Default; } }
 
 		/// <summary>
+		/// 掲示板設定のURL
+		/// </summary>
+		protected override string settingUrl { get { return string.Empty; } }
+
+		/// <summary>
 		/// 掲示板一覧URL
 		/// </summary>
 		protected override string subjectUrl { get { return string.Empty; } }

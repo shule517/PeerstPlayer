@@ -1,4 +1,5 @@
-﻿using PeerstLib.Bbs.Data;
+﻿using System.Linq;
+using PeerstLib.Bbs.Data;
 using PeerstLib.Bbs.Util;
 using PeerstLib.Util;
 using System.Collections.Generic;
@@ -61,6 +62,11 @@ namespace PeerstLib.Bbs.Strategy
 		protected abstract Encoding encoding { get; }
 
 		/// <summary>
+		/// 掲示板設定のURL
+		/// </summary>
+		protected abstract string settingUrl { get; }
+
+		/// <summary>
 		/// スレッド一覧情報URL
 		/// </summary>
 		protected abstract string subjectUrl { get; }
@@ -105,6 +111,23 @@ namespace PeerstLib.Bbs.Strategy
 			ThreadList = AnalyzeSubjectText(lines);
 
 			Logger.Instance.DebugFormat("スレッド一覧取得：正常 [スレッド取得数：{0}]", ThreadList.Count);
+		}
+
+		//-------------------------------------------------------------
+		// 概要：SETTING.txt
+		//-------------------------------------------------------------
+		public virtual void UpdateBbsSetting()
+		{
+			Logger.Instance.DebugFormat("UpdateBbsSetting()");
+			var settingText = WebUtil.GetHtml(settingUrl, encoding);
+			var regex = new Regex("(.+?)=(.+)");
+			var lines = settingText.Replace("\r\n", "\n").Split('\n');
+			foreach (var match in lines.Select(line => regex.Match(line)).Where(match => match.Success))
+			{
+				BbsInfo.Setting[match.Groups[1].Value] = match.Groups[2].Value;
+			}
+
+			Logger.Instance.DebugFormat("掲示板設定取得：正常");
 		}
 
 		//-------------------------------------------------------------

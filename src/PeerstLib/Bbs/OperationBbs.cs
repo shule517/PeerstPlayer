@@ -125,6 +125,7 @@ namespace PeerstLib.Bbs
 			{
 				string url = (string)e.Argument;
 				strategy = BbsStrategyFactory.Create(url);
+				strategy.UpdateBbsSetting();
 				strategy.UpdateThreadList();
 				strategy.UpdateBbsName();
 			};
@@ -138,6 +139,7 @@ namespace PeerstLib.Bbs
 			updateThreadListWorker.WorkerSupportsCancellation = true;
 			updateThreadListWorker.DoWork += (sender, e) =>
 			{
+				strategy.UpdateBbsSetting();
 				strategy.UpdateThreadList();
 			};
 			updateThreadListWorker.RunWorkerCompleted += (sender, e) =>

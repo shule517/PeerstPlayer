@@ -64,6 +64,14 @@ namespace PeerstLib.Bbs.Strategy
 		}
 
 		/// <summary>
+		/// 掲示板設定のURL
+		/// </summary>
+		protected override string settingUrl
+		{
+			get { return string.Format("http://{0}/{1}/SETTING.txt", BbsInfo.BoardGenre, BbsInfo.BoardNo); }
+		}
+
+		/// <summary>
 		/// 掲示板一覧URL
 		/// </summary>
 		protected override string subjectUrl
@@ -147,7 +155,7 @@ namespace PeerstLib.Bbs.Strategy
 				string threadNo = match.Groups["threadNo"].Value;
 				string resCount = match.Groups["resCount"].Value;
 				double days = BbsUtil.GetThreadSince(threadNo);
-				ThreadInfo threadInfo = new ThreadInfo
+				ThreadInfo threadInfo = new ThreadInfo(BbsInfo)
 				{
 					ThreadNo = threadNo,
 					ThreadTitle = match.Groups["threadTitle"].Value.Trim(),
