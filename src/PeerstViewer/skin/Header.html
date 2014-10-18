@@ -35,6 +35,11 @@ dl dd {
 </style>
 <script type="text/javascript">
 <!--
+
+var work = document.createElement("div");
+var regUrl = new RegExp('(h?)(ttps?://[\x21-\x3B\x3D\x3F-\x7E]+)', "gi");
+var replace = '<a href="$1$2">$1$2</a>';
+
 function init() {
         var elm;
 
@@ -50,11 +55,14 @@ function init() {
                 }
         }
 */
-        // h抜きリンク作成
-        var re = new RegExp('([^h])(ttps?://[\x21-\x3B\x3D\x3F-\x7E]+)', "ig");
-        var replace = '$1<a href="h$2">$2</a>';
+        // リンク作成
+/*
+        var re = new RegExp('(h?)(ttps?://[\x21-\x3B\x3D\x3F-\x7E]+)', "ig");
+        var replace = '<a href="h$2">$1$2</a>';
         document.body.innerHTML = document.body.innerHTML.replace(re, replace);
- 
+*/
+        createLink(document.body);
+        
         // レスポップアップ変更
         elm = document.getElementsByTagName('A');
         for (var cnt=0; cnt<elm.length; cnt++) {
@@ -66,6 +74,38 @@ function init() {
                         elm[cnt].target = "";
                         elm[cnt].onclick = new Function("showPopup(this, '" + no + "');");
                 }
+        }
+}
+
+function createLink(obj, parent) {
+        while (obj) {
+                var nextNode = obj.nextSibling;
+                switch (obj.nodeType) {
+                        case 1: // Node.ELEMENT_NODE
+                                var tagName=obj.tagName.toUpperCase();
+                                // <A>は無視する
+                                if (tagName == 'A') {
+                                        break;
+                                }
+                                // 子ノードからも探す
+                                createLink(obj.firstChild, obj);
+                                break;
+                        case 3: // Node.TEXT_NODE
+                                // 親がないもしくは正規表現に一致しない場合は無視
+                                if (!parent || !obj.nodeValue.match(regUrl)) {
+                                        break;
+                                }
+                                
+                                work.innerHTML = obj.nodeValue.replace(regUrl, replace);
+                                while (work.firstChild) {
+                                        parent.insertBefore(work.firstChild, obj);
+                                }
+                                
+                                parent.removeChild(obj);
+                                break;
+                        
+                }
+                obj = nextNode;
         }
 }
  
