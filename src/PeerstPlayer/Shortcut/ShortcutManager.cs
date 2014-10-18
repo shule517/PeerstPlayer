@@ -238,6 +238,8 @@ namespace PeerstPlayer.Shortcut
 				{	Commands.ScreenSplitHeightx3,	new ShortcutCommand(new ScreenSplitCommand(form, pecaPlayer), new ScreenSplitCommandArgs(-1, 3))	}, // 画面分割
 				{	Commands.ScreenSplitHeightx2,	new ShortcutCommand(new ScreenSplitCommand(form, pecaPlayer), new ScreenSplitCommandArgs(-1, 2))	}, // 画面分割
 				{	Commands.ScreenSplitHeightx1,	new ShortcutCommand(new ScreenSplitCommand(form, pecaPlayer), new ScreenSplitCommandArgs(-1, 1))	}, // 画面分割
+				{	Commands.Screenshot,			new ShortcutCommand(new ScreenshotCommand(pecaPlayer), new CommandArgs())							}, // スクリーンショット
+				{	Commands.OpenScreenshotFolder,	new ShortcutCommand(new OpenScreenshotFolderCommand(), new CommandArgs())							}, // スクリーンショットフォルダを開く
 			};
 		}
 
@@ -309,6 +311,8 @@ namespace PeerstPlayer.Shortcut
 			settings.KeyMap.Add(new KeyInput(Keys.Alt, Keys.W), Commands.ScreenSplitHeightx4);
 			settings.KeyMap.Add(new KeyInput(Keys.Alt, Keys.E), Commands.ScreenSplitHeightx3);
 			settings.KeyMap.Add(new KeyInput(Keys.Alt, Keys.R), Commands.ScreenSplitHeightx2);
+			settings.KeyMap.Add(new KeyInput(Keys.P), Commands.Screenshot);
+			settings.KeyMap.Add(new KeyInput(Keys.O), Commands.OpenScreenshotFolder);
 		}
 
 		/// <summary>

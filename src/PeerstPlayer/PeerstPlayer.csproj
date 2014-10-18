@@ -131,6 +131,8 @@
     <Compile Include="Shortcut\Command\MuteCommand.cs" />
     <Compile Include="Shortcut\Command\NullCommand.cs" />
     <Compile Include="Shortcut\Command\OpenPeerstViewerCommand.cs" />
+    <Compile Include="Shortcut\Command\OpenScreenshotFolder.cs" />
+    <Compile Include="Shortcut\Command\ScreenshotCommand.cs" />
     <Compile Include="Shortcut\Command\ScreenSplitCommand.cs" />
     <Compile Include="Shortcut\Command\ShowNewResCommand.cs" />
     <Compile Include="Shortcut\Command\TopMostCommand.cs" />

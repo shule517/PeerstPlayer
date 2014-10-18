@@ -113,6 +113,11 @@ namespace PeerstPlayer.Settings
 		/// </summary>
 		public bool SaveReturnSizeOnClose = false;
 
+		/// <summary>
+		/// スクリーンショットを保存するフォルダ
+		/// </summary>
+		public string ScreenshotFolder = "SS";
+
 		// - ステータスバーフォント : Font
 		// - ステータスバー表示項目 : List
 		// - 終了時位置保存 : boolean

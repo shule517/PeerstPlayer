@@ -70,6 +70,8 @@ namespace PeerstPlayer.Forms.Setting
 			this.topMostToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.updateChannelInfoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.bumpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.screenshotToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.openScreenshotFolderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.volumeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.volumeUpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.volumeDownToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -371,7 +373,9 @@ namespace PeerstPlayer.Forms.Setting
 			this.functionToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.topMostToolStripMenuItem,
             this.updateChannelInfoToolStripMenuItem,
-            this.bumpToolStripMenuItem});
+            this.bumpToolStripMenuItem,
+            this.screenshotToolStripMenuItem,
+            this.openScreenshotFolderToolStripMenuItem});
 			this.functionToolStripMenuItem.Name = "functionToolStripMenuItem";
 			this.functionToolStripMenuItem.Size = new System.Drawing.Size(153, 22);
 			this.functionToolStripMenuItem.Text = "機能";
@@ -393,6 +397,18 @@ namespace PeerstPlayer.Forms.Setting
 			this.bumpToolStripMenuItem.Name = "bumpToolStripMenuItem";
 			this.bumpToolStripMenuItem.Size = new System.Drawing.Size(184, 22);
 			this.bumpToolStripMenuItem.Text = "Bump(再接続)";
+			// 
+			// screenshotToolStripMenuItem
+			// 
+			this.screenshotToolStripMenuItem.Name = "screenshotToolStripMenuItem";
+			this.screenshotToolStripMenuItem.Size = new System.Drawing.Size(206, 22);
+			this.screenshotToolStripMenuItem.Text = "スクリーンショット";
+			// 
+			// openScreenshotFolderToolStripMenuItem
+			// 
+			this.openScreenshotFolderToolStripMenuItem.Name = "openScreenshotFolderToolStripMenuItem";
+			this.openScreenshotFolderToolStripMenuItem.Size = new System.Drawing.Size(206, 22);
+			this.openScreenshotFolderToolStripMenuItem.Text = "スクリーンショットフォルダを開く";
 			// 
 			// volumeToolStripMenuItem
 			// 
@@ -536,6 +552,8 @@ namespace PeerstPlayer.Forms.Setting
 		private System.Windows.Forms.ToolStripMenuItem volumeBalanceMiddleToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem volumeBalanceRightToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem scale25PerToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem screenshotToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem openScreenshotFolderToolStripMenuItem;
 	}
 }
 

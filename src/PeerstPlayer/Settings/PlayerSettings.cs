@@ -211,6 +211,15 @@ namespace PeerstPlayer.Forms.Player
 			set { info.MovieStartCommand = value; }
 		}
 
+		/// <summary>
+		/// スクリーンショットを保存するフォルダ
+		/// </summary>
+		public static string ScreenshotFolder
+		{
+			get { return info.ScreenshotFolder; }
+			set { info.ScreenshotFolder = value; }
+		}
+
 		static PlayerSettings()
 		{
 		}
