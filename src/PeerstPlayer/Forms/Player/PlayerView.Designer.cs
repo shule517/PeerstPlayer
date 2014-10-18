@@ -171,6 +171,7 @@ namespace PeerstPlayer.Forms.Setting
 			this.pecaPlayer.ChannelInfo = null;
 			this.pecaPlayer.ClickPoint = new System.Drawing.Point(0, 0);
 			this.pecaPlayer.EnableContextMenu = false;
+			this.pecaPlayer.ImeMode = System.Windows.Forms.ImeMode.Disable;
 			this.pecaPlayer.Location = new System.Drawing.Point(0, 0);
 			this.pecaPlayer.Margin = new System.Windows.Forms.Padding(0);
 			this.pecaPlayer.Mute = false;
