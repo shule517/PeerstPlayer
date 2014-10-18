@@ -2,6 +2,7 @@
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
+using PeerstViewer.Settings;
 
 namespace PeerstViewer.ThreadViewer
 {
@@ -18,6 +19,9 @@ namespace PeerstViewer.ThreadViewer
 			InitializeComponent();
 
 			Init();
+
+			// 設定の読み込み
+			LoadSetting();
 
 			//---------------------------------------------------
 			// データバインド設定
@@ -39,9 +43,17 @@ namespace PeerstViewer.ThreadViewer
 
 			// スレッド一覧表示ボタン押下
 			toolStripButtonThreadList.MouseDown += (sender, e) => ToggleThreadList();
-	
+
 			// 書き込み欄表示ボタン押下
 			toolStripButtonWriteField.MouseDown += (sender, e) => ToggleWriteField();
+
+			// 設定ボタン押下
+			toolStripButtonSetting.MouseDown += (sender, e) =>
+			{
+				var view = new ViewerSettingView();
+				view.TopMost = TopMost;
+				view.ShowDialog();
+			};
 
 			// 書き込みボタン押下
 			buttonWrite.Click += (sender, e) => viewModel.WriteRes(textBoxName.Text, textBoxMail.Text, textBoxMessage.Text);
@@ -99,6 +111,39 @@ namespace PeerstViewer.ThreadViewer
 				};
 			};
 
+			// 初期化
+			Load += (sender, args) =>
+			{
+				// 起動時にウィンドウサイズを復帰する
+				if (ViewerSettings.ReturnSizeOnStart)
+				{
+					Width = ViewerSettings.ReturnSize.Width;
+					Height = ViewerSettings.ReturnSize.Height;
+				}
+
+				// ここでやらないとウィンドウ位置が復帰できない?
+				// 起動時にウィンドウ位置を復帰する
+				if (ViewerSettings.ReturnPositionOnStart)
+				{
+					Location = ViewerSettings.ReturnPosition;
+				}
+			};
+
+			// 終了処理
+			FormClosed += (sender, e) =>
+			{
+				// 終了時の位置とサイズを保存
+				if (ViewerSettings.SaveReturnPositionOnClose)
+				{
+					ViewerSettings.ReturnPosition = Location;
+				}
+				if (ViewerSettings.SaveReturnSizeOnClose)
+				{
+					ViewerSettings.ReturnSize = Size;
+				}
+				ViewerSettings.Save();
+			};
+
 			// URLの設定
 			textBoxUrl.Text = viewModel.ThreadUrl;
 
@@ -115,6 +160,15 @@ namespace PeerstViewer.ThreadViewer
 			splitContainerThreadList.Panel1Collapsed = true;
 			splitContainerWriteField.Panel2Collapsed = true;
 			toolStrip.CanOverflow = true;
+		}
+
+		/// <summary>
+		/// 設定の読み込み
+		/// </summary>
+		private void LoadSetting()
+		{
+			// 設定の読み込み
+			ViewerSettings.Load();
 		}
 
 		/// <summary>
