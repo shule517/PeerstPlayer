@@ -96,6 +96,18 @@ namespace PeerstPlayer.Forms.Setting
 
 				// スクリーンショット
 				screenshotFolderTextBox.Text = PlayerSettings.ScreenshotFolder;
+				foreach (var item in screenshotExtensionComboBox.Items)
+				{
+					if (item.ToString() == PlayerSettings.ScreenshotExtension)
+					{
+						screenshotExtensionComboBox.SelectedItem = item;
+					}
+				}
+				// 拡張子が選択されていなければpngを選ばせる
+				if (screenshotExtensionComboBox.SelectedItem == null)
+				{
+					screenshotExtensionComboBox.SelectedIndex = screenshotExtensionComboBox.FindString("png");
+				}
 
 				// 動画再生開始時のコマンド
 				movieStartComboBox.Items.Clear();
@@ -360,6 +372,7 @@ namespace PeerstPlayer.Forms.Setting
 
 			// スクリーンショット
 			PlayerSettings.ScreenshotFolder = screenshotFolderTextBox.Text;
+			PlayerSettings.ScreenshotExtension = screenshotExtensionComboBox.SelectedItem.ToString();
 
 			// 設定を保存
 			PlayerSettings.Save();

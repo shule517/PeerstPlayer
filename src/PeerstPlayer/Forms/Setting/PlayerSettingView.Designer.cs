@@ -53,6 +53,8 @@ namespace PeerstPlayer.Forms.Setting
 			this.movieStartGroupBox = new System.Windows.Forms.GroupBox();
 			this.movieStartComboBox = new System.Windows.Forms.ComboBox();
 			this.closeGroupBox = new System.Windows.Forms.GroupBox();
+			this.saveReturnSizeCheckBox = new System.Windows.Forms.CheckBox();
+			this.saveReturnPositionCheckBox = new System.Windows.Forms.CheckBox();
 			this.disconnectRealyOnCloseCheckBox = new System.Windows.Forms.CheckBox();
 			this.statusBarGroupBox = new System.Windows.Forms.GroupBox();
 			this.listenerNumberCheckBox = new System.Windows.Forms.CheckBox();
@@ -60,6 +62,9 @@ namespace PeerstPlayer.Forms.Setting
 			this.displayFpsCheckBox = new System.Windows.Forms.CheckBox();
 			this.settingPage2 = new System.Windows.Forms.TabPage();
 			this.screenshotGroupBox = new System.Windows.Forms.GroupBox();
+			this.screenshotExtensionComboBox = new System.Windows.Forms.ComboBox();
+			this.screenshotExtensionLabel = new System.Windows.Forms.Label();
+			this.browseScreenshotFolderButton = new System.Windows.Forms.Button();
 			this.screenshotFolderTextBox = new System.Windows.Forms.TextBox();
 			this.screenshotFolderLabel = new System.Windows.Forms.Label();
 			this.shortcutPage = new System.Windows.Forms.TabPage();
@@ -70,9 +75,6 @@ namespace PeerstPlayer.Forms.Setting
 			this.gestureColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
 			this.saveButton = new System.Windows.Forms.Button();
 			this.cancelButton = new System.Windows.Forms.Button();
-			this.saveReturnPositionCheckBox = new System.Windows.Forms.CheckBox();
-			this.saveReturnSizeCheckBox = new System.Windows.Forms.CheckBox();
-			this.browseScreenshotFolderButton = new System.Windows.Forms.Button();
 			this.folderBrowserDialog = new System.Windows.Forms.FolderBrowserDialog();
 			this.tabControl.SuspendLayout();
 			this.settingPage.SuspendLayout();
@@ -327,6 +329,26 @@ namespace PeerstPlayer.Forms.Setting
 			this.closeGroupBox.TabStop = false;
 			this.closeGroupBox.Text = "終了時";
 			// 
+			// saveReturnSizeCheckBox
+			// 
+			this.saveReturnSizeCheckBox.AutoSize = true;
+			this.saveReturnSizeCheckBox.Location = new System.Drawing.Point(21, 62);
+			this.saveReturnSizeCheckBox.Name = "saveReturnSizeCheckBox";
+			this.saveReturnSizeCheckBox.Size = new System.Drawing.Size(148, 16);
+			this.saveReturnSizeCheckBox.TabIndex = 0;
+			this.saveReturnSizeCheckBox.Text = "ウィンドウサイズを保存する";
+			this.saveReturnSizeCheckBox.UseVisualStyleBackColor = true;
+			// 
+			// saveReturnPositionCheckBox
+			// 
+			this.saveReturnPositionCheckBox.AutoSize = true;
+			this.saveReturnPositionCheckBox.Location = new System.Drawing.Point(21, 40);
+			this.saveReturnPositionCheckBox.Name = "saveReturnPositionCheckBox";
+			this.saveReturnPositionCheckBox.Size = new System.Drawing.Size(143, 16);
+			this.saveReturnPositionCheckBox.TabIndex = 0;
+			this.saveReturnPositionCheckBox.Text = "ウィンドウ位置を保存する";
+			this.saveReturnPositionCheckBox.UseVisualStyleBackColor = true;
+			// 
 			// disconnectRealyOnCloseCheckBox
 			// 
 			this.disconnectRealyOnCloseCheckBox.AutoSize = true;
@@ -392,15 +414,49 @@ namespace PeerstPlayer.Forms.Setting
 			// 
 			// screenshotGroupBox
 			// 
+			this.screenshotGroupBox.Controls.Add(this.screenshotExtensionComboBox);
+			this.screenshotGroupBox.Controls.Add(this.screenshotExtensionLabel);
 			this.screenshotGroupBox.Controls.Add(this.browseScreenshotFolderButton);
 			this.screenshotGroupBox.Controls.Add(this.screenshotFolderTextBox);
 			this.screenshotGroupBox.Controls.Add(this.screenshotFolderLabel);
 			this.screenshotGroupBox.Location = new System.Drawing.Point(11, 14);
 			this.screenshotGroupBox.Name = "screenshotGroupBox";
-			this.screenshotGroupBox.Size = new System.Drawing.Size(430, 45);
+			this.screenshotGroupBox.Size = new System.Drawing.Size(430, 65);
 			this.screenshotGroupBox.TabIndex = 0;
 			this.screenshotGroupBox.TabStop = false;
 			this.screenshotGroupBox.Text = "スクリーンショット";
+			// 
+			// screenshotExtensionComboBox
+			// 
+			this.screenshotExtensionComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+			this.screenshotExtensionComboBox.FormattingEnabled = true;
+			this.screenshotExtensionComboBox.Items.AddRange(new object[] {
+            "bmp",
+            "gif",
+            "jpg",
+            "png"});
+			this.screenshotExtensionComboBox.Location = new System.Drawing.Point(107, 37);
+			this.screenshotExtensionComboBox.Name = "screenshotExtensionComboBox";
+			this.screenshotExtensionComboBox.Size = new System.Drawing.Size(76, 20);
+			this.screenshotExtensionComboBox.TabIndex = 4;
+			// 
+			// screenshotExtensionLabel
+			// 
+			this.screenshotExtensionLabel.AutoSize = true;
+			this.screenshotExtensionLabel.Location = new System.Drawing.Point(18, 40);
+			this.screenshotExtensionLabel.Name = "screenshotExtensionLabel";
+			this.screenshotExtensionLabel.Size = new System.Drawing.Size(84, 12);
+			this.screenshotExtensionLabel.TabIndex = 3;
+			this.screenshotExtensionLabel.Text = "保存する拡張子";
+			// 
+			// browseScreenshotFolderButton
+			// 
+			this.browseScreenshotFolderButton.Location = new System.Drawing.Point(374, 13);
+			this.browseScreenshotFolderButton.Name = "browseScreenshotFolderButton";
+			this.browseScreenshotFolderButton.Size = new System.Drawing.Size(42, 23);
+			this.browseScreenshotFolderButton.TabIndex = 2;
+			this.browseScreenshotFolderButton.Text = "参照";
+			this.browseScreenshotFolderButton.UseVisualStyleBackColor = true;
 			// 
 			// screenshotFolderTextBox
 			// 
@@ -497,35 +553,6 @@ namespace PeerstPlayer.Forms.Setting
 			this.cancelButton.UseVisualStyleBackColor = true;
 			this.cancelButton.Click += new System.EventHandler(this.cancelButton_Click);
 			// 
-			// browseScreenshotFolderButton
-			// 
-			this.browseScreenshotFolderButton.Location = new System.Drawing.Point(374, 13);
-			this.browseScreenshotFolderButton.Name = "browseScreenshotFolderButton";
-			this.browseScreenshotFolderButton.Size = new System.Drawing.Size(42, 23);
-			this.browseScreenshotFolderButton.TabIndex = 2;
-			this.browseScreenshotFolderButton.Text = "参照";
-			this.browseScreenshotFolderButton.UseVisualStyleBackColor = true;
-			// 
-			// saveReturnPositionCheckBox
-			// 
-			this.saveReturnPositionCheckBox.AutoSize = true;
-			this.saveReturnPositionCheckBox.Location = new System.Drawing.Point(21, 40);
-			this.saveReturnPositionCheckBox.Name = "saveReturnPositionCheckBox";
-			this.saveReturnPositionCheckBox.Size = new System.Drawing.Size(143, 16);
-			this.saveReturnPositionCheckBox.TabIndex = 0;
-			this.saveReturnPositionCheckBox.Text = "ウィンドウ位置を保存する";
-			this.saveReturnPositionCheckBox.UseVisualStyleBackColor = true;
-			// 
-			// saveReturnSizeCheckBox
-			// 
-			this.saveReturnSizeCheckBox.AutoSize = true;
-			this.saveReturnSizeCheckBox.Location = new System.Drawing.Point(21, 62);
-			this.saveReturnSizeCheckBox.Name = "saveReturnSizeCheckBox";
-			this.saveReturnSizeCheckBox.Size = new System.Drawing.Size(148, 16);
-			this.saveReturnSizeCheckBox.TabIndex = 0;
-			this.saveReturnSizeCheckBox.Text = "ウィンドウサイズを保存する";
-			this.saveReturnSizeCheckBox.UseVisualStyleBackColor = true;
-			// 
 			// PlayerSettingView
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -605,6 +632,8 @@ namespace PeerstPlayer.Forms.Setting
 		private System.Windows.Forms.Label screenshotFolderLabel;
 		private System.Windows.Forms.Button browseScreenshotFolderButton;
 		private System.Windows.Forms.FolderBrowserDialog folderBrowserDialog;
+		private System.Windows.Forms.ComboBox screenshotExtensionComboBox;
+		private System.Windows.Forms.Label screenshotExtensionLabel;
 
 	}
 }

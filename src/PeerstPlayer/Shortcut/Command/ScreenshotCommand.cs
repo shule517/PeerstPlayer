@@ -36,9 +36,12 @@ namespace PeerstPlayer.Shortcut.Command
 					var location = pecaPlayer.Location;
 					var screenPoint = pecaPlayer.PointToScreen(location);
 					graphics.CopyFromScreen(screenPoint.X, screenPoint.Y, 0, 0, image.Size);
-					var name = string.Format("{0}/{1}.png",
-						PlayerSettings.ScreenshotFolder, DateTime.Now.ToString("yyyyMMdd_HHmmss"));
-					image.Save(name);
+
+					var format = GetImageFormat(PlayerSettings.ScreenshotExtension);
+					var name = string.Format("{0}/{1}.{2}",
+						PlayerSettings.ScreenshotFolder, DateTime.Now.ToString("yyyyMMdd_HHmmss"), format.ToString().ToLower());
+					image.Save(name, format);
+					
 				}
 			};
 		}
@@ -51,6 +54,24 @@ namespace PeerstPlayer.Shortcut.Command
 		string IShortcutCommand.GetDetail(CommandArgs commandArgs)
 		{
 			return "スクリーンショット";
+		}
+
+		private ImageFormat GetImageFormat(string extension)
+		{
+			switch (extension)
+			{
+				case "bmp":
+					return ImageFormat.Bmp;
+				case "jpg":
+				case "jpeg":
+					return ImageFormat.Jpeg;
+				case "gif":
+					return ImageFormat.Gif;
+				case "png":
+					return ImageFormat.Png;
+				default:
+					return ImageFormat.Png;
+			}
 		}
 	}
 }

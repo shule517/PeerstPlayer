@@ -220,6 +220,15 @@ namespace PeerstPlayer.Forms.Player
 			set { info.ScreenshotFolder = value; }
 		}
 
+		/// <summary>
+		/// スクリーンショットの保存形式
+		/// </summary>
+		public static string ScreenshotExtension
+		{
+			get { return info.ScreenshotExtension; }
+			set { info.ScreenshotExtension = value; }
+		}
+
 		static PlayerSettings()
 		{
 		}
