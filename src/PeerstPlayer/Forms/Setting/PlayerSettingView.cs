@@ -108,6 +108,9 @@ namespace PeerstPlayer.Forms.Setting
 				{
 					screenshotExtensionComboBox.SelectedIndex = screenshotExtensionComboBox.FindString("png");
 				}
+				// 書式
+				screenshotFormatTextBox.Text = PlayerSettings.ScreenshotFormat;
+				screenshotSampleTextBox.Text = Shortcut.Command.ScreenshotCommand.Format(screenshotFormatTextBox.Text, null);
 
 				// 動画再生開始時のコマンド
 				movieStartComboBox.Items.Clear();
@@ -142,6 +145,31 @@ namespace PeerstPlayer.Forms.Setting
 					screenshotFolderTextBox.Text = folderBrowserDialog.SelectedPath;
 				}
 			};
+
+			// スクリーンショットファイル名の書式
+			screenshotFormatTextBox.TextChanged += (sender, args) =>
+			{
+				screenshotSampleTextBox.Text = Shortcut.Command.ScreenshotCommand.Format(screenshotFormatTextBox.Text, null);
+			};
+			// 書式の補助メニュー
+			screenshotFormatButton.Click += (sender, args) => screenshotContextMenuStrip.Show(screenshotFormatButton, 0, 0);
+			Action<string> formatHelper = (x) =>
+			{
+				// 選択されているテキストの位置を取得しておく
+				var selectionStart = screenshotFormatTextBox.SelectionStart;
+				screenshotFormatTextBox.Text = screenshotFormatTextBox.Text.Insert(screenshotFormatTextBox.SelectionStart, x);
+				// 追加した文字列の後ろにカーソルを移動
+				screenshotFormatTextBox.SelectionStart = selectionStart + x.Length;
+				screenshotFormatTextBox.Focus();
+			};
+			year2ToolStripMenuItem.Click += (sender, args) => formatHelper("yy");
+			year4ToolStripMenuItem.Click += (sender, args) => formatHelper("yyyy");
+			monthToolStripMenuItem.Click += (sender, args) => formatHelper("MM");
+			dayToolStripMenuItem.Click += (sender, args) => formatHelper("dd");
+			hourToolStripMenuItem.Click += (sender, args) => formatHelper("hh");
+			minuteToolStripMenuItem.Click += (sender, args) => formatHelper("mm");
+			secondToolStripMenuItem.Click += (sender, args) => formatHelper("ss");
+			channelNameToolStripMenuItem.Click += (sender, args) => formatHelper("$0");
 
 			// Tab遷移しないようにする
 			shortcutListView.PreviewKeyDown += (sender, e) => e.IsInputKey = true;
@@ -373,6 +401,7 @@ namespace PeerstPlayer.Forms.Setting
 			// スクリーンショット
 			PlayerSettings.ScreenshotFolder = screenshotFolderTextBox.Text;
 			PlayerSettings.ScreenshotExtension = screenshotExtensionComboBox.SelectedItem.ToString();
+			PlayerSettings.ScreenshotFormat = screenshotFormatTextBox.Text;
 
 			// 設定を保存
 			PlayerSettings.Save();

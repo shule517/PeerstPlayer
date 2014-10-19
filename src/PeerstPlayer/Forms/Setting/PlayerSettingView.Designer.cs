@@ -29,6 +29,7 @@ namespace PeerstPlayer.Forms.Setting
 		/// </summary>
 		private void InitializeComponent()
 		{
+			this.components = new System.ComponentModel.Container();
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(PlayerSettingView));
 			this.tabControl = new System.Windows.Forms.TabControl();
 			this.settingPage = new System.Windows.Forms.TabPage();
@@ -62,6 +63,10 @@ namespace PeerstPlayer.Forms.Setting
 			this.displayFpsCheckBox = new System.Windows.Forms.CheckBox();
 			this.settingPage2 = new System.Windows.Forms.TabPage();
 			this.screenshotGroupBox = new System.Windows.Forms.GroupBox();
+			this.screenshotSampleTextBox = new System.Windows.Forms.TextBox();
+			this.screenshotFormatButton = new System.Windows.Forms.Button();
+			this.screenshotFormatTextBox = new System.Windows.Forms.TextBox();
+			this.screenshotFormatLabel = new System.Windows.Forms.Label();
 			this.screenshotExtensionComboBox = new System.Windows.Forms.ComboBox();
 			this.screenshotExtensionLabel = new System.Windows.Forms.Label();
 			this.browseScreenshotFolderButton = new System.Windows.Forms.Button();
@@ -76,6 +81,15 @@ namespace PeerstPlayer.Forms.Setting
 			this.saveButton = new System.Windows.Forms.Button();
 			this.cancelButton = new System.Windows.Forms.Button();
 			this.folderBrowserDialog = new System.Windows.Forms.FolderBrowserDialog();
+			this.screenshotContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
+			this.year2ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.year4ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.monthToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.dayToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.hourToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.minuteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.secondToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.channelNameToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.tabControl.SuspendLayout();
 			this.settingPage.SuspendLayout();
 			this.volumeChangeGroupBox.SuspendLayout();
@@ -87,6 +101,7 @@ namespace PeerstPlayer.Forms.Setting
 			this.settingPage2.SuspendLayout();
 			this.screenshotGroupBox.SuspendLayout();
 			this.shortcutPage.SuspendLayout();
+			this.screenshotContextMenuStrip.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// tabControl
@@ -414,6 +429,10 @@ namespace PeerstPlayer.Forms.Setting
 			// 
 			// screenshotGroupBox
 			// 
+			this.screenshotGroupBox.Controls.Add(this.screenshotSampleTextBox);
+			this.screenshotGroupBox.Controls.Add(this.screenshotFormatButton);
+			this.screenshotGroupBox.Controls.Add(this.screenshotFormatTextBox);
+			this.screenshotGroupBox.Controls.Add(this.screenshotFormatLabel);
 			this.screenshotGroupBox.Controls.Add(this.screenshotExtensionComboBox);
 			this.screenshotGroupBox.Controls.Add(this.screenshotExtensionLabel);
 			this.screenshotGroupBox.Controls.Add(this.browseScreenshotFolderButton);
@@ -421,10 +440,43 @@ namespace PeerstPlayer.Forms.Setting
 			this.screenshotGroupBox.Controls.Add(this.screenshotFolderLabel);
 			this.screenshotGroupBox.Location = new System.Drawing.Point(11, 14);
 			this.screenshotGroupBox.Name = "screenshotGroupBox";
-			this.screenshotGroupBox.Size = new System.Drawing.Size(430, 65);
+			this.screenshotGroupBox.Size = new System.Drawing.Size(430, 116);
 			this.screenshotGroupBox.TabIndex = 0;
 			this.screenshotGroupBox.TabStop = false;
 			this.screenshotGroupBox.Text = "スクリーンショット";
+			// 
+			// screenshotSampleTextBox
+			// 
+			this.screenshotSampleTextBox.Location = new System.Drawing.Point(107, 81);
+			this.screenshotSampleTextBox.Name = "screenshotSampleTextBox";
+			this.screenshotSampleTextBox.ReadOnly = true;
+			this.screenshotSampleTextBox.Size = new System.Drawing.Size(250, 19);
+			this.screenshotSampleTextBox.TabIndex = 8;
+			// 
+			// screenshotFormatButton
+			// 
+			this.screenshotFormatButton.Location = new System.Drawing.Point(374, 57);
+			this.screenshotFormatButton.Name = "screenshotFormatButton";
+			this.screenshotFormatButton.Size = new System.Drawing.Size(42, 23);
+			this.screenshotFormatButton.TabIndex = 7;
+			this.screenshotFormatButton.Text = "書式";
+			this.screenshotFormatButton.UseVisualStyleBackColor = true;
+			// 
+			// screenshotFormatTextBox
+			// 
+			this.screenshotFormatTextBox.Location = new System.Drawing.Point(107, 59);
+			this.screenshotFormatTextBox.Name = "screenshotFormatTextBox";
+			this.screenshotFormatTextBox.Size = new System.Drawing.Size(250, 19);
+			this.screenshotFormatTextBox.TabIndex = 6;
+			// 
+			// screenshotFormatLabel
+			// 
+			this.screenshotFormatLabel.AutoSize = true;
+			this.screenshotFormatLabel.Location = new System.Drawing.Point(50, 62);
+			this.screenshotFormatLabel.Name = "screenshotFormatLabel";
+			this.screenshotFormatLabel.Size = new System.Drawing.Size(51, 12);
+			this.screenshotFormatLabel.TabIndex = 5;
+			this.screenshotFormatLabel.Text = "ファイル名";
 			// 
 			// screenshotExtensionComboBox
 			// 
@@ -553,6 +605,69 @@ namespace PeerstPlayer.Forms.Setting
 			this.cancelButton.UseVisualStyleBackColor = true;
 			this.cancelButton.Click += new System.EventHandler(this.cancelButton_Click);
 			// 
+			// screenshotContextMenuStrip
+			// 
+			this.screenshotContextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.year2ToolStripMenuItem,
+            this.year4ToolStripMenuItem,
+            this.monthToolStripMenuItem,
+            this.dayToolStripMenuItem,
+            this.hourToolStripMenuItem,
+            this.minuteToolStripMenuItem,
+            this.secondToolStripMenuItem,
+            this.channelNameToolStripMenuItem});
+			this.screenshotContextMenuStrip.Name = "screenshotContextMenuStrip";
+			this.screenshotContextMenuStrip.Size = new System.Drawing.Size(153, 202);
+			// 
+			// year2ToolStripMenuItem
+			// 
+			this.year2ToolStripMenuItem.Font = new System.Drawing.Font("MS UI Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+			this.year2ToolStripMenuItem.Name = "year2ToolStripMenuItem";
+			this.year2ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+			this.year2ToolStripMenuItem.Text = "年(2桁)";
+			// 
+			// year4ToolStripMenuItem
+			// 
+			this.year4ToolStripMenuItem.Name = "year4ToolStripMenuItem";
+			this.year4ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+			this.year4ToolStripMenuItem.Text = "年(4桁)";
+			// 
+			// monthToolStripMenuItem
+			// 
+			this.monthToolStripMenuItem.Name = "monthToolStripMenuItem";
+			this.monthToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+			this.monthToolStripMenuItem.Text = "月";
+			// 
+			// dayToolStripMenuItem
+			// 
+			this.dayToolStripMenuItem.Name = "dayToolStripMenuItem";
+			this.dayToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+			this.dayToolStripMenuItem.Text = "日";
+			// 
+			// hourToolStripMenuItem
+			// 
+			this.hourToolStripMenuItem.Name = "hourToolStripMenuItem";
+			this.hourToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+			this.hourToolStripMenuItem.Text = "時間";
+			// 
+			// minuteToolStripMenuItem
+			// 
+			this.minuteToolStripMenuItem.Name = "minuteToolStripMenuItem";
+			this.minuteToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+			this.minuteToolStripMenuItem.Text = "分";
+			// 
+			// secondToolStripMenuItem
+			// 
+			this.secondToolStripMenuItem.Name = "secondToolStripMenuItem";
+			this.secondToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+			this.secondToolStripMenuItem.Text = "秒";
+			// 
+			// channelNameToolStripMenuItem
+			// 
+			this.channelNameToolStripMenuItem.Name = "channelNameToolStripMenuItem";
+			this.channelNameToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+			this.channelNameToolStripMenuItem.Text = "チャンネル名";
+			// 
 			// PlayerSettingView
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -582,6 +697,7 @@ namespace PeerstPlayer.Forms.Setting
 			this.screenshotGroupBox.PerformLayout();
 			this.shortcutPage.ResumeLayout(false);
 			this.shortcutPage.PerformLayout();
+			this.screenshotContextMenuStrip.ResumeLayout(false);
 			this.ResumeLayout(false);
 
 		}
@@ -634,6 +750,19 @@ namespace PeerstPlayer.Forms.Setting
 		private System.Windows.Forms.FolderBrowserDialog folderBrowserDialog;
 		private System.Windows.Forms.ComboBox screenshotExtensionComboBox;
 		private System.Windows.Forms.Label screenshotExtensionLabel;
+		private System.Windows.Forms.TextBox screenshotSampleTextBox;
+		private System.Windows.Forms.Button screenshotFormatButton;
+		private System.Windows.Forms.TextBox screenshotFormatTextBox;
+		private System.Windows.Forms.Label screenshotFormatLabel;
+		private System.Windows.Forms.ContextMenuStrip screenshotContextMenuStrip;
+		private System.Windows.Forms.ToolStripMenuItem year2ToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem year4ToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem monthToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem dayToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem hourToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem minuteToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem secondToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem channelNameToolStripMenuItem;
 
 	}
 }

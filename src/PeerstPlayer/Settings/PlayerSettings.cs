@@ -229,6 +229,15 @@ namespace PeerstPlayer.Forms.Player
 			set { info.ScreenshotExtension = value; }
 		}
 
+		/// <summary>
+		/// スクリーンショットファイル名の書式
+		/// </summary>
+		public static string ScreenshotFormat
+		{
+			get { return info.ScreenshotFormat; }
+			set { info.ScreenshotFormat = value; }
+		}
+
 		static PlayerSettings()
 		{
 		}

@@ -123,6 +123,11 @@ namespace PeerstPlayer.Settings
 		/// </summary>
 		public string ScreenshotExtension = "png";
 
+		/// <summary>
+		/// スクリーンショットファイル名の書式
+		/// </summary>
+		public string ScreenshotFormat = "yyyyMMdd_HHmmss";
+
 		// - ステータスバーフォント : Font
 		// - ステータスバー表示項目 : List
 		// - 終了時位置保存 : boolean
