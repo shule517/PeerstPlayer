@@ -223,7 +223,7 @@ package
 				var streamUrl:String = urlLoader.data;
 
 				// 動画を再生
-				netStr.play(streamUrl);
+				netStr.play(streamUrl + "?" + new Date().getTime());
 
 				// Videoをステージサイズにする
 				video.width = stage.stageWidth;
