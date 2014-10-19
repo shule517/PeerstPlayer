@@ -40,7 +40,6 @@
 			this.webBrowser.ScriptErrorsSuppressed = true;
 			this.webBrowser.Size = new System.Drawing.Size(150, 150);
 			this.webBrowser.TabIndex = 0;
-			this.webBrowser.NewWindow3 += new PeerstViewer.Controls.WebBRowserNewWindow3EventHandler(this.webBrowser_NewWindow3);
 			// 
 			// ThreadViewerControl
 			// 

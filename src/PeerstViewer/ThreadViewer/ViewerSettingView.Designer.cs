@@ -28,66 +28,38 @@
 		/// </summary>
 		private void InitializeComponent()
 		{
+			this.components = new System.ComponentModel.Container();
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ViewerSettingView));
 			this.initGroupBox = new System.Windows.Forms.GroupBox();
-			this.closeGroupBox = new System.Windows.Forms.GroupBox();
-			this.tabControl1 = new System.Windows.Forms.TabControl();
-			this.tabPage1 = new System.Windows.Forms.TabPage();
 			this.returnSizeOnStartCheckBox = new System.Windows.Forms.CheckBox();
 			this.returnPositionOnStartCheckBox = new System.Windows.Forms.CheckBox();
+			this.closeGroupBox = new System.Windows.Forms.GroupBox();
 			this.saveReturnSizeCheckBox = new System.Windows.Forms.CheckBox();
 			this.saveReturnPositionCheckBox = new System.Windows.Forms.CheckBox();
+			this.tabControl1 = new System.Windows.Forms.TabControl();
+			this.tabPage1 = new System.Windows.Forms.TabPage();
+			this.threadViewerGroupBox = new System.Windows.Forms.GroupBox();
+			this.openLinkBrowserCheckBox = new System.Windows.Forms.CheckBox();
 			this.saveButton = new System.Windows.Forms.Button();
 			this.cancelButton = new System.Windows.Forms.Button();
+			this.toolTip = new System.Windows.Forms.ToolTip(this.components);
 			this.initGroupBox.SuspendLayout();
 			this.closeGroupBox.SuspendLayout();
 			this.tabControl1.SuspendLayout();
 			this.tabPage1.SuspendLayout();
+			this.threadViewerGroupBox.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// initGroupBox
 			// 
 			this.initGroupBox.Controls.Add(this.returnSizeOnStartCheckBox);
 			this.initGroupBox.Controls.Add(this.returnPositionOnStartCheckBox);
-			this.initGroupBox.Location = new System.Drawing.Point(8, 6);
+			this.initGroupBox.Location = new System.Drawing.Point(232, 6);
 			this.initGroupBox.Name = "initGroupBox";
 			this.initGroupBox.Size = new System.Drawing.Size(210, 70);
 			this.initGroupBox.TabIndex = 0;
 			this.initGroupBox.TabStop = false;
 			this.initGroupBox.Text = "初期表示";
-			// 
-			// closeGroupBox
-			// 
-			this.closeGroupBox.Controls.Add(this.saveReturnSizeCheckBox);
-			this.closeGroupBox.Controls.Add(this.saveReturnPositionCheckBox);
-			this.closeGroupBox.Location = new System.Drawing.Point(8, 82);
-			this.closeGroupBox.Name = "closeGroupBox";
-			this.closeGroupBox.Size = new System.Drawing.Size(210, 70);
-			this.closeGroupBox.TabIndex = 1;
-			this.closeGroupBox.TabStop = false;
-			this.closeGroupBox.Text = "終了時";
-			// 
-			// tabControl1
-			// 
-			this.tabControl1.Controls.Add(this.tabPage1);
-			this.tabControl1.Dock = System.Windows.Forms.DockStyle.Top;
-			this.tabControl1.Location = new System.Drawing.Point(0, 0);
-			this.tabControl1.Name = "tabControl1";
-			this.tabControl1.SelectedIndex = 0;
-			this.tabControl1.Size = new System.Drawing.Size(461, 362);
-			this.tabControl1.TabIndex = 2;
-			// 
-			// tabPage1
-			// 
-			this.tabPage1.Controls.Add(this.closeGroupBox);
-			this.tabPage1.Controls.Add(this.initGroupBox);
-			this.tabPage1.Location = new System.Drawing.Point(4, 22);
-			this.tabPage1.Name = "tabPage1";
-			this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-			this.tabPage1.Size = new System.Drawing.Size(453, 336);
-			this.tabPage1.TabIndex = 0;
-			this.tabPage1.Text = "tabPage1";
-			this.tabPage1.UseVisualStyleBackColor = true;
 			// 
 			// returnSizeOnStartCheckBox
 			// 
@@ -109,6 +81,17 @@
 			this.returnPositionOnStartCheckBox.Text = "ウィンドウ位置を復帰する";
 			this.returnPositionOnStartCheckBox.UseVisualStyleBackColor = true;
 			// 
+			// closeGroupBox
+			// 
+			this.closeGroupBox.Controls.Add(this.saveReturnSizeCheckBox);
+			this.closeGroupBox.Controls.Add(this.saveReturnPositionCheckBox);
+			this.closeGroupBox.Location = new System.Drawing.Point(232, 82);
+			this.closeGroupBox.Name = "closeGroupBox";
+			this.closeGroupBox.Size = new System.Drawing.Size(210, 70);
+			this.closeGroupBox.TabIndex = 1;
+			this.closeGroupBox.TabStop = false;
+			this.closeGroupBox.Text = "終了時";
+			// 
 			// saveReturnSizeCheckBox
 			// 
 			this.saveReturnSizeCheckBox.AutoSize = true;
@@ -128,6 +111,49 @@
 			this.saveReturnPositionCheckBox.TabIndex = 3;
 			this.saveReturnPositionCheckBox.Text = "ウィンドウ位置を保存する";
 			this.saveReturnPositionCheckBox.UseVisualStyleBackColor = true;
+			// 
+			// tabControl1
+			// 
+			this.tabControl1.Controls.Add(this.tabPage1);
+			this.tabControl1.Dock = System.Windows.Forms.DockStyle.Top;
+			this.tabControl1.Location = new System.Drawing.Point(0, 0);
+			this.tabControl1.Name = "tabControl1";
+			this.tabControl1.SelectedIndex = 0;
+			this.tabControl1.Size = new System.Drawing.Size(461, 362);
+			this.tabControl1.TabIndex = 2;
+			// 
+			// tabPage1
+			// 
+			this.tabPage1.Controls.Add(this.threadViewerGroupBox);
+			this.tabPage1.Controls.Add(this.closeGroupBox);
+			this.tabPage1.Controls.Add(this.initGroupBox);
+			this.tabPage1.Location = new System.Drawing.Point(4, 22);
+			this.tabPage1.Name = "tabPage1";
+			this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
+			this.tabPage1.Size = new System.Drawing.Size(453, 336);
+			this.tabPage1.TabIndex = 0;
+			this.tabPage1.Text = "tabPage1";
+			this.tabPage1.UseVisualStyleBackColor = true;
+			// 
+			// threadViewerGroupBox
+			// 
+			this.threadViewerGroupBox.Controls.Add(this.openLinkBrowserCheckBox);
+			this.threadViewerGroupBox.Location = new System.Drawing.Point(8, 6);
+			this.threadViewerGroupBox.Name = "threadViewerGroupBox";
+			this.threadViewerGroupBox.Size = new System.Drawing.Size(210, 70);
+			this.threadViewerGroupBox.TabIndex = 2;
+			this.threadViewerGroupBox.TabStop = false;
+			this.threadViewerGroupBox.Text = "スレッドビューア";
+			// 
+			// openLinkBrowserCheckBox
+			// 
+			this.openLinkBrowserCheckBox.AutoSize = true;
+			this.openLinkBrowserCheckBox.Location = new System.Drawing.Point(18, 18);
+			this.openLinkBrowserCheckBox.Name = "openLinkBrowserCheckBox";
+			this.openLinkBrowserCheckBox.Size = new System.Drawing.Size(121, 16);
+			this.openLinkBrowserCheckBox.TabIndex = 1;
+			this.openLinkBrowserCheckBox.Text = "リンクをブラウザで開く";
+			this.openLinkBrowserCheckBox.UseVisualStyleBackColor = true;
 			// 
 			// saveButton
 			// 
@@ -149,6 +175,10 @@
 			this.cancelButton.UseVisualStyleBackColor = true;
 			this.cancelButton.Click += new System.EventHandler(this.cancelButton_Click);
 			// 
+			// toolTip
+			// 
+			this.toolTip.ShowAlways = true;
+			// 
 			// ViewerSettingView
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -166,6 +196,8 @@
 			this.closeGroupBox.PerformLayout();
 			this.tabControl1.ResumeLayout(false);
 			this.tabPage1.ResumeLayout(false);
+			this.threadViewerGroupBox.ResumeLayout(false);
+			this.threadViewerGroupBox.PerformLayout();
 			this.ResumeLayout(false);
 
 		}
@@ -182,5 +214,8 @@
 		private System.Windows.Forms.CheckBox saveReturnPositionCheckBox;
 		private System.Windows.Forms.Button saveButton;
 		private System.Windows.Forms.Button cancelButton;
+		private System.Windows.Forms.GroupBox threadViewerGroupBox;
+		private System.Windows.Forms.ToolTip toolTip;
+		private System.Windows.Forms.CheckBox openLinkBrowserCheckBox;
 	}
 }

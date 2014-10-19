@@ -75,6 +75,15 @@ namespace PeerstViewer.Settings
 			set { info.SaveReturnSizeOnClose = value; }
 		}
 
+		/// <summary>
+		/// リンクをブラウザで開くか
+		/// </summary>
+		public static bool OpenLinkBrowser
+		{
+			get { return info.OpenLinkBrowser; }
+			set { info.OpenLinkBrowser = value; }
+		}
+
 		static ViewerSettings()
 		{
 		}

@@ -33,5 +33,10 @@ namespace PeerstViewer.Settings
 		/// 終了時にウィンドウサイズを保存するか
 		/// </summary>
 		public bool SaveReturnSizeOnClose = false;
+
+		/// <summary>
+		/// リンクをブラウザで開くか
+		/// </summary>
+		public bool OpenLinkBrowser = true;
 	}
 }

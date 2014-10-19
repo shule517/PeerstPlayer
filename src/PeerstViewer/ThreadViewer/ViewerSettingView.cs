@@ -23,11 +23,15 @@ namespace PeerstViewer.ThreadViewer
 			Shown += (sender, e) =>
 			{
 				// チェックボックスの表示
+				openLinkBrowserCheckBox.Checked = ViewerSettings.OpenLinkBrowser;
 				returnPositionOnStartCheckBox.Checked = ViewerSettings.ReturnPositionOnStart;
 				returnSizeOnStartCheckBox.Checked = ViewerSettings.ReturnSizeOnStart;
 				saveReturnPositionCheckBox.Checked = ViewerSettings.SaveReturnPositionOnClose;
 				saveReturnSizeCheckBox.Checked = ViewerSettings.SaveReturnSizeOnClose;
 			};
+
+			// ツールチップ
+			toolTip.SetToolTip(openLinkBrowserCheckBox, "リンクをクリックした時にブラウザで開きます。\nチェックを外した場合でも、新しいウィンドウで開くもしくはShift+クリックでブラウザから開くことができます。");
 		}
 
 		/// <summary>

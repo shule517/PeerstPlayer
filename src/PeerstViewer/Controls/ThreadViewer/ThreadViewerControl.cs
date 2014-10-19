@@ -1,4 +1,6 @@
-﻿using PeerstLib.Util;
+﻿using PeerstLib.Bbs.Data;
+using PeerstLib.Bbs.Util;
+using PeerstLib.Util;
 using System.Drawing;
 using System.Windows.Forms;
 using System.Diagnostics;
@@ -120,6 +122,33 @@ namespace PeerstViewer.Controls.ThreadViewer
 					ScrollPos.Y = ScrollRectangle.Y;
 				};
 			};
+
+			webBrowser.Navigating += (sender, e) =>
+			{
+				if (e.Url.ToString() == "about:blank")
+				{
+					return;
+				}
+				MessageBox.Show(e.Url.ToString());
+				// リンクをブラウザで開くか
+				if (Settings.ViewerSettings.OpenLinkBrowser)
+				{
+					// 掲示板URLの場合はビューアで開く
+					if (BbsUrlAnalyzer.Analyze(e.Url.ToString()).BbsServer != BbsServer.UnSupport)
+					{
+						return;
+					}
+
+					Process.Start(e.Url.ToString());
+					e.Cancel = true;
+				}
+			};
+
+			webBrowser.NewWindow3 += (sender, e) =>
+			{
+				Process.Start(e.bstrUrl);
+				e.Cancel = true;
+			};
 		}
 
 		/// <summary>
@@ -138,12 +167,6 @@ namespace PeerstViewer.Controls.ThreadViewer
 		{
 			Logger.Instance.Debug("ScrollToBottom()");
 			webBrowser.Document.Window.ScrollTo(0, ScrollRectangle.Bottom);
-		}
-
-		private void webBrowser_NewWindow3(object sender, WebBrowserNewWindow3EventArgs e)
-		{
-			Process.Start(e.bstrUrl);
-			e.Cancel = true;
 		}
 	}
 }
