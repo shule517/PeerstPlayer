@@ -112,6 +112,9 @@ namespace PeerstPlayer.Forms.Setting
 				screenshotFormatTextBox.Text = PlayerSettings.ScreenshotFormat;
 				screenshotSampleTextBox.Text = Shortcut.Command.ScreenshotCommand.Format(screenshotFormatTextBox.Text, null);
 
+				// スレッド
+				autoReadThreadCheckBox.Checked = PlayerSettings.AutoReadThread;
+
 				// 動画再生開始時のコマンド
 				movieStartComboBox.Items.Clear();
 				foreach (Commands command in movieStartCommandList)
@@ -402,6 +405,9 @@ namespace PeerstPlayer.Forms.Setting
 			PlayerSettings.ScreenshotFolder = screenshotFolderTextBox.Text;
 			PlayerSettings.ScreenshotExtension = screenshotExtensionComboBox.SelectedItem.ToString();
 			PlayerSettings.ScreenshotFormat = screenshotFormatTextBox.Text;
+
+			// スレッド
+			PlayerSettings.AutoReadThread = autoReadThreadCheckBox.Checked;
 
 			// 設定を保存
 			PlayerSettings.Save();

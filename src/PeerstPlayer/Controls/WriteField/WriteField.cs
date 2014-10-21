@@ -1,6 +1,7 @@
 ﻿using PeerstLib.Bbs;
 using PeerstLib.Util;
 using PeerstPlayer.Controls.StatusBar;
+using PeerstPlayer.Forms.Player;
 using PeerstPlayer.Forms.ThreadSelect;
 using System;
 using System.ComponentModel;
@@ -278,6 +279,11 @@ namespace PeerstPlayer.Controls.WriteField
 					if (operationBbs.SelectThread.IsStopThread)
 					{
 						selectThreadLabel.ForeColor = Color.Red;
+						// 自動スレ移動
+						if (PlayerSettings.AutoReadThread && operationBbs.ChangeCandidateThread())
+						{
+							EditThreadTitle();
+						}
 					}
 					else
 					{
@@ -292,6 +298,11 @@ namespace PeerstPlayer.Controls.WriteField
 			else
 			{
 				selectThreadLabel.Text = string.Format("掲示板[ {0} ] スレッドを選択してください", operationBbs.BbsInfo.BbsName);
+				// 自動スレ移動
+				if (PlayerSettings.AutoReadThread && operationBbs.ChangeCandidateThread())
+				{
+					EditThreadTitle();
+				}
 			}
 		}
 

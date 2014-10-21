@@ -128,6 +128,11 @@ namespace PeerstPlayer.Settings
 		/// </summary>
 		public string ScreenshotFormat = "yyyyMMdd_HHmmss";
 
+		/// <summary>
+		/// 自動スレ移動
+		/// </summary>
+		public bool AutoReadThread = false;
+
 		// - ステータスバーフォント : Font
 		// - ステータスバー表示項目 : List
 		// - 終了時位置保存 : boolean

@@ -238,6 +238,12 @@ namespace PeerstPlayer.Forms.Player
 			set { info.ScreenshotFormat = value; }
 		}
 
+		public static bool AutoReadThread
+		{
+			get { return info.AutoReadThread; }
+			set { info.AutoReadThread = value; }
+		}
+
 		static PlayerSettings()
 		{
 		}

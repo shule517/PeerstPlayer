@@ -222,6 +222,28 @@ namespace PeerstLib.Bbs
 		}
 
 		//-------------------------------------------------------------
+		// 概要：次スレ候補を取得する
+		//-------------------------------------------------------------
+		public bool ChangeCandidateThread()
+		{
+			// 埋まっていないスレかつ
+			// スレが選択されていれば、現在のスレより新しいスレかつ
+			// 勢いの高いスレを選ぶ
+			var threads = ThreadList.Where(info => !info.IsStopThread)
+				.Where(info => !ThreadSelected || int.Parse(BbsInfo.ThreadNo) < int.Parse(info.ThreadNo))
+				.OrderByDescending(info => info.ThreadSpeed);
+			// 候補スレッドが無ければ終わり
+			if (threads.Count() == 0)
+			{
+				
+				return false;
+			}
+
+			ChangeThread(threads.First().ThreadNo);
+			return true;
+		}
+
+		//-------------------------------------------------------------
 		// 概要：終了処理
 		//-------------------------------------------------------------
 		public void Close()

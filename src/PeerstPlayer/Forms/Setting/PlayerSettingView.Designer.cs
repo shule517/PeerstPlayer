@@ -90,6 +90,8 @@ namespace PeerstPlayer.Forms.Setting
 			this.minuteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.secondToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.channelNameToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.threadGroupBox = new System.Windows.Forms.GroupBox();
+			this.autoReadThreadCheckBox = new System.Windows.Forms.CheckBox();
 			this.tabControl.SuspendLayout();
 			this.settingPage.SuspendLayout();
 			this.volumeChangeGroupBox.SuspendLayout();
@@ -102,6 +104,7 @@ namespace PeerstPlayer.Forms.Setting
 			this.screenshotGroupBox.SuspendLayout();
 			this.shortcutPage.SuspendLayout();
 			this.screenshotContextMenuStrip.SuspendLayout();
+			this.threadGroupBox.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// tabControl
@@ -418,6 +421,7 @@ namespace PeerstPlayer.Forms.Setting
 			// 
 			// settingPage2
 			// 
+			this.settingPage2.Controls.Add(this.threadGroupBox);
 			this.settingPage2.Controls.Add(this.screenshotGroupBox);
 			this.settingPage2.Location = new System.Drawing.Point(4, 22);
 			this.settingPage2.Name = "settingPage2";
@@ -617,56 +621,76 @@ namespace PeerstPlayer.Forms.Setting
             this.secondToolStripMenuItem,
             this.channelNameToolStripMenuItem});
 			this.screenshotContextMenuStrip.Name = "screenshotContextMenuStrip";
-			this.screenshotContextMenuStrip.Size = new System.Drawing.Size(153, 202);
+			this.screenshotContextMenuStrip.Size = new System.Drawing.Size(129, 180);
 			// 
 			// year2ToolStripMenuItem
 			// 
 			this.year2ToolStripMenuItem.Font = new System.Drawing.Font("MS UI Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
 			this.year2ToolStripMenuItem.Name = "year2ToolStripMenuItem";
-			this.year2ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+			this.year2ToolStripMenuItem.Size = new System.Drawing.Size(128, 22);
 			this.year2ToolStripMenuItem.Text = "年(2桁)";
 			// 
 			// year4ToolStripMenuItem
 			// 
 			this.year4ToolStripMenuItem.Name = "year4ToolStripMenuItem";
-			this.year4ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+			this.year4ToolStripMenuItem.Size = new System.Drawing.Size(128, 22);
 			this.year4ToolStripMenuItem.Text = "年(4桁)";
 			// 
 			// monthToolStripMenuItem
 			// 
 			this.monthToolStripMenuItem.Name = "monthToolStripMenuItem";
-			this.monthToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+			this.monthToolStripMenuItem.Size = new System.Drawing.Size(128, 22);
 			this.monthToolStripMenuItem.Text = "月";
 			// 
 			// dayToolStripMenuItem
 			// 
 			this.dayToolStripMenuItem.Name = "dayToolStripMenuItem";
-			this.dayToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+			this.dayToolStripMenuItem.Size = new System.Drawing.Size(128, 22);
 			this.dayToolStripMenuItem.Text = "日";
 			// 
 			// hourToolStripMenuItem
 			// 
 			this.hourToolStripMenuItem.Name = "hourToolStripMenuItem";
-			this.hourToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+			this.hourToolStripMenuItem.Size = new System.Drawing.Size(128, 22);
 			this.hourToolStripMenuItem.Text = "時間";
 			// 
 			// minuteToolStripMenuItem
 			// 
 			this.minuteToolStripMenuItem.Name = "minuteToolStripMenuItem";
-			this.minuteToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+			this.minuteToolStripMenuItem.Size = new System.Drawing.Size(128, 22);
 			this.minuteToolStripMenuItem.Text = "分";
 			// 
 			// secondToolStripMenuItem
 			// 
 			this.secondToolStripMenuItem.Name = "secondToolStripMenuItem";
-			this.secondToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+			this.secondToolStripMenuItem.Size = new System.Drawing.Size(128, 22);
 			this.secondToolStripMenuItem.Text = "秒";
 			// 
 			// channelNameToolStripMenuItem
 			// 
 			this.channelNameToolStripMenuItem.Name = "channelNameToolStripMenuItem";
-			this.channelNameToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+			this.channelNameToolStripMenuItem.Size = new System.Drawing.Size(128, 22);
 			this.channelNameToolStripMenuItem.Text = "チャンネル名";
+			// 
+			// threadGroupBox
+			// 
+			this.threadGroupBox.Controls.Add(this.autoReadThreadCheckBox);
+			this.threadGroupBox.Location = new System.Drawing.Point(11, 136);
+			this.threadGroupBox.Name = "threadGroupBox";
+			this.threadGroupBox.Size = new System.Drawing.Size(210, 50);
+			this.threadGroupBox.TabIndex = 1;
+			this.threadGroupBox.TabStop = false;
+			this.threadGroupBox.Text = "スレッド";
+			// 
+			// autoReadThreadCheckBox
+			// 
+			this.autoReadThreadCheckBox.AutoSize = true;
+			this.autoReadThreadCheckBox.Location = new System.Drawing.Point(20, 18);
+			this.autoReadThreadCheckBox.Name = "autoReadThreadCheckBox";
+			this.autoReadThreadCheckBox.Size = new System.Drawing.Size(138, 16);
+			this.autoReadThreadCheckBox.TabIndex = 0;
+			this.autoReadThreadCheckBox.Text = "自動スレ移動（仮実装）";
+			this.autoReadThreadCheckBox.UseVisualStyleBackColor = true;
 			// 
 			// PlayerSettingView
 			// 
@@ -698,6 +722,8 @@ namespace PeerstPlayer.Forms.Setting
 			this.shortcutPage.ResumeLayout(false);
 			this.shortcutPage.PerformLayout();
 			this.screenshotContextMenuStrip.ResumeLayout(false);
+			this.threadGroupBox.ResumeLayout(false);
+			this.threadGroupBox.PerformLayout();
 			this.ResumeLayout(false);
 
 		}
@@ -763,6 +789,8 @@ namespace PeerstPlayer.Forms.Setting
 		private System.Windows.Forms.ToolStripMenuItem minuteToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem secondToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem channelNameToolStripMenuItem;
+		private System.Windows.Forms.GroupBox threadGroupBox;
+		private System.Windows.Forms.CheckBox autoReadThreadCheckBox;
 
 	}
 }
