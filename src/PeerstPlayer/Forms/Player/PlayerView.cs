@@ -497,6 +497,39 @@ namespace PeerstPlayer.Forms.Setting
 			functionToolStripMenuItem.DropDownOpening += (sender, e) => topMostToolStripMenuItem.Checked = TopMost;
 			screenshotToolStripMenuItem.Click += (sender, e) => shortcut.ExecCommand(Commands.Screenshot);
 			openScreenshotFolderToolStripMenuItem.Click += (sender, e) => shortcut.ExecCommand(Commands.OpenScreenshotFolder);
+			// ファイルから開く
+			openFromFileToolStripMenuItem.Click += (sender, e) =>
+			{
+				var dialog = new OpenFileDialog();
+				if (dialog.ShowDialog() == DialogResult.OK)
+				{
+					Open(dialog.FileName);
+				}
+			};
+			// URLから開く
+			openFromUrlToolStripTextBox.KeyDown += (sender, e) =>
+			{
+				if (e.KeyCode == Keys.Return)
+				{
+					Open(((ToolStripTextBox)sender).Text);
+					contextMenuStrip.Close();
+				}
+			};
+			// クリップボードから開く
+			openFromClipboardToolStripMenuItem.Click += (sender, e) =>
+			{
+				try
+				{
+					if (Clipboard.ContainsText())
+					{
+						Open(Clipboard.GetText());
+					}
+				}
+				catch (System.Runtime.InteropServices.ExternalException)
+				{
+					MessageBox.Show("クリップボードのオープンに失敗しました");
+				}
+			};
 
 			// 音量
 			volumeUpToolStripMenuItem.Click += (sender, e) => shortcut.ExecCommand(Commands.VolumeUp);
