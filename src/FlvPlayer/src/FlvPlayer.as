@@ -33,6 +33,7 @@ package
 		private var retryTimer:Timer = null;
 		private var volume:String = null;
 		private var retryPrevTime:Number = 0;
+		private var retryFpsCount:Number = 0;
 		
 		public function FlvPlayer(stage:Stage)
 		{
@@ -46,6 +47,9 @@ package
 			// 監視用タイマー
 			retryTimer = new Timer(2000);
 			retryTimer.addEventListener(TimerEvent.TIMER, retryTimerHandler);
+			
+			PlayVideo("http://localhost:7144/pls/FE98BF89583D8E3D1497526D1D4B8644?tip=49.212.134.22:7146");
+			ChangeVolume("0.1");
 		}
 		
 		private function Call(functionName:String, ...args):void
@@ -278,11 +282,23 @@ package
 			{
 				netStr.close();
 				PlayVideo(streamUrl);
+				return;
 			}
-			else
+			// FPS0の状況が続いていれば再接続する(謎の黒画面対策)
+			if (netStr.currentFPS == 0)
 			{
-				retryPrevTime = netStr.time;
+				retryFpsCount++;
+				if (retryFpsCount > 5)
+				{
+					netStr.close();
+					PlayVideo(streamUrl);
+					retryFpsCount = 0;
+				}
+				trace("fpscount++");
+				return;
 			}
+			retryPrevTime = netStr.time;
+			retryFpsCount = 0;
 		}
 	}
 }
