@@ -1,6 +1,7 @@
 ﻿
 using System;
 using System.Drawing;
+using System.IO;
 using PeerstLib.Controls;
 using PeerstLib.Util;
 
@@ -109,7 +110,13 @@ namespace PeerstViewer.Settings
 		/// </summary>
 		public static void Save()
 		{
-			Serializer.Save(filePath, info);
+			try
+			{
+				Serializer.Save(filePath, info);
+			}
+			catch (IOException e)
+			{
+			}
 		}
 	}
 }
