@@ -133,6 +133,11 @@ namespace PeerstPlayer.Settings
 		/// </summary>
 		public bool AutoReadThread = false;
 
+		/// <summary>
+		/// Player終了時にViewerも終了させる
+		/// </summary>
+		public bool ExitedViewerClose = false;
+
 		// - ステータスバーフォント : Font
 		// - ステータスバー表示項目 : List
 		// - 終了時位置保存 : boolean

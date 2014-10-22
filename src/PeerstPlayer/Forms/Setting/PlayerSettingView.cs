@@ -83,6 +83,7 @@ namespace PeerstPlayer.Forms.Setting
 				initVolumeTextBox.Text = PlayerSettings.InitVolume.ToString();
 				saveReturnPositionCheckBox.Checked = PlayerSettings.SaveReturnPositionOnClose;
 				saveReturnSizeCheckBox.Checked = PlayerSettings.SaveReturnSizeOnClose;
+				exitedViewerCloseCheckBox.Checked = PlayerSettings.ExitedViewerClose;
 
 				// チェックボックスの設定(ステータスバー)
 				displayFpsCheckBox.Checked = PlayerSettings.DisplayFps;
@@ -365,7 +366,8 @@ namespace PeerstPlayer.Forms.Setting
 			PlayerSettings.WriteFieldVisible = writeFieldVisibleCheckBox.Checked;
 			PlayerSettings.SaveReturnPositionOnClose = saveReturnPositionCheckBox.Checked;
 			PlayerSettings.SaveReturnSizeOnClose = saveReturnSizeCheckBox.Checked;
-	
+			PlayerSettings.ExitedViewerClose = exitedViewerCloseCheckBox.Checked;
+
 			// チェックボックスの設定(ステータスバー)
 			PlayerSettings.DisplayFps = displayFpsCheckBox.Checked;
 			PlayerSettings.DisplayBitrate = displayBitrateCheckBox.Checked;

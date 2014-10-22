@@ -244,6 +244,15 @@ namespace PeerstPlayer.Forms.Player
 			set { info.AutoReadThread = value; }
 		}
 
+		/// <summary>
+		/// Player終了時にViewerも終了させる
+		/// </summary>
+		public static bool ExitedViewerClose
+		{
+			get { return info.ExitedViewerClose; }
+			set { info.ExitedViewerClose = value; }
+		}
+
 		static PlayerSettings()
 		{
 		}

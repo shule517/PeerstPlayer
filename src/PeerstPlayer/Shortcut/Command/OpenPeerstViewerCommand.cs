@@ -1,9 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using PeerstLib.Controls;
 using PeerstLib.Util;
 using PeerstPlayer.Controls.StatusBar;
+using PeerstPlayer.Forms.Player;
 
 namespace PeerstPlayer.Shortcut.Command
 {
@@ -13,10 +16,22 @@ namespace PeerstPlayer.Shortcut.Command
 	class OpenPeerstViewerCommand : IShortcutCommand
 	{
 		private StatusBarControl statusBar;
+		private List<Process> processes = new List<Process>(); 
 
 		public OpenPeerstViewerCommand(StatusBarControl statusBar)
 		{
 			this.statusBar = statusBar;
+		}
+
+		~OpenPeerstViewerCommand()
+		{
+			if (PlayerSettings.ExitedViewerClose)
+			{
+				foreach (var process in processes.Where(process => !process.HasExited))
+				{
+					process.CloseMainWindow();
+				}
+			}
 		}
 
 		void IShortcutCommand.Execute(CommandArgs commandArgs)
@@ -30,7 +45,7 @@ namespace PeerstPlayer.Shortcut.Command
 
 			try
 			{
-				Process.Start(viewerExePath, param);
+				processes.Add(Process.Start(viewerExePath, param));
 			}
 			catch
 			{

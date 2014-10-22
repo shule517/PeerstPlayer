@@ -62,6 +62,8 @@ namespace PeerstPlayer.Forms.Setting
 			this.displayBitrateCheckBox = new System.Windows.Forms.CheckBox();
 			this.displayFpsCheckBox = new System.Windows.Forms.CheckBox();
 			this.settingPage2 = new System.Windows.Forms.TabPage();
+			this.threadGroupBox = new System.Windows.Forms.GroupBox();
+			this.autoReadThreadCheckBox = new System.Windows.Forms.CheckBox();
 			this.screenshotGroupBox = new System.Windows.Forms.GroupBox();
 			this.screenshotSampleTextBox = new System.Windows.Forms.TextBox();
 			this.screenshotFormatButton = new System.Windows.Forms.Button();
@@ -90,8 +92,7 @@ namespace PeerstPlayer.Forms.Setting
 			this.minuteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.secondToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.channelNameToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.threadGroupBox = new System.Windows.Forms.GroupBox();
-			this.autoReadThreadCheckBox = new System.Windows.Forms.CheckBox();
+			this.exitedViewerCloseCheckBox = new System.Windows.Forms.CheckBox();
 			this.tabControl.SuspendLayout();
 			this.settingPage.SuspendLayout();
 			this.volumeChangeGroupBox.SuspendLayout();
@@ -101,10 +102,10 @@ namespace PeerstPlayer.Forms.Setting
 			this.closeGroupBox.SuspendLayout();
 			this.statusBarGroupBox.SuspendLayout();
 			this.settingPage2.SuspendLayout();
+			this.threadGroupBox.SuspendLayout();
 			this.screenshotGroupBox.SuspendLayout();
 			this.shortcutPage.SuspendLayout();
 			this.screenshotContextMenuStrip.SuspendLayout();
-			this.threadGroupBox.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// tabControl
@@ -337,12 +338,13 @@ namespace PeerstPlayer.Forms.Setting
 			// 
 			// closeGroupBox
 			// 
+			this.closeGroupBox.Controls.Add(this.exitedViewerCloseCheckBox);
 			this.closeGroupBox.Controls.Add(this.saveReturnSizeCheckBox);
 			this.closeGroupBox.Controls.Add(this.saveReturnPositionCheckBox);
 			this.closeGroupBox.Controls.Add(this.disconnectRealyOnCloseCheckBox);
 			this.closeGroupBox.Location = new System.Drawing.Point(231, 155);
 			this.closeGroupBox.Name = "closeGroupBox";
-			this.closeGroupBox.Size = new System.Drawing.Size(210, 90);
+			this.closeGroupBox.Size = new System.Drawing.Size(210, 110);
 			this.closeGroupBox.TabIndex = 4;
 			this.closeGroupBox.TabStop = false;
 			this.closeGroupBox.Text = "終了時";
@@ -430,6 +432,26 @@ namespace PeerstPlayer.Forms.Setting
 			this.settingPage2.TabIndex = 2;
 			this.settingPage2.Text = "各種設定2";
 			this.settingPage2.UseVisualStyleBackColor = true;
+			// 
+			// threadGroupBox
+			// 
+			this.threadGroupBox.Controls.Add(this.autoReadThreadCheckBox);
+			this.threadGroupBox.Location = new System.Drawing.Point(11, 136);
+			this.threadGroupBox.Name = "threadGroupBox";
+			this.threadGroupBox.Size = new System.Drawing.Size(210, 50);
+			this.threadGroupBox.TabIndex = 1;
+			this.threadGroupBox.TabStop = false;
+			this.threadGroupBox.Text = "スレッド";
+			// 
+			// autoReadThreadCheckBox
+			// 
+			this.autoReadThreadCheckBox.AutoSize = true;
+			this.autoReadThreadCheckBox.Location = new System.Drawing.Point(20, 18);
+			this.autoReadThreadCheckBox.Name = "autoReadThreadCheckBox";
+			this.autoReadThreadCheckBox.Size = new System.Drawing.Size(138, 16);
+			this.autoReadThreadCheckBox.TabIndex = 0;
+			this.autoReadThreadCheckBox.Text = "自動スレ移動（仮実装）";
+			this.autoReadThreadCheckBox.UseVisualStyleBackColor = true;
 			// 
 			// screenshotGroupBox
 			// 
@@ -672,25 +694,15 @@ namespace PeerstPlayer.Forms.Setting
 			this.channelNameToolStripMenuItem.Size = new System.Drawing.Size(128, 22);
 			this.channelNameToolStripMenuItem.Text = "チャンネル名";
 			// 
-			// threadGroupBox
+			// exitedViewerCloseCheckBox
 			// 
-			this.threadGroupBox.Controls.Add(this.autoReadThreadCheckBox);
-			this.threadGroupBox.Location = new System.Drawing.Point(11, 136);
-			this.threadGroupBox.Name = "threadGroupBox";
-			this.threadGroupBox.Size = new System.Drawing.Size(210, 50);
-			this.threadGroupBox.TabIndex = 1;
-			this.threadGroupBox.TabStop = false;
-			this.threadGroupBox.Text = "スレッド";
-			// 
-			// autoReadThreadCheckBox
-			// 
-			this.autoReadThreadCheckBox.AutoSize = true;
-			this.autoReadThreadCheckBox.Location = new System.Drawing.Point(20, 18);
-			this.autoReadThreadCheckBox.Name = "autoReadThreadCheckBox";
-			this.autoReadThreadCheckBox.Size = new System.Drawing.Size(138, 16);
-			this.autoReadThreadCheckBox.TabIndex = 0;
-			this.autoReadThreadCheckBox.Text = "自動スレ移動（仮実装）";
-			this.autoReadThreadCheckBox.UseVisualStyleBackColor = true;
+			this.exitedViewerCloseCheckBox.AutoSize = true;
+			this.exitedViewerCloseCheckBox.Location = new System.Drawing.Point(22, 84);
+			this.exitedViewerCloseCheckBox.Name = "exitedViewerCloseCheckBox";
+			this.exitedViewerCloseCheckBox.Size = new System.Drawing.Size(119, 16);
+			this.exitedViewerCloseCheckBox.TabIndex = 1;
+			this.exitedViewerCloseCheckBox.Text = "Viewerも終了させる";
+			this.exitedViewerCloseCheckBox.UseVisualStyleBackColor = true;
 			// 
 			// PlayerSettingView
 			// 
@@ -717,13 +729,13 @@ namespace PeerstPlayer.Forms.Setting
 			this.statusBarGroupBox.ResumeLayout(false);
 			this.statusBarGroupBox.PerformLayout();
 			this.settingPage2.ResumeLayout(false);
+			this.threadGroupBox.ResumeLayout(false);
+			this.threadGroupBox.PerformLayout();
 			this.screenshotGroupBox.ResumeLayout(false);
 			this.screenshotGroupBox.PerformLayout();
 			this.shortcutPage.ResumeLayout(false);
 			this.shortcutPage.PerformLayout();
 			this.screenshotContextMenuStrip.ResumeLayout(false);
-			this.threadGroupBox.ResumeLayout(false);
-			this.threadGroupBox.PerformLayout();
 			this.ResumeLayout(false);
 
 		}
@@ -791,6 +803,7 @@ namespace PeerstPlayer.Forms.Setting
 		private System.Windows.Forms.ToolStripMenuItem channelNameToolStripMenuItem;
 		private System.Windows.Forms.GroupBox threadGroupBox;
 		private System.Windows.Forms.CheckBox autoReadThreadCheckBox;
+		private System.Windows.Forms.CheckBox exitedViewerCloseCheckBox;
 
 	}
 }
