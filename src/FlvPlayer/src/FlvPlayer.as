@@ -41,6 +41,7 @@ package
 		private var prevTime:Number = 0;
 		private var prevBytesLoaded:uint = 0;
 		private var prevBitrate:int = 0;
+		private var playStartTime:Date = null;
 		
 		// 再接続監視タイマー
 		private var retryTimer:Timer = null;
@@ -276,16 +277,15 @@ package
 				return "00:00:00";
 			}
 			
-			var sec:String = new String(Math.floor(netStr.time % 60));
-			var min:String = new String(Math.floor(netStr.time /60 % 60));
-			var hour:String = new String(int(netStr.time / 60 / 60));
-			if (hour.length <= 1)
-			{
-				hour = "0" + hour;
-			}
-			return hour + ":" +
-				("0" + min.toString()).slice(-2) + ":" +
-				("0" + sec.toString()).slice(-2);
+			var time:Date = new Date();
+			time.setTime(time.getTime() - playStartTime.getTime());
+			var totalSecond:int = time.getTime() / 1000;
+			var sec:String = new String(Math.floor(totalSecond % 60));
+			var min:String = new String(Math.floor(totalSecond /60 % 60));
+			var hour:String = new String(int(totalSecond / 60 / 60));
+			return ("0" + hour).slice(-2) + ":" +
+				("0" + min).slice(-2) + ":" +
+				("0" + sec).slice(-2);
 		}
 		
 		// FPS取得
@@ -398,6 +398,7 @@ package
 
 				// 動画を再生
 				netStr.play(streamUrl + "?" + new Date().getTime());
+				playStartTime = new Date();
 				
 				// smoothingを有効にする
 				video.smoothing = true;
@@ -439,6 +440,8 @@ package
 					break;
 				case "NetStream.Buffer.Empty":
 					lastNetEvent = "Buffer.Empty";
+					// 再生時間をリセット
+					playStartTime = new Date();
 					break;
 				case "NetStream.Buffer.Flush":
 					lastNetEvent = "Buffer.Flush";
