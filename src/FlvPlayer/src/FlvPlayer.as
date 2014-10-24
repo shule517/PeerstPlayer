@@ -98,23 +98,20 @@ package
 		private function SwitchVideo():void
 		{
 			// GPUを使う設定にしている、GPUが使用可能である
-			if (enableGpu && stage.stageVideos.length != 0)
-			{
+			if (enableGpu && stage.stageVideos.length != 0) {
 				stageVideo = stage.stageVideos[0];
 				// イベントリスナーをもっていなければ登録する
-				if (!stageVideo.hasEventListener(StageVideoEvent.RENDER_STATE))
-				{
+				if (!stageVideo.hasEventListener(StageVideoEvent.RENDER_STATE)) {
 					stageVideo.addEventListener(StageVideoEvent.RENDER_STATE, function (e:StageVideoEvent):void {
-						switch (e.status)
-						{
-						case VideoStatus.ACCELERATED:
-							break;
-						case VideoStatus.SOFTWARE:
-							break;
-						case VideoStatus.UNAVAILABLE:
-							// StageVideoが利用できない
-							EnableGpu("false");
-							break;
+						switch (e.status) {
+							case VideoStatus.ACCELERATED:
+								break;
+							case VideoStatus.SOFTWARE:
+								break;
+							case VideoStatus.UNAVAILABLE:
+								// StageVideoが利用できない
+								EnableGpu("false");
+								break;
 						}
 					});
 				}
@@ -122,17 +119,13 @@ package
 				// Videoを非表示
 				video.visible = false;
 				video.clear();
-				if (netStr != null)
-				{
+				if (netStr != null) {
 					stageVideo.attachNetStream(netStr);
 					video.attachNetStream(null);
 				}
-			}
-			else
-			{
+			} else {
 				// StageVideoが動いていれば停止させる
-				if (stageVideo != null)
-				{
+				if (stageVideo != null) {
 					if (netStr != null)
 					{
 						stageVideo.attachNetStream(null);
@@ -141,8 +134,7 @@ package
 				}
 				// Videoを表示
 				video.visible = true;
-				if (netStr)
-				{
+				if (netStr) {
 					video.attachNetStream(netStr);
 				}
 			}
@@ -152,8 +144,7 @@ package
 		
 		private function Call(functionName:String, ...args):void
 		{
-			if (ExternalInterface.available)
-			{
+			if (ExternalInterface.available) {
 				ExternalInterface.call.apply(this, [functionName].concat(args));
 			}
 		}
@@ -161,22 +152,16 @@ package
 		// 音量変更
 		public function ChangeVolume(volStr:String):void
 		{
-			if (netStr == null)
-			{
+			if (netStr == null) {
 				return;
 			}
 			
 			volume = parseInt(volStr);
-			if (volume <= 0)
-			{
+			if (volume <= 0){
 				volume = 0;
-			}
-			else if (volume >= 100)
-			{
+			} else if (volume >= 100){
 				volume = 1;
-			}
-			else
-			{
+			} else {
 				volume = volume / 100.0;
 			}
 			netStr.soundTransform = new SoundTransform(volume, pan);
@@ -185,22 +170,16 @@ package
 		// 音量バランス変更
 		public function ChangePan(panStr:String):void
 		{
-			if (netStr == null)
-			{
+			if (netStr == null) {
 				return;
 			}
 			
 			pan = parseInt(panStr);
-			if (pan <= -100)
-			{
+			if (pan <= -100) {
 				pan = -1;
-			}
-			else if (pan >= 100)
-			{
+			} else if (pan >= 100) {
 				pan = 1;
-			}
-			else
-			{
+			} else {
 				pan = pan / 100.0;
 			}
 			netStr.soundTransform = new SoundTransform(volume, pan);
@@ -217,44 +196,34 @@ package
 			var h:Number;
 
 			// ビデオサイズが取得できなければ終わり
-			if (video.videoWidth == 0 && (stageVideo && stageVideo.videoWidth == 0))
-			{
+			if (video.videoWidth == 0 && (stageVideo && stageVideo.videoWidth == 0)) {
 				return;
 			}
 			
-			if (stageVideo)
-			{
+			if (stageVideo) {
 				w = stage.stageWidth / stageVideo.videoWidth;
 				h = stage.stageHeight / stageVideo.videoHeight;
 				// 横の方が長い
-				if (w > h)
-				{
+				if (w > h) {
 					changeWidth = stage.stageHeight * stageVideo.videoWidth / stageVideo.videoHeight;
 					changeHeight = stage.stageHeight;
-				}
 				// 縦の方が長い
-				else
-				{
+				} else {
 					changeWidth = stage.stageWidth;
 					changeHeight = stage.stageWidth * stageVideo.videoHeight / stageVideo.videoWidth;
 				}
 				changeX = stage.stageWidth / 2 - changeWidth / 2;
 				changeY = stage.stageHeight / 2 - changeHeight / 2;
 				stageVideo.viewPort = new Rectangle(changeX, changeY, changeWidth, changeHeight);
-			}
-			else
-			{
+			} else {
 				w = stage.stageWidth / video.videoWidth;
 				h = stage.stageHeight / video.videoHeight;
 				// 横の方が長い
-				if (w > h)
-				{
+				if (w > h) {
 					changeWidth = stage.stageHeight * video.videoWidth / video.videoHeight;
 					changeHeight = stage.stageHeight;
-				}
 				// 縦の方が長い
-				else
-				{
+				} else {
 					changeWidth = stage.stageWidth;
 					changeHeight = stage.stageWidth * video.videoHeight / video.videoWidth;
 				}
@@ -276,8 +245,7 @@ package
 		// 動画幅取得
 		public function GetVideoWidth():String
 		{
-			if (stageVideo != null)
-			{
+			if (stageVideo != null) {
 				return stageVideo.videoWidth.toString();
 			}
 			return video.videoWidth.toString();
@@ -286,8 +254,7 @@ package
 		// 動画高さ取得
 		public function GetVideoHeight():String
 		{
-			if (stageVideo != null)
-			{
+			if (stageVideo != null) {
 				return stageVideo.videoHeight.toString();
 			}
 			return video.videoHeight.toString();
@@ -296,8 +263,7 @@ package
 		// 再生時間取得
 		public function GetDurationString():String
 		{
-			if (netStr == null)
-			{
+			if (netStr == null) {
 				return "00:00:00";
 			}
 			
@@ -315,8 +281,7 @@ package
 		// FPS取得
 		public function GetNowFrameRate():String
 		{
-			if (netStr == null)
-			{
+			if (netStr == null) {
 				return "0";
 			}
 			return int(netStr.currentFPS).toString();
@@ -325,8 +290,7 @@ package
 		// FPS取得
 		public function GetFrameRate():String
 		{
-			if (netStr == null || netStr.info.metaData == null)
-			{
+			if (netStr == null || netStr.info.metaData == null) {
 				return "0";
 			}
 			return netStr.info.metaData["framerate"].toString();
@@ -335,8 +299,7 @@ package
 		// ビットレート取得
 		public function GetNowBitRate():String
 		{
-			if (netStr == null)
-			{
+			if (netStr == null) {
 				return "0";
 			}
 			var diffBytes:uint = netStr.bytesLoaded - prevBytesLoaded;
@@ -353,8 +316,7 @@ package
 		// ビットレート取得
 		public function GetBitRate():String
 		{
-			if (netStr == null || netStr.info.metaData == null)
-			{
+			if (netStr == null || netStr.info.metaData == null) {
 				return "0";
 			}
 			return String(netStr.info.metaData["audiodatarate"] + netStr.info.metaData["videodatarate"]);
@@ -363,12 +325,9 @@ package
 		// GPUを使うかどうか
 		public function EnableGpu(value:String):void
 		{
-			if (value.toLowerCase() === "true")
-			{
+			if (value.toLowerCase() === "true") {
 				enableGpu = true;
-			}
-			else
-			{
+			} else {
 				enableGpu = false;
 			}
 			SwitchVideo();
@@ -401,8 +360,7 @@ package
 			netStr.client = new Object;
 
 			// メタ情報を取得した時の処理
-			netStr.client.onMetaData = function(obj:Object):void
-			{
+			netStr.client.onMetaData = function(obj:Object):void{
 				prevTime = netStr.time;
 				prevBytesLoaded = netStr.bytesLoaded;
 				prevBitrate = netStr.info.metaData["audiodatarate"] + netStr.info.metaData["videodatarate"];
@@ -415,8 +373,7 @@ package
 				Call("OpenStateChange");
 			}
 			
-			urlLoader.addEventListener(Event.COMPLETE, function (event:Event):void
-			{
+			urlLoader.addEventListener(Event.COMPLETE, function (event:Event):void{
 				// ストリームURLを取得
 				var streamUrl:String = urlLoader.data;
 
@@ -427,18 +384,14 @@ package
 				// smoothingを有効にする
 				video.smoothing = true;
 				// videoをステージに追加
-				if (video.parent == null)
-				{
+				if (video.parent == null){
 					stage.addChild(video);
 				}
 				// 再生支援が使えたら使う
-				if (stageVideo != null)
-				{
+				if (stageVideo != null){
 					stageVideo.attachNetStream(netStr);
 					video.visible = false;
-				}
-				else
-				{
+				} else {
 					video.attachNetStream(netStr);
 					video.visible = true;
 				}
@@ -448,8 +401,7 @@ package
 			urlLoader.load(urlRequest);
 			netStr.addEventListener(NetStatusEvent.NET_STATUS, netStatusHandler);
 			
-			if (!retryTimer.running)
-			{
+			if (!retryTimer.running) {
 				retryTimer.start();
 			}
 		}
@@ -457,8 +409,7 @@ package
 		// ネットステータス
 		private function netStatusHandler(event:NetStatusEvent):void
 		{
-			switch (event.info.code)
-			{
+			switch (event.info.code) {
 				case "NetStream.Buffer.Full":
 					lastNetEvent = "Buffer.Full";
 					break;
@@ -486,18 +437,15 @@ package
 		private function retryTimerHandler(event:TimerEvent):void
 		{
 			// NetStream.Buffer.Empty発動時からタイムが進んでいなければリコネクト
-			if (retryPrevTime == netStr.time)
-			{
+			if (retryPrevTime == netStr.time) {
 				netStr.close();
 				PlayVideo(streamUrl);
 				return;
 			}
 			// FPS0の状況が続いていれば再接続する(謎の黒画面対策)
-			if (netStr.currentFPS == 0)
-			{
+			if (netStr.currentFPS == 0) {
 				retryFpsCount++;
-				if (retryFpsCount > 5)
-				{
+				if (retryFpsCount > 5) {
 					trace("retryFps");
 					netStr.close();
 					PlayVideo(streamUrl);
@@ -512,8 +460,7 @@ package
 		
 		private function getEncodeDuration():String
 		{
-			if (netStr == null)
-			{
+			if (netStr == null) {
 				return "00:00:00";
 			}
 			var sec:String = new String(Math.floor(netStr.time % 60));
@@ -527,8 +474,7 @@ package
 		// デバッグ表示用タイマー
 		private function debugTimerHandler(event:TimerEvent):void
 		{
-			if (netStr == null)
-			{
+			if (netStr == null) {
 				return;
 			}
 			
@@ -536,17 +482,13 @@ package
 			text += "<bold>currentFPS</bold>: " + netStr.currentFPS.toFixed(1);
 			text += "\n<bold>time</bold>: " + getEncodeDuration();
 			text += "\n<bold>bufferLength</bold>: " + netStr.bufferLength;
-			if (stageVideo != null)
-			{
+			if (stageVideo != null){
 				text += "\n<bold>currentSize</bold>: " + Math.floor(stageVideo.viewPort.width) +
 					"x" + Math.floor(stageVideo.viewPort.height);
-			}
-			else
-			{
+			} else {
 				text += "\n<bold>currentSize</bold>: " + video.width + "x" + video.height;
 			}
-			if (netStr.info != null)
-			{
+			if (netStr.info != null) {
 				text += "\nvideoSize: " + netStr.info.metaData["width"] + "x" + netStr.info.metaData["height"];
 				text += "\n<bold>framerate</bold>: " + netStr.info.metaData["framerate"];
 				text += "\n<bold>audio</bold>: " + netStr.info.metaData["audiocodecid"] + " " +

@@ -36,10 +36,10 @@ package
 			stage.align = StageAlign.TOP_LEFT;
 
 			// 外部インタフェースの追加
-            if (ExternalInterface.available) {
-                ExternalInterface.addCallback("PlayVideo", flvPlayer.PlayVideo);
-                ExternalInterface.addCallback("SizeChanged", flvPlayer.SizeChanged);
-                ExternalInterface.addCallback("ChangeVolume", flvPlayer.ChangeVolume);
+			if (ExternalInterface.available) {
+				ExternalInterface.addCallback("PlayVideo", flvPlayer.PlayVideo);
+				ExternalInterface.addCallback("SizeChanged", flvPlayer.SizeChanged);
+				ExternalInterface.addCallback("ChangeVolume", flvPlayer.ChangeVolume);
 				ExternalInterface.addCallback("ChangePan", flvPlayer.ChangePan);
 				ExternalInterface.addCallback("GetVideoWidth", flvPlayer.GetVideoWidth);
 				ExternalInterface.addCallback("GetVideoHeight", flvPlayer.GetVideoHeight);
