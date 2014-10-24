@@ -116,6 +116,9 @@ namespace PeerstPlayer.Forms.Setting
 				// スレッド
 				autoReadThreadCheckBox.Checked = PlayerSettings.AutoReadThread;
 
+				// FLV
+				flvGpuCheckBox.Checked = PlayerSettings.Gpu;
+
 				// 動画再生開始時のコマンド
 				movieStartComboBox.Items.Clear();
 				foreach (Commands command in movieStartCommandList)
@@ -410,6 +413,9 @@ namespace PeerstPlayer.Forms.Setting
 
 			// スレッド
 			PlayerSettings.AutoReadThread = autoReadThreadCheckBox.Checked;
+
+			// FLV
+			PlayerSettings.Gpu = flvGpuCheckBox.Checked;
 
 			// 設定を保存
 			PlayerSettings.Save();

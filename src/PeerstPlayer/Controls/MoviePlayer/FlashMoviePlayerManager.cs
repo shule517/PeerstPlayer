@@ -19,6 +19,7 @@ namespace PeerstPlayer.Controls.MoviePlayer
 		private const string GetFrameRateMethod = "GetFrameRate";
 		private const string GetNowBitRateMethod = "GetNowBitRate";
 		private const string GetBitRateMethod = "GetBitRate";
+		private const string EnableGpuMethod = "EnableGpu";
 
 		public FlashMoviePlayerManager(AxShockwaveFlash flash)
 		{
@@ -49,8 +50,19 @@ namespace PeerstPlayer.Controls.MoviePlayer
 				case "OpenStateChange":
 					openStateChange(flash, new EventArgs());
 					break;
+				case "Initialized":
+					initialized(flash, new EventArgs());
+					break;
 			}
 		}
+
+		public event EventHandler Initialized
+		{
+			add { initialized += value; }
+			remove { initialized -= value; }
+		}
+
+		event EventHandler initialized = delegate { }; 
 
 		public event EventHandler OpenStateChange
 		{
@@ -147,6 +159,11 @@ namespace PeerstPlayer.Controls.MoviePlayer
 			int result;
 			int.TryParse(CallFlashMethod(GetBitRateMethod), out result);
 			return result;
+		}
+
+		public void EnableGpu(bool gpu)
+		{
+			CallFlashMethod(EnableGpuMethod, gpu.ToString());
 		}
 
 		/// <summary>

@@ -1,28 +1,39 @@
 package  
 {
+	import flash.display.SimpleButton;
 	import flash.display.Stage;
+	import flash.events.MouseEvent;
+	import flash.events.StageVideoAvailabilityEvent;
 	import flash.events.TimerEvent;
 	import flash.events.Event;
 	import flash.events.NetStatusEvent;
+	import flash.events.StageVideoAvailabilityEvent;
+	import flash.geom.Rectangle;
+	import flash.media.StageVideo;
 	import flash.media.Video;
 	import flash.net.NetConnection;
 	import flash.net.NetStream;
 	import flash.net.URLLoader;
 	import flash.net.URLRequest;
 	import flash.media.SoundTransform;
+	import flash.media.StageVideo;
+	import flash.media.StageVideoAvailability;
 	import flash.external.ExternalInterface;
 	import flash.utils.Timer;
-	
+	import flash.events.StageVideoEvent;
+	import flash.media.VideoStatus
 	/**
 	 * FLV Player
 	 * @author shule517
 	 */
-	public class FlvPlayer 
+	public class FlvPlayer
 	{
 		private var stage:Stage;
 		private var video:Video = new Video();
+		private var stageVideo:StageVideo;
 		private var netStr:NetStream = null;
 		private var streamUrl:String = null;
+		private var enableGpu:Boolean = true;
 		
 		// 前回の時刻など
 		private var prevTime:Number = 0;
@@ -43,13 +54,68 @@ package
 			stage.addEventListener(Event.RESIZE, function (e:Event):void{
 				SizeChanged(stage.stageWidth, stage.stageHeight);
 			});
-			
+			stage.addEventListener(StageVideoAvailabilityEvent.STAGE_VIDEO_AVAILABILITY, function (e:StageVideoAvailabilityEvent):void {
+				SwitchVideo();
+			});
 			// 監視用タイマー
 			retryTimer = new Timer(2000);
 			retryTimer.addEventListener(TimerEvent.TIMER, retryTimerHandler);
-			
-			PlayVideo("http://localhost:7144/pls/FE98BF89583D8E3D1497526D1D4B8644?tip=49.212.134.22:7146");
-			ChangeVolume("0.1");
+		}
+		
+		// StageVideoとVideoの切り替え
+		private function SwitchVideo():void
+		{
+			// GPUを使う設定にしている、GPUが使用可能である
+			if (enableGpu && stage.stageVideos.length != 0)
+			{
+				stageVideo = stage.stageVideos[0];
+				// イベントリスナーをもっていなければ登録する
+				if (!stageVideo.hasEventListener(StageVideoEvent.RENDER_STATE))
+				{
+					stageVideo.addEventListener(StageVideoEvent.RENDER_STATE, function (e:StageVideoEvent):void {
+						switch (e.status)
+						{
+						case VideoStatus.ACCELERATED:
+							break;
+						case VideoStatus.SOFTWARE:
+							break;
+						case VideoStatus.UNAVAILABLE:
+							// StageVideoが利用できない
+							EnableGpu("false");
+							break;
+						}
+					});
+				}
+				
+				// Videoを非表示
+				video.visible = false;
+				video.clear();
+				if (netStr != null)
+				{
+					stageVideo.attachNetStream(netStr);
+					video.attachNetStream(null);
+				}
+			}
+			else
+			{
+				// StageVideoが動いていれば停止させる
+				if (stageVideo != null)
+				{
+					if (netStr != null)
+					{
+						stageVideo.attachNetStream(null);
+					}
+					stageVideo = null;
+				}
+				// Videoを表示
+				video.visible = true;
+				if (netStr)
+				{
+					video.attachNetStream(netStr);
+				}
+			}
+			// 描画する範囲を指定
+			ChangeSize(stage.stageWidth, stage.stageHeight);
 		}
 		
 		private function Call(functionName:String, ...args):void
@@ -86,36 +152,89 @@ package
 		}
 		
 		// サイズ変更
-		public function SizeChanged(width:int, height:int):void
+		public function ChangeSize(width:int, height:int):void
 		{
-			var w:Number = stage.stageWidth / video.videoWidth;
-			var h:Number = stage.stageHeight / video.videoHeight;
+			var changeWidth:Number;
+			var changeHeight:Number;
+			var changeX:Number;
+			var changeY:Number;
+			var w:Number;
+			var h:Number;
 
-			// 横の方が長い
-			if (w > h)
+			// ビデオサイズが取得できなければ終わり
+			if (video.videoWidth == 0 && (stageVideo && stageVideo.videoWidth == 0))
 			{
-				video.width = stage.stageHeight * video.videoWidth / video.videoHeight;
-				video.height = stage.stageHeight;
+				return;
 			}
-			// 縦の方が長い
+			
+			if (stageVideo)
+			{
+				w = stage.stageWidth / stageVideo.videoWidth;
+				h = stage.stageHeight / stageVideo.videoHeight;
+				// 横の方が長い
+				if (w > h)
+				{
+					changeWidth = stage.stageHeight * stageVideo.videoWidth / stageVideo.videoHeight;
+					changeHeight = stage.stageHeight;
+				}
+				// 縦の方が長い
+				else
+				{
+					changeWidth = stage.stageWidth;
+					changeHeight = stage.stageWidth * stageVideo.videoHeight / stageVideo.videoWidth;
+				}
+				changeX = stage.stageWidth / 2 - changeWidth / 2;
+				changeY = stage.stageHeight / 2 - changeHeight / 2;
+				stageVideo.viewPort = new Rectangle(changeX, changeY, changeWidth, changeHeight);
+			}
 			else
 			{
-				video.width = stage.stageWidth;
-				video.height = stage.stageWidth * video.videoHeight / video.videoWidth;
+				w = stage.stageWidth / video.videoWidth;
+				h = stage.stageHeight / video.videoHeight;
+				// 横の方が長い
+				if (w > h)
+				{
+					changeWidth = stage.stageHeight * video.videoWidth / video.videoHeight;
+					changeHeight = stage.stageHeight;
+				}
+				// 縦の方が長い
+				else
+				{
+					changeWidth = stage.stageWidth;
+					changeHeight = stage.stageWidth * video.videoHeight / video.videoWidth;
+				}
+				changeX = stage.stageWidth / 2 - changeWidth / 2;
+				changeY = stage.stageHeight / 2 - changeHeight / 2;
+				video.x = changeX;
+				video.y = changeY;
+				video.width = changeWidth;
+				video.height = changeHeight;
 			}
-			video.x = stage.stageWidth / 2 - video.width / 2;
-			video.y = stage.stageHeight / 2 - video.height / 2;
+		}
+		
+		public function SizeChanged(width:int, height:int):void
+		{
+			ChangeSize(stage.stageWidth, stage.stageHeight);
+			return;
 		}
 		
 		// 動画幅取得
 		public function GetVideoWidth():String
 		{
+			if (stageVideo != null)
+			{
+				return stageVideo.videoWidth.toString();
+			}
 			return video.videoWidth.toString();
 		}
 		
 		// 動画高さ取得
 		public function GetVideoHeight():String
 		{
+			if (stageVideo != null)
+			{
+				return stageVideo.videoHeight.toString();
+			}
 			return video.videoHeight.toString();
 		}
 		
@@ -186,6 +305,21 @@ package
 			}
 			return String(netStr.info.metaData["audiodatarate"] + netStr.info.metaData["videodatarate"]);
 		}
+		
+		// GPUを使うかどうか
+		public function EnableGpu(value:String):void
+		{
+			if (value.toLowerCase() === "true")
+			{
+				enableGpu = true;
+			}
+			else
+			{
+				enableGpu = false;
+			}
+			SwitchVideo();
+		}
+		
 
 		// 動画再生
 		public function PlayVideo(streamUrl:String):void
@@ -228,22 +362,27 @@ package
 
 				// 動画を再生
 				netStr.play(streamUrl + "?" + new Date().getTime());
-
-				// Videoをステージサイズにする
-				video.width = stage.stageWidth;
-				video.height = stage.stageHeight;
-
+				
 				// smoothingを有効にする
 				video.smoothing = true;
-
 				// videoをステージに追加
 				if (video.parent == null)
 				{
 					stage.addChild(video);
 				}
-
-				video.attachNetStream(netStr);
-				video.visible = true;
+				// 再生支援が使えたら使う
+				if (stageVideo != null)
+				{
+					stageVideo.attachNetStream(netStr);
+					video.visible = false;
+				}
+				else
+				{
+					video.attachNetStream(netStr);
+					video.visible = true;
+				}
+				// Videoのサイズを変更する
+				ChangeSize(stage.stageWidth, stage.stageHeight);
 			});
 			urlLoader.load(urlRequest);
 			netStr.addEventListener(NetStatusEvent.NET_STATUS, netStatusHandler);
@@ -290,6 +429,7 @@ package
 				retryFpsCount++;
 				if (retryFpsCount > 5)
 				{
+					trace("retryFps");
 					netStr.close();
 					PlayVideo(streamUrl);
 					retryFpsCount = 0;

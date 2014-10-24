@@ -54,6 +54,7 @@ namespace PeerstPlayer.Forms.Setting
 			this.movieStartGroupBox = new System.Windows.Forms.GroupBox();
 			this.movieStartComboBox = new System.Windows.Forms.ComboBox();
 			this.closeGroupBox = new System.Windows.Forms.GroupBox();
+			this.exitedViewerCloseCheckBox = new System.Windows.Forms.CheckBox();
 			this.saveReturnSizeCheckBox = new System.Windows.Forms.CheckBox();
 			this.saveReturnPositionCheckBox = new System.Windows.Forms.CheckBox();
 			this.disconnectRealyOnCloseCheckBox = new System.Windows.Forms.CheckBox();
@@ -92,7 +93,8 @@ namespace PeerstPlayer.Forms.Setting
 			this.minuteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.secondToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.channelNameToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.exitedViewerCloseCheckBox = new System.Windows.Forms.CheckBox();
+			this.flvGroupBox = new System.Windows.Forms.GroupBox();
+			this.flvGpuCheckBox = new System.Windows.Forms.CheckBox();
 			this.tabControl.SuspendLayout();
 			this.settingPage.SuspendLayout();
 			this.volumeChangeGroupBox.SuspendLayout();
@@ -106,6 +108,7 @@ namespace PeerstPlayer.Forms.Setting
 			this.screenshotGroupBox.SuspendLayout();
 			this.shortcutPage.SuspendLayout();
 			this.screenshotContextMenuStrip.SuspendLayout();
+			this.flvGroupBox.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// tabControl
@@ -349,6 +352,16 @@ namespace PeerstPlayer.Forms.Setting
 			this.closeGroupBox.TabStop = false;
 			this.closeGroupBox.Text = "終了時";
 			// 
+			// exitedViewerCloseCheckBox
+			// 
+			this.exitedViewerCloseCheckBox.AutoSize = true;
+			this.exitedViewerCloseCheckBox.Location = new System.Drawing.Point(22, 84);
+			this.exitedViewerCloseCheckBox.Name = "exitedViewerCloseCheckBox";
+			this.exitedViewerCloseCheckBox.Size = new System.Drawing.Size(119, 16);
+			this.exitedViewerCloseCheckBox.TabIndex = 1;
+			this.exitedViewerCloseCheckBox.Text = "Viewerも終了させる";
+			this.exitedViewerCloseCheckBox.UseVisualStyleBackColor = true;
+			// 
 			// saveReturnSizeCheckBox
 			// 
 			this.saveReturnSizeCheckBox.AutoSize = true;
@@ -423,6 +436,7 @@ namespace PeerstPlayer.Forms.Setting
 			// 
 			// settingPage2
 			// 
+			this.settingPage2.Controls.Add(this.flvGroupBox);
 			this.settingPage2.Controls.Add(this.threadGroupBox);
 			this.settingPage2.Controls.Add(this.screenshotGroupBox);
 			this.settingPage2.Location = new System.Drawing.Point(4, 22);
@@ -694,15 +708,25 @@ namespace PeerstPlayer.Forms.Setting
 			this.channelNameToolStripMenuItem.Size = new System.Drawing.Size(128, 22);
 			this.channelNameToolStripMenuItem.Text = "チャンネル名";
 			// 
-			// exitedViewerCloseCheckBox
+			// flvGroupBox
 			// 
-			this.exitedViewerCloseCheckBox.AutoSize = true;
-			this.exitedViewerCloseCheckBox.Location = new System.Drawing.Point(22, 84);
-			this.exitedViewerCloseCheckBox.Name = "exitedViewerCloseCheckBox";
-			this.exitedViewerCloseCheckBox.Size = new System.Drawing.Size(119, 16);
-			this.exitedViewerCloseCheckBox.TabIndex = 1;
-			this.exitedViewerCloseCheckBox.Text = "Viewerも終了させる";
-			this.exitedViewerCloseCheckBox.UseVisualStyleBackColor = true;
+			this.flvGroupBox.Controls.Add(this.flvGpuCheckBox);
+			this.flvGroupBox.Location = new System.Drawing.Point(11, 192);
+			this.flvGroupBox.Name = "flvGroupBox";
+			this.flvGroupBox.Size = new System.Drawing.Size(210, 50);
+			this.flvGroupBox.TabIndex = 2;
+			this.flvGroupBox.TabStop = false;
+			this.flvGroupBox.Text = "FLV";
+			// 
+			// flvGpuCheckBox
+			// 
+			this.flvGpuCheckBox.AutoSize = true;
+			this.flvGpuCheckBox.Location = new System.Drawing.Point(20, 18);
+			this.flvGpuCheckBox.Name = "flvGpuCheckBox";
+			this.flvGpuCheckBox.Size = new System.Drawing.Size(100, 16);
+			this.flvGpuCheckBox.TabIndex = 0;
+			this.flvGpuCheckBox.Text = "再生支援を使う";
+			this.flvGpuCheckBox.UseVisualStyleBackColor = true;
 			// 
 			// PlayerSettingView
 			// 
@@ -736,6 +760,8 @@ namespace PeerstPlayer.Forms.Setting
 			this.shortcutPage.ResumeLayout(false);
 			this.shortcutPage.PerformLayout();
 			this.screenshotContextMenuStrip.ResumeLayout(false);
+			this.flvGroupBox.ResumeLayout(false);
+			this.flvGroupBox.PerformLayout();
 			this.ResumeLayout(false);
 
 		}
@@ -804,6 +830,8 @@ namespace PeerstPlayer.Forms.Setting
 		private System.Windows.Forms.GroupBox threadGroupBox;
 		private System.Windows.Forms.CheckBox autoReadThreadCheckBox;
 		private System.Windows.Forms.CheckBox exitedViewerCloseCheckBox;
+		private System.Windows.Forms.GroupBox flvGroupBox;
+		private System.Windows.Forms.CheckBox flvGpuCheckBox;
 
 	}
 }

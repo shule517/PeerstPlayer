@@ -138,6 +138,11 @@ namespace PeerstPlayer.Settings
 		/// </summary>
 		public bool ExitedViewerClose = false;
 
+		/// <summary>
+		/// FLVで再生支援を使うか
+		/// </summary>
+		public bool Gpu = true;
+
 		// - ステータスバーフォント : Font
 		// - ステータスバー表示項目 : List
 		// - 終了時位置保存 : boolean

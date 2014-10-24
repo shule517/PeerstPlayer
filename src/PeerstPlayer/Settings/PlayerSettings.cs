@@ -1,4 +1,5 @@
 ﻿
+using System.ComponentModel;
 using PeerstLib.Controls;
 using PeerstLib.Util;
 using PeerstPlayer.Settings;
@@ -251,6 +252,32 @@ namespace PeerstPlayer.Forms.Player
 		{
 			get { return info.ExitedViewerClose; }
 			set { info.ExitedViewerClose = value; }
+		}
+
+		/// <summary>
+		/// FLVで再生支援を使うか
+		/// </summary>
+		public static bool Gpu
+		{
+			get { return info.Gpu; }
+			set
+			{
+				if (info.Gpu != value)
+				{
+					info.Gpu = value;
+					RaisePropertyChanged("Gpu");
+				}
+			}
+		}
+
+		public static event Action<string> Changed;
+
+		private static void RaisePropertyChanged(string property)
+		{
+			if (Changed != null)
+			{
+				Changed(property);
+			}
 		}
 
 		static PlayerSettings()

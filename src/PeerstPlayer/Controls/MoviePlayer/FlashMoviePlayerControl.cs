@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 using PeerstLib.Controls;
+using PeerstPlayer.Forms.Player;
 using WMPLib;
 
 namespace PeerstPlayer.Controls.MoviePlayer
@@ -19,7 +20,15 @@ namespace PeerstPlayer.Controls.MoviePlayer
 
 			// FlashManagerの初期化
 			flashManager = new FlashMoviePlayerManager(axShockwaveFlash);
-
+			flashManager.Initialized += (sender, args) => flashManager.EnableGpu(PlayerSettings.Gpu);
+			// 再生支援を使う設定が変更されたら
+			PlayerSettings.Changed += (s) =>
+			{
+				if (s == "Gpu")
+				{
+					flashManager.EnableGpu(PlayerSettings.Gpu);
+				}
+			};
 			// Flashウィンドウをフックする
 			FlashNativeWindow flash = new FlashNativeWindow(axShockwaveFlash.Handle);
 			flash.MouseDownEvent += (sender, e) =>
