@@ -22,6 +22,8 @@ package
 	import flash.utils.Timer;
 	import flash.events.StageVideoEvent;
 	import flash.media.VideoStatus
+	import flash.display.Shape;
+	import flash.text.TextField;
 	/**
 	 * FLV Player
 	 * @author shule517
@@ -45,6 +47,11 @@ package
 		private var volume:String = null;
 		private var retryPrevTime:Number = 0;
 		private var retryFpsCount:Number = 0;
+		// デバッグ用
+		private var debugTimer:Timer = null;
+		private var debugText:TextField = new TextField();
+		private var debugTextBack:Shape = new Shape();
+		private var lastNetEvent:String = "";
 		
 		public function FlvPlayer(stage:Stage)
 		{
@@ -60,6 +67,29 @@ package
 			// 監視用タイマー
 			retryTimer = new Timer(2000);
 			retryTimer.addEventListener(TimerEvent.TIMER, retryTimerHandler);
+			
+			// デバッグ用表示
+			debugTimer = new Timer(1000);
+			debugTimer.addEventListener(TimerEvent.TIMER, debugTimerHandler);
+			debugTimer.start();
+			
+			debugTextBack.x = 50;
+			debugTextBack.y = 50;
+			debugTextBack.graphics.beginFill(0x000000, 0.75);
+			debugTextBack.graphics.lineStyle(1, 0xAAAAAA, 1);
+			debugTextBack.graphics.drawRect(0, 0, 240, 180);
+			debugTextBack.graphics.endFill();
+			debugTextBack.visible = false;
+			
+			debugText.multiline = true;
+			debugText.x = 55;
+			debugText.y = 55;
+			debugText.width = 230;
+			debugText.height = 170;
+			debugText.textColor = 0xFFFFFF;
+			debugText.visible = false;
+			stage.addChild(debugTextBack);
+			stage.addChild(debugText);
 		}
 		
 		// StageVideoとVideoの切り替え
@@ -320,7 +350,13 @@ package
 			SwitchVideo();
 		}
 		
-
+		// 動画情報を表示
+		public function ShowDebug():void
+		{
+			debugTextBack.visible = !debugTextBack.visible;
+			debugText.visible = !debugText.visible;
+		}
+		
 		// 動画再生
 		public function PlayVideo(streamUrl:String):void
 		{
@@ -399,16 +435,22 @@ package
 			switch (event.info.code)
 			{
 				case "NetStream.Buffer.Full":
+					lastNetEvent = "Buffer.Full";
 					break;
 				case "NetStream.Buffer.Empty":
+					lastNetEvent = "Buffer.Empty";
 					break;
 				case "NetStream.Buffer.Flush":
+					lastNetEvent = "Buffer.Flush";
 					break;
 				case "NetStream.Play.Start":
+					lastNetEvent = "Play.Start";
 					break;
 				case "NetStream.Play.Stop":
+					lastNetEvent = "Play.Stop";
 					break;
 				case "NetStream.Play.StreamNotFound":
+					lastNetEvent = "Play.StreamNotFound";
 					break;
 			}
 		}
@@ -439,6 +481,58 @@ package
 			}
 			retryPrevTime = netStr.time;
 			retryFpsCount = 0;
+		}
+		
+		private function getEncodeDuration():String
+		{
+			if (netStr == null)
+			{
+				return "00:00:00";
+			}
+			var sec:String = new String(Math.floor(netStr.time % 60));
+			var min:String = new String(Math.floor(netStr.time /60 % 60));
+			var hour:String = new String(int(netStr.time / 60 / 60));
+			return ("0" + hour.toString()).slice(-2) + ":" +
+				("0" + min.toString()).slice(-2) + ":" +
+				("0" + sec.toString()).slice(-2);
+		}
+		
+		// デバッグ表示用タイマー
+		private function debugTimerHandler(event:TimerEvent):void
+		{
+			if (netStr == null)
+			{
+				return;
+			}
+			
+			var text:String = "";
+			text += "<bold>currentFPS</bold>: " + netStr.currentFPS.toFixed(1);
+			text += "\n<bold>time</bold>: " + getEncodeDuration();
+			text += "\n<bold>bufferLength</bold>: " + netStr.bufferLength;
+			if (stageVideo != null)
+			{
+				text += "\n<bold>currentSize</bold>: " + Math.floor(stageVideo.viewPort.width) +
+					"x" + Math.floor(stageVideo.viewPort.height);
+			}
+			else
+			{
+				text += "\n<bold>currentSize</bold>: " + video.width + "x" + video.height;
+			}
+			if (netStr.info != null)
+			{
+				text += "\nvideoSize: " + netStr.info.metaData["width"] + "x" + netStr.info.metaData["height"];
+				text += "\n<bold>framerate</bold>: " + netStr.info.metaData["framerate"];
+				text += "\n<bold>audio</bold>: " + netStr.info.metaData["audiocodecid"] + " " +
+					netStr.info.metaData["audiodatarate"] + "kbps"
+				text += "\n<bold>audio</bold>: " + netStr.info.metaData["audiosamplerate"] + "Hz " +
+					netStr.info.metaData["audiosamplesize"] +"bit " + netStr.info.metaData["audiochannels"] + "ch";
+				text += "\n<bold>video</bold>: " + netStr.info.metaData["videocodecid"] + " " +
+					netStr.info.metaData["videodatarate"] + "kbps";
+				text += "\n<bold>encoder</bold>: " + netStr.info.metaData["encoder"];
+			}
+
+			text += "\n<bold>LastNSEvent</bold>: " + lastNetEvent;
+			debugText.htmlText = text;
 		}
 	}
 }

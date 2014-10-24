@@ -389,6 +389,17 @@ namespace PeerstPlayer.Controls.PecaPlayer
 			}
 		}
 
+		//-------------------------------------------------------------
+		// 概要：FLV用動画情報表示
+		//-------------------------------------------------------------
+		public void ShowDebug()
+		{
+			if (!UsedWMP)
+			{
+				((FlashMoviePlayerControl)moviePlayer).ShowDebug();
+			}
+		}
+
 		/// <summary>
 		/// 現在のフレームレート
 		/// </summary>

@@ -77,6 +77,7 @@ namespace PeerstPlayer.Forms.Setting
 			this.openFromUrlToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.openFromUrlToolStripTextBox = new System.Windows.Forms.ToolStripTextBox();
 			this.openFromFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.openFromClipboardToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.volumeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.volumeUpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.volumeDownToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -88,7 +89,7 @@ namespace PeerstPlayer.Forms.Setting
 			this.settingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.wmpMenuToolStripSeparator = new System.Windows.Forms.ToolStripSeparator();
 			this.wmpMenuToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.openFromClipboardToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.showDebugToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.toolStrip.SuspendLayout();
 			this.contextMenuStrip.SuspendLayout();
 			this.SuspendLayout();
@@ -198,9 +199,10 @@ namespace PeerstPlayer.Forms.Setting
             this.volumeToolStripMenuItem,
             this.settingToolStripMenuItem,
             this.wmpMenuToolStripSeparator,
-            this.wmpMenuToolStripMenuItem});
+            this.wmpMenuToolStripMenuItem,
+            this.showDebugToolStripMenuItem});
 			this.contextMenuStrip.Name = "contextMenuStrip";
-			this.contextMenuStrip.Size = new System.Drawing.Size(153, 164);
+			this.contextMenuStrip.Size = new System.Drawing.Size(153, 186);
 			// 
 			// SizeToolStripMenuItem
 			// 
@@ -450,6 +452,12 @@ namespace PeerstPlayer.Forms.Setting
 			this.openFromFileToolStripMenuItem.Size = new System.Drawing.Size(206, 22);
 			this.openFromFileToolStripMenuItem.Text = "ファイルから開く";
 			// 
+			// openFromClipboardToolStripMenuItem
+			// 
+			this.openFromClipboardToolStripMenuItem.Name = "openFromClipboardToolStripMenuItem";
+			this.openFromClipboardToolStripMenuItem.Size = new System.Drawing.Size(206, 22);
+			this.openFromClipboardToolStripMenuItem.Text = "クリップボードから開く";
+			// 
 			// volumeToolStripMenuItem
 			// 
 			this.volumeToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -522,11 +530,11 @@ namespace PeerstPlayer.Forms.Setting
 			this.wmpMenuToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
 			this.wmpMenuToolStripMenuItem.Text = "WMPメニュー";
 			// 
-			// openFromClipboardToolStripMenuItem
+			// showDebugToolStripMenuItem
 			// 
-			this.openFromClipboardToolStripMenuItem.Name = "openFromClipboardToolStripMenuItem";
-			this.openFromClipboardToolStripMenuItem.Size = new System.Drawing.Size(206, 22);
-			this.openFromClipboardToolStripMenuItem.Text = "クリップボードから開く";
+			this.showDebugToolStripMenuItem.Name = "showDebugToolStripMenuItem";
+			this.showDebugToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+			this.showDebugToolStripMenuItem.Text = "動画情報表示";
 			// 
 			// PlayerView
 			// 
@@ -606,6 +614,7 @@ namespace PeerstPlayer.Forms.Setting
 		private System.Windows.Forms.ToolStripMenuItem openFromFileToolStripMenuItem;
 		private System.Windows.Forms.ToolStripTextBox openFromUrlToolStripTextBox;
 		private System.Windows.Forms.ToolStripMenuItem openFromClipboardToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem showDebugToolStripMenuItem;
 	}
 }
 

@@ -42,6 +42,12 @@ namespace PeerstPlayer.Controls.MoviePlayer
 			flash.KeyDownEvent += (sender, e) => keyDownEvent(this, e);
 		}
 
+		// 動画情報を表示
+		public void ShowDebug()
+		{
+			flashManager.ShowDebug();
+		}
+
 		int volume = 0;
 		int IMoviePlayer.Volume
 		{

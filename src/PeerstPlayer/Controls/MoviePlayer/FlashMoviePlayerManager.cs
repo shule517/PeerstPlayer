@@ -20,6 +20,7 @@ namespace PeerstPlayer.Controls.MoviePlayer
 		private const string GetNowBitRateMethod = "GetNowBitRate";
 		private const string GetBitRateMethod = "GetBitRate";
 		private const string EnableGpuMethod = "EnableGpu";
+		private const string ShowDebugMethod = "ShowDebug";
 
 		public FlashMoviePlayerManager(AxShockwaveFlash flash)
 		{
@@ -164,6 +165,14 @@ namespace PeerstPlayer.Controls.MoviePlayer
 		public void EnableGpu(bool gpu)
 		{
 			CallFlashMethod(EnableGpuMethod, gpu.ToString());
+		}
+
+		/// <summary>
+		/// 動画情報を表示
+		/// </summary>
+		public void ShowDebug()
+		{
+			CallFlashMethod(ShowDebugMethod);
 		}
 
 		/// <summary>

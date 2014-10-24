@@ -103,10 +103,15 @@ namespace PeerstPlayer.Forms.Setting
 				// アスペクト比維持
 				new AspectRateKeepWindow(this, pecaPlayer);
 
-				// WMPを使用していなければ「WMPメニュー」を灰色にする
+				// WMPを使用していなければ「WMPメニュー」を非表示にする
 				if (!pecaPlayer.UsedWMP)
 				{
-					wmpMenuToolStripMenuItem.Enabled = false;
+					wmpMenuToolStripMenuItem.Visible = false;
+				}
+				// FLV用のメニューを非表示にする
+				else
+				{
+					showDebugToolStripMenuItem.Visible = false;
 				}
 			};
 		}
@@ -553,6 +558,8 @@ namespace PeerstPlayer.Forms.Setting
 
 			// WMPメニュー押下
 			wmpMenuToolStripMenuItem.Click += (sender, e) => shortcut.ExecCommand(Commands.WmpMenu);
+			// 動画情報表示押下
+			showDebugToolStripMenuItem.Click += (sender, e) => pecaPlayer.ShowDebug();
 		}
 
 		/// <summary>
