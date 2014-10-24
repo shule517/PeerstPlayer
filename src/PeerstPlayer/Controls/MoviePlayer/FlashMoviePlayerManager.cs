@@ -12,6 +12,7 @@ namespace PeerstPlayer.Controls.MoviePlayer
 
 		private const string PlayVideoMethod = "PlayVideo";
 		private const string ChangeVolumeMethod = "ChangeVolume";
+		private const string ChangePanMethod = "ChangePan";
 		private const string GetVideoWidthMethod = "GetVideoWidth";
 		private const string GetVideoHeightMethod = "GetVideoHeight";
 		private const string GetDurationStringMethod = "GetDurationString";
@@ -88,6 +89,15 @@ namespace PeerstPlayer.Controls.MoviePlayer
 		public void ChangeVolume(int volume)
 		{
 			CallFlashMethod(ChangeVolumeMethod, volume.ToString());
+		}
+
+		/// <summary>
+		/// 音量バランス変化
+		/// </summary>
+		/// <param name="pan">音量バランス</param>
+		public void ChangePan(int pan)
+		{
+			CallFlashMethod(ChangePanMethod, pan.ToString());
 		}
 
 		/// <summary>

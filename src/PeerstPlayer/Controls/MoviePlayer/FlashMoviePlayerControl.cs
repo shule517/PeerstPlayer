@@ -75,10 +75,27 @@ namespace PeerstPlayer.Controls.MoviePlayer
 			}
 		}
 
+		private int volumeBalance = 0;
 		int IMoviePlayer.VolumeBalance
 		{
-			get { return 0; }
-			set { }
+			get { return volumeBalance; }
+			set
+			{
+				if (value < -100)
+				{
+					volumeBalance = -100;
+				}
+				else if (100 < value)
+				{
+					volumeBalance = 100;
+				}
+				else
+				{
+					volumeBalance = value;
+				}
+
+				flashManager.ChangePan(volumeBalance);
+			}
 		}
 
 		/// <summary>

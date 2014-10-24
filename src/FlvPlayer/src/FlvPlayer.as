@@ -45,7 +45,8 @@ package
 		
 		// 再接続監視タイマー
 		private var retryTimer:Timer = null;
-		private var volume:String = null;
+		private var volume:Number = -1;
+		private var pan:Number = 0;
 		private var retryPrevTime:Number = 0;
 		private var retryFpsCount:Number = 0;
 		// デバッグ用
@@ -158,28 +159,51 @@ package
 		}
 
 		// 音量変更
-		public function ChangeVolume(vol:String):void
+		public function ChangeVolume(volStr:String):void
 		{
 			if (netStr == null)
 			{
 				return;
 			}
 			
-			this.volume = vol;
-			var volume:Number = parseInt(vol);
-			
+			volume = parseInt(volStr);
 			if (volume <= 0)
 			{
-				netStr.soundTransform = new SoundTransform(0);
+				volume = 0;
 			}
 			else if (volume >= 100)
 			{
-				netStr.soundTransform = new SoundTransform(1);
+				volume = 1;
 			}
 			else
 			{
-				netStr.soundTransform = new SoundTransform(volume / 100.0);
+				volume = volume / 100.0;
 			}
+			netStr.soundTransform = new SoundTransform(volume, pan);
+		}
+		
+		// 音量バランス変更
+		public function ChangePan(panStr:String):void
+		{
+			if (netStr == null)
+			{
+				return;
+			}
+			
+			pan = parseInt(panStr);
+			if (pan <= -100)
+			{
+				pan = -1;
+			}
+			else if (pan >= 100)
+			{
+				pan = 1;
+			}
+			else
+			{
+				pan = pan / 100.0;
+			}
+			netStr.soundTransform = new SoundTransform(volume, pan);
 		}
 		
 		// サイズ変更
@@ -384,8 +408,8 @@ package
 				prevBitrate = netStr.info.metaData["audiodatarate"] + netStr.info.metaData["videodatarate"];
 				
 				// 再接続時に音量が初期化されるので、一度変更済みであればここ変えておく
-				if (volume != null) {
-					ChangeVolume(volume);
+				if (volume != -1) {
+					ChangeVolume(volume.toString());
 				}
 				
 				Call("OpenStateChange");

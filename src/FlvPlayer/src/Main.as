@@ -40,6 +40,7 @@ package
                 ExternalInterface.addCallback("PlayVideo", flvPlayer.PlayVideo);
                 ExternalInterface.addCallback("SizeChanged", flvPlayer.SizeChanged);
                 ExternalInterface.addCallback("ChangeVolume", flvPlayer.ChangeVolume);
+				ExternalInterface.addCallback("ChangePan", flvPlayer.ChangePan);
 				ExternalInterface.addCallback("GetVideoWidth", flvPlayer.GetVideoWidth);
 				ExternalInterface.addCallback("GetVideoHeight", flvPlayer.GetVideoHeight);
 				ExternalInterface.addCallback("GetDurationString", flvPlayer.GetDurationString);
