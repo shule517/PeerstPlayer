@@ -70,7 +70,7 @@ namespace PeerstPlayer.Controls.MoviePlayer
 				// 音量変更したらミュートを解除
 				mute = false;
 
-				flashManager.ChangeVolume(value);
+				flashManager.ChangeVolume((double)volume / 100);
 				volumeChange(this, new EventArgs());
 			}
 		}
@@ -94,7 +94,7 @@ namespace PeerstPlayer.Controls.MoviePlayer
 					volumeBalance = value;
 				}
 
-				flashManager.ChangePan(volumeBalance);
+				flashManager.ChangePan((double)volumeBalance / 100);
 			}
 		}
 
@@ -243,28 +243,18 @@ namespace PeerstPlayer.Controls.MoviePlayer
 			get { return this; }
 		}
 
-		/// <summary>
-		/// 初回ファイルオープンフラグ(MovieStartに使用)
-		/// </summary>
-		private bool isFirstMediaOpen = true;
-
 		void IMoviePlayer.PlayMoive(string streamUrl)
 		{
 			axShockwaveFlash.LoadMovie(0, FormUtility.GetExeFolderPath() + "/FlvPlayer.swf");
 			flashManager.PlayVideo(streamUrl);
 			flashManager.OpenStateChange += (sender, args) =>
 			{
-				// 動画再生開始イベント
-				if (isFirstMediaOpen)
-				{
-					var width = ((IMoviePlayer)this).ImageWidth;
-					var height = ((IMoviePlayer)this).ImageHeight;
-					axShockwaveFlash.Width = width;
-					axShockwaveFlash.Height = height;
-					isFirstMediaOpen = false;
-					movieStart(this, new EventArgs());
-					flashManager.ChangeVolume(volume);
-				}
+				var width = ((IMoviePlayer)this).ImageWidth;
+				var height = ((IMoviePlayer)this).ImageHeight;
+				axShockwaveFlash.Width = width;
+				axShockwaveFlash.Height = height;
+				movieStart(this, new EventArgs());
+				flashManager.ChangeVolume((double)volume / 100);
 			};
 		}
 	}

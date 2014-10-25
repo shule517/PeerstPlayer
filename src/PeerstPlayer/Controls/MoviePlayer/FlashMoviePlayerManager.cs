@@ -86,7 +86,7 @@ namespace PeerstPlayer.Controls.MoviePlayer
 		/// 音量変更
 		/// </summary>
 		/// <param name="volume">音量</param>
-		public void ChangeVolume(int volume)
+		public void ChangeVolume(double volume)
 		{
 			CallFlashMethod(ChangeVolumeMethod, volume.ToString());
 		}
@@ -95,7 +95,7 @@ namespace PeerstPlayer.Controls.MoviePlayer
 		/// 音量バランス変化
 		/// </summary>
 		/// <param name="pan">音量バランス</param>
-		public void ChangePan(int pan)
+		public void ChangePan(double pan)
 		{
 			CallFlashMethod(ChangePanMethod, pan.ToString());
 		}

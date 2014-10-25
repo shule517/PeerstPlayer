@@ -156,13 +156,11 @@ package
 				return;
 			}
 			
-			volume = parseInt(volStr);
+			volume = parseFloat(volStr);
 			if (volume <= 0){
 				volume = 0;
-			} else if (volume >= 100){
+			} else if (volume >= 1){
 				volume = 1;
-			} else {
-				volume = volume / 100.0;
 			}
 			netStr.soundTransform = new SoundTransform(volume, pan);
 		}
@@ -174,13 +172,11 @@ package
 				return;
 			}
 			
-			pan = parseInt(panStr);
-			if (pan <= -100) {
+			pan = parseFloat(panStr);
+			if (pan <= -1) {
 				pan = -1;
-			} else if (pan >= 100) {
+			} else if (pan >= 1) {
 				pan = 1;
-			} else {
-				pan = pan / 100.0;
 			}
 			netStr.soundTransform = new SoundTransform(volume, pan);
 		}
@@ -445,7 +441,7 @@ package
 			// FPS0の状況が続いていれば再接続する(謎の黒画面対策)
 			if (netStr.currentFPS == 0) {
 				retryFpsCount++;
-				if (retryFpsCount > 5) {
+				if (retryFpsCount > 10) {
 					trace("retryFps");
 					netStr.close();
 					PlayVideo(streamUrl);
@@ -488,7 +484,7 @@ package
 			} else {
 				text += "\n<bold>currentSize</bold>: " + video.width + "x" + video.height;
 			}
-			if (netStr.info != null) {
+			if (netStr.info.metaData != null) {
 				text += "\nvideoSize: " + netStr.info.metaData["width"] + "x" + netStr.info.metaData["height"];
 				text += "\n<bold>framerate</bold>: " + netStr.info.metaData["framerate"];
 				text += "\n<bold>audio</bold>: " + netStr.info.metaData["audiocodecid"] + " " +
