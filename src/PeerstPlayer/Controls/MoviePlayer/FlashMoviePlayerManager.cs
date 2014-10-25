@@ -12,6 +12,7 @@ namespace PeerstPlayer.Controls.MoviePlayer
 
 		private const string PlayVideoMethod = "PlayVideo";
 		private const string ChangeVolumeMethod = "ChangeVolume";
+		private const string ChangePanMethod = "ChangePan";
 		private const string GetVideoWidthMethod = "GetVideoWidth";
 		private const string GetVideoHeightMethod = "GetVideoHeight";
 		private const string GetDurationStringMethod = "GetDurationString";
@@ -19,6 +20,8 @@ namespace PeerstPlayer.Controls.MoviePlayer
 		private const string GetFrameRateMethod = "GetFrameRate";
 		private const string GetNowBitRateMethod = "GetNowBitRate";
 		private const string GetBitRateMethod = "GetBitRate";
+		private const string EnableGpuMethod = "EnableGpu";
+		private const string ShowDebugMethod = "ShowDebug";
 
 		public FlashMoviePlayerManager(AxShockwaveFlash flash)
 		{
@@ -49,8 +52,19 @@ namespace PeerstPlayer.Controls.MoviePlayer
 				case "OpenStateChange":
 					openStateChange(flash, new EventArgs());
 					break;
+				case "Initialized":
+					initialized(flash, new EventArgs());
+					break;
 			}
 		}
+
+		public event EventHandler Initialized
+		{
+			add { initialized += value; }
+			remove { initialized -= value; }
+		}
+
+		event EventHandler initialized = delegate { }; 
 
 		public event EventHandler OpenStateChange
 		{
@@ -72,9 +86,18 @@ namespace PeerstPlayer.Controls.MoviePlayer
 		/// 音量変更
 		/// </summary>
 		/// <param name="volume">音量</param>
-		public void ChangeVolume(int volume)
+		public void ChangeVolume(double volume)
 		{
 			CallFlashMethod(ChangeVolumeMethod, volume.ToString());
+		}
+
+		/// <summary>
+		/// 音量バランス変化
+		/// </summary>
+		/// <param name="pan">音量バランス</param>
+		public void ChangePan(double pan)
+		{
+			CallFlashMethod(ChangePanMethod, pan.ToString());
 		}
 
 		/// <summary>
@@ -147,6 +170,19 @@ namespace PeerstPlayer.Controls.MoviePlayer
 			int result;
 			int.TryParse(CallFlashMethod(GetBitRateMethod), out result);
 			return result;
+		}
+
+		public void EnableGpu(bool gpu)
+		{
+			CallFlashMethod(EnableGpuMethod, gpu.ToString());
+		}
+
+		/// <summary>
+		/// 動画情報を表示
+		/// </summary>
+		public void ShowDebug()
+		{
+			CallFlashMethod(ShowDebugMethod);
 		}
 
 		/// <summary>

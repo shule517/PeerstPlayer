@@ -66,6 +66,14 @@ namespace PeerstLib.Bbs.Strategy
 		protected override Encoding encoding { get { return Encoding.GetEncoding("EUC-JP"); } }
 
 		/// <summary>
+		/// 掲示板設定のURL
+		/// </summary>
+		protected override string settingUrl
+		{
+			get { return string.Format("http://{0}/bbs/api/setting.cgi/{1}/{2}/", BbsInfo.Host, BbsInfo.BoardGenre, BbsInfo.BoardNo);}
+		}
+
+		/// <summary>
 		/// スレッド一覧URL
 		/// </summary>
 		protected override string subjectUrl
@@ -126,6 +134,23 @@ namespace PeerstLib.Bbs.Strategy
 		}
 
 		//-------------------------------------------------------------
+		// 概要：SETTING.txt
+		//-------------------------------------------------------------
+		public override void UpdateBbsSetting()
+		{
+			base.UpdateBbsSetting();
+			// スレッドのレス上限数が取得できれば変更する
+			if (BbsInfo.Setting.ContainsKey("BBS_THREAD_STOP"))
+			{
+				int stop;
+				if (int.TryParse(BbsInfo.Setting["BBS_THREAD_STOP"], out stop))
+				{
+					BbsInfo.ThreadStop = stop;
+				}
+			}
+		}
+
+		//-------------------------------------------------------------
 		// 概要：スレッド一覧解析
 		// 詳細：subject.txtからスレッド一覧情報を作成する
 		//-------------------------------------------------------------
@@ -151,7 +176,7 @@ namespace PeerstLib.Bbs.Strategy
 				string threadNo = match.Groups["threadNo"].Value;
 				string resCount = match.Groups["resCount"].Value;
 				double days = BbsUtil.GetThreadSince(threadNo);
-				ThreadInfo threadInfo = new ThreadInfo
+				ThreadInfo threadInfo = new ThreadInfo(BbsInfo)
 				{
 					ThreadNo = threadNo,
 					ThreadTitle = match.Groups["threadTitle"].Value.Trim(),

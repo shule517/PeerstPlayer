@@ -1,4 +1,6 @@
 ﻿
+using System.Windows.Forms;
+
 namespace PeerstLib.Bbs.Data
 {
 	//-------------------------------------------------------------
@@ -9,6 +11,11 @@ namespace PeerstLib.Bbs.Data
 		//-------------------------------------------------------------
 		// 公開プロパティ
 		//-------------------------------------------------------------
+
+		/// <summary>
+		/// 掲示板
+		/// </summary>
+		public BbsInfo Parent { get; set; }
 
 		/// <summary>
 		/// スレッド番号
@@ -43,6 +50,18 @@ namespace PeerstLib.Bbs.Data
 		/// <summary>
 		/// 最大レス数
 		/// </summary>
-		public int MaxResCount { get { return 1000; } } // TODO 掲示板情報から取得する
+		public int MaxResCount { get { return Parent != null ? Parent.ThreadStop : 1000; } }
+
+		//-------------------------------------------------------------
+		// 概要：コンストラクタ
+		//-------------------------------------------------------------
+		public ThreadInfo(BbsInfo bbs)
+		{
+			Parent = bbs;
+		}
+
+		public ThreadInfo()
+		{
+		}
 	}
 }

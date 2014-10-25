@@ -74,10 +74,21 @@
     <Compile Include="Controls\ThreadViewer\ThreadViewerControl.Designer.cs">
       <DependentUpon>ThreadViewerControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="Controls\WebBrowserEx.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Settings\ViewerSettings.cs" />
+    <Compile Include="Settings\ViewerSettingsInfo.cs" />
     <Compile Include="ThreadViewer\Command\UpdateThreadCommand.cs" />
     <Compile Include="ThreadViewer\Command\WriteResCommand.cs" />
     <Compile Include="ThreadViewer\ThradViewerViewModel.cs" />
     <Compile Include="ThreadViewer\ThreadDocumentGenerator.cs" />
+    <Compile Include="ThreadViewer\ViewerSettingView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ThreadViewer\ViewerSettingView.Designer.cs">
+      <DependentUpon>ViewerSettingView.cs</DependentUpon>
+    </Compile>
     <Compile Include="ThreadViewer\ViewerView.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -99,6 +110,9 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="ThreadViewer\ViewerSettingView.resx">
+      <DependentUpon>ViewerSettingView.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="ThreadViewer\ViewerView.resx">
       <DependentUpon>ViewerView.cs</DependentUpon>
     </EmbeddedResource>
@@ -123,6 +137,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\Icon1.ico" />
+    <None Include="Resources\PeerstViewer.ico" />
     <Content Include="skin\Footer.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

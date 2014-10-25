@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Windows.Forms;
 using PeerstLib.Util;
 using PeerstPlayer.Forms.Player;
@@ -82,6 +83,7 @@ namespace PeerstPlayer.Forms.Setting
 				initVolumeTextBox.Text = PlayerSettings.InitVolume.ToString();
 				saveReturnPositionCheckBox.Checked = PlayerSettings.SaveReturnPositionOnClose;
 				saveReturnSizeCheckBox.Checked = PlayerSettings.SaveReturnSizeOnClose;
+				exitedViewerCloseCheckBox.Checked = PlayerSettings.ExitedViewerClose;
 
 				// チェックボックスの設定(ステータスバー)
 				displayFpsCheckBox.Checked = PlayerSettings.DisplayFps;
@@ -92,6 +94,30 @@ namespace PeerstPlayer.Forms.Setting
 				volumeChangeNoneTextBox.Text = PlayerSettings.VolumeChangeNone.ToString();
 				volumeChangeCtrlTextBox.Text = PlayerSettings.VolumeChangeCtrl.ToString();
 				volumeChangeShiftTextBox.Text = PlayerSettings.VolumeChangeShift.ToString();
+
+				// スクリーンショット
+				screenshotFolderTextBox.Text = PlayerSettings.ScreenshotFolder;
+				foreach (var item in screenshotExtensionComboBox.Items)
+				{
+					if (item.ToString() == PlayerSettings.ScreenshotExtension)
+					{
+						screenshotExtensionComboBox.SelectedItem = item;
+					}
+				}
+				// 拡張子が選択されていなければpngを選ばせる
+				if (screenshotExtensionComboBox.SelectedItem == null)
+				{
+					screenshotExtensionComboBox.SelectedIndex = screenshotExtensionComboBox.FindString("png");
+				}
+				// 書式
+				screenshotFormatTextBox.Text = PlayerSettings.ScreenshotFormat;
+				screenshotSampleTextBox.Text = Shortcut.Command.ScreenshotCommand.Format(screenshotFormatTextBox.Text, null);
+
+				// スレッド
+				autoReadThreadCheckBox.Checked = PlayerSettings.AutoReadThread;
+
+				// FLV
+				flvGpuCheckBox.Checked = PlayerSettings.Gpu;
 
 				// 動画再生開始時のコマンド
 				movieStartComboBox.Items.Clear();
@@ -115,6 +141,42 @@ namespace PeerstPlayer.Forms.Setting
 					shortcutListView.Items.Add(keyItem);
 				}
 			};
+
+			// スクリーンショットを保存するフォルダを選ぶダイアログを表示するボタン
+			browseScreenshotFolderButton.Click += (sender, args) =>
+			{
+				folderBrowserDialog.RootFolder = Environment.SpecialFolder.Desktop;
+				folderBrowserDialog.SelectedPath = PlayerSettings.ScreenshotFolder;
+				if (folderBrowserDialog.ShowDialog() == DialogResult.OK)
+				{
+					screenshotFolderTextBox.Text = folderBrowserDialog.SelectedPath;
+				}
+			};
+
+			// スクリーンショットファイル名の書式
+			screenshotFormatTextBox.TextChanged += (sender, args) =>
+			{
+				screenshotSampleTextBox.Text = Shortcut.Command.ScreenshotCommand.Format(screenshotFormatTextBox.Text, null);
+			};
+			// 書式の補助メニュー
+			screenshotFormatButton.Click += (sender, args) => screenshotContextMenuStrip.Show(screenshotFormatButton, 0, 0);
+			Action<string> formatHelper = (x) =>
+			{
+				// 選択されているテキストの位置を取得しておく
+				var selectionStart = screenshotFormatTextBox.SelectionStart;
+				screenshotFormatTextBox.Text = screenshotFormatTextBox.Text.Insert(screenshotFormatTextBox.SelectionStart, x);
+				// 追加した文字列の後ろにカーソルを移動
+				screenshotFormatTextBox.SelectionStart = selectionStart + x.Length;
+				screenshotFormatTextBox.Focus();
+			};
+			year2ToolStripMenuItem.Click += (sender, args) => formatHelper("yy");
+			year4ToolStripMenuItem.Click += (sender, args) => formatHelper("yyyy");
+			monthToolStripMenuItem.Click += (sender, args) => formatHelper("MM");
+			dayToolStripMenuItem.Click += (sender, args) => formatHelper("dd");
+			hourToolStripMenuItem.Click += (sender, args) => formatHelper("hh");
+			minuteToolStripMenuItem.Click += (sender, args) => formatHelper("mm");
+			secondToolStripMenuItem.Click += (sender, args) => formatHelper("ss");
+			channelNameToolStripMenuItem.Click += (sender, args) => formatHelper("$0");
 
 			// Tab遷移しないようにする
 			shortcutListView.PreviewKeyDown += (sender, e) => e.IsInputKey = true;
@@ -307,7 +369,8 @@ namespace PeerstPlayer.Forms.Setting
 			PlayerSettings.WriteFieldVisible = writeFieldVisibleCheckBox.Checked;
 			PlayerSettings.SaveReturnPositionOnClose = saveReturnPositionCheckBox.Checked;
 			PlayerSettings.SaveReturnSizeOnClose = saveReturnSizeCheckBox.Checked;
-	
+			PlayerSettings.ExitedViewerClose = exitedViewerCloseCheckBox.Checked;
+
 			// チェックボックスの設定(ステータスバー)
 			PlayerSettings.DisplayFps = displayFpsCheckBox.Checked;
 			PlayerSettings.DisplayBitrate = displayBitrateCheckBox.Checked;
@@ -342,6 +405,17 @@ namespace PeerstPlayer.Forms.Setting
 			{
 				PlayerSettings.MovieStartCommand = movieStartCommandList[movieStartComboBox.SelectedIndex];
 			}
+
+			// スクリーンショット
+			PlayerSettings.ScreenshotFolder = screenshotFolderTextBox.Text;
+			PlayerSettings.ScreenshotExtension = screenshotExtensionComboBox.SelectedItem.ToString();
+			PlayerSettings.ScreenshotFormat = screenshotFormatTextBox.Text;
+
+			// スレッド
+			PlayerSettings.AutoReadThread = autoReadThreadCheckBox.Checked;
+
+			// FLV
+			PlayerSettings.Gpu = flvGpuCheckBox.Checked;
 
 			// 設定を保存
 			PlayerSettings.Save();

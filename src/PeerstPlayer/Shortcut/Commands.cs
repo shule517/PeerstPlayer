@@ -26,6 +26,8 @@ namespace PeerstPlayer.Shortcut
 		Bump,				// Bump
 		WmpMenu,			// WMPメニュー表示
 		FitMovieSize,		// 動画サイズに合わせる
+		Screenshot,			// スクリーンショット
+		OpenScreenshotFolder,// スクリーンショットフォルダを開く
 
 		// ウィンドウ拡大率指定
 		WindowScale25Per,

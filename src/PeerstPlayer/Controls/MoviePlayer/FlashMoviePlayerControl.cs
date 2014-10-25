@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 using PeerstLib.Controls;
+using PeerstPlayer.Forms.Player;
 using WMPLib;
 
 namespace PeerstPlayer.Controls.MoviePlayer
@@ -19,7 +20,15 @@ namespace PeerstPlayer.Controls.MoviePlayer
 
 			// FlashManagerの初期化
 			flashManager = new FlashMoviePlayerManager(axShockwaveFlash);
-
+			flashManager.Initialized += (sender, args) => flashManager.EnableGpu(PlayerSettings.Gpu);
+			// 再生支援を使う設定が変更されたら
+			PlayerSettings.Changed += (s) =>
+			{
+				if (s == "Gpu")
+				{
+					flashManager.EnableGpu(PlayerSettings.Gpu);
+				}
+			};
 			// Flashウィンドウをフックする
 			FlashNativeWindow flash = new FlashNativeWindow(axShockwaveFlash.Handle);
 			flash.MouseDownEvent += (sender, e) =>
@@ -31,6 +40,12 @@ namespace PeerstPlayer.Controls.MoviePlayer
 			flash.MouseMoveEvent += (sender, e) => mouseMoveEvent(this, e);
 			flash.DoubleClickEvent += (sender, e) => doubleClickEvent(this, e);
 			flash.KeyDownEvent += (sender, e) => keyDownEvent(this, e);
+		}
+
+		// 動画情報を表示
+		public void ShowDebug()
+		{
+			flashManager.ShowDebug();
 		}
 
 		int volume = 0;
@@ -55,15 +70,32 @@ namespace PeerstPlayer.Controls.MoviePlayer
 				// 音量変更したらミュートを解除
 				mute = false;
 
-				flashManager.ChangeVolume(value);
+				flashManager.ChangeVolume((double)volume / 100);
 				volumeChange(this, new EventArgs());
 			}
 		}
 
+		private int volumeBalance = 0;
 		int IMoviePlayer.VolumeBalance
 		{
-			get { return 0; }
-			set { }
+			get { return volumeBalance; }
+			set
+			{
+				if (value < -100)
+				{
+					volumeBalance = -100;
+				}
+				else if (100 < value)
+				{
+					volumeBalance = 100;
+				}
+				else
+				{
+					volumeBalance = value;
+				}
+
+				flashManager.ChangePan((double)volumeBalance / 100);
+			}
 		}
 
 		/// <summary>
@@ -211,28 +243,18 @@ namespace PeerstPlayer.Controls.MoviePlayer
 			get { return this; }
 		}
 
-		/// <summary>
-		/// 初回ファイルオープンフラグ(MovieStartに使用)
-		/// </summary>
-		private bool isFirstMediaOpen = true;
-
 		void IMoviePlayer.PlayMoive(string streamUrl)
 		{
 			axShockwaveFlash.LoadMovie(0, FormUtility.GetExeFolderPath() + "/FlvPlayer.swf");
 			flashManager.PlayVideo(streamUrl);
 			flashManager.OpenStateChange += (sender, args) =>
 			{
-				// 動画再生開始イベント
-				if (isFirstMediaOpen)
-				{
-					var width = ((IMoviePlayer)this).ImageWidth;
-					var height = ((IMoviePlayer)this).ImageHeight;
-					axShockwaveFlash.Width = width;
-					axShockwaveFlash.Height = height;
-					isFirstMediaOpen = false;
-					movieStart(this, new EventArgs());
-					flashManager.ChangeVolume(volume);
-				}
+				var width = ((IMoviePlayer)this).ImageWidth;
+				var height = ((IMoviePlayer)this).ImageHeight;
+				axShockwaveFlash.Width = width;
+				axShockwaveFlash.Height = height;
+				movieStart(this, new EventArgs());
+				flashManager.ChangeVolume((double)volume / 100);
 			};
 		}
 	}

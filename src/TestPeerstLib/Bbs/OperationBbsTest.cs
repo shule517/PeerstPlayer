@@ -205,6 +205,19 @@ namespace TestPeerstLib
 		}
 
 		//-------------------------------------------------------------
+		// 確認：掲示板設定の取得確認
+		//-------------------------------------------------------------
+		[TestMethod]
+		public void BbsStrategyTest_UpdateBbsSetting()
+		{
+			var strategy = BbsStrategyFactory.Create("http://jbbs.shitaraba.net/game/45037/");
+			strategy.UpdateBbsSetting();
+			Assert.AreEqual(strategy.BbsInfo.Setting["BBS"], "45037");
+			Assert.AreEqual(strategy.BbsInfo.Setting["CATEGORY"], "ゲーム/囲碁/将棋");
+			Assert.AreEqual(strategy.BbsInfo.Setting["TOP"], "http://jbbs.shitaraba.net/game/45037/");
+		}
+
+		//-------------------------------------------------------------
 		// 確認：掲示板一覧の取得確認
 		//-------------------------------------------------------------
 		[TestMethod]

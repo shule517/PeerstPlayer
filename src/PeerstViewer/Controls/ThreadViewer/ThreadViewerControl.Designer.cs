@@ -28,7 +28,7 @@
 		/// </summary>
 		private void InitializeComponent()
 		{
-			this.webBrowser = new System.Windows.Forms.WebBrowser();
+			this.webBrowser = new PeerstViewer.Controls.WebBrowserEx();
 			this.SuspendLayout();
 			// 
 			// webBrowser
@@ -53,6 +53,6 @@
 
 		#endregion
 
-		private System.Windows.Forms.WebBrowser webBrowser;
+		private WebBrowserEx webBrowser;
 	}
 }

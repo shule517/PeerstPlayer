@@ -1,4 +1,5 @@
 ﻿
+using System.ComponentModel;
 using PeerstLib.Controls;
 using PeerstLib.Util;
 using PeerstPlayer.Settings;
@@ -209,6 +210,74 @@ namespace PeerstPlayer.Forms.Player
 		{
 			get { return info.MovieStartCommand; }
 			set { info.MovieStartCommand = value; }
+		}
+
+		/// <summary>
+		/// スクリーンショットを保存するフォルダ
+		/// </summary>
+		public static string ScreenshotFolder
+		{
+			get { return info.ScreenshotFolder; }
+			set { info.ScreenshotFolder = value; }
+		}
+
+		/// <summary>
+		/// スクリーンショットの保存形式
+		/// </summary>
+		public static string ScreenshotExtension
+		{
+			get { return info.ScreenshotExtension; }
+			set { info.ScreenshotExtension = value; }
+		}
+
+		/// <summary>
+		/// スクリーンショットファイル名の書式
+		/// </summary>
+		public static string ScreenshotFormat
+		{
+			get { return info.ScreenshotFormat; }
+			set { info.ScreenshotFormat = value; }
+		}
+
+		public static bool AutoReadThread
+		{
+			get { return info.AutoReadThread; }
+			set { info.AutoReadThread = value; }
+		}
+
+		/// <summary>
+		/// Player終了時にViewerも終了させる
+		/// </summary>
+		public static bool ExitedViewerClose
+		{
+			get { return info.ExitedViewerClose; }
+			set { info.ExitedViewerClose = value; }
+		}
+
+		/// <summary>
+		/// FLVで再生支援を使うか
+		/// </summary>
+		public static bool Gpu
+		{
+			get { return info.Gpu; }
+			set
+			{
+				if (info.Gpu != value)
+				{
+					info.Gpu = value;
+					RaisePropertyChanged("Gpu");
+				}
+			}
+		}
+
+		public static event Action<string> Changed;
+
+		private static void RaisePropertyChanged(string property)
+		{
+			if (Changed != null)
+			{
+				Changed(property);
+			}
 		}
 
 		static PlayerSettings()

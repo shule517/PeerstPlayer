@@ -125,6 +125,7 @@ namespace PeerstLib.Bbs
 			{
 				string url = (string)e.Argument;
 				strategy = BbsStrategyFactory.Create(url);
+				strategy.UpdateBbsSetting();
 				strategy.UpdateThreadList();
 				strategy.UpdateBbsName();
 			};
@@ -138,6 +139,7 @@ namespace PeerstLib.Bbs
 			updateThreadListWorker.WorkerSupportsCancellation = true;
 			updateThreadListWorker.DoWork += (sender, e) =>
 			{
+				strategy.UpdateBbsSetting();
 				strategy.UpdateThreadList();
 			};
 			updateThreadListWorker.RunWorkerCompleted += (sender, e) =>
@@ -217,6 +219,28 @@ namespace PeerstLib.Bbs
 			// 選択しているスレッドからデータを取得する
 			Logger.Instance.DebugFormat("ReadThread");
 			strategy.ReadThread(isHtmlDecode);
+		}
+
+		//-------------------------------------------------------------
+		// 概要：次スレ候補を取得する
+		//-------------------------------------------------------------
+		public bool ChangeCandidateThread()
+		{
+			// 埋まっていないスレかつ
+			// スレが選択されていれば、現在のスレより新しいスレかつ
+			// 勢いの高いスレを選ぶ
+			var threads = ThreadList.Where(info => !info.IsStopThread)
+				.Where(info => !ThreadSelected || int.Parse(BbsInfo.ThreadNo) < int.Parse(info.ThreadNo))
+				.OrderByDescending(info => info.ThreadSpeed);
+			// 候補スレッドが無ければ終わり
+			if (threads.Count() == 0)
+			{
+				
+				return false;
+			}
+
+			ChangeThread(threads.First().ThreadNo);
+			return true;
 		}
 
 		//-------------------------------------------------------------

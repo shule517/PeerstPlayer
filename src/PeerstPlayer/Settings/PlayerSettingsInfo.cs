@@ -113,6 +113,36 @@ namespace PeerstPlayer.Settings
 		/// </summary>
 		public bool SaveReturnSizeOnClose = false;
 
+		/// <summary>
+		/// スクリーンショットを保存するフォルダ
+		/// </summary>
+		public string ScreenshotFolder = "Screenshot";
+
+		/// <summary>
+		/// スクリーンショットの保存形式
+		/// </summary>
+		public string ScreenshotExtension = "png";
+
+		/// <summary>
+		/// スクリーンショットファイル名の書式
+		/// </summary>
+		public string ScreenshotFormat = "yyyyMMdd_HHmmss";
+
+		/// <summary>
+		/// 自動スレ移動
+		/// </summary>
+		public bool AutoReadThread = false;
+
+		/// <summary>
+		/// Player終了時にViewerも終了させる
+		/// </summary>
+		public bool ExitedViewerClose = false;
+
+		/// <summary>
+		/// FLVで再生支援を使うか
+		/// </summary>
+		public bool Gpu = true;
+
 		// - ステータスバーフォント : Font
 		// - ステータスバー表示項目 : List
 		// - 終了時位置保存 : boolean

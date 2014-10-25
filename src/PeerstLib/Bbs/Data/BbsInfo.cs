@@ -1,4 +1,6 @@
 ﻿
+using System.Collections.Generic;
+
 namespace PeerstLib.Bbs.Data
 {
 	//-------------------------------------------------------------
@@ -44,5 +46,21 @@ namespace PeerstLib.Bbs.Data
 		/// 掲示板サーバ
 		/// </summary>
 		public BbsServer BbsServer { get; set; }
+
+		/// <summary>
+		/// スレッドに書き込めるレスの上限数
+		/// </summary>
+		public int ThreadStop { get; set; }
+
+		public Dictionary<string, string> Setting { get; private set; }
+
+		//-------------------------------------------------------------
+		// 概要：コンストラクタ
+		//-------------------------------------------------------------
+		public BbsInfo()
+		{
+			Setting = new Dictionary<string, string>();
+			ThreadStop = 1000;
+		}
 	}
 }

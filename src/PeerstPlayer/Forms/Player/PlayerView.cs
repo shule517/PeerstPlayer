@@ -103,10 +103,15 @@ namespace PeerstPlayer.Forms.Setting
 				// アスペクト比維持
 				new AspectRateKeepWindow(this, pecaPlayer);
 
-				// WMPを使用していなければ「WMPメニュー」を灰色にする
+				// WMPを使用していなければ「WMPメニュー」を非表示にする
 				if (!pecaPlayer.UsedWMP)
 				{
-					wmpMenuToolStripMenuItem.Enabled = false;
+					wmpMenuToolStripMenuItem.Visible = false;
+				}
+				// FLV用のメニューを非表示にする
+				else
+				{
+					showDebugToolStripMenuItem.Visible = false;
 				}
 			};
 		}
@@ -216,7 +221,15 @@ namespace PeerstPlayer.Forms.Setting
 					isFirst = false;
 
 					// タイトル設定
-					Win32API.SetWindowText(Handle, String.Format("{0} - PeerstPlayer", info.Name));
+					if (Environment.GetCommandLineArgs().Length > 3)
+					{
+						var name = Environment.GetCommandLineArgs()[3];
+						Win32API.SetWindowText(Handle, String.Format("{0} - PeerstPlayer", name));
+					}
+					else
+					{
+						Win32API.SetWindowText(Handle, String.Format("{0} - PeerstPlayer", info.Name));
+					}
 				}
 			};
 
@@ -487,6 +500,41 @@ namespace PeerstPlayer.Forms.Setting
 			updateChannelInfoToolStripMenuItem.Click += (sender, e) => shortcut.ExecCommand(Commands.UpdateChannelInfo);
 			bumpToolStripMenuItem.Click += (sender, e) => shortcut.ExecCommand(Commands.Bump);
 			functionToolStripMenuItem.DropDownOpening += (sender, e) => topMostToolStripMenuItem.Checked = TopMost;
+			screenshotToolStripMenuItem.Click += (sender, e) => shortcut.ExecCommand(Commands.Screenshot);
+			openScreenshotFolderToolStripMenuItem.Click += (sender, e) => shortcut.ExecCommand(Commands.OpenScreenshotFolder);
+			// ファイルから開く
+			openFromFileToolStripMenuItem.Click += (sender, e) =>
+			{
+				var dialog = new OpenFileDialog();
+				if (dialog.ShowDialog() == DialogResult.OK)
+				{
+					Open(dialog.FileName);
+				}
+			};
+			// URLから開く
+			openFromUrlToolStripTextBox.KeyDown += (sender, e) =>
+			{
+				if (e.KeyCode == Keys.Return)
+				{
+					Open(((ToolStripTextBox)sender).Text);
+					contextMenuStrip.Close();
+				}
+			};
+			// クリップボードから開く
+			openFromClipboardToolStripMenuItem.Click += (sender, e) =>
+			{
+				try
+				{
+					if (Clipboard.ContainsText())
+					{
+						Open(Clipboard.GetText());
+					}
+				}
+				catch (System.Runtime.InteropServices.ExternalException)
+				{
+					MessageBox.Show("クリップボードのオープンに失敗しました");
+				}
+			};
 
 			// 音量
 			volumeUpToolStripMenuItem.Click += (sender, e) => shortcut.ExecCommand(Commands.VolumeUp);
@@ -510,6 +558,8 @@ namespace PeerstPlayer.Forms.Setting
 
 			// WMPメニュー押下
 			wmpMenuToolStripMenuItem.Click += (sender, e) => shortcut.ExecCommand(Commands.WmpMenu);
+			// 動画情報表示押下
+			showDebugToolStripMenuItem.Click += (sender, e) => pecaPlayer.ShowDebug();
 		}
 
 		/// <summary>
@@ -526,7 +576,15 @@ namespace PeerstPlayer.Forms.Setting
 		/// </summary>
 		private void UpdateChannelDetail(ChannelInfo info)
 		{
-			statusBar.ChannelDetail = String.Format("{0} {1}{2} {3}", info.Name, (string.IsNullOrEmpty(info.Genre) ? "" : string.Format("[{0}] ", info.Genre)), info.Desc, info.Comment);
+			if (Environment.GetCommandLineArgs().Length > 3)
+			{
+				var name = Environment.GetCommandLineArgs()[3];
+				statusBar.ChannelDetail = String.Format("{0} {1}{2} {3}", name, (string.IsNullOrEmpty(info.Genre) ? "" : string.Format("[{0}] ", info.Genre)), info.Desc, info.Comment);
+			}
+			else
+			{
+				statusBar.ChannelDetail = String.Format("{0} {1}{2} {3}", info.Name, (string.IsNullOrEmpty(info.Genre) ? "" : string.Format("[{0}] ", info.Genre)), info.Desc, info.Comment);				
+			}
 		}
 
 		/// <summary>

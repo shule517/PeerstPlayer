@@ -29,6 +29,7 @@ namespace PeerstPlayer.Forms.Setting
 		/// </summary>
 		private void InitializeComponent()
 		{
+			this.components = new System.ComponentModel.Container();
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(PlayerSettingView));
 			this.tabControl = new System.Windows.Forms.TabControl();
 			this.settingPage = new System.Windows.Forms.TabPage();
@@ -53,11 +54,27 @@ namespace PeerstPlayer.Forms.Setting
 			this.movieStartGroupBox = new System.Windows.Forms.GroupBox();
 			this.movieStartComboBox = new System.Windows.Forms.ComboBox();
 			this.closeGroupBox = new System.Windows.Forms.GroupBox();
+			this.exitedViewerCloseCheckBox = new System.Windows.Forms.CheckBox();
+			this.saveReturnSizeCheckBox = new System.Windows.Forms.CheckBox();
+			this.saveReturnPositionCheckBox = new System.Windows.Forms.CheckBox();
 			this.disconnectRealyOnCloseCheckBox = new System.Windows.Forms.CheckBox();
 			this.statusBarGroupBox = new System.Windows.Forms.GroupBox();
 			this.listenerNumberCheckBox = new System.Windows.Forms.CheckBox();
 			this.displayBitrateCheckBox = new System.Windows.Forms.CheckBox();
 			this.displayFpsCheckBox = new System.Windows.Forms.CheckBox();
+			this.settingPage2 = new System.Windows.Forms.TabPage();
+			this.threadGroupBox = new System.Windows.Forms.GroupBox();
+			this.autoReadThreadCheckBox = new System.Windows.Forms.CheckBox();
+			this.screenshotGroupBox = new System.Windows.Forms.GroupBox();
+			this.screenshotSampleTextBox = new System.Windows.Forms.TextBox();
+			this.screenshotFormatButton = new System.Windows.Forms.Button();
+			this.screenshotFormatTextBox = new System.Windows.Forms.TextBox();
+			this.screenshotFormatLabel = new System.Windows.Forms.Label();
+			this.screenshotExtensionComboBox = new System.Windows.Forms.ComboBox();
+			this.screenshotExtensionLabel = new System.Windows.Forms.Label();
+			this.browseScreenshotFolderButton = new System.Windows.Forms.Button();
+			this.screenshotFolderTextBox = new System.Windows.Forms.TextBox();
+			this.screenshotFolderLabel = new System.Windows.Forms.Label();
 			this.shortcutPage = new System.Windows.Forms.TabPage();
 			this.keyLabel = new System.Windows.Forms.Label();
 			this.shortcutListView = new PeerstLib.Controls.BufferedListView();
@@ -66,8 +83,18 @@ namespace PeerstPlayer.Forms.Setting
 			this.gestureColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
 			this.saveButton = new System.Windows.Forms.Button();
 			this.cancelButton = new System.Windows.Forms.Button();
-			this.saveReturnPositionCheckBox = new System.Windows.Forms.CheckBox();
-			this.saveReturnSizeCheckBox = new System.Windows.Forms.CheckBox();
+			this.folderBrowserDialog = new System.Windows.Forms.FolderBrowserDialog();
+			this.screenshotContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
+			this.year2ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.year4ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.monthToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.dayToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.hourToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.minuteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.secondToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.channelNameToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.flvGroupBox = new System.Windows.Forms.GroupBox();
+			this.flvGpuCheckBox = new System.Windows.Forms.CheckBox();
 			this.tabControl.SuspendLayout();
 			this.settingPage.SuspendLayout();
 			this.volumeChangeGroupBox.SuspendLayout();
@@ -76,7 +103,12 @@ namespace PeerstPlayer.Forms.Setting
 			this.movieStartGroupBox.SuspendLayout();
 			this.closeGroupBox.SuspendLayout();
 			this.statusBarGroupBox.SuspendLayout();
+			this.settingPage2.SuspendLayout();
+			this.threadGroupBox.SuspendLayout();
+			this.screenshotGroupBox.SuspendLayout();
 			this.shortcutPage.SuspendLayout();
+			this.screenshotContextMenuStrip.SuspendLayout();
+			this.flvGroupBox.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// tabControl
@@ -85,6 +117,7 @@ namespace PeerstPlayer.Forms.Setting
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.tabControl.Controls.Add(this.settingPage);
+			this.tabControl.Controls.Add(this.settingPage2);
 			this.tabControl.Controls.Add(this.shortcutPage);
 			this.tabControl.Location = new System.Drawing.Point(0, 0);
 			this.tabControl.Name = "tabControl";
@@ -308,15 +341,46 @@ namespace PeerstPlayer.Forms.Setting
 			// 
 			// closeGroupBox
 			// 
+			this.closeGroupBox.Controls.Add(this.exitedViewerCloseCheckBox);
 			this.closeGroupBox.Controls.Add(this.saveReturnSizeCheckBox);
 			this.closeGroupBox.Controls.Add(this.saveReturnPositionCheckBox);
 			this.closeGroupBox.Controls.Add(this.disconnectRealyOnCloseCheckBox);
 			this.closeGroupBox.Location = new System.Drawing.Point(231, 155);
 			this.closeGroupBox.Name = "closeGroupBox";
-			this.closeGroupBox.Size = new System.Drawing.Size(210, 90);
+			this.closeGroupBox.Size = new System.Drawing.Size(210, 110);
 			this.closeGroupBox.TabIndex = 4;
 			this.closeGroupBox.TabStop = false;
 			this.closeGroupBox.Text = "終了時";
+			// 
+			// exitedViewerCloseCheckBox
+			// 
+			this.exitedViewerCloseCheckBox.AutoSize = true;
+			this.exitedViewerCloseCheckBox.Location = new System.Drawing.Point(22, 84);
+			this.exitedViewerCloseCheckBox.Name = "exitedViewerCloseCheckBox";
+			this.exitedViewerCloseCheckBox.Size = new System.Drawing.Size(119, 16);
+			this.exitedViewerCloseCheckBox.TabIndex = 1;
+			this.exitedViewerCloseCheckBox.Text = "Viewerも終了させる";
+			this.exitedViewerCloseCheckBox.UseVisualStyleBackColor = true;
+			// 
+			// saveReturnSizeCheckBox
+			// 
+			this.saveReturnSizeCheckBox.AutoSize = true;
+			this.saveReturnSizeCheckBox.Location = new System.Drawing.Point(21, 62);
+			this.saveReturnSizeCheckBox.Name = "saveReturnSizeCheckBox";
+			this.saveReturnSizeCheckBox.Size = new System.Drawing.Size(148, 16);
+			this.saveReturnSizeCheckBox.TabIndex = 0;
+			this.saveReturnSizeCheckBox.Text = "ウィンドウサイズを保存する";
+			this.saveReturnSizeCheckBox.UseVisualStyleBackColor = true;
+			// 
+			// saveReturnPositionCheckBox
+			// 
+			this.saveReturnPositionCheckBox.AutoSize = true;
+			this.saveReturnPositionCheckBox.Location = new System.Drawing.Point(21, 40);
+			this.saveReturnPositionCheckBox.Name = "saveReturnPositionCheckBox";
+			this.saveReturnPositionCheckBox.Size = new System.Drawing.Size(143, 16);
+			this.saveReturnPositionCheckBox.TabIndex = 0;
+			this.saveReturnPositionCheckBox.Text = "ウィンドウ位置を保存する";
+			this.saveReturnPositionCheckBox.UseVisualStyleBackColor = true;
 			// 
 			// disconnectRealyOnCloseCheckBox
 			// 
@@ -369,6 +433,138 @@ namespace PeerstPlayer.Forms.Setting
 			this.displayFpsCheckBox.TabIndex = 0;
 			this.displayFpsCheckBox.Text = "FPSを表示";
 			this.displayFpsCheckBox.UseVisualStyleBackColor = true;
+			// 
+			// settingPage2
+			// 
+			this.settingPage2.Controls.Add(this.flvGroupBox);
+			this.settingPage2.Controls.Add(this.threadGroupBox);
+			this.settingPage2.Controls.Add(this.screenshotGroupBox);
+			this.settingPage2.Location = new System.Drawing.Point(4, 22);
+			this.settingPage2.Name = "settingPage2";
+			this.settingPage2.Padding = new System.Windows.Forms.Padding(3);
+			this.settingPage2.Size = new System.Drawing.Size(453, 336);
+			this.settingPage2.TabIndex = 2;
+			this.settingPage2.Text = "各種設定2";
+			this.settingPage2.UseVisualStyleBackColor = true;
+			// 
+			// threadGroupBox
+			// 
+			this.threadGroupBox.Controls.Add(this.autoReadThreadCheckBox);
+			this.threadGroupBox.Location = new System.Drawing.Point(11, 136);
+			this.threadGroupBox.Name = "threadGroupBox";
+			this.threadGroupBox.Size = new System.Drawing.Size(210, 50);
+			this.threadGroupBox.TabIndex = 1;
+			this.threadGroupBox.TabStop = false;
+			this.threadGroupBox.Text = "スレッド";
+			// 
+			// autoReadThreadCheckBox
+			// 
+			this.autoReadThreadCheckBox.AutoSize = true;
+			this.autoReadThreadCheckBox.Location = new System.Drawing.Point(20, 18);
+			this.autoReadThreadCheckBox.Name = "autoReadThreadCheckBox";
+			this.autoReadThreadCheckBox.Size = new System.Drawing.Size(138, 16);
+			this.autoReadThreadCheckBox.TabIndex = 0;
+			this.autoReadThreadCheckBox.Text = "自動スレ移動（仮実装）";
+			this.autoReadThreadCheckBox.UseVisualStyleBackColor = true;
+			// 
+			// screenshotGroupBox
+			// 
+			this.screenshotGroupBox.Controls.Add(this.screenshotSampleTextBox);
+			this.screenshotGroupBox.Controls.Add(this.screenshotFormatButton);
+			this.screenshotGroupBox.Controls.Add(this.screenshotFormatTextBox);
+			this.screenshotGroupBox.Controls.Add(this.screenshotFormatLabel);
+			this.screenshotGroupBox.Controls.Add(this.screenshotExtensionComboBox);
+			this.screenshotGroupBox.Controls.Add(this.screenshotExtensionLabel);
+			this.screenshotGroupBox.Controls.Add(this.browseScreenshotFolderButton);
+			this.screenshotGroupBox.Controls.Add(this.screenshotFolderTextBox);
+			this.screenshotGroupBox.Controls.Add(this.screenshotFolderLabel);
+			this.screenshotGroupBox.Location = new System.Drawing.Point(11, 14);
+			this.screenshotGroupBox.Name = "screenshotGroupBox";
+			this.screenshotGroupBox.Size = new System.Drawing.Size(430, 116);
+			this.screenshotGroupBox.TabIndex = 0;
+			this.screenshotGroupBox.TabStop = false;
+			this.screenshotGroupBox.Text = "スクリーンショット";
+			// 
+			// screenshotSampleTextBox
+			// 
+			this.screenshotSampleTextBox.Location = new System.Drawing.Point(107, 81);
+			this.screenshotSampleTextBox.Name = "screenshotSampleTextBox";
+			this.screenshotSampleTextBox.ReadOnly = true;
+			this.screenshotSampleTextBox.Size = new System.Drawing.Size(250, 19);
+			this.screenshotSampleTextBox.TabIndex = 8;
+			// 
+			// screenshotFormatButton
+			// 
+			this.screenshotFormatButton.Location = new System.Drawing.Point(374, 57);
+			this.screenshotFormatButton.Name = "screenshotFormatButton";
+			this.screenshotFormatButton.Size = new System.Drawing.Size(42, 23);
+			this.screenshotFormatButton.TabIndex = 7;
+			this.screenshotFormatButton.Text = "書式";
+			this.screenshotFormatButton.UseVisualStyleBackColor = true;
+			// 
+			// screenshotFormatTextBox
+			// 
+			this.screenshotFormatTextBox.Location = new System.Drawing.Point(107, 59);
+			this.screenshotFormatTextBox.Name = "screenshotFormatTextBox";
+			this.screenshotFormatTextBox.Size = new System.Drawing.Size(250, 19);
+			this.screenshotFormatTextBox.TabIndex = 6;
+			// 
+			// screenshotFormatLabel
+			// 
+			this.screenshotFormatLabel.AutoSize = true;
+			this.screenshotFormatLabel.Location = new System.Drawing.Point(50, 62);
+			this.screenshotFormatLabel.Name = "screenshotFormatLabel";
+			this.screenshotFormatLabel.Size = new System.Drawing.Size(51, 12);
+			this.screenshotFormatLabel.TabIndex = 5;
+			this.screenshotFormatLabel.Text = "ファイル名";
+			// 
+			// screenshotExtensionComboBox
+			// 
+			this.screenshotExtensionComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+			this.screenshotExtensionComboBox.FormattingEnabled = true;
+			this.screenshotExtensionComboBox.Items.AddRange(new object[] {
+            "bmp",
+            "gif",
+            "jpg",
+            "png"});
+			this.screenshotExtensionComboBox.Location = new System.Drawing.Point(107, 37);
+			this.screenshotExtensionComboBox.Name = "screenshotExtensionComboBox";
+			this.screenshotExtensionComboBox.Size = new System.Drawing.Size(76, 20);
+			this.screenshotExtensionComboBox.TabIndex = 4;
+			// 
+			// screenshotExtensionLabel
+			// 
+			this.screenshotExtensionLabel.AutoSize = true;
+			this.screenshotExtensionLabel.Location = new System.Drawing.Point(18, 40);
+			this.screenshotExtensionLabel.Name = "screenshotExtensionLabel";
+			this.screenshotExtensionLabel.Size = new System.Drawing.Size(84, 12);
+			this.screenshotExtensionLabel.TabIndex = 3;
+			this.screenshotExtensionLabel.Text = "保存する拡張子";
+			// 
+			// browseScreenshotFolderButton
+			// 
+			this.browseScreenshotFolderButton.Location = new System.Drawing.Point(374, 13);
+			this.browseScreenshotFolderButton.Name = "browseScreenshotFolderButton";
+			this.browseScreenshotFolderButton.Size = new System.Drawing.Size(42, 23);
+			this.browseScreenshotFolderButton.TabIndex = 2;
+			this.browseScreenshotFolderButton.Text = "参照";
+			this.browseScreenshotFolderButton.UseVisualStyleBackColor = true;
+			// 
+			// screenshotFolderTextBox
+			// 
+			this.screenshotFolderTextBox.Location = new System.Drawing.Point(107, 15);
+			this.screenshotFolderTextBox.Name = "screenshotFolderTextBox";
+			this.screenshotFolderTextBox.Size = new System.Drawing.Size(250, 19);
+			this.screenshotFolderTextBox.TabIndex = 1;
+			// 
+			// screenshotFolderLabel
+			// 
+			this.screenshotFolderLabel.AutoSize = true;
+			this.screenshotFolderLabel.Location = new System.Drawing.Point(18, 18);
+			this.screenshotFolderLabel.Name = "screenshotFolderLabel";
+			this.screenshotFolderLabel.Size = new System.Drawing.Size(83, 12);
+			this.screenshotFolderLabel.TabIndex = 0;
+			this.screenshotFolderLabel.Text = "保存するフォルダ";
 			// 
 			// shortcutPage
 			// 
@@ -449,25 +645,88 @@ namespace PeerstPlayer.Forms.Setting
 			this.cancelButton.UseVisualStyleBackColor = true;
 			this.cancelButton.Click += new System.EventHandler(this.cancelButton_Click);
 			// 
-			// saveReturnPositionCheckBox
+			// screenshotContextMenuStrip
 			// 
-			this.saveReturnPositionCheckBox.AutoSize = true;
-			this.saveReturnPositionCheckBox.Location = new System.Drawing.Point(21, 40);
-			this.saveReturnPositionCheckBox.Name = "saveReturnPositionCheckBox";
-			this.saveReturnPositionCheckBox.Size = new System.Drawing.Size(143, 16);
-			this.saveReturnPositionCheckBox.TabIndex = 0;
-			this.saveReturnPositionCheckBox.Text = "ウィンドウ位置を保存する";
-			this.saveReturnPositionCheckBox.UseVisualStyleBackColor = true;
+			this.screenshotContextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.year2ToolStripMenuItem,
+            this.year4ToolStripMenuItem,
+            this.monthToolStripMenuItem,
+            this.dayToolStripMenuItem,
+            this.hourToolStripMenuItem,
+            this.minuteToolStripMenuItem,
+            this.secondToolStripMenuItem,
+            this.channelNameToolStripMenuItem});
+			this.screenshotContextMenuStrip.Name = "screenshotContextMenuStrip";
+			this.screenshotContextMenuStrip.Size = new System.Drawing.Size(129, 180);
 			// 
-			// saveReturnSizeCheckBox
+			// year2ToolStripMenuItem
 			// 
-			this.saveReturnSizeCheckBox.AutoSize = true;
-			this.saveReturnSizeCheckBox.Location = new System.Drawing.Point(21, 62);
-			this.saveReturnSizeCheckBox.Name = "saveReturnSizeCheckBox";
-			this.saveReturnSizeCheckBox.Size = new System.Drawing.Size(148, 16);
-			this.saveReturnSizeCheckBox.TabIndex = 0;
-			this.saveReturnSizeCheckBox.Text = "ウィンドウサイズを保存する";
-			this.saveReturnSizeCheckBox.UseVisualStyleBackColor = true;
+			this.year2ToolStripMenuItem.Font = new System.Drawing.Font("MS UI Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+			this.year2ToolStripMenuItem.Name = "year2ToolStripMenuItem";
+			this.year2ToolStripMenuItem.Size = new System.Drawing.Size(128, 22);
+			this.year2ToolStripMenuItem.Text = "年(2桁)";
+			// 
+			// year4ToolStripMenuItem
+			// 
+			this.year4ToolStripMenuItem.Name = "year4ToolStripMenuItem";
+			this.year4ToolStripMenuItem.Size = new System.Drawing.Size(128, 22);
+			this.year4ToolStripMenuItem.Text = "年(4桁)";
+			// 
+			// monthToolStripMenuItem
+			// 
+			this.monthToolStripMenuItem.Name = "monthToolStripMenuItem";
+			this.monthToolStripMenuItem.Size = new System.Drawing.Size(128, 22);
+			this.monthToolStripMenuItem.Text = "月";
+			// 
+			// dayToolStripMenuItem
+			// 
+			this.dayToolStripMenuItem.Name = "dayToolStripMenuItem";
+			this.dayToolStripMenuItem.Size = new System.Drawing.Size(128, 22);
+			this.dayToolStripMenuItem.Text = "日";
+			// 
+			// hourToolStripMenuItem
+			// 
+			this.hourToolStripMenuItem.Name = "hourToolStripMenuItem";
+			this.hourToolStripMenuItem.Size = new System.Drawing.Size(128, 22);
+			this.hourToolStripMenuItem.Text = "時間";
+			// 
+			// minuteToolStripMenuItem
+			// 
+			this.minuteToolStripMenuItem.Name = "minuteToolStripMenuItem";
+			this.minuteToolStripMenuItem.Size = new System.Drawing.Size(128, 22);
+			this.minuteToolStripMenuItem.Text = "分";
+			// 
+			// secondToolStripMenuItem
+			// 
+			this.secondToolStripMenuItem.Name = "secondToolStripMenuItem";
+			this.secondToolStripMenuItem.Size = new System.Drawing.Size(128, 22);
+			this.secondToolStripMenuItem.Text = "秒";
+			// 
+			// channelNameToolStripMenuItem
+			// 
+			this.channelNameToolStripMenuItem.Name = "channelNameToolStripMenuItem";
+			this.channelNameToolStripMenuItem.Size = new System.Drawing.Size(128, 22);
+			this.channelNameToolStripMenuItem.Text = "チャンネル名";
+			// 
+			// flvGroupBox
+			// 
+			this.flvGroupBox.Controls.Add(this.flvGpuCheckBox);
+			this.flvGroupBox.Location = new System.Drawing.Point(11, 192);
+			this.flvGroupBox.Name = "flvGroupBox";
+			this.flvGroupBox.Size = new System.Drawing.Size(210, 50);
+			this.flvGroupBox.TabIndex = 2;
+			this.flvGroupBox.TabStop = false;
+			this.flvGroupBox.Text = "FLV";
+			// 
+			// flvGpuCheckBox
+			// 
+			this.flvGpuCheckBox.AutoSize = true;
+			this.flvGpuCheckBox.Location = new System.Drawing.Point(20, 18);
+			this.flvGpuCheckBox.Name = "flvGpuCheckBox";
+			this.flvGpuCheckBox.Size = new System.Drawing.Size(100, 16);
+			this.flvGpuCheckBox.TabIndex = 0;
+			this.flvGpuCheckBox.Text = "再生支援を使う";
+			this.flvGpuCheckBox.UseVisualStyleBackColor = true;
 			// 
 			// PlayerSettingView
 			// 
@@ -493,8 +752,16 @@ namespace PeerstPlayer.Forms.Setting
 			this.closeGroupBox.PerformLayout();
 			this.statusBarGroupBox.ResumeLayout(false);
 			this.statusBarGroupBox.PerformLayout();
+			this.settingPage2.ResumeLayout(false);
+			this.threadGroupBox.ResumeLayout(false);
+			this.threadGroupBox.PerformLayout();
+			this.screenshotGroupBox.ResumeLayout(false);
+			this.screenshotGroupBox.PerformLayout();
 			this.shortcutPage.ResumeLayout(false);
 			this.shortcutPage.PerformLayout();
+			this.screenshotContextMenuStrip.ResumeLayout(false);
+			this.flvGroupBox.ResumeLayout(false);
+			this.flvGroupBox.PerformLayout();
 			this.ResumeLayout(false);
 
 		}
@@ -539,6 +806,32 @@ namespace PeerstPlayer.Forms.Setting
 		private System.Windows.Forms.CheckBox returnPositionOnStartCheckBox;
 		private System.Windows.Forms.CheckBox saveReturnSizeCheckBox;
 		private System.Windows.Forms.CheckBox saveReturnPositionCheckBox;
+		private System.Windows.Forms.TabPage settingPage2;
+		private System.Windows.Forms.GroupBox screenshotGroupBox;
+		private System.Windows.Forms.TextBox screenshotFolderTextBox;
+		private System.Windows.Forms.Label screenshotFolderLabel;
+		private System.Windows.Forms.Button browseScreenshotFolderButton;
+		private System.Windows.Forms.FolderBrowserDialog folderBrowserDialog;
+		private System.Windows.Forms.ComboBox screenshotExtensionComboBox;
+		private System.Windows.Forms.Label screenshotExtensionLabel;
+		private System.Windows.Forms.TextBox screenshotSampleTextBox;
+		private System.Windows.Forms.Button screenshotFormatButton;
+		private System.Windows.Forms.TextBox screenshotFormatTextBox;
+		private System.Windows.Forms.Label screenshotFormatLabel;
+		private System.Windows.Forms.ContextMenuStrip screenshotContextMenuStrip;
+		private System.Windows.Forms.ToolStripMenuItem year2ToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem year4ToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem monthToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem dayToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem hourToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem minuteToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem secondToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem channelNameToolStripMenuItem;
+		private System.Windows.Forms.GroupBox threadGroupBox;
+		private System.Windows.Forms.CheckBox autoReadThreadCheckBox;
+		private System.Windows.Forms.CheckBox exitedViewerCloseCheckBox;
+		private System.Windows.Forms.GroupBox flvGroupBox;
+		private System.Windows.Forms.CheckBox flvGpuCheckBox;
 
 	}
 }

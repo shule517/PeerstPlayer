@@ -1,6 +1,9 @@
-﻿using PeerstLib.Util;
+﻿using PeerstLib.Bbs.Data;
+using PeerstLib.Bbs.Util;
+using PeerstLib.Util;
 using System.Drawing;
 using System.Windows.Forms;
+using System.Diagnostics;
 
 namespace PeerstViewer.Controls.ThreadViewer
 {
@@ -118,6 +121,33 @@ namespace PeerstViewer.Controls.ThreadViewer
 					ScrollPos.X = ScrollRectangle.X;
 					ScrollPos.Y = ScrollRectangle.Y;
 				};
+			};
+
+			webBrowser.Navigating += (sender, e) =>
+			{
+				if (e.Url.ToString() == "about:blank")
+				{
+					return;
+				}
+				MessageBox.Show(e.Url.ToString());
+				// リンクをブラウザで開くか
+				if (Settings.ViewerSettings.OpenLinkBrowser)
+				{
+					// 掲示板URLの場合はビューアで開く
+					if (BbsUrlAnalyzer.Analyze(e.Url.ToString()).BbsServer != BbsServer.UnSupport)
+					{
+						return;
+					}
+
+					Process.Start(e.Url.ToString());
+					e.Cancel = true;
+				}
+			};
+
+			webBrowser.NewWindow3 += (sender, e) =>
+			{
+				Process.Start(e.bstrUrl);
+				e.Cancel = true;
 			};
 		}
 
