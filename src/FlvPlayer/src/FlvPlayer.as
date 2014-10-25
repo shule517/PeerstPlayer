@@ -385,7 +385,7 @@ package
 				video.smoothing = true;
 				// videoをステージに追加
 				if (video.parent == null){
-					stage.addChild(video);
+					stage.addChildAt(video, 0);
 				}
 				// 再生支援が使えたら使う
 				if (stageVideo != null){
