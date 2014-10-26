@@ -129,7 +129,6 @@ namespace PeerstViewer.Controls.ThreadViewer
 				{
 					return;
 				}
-				MessageBox.Show(e.Url.ToString());
 				// リンクをブラウザで開くか
 				if (Settings.ViewerSettings.OpenLinkBrowser)
 				{

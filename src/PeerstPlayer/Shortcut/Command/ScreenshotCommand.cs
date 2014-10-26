@@ -25,43 +25,45 @@ namespace PeerstPlayer.Shortcut.Command
 			{
 				// コンテキストメニューから呼ばれた時用に少し待機する
 				Thread.Sleep(50);
-
-				// // SSのディレクトリが存在していなければ作る
-				if (!Directory.Exists(PlayerSettings.ScreenshotFolder))
+				pecaPlayer.Invoke((MethodInvoker)(() =>
 				{
-					Directory.CreateDirectory(PlayerSettings.ScreenshotFolder);
-				}
-				var fileName = Format(PlayerSettings.ScreenshotFormat, pecaPlayer.ChannelInfo);
-				// 書式にディレクトリが含まれているかもしれないので確認しておく
-				if (!Directory.Exists(PlayerSettings.ScreenshotFolder + Path.GetDirectoryName(fileName)))
-				{
-					Directory.CreateDirectory(PlayerSettings.ScreenshotFolder + Path.GetDirectoryName(fileName));
-				}
-
-				// SS撮影
-				using (var image = new Bitmap(pecaPlayer.Width, pecaPlayer.Height, PixelFormat.Format24bppRgb))
-				using (var graphics = Graphics.FromImage(image))
-				{
-					var location = pecaPlayer.Location;
-					var screenPoint = pecaPlayer.PointToScreen(location);
-					graphics.CopyFromScreen(screenPoint.X, screenPoint.Y, 0, 0, image.Size);
-
-					var format = GetImageFormat(PlayerSettings.ScreenshotExtension);
-					var name = string.Format("{0}/{1}.{2}",
-						PlayerSettings.ScreenshotFolder, fileName, format.ToString().ToLower());
-					try
+					// // SSのディレクトリが存在していなければ作る
+					if (!Directory.Exists(PlayerSettings.ScreenshotFolder))
 					{
-						image.Save(name, format);
+						Directory.CreateDirectory(PlayerSettings.ScreenshotFolder);
 					}
-					catch (ExternalException)
+					var fileName = Format(PlayerSettings.ScreenshotFormat, pecaPlayer.ChannelInfo);
+					// 書式にディレクトリが含まれているかもしれないので確認しておく
+					if (!Directory.Exists(PlayerSettings.ScreenshotFolder + Path.GetDirectoryName(fileName)))
 					{
-						MessageBox.Show(pecaPlayer, "スクリーンショットの保存に失敗しました。\n" +
-							"保存フォルダが間違っている、既にファイルが開かれている、\n" +
-							"ドライブの空き容量が無い可能性があります。",
-							"ERROR!",
-							MessageBoxButtons.OK, MessageBoxIcon.Error);
+						Directory.CreateDirectory(PlayerSettings.ScreenshotFolder + Path.GetDirectoryName(fileName));
 					}
-				}
+
+					// SS撮影
+					using (var image = new Bitmap(pecaPlayer.Width, pecaPlayer.Height, PixelFormat.Format24bppRgb))
+					using (var graphics = Graphics.FromImage(image))
+					{
+						var location = pecaPlayer.Location;
+						var screenPoint = pecaPlayer.PointToScreen(location);
+						graphics.CopyFromScreen(screenPoint.X, screenPoint.Y, 0, 0, image.Size);
+
+						var format = GetImageFormat(PlayerSettings.ScreenshotExtension);
+						var name = string.Format("{0}/{1}.{2}",
+							PlayerSettings.ScreenshotFolder, fileName, format.ToString().ToLower());
+						try
+						{
+							image.Save(name, format);
+						}
+						catch (ExternalException)
+						{
+							MessageBox.Show(pecaPlayer, "スクリーンショットの保存に失敗しました。\n" +
+								"保存フォルダが間違っている、既にファイルが開かれている、\n" +
+								"ドライブの空き容量が無い可能性があります。",
+								"ERROR!",
+								MessageBoxButtons.OK, MessageBoxIcon.Error);
+						}
+					}
+				}));
 			};
 		}
 
