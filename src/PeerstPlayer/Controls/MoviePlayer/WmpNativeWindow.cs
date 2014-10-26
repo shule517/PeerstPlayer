@@ -172,16 +172,7 @@ namespace PeerstPlayer.Controls.MoviePlayer
 					break;
 			}
 
-			try
-			{
-				base.WndProc(ref m);
-
-			}
-			catch (Exception)
-			{
-				
-				
-			}
+			base.WndProc(ref m);
 		}
 	}
 }
