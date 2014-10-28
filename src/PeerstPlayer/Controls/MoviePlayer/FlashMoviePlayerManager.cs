@@ -55,6 +55,9 @@ namespace PeerstPlayer.Controls.MoviePlayer
 				case "Initialized":
 					initialized(flash, new EventArgs());
 					break;
+				case "RequestBump":
+					requestBump(flash, new EventArgs());
+					break;
 			}
 		}
 
@@ -72,6 +75,13 @@ namespace PeerstPlayer.Controls.MoviePlayer
 			remove { openStateChange -= value; }
 		}
 		event EventHandler openStateChange = delegate { };
+
+		public event EventHandler RequestBump
+		{
+			add { requestBump += value; }
+			remove { requestBump -= value; }
+		}
+		private event EventHandler requestBump = delegate { }; 
 
 		/// <summary>
 		/// 動画再生

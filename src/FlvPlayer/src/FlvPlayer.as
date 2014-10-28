@@ -48,12 +48,16 @@ package
 		private var volume:Number = -1;
 		private var pan:Number = 0;
 		private var retryPrevTime:Number = 0;
-		private var retryFpsCount:Number = 0;
+		private var retryCount:Number = 0;
 		// デバッグ用
 		private var debugTimer:Timer = null;
 		private var debugText:TextField = new TextField();
 		private var debugTextBack:Shape = new Shape();
 		private var lastNetEvent:String = "";
+		
+		// C#側を呼び出すコマンド
+		private var commandOpenStateChange:String = "OpenStateChange";
+		private var commandRequestBump:String = "RequestBump";
 		
 		public function FlvPlayer(stage:Stage)
 		{
@@ -366,7 +370,7 @@ package
 					ChangeVolume(volume.toString());
 				}
 				
-				Call("OpenStateChange");
+				Call(commandOpenStateChange);
 			}
 			
 			urlLoader.addEventListener(Event.COMPLETE, function (event:Event):void{
@@ -438,20 +442,21 @@ package
 				PlayVideo(streamUrl);
 				return;
 			}
-			// FPS0の状況が続いていれば再接続する(謎の黒画面対策)
-			if (netStr.currentFPS == 0) {
-				retryFpsCount++;
-				if (retryFpsCount > 10) {
-					trace("retryFps");
+			retryPrevTime = netStr.time;
+			// Buffer0の状況が続いていればBumpする(謎の黒画面対策)
+			if (netStr.bufferLength == 0) {
+				retryCount++;
+				if (retryCount > 3) {
+					trace("retry");
+					Call(commandRequestBump);
 					netStr.close();
 					PlayVideo(streamUrl);
-					retryFpsCount = 0;
+					retryCount = 0;
 				}
-				trace("fpscount++");
+				trace("retryCount++");
 				return;
 			}
-			retryPrevTime = netStr.time;
-			retryFpsCount = 0;
+			retryCount = 0;
 		}
 		
 		private function getEncodeDuration():String
