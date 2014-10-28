@@ -259,7 +259,7 @@ package
 		// 再生時間取得
 		public function GetDurationString():String
 		{
-			if (netStr == null) {
+			if (netStr == null || netStr.info.metaData == null) {
 				return "00:00:00";
 			}
 			
