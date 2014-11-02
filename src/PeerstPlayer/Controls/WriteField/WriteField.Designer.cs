@@ -64,7 +64,7 @@
 			// 
 			// newResToolTip
 			// 
-			this.newResToolTip.AutoPopDelay = 50000;
+			this.newResToolTip.AutoPopDelay = 32000;
 			this.newResToolTip.InitialDelay = 500;
 			this.newResToolTip.IsBalloon = true;
 			this.newResToolTip.ReshowDelay = 100;

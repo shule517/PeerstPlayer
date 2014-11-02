@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 using PeerstLib.Controls;
+using PeerstPlayer.Controls.PecaPlayer;
 using PeerstPlayer.Forms.Player;
 using WMPLib;
 
@@ -13,7 +14,7 @@ namespace PeerstPlayer.Controls.MoviePlayer
 	{
 		private FlashMoviePlayerManager flashManager = null;
 
-		public FlashMoviePlayerControl()
+		public FlashMoviePlayerControl(PecaPlayerControl parent)
 		{
 			InitializeComponent();
 			Dock = DockStyle.Fill;
@@ -21,6 +22,8 @@ namespace PeerstPlayer.Controls.MoviePlayer
 			// FlashManagerの初期化
 			flashManager = new FlashMoviePlayerManager(axShockwaveFlash);
 			flashManager.Initialized += (sender, args) => flashManager.EnableGpu(PlayerSettings.Gpu);
+			// プレイヤーからBump要求のイベント
+			flashManager.RequestBump += (sender, args) => parent.Bump();
 			// 再生支援を使う設定が変更されたら
 			PlayerSettings.Changed += (s) =>
 			{

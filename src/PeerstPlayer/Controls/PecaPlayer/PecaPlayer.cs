@@ -255,7 +255,7 @@ namespace PeerstPlayer.Controls.PecaPlayer
 			string[] commandLineArgs = Environment.GetCommandLineArgs();
 			if (commandLineArgs.Length > 2 && commandLineArgs[2] == "FLV")
 			{
-				moviePlayer = new FlashMoviePlayerControl();
+				moviePlayer = new FlashMoviePlayerControl(this);
 			}
 			else
 			{

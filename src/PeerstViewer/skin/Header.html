@@ -38,7 +38,6 @@ dl dd {
 
 var work = document.createElement("div");
 var regUrl = new RegExp('(h?)(ttps?://[\x21-\x3B\x3D\x3F-\x7E]+)', "gi");
-var replace = '<a href="$1$2">$1$2</a>';
 
 function init() {
         var elm;
@@ -96,7 +95,9 @@ function createLink(obj, parent) {
                                         break;
                                 }
                                 
-                                work.innerHTML = obj.nodeValue.replace(regUrl, replace);
+                                work.innerHTML = obj.nodeValue.replace(regUrl, function(all, g1, g2) {
+                                        return '<a href="h' + g2 + '">' + g1 + g2 + '</a>';
+                                });
                                 while (work.firstChild) {
                                         parent.insertBefore(work.firstChild, obj);
                                 }

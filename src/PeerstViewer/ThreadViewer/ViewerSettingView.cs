@@ -40,6 +40,7 @@ namespace PeerstViewer.ThreadViewer
 		private void saveButton_Click(object sender, EventArgs e)
 		{
 			// ビューワー設定
+			ViewerSettings.OpenLinkBrowser = openLinkBrowserCheckBox.Checked;
 			ViewerSettings.ReturnPositionOnStart = returnPositionOnStartCheckBox.Checked;
 			ViewerSettings.ReturnSizeOnStart = returnSizeOnStartCheckBox.Checked;
 			ViewerSettings.SaveReturnPositionOnClose = saveReturnPositionCheckBox.Checked;
