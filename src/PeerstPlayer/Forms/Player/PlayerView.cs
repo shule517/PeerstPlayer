@@ -508,6 +508,8 @@ namespace PeerstPlayer.Forms.Setting
 				var dialog = new OpenFileDialog();
 				if (dialog.ShowDialog() == DialogResult.OK)
 				{
+					// TODO スレッド選択を解除
+					// TODO ステータスバーを変更
 					Open(dialog.FileName);
 				}
 			};
@@ -516,6 +518,9 @@ namespace PeerstPlayer.Forms.Setting
 			{
 				if (e.KeyCode == Keys.Return)
 				{
+					// TODO FLV or WMVの判定をして、PecaPlayerコントロールを再初期化する
+					// TODO スレッド選択を解除　＋　新しいスレッドへ移動
+					// TODO ステータスバーを変更
 					Open(((ToolStripTextBox)sender).Text);
 					contextMenuStrip.Close();
 				}
@@ -527,6 +532,9 @@ namespace PeerstPlayer.Forms.Setting
 				{
 					if (Clipboard.ContainsText())
 					{
+						// TODO FLV or WMVの判定をして、PecaPlayerコントロールを再初期化する
+						// TODO スレッド選択を解除　＋　新しいスレッドへ移動
+						// TODO ステータスバーを変更
 						Open(Clipboard.GetText());
 					}
 				}

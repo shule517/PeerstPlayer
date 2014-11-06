@@ -36,8 +36,8 @@
 			this.closeGroupBox = new System.Windows.Forms.GroupBox();
 			this.saveReturnSizeCheckBox = new System.Windows.Forms.CheckBox();
 			this.saveReturnPositionCheckBox = new System.Windows.Forms.CheckBox();
-			this.tabControl1 = new System.Windows.Forms.TabControl();
-			this.tabPage1 = new System.Windows.Forms.TabPage();
+			this.settingTabControl = new System.Windows.Forms.TabControl();
+			this.settingTabPage = new System.Windows.Forms.TabPage();
 			this.threadViewerGroupBox = new System.Windows.Forms.GroupBox();
 			this.openLinkBrowserCheckBox = new System.Windows.Forms.CheckBox();
 			this.saveButton = new System.Windows.Forms.Button();
@@ -45,8 +45,8 @@
 			this.toolTip = new System.Windows.Forms.ToolTip(this.components);
 			this.initGroupBox.SuspendLayout();
 			this.closeGroupBox.SuspendLayout();
-			this.tabControl1.SuspendLayout();
-			this.tabPage1.SuspendLayout();
+			this.settingTabControl.SuspendLayout();
+			this.settingTabPage.SuspendLayout();
 			this.threadViewerGroupBox.SuspendLayout();
 			this.SuspendLayout();
 			// 
@@ -112,28 +112,28 @@
 			this.saveReturnPositionCheckBox.Text = "ウィンドウ位置を保存する";
 			this.saveReturnPositionCheckBox.UseVisualStyleBackColor = true;
 			// 
-			// tabControl1
+			// settingTabControl
 			// 
-			this.tabControl1.Controls.Add(this.tabPage1);
-			this.tabControl1.Dock = System.Windows.Forms.DockStyle.Top;
-			this.tabControl1.Location = new System.Drawing.Point(0, 0);
-			this.tabControl1.Name = "tabControl1";
-			this.tabControl1.SelectedIndex = 0;
-			this.tabControl1.Size = new System.Drawing.Size(461, 362);
-			this.tabControl1.TabIndex = 2;
+			this.settingTabControl.Controls.Add(this.settingTabPage);
+			this.settingTabControl.Dock = System.Windows.Forms.DockStyle.Top;
+			this.settingTabControl.Location = new System.Drawing.Point(0, 0);
+			this.settingTabControl.Name = "settingTabControl";
+			this.settingTabControl.SelectedIndex = 0;
+			this.settingTabControl.Size = new System.Drawing.Size(461, 362);
+			this.settingTabControl.TabIndex = 2;
 			// 
-			// tabPage1
+			// settingTabPage
 			// 
-			this.tabPage1.Controls.Add(this.threadViewerGroupBox);
-			this.tabPage1.Controls.Add(this.closeGroupBox);
-			this.tabPage1.Controls.Add(this.initGroupBox);
-			this.tabPage1.Location = new System.Drawing.Point(4, 22);
-			this.tabPage1.Name = "tabPage1";
-			this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-			this.tabPage1.Size = new System.Drawing.Size(453, 336);
-			this.tabPage1.TabIndex = 0;
-			this.tabPage1.Text = "tabPage1";
-			this.tabPage1.UseVisualStyleBackColor = true;
+			this.settingTabPage.Controls.Add(this.threadViewerGroupBox);
+			this.settingTabPage.Controls.Add(this.closeGroupBox);
+			this.settingTabPage.Controls.Add(this.initGroupBox);
+			this.settingTabPage.Location = new System.Drawing.Point(4, 22);
+			this.settingTabPage.Name = "settingTabPage";
+			this.settingTabPage.Padding = new System.Windows.Forms.Padding(3);
+			this.settingTabPage.Size = new System.Drawing.Size(453, 336);
+			this.settingTabPage.TabIndex = 0;
+			this.settingTabPage.Text = "各種設定";
+			this.settingTabPage.UseVisualStyleBackColor = true;
 			// 
 			// threadViewerGroupBox
 			// 
@@ -186,7 +186,7 @@
 			this.ClientSize = new System.Drawing.Size(461, 397);
 			this.Controls.Add(this.cancelButton);
 			this.Controls.Add(this.saveButton);
-			this.Controls.Add(this.tabControl1);
+			this.Controls.Add(this.settingTabControl);
 			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
 			this.Name = "ViewerSettingView";
 			this.Text = "設定";
@@ -194,8 +194,8 @@
 			this.initGroupBox.PerformLayout();
 			this.closeGroupBox.ResumeLayout(false);
 			this.closeGroupBox.PerformLayout();
-			this.tabControl1.ResumeLayout(false);
-			this.tabPage1.ResumeLayout(false);
+			this.settingTabControl.ResumeLayout(false);
+			this.settingTabPage.ResumeLayout(false);
 			this.threadViewerGroupBox.ResumeLayout(false);
 			this.threadViewerGroupBox.PerformLayout();
 			this.ResumeLayout(false);
@@ -206,8 +206,8 @@
 
 		private System.Windows.Forms.GroupBox initGroupBox;
 		private System.Windows.Forms.GroupBox closeGroupBox;
-		private System.Windows.Forms.TabControl tabControl1;
-		private System.Windows.Forms.TabPage tabPage1;
+		private System.Windows.Forms.TabControl settingTabControl;
+		private System.Windows.Forms.TabPage settingTabPage;
 		private System.Windows.Forms.CheckBox returnSizeOnStartCheckBox;
 		private System.Windows.Forms.CheckBox returnPositionOnStartCheckBox;
 		private System.Windows.Forms.CheckBox saveReturnSizeCheckBox;
