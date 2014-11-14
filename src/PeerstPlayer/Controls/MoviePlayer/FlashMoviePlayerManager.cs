@@ -1,4 +1,5 @@
-﻿using AxShockwaveFlashObjects;
+﻿using System.Diagnostics;
+using AxShockwaveFlashObjects;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -98,7 +99,7 @@ namespace PeerstPlayer.Controls.MoviePlayer
 		/// <param name="volume">音量</param>
 		public void ChangeVolume(double volume)
 		{
-			CallFlashMethod(ChangeVolumeMethod, volume.ToString());
+			CallFlashMethod(ChangeVolumeMethod, (volume / 100).ToString());
 		}
 
 		/// <summary>
@@ -107,7 +108,7 @@ namespace PeerstPlayer.Controls.MoviePlayer
 		/// <param name="pan">音量バランス</param>
 		public void ChangePan(double pan)
 		{
-			CallFlashMethod(ChangePanMethod, pan.ToString());
+			CallFlashMethod(ChangePanMethod, (pan / 100).ToString());
 		}
 
 		/// <summary>
