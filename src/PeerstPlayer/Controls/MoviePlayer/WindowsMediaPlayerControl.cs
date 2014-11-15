@@ -34,6 +34,15 @@ namespace PeerstPlayer.Controls.MoviePlayer
 					wmp.fullScreen = false;
 				}
 			};
+
+			wmp.PreviewKeyDown += (sender, args) =>
+			{
+				int state = 0;
+				state += args.Shift ? 1 : 0;
+				state += args.Control ? 1 << 1 : 0;
+				state += args.Alt ? 1 << 2 : 0;
+				keyDownEvent(this, new AxWMPLib._WMPOCXEvents_KeyDownEvent((short)args.KeyData, (short)state));
+			};
 		}
 
 		/// <summary>
@@ -208,9 +217,10 @@ namespace PeerstPlayer.Controls.MoviePlayer
 		/// </summary>
 		event AxWMPLib._WMPOCXEvents_KeyDownEventHandler IMoviePlayer.KeyDownEvent
 		{
-			add { wmp.KeyDownEvent += value; }
-			remove { wmp.KeyDownEvent -= value; }
+			add { keyDownEvent += value; }
+			remove { keyDownEvent -= value; }
 		}
+		event AxWMPLib._WMPOCXEvents_KeyDownEventHandler keyDownEvent = delegate { };
 
 		/// <summary>
 		/// WMPのハンドル
