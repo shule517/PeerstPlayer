@@ -59,21 +59,6 @@ namespace PeerstPlayer.Controls.MoviePlayer
 					MouseMoveEvent(this, new AxWMPLib._WMPOCXEvents_MouseMoveEvent((short)Keys.None, 0, (int)m.LParam & 0xFFFF, (int)m.LParam >> 16));
 					return;
 				case (int)WindowsMessage.WM_KEYDOWN:
-					short state = 0;
-					if (Win32API.GetKeyState(0x10) < 0)
-					{
-						state += 1;
-					}
-					if (Win32API.GetKeyState(0x11) < 0)
-					{
-						state += 1 << 1;
-					}
-					if (Win32API.GetKeyState(0x12) < 0)
-					{
-						state += 1 << 2;
-					}
-					KeyDownEvent(this, new AxWMPLib._WMPOCXEvents_KeyDownEvent((short)m.WParam, state));
-					return;
 				case (int)WindowsMessage.WM_SYSKEYDOWN:
 					int shift	= ((Control.ModifierKeys & Keys.Shift) == Keys.Shift) ? 1 : 0;
 					int control = ((Control.ModifierKeys & Keys.Control) == Keys.Control) ? 1 : 0;
