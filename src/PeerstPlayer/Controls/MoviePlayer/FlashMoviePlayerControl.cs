@@ -73,7 +73,7 @@ namespace PeerstPlayer.Controls.MoviePlayer
 				// 音量変更したらミュートを解除
 				mute = false;
 
-				flashManager.ChangeVolume((double)volume / 100);
+				flashManager.ChangeVolume(volume);
 				volumeChange(this, new EventArgs());
 			}
 		}
@@ -97,7 +97,7 @@ namespace PeerstPlayer.Controls.MoviePlayer
 					volumeBalance = value;
 				}
 
-				flashManager.ChangePan((double)volumeBalance / 100);
+				flashManager.ChangePan(volumeBalance);
 			}
 		}
 
@@ -257,7 +257,7 @@ namespace PeerstPlayer.Controls.MoviePlayer
 				axShockwaveFlash.Width = width;
 				axShockwaveFlash.Height = height;
 				movieStart(this, new EventArgs());
-				flashManager.ChangeVolume((double)volume / 100);
+				flashManager.ChangeVolume(volume);
 			};
 		}
 	}
