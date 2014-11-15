@@ -47,6 +47,13 @@ namespace PeerstLib.Controls
 		[DllImport("user32.dll")]
 		public static extern bool GetWindowRect(IntPtr hWnd, out RECT lpRect);
 
+		/// <summary>
+		/// 指定された仮想キーの状態を取得します。
+		/// </summary>
+		/// <param name="nVirtKey">仮想キーコードを指定します。</param>
+		/// <returns></returns>
+		[DllImport("user32.dll")]
+		public static extern short GetKeyState(int nVirtKey);
 	}
 
 	// ウィンドウ枠の当たり判定
