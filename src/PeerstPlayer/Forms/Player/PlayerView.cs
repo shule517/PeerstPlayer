@@ -212,6 +212,10 @@ namespace PeerstPlayer.Forms.Setting
 				// TODO 文字が空の場合は、スペースを空けない
 				UpdateChannelDetail(info);
 
+				// タイトル設定
+				string chName = getChannelName(info);
+				Win32API.SetWindowText(Handle, String.Format("{0} - PeerstPlayer", chName));
+
 				// 初回のみの設定
 				if (isFirst)
 				{
@@ -219,17 +223,6 @@ namespace PeerstPlayer.Forms.Setting
 					// TODO コンタクトURLが変更されたら、通知後にURL変更
 					statusBar.SelectThreadUrl = info.Url;
 					isFirst = false;
-
-					// タイトル設定
-					if (Environment.GetCommandLineArgs().Length > 3)
-					{
-						var name = Environment.GetCommandLineArgs()[3];
-						Win32API.SetWindowText(Handle, String.Format("{0} - PeerstPlayer", name));
-					}
-					else
-					{
-						Win32API.SetWindowText(Handle, String.Format("{0} - PeerstPlayer", info.Name));
-					}
 				}
 			};
 
@@ -584,15 +577,30 @@ namespace PeerstPlayer.Forms.Setting
 		/// </summary>
 		private void UpdateChannelDetail(ChannelInfo info)
 		{
+			string chName = getChannelName(info);
+			statusBar.ChannelDetail = String.Format("{0} {1}{2} {3}", chName, (string.IsNullOrEmpty(info.Genre) ? "" : string.Format("[{0}] ", info.Genre)), info.Desc, info.Comment);
+		}
+
+		/// <summary>
+		/// チャンネル名を取得
+		/// </summary>
+		private string getChannelName(ChannelInfo info)
+		{
+			// 1.チャンネル情報を優先
+			if (info.Name != "")
+			{
+				return info.Name;
+			}
+
+			// 2.コマンドライン引数
 			if (Environment.GetCommandLineArgs().Length > 3)
 			{
 				var name = Environment.GetCommandLineArgs()[3];
-				statusBar.ChannelDetail = String.Format("{0} {1}{2} {3}", name, (string.IsNullOrEmpty(info.Genre) ? "" : string.Format("[{0}] ", info.Genre)), info.Desc, info.Comment);
+				return name;
 			}
-			else
-			{
-				statusBar.ChannelDetail = String.Format("{0} {1}{2} {3}", info.Name, (string.IsNullOrEmpty(info.Genre) ? "" : string.Format("[{0}] ", info.Genre)), info.Desc, info.Comment);				
-			}
+
+			// 3.データなし→空
+			return "";
 		}
 
 		/// <summary>
