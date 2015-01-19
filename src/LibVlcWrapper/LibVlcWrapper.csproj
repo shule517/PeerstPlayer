@@ -1,0 +1,99 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{136665E6-8C14-4469-B9FA-4C889CCE964E}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>LibVlcWrapper</RootNamespace>
+    <AssemblyName>LibVlcWrapper</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AudioTrack.cs" />
+    <Compile Include="EventArgs\MediaDurationChangedEventArgs.cs" />
+    <Compile Include="EventArgs\MediaMetaChangedEventArgs.cs" />
+    <Compile Include="EventArgs\MediaPlayerBufferingEventArgs.cs" />
+    <Compile Include="EventArgs\MediaPlayerLengthChangedEventArgs.cs" />
+    <Compile Include="EventArgs\MediaPlayerMediaChangedEventArgs.cs" />
+    <Compile Include="EventArgs\MediaPlayerPausableChangedEventArgs.cs" />
+    <Compile Include="EventArgs\MediaPlayerPositionChangedEventArgs.cs" />
+    <Compile Include="EventArgs\MediaPlayerScrambleChangedEventArgs.cs" />
+    <Compile Include="EventArgs\MediaPlayerSeekableChangedEventArgs.cs" />
+    <Compile Include="EventArgs\MediaPlayerSnapshotTokenEventArgs.cs" />
+    <Compile Include="EventArgs\MediaPlayerTimeChangedEventArgs.cs" />
+    <Compile Include="EventArgs\MediaPlayerTitleChangedEventArgs.cs" />
+    <Compile Include="EventArgs\MediaPlayerVoutEventArgs.cs" />
+    <Compile Include="EventArgs\MediaStateChangedEventArgs.cs" />
+    <Compile Include="MouseHook.cs" />
+    <Compile Include="Structures\LibVlcEvent.cs" />
+    <Compile Include="LibVlc.cs" />
+    <Compile Include="LibVlcCallback.cs" />
+    <Compile Include="Media.cs" />
+    <Compile Include="MediaMetadatas.cs" />
+    <Compile Include="MediaPlayer.cs" />
+    <Compile Include="MediaTrack.cs" />
+    <Compile Include="SubtitleTrack.cs" />
+    <Compile Include="TrackType.cs" />
+    <Compile Include="Utility.cs" />
+    <Compile Include="VideoTrack.cs" />
+    <Compile Include="VlcControl.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Win32API.cs" />
+    <Compile Include="EventTypes.cs" />
+    <Compile Include="LibVlcManager.cs" />
+    <Compile Include="MediaStates.cs" />
+    <Compile Include="MediaStats.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Signatures\LibVlcAudio.cs" />
+    <Compile Include="Signatures\LibVlcCore.cs" />
+    <Compile Include="Signatures\LibVlcMediaPlayer.cs" />
+    <Compile Include="Signatures\LibVlcVideo.cs" />
+    <Compile Include="Structures\LibVlcEventManager.cs" />
+    <Compile Include="Signatures\LibVlcMedia.cs" />
+    <Compile Include="Structures\LibVlcInstance.cs" />
+    <Compile Include="Structures\LibVlcMedia.cs" />
+    <Compile Include="Structures\LibVlcMediaPlayer.cs" />
+    <Compile Include="WindowsMessage.cs" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

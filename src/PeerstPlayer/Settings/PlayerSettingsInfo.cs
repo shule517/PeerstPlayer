@@ -148,6 +148,11 @@ namespace PeerstPlayer.Settings
 		/// </summary>
 		public bool Gpu = true;
 
+		/// <summary>
+		/// VLCのフォルダ
+		/// </summary>
+		public string VlcFolder;
+
 		// - ステータスバーフォント : Font
 		// - ステータスバー表示項目 : List
 		// - 終了時位置保存 : boolean

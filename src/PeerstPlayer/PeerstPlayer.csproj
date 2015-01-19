@@ -81,6 +81,13 @@
     <Compile Include="Controls\MoviePlayer\FlashMoviePlayerManager.cs" />
     <Compile Include="Controls\MoviePlayer\FlashNativeWindow.cs" />
     <Compile Include="Controls\MoviePlayer\IMoviePlayer.cs" />
+    <Compile Include="Controls\MoviePlayer\VlcMediaPlayerControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\MoviePlayer\VlcMediaPlayerControl.Designer.cs">
+      <DependentUpon>VlcMediaPlayerControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\MoviePlayer\VlcNativeWindow.cs" />
     <Compile Include="Controls\MoviePlayer\WindowsMediaPlayerControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -182,6 +189,9 @@
     <EmbeddedResource Include="Controls\MoviePlayer\FlashMoviePlayerControl.resx">
       <DependentUpon>FlashMoviePlayerControl.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Controls\MoviePlayer\VlcMediaPlayerControl.resx">
+      <DependentUpon>VlcMediaPlayerControl.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Controls\MoviePlayer\WindowsMediaPlayerControl.resx">
       <DependentUpon>WindowsMediaPlayerControl.cs</DependentUpon>
     </EmbeddedResource>
@@ -232,6 +242,10 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\LibVlcWrapper\LibVlcWrapper.csproj">
+      <Project>{136665e6-8c14-4469-b9fa-4c889cce964e}</Project>
+      <Name>LibVlcWrapper</Name>
+    </ProjectReference>
     <ProjectReference Include="..\PeerstLib\PeerstLib.csproj">
       <Project>{4444c01d-47a2-43a4-b6a0-67ce167f3537}</Project>
       <Name>PeerstLib</Name>
@@ -241,6 +255,7 @@
     <Content Include="FlvPlayer.swf">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="LICENSE.txt" />
     <Content Include="PeerstPlayer.ico" />
     <Content Include="ReadMe.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

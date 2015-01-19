@@ -206,6 +206,11 @@ namespace PeerstPlayer.Controls.PecaPlayer
 		/// </summary>
 		public bool UsedWMP { get { return moviePlayer is WindowsMediaPlayerControl; } }
 
+		/// <summary>
+		/// FlashPlayerを使用しているか
+		/// </summary>
+		public bool UsedFlash { get { return moviePlayer is FlashMoviePlayerControl; } }
+
 		//-------------------------------------------------------------
 		// 非公開プロパティ
 		//-------------------------------------------------------------
@@ -257,9 +262,13 @@ namespace PeerstPlayer.Controls.PecaPlayer
 			{
 				moviePlayer = new FlashMoviePlayerControl(this);
 			}
-			else
+			else if (commandLineArgs.Length > 2 && commandLineArgs[2] == "WMV")
 			{
 				moviePlayer = new WindowsMediaPlayerControl();
+			}
+			else
+			{
+				moviePlayer = new VlcMediaPlayerControl();
 			}
 			this.Controls.Add(this.moviePlayer.MovieControl);
 			this.ResumeLayout(false);
@@ -394,7 +403,7 @@ namespace PeerstPlayer.Controls.PecaPlayer
 		//-------------------------------------------------------------
 		public void ShowDebug()
 		{
-			if (!UsedWMP)
+			if (moviePlayer is FlashMoviePlayerControl)
 			{
 				((FlashMoviePlayerControl)moviePlayer).ShowDebug();
 			}
