@@ -108,8 +108,8 @@ namespace PeerstPlayer.Forms.Setting
 				{
 					wmpMenuToolStripMenuItem.Visible = false;
 				}
-				// FLV用のメニューを非表示にする
-				else
+				// Flashを使用していなければFlash用のメニューを非表示にする
+				if (!pecaPlayer.UsedFlash)
 				{
 					showDebugToolStripMenuItem.Visible = false;
 				}
@@ -355,6 +355,8 @@ namespace PeerstPlayer.Forms.Setting
 			{
 				if (e.nButton == (short)Keys.LButton)
 				{
+					// VLCだとコンテキストメニューが自動で閉じないので手動で閉じる
+					contextMenuStrip.Close();
 					// マウスドラッグ
 					FormUtility.WindowDragStart(this.Handle);
 				}

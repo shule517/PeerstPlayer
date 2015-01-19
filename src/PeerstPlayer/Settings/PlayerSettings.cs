@@ -279,6 +279,15 @@ namespace PeerstPlayer.Forms.Player
 			}
 		}
 
+		/// <summary>
+		/// Vlcのフォルダ
+		/// </summary>
+		public static string VlcFolder
+		{
+			get { return info.VlcFolder; }
+			set { info.VlcFolder = value; }
+		}
+
 		public static event Action<string> Changed;
 
 		private static void RaisePropertyChanged(string property)

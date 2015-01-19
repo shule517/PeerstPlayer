@@ -63,6 +63,8 @@ namespace PeerstPlayer.Forms.Setting
 			this.displayBitrateCheckBox = new System.Windows.Forms.CheckBox();
 			this.displayFpsCheckBox = new System.Windows.Forms.CheckBox();
 			this.settingPage2 = new System.Windows.Forms.TabPage();
+			this.flvGroupBox = new System.Windows.Forms.GroupBox();
+			this.flvGpuCheckBox = new System.Windows.Forms.CheckBox();
 			this.threadGroupBox = new System.Windows.Forms.GroupBox();
 			this.autoReadThreadCheckBox = new System.Windows.Forms.CheckBox();
 			this.screenshotGroupBox = new System.Windows.Forms.GroupBox();
@@ -93,8 +95,10 @@ namespace PeerstPlayer.Forms.Setting
 			this.minuteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.secondToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.channelNameToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.flvGroupBox = new System.Windows.Forms.GroupBox();
-			this.flvGpuCheckBox = new System.Windows.Forms.CheckBox();
+			this.vlcFolderGroupBox = new System.Windows.Forms.GroupBox();
+			this.vlcFolderTextBox = new System.Windows.Forms.TextBox();
+			this.vlcFolderLabel = new System.Windows.Forms.Label();
+			this.browseVlcFolderButton = new System.Windows.Forms.Button();
 			this.hideStatusBarOnFullscreenCheckBox = new System.Windows.Forms.CheckBox();
 			this.tabControl.SuspendLayout();
 			this.settingPage.SuspendLayout();
@@ -105,11 +109,12 @@ namespace PeerstPlayer.Forms.Setting
 			this.closeGroupBox.SuspendLayout();
 			this.statusBarGroupBox.SuspendLayout();
 			this.settingPage2.SuspendLayout();
+			this.flvGroupBox.SuspendLayout();
 			this.threadGroupBox.SuspendLayout();
 			this.screenshotGroupBox.SuspendLayout();
 			this.shortcutPage.SuspendLayout();
 			this.screenshotContextMenuStrip.SuspendLayout();
-			this.flvGroupBox.SuspendLayout();
+			this.vlcFolderGroupBox.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// tabControl
@@ -438,6 +443,7 @@ namespace PeerstPlayer.Forms.Setting
 			// 
 			// settingPage2
 			// 
+			this.settingPage2.Controls.Add(this.vlcFolderGroupBox);
 			this.settingPage2.Controls.Add(this.flvGroupBox);
 			this.settingPage2.Controls.Add(this.threadGroupBox);
 			this.settingPage2.Controls.Add(this.screenshotGroupBox);
@@ -448,6 +454,26 @@ namespace PeerstPlayer.Forms.Setting
 			this.settingPage2.TabIndex = 2;
 			this.settingPage2.Text = "各種設定2";
 			this.settingPage2.UseVisualStyleBackColor = true;
+			// 
+			// flvGroupBox
+			// 
+			this.flvGroupBox.Controls.Add(this.flvGpuCheckBox);
+			this.flvGroupBox.Location = new System.Drawing.Point(11, 192);
+			this.flvGroupBox.Name = "flvGroupBox";
+			this.flvGroupBox.Size = new System.Drawing.Size(210, 50);
+			this.flvGroupBox.TabIndex = 2;
+			this.flvGroupBox.TabStop = false;
+			this.flvGroupBox.Text = "FLV";
+			// 
+			// flvGpuCheckBox
+			// 
+			this.flvGpuCheckBox.AutoSize = true;
+			this.flvGpuCheckBox.Location = new System.Drawing.Point(20, 18);
+			this.flvGpuCheckBox.Name = "flvGpuCheckBox";
+			this.flvGpuCheckBox.Size = new System.Drawing.Size(100, 16);
+			this.flvGpuCheckBox.TabIndex = 0;
+			this.flvGpuCheckBox.Text = "再生支援を使う";
+			this.flvGpuCheckBox.UseVisualStyleBackColor = true;
 			// 
 			// threadGroupBox
 			// 
@@ -710,25 +736,42 @@ namespace PeerstPlayer.Forms.Setting
 			this.channelNameToolStripMenuItem.Size = new System.Drawing.Size(128, 22);
 			this.channelNameToolStripMenuItem.Text = "チャンネル名";
 			// 
-			// flvGroupBox
+			// vlcFolderGroupBox
 			// 
-			this.flvGroupBox.Controls.Add(this.flvGpuCheckBox);
-			this.flvGroupBox.Location = new System.Drawing.Point(11, 192);
-			this.flvGroupBox.Name = "flvGroupBox";
-			this.flvGroupBox.Size = new System.Drawing.Size(210, 50);
-			this.flvGroupBox.TabIndex = 2;
-			this.flvGroupBox.TabStop = false;
-			this.flvGroupBox.Text = "FLV";
+			this.vlcFolderGroupBox.Controls.Add(this.browseVlcFolderButton);
+			this.vlcFolderGroupBox.Controls.Add(this.vlcFolderTextBox);
+			this.vlcFolderGroupBox.Controls.Add(this.vlcFolderLabel);
+			this.vlcFolderGroupBox.Location = new System.Drawing.Point(11, 248);
+			this.vlcFolderGroupBox.Name = "vlcFolderGroupBox";
+			this.vlcFolderGroupBox.Size = new System.Drawing.Size(430, 73);
+			this.vlcFolderGroupBox.TabIndex = 3;
+			this.vlcFolderGroupBox.TabStop = false;
+			this.vlcFolderGroupBox.Text = "VLC";
 			// 
-			// flvGpuCheckBox
+			// vlcFolderTextBox
 			// 
-			this.flvGpuCheckBox.AutoSize = true;
-			this.flvGpuCheckBox.Location = new System.Drawing.Point(20, 18);
-			this.flvGpuCheckBox.Name = "flvGpuCheckBox";
-			this.flvGpuCheckBox.Size = new System.Drawing.Size(100, 16);
-			this.flvGpuCheckBox.TabIndex = 0;
-			this.flvGpuCheckBox.Text = "再生支援を使う";
-			this.flvGpuCheckBox.UseVisualStyleBackColor = true;
+			this.vlcFolderTextBox.Location = new System.Drawing.Point(107, 12);
+			this.vlcFolderTextBox.Name = "vlcFolderTextBox";
+			this.vlcFolderTextBox.Size = new System.Drawing.Size(250, 19);
+			this.vlcFolderTextBox.TabIndex = 3;
+			// 
+			// vlcFolderLabel
+			// 
+			this.vlcFolderLabel.AutoSize = true;
+			this.vlcFolderLabel.Location = new System.Drawing.Point(18, 15);
+			this.vlcFolderLabel.Name = "vlcFolderLabel";
+			this.vlcFolderLabel.Size = new System.Drawing.Size(72, 12);
+			this.vlcFolderLabel.TabIndex = 2;
+			this.vlcFolderLabel.Text = "VLCのフォルダ";
+			// 
+			// browseVlcFolderButton
+			// 
+			this.browseVlcFolderButton.Location = new System.Drawing.Point(374, 10);
+			this.browseVlcFolderButton.Name = "browseVlcFolderButton";
+			this.browseVlcFolderButton.Size = new System.Drawing.Size(42, 23);
+			this.browseVlcFolderButton.TabIndex = 4;
+			this.browseVlcFolderButton.Text = "参照";
+			this.browseVlcFolderButton.UseVisualStyleBackColor = true;
 			// 
 			// hideStatusBarOnFullscreenCheckBox
 			// 
@@ -765,6 +808,8 @@ namespace PeerstPlayer.Forms.Setting
 			this.statusBarGroupBox.ResumeLayout(false);
 			this.statusBarGroupBox.PerformLayout();
 			this.settingPage2.ResumeLayout(false);
+			this.flvGroupBox.ResumeLayout(false);
+			this.flvGroupBox.PerformLayout();
 			this.threadGroupBox.ResumeLayout(false);
 			this.threadGroupBox.PerformLayout();
 			this.screenshotGroupBox.ResumeLayout(false);
@@ -772,8 +817,8 @@ namespace PeerstPlayer.Forms.Setting
 			this.shortcutPage.ResumeLayout(false);
 			this.shortcutPage.PerformLayout();
 			this.screenshotContextMenuStrip.ResumeLayout(false);
-			this.flvGroupBox.ResumeLayout(false);
-			this.flvGroupBox.PerformLayout();
+			this.vlcFolderGroupBox.ResumeLayout(false);
+			this.vlcFolderGroupBox.PerformLayout();
 			this.ResumeLayout(false);
 
 		}
@@ -844,6 +889,10 @@ namespace PeerstPlayer.Forms.Setting
 		private System.Windows.Forms.CheckBox exitedViewerCloseCheckBox;
 		private System.Windows.Forms.GroupBox flvGroupBox;
 		private System.Windows.Forms.CheckBox flvGpuCheckBox;
+		private System.Windows.Forms.GroupBox vlcFolderGroupBox;
+		private System.Windows.Forms.Button browseVlcFolderButton;
+		private System.Windows.Forms.TextBox vlcFolderTextBox;
+		private System.Windows.Forms.Label vlcFolderLabel;
 		private System.Windows.Forms.CheckBox hideStatusBarOnFullscreenCheckBox;
 	}
 }

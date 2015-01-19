@@ -120,6 +120,9 @@ namespace PeerstPlayer.Forms.Setting
 				// FLV
 				flvGpuCheckBox.Checked = PlayerSettings.Gpu;
 
+				// VLC
+				vlcFolderTextBox.Text = PlayerSettings.VlcFolder;
+
 				// 動画再生開始時のコマンド
 				movieStartComboBox.Items.Clear();
 				foreach (Commands command in movieStartCommandList)
@@ -178,6 +181,17 @@ namespace PeerstPlayer.Forms.Setting
 			minuteToolStripMenuItem.Click += (sender, args) => formatHelper("mm");
 			secondToolStripMenuItem.Click += (sender, args) => formatHelper("ss");
 			channelNameToolStripMenuItem.Click += (sender, args) => formatHelper("$0");
+
+			// VLCのフォルダを選ぶダイアログを表示するボタン
+			browseVlcFolderButton.Click += (sender, args) =>
+			{
+				folderBrowserDialog.RootFolder = Environment.SpecialFolder.Desktop;
+				folderBrowserDialog.SelectedPath = PlayerSettings.VlcFolder;
+				if (folderBrowserDialog.ShowDialog() == DialogResult.OK)
+				{
+					vlcFolderTextBox.Text = folderBrowserDialog.SelectedPath;
+				}
+			};
 
 			// Tab遷移しないようにする
 			shortcutListView.PreviewKeyDown += (sender, e) => e.IsInputKey = true;
@@ -418,6 +432,9 @@ namespace PeerstPlayer.Forms.Setting
 
 			// FLV
 			PlayerSettings.Gpu = flvGpuCheckBox.Checked;
+
+			// VLC
+			PlayerSettings.VlcFolder = vlcFolderTextBox.Text;
 
 			// 設定を保存
 			PlayerSettings.Save();
