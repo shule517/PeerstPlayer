@@ -44,7 +44,7 @@ namespace PeerstPlayer.Controls.MoviePlayer
 					return;
 				}
 
-				HitArea area = GetHitArea(frameSize, e.fX, e.fY);
+				HitArea area = FormUtility.GetHitArea(frameSize, e.fX, e.fY, wmp.Width, wmp.Height);
 				if (area == HitArea.HTNONE)
 				{
 					return;
@@ -80,71 +80,12 @@ namespace PeerstPlayer.Controls.MoviePlayer
 					return;
 				}
 
-				HitArea area = GetHitArea(frameSize, e.fX, e.fY);
+				HitArea area = FormUtility.GetHitArea(frameSize, e.fX, e.fY, wmp.Width, wmp.Height);
 				if (area != HitArea.HTNONE)
 				{
 					Win32API.SendMessage(wmp.Parent.Parent.Handle, (int)WindowsMessage.WM_NCLBUTTONDOWN, new IntPtr((int)area), new IntPtr(0));
 				}
 			};
-		}
-
-		/// <summary>
-		/// マウスとウィンドウ枠の当たり判定
-		/// </summary>
-		private HitArea GetHitArea(int frameSize, int fX, int fY)
-		{
-			// 斜め判定（上
-			if (fY <= frameSize)
-			{
-				// 左上
-				if (fX <= frameSize)
-				{
-					return HitArea.HTTOPLEFT;
-				}
-				// 右上
-				else if (fX > (wmp.Width - frameSize))
-				{
-					return HitArea.HTTOPRIGHT;
-				}
-			}
-			// 斜め判定（下
-			else if (fY >= (wmp.Height - frameSize))
-			{
-				// 左下
-				if (fX <= frameSize)
-				{
-					return HitArea.HTBOTTOMLEFT;
-				}
-				// 右下
-				else if (fX > (wmp.Width - frameSize))
-				{
-					return HitArea.HTBOTTOMRIGHT;
-				}
-			}
-
-			// 上
-			if (fY <= frameSize)
-			{
-				return HitArea.HTTOP;
-			}
-			// 下
-			else if (fY >= (wmp.Height - frameSize))
-			{
-				return HitArea.HTBOTTOM;
-			}
-
-			// 左
-			if (fX <= frameSize)
-			{
-				return HitArea.HTLEFT;
-			}
-			// 右
-			else if (fX > (wmp.Width - frameSize))
-			{
-				return HitArea.HTRIGHT;
-			}
-
-			return HitArea.HTNONE;
 		}
 
 		//-------------------------------------------------------------

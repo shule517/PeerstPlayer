@@ -42,5 +42,64 @@ namespace PeerstLib.Controls
 			}
 			return Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
 		}
+
+		/// <summary>
+		/// マウスとウィンドウ枠の当たり判定
+		/// </summary>
+		public static HitArea GetHitArea(int frameSize, int fX, int fY, int width, int height)
+		{
+			// 斜め判定（上
+			if (fY <= frameSize)
+			{
+				// 左上
+				if (fX <= frameSize)
+				{
+					return HitArea.HTTOPLEFT;
+				}
+				// 右上
+				else if (fX > (width - frameSize))
+				{
+					return HitArea.HTTOPRIGHT;
+				}
+			}
+			// 斜め判定（下
+			else if (fY >= (height - frameSize))
+			{
+				// 左下
+				if (fX <= frameSize)
+				{
+					return HitArea.HTBOTTOMLEFT;
+				}
+				// 右下
+				else if (fX > (width - frameSize))
+				{
+					return HitArea.HTBOTTOMRIGHT;
+				}
+			}
+
+			// 上
+			if (fY <= frameSize)
+			{
+				return HitArea.HTTOP;
+			}
+			// 下
+			else if (fY >= (height - frameSize))
+			{
+				return HitArea.HTBOTTOM;
+			}
+
+			// 左
+			if (fX <= frameSize)
+			{
+				return HitArea.HTLEFT;
+			}
+			// 右
+			else if (fX > (width - frameSize))
+			{
+				return HitArea.HTRIGHT;
+			}
+
+			return HitArea.HTNONE;
+		}
 	}
 }

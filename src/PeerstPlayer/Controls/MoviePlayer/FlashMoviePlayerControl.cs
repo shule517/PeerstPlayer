@@ -43,7 +43,7 @@ namespace PeerstPlayer.Controls.MoviePlayer
 				}
 			};
 			// Flashウィンドウをフックする
-			FlashNativeWindow flash = new FlashNativeWindow(axShockwaveFlash.Handle);
+			FlashNativeWindow flash = new FlashNativeWindow(axShockwaveFlash);
 			flash.MouseDownEvent += (sender, e) =>
 			{
 				mouseDownEvent(this, e);
