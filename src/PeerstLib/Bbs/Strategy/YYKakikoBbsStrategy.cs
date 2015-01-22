@@ -165,6 +165,8 @@ namespace PeerstLib.Bbs.Strategy
 				};
 				threadList.Add(threadInfo);
 			}
+			// 1001レス以上のスレッドがあれば最大レス数を10000として扱う
+			BbsInfo.ThreadStop = threadList.Any(x => x.ResCount >= 1001) ? 10000 : 1000;
 
 			return threadList;
 		}
