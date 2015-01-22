@@ -167,6 +167,15 @@ namespace PeerstPlayer.Forms.Player
 			set { info.DisplayListenerNumber = value; }
 		}
 
+		/// <summary> 
+		/// フルスクリーン時にステータスバーを非表示するか
+		/// </summary>
+		public static bool HideStatusBarOnFullscreen
+		{
+			get { return info.HideStatusBarOnFullscreen; }
+			set { info.HideStatusBarOnFullscreen = value; }
+		}
+
 		/// <summary>
 		/// 初期音量
 		/// </summary>

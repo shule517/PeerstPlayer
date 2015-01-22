@@ -58,6 +58,11 @@ namespace PeerstPlayer.Settings
 		/// </summary>
 		public bool DisplayBitrate = true;
 
+		/// <summary> 
+		/// フルスクリーン時にステータスバーを非表示するか
+		/// </summary>
+		public bool HideStatusBarOnFullscreen = false;
+
 		/// <summary>
 		/// 初期音量
 		/// </summary>

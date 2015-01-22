@@ -40,29 +40,29 @@ namespace PeerstPlayer.Controls.StatusBar
 			this.movieDetail.ChannelDetail = "チャンネル情報";
 			this.movieDetail.Dock = System.Windows.Forms.DockStyle.Bottom;
 			this.movieDetail.Location = new System.Drawing.Point(0, 29);
-			this.movieDetail.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+			this.movieDetail.Margin = new System.Windows.Forms.Padding(4);
 			this.movieDetail.MovieStatus = "";
 			this.movieDetail.Name = "movieDetail";
 			this.movieDetail.Size = new System.Drawing.Size(480, 18);
-			this.movieDetail.TabIndex = 1;
+			this.movieDetail.TabIndex = 0;
 			this.movieDetail.Volume = "50";
 			// 
 			// writeField
 			// 
-			this.writeField.Dock = System.Windows.Forms.DockStyle.Top;
-			this.writeField.Location = new System.Drawing.Point(0, 0);
+			this.writeField.Dock = System.Windows.Forms.DockStyle.Bottom;
+			this.writeField.Location = new System.Drawing.Point(0, -6);
 			this.writeField.Margin = new System.Windows.Forms.Padding(0);
 			this.writeField.Name = "writeField";
 			this.writeField.SelectThreadUrl = null;
-			this.writeField.Size = new System.Drawing.Size(480, 31);
+			this.writeField.Size = new System.Drawing.Size(480, 35);
 			this.writeField.TabIndex = 0;
 			// 
 			// StatusBarControl
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.Controls.Add(this.movieDetail);
 			this.Controls.Add(this.writeField);
+			this.Controls.Add(this.movieDetail);
 			this.Margin = new System.Windows.Forms.Padding(0);
 			this.Name = "StatusBarControl";
 			this.Size = new System.Drawing.Size(480, 47);
