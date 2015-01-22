@@ -1,4 +1,6 @@
-﻿using PeerstLib.Bbs.Data;
+﻿using System.Globalization;
+using System.Text.RegularExpressions;
+using PeerstLib.Bbs.Data;
 using PeerstLib.Bbs.Strategy;
 using PeerstLib.Util;
 using System;
@@ -226,20 +228,39 @@ namespace PeerstLib.Bbs
 		//-------------------------------------------------------------
 		public bool ChangeCandidateThread()
 		{
+			if (SelectThread.ThreadNo != null)
+			{
+				// 現在のスレッドタイトル名に数字が含まれていれば次のスレ番のスレを探す
+				var regex = new Regex(@"(\d+)");
+				var compare = CultureInfo.CurrentCulture.CompareInfo;
+				foreach (Match match in regex.Matches(SelectThread.ThreadTitle))
+				{
+					var number = TextUtil.FullWidthToHalfWidth(match.Captures[0].Value);
+					var nextNumber = int.Parse(number) + 1;
+					var threads = ThreadList.Where(info =>
+						compare.IndexOf(info.ThreadTitle, nextNumber.ToString(), CompareOptions.IgnoreWidth) != -1)
+						.OrderByDescending(info => info.ThreadSpeed);
+					if (!threads.Any())
+					{
+						continue;
+					}
+					ChangeThread(threads.First().ThreadNo);
+					return true;
+				}
+			}
 			// 埋まっていないスレかつ
 			// スレが選択されていれば、現在のスレより新しいスレかつ
 			// 勢いの高いスレを選ぶ
-			var threads = ThreadList.Where(info => !info.IsStopThread)
+			var threads2 = ThreadList.Where(info => !info.IsStopThread)
 				.Where(info => !ThreadSelected || int.Parse(BbsInfo.ThreadNo) < int.Parse(info.ThreadNo))
 				.OrderByDescending(info => info.ThreadSpeed);
 			// 候補スレッドが無ければ終わり
-			if (threads.Count() == 0)
+			if (!threads2.Any())
 			{
-				
 				return false;
 			}
 
-			ChangeThread(threads.First().ThreadNo);
+			ChangeThread(threads2.First().ThreadNo);
 			return true;
 		}
 
