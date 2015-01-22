@@ -89,6 +89,7 @@ namespace PeerstPlayer.Forms.Setting
 				displayFpsCheckBox.Checked = PlayerSettings.DisplayFps;
 				displayBitrateCheckBox.Checked = PlayerSettings.DisplayBitrate;
 				listenerNumberCheckBox.Checked = PlayerSettings.DisplayListenerNumber;
+				hideStatusBarOnFullscreenCheckBox.Checked = PlayerSettings.HideStatusBarOnFullscreen;
 
 				// 音量変化
 				volumeChangeNoneTextBox.Text = PlayerSettings.VolumeChangeNone.ToString();
@@ -375,6 +376,7 @@ namespace PeerstPlayer.Forms.Setting
 			PlayerSettings.DisplayFps = displayFpsCheckBox.Checked;
 			PlayerSettings.DisplayBitrate = displayBitrateCheckBox.Checked;
 			PlayerSettings.DisplayListenerNumber = listenerNumberCheckBox.Checked;
+			PlayerSettings.HideStatusBarOnFullscreen = hideStatusBarOnFullscreenCheckBox.Checked;
 
 			// 初期音量
 			int initVolume = 0;

@@ -170,6 +170,17 @@ namespace PeerstPlayer.Controls.StatusBar
 			Logger.Instance.Debug("writeField_SizeChanged()");
 			Height = writeField.Height + movieDetail.Height;
 			movieDetail.Top = writeField.Height;
+			// サイズ変更時に親が最大化されていたら、詳細を非表示にする設定
+			if (PlayerSettings.HideStatusBarOnFullscreen && ParentForm.WindowState == FormWindowState.Maximized)
+			{
+				Height = writeField.Height;
+				movieDetail.Hide();
+			}
+			else
+			{
+				Height = writeField.Height + movieDetail.Height;
+				movieDetail.Show();				
+			}
 		}
 
 		/// <summary>

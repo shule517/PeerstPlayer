@@ -95,6 +95,7 @@ namespace PeerstPlayer.Forms.Setting
 			this.channelNameToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.flvGroupBox = new System.Windows.Forms.GroupBox();
 			this.flvGpuCheckBox = new System.Windows.Forms.CheckBox();
+			this.hideStatusBarOnFullscreenCheckBox = new System.Windows.Forms.CheckBox();
 			this.tabControl.SuspendLayout();
 			this.settingPage.SuspendLayout();
 			this.volumeChangeGroupBox.SuspendLayout();
@@ -394,12 +395,13 @@ namespace PeerstPlayer.Forms.Setting
 			// 
 			// statusBarGroupBox
 			// 
+			this.statusBarGroupBox.Controls.Add(this.hideStatusBarOnFullscreenCheckBox);
 			this.statusBarGroupBox.Controls.Add(this.listenerNumberCheckBox);
 			this.statusBarGroupBox.Controls.Add(this.displayBitrateCheckBox);
 			this.statusBarGroupBox.Controls.Add(this.displayFpsCheckBox);
 			this.statusBarGroupBox.Location = new System.Drawing.Point(11, 115);
 			this.statusBarGroupBox.Name = "statusBarGroupBox";
-			this.statusBarGroupBox.Size = new System.Drawing.Size(210, 96);
+			this.statusBarGroupBox.Size = new System.Drawing.Size(210, 105);
 			this.statusBarGroupBox.TabIndex = 1;
 			this.statusBarGroupBox.TabStop = false;
 			this.statusBarGroupBox.Text = "ステータスバー";
@@ -728,6 +730,16 @@ namespace PeerstPlayer.Forms.Setting
 			this.flvGpuCheckBox.Text = "再生支援を使う";
 			this.flvGpuCheckBox.UseVisualStyleBackColor = true;
 			// 
+			// hideStatusBarOnFullscreenCheckBox
+			// 
+			this.hideStatusBarOnFullscreenCheckBox.AutoSize = true;
+			this.hideStatusBarOnFullscreenCheckBox.Location = new System.Drawing.Point(17, 84);
+			this.hideStatusBarOnFullscreenCheckBox.Name = "hideStatusBarOnFullscreenCheckBox";
+			this.hideStatusBarOnFullscreenCheckBox.Size = new System.Drawing.Size(180, 16);
+			this.hideStatusBarOnFullscreenCheckBox.TabIndex = 2;
+			this.hideStatusBarOnFullscreenCheckBox.Text = "最大化でステータスバーを非表示";
+			this.hideStatusBarOnFullscreenCheckBox.UseVisualStyleBackColor = true;
+			// 
 			// PlayerSettingView
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -832,6 +844,6 @@ namespace PeerstPlayer.Forms.Setting
 		private System.Windows.Forms.CheckBox exitedViewerCloseCheckBox;
 		private System.Windows.Forms.GroupBox flvGroupBox;
 		private System.Windows.Forms.CheckBox flvGpuCheckBox;
-
+		private System.Windows.Forms.CheckBox hideStatusBarOnFullscreenCheckBox;
 	}
 }
