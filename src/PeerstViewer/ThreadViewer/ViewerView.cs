@@ -2,6 +2,7 @@
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
+using PeerstLib.Controls;
 using PeerstViewer.Settings;
 
 namespace PeerstViewer.ThreadViewer
@@ -132,14 +133,21 @@ namespace PeerstViewer.ThreadViewer
 			// 終了処理
 			FormClosed += (sender, e) =>
 			{
+				WINDOWPLACEMENT placement;
+				Win32API.GetWindowPlacement(Handle, out placement);
+
 				// 終了時の位置とサイズを保存
 				if (ViewerSettings.SaveReturnPositionOnClose)
 				{
-					ViewerSettings.ReturnPosition = Location;
+					ViewerSettings.ReturnPosition = new Point(placement.normalPosition.left,
+						placement.normalPosition.top);
 				}
 				if (ViewerSettings.SaveReturnSizeOnClose)
 				{
-					ViewerSettings.ReturnSize = Size;
+					ViewerSettings.ReturnSize = new Size(
+						placement.normalPosition.right - placement.normalPosition.left,
+						placement.normalPosition.bottom - placement.normalPosition.top);
+
 				}
 				ViewerSettings.Save();
 			};
