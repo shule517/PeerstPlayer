@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Runtime.InteropServices;
+using System.Text;
 
 namespace PeerstLib.Controls
 {
@@ -46,6 +47,26 @@ namespace PeerstLib.Controls
 		/// <returns>成功すればtrue</returns>
 		[DllImport("user32.dll")]
 		public static extern bool GetWindowRect(IntPtr hWnd, out RECT lpRect);
+
+
+		/// <summary>
+		/// 指定されたウィンドウの表示状態を設定し、そのウィンドウの通常表示のとき、最小化されたとき、および最大化されたときの位置を設定します。
+		/// </summary>
+		/// <param name="hWnd">ウィンドウのハンドル</param>
+		/// <param name="lpwndpl">位置データ</param>
+		/// <returns></returns>
+		[DllImport("user32.dll")]
+		public static extern bool SetWindowPlacement(IntPtr hWnd, ref WINDOWPLACEMENT lpwndpl);
+
+		/// <summary>
+		/// 指定されたウィンドウの表示状態、および通常表示のとき、最小化されたとき、最大化されたときの位置を返します。
+		/// </summary>
+		/// <param name="hWnd">ウィンドウのハンドル</param>
+		/// <param name="lpwndpl">位置データ</param>
+		/// <returns></returns>
+		[DllImport("user32.dll")]
+		public static extern bool GetWindowPlacement(IntPtr hWnd, out WINDOWPLACEMENT lpwndpl);
+
 	}
 
 	// ウィンドウ枠の当たり判定
@@ -92,5 +113,31 @@ namespace PeerstLib.Controls
 		public int top;
 		public int right;
 		public int bottom;
+	}
+
+	[StructLayout(LayoutKind.Sequential)]
+	public struct WINDOWPLACEMENT
+	{
+		public int length;
+		public int flags;
+		public ShowCmd showCmd;
+		public POINT minPosition;
+		public POINT maxPosition;
+		public RECT normalPosition;
+	}
+
+	public enum ShowCmd
+	{
+		HIDE = 0,
+		SHOWNORMAL = 1,
+		SHOWMINIMIZED = 2,
+		SHOWMAXIMIZED = 3,
+		SHOWNOACTIVATE = 4,
+		SHOW = 5,
+		MINIMIZE = 6,
+		SHOWMINNOACTIVE = 7,
+		SHOWNA = 8,
+		RESTORE = 9,
+		SHOWDEFAULT = 10,
 	}
 }
