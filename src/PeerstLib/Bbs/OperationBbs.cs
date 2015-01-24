@@ -230,22 +230,39 @@ namespace PeerstLib.Bbs
 		{
 			if (SelectThread.ThreadNo != null)
 			{
-				// 現在のスレッドタイトル名に数字が含まれていれば次のスレ番のスレを探す
-				var regex = new Regex(@"(\d+)");
-				var compare = CultureInfo.CurrentCulture.CompareInfo;
-				foreach (Match match in regex.Matches(SelectThread.ThreadTitle))
+				Func<bool> f = () =>
 				{
-					var number = TextUtil.FullWidthToHalfWidth(match.Captures[0].Value);
-					var nextNumber = int.Parse(number) + 1;
-					var threads = ThreadList.Where(info =>
-						compare.IndexOf(info.ThreadTitle, nextNumber.ToString(), CompareOptions.IgnoreWidth) != -1)
-						.OrderByDescending(info => info.ThreadSpeed);
-					if (!threads.Any())
+					// 現在のスレッドタイトル名に数字が含まれていれば次のスレ番のスレを探す
+					var regex = new Regex(@"(\d+)");
+					var compare = CultureInfo.CurrentCulture.CompareInfo;
+					foreach (Match match in regex.Matches(SelectThread.ThreadTitle))
 					{
-						continue;
+						var number = TextUtil.FullWidthToHalfWidth(match.Captures[0].Value);
+						var nextNumber = int.Parse(number) + 1;
+						var threads = ThreadList.Where(info =>
+							compare.IndexOf(info.ThreadTitle, nextNumber.ToString(), CompareOptions.IgnoreWidth) != -1)
+							.OrderByDescending(info => info.ThreadSpeed);
+						if (!threads.Any())
+						{
+							continue;
+						}
+						ChangeThread(threads.First().ThreadNo);
+						return true;
 					}
-					ChangeThread(threads.First().ThreadNo);
-					return true;
+					return false;
+				};
+				for (;;)
+				{
+					// 次スレが見つからない場合ループを抜ける
+					if (!f())
+					{
+						break;
+					}
+					// 埋まっていないスレになったら終わり
+					if (!SelectThread.IsStopThread)
+					{
+						return true;
+					}
 				}
 			}
 			// 埋まっていないスレかつ
