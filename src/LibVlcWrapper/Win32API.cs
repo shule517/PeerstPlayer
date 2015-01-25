@@ -6,6 +6,13 @@ namespace LibVlcWrapper
 {
 	internal static class Win32API
 	{
+		[DllImport("user32.dll")]
+		public static extern IntPtr PostMessage(IntPtr hWnd, int msg, IntPtr wp, IntPtr lp);
+
+		[DllImport("user32.dll")]
+		public static extern IntPtr SendMessage(IntPtr hWnd, int msg, IntPtr wp, IntPtr lp);
+
+
 		[DllImport("kernel32.dll", SetLastError = true)]
 		internal static extern IntPtr LoadLibrary(string lpFileName);
 
@@ -130,6 +137,57 @@ namespace LibVlcWrapper
 		/// <returns></returns>
 		[DllImport("user32.dll", SetLastError = true)]
 		public static extern bool ScreenToClient(IntPtr hWnd, ref POINT lpPoint);
+
+		[DllImport("user32.dll", SetLastError = true)]
+		public static extern IntPtr SetCursor(IntPtr hCursor);
+
+		/// <summary>
+		/// 指定されたウィンドウに関する情報を取得します
+		/// </summary>
+		/// <param name="hwnd">ウィンドウのハンドル</param>
+		/// <param name="nIndex">取得する値のオフセット</param>
+		/// <returns></returns>
+		[DllImport("user32.dll", SetLastError = true)]
+		public static extern int GetWindowLong(IntPtr hwnd, GWLIndexes nIndex);
+
+		/// <summary>
+		/// 指定されたウィンドウの属性を変更します。
+		/// </summary>
+		/// <param name="hWnd">ウィンドウのハンドル</param>
+		/// <param name="nIndex">設定する値のオフセット</param>
+		/// <param name="dwNewLong">新しい値</param>
+		/// <returns></returns>
+		[DllImport("user32.dll", SetLastError = true)]
+		public static extern int SetWindowLong(IntPtr hWnd, GWLIndexes nIndex, int dwNewLong);
+
+		/// <summary>
+		/// 指定されたウィンドウが最大化されているかどうかを調べます。
+		/// </summary>
+		/// <param name="hWnd">調査するウィンドウのハンドルを指定します。</param>
+		/// <returns></returns>
+		[DllImport("user32.dll")]
+		public static extern bool IsZoomed(IntPtr hWnd);
+
+		/// <summary>
+		/// 指定されたウィンドウの表示状態を設定します。
+		/// </summary>
+		[DllImport("user32.dll")]
+		/// <param name="hWnd">ウィンドウのハンドル</param>
+		/// <param name="nCmdSHow">表示状態</param>
+		/// <returns></returns>
+		public static extern bool ShowWindow(IntPtr hWnd, ShowCmd nCmdSHow);
+
+		[DllImport("user32.dll", SetLastError = true)]
+		public static extern bool SetLayeredWindowAttributes(IntPtr hWnd, int crKey, char bAlpha, uint dwFlags);
+
+		/// <summary>
+		/// 指定されたウィンドウの表示状態、および通常表示のとき、最小化されたとき、最大化されたときの位置を返します。
+		/// </summary>
+		/// <param name="hWnd">ウィンドウのハンドル</param>
+		/// <param name="lpwndpl">位置データ</param>
+		/// <returns></returns>
+		[DllImport("user32.dll")]
+		public static extern bool GetWindowPlacement(IntPtr hWnd, out WINDOWPLACEMENT lpwndpl);
 	}
 
 	/// <summary>EnumChildWindowsで使用するデリゲート</summary>
@@ -160,6 +218,93 @@ namespace LibVlcWrapper
 		WH_MOUSE_LL = 14,
 	}
 
+	// ウィンドウ枠の当たり判定
+	public enum HitArea
+	{
+		HTNONE = 0,
+		HTCLIENT = 1,
+		HTCAPTION = 2,
+		HTLEFT = 10,
+		HTRIGHT = 11,
+		HTTOP = 12,
+		HTTOPLEFT = 13,
+		HTTOPRIGHT = 14,
+		HTBOTTOM = 15,
+		HTBOTTOMLEFT = 16,
+		HTBOTTOMRIGHT = 17,
+	}
+
+	// 当たり判定
+	enum HitTest : int
+	{
+		Caption = 2,		// タイトルバー
+		Top = 12,			// 可変枠の上辺境界線上にある
+		Bottom = 15,		// 可変枠の下辺境界線上にある
+		Left = 10,			// 可変枠の左辺境界線上にある
+		Right = 11,			// 可変枠の右辺境界線上にある
+		TopLeft = 13,		// 可変枠の左上隅にある
+		TopRight = 14,		// 可変枠の右上隅にある
+		BottomLeft = 16,	// 可変枠の左下隅にある
+		BottomRight = 17,	// 可変枠の右下隅にある
+	}
+
+	enum GWLIndexes
+	{
+		GWL_WNDPROC = -4,
+		GWL_HINSTANCE = -6,
+		GWL_HWNDPARENT = -8,
+		GWL_ID = -12,
+		GWL_STYLE = -16,
+		GWL_EXSTYLE = -20,
+		GWL_USERDATA = -21,
+	}
+
+	[Flags]
+	enum ExStyle : int
+	{
+		WS_EX_LEFT = 0x00000000,
+		WS_EX_LTRREADING = 0x00000000,
+		WS_EX_RIGHTSCROLLBAR = 0x00000000,
+		WS_EX_DLGMODALFRAME = 0x00000001,
+		WS_EX_NOPARENTNOTIFY = 0x00000004,
+		WS_EX_TOPMOST = 0x00000008,
+		WS_EX_ACCEPTFILES = 0x00000010,
+		WS_EX_TRANSPARENT = 0x00000020,
+		WS_EX_MDICHILD = 0x00000040,
+		WS_EX_TOOLWINDOW = 0x00000080,
+		WS_EX_WINDOWEDGE = 0x00000100,
+		WS_EX_CLIENTEDGE = 0x00000200,
+		WS_EX_CONTEXTHELP = 0x00000400,
+		WS_EX_RIGHT = 0x00001000,
+		WS_EX_RTLREADING = 0x00002000,
+		WS_EX_LEFTSCROLLBAR = 0x00004000,
+		WS_EX_CONTROLPARENT = 0x00010000,
+		WS_EX_STATICEDGE = 0x00020000,
+		WS_EX_APPWINDOW = 0x00040000,
+		WS_EX_LAYERED = 0x00080000,
+		WS_EX_NOINHERITLAYOUT = 0x00100000,
+		WS_EX_NOREDIRECTIONBITMAP = 0x00200000,
+		WS_EX_LAYOUTRTL = 0x00400000,
+		WS_EX_COMPOSITED = 0x02000000,
+		WS_EX_NOACTIVATE = 0x08000000,
+	}
+
+	public enum ShowCmd
+	{
+		HIDE = 0,
+		SHOWNORMAL = 1,
+		SHOWMINIMIZED = 2,
+		SHOWMAXIMIZED = 3,
+		SHOWNOACTIVATE = 4,
+		SHOW = 5,
+		MINIMIZE = 6,
+		SHOWMINNOACTIVE = 7,
+		SHOWNA = 8,
+		RESTORE = 9,
+		SHOWDEFAULT = 10,
+	}
+
+
 	[StructLayout(LayoutKind.Sequential)]
 	public struct POINT
 	{
@@ -183,5 +328,16 @@ namespace LibVlcWrapper
 		public IntPtr hwnd;
 		public uint wHitCodeTest;
 		public IntPtr dwExtraInfo;
+	}
+
+	[StructLayout(LayoutKind.Sequential)]
+	public struct WINDOWPLACEMENT
+	{
+		public int length;
+		public int flags;
+		public ShowCmd showCmd;
+		public POINT minPosition;
+		public POINT maxPosition;
+		public RECT normalPosition;
 	}
 }

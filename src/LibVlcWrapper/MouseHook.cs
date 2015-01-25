@@ -20,7 +20,9 @@ namespace LibVlcWrapper
 
 		// スクリーン吸着距離
 		private const int ScreenMagnetDockDist = 20;
-		
+		// ウィンドウサイズ変更用の枠サイズ
+		private const int FrameSize = 15;
+
 		private readonly VlcControl parent;
 		private readonly IntPtr parentHandle;
 		private readonly HookProcedureDelegate mouseHookDelegate;
@@ -28,8 +30,13 @@ namespace LibVlcWrapper
 		private IntPtr hook = IntPtr.Zero;
 		private Point startClickPoint;
 		private Point startWindowPoint;
-		private bool isClick = false;
-		private bool isDoubleClick = false;
+		private bool isClick;
+		private bool clickScaleMode;
+		private bool isDoubleClick;
+		private HitArea startArea;
+		private RECT startWindowSize;
+		private int parentWidth;
+		private int parentHeight;
 
 		public MouseHook(VlcControl parent)
 		{
@@ -91,7 +98,14 @@ namespace LibVlcWrapper
 				Trace.WriteLine("UnhookWindowsHookEx failed");
 			}
 		}
+		[DllImport("kernel32.dll")]
+		static extern uint FormatMessage(
+		  uint dwFlags, IntPtr lpSource,
+		  uint dwMessageId, uint dwLanguageId,
+		  StringBuilder lpBuffer, int nSize,
+		  IntPtr Arguments);
 
+		private const uint FORMAT_MESSAGE_FROM_SYSTEM = 0x00001000;
 		private IntPtr MouseHookDelegate(int code, IntPtr wp, IntPtr lp)
 		{
 			if (code >= 0)
@@ -102,17 +116,37 @@ namespace LibVlcWrapper
 					x = mouseHookStruct.pt.x,
 					y = mouseHookStruct.pt.y,
 				};
+				RECT windowRect;
+				var rootHandle = Win32API.GetAncestor(parentHandle, Win32API.GA_ROOT);
 				Win32API.ScreenToClient(Win32API.GetAncestor(parentHandle, Win32API.GA_ROOT), ref clientClickPoint);
 				switch ((WindowsMessage)wp)
 				{
 				case WindowsMessage.WM_LBUTTONDOWN:
-					Win32API.SetFocus(parentHandle);
-					isClick = true;
+					// 枠なしのときだけ処理を続ける
+					if ((ExStyle)Win32API.GetWindowLong(rootHandle, GWLIndexes.GWL_EXSTYLE) == ExStyle.WS_EX_WINDOWEDGE)
+					{
+						MouseDownEvent(this, new MouseEventArgs(MouseButtons.Left, 0, clientClickPoint.x, clientClickPoint.y, 0));
+						break;
+					}
 					startClickPoint = new Point(mouseHookStruct.pt.x, mouseHookStruct.pt.y);
-					RECT windowRect;
-					Win32API.GetWindowRect(Win32API.GetAncestor(parentHandle, Win32API.GA_ROOT), out windowRect);
-					startWindowPoint = new Point(windowRect.left, windowRect.top);
-					MouseDownEvent(this, new MouseEventArgs(MouseButtons.Left, 0, clientClickPoint.x, clientClickPoint.y, 0));
+					WINDOWPLACEMENT placement;
+					Win32API.GetWindowPlacement(rootHandle, out placement);
+					startWindowPoint = new Point(placement.normalPosition.left, placement.normalPosition.top);
+					startWindowSize = placement.normalPosition;
+					var hitArea = GetHitArea(FrameSize, clientClickPoint.x, clientClickPoint.y, parent.Width, parent.Height);
+					if (!Win32API.IsZoomed(rootHandle) && hitArea != HitArea.HTNONE)
+					{
+						startArea = hitArea;
+						clickScaleMode = true;
+						parentWidth = parent.Width;
+						parentHeight = parent.Height;
+					}
+					else
+					{
+						isClick = true;
+						MouseDownEvent(this, new MouseEventArgs(MouseButtons.Left, 0, clientClickPoint.x, clientClickPoint.y, 0));
+					}
+
 					break;
 				case WindowsMessage.WM_RBUTTONDOWN:
 					MouseDownEvent(this, new MouseEventArgs(MouseButtons.Right, 0, clientClickPoint.x, clientClickPoint.y, 0));
@@ -123,12 +157,14 @@ namespace LibVlcWrapper
 				case WindowsMessage.WM_LBUTTONUP:
 					if (isDoubleClick)
 					{
+
 						isDoubleClick = false;
 						DoubleClickEvent(this, new MouseEventArgs(MouseButtons.Left, 0, clientClickPoint.x, clientClickPoint.y, 0));
 					}
 					else
 					{
 						isClick = false;
+						clickScaleMode = false;
 						MouseUpEvent(this, new MouseEventArgs(MouseButtons.Left, 0, clientClickPoint.x, clientClickPoint.y, 0));						
 					}
 
@@ -140,18 +176,57 @@ namespace LibVlcWrapper
 					isDoubleClick = true;
 					break;
 				case WindowsMessage.WM_MOUSEMOVE:
+					var deltaX = mouseHookStruct.pt.x - startClickPoint.X;
+					var deltaY = mouseHookStruct.pt.y - startClickPoint.Y;
 					if (isClick)
 					{
-						var deltaX = mouseHookStruct.pt.x - startClickPoint.X;
-						var deltaY = mouseHookStruct.pt.y - startClickPoint.Y;
-						var rootHandle = Win32API.GetAncestor(parentHandle, Win32API.GA_ROOT);
-						Win32API.GetWindowRect(rootHandle, out windowRect);
-						var width = windowRect.right - windowRect.left;
-						var height = windowRect.bottom - windowRect.top;
+						// 最大化されていたら最大化戻す
+						if (Win32API.IsZoomed(rootHandle))
+						{
+							Win32API.ShowWindow(rootHandle, ShowCmd.RESTORE);
+						}
+						Win32API.GetWindowPlacement(rootHandle, out placement);
+						var width = placement.normalPosition.right - placement.normalPosition.left;
+						var height = placement.normalPosition.bottom - placement.normalPosition.top;
 						var rect = new Rectangle(startWindowPoint.X + deltaX, startWindowPoint.Y + deltaY, width, height);
 						rect = SnapScreen(rect);
 						rect = SnapWindow(rect);
-						Win32API.MoveWindow(rootHandle, rect.Left, rect.Top, width, height, true);					
+						Win32API.MoveWindow(rootHandle, rect.Left, rect.Top, width, height, true);
+
+					}
+					if (clickScaleMode)
+					{
+						var rect = startWindowSize;
+
+						if (startArea == HitArea.HTTOPLEFT || startArea == HitArea.HTLEFT || startArea == HitArea.HTBOTTOMLEFT)
+						{
+							rect.left += deltaX;
+						}
+						if (startArea == HitArea.HTTOP || startArea == HitArea.HTTOPLEFT || startArea == HitArea.HTTOPRIGHT)
+						{
+							rect.top += deltaY;
+						}
+
+						if (startArea == HitArea.HTTOPRIGHT || startArea == HitArea.HTRIGHT || startArea == HitArea.HTBOTTOMRIGHT)
+						{
+							rect.right += deltaX;
+						}
+						if (startArea == HitArea.HTBOTTOMLEFT || startArea == HitArea.HTBOTTOM || startArea == HitArea.HTBOTTOMRIGHT)
+						{
+							rect.bottom += deltaY;
+						}
+
+						if (startArea == HitArea.HTLEFT || startArea == HitArea.HTRIGHT)
+						{
+							rect.bottom = rect.top + (startWindowSize.bottom - startWindowSize.top - parentHeight) + (int)(parent.Width / parent.AspectRatio);
+						}
+						if (startArea == HitArea.HTTOP || startArea == HitArea.HTBOTTOM)
+						{
+							rect.right = rect.left + (int)((parent.Height) * parent.AspectRatio);
+						}
+
+						Win32API.MoveWindow(rootHandle, rect.left, rect.top, rect.right - rect.left, rect.bottom - rect.top, true);
+						SetCursor(startArea);
 					}
 					MouseMoveEvent(this, new MouseEventArgs(MouseButtons.None, 0, clientClickPoint.x, clientClickPoint.y, 0));
 					break;
@@ -273,6 +348,88 @@ namespace LibVlcWrapper
 			}
 
 			return new Rectangle(left, top, rect.Width, rect.Height);
+		}
+
+		private void SetCursor(HitArea area)
+		{
+			switch (area)
+			{
+			case HitArea.HTTOP:
+			case HitArea.HTBOTTOM:
+				Cursor.Current = Cursors.SizeNS;
+				break;
+			case HitArea.HTLEFT:
+			case HitArea.HTRIGHT:
+				Cursor.Current = Cursors.SizeWE;
+				break;
+			case HitArea.HTTOPLEFT:
+			case HitArea.HTBOTTOMRIGHT:
+				Cursor.Current = Cursors.SizeNWSE;
+				break;
+			case HitArea.HTTOPRIGHT:
+			case HitArea.HTBOTTOMLEFT:
+				Cursor.Current = Cursors.SizeNESW;
+				break;
+			}
+		}
+
+		/// <summary>
+		/// マウスとウィンドウ枠の当たり判定
+		/// </summary>
+		private HitArea GetHitArea(int frameSize, int fX, int fY, int width, int height)
+		{
+			// 斜め判定（上
+			if (fY <= frameSize)
+			{
+				// 左上
+				if (fX <= frameSize)
+				{
+					return HitArea.HTTOPLEFT;
+				}
+				// 右上
+				else if (fX > (width - frameSize))
+				{
+					return HitArea.HTTOPRIGHT;
+				}
+			}
+			// 斜め判定（下
+			else if (fY >= (height - frameSize))
+			{
+				// 左下
+				if (fX <= frameSize)
+				{
+					return HitArea.HTBOTTOMLEFT;
+				}
+				// 右下
+				else if (fX > (width - frameSize))
+				{
+					return HitArea.HTBOTTOMRIGHT;
+				}
+			}
+
+			// 上
+			if (fY <= frameSize)
+			{
+				return HitArea.HTTOP;
+			}
+			// 下
+			else if (fY >= (height - frameSize))
+			{
+				return HitArea.HTBOTTOM;
+			}
+
+			// 左
+			if (fX <= frameSize)
+			{
+				return HitArea.HTLEFT;
+			}
+			// 右
+			else if (fX > (width - frameSize))
+			{
+				return HitArea.HTRIGHT;
+			}
+
+			return HitArea.HTNONE;
 		}
 	}
 }

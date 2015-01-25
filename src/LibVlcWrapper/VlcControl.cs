@@ -36,7 +36,7 @@ namespace LibVlcWrapper
 			get
 			{
 				if (mediaPlayer == null) return 0.0f;
-				return mediaPlayer.AspectRatio;
+				return VideoSize.Width / (float)VideoSize.Height;
 			}
 		}
 
