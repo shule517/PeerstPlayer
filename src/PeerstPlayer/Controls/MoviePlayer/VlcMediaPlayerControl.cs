@@ -314,7 +314,8 @@ namespace PeerstPlayer.Controls.MoviePlayer
 			set { }
 		}
 
-		private int prev;
+		private int previousDecodedVideo;
+		private int nextTick;
 		/// <summary>
 		/// 現在のフレームレート
 		/// </summary>
@@ -322,9 +323,14 @@ namespace PeerstPlayer.Controls.MoviePlayer
 		{
 			get
 			{
-				var fps = vlcControl.Stats.DisplayedPictures - prev;
-				prev = vlcControl.Stats.DisplayedPictures;
-				return fps;
+				if (nextTick < Environment.TickCount)
+				{
+					var fps = vlcControl.Stats.DecodedVideo - previousDecodedVideo;
+					previousDecodedVideo = vlcControl.Stats.DecodedVideo;
+					nextTick = Environment.TickCount + 1000;
+					return fps;					
+				}
+				return vlcControl.Stats.DecodedVideo - previousDecodedVideo;
 			}
 		}
 
@@ -335,9 +341,7 @@ namespace PeerstPlayer.Controls.MoviePlayer
 		{
 			get
 			{
-				var fps = vlcControl.Stats.DisplayedPictures - prev;
-				prev = vlcControl.Stats.DisplayedPictures;
-				return fps;
+				return vlcControl.Stats.DecodedVideo - previousDecodedVideo;
 			}
 		}
 
