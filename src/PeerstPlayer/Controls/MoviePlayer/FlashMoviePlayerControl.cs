@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Runtime.InteropServices;
 using System.Windows.Forms;
 using PeerstLib.Controls;
 using PeerstPlayer.Controls.PecaPlayer;
@@ -16,7 +17,16 @@ namespace PeerstPlayer.Controls.MoviePlayer
 
 		public FlashMoviePlayerControl(PecaPlayerControl parent)
 		{
-			InitializeComponent();
+			try
+			{
+				InitializeComponent();
+			}
+			catch (COMException)
+			{
+				MessageBox.Show("Flash Playerがインストールされていません。\nInternet ExplorerからFlash Playerをインストールする必要があります。",
+					"ERROR!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+			}
+			
 			Dock = DockStyle.Fill;
 
 			// FlashManagerの初期化
