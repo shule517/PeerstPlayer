@@ -256,17 +256,27 @@ namespace PeerstPlayer.Controls.MoviePlayer
 			get { return this; }
 		}
 
+		/// <summary>
+		/// 初回ファイルオープンフラグ(MovieStartに使用)
+		/// </summary>
+		private bool isFirstMediaOpen = true;
+
 		void IMoviePlayer.PlayMoive(string streamUrl)
 		{
+			isFirstMediaOpen = true;
 			axShockwaveFlash.LoadMovie(0, FormUtility.GetExeFolderPath() + "/FlvPlayer.swf");
 			flashManager.PlayVideo(streamUrl);
 			flashManager.OpenStateChange += (sender, args) =>
 			{
-				var width = ((IMoviePlayer)this).ImageWidth;
-				var height = ((IMoviePlayer)this).ImageHeight;
-				axShockwaveFlash.Width = width;
-				axShockwaveFlash.Height = height;
-				movieStart(this, new EventArgs());
+				if (isFirstMediaOpen)
+				{
+					var width = ((IMoviePlayer)this).ImageWidth;
+					var height = ((IMoviePlayer)this).ImageHeight;
+					axShockwaveFlash.Width = width;
+					axShockwaveFlash.Height = height;
+					movieStart(this, new EventArgs());
+					isFirstMediaOpen = false;
+				}
 				flashManager.ChangeVolume(volume);
 			};
 		}
