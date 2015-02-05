@@ -15,10 +15,13 @@ package
 	import flash.net.NetStream;
 	import flash.net.URLLoader;
 	import flash.net.URLRequest;
+	import flash.net.ObjectEncoding;
 	import flash.media.SoundTransform;
 	import flash.media.StageVideo;
 	import flash.media.StageVideoAvailability;
 	import flash.external.ExternalInterface;
+	import flash.utils.clearInterval;
+	import flash.utils.setTimeout;
 	import flash.utils.Timer;
 	import flash.events.StageVideoEvent;
 	import flash.media.VideoStatus
@@ -33,9 +36,13 @@ package
 		private var stage:Stage;
 		private var video:Video = new Video();
 		private var stageVideo:StageVideo;
+		private var netConnection:NetConnection = null;
 		private var netStr:NetStream = null;
+		private var playlistUrl:String = null;
 		private var streamUrl:String = null;
+		private var protocol:String = null;
 		private var enableGpu:Boolean = true;
+		private var enableRtmp:Boolean = true;
 		
 		// 前回の時刻など
 		private var prevTime:Number = 0;
@@ -49,6 +56,9 @@ package
 		private var pan:Number = 0;
 		private var retryPrevTime:Number = 0;
 		private var retryCount:Number = 0;
+		private var rtmpRetryCount:int = 0;
+		private var rtmpTimeoutHandle:uint = 0;
+		
 		// デバッグ用
 		private var debugTimer:Timer = null;
 		private var debugText:TextField = new TextField();
@@ -78,7 +88,6 @@ package
 			debugTimer = new Timer(1000);
 			debugTimer.addEventListener(TimerEvent.TIMER, debugTimerHandler);
 			debugTimer.start();
-			
 			debugTextBack.x = 50;
 			debugTextBack.y = 50;
 			debugTextBack.graphics.beginFill(0x000000, 0.75);
@@ -96,6 +105,22 @@ package
 			debugText.visible = false;
 			stage.addChild(debugTextBack);
 			stage.addChild(debugText);
+		}
+		
+		private function releaseNet():void
+		{
+			if (netStr != null) {
+				netStr.removeEventListener(NetStatusEvent.NET_STATUS, rtmpNetStatusHandler);
+				netStr.removeEventListener(NetStatusEvent.NET_STATUS, httpNetStatusHandler);
+				netStr.close();
+				netStr = null;
+			}
+			if (netConnection != null) {
+				netConnection.removeEventListener(NetStatusEvent.NET_STATUS, rtmpNetStatusHandler);
+				netConnection.removeEventListener(NetStatusEvent.NET_STATUS, httpNetStatusHandler);
+				netConnection.close();
+				netConnection = null;
+			}
 		}
 		
 		// StageVideoとVideoの切り替え
@@ -130,8 +155,7 @@ package
 			} else {
 				// StageVideoが動いていれば停止させる
 				if (stageVideo != null) {
-					if (netStr != null)
-					{
+					if (netStr != null) {
 						stageVideo.attachNetStream(null);
 					}
 					stageVideo = null;
@@ -161,9 +185,9 @@ package
 			}
 			
 			volume = parseFloat(volStr);
-			if (volume <= 0){
+			if (volume <= 0) {
 				volume = 0;
-			} else if (volume >= 1){
+			} else if (volume >= 1) {
 				volume = 1;
 			}
 			netStr.soundTransform = new SoundTransform(volume, pan);
@@ -302,15 +326,19 @@ package
 			if (netStr == null) {
 				return "0";
 			}
-			var diffBytes:uint = netStr.bytesLoaded - prevBytesLoaded;
-			var diffTime:Number = netStr.time - prevTime;
-			var bitrate:int = int(diffBytes / diffTime * 8 / 1000);
-			// 0bpsになることが少なくないので、前回との平均を取ってみる
-			var averageBitrate:String = String(Math.floor((bitrate + prevBitrate) / 2));
-			prevBytesLoaded = netStr.bytesLoaded;
-			prevTime = netStr.time;
-			prevBitrate = bitrate;
-			return averageBitrate;
+			if (netStr.info.currentBytesPerSecond != 0) {
+				return String(int(netStr.info.currentBytesPerSecond * 8 / 1000));
+			} else {
+				var diffBytes:uint = netStr.bytesLoaded - prevBytesLoaded;
+				var diffTime:Number = netStr.time - prevTime;
+				var bitrate:int = int(diffBytes / diffTime * 8 / 1000);
+				// 0bpsになることが少なくないので、前回との平均を取ってみる
+				var averageBitrate:String = String(Math.floor((bitrate + prevBitrate) / 2));
+				prevBytesLoaded = netStr.bytesLoaded;
+				prevTime = netStr.time;
+				prevBitrate = bitrate;
+				return averageBitrate;
+			}
 		}
 		
 		// ビットレート取得
@@ -341,73 +369,137 @@ package
 		}
 		
 		// 動画再生
-		public function PlayVideo(streamUrl:String):void
+		public function PlayVideo(playlistUrl:String):void
 		{
-			this.streamUrl = streamUrl;
-			// プレイリストURLをコマンドライン引数から取得
-			var playlistUrl:String = streamUrl;
-			var urlRequest:URLRequest = new URLRequest(playlistUrl);
+			this.playlistUrl = playlistUrl;
+			var urlRequest:URLRequest = new URLRequest(playlistUrl + "&" + new Date().getTime());
 			var urlLoader:URLLoader = new URLLoader;
-			
-			// 動画に接続するための変数
-			var netCon:NetConnection = new NetConnection;
-			netCon.connect(null);
-			netStr = new NetStream(netCon);
+			urlLoader.addEventListener(Event.COMPLETE, function (event:Event):void {
+				// ストリームURLを取得
+				streamUrl = urlLoader.data;
+
+				if (enableRtmp) {
+					rtmpRetryCount = 0;
+					playRtmp();
+				} else {
+					playHttp();
+				}
+			});
+			urlLoader.load(urlRequest);
+		}
+		
+		private function playRtmp():void
+		{
+			releaseNet();
+			protocol = "rtmp";
+			netConnection = new NetConnection();
+			netConnection.client = new Object();
+			netConnection.objectEncoding = ObjectEncoding.AMF0;
+			netConnection.addEventListener(NetStatusEvent.NET_STATUS, rtmpNetStatusHandler);
+			netConnection.connect(streamUrl.replace("http", "rtmp"));
+		}
+		
+		private function playHttp():void
+		{
+			releaseNet();
+			protocol = "http";
+			netConnection = new NetConnection();
+			netConnection.connect(null);
+			netStr = new NetStream(netConnection);
+			netStr.addEventListener(NetStatusEvent.NET_STATUS, httpNetStatusHandler);
 			// 非アクティブかつプレイヤーが他のウィンドウの裏に隠れている場合に
-			// 短時間バッファが発生して再生が遅れていく現象が緩和できるかも
+			// 短時間バッファが	発生して再生が遅れていく現象が緩和できるかも
 			netStr.bufferTime = 0.2;
 
 			netStr.client = new Object;
-
 			// メタ情報を取得した時の処理
-			netStr.client.onMetaData = function(obj:Object):void{
-				prevTime = netStr.time;
-				prevBytesLoaded = netStr.bytesLoaded;
-				prevBitrate = netStr.info.metaData["audiodatarate"] + netStr.info.metaData["videodatarate"];
-				
-				// 再接続時に音量が初期化されるので、一度変更済みであればここ変えておく
-				if (volume != -1) {
-					ChangeVolume(volume.toString());
-				}
-				
-				Call(commandOpenStateChange);
-			}
-			
-			urlLoader.addEventListener(Event.COMPLETE, function (event:Event):void{
-				// ストリームURLを取得
-				var streamUrl:String = urlLoader.data;
-
-				// 動画を再生
-				netStr.play(streamUrl + "?" + new Date().getTime());
-				playStartTime = new Date();
-				
-				// smoothingを有効にする
-				video.smoothing = true;
-				// videoをステージに追加
-				if (video.parent == null){
-					stage.addChildAt(video, 0);
-				}
-				// 再生支援が使えたら使う
-				if (stageVideo != null){
-					stageVideo.attachNetStream(netStr);
-					video.visible = false;
-				} else {
-					video.attachNetStream(netStr);
-					video.visible = true;
-				}
-				// Videoのサイズを変更する
-				ChangeSize(stage.stageWidth, stage.stageHeight);
-			});
-			urlLoader.load(urlRequest);
-			netStr.addEventListener(NetStatusEvent.NET_STATUS, netStatusHandler);
-			
+			netStr.client.onMetaData = onMetaData;
+			// 動画を再生
+			netStr.play(streamUrl + "?" + new Date().getTime());
+			playStartTime = new Date();
 			if (!retryTimer.running) {
 				retryTimer.start();
 			}
 		}
 		
-		// ネットステータス
-		private function netStatusHandler(event:NetStatusEvent):void
+		private function rtmpNetStatusHandler(event:NetStatusEvent):void
+		{
+			switch (event.info.code) {
+				case "NetConnection.Connect.Success":
+					netStr = new NetStream(netConnection);
+					netStr.client = new Object();
+					netStr.client.onMetaData = onMetaData;
+					netStr.addEventListener(NetStatusEvent.NET_STATUS, rtmpNetStatusHandler);
+					var split:Array = streamUrl.split("/");
+					var reg:RegExp = /^(\w+)/;
+					var result:Object = reg.exec(split[4]);
+					netStr.play(result[1]);
+					if (!retryTimer.running) {
+						retryTimer.start();
+					}
+					break;
+				case "NetConnection.Conncet.Failed":
+					// PeercastがRTMP再生に対応していないと思われるので、HTTPで再生する
+					playHttp();
+					break;
+				case "NetConnection.Connect.Closed":
+					retryTimer.stop();
+					++rtmpRetryCount;
+					// 短時間でClosedが連発したら、HTTP再生に切り替える
+					if (rtmpRetryCount >= 5) {
+						setTimeout(function():void {
+							playHttp();
+						}, 1);		
+					} else {
+						clearInterval(rtmpTimeoutHandle);
+						setTimeout(function():void {
+							playRtmp();
+						}, 1);						
+					}
+					break;
+				case "NetStream.Play.FileNotFound":
+				case "NetConnection.Play.FileNotFound":
+					// Peercastでチャンネルが再生されていないかもしれないので、つなぎ直し
+					PlayVideo(playlistUrl);
+					break;
+				case "NetStream.Play.Start":
+					lastNetEvent = "Play.Start";
+					playStartTime = new Date();
+					// smoothingを有効にする
+					video.smoothing = true;
+					// videoをステージに追加
+					if (video.parent == null){
+						stage.addChildAt(video, 0);
+					}
+					// 再生支援が使えたら使う
+					if (stageVideo != null){
+						stageVideo.attachNetStream(netStr);
+						video.visible = false;
+					} else {
+						video.attachNetStream(netStr);
+						video.visible = true;
+					}
+					// Videoのサイズを変更する
+					ChangeSize(stage.stageWidth, stage.stageHeight);
+					// 10秒再生できていれば再接続カウントをリセットする
+					rtmpTimeoutHandle = setTimeout(function():void {
+						rtmpRetryCount = 0;
+					}, 10000);
+					break;
+				case "NetStream.Play.Stop":
+					lastNetEvent = "Play.Stop";
+					break;
+				case "NetStream.Play.StreamNotFound":
+					enableRtmp = false;
+					playHttp();
+					lastNetEvent = "Play.StreamNotFound";
+					break;
+			}
+			trace(event.info.code);
+		}
+		
+				// ネットステータス
+		private function httpNetStatusHandler(event:NetStatusEvent):void
 		{
 			switch (event.info.code) {
 				case "NetStream.Buffer.Full":
@@ -423,6 +515,23 @@ package
 					break;
 				case "NetStream.Play.Start":
 					lastNetEvent = "Play.Start";
+					
+					// smoothingを有効にする
+					video.smoothing = true;
+					// videoをステージに追加
+					if (video.parent == null){
+						stage.addChildAt(video, 0);
+					}
+					// 再生支援が使えたら使う
+					if (stageVideo != null){
+						stageVideo.attachNetStream(netStr);
+						video.visible = false;
+					} else {
+						video.attachNetStream(netStr);
+						video.visible = true;
+					}
+					// Videoのサイズを変更する
+					ChangeSize(stage.stageWidth, stage.stageHeight);
 					break;
 				case "NetStream.Play.Stop":
 					lastNetEvent = "Play.Stop";
@@ -431,26 +540,44 @@ package
 					lastNetEvent = "Play.StreamNotFound";
 					break;
 			}
+			trace(event.info.code);
+		}
+		
+		private function onMetaData(obj:Object):void
+		{
+			prevTime = netStr.time;
+			prevBytesLoaded = netStr.bytesLoaded;
+			prevBitrate = netStr.info.metaData["audiodatarate"] + netStr.info.metaData["videodatarate"];
+						
+			// 再接続時に音量が初期化されるので、一度変更済みであればここ変えておく
+			if (volume != -1) {
+				ChangeVolume(volume.toString());
+			}
+			Call(commandOpenStateChange);
 		}
 		
 		// タイマー
 		private function retryTimerHandler(event:TimerEvent):void
 		{
+			if (netStr == null) {	
+				return;
+			}
 			// NetStream.Buffer.Empty発動時からタイムが進んでいなければリコネクト
 			if (retryPrevTime == netStr.time) {
-				netStr.close();
-				PlayVideo(streamUrl);
+				trace("retry");
+				releaseNet();
+				PlayVideo(playlistUrl);
 				return;
 			}
 			retryPrevTime = netStr.time;
 			// Buffer0の状況が続いていればBumpする(謎の黒画面対策)
-			if (netStr.bufferLength == 0) {
+			if (!netConnection.connected || (protocol == "http" && netStr.bufferLength == 0)) {
 				retryCount++;
 				if (retryCount > 3) {
 					trace("retry");
 					Call(commandRequestBump);
-					netStr.close();
-					PlayVideo(streamUrl);
+					releaseNet();
+					PlayVideo(playlistUrl);
 					retryCount = 0;
 				}
 				trace("retryCount++");
@@ -475,7 +602,10 @@ package
 		// デバッグ表示用タイマー
 		private function debugTimerHandler(event:TimerEvent):void
 		{
-			if (netStr == null) {
+			if (netConnection == null || netStr == null) {
+				return;
+			}
+			if (!netConnection.connected) {
 				return;
 			}
 			
@@ -489,7 +619,7 @@ package
 			} else {
 				text += "\n<bold>currentSize</bold>: " + video.width + "x" + video.height;
 			}
-			if (netStr.info.metaData != null) {
+			if (netStr.info != null && netStr.info.metaData != null) {
 				text += "\nvideoSize: " + netStr.info.metaData["width"] + "x" + netStr.info.metaData["height"];
 				text += "\n<bold>framerate</bold>: " + netStr.info.metaData["framerate"];
 				text += "\n<bold>audio</bold>: " + netStr.info.metaData["audiocodecid"] + " " +
