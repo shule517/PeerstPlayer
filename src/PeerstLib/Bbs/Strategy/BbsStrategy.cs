@@ -170,7 +170,7 @@ namespace PeerstLib.Bbs.Strategy
 			webRequest.Method = "POST";
 			webRequest.ContentType = "application/x-www-form-urlencoded";
 			webRequest.ContentLength = requestData.Length;
-			webRequest.Referer = writeUrl;
+			webRequest.Referer = ThreadUrl;
 			webRequest.Timeout = WriteResTimeOut;
 			webRequest.UserAgent = "Monazilla/1.00";
 
