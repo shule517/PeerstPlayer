@@ -5,6 +5,8 @@ using PeerstLib.Controls;
 using PeerstPlayer.Controls.PecaPlayer;
 using PeerstPlayer.Forms.Player;
 using WMPLib;
+using PeerstLib.Util;
+using System.Text;
 
 namespace PeerstPlayer.Controls.MoviePlayer
 {
@@ -29,10 +31,26 @@ namespace PeerstPlayer.Controls.MoviePlayer
 			
 			Dock = DockStyle.Fill;
 
-			// FlashManagerの初期化
-			flashManager = new FlashMoviePlayerManager(axShockwaveFlash);
-			flashManager.Initialized += (sender, args) => flashManager.EnableGpu(PlayerSettings.Gpu);
-			// プレイヤーからBump要求のイベント
+            // FlashManagerの初期化
+            flashManager = new FlashMoviePlayerManager(axShockwaveFlash);
+            flashManager.Initialized += (sender, args) =>
+            {
+                flashManager.EnableGpu(PlayerSettings.Gpu);
+            };
+            flashManager.OpenStateChange += (sender, args) =>
+            {
+                if (isFirstMediaOpen)
+                {
+                    var width = ((IMoviePlayer)this).ImageWidth;
+                    var height = ((IMoviePlayer)this).ImageHeight;
+                    axShockwaveFlash.Width = width;
+                    axShockwaveFlash.Height = height;
+                    movieStart(this, new EventArgs());
+                    isFirstMediaOpen = false;
+                }
+                flashManager.ChangeVolume(volume);
+            };
+            // プレイヤーからBump要求のイベント
 			flashManager.RequestBump += (sender, args) => parent.Bump();
 			// 再生支援を使う設定が変更されたら
 			PlayerSettings.Changed += (s) =>
@@ -263,22 +281,9 @@ namespace PeerstPlayer.Controls.MoviePlayer
 
 		void IMoviePlayer.PlayMoive(string streamUrl)
 		{
+            axShockwaveFlash.LoadMovie(0, FormUtility.GetExeFolderPath() + "/FlvPlayer.swf");
+            flashManager.PlayVideo(streamUrl);
 			isFirstMediaOpen = true;
-			axShockwaveFlash.LoadMovie(0, FormUtility.GetExeFolderPath() + "/FlvPlayer.swf");
-			flashManager.PlayVideo(streamUrl);
-			flashManager.OpenStateChange += (sender, args) =>
-			{
-				if (isFirstMediaOpen)
-				{
-					var width = ((IMoviePlayer)this).ImageWidth;
-					var height = ((IMoviePlayer)this).ImageHeight;
-					axShockwaveFlash.Width = width;
-					axShockwaveFlash.Height = height;
-					movieStart(this, new EventArgs());
-					isFirstMediaOpen = false;
-				}
-				flashManager.ChangeVolume(volume);
-			};
-		}
+        }
 	}
 }

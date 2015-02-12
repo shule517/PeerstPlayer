@@ -27,6 +27,7 @@ package
 		 */
 		private function init(e:Event = null):void 
 		{
+			Logger.Trace("Main.init()");
 			flvPlayer = new FlvPlayer(stage);
 			removeEventListener(Event.ADDED_TO_STAGE, init);
 

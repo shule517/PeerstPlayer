@@ -42,7 +42,7 @@ package
 		private var streamUrl:String = null;
 		private var protocol:String = null;
 		private var enableGpu:Boolean = true;
-		private var enableRtmp:Boolean = true;
+		private var enableRtmp:Boolean = false;
 		
 		// 前回の時刻など
 		private var prevTime:Number = 0;
@@ -71,6 +71,7 @@ package
 		
 		public function FlvPlayer(stage:Stage)
 		{
+			Logger.Trace("FlvPlayer()");
 			this.stage = stage;
 			
 			// リサイズされたときに呼び出されるイベント
@@ -99,7 +100,7 @@ package
 			debugText.multiline = true;
 			debugText.x = 55;
 			debugText.y = 55;
-			debugText.width = 230;
+			debugText.width = 500;
 			debugText.height = 170;
 			debugText.textColor = 0xFFFFFF;
 			debugText.visible = false;
@@ -126,6 +127,7 @@ package
 		// StageVideoとVideoの切り替え
 		private function SwitchVideo():void
 		{
+			Logger.Trace("SwitchVideo()");
 			// GPUを使う設定にしている、GPUが使用可能である
 			if (enableGpu && stage.stageVideos.length != 0) {
 				stageVideo = stage.stageVideos[0];
@@ -372,11 +374,20 @@ package
 		public function PlayVideo(playlistUrl:String):void
 		{
 			this.playlistUrl = playlistUrl;
-			var urlRequest:URLRequest = new URLRequest(playlistUrl + "&" + new Date().getTime());
+			var requestUrl:String = playlistUrl + "&" + new Date().getTime();
+			Logger.Trace("PlayVideo(" + requestUrl + ")");
+			var urlRequest:URLRequest = new URLRequest(requestUrl);
 			var urlLoader:URLLoader = new URLLoader;
+
+			// リトライ開始
+			if (!retryTimer.running) {
+				retryTimer.start();
+			}
+
 			urlLoader.addEventListener(Event.COMPLETE, function (event:Event):void {
 				// ストリームURLを取得
 				streamUrl = urlLoader.data;
+				Logger.Trace("streamUrl:" + streamUrl);
 
 				if (enableRtmp) {
 					rtmpRetryCount = 0;
@@ -390,6 +401,7 @@ package
 		
 		private function playRtmp():void
 		{
+			Logger.Trace("playRtmp()");
 			releaseNet();
 			protocol = "rtmp";
 			netConnection = new NetConnection();
@@ -401,6 +413,7 @@ package
 		
 		private function playHttp():void
 		{
+			Logger.Trace("playHttp()");
 			releaseNet();
 			protocol = "http";
 			netConnection = new NetConnection();
@@ -417,9 +430,6 @@ package
 			// 動画を再生
 			netStr.play(streamUrl + "?" + new Date().getTime());
 			playStartTime = new Date();
-			if (!retryTimer.running) {
-				retryTimer.start();
-			}
 		}
 		
 		private function rtmpNetStatusHandler(event:NetStatusEvent):void
@@ -495,10 +505,10 @@ package
 					lastNetEvent = "Play.StreamNotFound";
 					break;
 			}
-			trace(event.info.code);
+			Logger.Trace(event.info.code);
 		}
 		
-				// ネットステータス
+		// ネットステータス
 		private function httpNetStatusHandler(event:NetStatusEvent):void
 		{
 			switch (event.info.code) {
@@ -540,7 +550,7 @@ package
 					lastNetEvent = "Play.StreamNotFound";
 					break;
 			}
-			trace(event.info.code);
+			Logger.Trace(event.info.code);
 		}
 		
 		private function onMetaData(obj:Object):void
@@ -556,17 +566,27 @@ package
 			Call(commandOpenStateChange);
 		}
 		
+		// 動画再生リトライ
+		private function retry():void
+		{
+			releaseNet();
+			PlayVideo(playlistUrl);
+			retryTimer.stop();
+		}
+		
 		// タイマー
 		private function retryTimerHandler(event:TimerEvent):void
 		{
+			Logger.Trace("retryTimerHandler()");
 			if (netStr == null) {	
+				Logger.Trace("retry");
+				retry();
 				return;
 			}
 			// NetStream.Buffer.Empty発動時からタイムが進んでいなければリコネクト
 			if (retryPrevTime == netStr.time) {
-				trace("retry");
-				releaseNet();
-				PlayVideo(playlistUrl);
+				Logger.Trace("retry");
+				retry();
 				return;
 			}
 			retryPrevTime = netStr.time;
@@ -574,13 +594,12 @@ package
 			if (!netConnection.connected || (protocol == "http" && netStr.bufferLength == 0)) {
 				retryCount++;
 				if (retryCount > 3) {
-					trace("retry");
+					Logger.Trace("retry");
 					Call(commandRequestBump);
-					releaseNet();
-					PlayVideo(playlistUrl);
+					retry();
 					retryCount = 0;
 				}
-				trace("retryCount++");
+				Logger.Trace("retryCount++");
 				return;
 			}
 			retryCount = 0;
@@ -602,6 +621,12 @@ package
 		// デバッグ表示用タイマー
 		private function debugTimerHandler(event:TimerEvent):void
 		{
+			if (Logger.IsDebug())
+			{
+				debugText.htmlText = Logger.GetMessage();
+				return;
+			}
+			
 			if (netConnection == null || netStr == null) {
 				return;
 			}
