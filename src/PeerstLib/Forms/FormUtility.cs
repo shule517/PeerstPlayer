@@ -36,6 +36,10 @@ namespace PeerstLib.Controls
 		//-------------------------------------------------------------
 		public static string GetExeFolderPath()
 		{
+			if (Assembly.GetEntryAssembly() == null)
+			{
+				return null;
+			}
 			return Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
 		}
 	}
