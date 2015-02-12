@@ -14,6 +14,7 @@ namespace PeerstPlayer.Controls.MoviePlayer
 	public partial class FlashMoviePlayerControl : UserControl, IMoviePlayer
 	{
 		private FlashMoviePlayerManager flashManager = null;
+		private string streamUrl = null;
 
 		public FlashMoviePlayerControl(PecaPlayerControl parent)
 		{
@@ -35,9 +36,25 @@ namespace PeerstPlayer.Controls.MoviePlayer
 			{
 				flashManager.EnableGpu(PlayerSettings.Gpu);
 				flashManager.EnableRtmp(PlayerSettings.Rtmp);
+				flashManager.PlayVideo(streamUrl);
 			};
 			// プレイヤーからBump要求のイベント
 			flashManager.RequestBump += (sender, args) => parent.Bump();
+			// プレイヤーで再生開始時のイベント
+			flashManager.OpenStateChange += (sender, args) =>
+			{
+				if (isFirstMediaOpen)
+				{
+					var width = ((IMoviePlayer)this).ImageWidth;
+					var height = ((IMoviePlayer)this).ImageHeight;
+					axShockwaveFlash.Width = width;
+					axShockwaveFlash.Height = height;
+					movieStart(this, new EventArgs());
+					isFirstMediaOpen = false;
+				}
+				flashManager.ChangeVolume(volume);
+			};
+
 			// 再生支援を使う設定が変更されたら
 			PlayerSettings.Changed += (s) =>
 			{
@@ -273,21 +290,8 @@ namespace PeerstPlayer.Controls.MoviePlayer
 		void IMoviePlayer.PlayMoive(string streamUrl)
 		{
 			isFirstMediaOpen = true;
+			this.streamUrl = streamUrl;
 			axShockwaveFlash.LoadMovie(0, FormUtility.GetExeFolderPath() + "/FlvPlayer.swf");
-			flashManager.PlayVideo(streamUrl);
-			flashManager.OpenStateChange += (sender, args) =>
-			{
-				if (isFirstMediaOpen)
-				{
-					var width = ((IMoviePlayer)this).ImageWidth;
-					var height = ((IMoviePlayer)this).ImageHeight;
-					axShockwaveFlash.Width = width;
-					axShockwaveFlash.Height = height;
-					movieStart(this, new EventArgs());
-					isFirstMediaOpen = false;
-				}
-				flashManager.ChangeVolume(volume);
-			};
 		}
 	}
 }
