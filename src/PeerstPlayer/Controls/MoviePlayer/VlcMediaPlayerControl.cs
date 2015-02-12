@@ -42,7 +42,7 @@ namespace PeerstPlayer.Controls.MoviePlayer
 			{
 				// 再生が始まってからじゃないと音量変更できないので音量が変更できるまで続ける
 				((IMoviePlayer)this).Volume = volume;
-				if (((IMoviePlayer)this).Volume == volume)
+				if (vlcControl.Volume == volume)
 				{
 					timer.Stop();
 				}
