@@ -112,27 +112,70 @@ namespace PeerstLib.Bbs.Util
 		{
 			Logger.Instance.DebugFormat("AnalayzeYY(url:{0}, host:{1})", url, host);
 
-			const int threadUrlIndex = 0;
-			const int boardNoIndex = 2;
-			const int threadNoIndex = 3;
-
-			string pattern = String.Format(@"http://{0}/(test/read.cgi/)?(\w*)/?(\w*)?/?", host);
-			Regex regex = new Regex(pattern);
-			Match match = regex.Match(url);
-
-			string threadUrl = match.Groups[threadUrlIndex].Value;
-			string boardNo = match.Groups[boardNoIndex].Value;
-			string threadNo = match.Groups[threadNoIndex].Value;
-			return new BbsInfo
+			Uri uri = new Uri(url);
+			// スレッドURL
+			if (url.IndexOf("test/read.cgi") != -1)
 			{
-				Host = String.IsNullOrEmpty(host) ? null : host,
-				Url = (threadUrl.EndsWith("/") ? threadUrl : String.Format("{0}/", threadUrl)),
-				BoardGenre = String.IsNullOrEmpty(host) ? null : host,
-				BoardNo = String.IsNullOrEmpty(boardNo) ? null : boardNo,
-				ThreadNo = String.IsNullOrEmpty(threadNo) ? null : threadNo,
-				BbsName = null,
-				BbsServer = BbsServer.YYKakiko,
-			};
+				const int threadUrlIndex = 0;
+				const int pathIndex = 1;
+				const int boardNoIndex = 3;
+				const int threadNoIndex = 4;
+
+				string pattern = String.Format(@"/?(.*?)?/?(test/read.cgi)/?(\w*)/?(\w*)/?");
+				Regex regex = new Regex(pattern);
+				Match match = regex.Match(uri.AbsolutePath);
+
+				string threadUrl = String.Format("{0}://{1}{2}", uri.Scheme, uri.Authority,
+					match.Groups[threadUrlIndex]);
+				string boardNo = match.Groups[boardNoIndex].Value;
+				string threadNo = match.Groups[threadNoIndex].Value;
+
+				if (!String.IsNullOrEmpty(match.Groups[pathIndex].Value) && !String.IsNullOrEmpty(host))
+				{
+					host += "/" + match.Groups[pathIndex].Value;
+				}
+				return new BbsInfo
+				{
+					Host = String.IsNullOrEmpty(host) ? null : host,
+					Url = (threadUrl.EndsWith("/") ? threadUrl : String.Format("{0}/", threadUrl)),
+					BoardGenre = String.IsNullOrEmpty(host) ? null : host,
+					BoardNo = String.IsNullOrEmpty(boardNo) ? null : boardNo,
+					ThreadNo = String.IsNullOrEmpty(threadNo) ? null : threadNo,
+					BbsName = null,
+					BbsServer = BbsServer.YYKakiko,
+				};
+			}
+			// 掲示板URL
+			else
+			{
+				const int threadUrlIndex = 0;
+				const int pathIndex = 1;
+				const int boardNoIndex = 2;
+
+				string pattern = @"/?(.*?)/?(\w*)?/?$"; 
+				Regex regex = new Regex(pattern);
+				Match match = regex.Match(uri.AbsolutePath);
+
+				string threadUrl = uri.ToString();
+				string boardNo = match.Groups[boardNoIndex].Value;
+
+				if (!String.IsNullOrEmpty(match.Groups[pathIndex].Value) && !String.IsNullOrEmpty(host))
+				{
+					host += "/" + match.Groups[pathIndex].Value;
+				}
+				return new BbsInfo
+				{
+					Host = String.IsNullOrEmpty(host) ? null : host,
+					Url = (threadUrl.EndsWith("/") ? threadUrl : String.Format("{0}/", threadUrl)),
+					BoardGenre = String.IsNullOrEmpty(host) ? null : host,
+					BoardNo = String.IsNullOrEmpty(boardNo) ? null : boardNo,
+					ThreadNo = null,
+					BbsName = null,
+					BbsServer = BbsServer.YYKakiko,
+				};
+			}
+			
+
 		}
 	}
 }
