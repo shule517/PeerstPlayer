@@ -438,7 +438,7 @@ package
 						retryTimer.start();
 					}
 					break;
-				case "NetConnection.Conncet.Failed":
+				case "NetConnection.Connect.Failed":
 					// PeercastがRTMP再生に対応していないと思われるので、HTTPで再生する
 					playHttp();
 					break;
