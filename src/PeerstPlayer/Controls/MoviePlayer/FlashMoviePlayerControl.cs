@@ -31,15 +31,24 @@ namespace PeerstPlayer.Controls.MoviePlayer
 
 			// FlashManagerの初期化
 			flashManager = new FlashMoviePlayerManager(axShockwaveFlash);
-			flashManager.Initialized += (sender, args) => flashManager.EnableGpu(PlayerSettings.Gpu);
+			flashManager.Initialized += (sender, args) =>
+			{
+				flashManager.EnableGpu(PlayerSettings.Gpu);
+				flashManager.EnableRtmp(PlayerSettings.Rtmp);
+			};
 			// プレイヤーからBump要求のイベント
 			flashManager.RequestBump += (sender, args) => parent.Bump();
 			// 再生支援を使う設定が変更されたら
 			PlayerSettings.Changed += (s) =>
 			{
-				if (s == "Gpu")
+				switch (s)
 				{
+				case "Gpu":
 					flashManager.EnableGpu(PlayerSettings.Gpu);
+					break;
+				case "Rtmp":
+					flashManager.EnableRtmp(PlayerSettings.Rtmp);
+					break;
 				}
 			};
 			// Flashウィンドウをフックする

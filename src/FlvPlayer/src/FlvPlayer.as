@@ -42,7 +42,7 @@ package
 		private var streamUrl:String = null;
 		private var protocol:String = null;
 		private var enableGpu:Boolean = true;
-		private var enableRtmp:Boolean = true;
+		private var enableRtmp:Boolean = false;
 		
 		// 前回の時刻など
 		private var prevTime:Number = 0;
@@ -359,6 +359,17 @@ package
 				enableGpu = false;
 			}
 			SwitchVideo();
+		}
+		
+		// RTMP再生を使うか
+		public function EnableRtmp(value:String):void
+		{
+			if (value.toLowerCase() == "true") {
+				enableRtmp = true;
+			} else {
+				enableRtmp = false;
+			}
+			PlayVideo(playlistUrl);
 		}
 		
 		// 動画情報を表示
