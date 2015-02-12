@@ -270,6 +270,7 @@ namespace TestPeerstLib.Bbs
 					ThreadNo = null,
 					BbsServer = BbsServer.YYKakiko,
 				});
+			/*
 			CheckBbsInfo("http://yy25.60.kg/peercastjikkyou/1368534792/",
 				new BbsInfo
 				{
@@ -288,6 +289,7 @@ namespace TestPeerstLib.Bbs
 					ThreadNo = "1368534792",
 					BbsServer = BbsServer.YYKakiko,
 				});
+			*/
 			CheckBbsInfo("http://yy25.60.kg/peercastjikkyou/",
 				new BbsInfo
 				{
@@ -308,7 +310,7 @@ namespace TestPeerstLib.Bbs
 				});
 
 			// 2ch互換
-			/*
+			
 			CheckBbsInfo("http://sepia0330.dyndns.org/eicar/",
 				new BbsInfo
 				{
@@ -327,8 +329,33 @@ namespace TestPeerstLib.Bbs
 					ThreadNo = "1363498700",
 					BbsServer = BbsServer.YYKakiko,
 				});
-			 */
-
+			CheckBbsInfo("http://ossan.moe.hm/peca/test/read.cgi/ossan/1423442729/l50",
+				new BbsInfo
+				{
+					Url = "http://ossan.moe.hm/peca/test/read.cgi/ossan/1423442729/",
+					BoardGenre = "ossan.moe.hm/peca",
+					BoardNo = "ossan",
+					ThreadNo = "1423442729",
+					BbsServer = BbsServer.YYKakiko,
+				});
+			CheckBbsInfo("http://ossan.moe.hm/peca/test/read.cgi/ossan/1423442729/",
+				new BbsInfo
+				{
+					Url = "http://ossan.moe.hm/peca/test/read.cgi/ossan/1423442729/",
+					BoardGenre = "ossan.moe.hm/peca",
+					BoardNo = "ossan",
+					ThreadNo = "1423442729",
+					BbsServer = BbsServer.YYKakiko,
+				});
+			CheckBbsInfo("http://ossan.moe.hm/peca/ossan/",
+				new BbsInfo
+				{
+					Url = "http://ossan.moe.hm/peca/ossan/",
+					BoardGenre = "ossan.moe.hm/peca",
+					BoardNo = "ossan",
+					ThreadNo = null,
+					BbsServer = BbsServer.YYKakiko,
+				});
 			// 未対応
 			CheckBbsInfo("",
 				new BbsInfo
