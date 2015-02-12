@@ -143,6 +143,11 @@ namespace PeerstPlayer.Settings
 		/// </summary>
 		public bool Gpu = true;
 
+		/// <summary>
+		/// FLVでRTMP再生を使うか
+		/// </summary>
+		public bool Rtmp = false;
+
 		// - ステータスバーフォント : Font
 		// - ステータスバー表示項目 : List
 		// - 終了時位置保存 : boolean

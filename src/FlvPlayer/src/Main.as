@@ -51,6 +51,7 @@ package
 				ExternalInterface.addCallback("GetNowBitRate", flvPlayer.GetNowBitRate);
 				ExternalInterface.addCallback("GetBitRate", flvPlayer.GetBitRate);
 				ExternalInterface.addCallback("EnableGpu", flvPlayer.EnableGpu);
+				ExternalInterface.addCallback("EnableRtmp", flvPlayer.EnableRtmp);
 				ExternalInterface.addCallback("ShowDebug", flvPlayer.ShowDebug);
 				ExternalInterface.call("Initialized");
 			}

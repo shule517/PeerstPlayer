@@ -363,6 +363,17 @@ package
 			SwitchVideo();
 		}
 		
+		// RTMP再生を使うか
+		public function EnableRtmp(value:String):void
+		{
+			if (value.toLowerCase() == "true") {
+				enableRtmp = true;
+			} else {
+				enableRtmp = false;
+			}
+			PlayVideo(playlistUrl);
+		}
+		
 		// 動画情報を表示
 		public function ShowDebug():void
 		{

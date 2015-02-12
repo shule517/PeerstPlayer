@@ -270,6 +270,15 @@ namespace PeerstPlayer.Forms.Player
 			}
 		}
 
+		/// <summary>
+		/// FLVでRTMP再生を使うか
+		/// </summary>
+		public static bool Rtmp
+		{
+			get { return info.Rtmp; }
+			set { info.Rtmp = value; }
+		}
+
 		public static event Action<string> Changed;
 
 		private static void RaisePropertyChanged(string property)

@@ -118,6 +118,7 @@ namespace PeerstPlayer.Forms.Setting
 
 				// FLV
 				flvGpuCheckBox.Checked = PlayerSettings.Gpu;
+				useRtmpCheckBox.Checked = PlayerSettings.Rtmp;
 
 				// 動画再生開始時のコマンド
 				movieStartComboBox.Items.Clear();
@@ -416,6 +417,7 @@ namespace PeerstPlayer.Forms.Setting
 
 			// FLV
 			PlayerSettings.Gpu = flvGpuCheckBox.Checked;
+			PlayerSettings.Rtmp = useRtmpCheckBox.Checked;
 
 			// 設定を保存
 			PlayerSettings.Save();
