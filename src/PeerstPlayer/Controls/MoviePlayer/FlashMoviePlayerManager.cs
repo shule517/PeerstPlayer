@@ -22,6 +22,7 @@ namespace PeerstPlayer.Controls.MoviePlayer
 		private const string GetNowBitRateMethod = "GetNowBitRate";
 		private const string GetBitRateMethod = "GetBitRate";
 		private const string EnableGpuMethod = "EnableGpu";
+		private const string EnableRtmpMethod = "EnableRtmp";
 		private const string ShowDebugMethod = "ShowDebug";
 
 		public FlashMoviePlayerManager(AxShockwaveFlash flash)
@@ -186,6 +187,14 @@ namespace PeerstPlayer.Controls.MoviePlayer
 		public void EnableGpu(bool gpu)
 		{
 			CallFlashMethod(EnableGpuMethod, gpu.ToString());
+		}
+
+		/// <summary>
+		/// RTMP再生を使用するか
+		/// </summary>
+		public void EnableRtmp(bool rtmp)
+		{
+			CallFlashMethod(EnableRtmpMethod, rtmp.ToString());
 		}
 
 		/// <summary>

@@ -119,6 +119,7 @@ namespace PeerstPlayer.Forms.Setting
 
 				// FLV
 				flvGpuCheckBox.Checked = PlayerSettings.Gpu;
+				useRtmpCheckBox.Checked = PlayerSettings.Rtmp;
 
 				// VLC
 				vlcFolderTextBox.Text = PlayerSettings.VlcFolder;
@@ -432,6 +433,7 @@ namespace PeerstPlayer.Forms.Setting
 
 			// FLV
 			PlayerSettings.Gpu = flvGpuCheckBox.Checked;
+			PlayerSettings.Rtmp = useRtmpCheckBox.Checked;
 
 			// VLC
 			PlayerSettings.VlcFolder = vlcFolderTextBox.Text;

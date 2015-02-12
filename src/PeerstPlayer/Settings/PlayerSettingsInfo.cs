@@ -149,6 +149,11 @@ namespace PeerstPlayer.Settings
 		public bool Gpu = true;
 
 		/// <summary>
+		/// FLVでRTMP再生を使うか
+		/// </summary>
+		public bool Rtmp = false;
+
+		/// <summary>
 		/// VLCのフォルダ
 		/// </summary>
 		public string VlcFolder;

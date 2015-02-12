@@ -280,6 +280,15 @@ namespace PeerstPlayer.Forms.Player
 		}
 
 		/// <summary>
+		/// FLVでRTMP再生を使うか
+		/// </summary>
+		public static bool Rtmp
+		{
+			get { return info.Rtmp; }
+			set { info.Rtmp = value; }
+		}
+
+		/// <summary>
 		/// Vlcのフォルダ
 		/// </summary>
 		public static string VlcFolder
