@@ -180,8 +180,8 @@ namespace LibVlcWrapper
 		protected virtual void Dispose(bool disposing)
 		{
  			if (Handle.Pointer == IntPtr.Zero) return;
- 			DetachEvents();
- 			vlc.Manager.libvlc_media_player_releaseDelegate(Handle);
+ 			//DetachEvents();
+ 			//vlc.Manager.libvlc_media_player_releaseDelegate(Handle);
 			GC.SuppressFinalize(this);
 		}
 
