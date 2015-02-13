@@ -315,7 +315,7 @@ namespace PeerstPlayer.Controls.MoviePlayer
 		}
 
 		private int previousDecodedVideo;
-		private int nextTick;
+		private int previousFps;
 		/// <summary>
 		/// 現在のフレームレート
 		/// </summary>
@@ -323,14 +323,14 @@ namespace PeerstPlayer.Controls.MoviePlayer
 		{
 			get
 			{
-				if (nextTick < Environment.TickCount)
+				if (vlcControl.Stats.DecodedVideo - previousDecodedVideo != 0)
 				{
 					var fps = vlcControl.Stats.DecodedVideo - previousDecodedVideo;
 					previousDecodedVideo = vlcControl.Stats.DecodedVideo;
-					nextTick = Environment.TickCount + 1000;
+					previousFps = fps;
 					return fps;					
 				}
-				return vlcControl.Stats.DecodedVideo - previousDecodedVideo;
+				return previousFps;
 			}
 		}
 
