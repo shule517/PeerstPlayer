@@ -262,7 +262,8 @@ namespace PeerstPlayer.Controls.PecaPlayer
 			{
 				moviePlayer = new FlashMoviePlayerControl(this);
 			}
-			else if (commandLineArgs.Length > 2 && commandLineArgs[2] == "WMV")
+			else if ((commandLineArgs.Length > 2 && commandLineArgs[2] == "WMV") ||
+				commandLineArgs.Length <= 1)
 			{
 				moviePlayer = new WindowsMediaPlayerControl();
 			}
