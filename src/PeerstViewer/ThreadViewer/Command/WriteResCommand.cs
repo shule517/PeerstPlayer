@@ -78,7 +78,7 @@ namespace PeerstViewer.ThreadViewer.Command
 			}
 		}
 
-		public event EventHandler CanExecuteChanged;
+        public event EventHandler CanExecuteChanged = delegate { };
 		public bool CanExecute(object parameter)
 		{
 			return true;

@@ -148,7 +148,6 @@ namespace PeerstLib.Bbs.Util
 			// 掲示板URL
 			else
 			{
-				const int threadUrlIndex = 0;
 				const int pathIndex = 1;
 				const int boardNoIndex = 2;
 

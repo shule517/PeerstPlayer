@@ -116,6 +116,7 @@ namespace PeerstViewer.Settings
 			}
 			catch (IOException e)
 			{
+                Logger.Instance.Error(e.Message);
 			}
 		}
 	}
