@@ -257,28 +257,42 @@ namespace PeerstPlayer.Forms.Setting
 				if (gestureing == false) return;
 
 				mouseGesture.Moving(e.Location);
+                string gesture = mouseGesture.ToString();
 
 				int index = shortcutListView.SelectedIndices[0];
-
-				string gesture = mouseGesture.ToString();
 				if (string.IsNullOrEmpty(gesture)) return;
 				if (shortcutListView.Items[index].SubItems[2].Text == mouseGesture.ToString()) return;
-
-				// 同じジェスチャを削除
-				foreach (ListViewItem item in shortcutListView.Items)
-				{
-					string text = item.SubItems[2].Text;
-					if (gesture == text)
-					{
-						item.SubItems[2].Text = "-";
-						item.SubItems[2].Tag = null;
-					}
-				}
 
 				// ジェスチャを登録
 				shortcutListView.Items[index].SubItems[2].Text = gesture;
 				shortcutListView.Items[index].SubItems[2].Tag = null;
 			};
+            shortcutListView.MouseUp += (sender, e) =>
+            {
+                if (shortcutListView.SelectedIndices.Count <= 0) return;
+                if (gestureing == false) return;
+
+                mouseGesture.Moving(e.Location);
+                string gesture = mouseGesture.ToString();
+
+                int index = shortcutListView.SelectedIndices[0];
+                if (string.IsNullOrEmpty(gesture)) return;
+
+                // 同じジェスチャを削除
+                foreach (ListViewItem item in shortcutListView.Items)
+                {
+                    string text = item.SubItems[2].Text;
+                    if (gesture == text)
+                    {
+                        item.SubItems[2].Text = "-";
+                        item.SubItems[2].Tag = null;
+                    }
+                }
+
+                // ジェスチャを登録
+                shortcutListView.Items[index].SubItems[2].Text = gesture;
+                shortcutListView.Items[index].SubItems[2].Tag = null;
+            };
 			shortcutListView.MouseUp += (sender, e) => gestureing = false;
 		}
 
