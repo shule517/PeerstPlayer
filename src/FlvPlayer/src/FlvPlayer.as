@@ -355,23 +355,23 @@ package
 		// GPUを使うかどうか
 		public function EnableGpu(value:String):void
 		{
+			Logger.Trace("EnableGpu(" + value + ")");
 			if (value.toLowerCase() === "true") {
 				enableGpu = true;
 			} else {
 				enableGpu = false;
 			}
-			SwitchVideo();
 		}
 		
 		// RTMP再生を使うか
 		public function EnableRtmp(value:String):void
 		{
+			Logger.Trace("EnableRtmp(" + value + ")");
 			if (value.toLowerCase() == "true") {
 				enableRtmp = true;
 			} else {
 				enableRtmp = false;
 			}
-			PlayVideo(playlistUrl);
 		}
 		
 		// 動画情報を表示
@@ -391,9 +391,7 @@ package
 			var urlLoader:URLLoader = new URLLoader;
 
 			// リトライ開始
-			if (!retryTimer.running) {
-				retryTimer.start();
-			}
+			retrayStart();
 
 			urlLoader.addEventListener(Event.COMPLETE, function (event:Event):void {
 				// ストリームURLを取得
@@ -455,19 +453,17 @@ package
 					var reg:RegExp = /^(\w+)/;
 					var result:Object = reg.exec(split[4]);
 					netStr.play(result[1]);
-					if (!retryTimer.running) {
-						retryTimer.start();
-					}
 					break;
 				case "NetConnection.Connect.Failed":
 					// PeercastがRTMP再生に対応していないと思われるので、HTTPで再生する
 					playHttp();
 					break;
 				case "NetConnection.Connect.Closed":
-					retryTimer.stop();
+					retrayStop();
 					++rtmpRetryCount;
 					// 短時間でClosedが連発したら、HTTP再生に切り替える
 					if (rtmpRetryCount >= 5) {
+						Logger.Trace("Change RTMP->HTTP");
 						setTimeout(function():void {
 							playHttp();
 						}, 1);		
@@ -516,7 +512,7 @@ package
 					lastNetEvent = "Play.StreamNotFound";
 					break;
 			}
-			Logger.Trace(event.info.code);
+			Logger.Trace("rtmpNetStatusHandler:" + event.info.code);
 		}
 		
 		// ネットステータス
@@ -525,11 +521,13 @@ package
 			switch (event.info.code) {
 				case "NetStream.Buffer.Full":
 					lastNetEvent = "Buffer.Full";
+					retrayStop();
 					break;
 				case "NetStream.Buffer.Empty":
 					lastNetEvent = "Buffer.Empty";
 					// 再生時間をリセット
 					playStartTime = new Date();
+					retrayStart();
 					break;
 				case "NetStream.Buffer.Flush":
 					lastNetEvent = "Buffer.Flush";
@@ -561,7 +559,7 @@ package
 					lastNetEvent = "Play.StreamNotFound";
 					break;
 			}
-			Logger.Trace(event.info.code);
+			Logger.Trace("httpNetStatusHandler:" + event.info.code);
 		}
 		
 		private function onMetaData(obj:Object):void
@@ -580,23 +578,37 @@ package
 		// 動画再生リトライ
 		private function retry():void
 		{
+			Logger.Trace("retry");
 			releaseNet();
 			PlayVideo(playlistUrl);
+		}
+		
+		// リトライ停止
+		private function retrayStop():void
+		{
+			Logger.Trace("retrayStop()");
 			retryTimer.stop();
+		}
+		
+		// リトライ開始
+		private function retrayStart():void
+		{
+			if (!retryTimer.running) {
+				Logger.Trace("retryTimer.start()")
+				retryTimer.start();
+			}
 		}
 		
 		// タイマー
 		private function retryTimerHandler(event:TimerEvent):void
 		{
-			Logger.Trace("retryTimerHandler()");
+			Logger.Trace("retryTimerHandler()")
 			if (netStr == null) {	
-				Logger.Trace("retry");
 				retry();
 				return;
 			}
 			// NetStream.Buffer.Empty発動時からタイムが進んでいなければリコネクト
 			if (retryPrevTime == netStr.time) {
-				Logger.Trace("retry");
 				retry();
 				return;
 			}
@@ -605,7 +617,6 @@ package
 			if (!netConnection.connected || (protocol == "http" && netStr.bufferLength == 0)) {
 				retryCount++;
 				if (retryCount > 3) {
-					Logger.Trace("retry");
 					Call(commandRequestBump);
 					retry();
 					retryCount = 0;

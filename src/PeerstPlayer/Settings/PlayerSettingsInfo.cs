@@ -146,7 +146,7 @@ namespace PeerstPlayer.Settings
 		/// <summary>
 		/// FLVでRTMP再生を使うか
 		/// </summary>
-		public bool Rtmp = false;
+		public bool Rtmp = true;
 
 		// - ステータスバーフォント : Font
 		// - ステータスバー表示項目 : List
