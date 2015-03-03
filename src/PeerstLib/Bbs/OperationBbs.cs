@@ -6,6 +6,7 @@ using PeerstLib.Util;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Windows.Forms;
 
@@ -230,6 +231,9 @@ namespace PeerstLib.Bbs
 		{
 			if (SelectThread.ThreadNo != null)
 			{
+				var sw = new Stopwatch();
+				sw.Start();
+				var openedThreads = new List<string>();
 				Func<bool> f = () =>
 				{
 					// 現在のスレッドタイトル名に数字が含まれていれば次のスレ番のスレを探す
@@ -241,12 +245,14 @@ namespace PeerstLib.Bbs
 						var nextNumber = int.Parse(number) + 1;
 						var threads = ThreadList.Where(info =>
 							compare.IndexOf(info.ThreadTitle, nextNumber.ToString(), CompareOptions.IgnoreWidth) != -1)
+							.Where(x => !openedThreads.Contains(x.ThreadNo))
 							.OrderByDescending(info => info.ThreadSpeed);
 						if (!threads.Any())
 						{
 							continue;
 						}
 						ChangeThread(threads.First().ThreadNo);
+						openedThreads.Add(threads.First().ThreadNo);
 						return true;
 					}
 					return false;
@@ -261,6 +267,8 @@ namespace PeerstLib.Bbs
 					// 埋まっていないスレになったら終わり
 					if (!SelectThread.IsStopThread)
 					{
+						sw.Stop();
+						Console.WriteLine(sw.Elapsed);
 						return true;
 					}
 				}
