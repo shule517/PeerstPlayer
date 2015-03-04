@@ -396,7 +396,7 @@ package
 			urlLoader.addEventListener(Event.COMPLETE, function (event:Event):void {
 				// ストリームURLを取得
 				streamUrl = urlLoader.data;
-				Logger.Trace("streamUrl:" + streamUrl);
+				Logger.Trace("urlLoader(Event.COMPLETE) streamUrl:" + streamUrl);
 
 				if (enableRtmp) {
 					rtmpRetryCount = 0;
@@ -581,6 +581,7 @@ package
 			Logger.Trace("retry");
 			releaseNet();
 			PlayVideo(playlistUrl);
+			retryTimer.stop();
 		}
 		
 		// リトライ停止
