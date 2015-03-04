@@ -34,6 +34,9 @@ package
 			// 動画再生情報
 			var panel:MovieInfoPanel = new MovieInfoPanel(stage, flvPlayer);
 			
+			// Flashコマンド
+			var flashCommand:FlashCommand = new FlashCommand(flvPlayer);
+			
 			// ステージの拡大縮小を無効にする
 			stage.scaleMode = StageScaleMode.NO_SCALE;
 			// 表示基準位置を左上に設定
@@ -45,14 +48,13 @@ package
 				ExternalInterface.addCallback("SizeChanged", flvPlayer.SizeChanged);
 				ExternalInterface.addCallback("ChangeVolume", flvPlayer.ChangeVolume);
 				ExternalInterface.addCallback("ChangePan", flvPlayer.ChangePan);
-				ExternalInterface.addCallback("GetVideoWidth", flvPlayer.GetVideoWidth);
-				ExternalInterface.addCallback("GetVideoHeight", flvPlayer.GetVideoHeight);
+				ExternalInterface.addCallback("GetVideoWidth", flashCommand.GetVideoWidth);
+				ExternalInterface.addCallback("GetVideoHeight", flashCommand.GetVideoHeight);
 				ExternalInterface.addCallback("GetDurationString", flvPlayer.GetDurationString);
-				ExternalInterface.addCallback("GetDurationString", flvPlayer.GetDurationString);
-				ExternalInterface.addCallback("GetNowFrameRate", flvPlayer.GetNowFrameRate);
-				ExternalInterface.addCallback("GetFrameRate", flvPlayer.GetFrameRate);
+				ExternalInterface.addCallback("GetNowFrameRate", flashCommand.GetNowFrameRate);
+				ExternalInterface.addCallback("GetFrameRate", flashCommand.GetFrameRate);
 				ExternalInterface.addCallback("GetNowBitRate", flvPlayer.GetNowBitRate);
-				ExternalInterface.addCallback("GetBitRate", flvPlayer.GetBitRate);
+				ExternalInterface.addCallback("GetBitRate", flashCommand.GetBitRate);
 				ExternalInterface.addCallback("EnableGpu", flvPlayer.EnableGpu);
 				ExternalInterface.addCallback("EnableRtmp", flvPlayer.EnableRtmp);
 				ExternalInterface.addCallback("ShowDebug", panel.ShowDebug);

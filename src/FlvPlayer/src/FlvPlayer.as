@@ -1,13 +1,10 @@
 package  
 {
-	import flash.display.SimpleButton;
 	import flash.display.Stage;
-	import flash.events.MouseEvent;
 	import flash.events.StageVideoAvailabilityEvent;
 	import flash.events.TimerEvent;
 	import flash.events.Event;
 	import flash.events.NetStatusEvent;
-	import flash.events.StageVideoAvailabilityEvent;
 	import flash.geom.Rectangle;
 	import flash.media.StageVideo;
 	import flash.media.Video;
@@ -17,16 +14,11 @@ package
 	import flash.net.URLRequest;
 	import flash.net.ObjectEncoding;
 	import flash.media.SoundTransform;
-	import flash.media.StageVideo;
-	import flash.media.StageVideoAvailability;
-	import flash.external.ExternalInterface;
 	import flash.utils.clearInterval;
 	import flash.utils.setTimeout;
 	import flash.utils.Timer;
 	import flash.events.StageVideoEvent;
 	import flash.media.VideoStatus
-	import flash.display.Shape;
-	import flash.text.TextField;
 	/**
 	 * FLV Player
 	 * @author shule517
@@ -237,31 +229,13 @@ package
 			return;
 		}
 		
-		// 動画幅取得
-		public function GetVideoWidth():String
-		{
-			if (stageVideo != null) {
-				return stageVideo.videoWidth.toString();
-			}
-			return video.videoWidth.toString();
-		}
-		
-		// 動画高さ取得
-		public function GetVideoHeight():String
-		{
-			if (stageVideo != null) {
-				return stageVideo.videoHeight.toString();
-			}
-			return video.videoHeight.toString();
-		}
-		
 		// 再生時間取得
 		public function GetDurationString():String
 		{
 			if (netStr == null || netStr.info.metaData == null) {
 				return "00:00:00";
 			}
-			
+
 			var time:Date = new Date();
 			time.setTime(time.getTime() - playStartTime.getTime());
 			var totalSecond:int = time.getTime() / 1000;
@@ -271,24 +245,6 @@ package
 			return ("0" + hour).slice(-2) + ":" +
 				("0" + min).slice(-2) + ":" +
 				("0" + sec).slice(-2);
-		}
-		
-		// FPS取得
-		public function GetNowFrameRate():String
-		{
-			if (netStr == null) {
-				return "0";
-			}
-			return int(netStr.currentFPS).toString();
-		}
-		
-		// FPS取得
-		public function GetFrameRate():String
-		{
-			if (netStr == null || netStr.info.metaData == null) {
-				return "0";
-			}
-			return netStr.info.metaData["framerate"].toString();
 		}
 		
 		// ビットレート取得
@@ -310,15 +266,6 @@ package
 				prevBitrate = bitrate;
 				return averageBitrate;
 			}
-		}
-		
-		// ビットレート取得
-		public function GetBitRate():String
-		{
-			if (netStr == null || netStr.info.metaData == null) {
-				return "0";
-			}
-			return String(netStr.info.metaData["audiodatarate"] + netStr.info.metaData["videodatarate"]);
 		}
 		
 		// GPUを使うかどうか
@@ -517,7 +464,7 @@ package
 		{
 			prevTime = netStr.time;
 			prevBytesLoaded = netStr.bytesLoaded;
-			prevBitrate = netStr.info.metaData["audiodatarate"] + netStr.info.metaData["videodatarate"];
+			prevBitrate = Number(Info.BitRate);
 						
 			// 再接続時に音量が初期化されるので、一度変更済みであればここ変えておく
 			if (volume != -1) {

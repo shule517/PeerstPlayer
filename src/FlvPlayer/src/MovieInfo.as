@@ -69,6 +69,22 @@ package
 			}
 		}
 		
+		public function get VideoWidth():String
+		{
+			if (stageVideo != null) {
+				return stageVideo.videoWidth.toString();
+			}
+			return video.videoWidth.toString();
+		}
+		
+		public function get VideoHeight():String
+		{
+			if (stageVideo != null) {
+				return stageVideo.videoHeight.toString();
+			}
+			return video.videoHeight.toString();
+		}
+
 		public function get Width():String
 		{
 			if (netStr == null) return "0";
@@ -85,6 +101,20 @@ package
 		{
 			if (netStr == null) return "0";
 			return netStr.info.metaData["framerate"];
+		}
+		
+		public function get NowFrameRate():String
+		{
+			if (netStr == null) return "0";
+			return int(netStr.currentFPS).toString();
+		}
+
+		public function get BitRate():String
+		{
+			if (netStr == null || netStr.info.metaData == null) {
+				return "0";
+			}
+			return String(this.AudioDataRate + this.VideoDataRate);
 		}
 
 		public function get AudioCodecId():String
