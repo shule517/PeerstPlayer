@@ -65,10 +65,6 @@ package
 		private var debugTextBack:Shape = new Shape();
 		private var lastNetEvent:String = "";
 		
-		// C#側を呼び出すコマンド
-		private var commandOpenStateChange:String = "OpenStateChange";
-		private var commandRequestBump:String = "RequestBump";
-		
 		public function FlvPlayer(stage:Stage)
 		{
 			Logger.Trace("FlvPlayer()");
@@ -170,13 +166,6 @@ package
 			}
 			// 描画する範囲を指定
 			ChangeSize(stage.stageWidth, stage.stageHeight);
-		}
-		
-		private function Call(functionName:String, ...args):void
-		{
-			if (ExternalInterface.available) {
-				ExternalInterface.call.apply(this, [functionName].concat(args));
-			}
 		}
 
 		// 音量変更
@@ -572,7 +561,7 @@ package
 			if (volume != -1) {
 				ChangeVolume(volume.toString());
 			}
-			Call(commandOpenStateChange);
+			CSharpCommand.RaiseOpenStateChange();
 		}
 		
 		// 動画再生リトライ
@@ -618,7 +607,7 @@ package
 			if (!netConnection.connected || (protocol == "http" && netStr.bufferLength == 0)) {
 				retryCount++;
 				if (retryCount > 3) {
-					Call(commandRequestBump);
+					CSharpCommand.RequestBump();
 					retry();
 					retryCount = 0;
 				}
