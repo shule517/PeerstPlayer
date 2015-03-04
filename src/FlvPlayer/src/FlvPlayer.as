@@ -469,7 +469,6 @@ package
 					PlayVideo(playlistUrl);
 					break;
 				case "NetStream.Play.Start":
-					lastNetEvent = "Play.Start";
 					playStartTime = new Date();
 					// smoothingを有効にする
 					video.smoothing = true;
@@ -493,14 +492,14 @@ package
 					}, 10000);
 					break;
 				case "NetStream.Play.Stop":
-					lastNetEvent = "Play.Stop";
 					break;
 				case "NetStream.Play.StreamNotFound":
 					enableRtmp = false;
 					playHttp();
-					lastNetEvent = "Play.StreamNotFound";
 					break;
 			}
+			
+			lastNetEvent = event.info.code;
 			Logger.Trace("rtmpNetStatusHandler:" + event.info.code);
 		}
 		
@@ -509,21 +508,16 @@ package
 		{
 			switch (event.info.code) {
 				case "NetStream.Buffer.Full":
-					lastNetEvent = "Buffer.Full";
 					retrayStop();
 					break;
 				case "NetStream.Buffer.Empty":
-					lastNetEvent = "Buffer.Empty";
 					// 再生時間をリセット
 					playStartTime = new Date();
 					retrayStart();
 					break;
 				case "NetStream.Buffer.Flush":
-					lastNetEvent = "Buffer.Flush";
 					break;
 				case "NetStream.Play.Start":
-					lastNetEvent = "Play.Start";
-					
 					// smoothingを有効にする
 					video.smoothing = true;
 					// videoをステージに追加
@@ -541,13 +535,8 @@ package
 					// Videoのサイズを変更する
 					ChangeSize(stage.stageWidth, stage.stageHeight);
 					break;
-				case "NetStream.Play.Stop":
-					lastNetEvent = "Play.Stop";
-					break;
-				case "NetStream.Play.StreamNotFound":
-					lastNetEvent = "Play.StreamNotFound";
-					break;
 			}
+			lastNetEvent = event.info.code;
 			Logger.Trace("httpNetStatusHandler:" + event.info.code);
 		}
 		
