@@ -19,8 +19,6 @@ package
 			else addEventListener(Event.ADDED_TO_STAGE, init);
 		}
 		
-		private var flvPlayer:FlvPlayer;
-		
 		/**
 		 * 初期化メソッド
 		 * @param	e
@@ -28,9 +26,14 @@ package
 		private function init(e:Event = null):void 
 		{
 			Logger.Trace("Main.init()");
-			flvPlayer = new FlvPlayer(stage);
+			
+			// FLVプレイヤー
+			var flvPlayer:FlvPlayer = new FlvPlayer(stage);
 			removeEventListener(Event.ADDED_TO_STAGE, init);
 
+			// 動画再生情報
+			var panel:MovieInfoPanel = new MovieInfoPanel(stage, flvPlayer);
+			
 			// ステージの拡大縮小を無効にする
 			stage.scaleMode = StageScaleMode.NO_SCALE;
 			// 表示基準位置を左上に設定
@@ -52,7 +55,7 @@ package
 				ExternalInterface.addCallback("GetBitRate", flvPlayer.GetBitRate);
 				ExternalInterface.addCallback("EnableGpu", flvPlayer.EnableGpu);
 				ExternalInterface.addCallback("EnableRtmp", flvPlayer.EnableRtmp);
-				ExternalInterface.addCallback("ShowDebug", flvPlayer.ShowDebug);
+				ExternalInterface.addCallback("ShowDebug", panel.ShowDebug);
 				ExternalInterface.call("Initialized");
 			}
 		}
