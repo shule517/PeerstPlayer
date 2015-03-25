@@ -128,6 +128,7 @@ namespace PeerstViewer.ThreadViewer
 				{
 					Location = ViewerSettings.ReturnPosition;
 				}
+				splitContainerWriteField.SplitterDistance = ViewerSettings.WriteFieldDistance;
 			};
 
 			// 終了処理
@@ -149,6 +150,7 @@ namespace PeerstViewer.ThreadViewer
 						placement.normalPosition.bottom - placement.normalPosition.top);
 
 				}
+				ViewerSettings.WriteFieldDistance = splitContainerWriteField.SplitterDistance;
 				ViewerSettings.Save();
 			};
 
