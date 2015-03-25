@@ -38,5 +38,10 @@ namespace PeerstViewer.Settings
 		/// リンクをブラウザで開くか
 		/// </summary>
 		public bool OpenLinkBrowser = true;
+
+		/// <summary>
+		/// 書き込みウィンドウの高さ
+		/// </summary>
+		public int WriteFieldDistance = 271;
 	}
 }

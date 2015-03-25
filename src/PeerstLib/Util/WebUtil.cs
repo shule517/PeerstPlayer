@@ -59,6 +59,14 @@ namespace PeerstLib.Util
 		}
 
 		/// <summary>
+		/// フォントタグを除去する
+		/// </summary>
+		public static string DeleteFontTag(string text)
+		{
+			return Regex.Replace(text, @"</?font(.|\n)*?>", string.Empty);
+		}
+
+		/// <summary>
 		/// コマンド送信
 		/// </summary>
 		public static void SendCommand(string host, int portNo, string url, Encoding encoding)

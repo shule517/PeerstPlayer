@@ -85,6 +85,15 @@ namespace PeerstViewer.Settings
 			set { info.OpenLinkBrowser = value; }
 		}
 
+		/// <summary>
+		/// 書き込みウィンドウの高さ
+		/// </summary>
+		public static int WriteFieldDistance
+		{
+			get { return info.WriteFieldDistance; }
+			set { info.WriteFieldDistance = value; }
+		}
+
 		static ViewerSettings()
 		{
 		}

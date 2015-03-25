@@ -21,9 +21,19 @@ namespace PeerstViewer.ThreadViewer
 		public string DocumentText { get { return updateThreadCommand.DocumentText; } }
 
 		/// <summary>
+		/// 掲示板名
+		/// </summary>
+		public string BoardName { get { return operationBbs.BbsInfo.BbsName; } }
+
+		/// <summary>
 		/// スレッドURL
 		/// </summary>
 		public string ThreadUrl { get { return operationBbs.ThreadUrl; } }
+
+		/// <summary>
+		/// スレッド名
+		/// </summary>
+		public string ThreadName { get { return operationBbs.SelectThread.ThreadTitle; } }
 
 		/// <summary>
 		/// 書き込みメッセージ

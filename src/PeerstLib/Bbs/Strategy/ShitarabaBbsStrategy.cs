@@ -241,7 +241,7 @@ namespace PeerstLib.Bbs.Strategy
 					Date	= data[(int)DatIndex.Date],
 					Id		= data[(int)DatIndex.Id],
 					Mail	= isHtmlDecode ? HttpUtility.HtmlDecode(mail) : mail,
-					Message = isHtmlDecode ? HttpUtility.HtmlDecode(message) : message,
+					Message = isHtmlDecode ? HttpUtility.HtmlDecode(WebUtil.DeleteFontTag(message)) : message,
 					Name	= isHtmlDecode ? HttpUtility.HtmlDecode(name) : name,
 				};
 				resList.Add(resInfo);
