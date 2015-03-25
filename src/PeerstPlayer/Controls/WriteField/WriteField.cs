@@ -221,7 +221,7 @@ namespace PeerstPlayer.Controls.WriteField
 				if ((operationBbs.ResList.Count - res.i) <= 5)
 				{
 					string text = res.v.Message.Replace("<br>", "\n         ");
-					message += String.Format("{0, 4} : {1}\n", res.v.ResNo, WebUtil.DeleteHtmlTag(text));
+					message += String.Format("{0, 4} : {1}\n", res.v.ResNo, text);
 				}
 			}
 
