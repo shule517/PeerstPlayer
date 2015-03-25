@@ -215,6 +215,15 @@ namespace PeerstViewer.ThreadViewer
 			{
 				case "DocumentText":
 					threadViewer.DocumentText = viewModel.DocumentText;
+					threadViewer.DocumentText = viewModel.DocumentText;
+					if (string.IsNullOrEmpty(viewModel.BoardName))
+					{
+						Text = "PeerstViewer";
+					}
+					else
+					{
+						Text = string.Format("{0} - {1} - PeerstViewer", viewModel.BoardName, viewModel.ThreadName);
+					}
 					break;
 				case "ThreadList":
 					threadListView.Items.Clear();
