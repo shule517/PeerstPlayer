@@ -179,7 +179,7 @@ namespace PeerstLib.Bbs.Strategy
 				ThreadInfo threadInfo = new ThreadInfo(BbsInfo)
 				{
 					ThreadNo = threadNo,
-					ThreadTitle = match.Groups["threadTitle"].Value.Trim(),
+					ThreadTitle = HttpUtility.HtmlDecode(match.Groups["threadTitle"].Value.Trim().Replace("&amp", "&")),
 					ResCount = int.Parse(resCount),
 					ThreadSpeed = BbsUtil.GetThreadSpeed(days, resCount),
 					ThreadSince = days
