@@ -59,11 +59,11 @@ namespace PeerstLib.Util
 		}
 
 		/// <summary>
-		/// フォントタグを除去する
+		/// 不要なタグを除去する
 		/// </summary>
-		public static string DeleteFontTag(string text)
+		public static string DeleteUselessTag(string text)
 		{
-			return Regex.Replace(text, @"</?font(.|\n)*?>", string.Empty);
+			return Regex.Replace(text, @"</?(font|a)(.|\n)*?>", string.Empty);
 		}
 
 		/// <summary>
