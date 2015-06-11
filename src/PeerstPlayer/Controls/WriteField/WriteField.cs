@@ -206,6 +206,14 @@ namespace PeerstPlayer.Controls.WriteField
 					Height = 0;
 				}
 			};
+
+			int enableBalloonTips;
+			// レジストリでバルーン表示が無効になっていたらツールチップで表示する
+			if (Registry.TryGetInt("HKEY_CURRENT_USER", @"Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced",
+				"EnableBalloonTips", out enableBalloonTips) && enableBalloonTips == 0)
+			{
+				newResToolTip.IsBalloon = false;
+			}
 		}
 
 		//-------------------------------------------------------------
