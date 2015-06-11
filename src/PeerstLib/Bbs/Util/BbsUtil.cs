@@ -27,6 +27,7 @@ namespace PeerstLib.Bbs.Util
 		//-------------------------------------------------------------
 		public static string CheckWriteError(string html)
 		{
+			html = TextUtil.FullWidthToHalfWidth(html);
 			Regex titleRegex = new Regex("<title>(.*)</title>");
 			Match titleMatch = titleRegex.Match(html);
 			string title = titleMatch.Groups[1].Value;
@@ -36,12 +37,12 @@ namespace PeerstLib.Bbs.Util
 			string tag = tagMatch.Groups[1].Value;
 
 			// 書き込み失敗
-			if (title.StartsWith("ERROR") || title.StartsWith("ＥＲＲＯＲ") || tag.StartsWith("error"))
+			if (title.StartsWith("ERROR") || tag.StartsWith("error"))
 			{
 				Logger.Instance.ErrorFormat("レス書き込み：異常 [実行結果:{0}]", html);
 
 				// エラー内容の取得
-				Regex errorRegex = new Regex("<b>(.*)</b>");
+				Regex errorRegex = new Regex(@"<b>(?<err>.*)</b>|(?<err>ERROR - .*)<br>");
 				Match errorMatch = errorRegex.Match(html);
 				string error = errorMatch.Groups[1].Value;
 
