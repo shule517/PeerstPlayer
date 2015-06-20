@@ -458,6 +458,14 @@ namespace PeerstPlayer.Forms.Setting
 				}
 			};
 
+			// 位置変更
+			LocationChanged += (sender, e) =>
+			{
+				var width = Screen.PrimaryScreen.Bounds.Width;
+
+				pecaPlayer.VolumeBalance = (Location.X - width / 2) * 100 / width;
+			};
+
 			//-----------------------------------------------------
 			// コンテキストメニュー
 			//-----------------------------------------------------
@@ -616,5 +624,6 @@ namespace PeerstPlayer.Forms.Setting
 				return param;
 			}
 		}
+
 	}
 }
