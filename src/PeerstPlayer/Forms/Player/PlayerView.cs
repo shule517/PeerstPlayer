@@ -461,9 +461,10 @@ namespace PeerstPlayer.Forms.Setting
 			// 位置変更
 			LocationChanged += (sender, e) =>
 			{
-				var width = Screen.PrimaryScreen.Bounds.Width;
+				var screenWidth = Screen.PrimaryScreen.Bounds.Width;
+				var windowCenter = Location.X + Width / 2;
 
-				pecaPlayer.VolumeBalance = (Location.X - width / 2) * 100 / width;
+				pecaPlayer.VolumeBalance = (windowCenter - screenWidth / 2) * 100 / screenWidth;
 			};
 
 			//-----------------------------------------------------
