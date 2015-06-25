@@ -458,13 +458,20 @@ namespace PeerstPlayer.Forms.Setting
 				}
 			};
 
+			// ウィンドウ位置に応じて音量バランス変更
+			var VolumeBalanceByWindowPos = false;   // この変数保持する場所募集中
+
 			// 位置変更
 			LocationChanged += (sender, e) =>
 			{
-				var screenWidth = Screen.PrimaryScreen.Bounds.Width;
-				var windowCenter = Location.X + Width / 2;
+				if (VolumeBalanceByWindowPos)
+				{
+					var screenWidth = Screen.PrimaryScreen.Bounds.Width;
+					var windowCenter = Location.X + Width / 2;
 
-				pecaPlayer.VolumeBalance = (windowCenter - screenWidth / 2) * 100 / screenWidth;
+					// 音量バランスを変更
+					pecaPlayer.VolumeBalance = (windowCenter - screenWidth / 2) * 100 / screenWidth;
+				}
 			};
 
 			//-----------------------------------------------------
@@ -553,10 +560,12 @@ namespace PeerstPlayer.Forms.Setting
 			volumeBalanceLeftToolStripMenuItem.Click += (sender, e) => shortcut.ExecCommand(Commands.VolumeBalanceLeft);
 			volumeBalanceMiddleToolStripMenuItem.Click += (sender, e) => shortcut.ExecCommand(Commands.VolumeBalanceMiddle);
 			volumeBalanceRightToolStripMenuItem.Click += (sender, e) => shortcut.ExecCommand(Commands.VolumeBalanceRight);
+			volumeBalanceByWindowsPosToolStripMenuItem.Click += (sender, e) => { VolumeBalanceByWindowPos = !VolumeBalanceByWindowPos; };
 			volumeToolStripMenuItem.DropDownOpening += (sender, e) => muteToolStripMenuItem.Checked = pecaPlayer.Mute;
 			volumeToolStripMenuItem.DropDownOpening += (sender, e) => volumeBalanceLeftToolStripMenuItem.Checked = (pecaPlayer.VolumeBalance == VolumeBalanceCommandArgs.BalanceLeft);
 			volumeToolStripMenuItem.DropDownOpening += (sender, e) => volumeBalanceMiddleToolStripMenuItem.Checked = (pecaPlayer.VolumeBalance == VolumeBalanceCommandArgs.BalanceMiddle);
 			volumeToolStripMenuItem.DropDownOpening += (sender, e) => volumeBalanceRightToolStripMenuItem.Checked = (pecaPlayer.VolumeBalance == VolumeBalanceCommandArgs.BalanceRight);
+			volumeToolStripMenuItem.DropDownOpening += (sender, e) => volumeBalanceByWindowsPosToolStripMenuItem.Checked = VolumeBalanceByWindowPos;
 
 			// 設定メニュー押下
 			settingToolStripMenuItem.Click += (sender, e) =>
