@@ -104,10 +104,10 @@ namespace PeerstPlayer.Forms.Setting
 			this.toolStrip.Dock = System.Windows.Forms.DockStyle.None;
 			this.toolStrip.GripMargin = new System.Windows.Forms.Padding(0);
 			this.toolStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-			this.openViewerToolStripButton,
-			this.minToolStripButton,
-			this.maxToolStripButton,
-			this.closeToolStripButton});
+            this.openViewerToolStripButton,
+            this.minToolStripButton,
+            this.maxToolStripButton,
+            this.closeToolStripButton});
 			this.toolStrip.Location = new System.Drawing.Point(381, 0);
 			this.toolStrip.Name = "toolStrip";
 			this.toolStrip.Padding = new System.Windows.Forms.Padding(0);
@@ -195,34 +195,34 @@ namespace PeerstPlayer.Forms.Setting
 			// contextMenuStrip
 			// 
 			this.contextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-			this.SizeToolStripMenuItem,
-			this.画面分割ToolStripMenuItem,
-			this.functionToolStripMenuItem,
-			this.volumeToolStripMenuItem,
-			this.settingToolStripMenuItem,
-			this.wmpMenuToolStripSeparator,
-			this.wmpMenuToolStripMenuItem,
-			this.showDebugToolStripMenuItem});
+            this.SizeToolStripMenuItem,
+            this.画面分割ToolStripMenuItem,
+            this.functionToolStripMenuItem,
+            this.volumeToolStripMenuItem,
+            this.settingToolStripMenuItem,
+            this.wmpMenuToolStripSeparator,
+            this.wmpMenuToolStripMenuItem,
+            this.showDebugToolStripMenuItem});
 			this.contextMenuStrip.Name = "contextMenuStrip";
 			this.contextMenuStrip.Size = new System.Drawing.Size(154, 186);
 			// 
 			// SizeToolStripMenuItem
 			// 
 			this.SizeToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-			this.scale25PerToolStripMenuItem,
-			this.scale50PerToolStripMenuItem,
-			this.scale75PerToolStripMenuItem,
-			this.scale100PerToolStripMenuItem,
-			this.scale150PerToolStripMenuItem,
-			this.scale200PerToolStripMenuItem,
-			this.sizeToolStripSeparator,
-			this.size160x120ToolStripMenuItem,
-			this.size320x240ToolStripMenuItem,
-			this.size480x360ToolStripMenuItem,
-			this.size640x480ToolStripMenuItem,
-			this.size800x600ToolStripMenuItem,
-			this.fitMovieSizeToolStripSeparator,
-			this.fitMovieSizeToolStripMenuItem});
+            this.scale25PerToolStripMenuItem,
+            this.scale50PerToolStripMenuItem,
+            this.scale75PerToolStripMenuItem,
+            this.scale100PerToolStripMenuItem,
+            this.scale150PerToolStripMenuItem,
+            this.scale200PerToolStripMenuItem,
+            this.sizeToolStripSeparator,
+            this.size160x120ToolStripMenuItem,
+            this.size320x240ToolStripMenuItem,
+            this.size480x360ToolStripMenuItem,
+            this.size640x480ToolStripMenuItem,
+            this.size800x600ToolStripMenuItem,
+            this.fitMovieSizeToolStripSeparator,
+            this.fitMovieSizeToolStripMenuItem});
 			this.SizeToolStripMenuItem.Name = "SizeToolStripMenuItem";
 			this.SizeToolStripMenuItem.Size = new System.Drawing.Size(153, 22);
 			this.SizeToolStripMenuItem.Text = "サイズ";
@@ -312,15 +312,15 @@ namespace PeerstPlayer.Forms.Setting
 			// 画面分割ToolStripMenuItem
 			// 
 			this.画面分割ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-			this.screenSplitWidthx5ToolStripMenuItem,
-			this.screenSplitWidthx4ToolStripMenuItem,
-			this.screenSplitWidthx3ToolStripMenuItem,
-			this.screenSplitWidthx2ToolStripMenuItem,
-			this.screenSplitToolStripSeparator,
-			this.screenSplitHeightx5ToolStripMenuItem,
-			this.screenSplitHeightx4ToolStripMenuItem,
-			this.screenSplitHeightx3ToolStripMenuItem,
-			this.screenSplitHeightx2ToolStripMenuItem});
+            this.screenSplitWidthx5ToolStripMenuItem,
+            this.screenSplitWidthx4ToolStripMenuItem,
+            this.screenSplitWidthx3ToolStripMenuItem,
+            this.screenSplitWidthx2ToolStripMenuItem,
+            this.screenSplitToolStripSeparator,
+            this.screenSplitHeightx5ToolStripMenuItem,
+            this.screenSplitHeightx4ToolStripMenuItem,
+            this.screenSplitHeightx3ToolStripMenuItem,
+            this.screenSplitHeightx2ToolStripMenuItem});
 			this.画面分割ToolStripMenuItem.Name = "画面分割ToolStripMenuItem";
 			this.画面分割ToolStripMenuItem.Size = new System.Drawing.Size(153, 22);
 			this.画面分割ToolStripMenuItem.Text = "画面分割";
@@ -381,16 +381,16 @@ namespace PeerstPlayer.Forms.Setting
 			// functionToolStripMenuItem
 			// 
 			this.functionToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-			this.topMostToolStripMenuItem,
-			this.updateChannelInfoToolStripMenuItem,
-			this.bumpToolStripMenuItem,
-			this.toolStripSeparator1,
-			this.screenshotToolStripMenuItem,
-			this.openScreenshotFolderToolStripMenuItem,
-			this.toolStripSeparator2,
-			this.openFromUrlToolStripMenuItem,
-			this.openFromFileToolStripMenuItem,
-			this.openFromClipboardToolStripMenuItem});
+            this.topMostToolStripMenuItem,
+            this.updateChannelInfoToolStripMenuItem,
+            this.bumpToolStripMenuItem,
+            this.toolStripSeparator1,
+            this.screenshotToolStripMenuItem,
+            this.openScreenshotFolderToolStripMenuItem,
+            this.toolStripSeparator2,
+            this.openFromUrlToolStripMenuItem,
+            this.openFromFileToolStripMenuItem,
+            this.openFromClipboardToolStripMenuItem});
 			this.functionToolStripMenuItem.Name = "functionToolStripMenuItem";
 			this.functionToolStripMenuItem.Size = new System.Drawing.Size(153, 22);
 			this.functionToolStripMenuItem.Text = "機能";
@@ -439,7 +439,7 @@ namespace PeerstPlayer.Forms.Setting
 			// openFromUrlToolStripMenuItem
 			// 
 			this.openFromUrlToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-			this.openFromUrlToolStripTextBox});
+            this.openFromUrlToolStripTextBox});
 			this.openFromUrlToolStripMenuItem.Name = "openFromUrlToolStripMenuItem";
 			this.openFromUrlToolStripMenuItem.Size = new System.Drawing.Size(268, 22);
 			this.openFromUrlToolStripMenuItem.Text = "URLから開く";
@@ -467,15 +467,15 @@ namespace PeerstPlayer.Forms.Setting
 			// volumeToolStripMenuItem
 			// 
 			this.volumeToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-			this.volumeUpToolStripMenuItem,
-			this.volumeDownToolStripMenuItem,
-			this.muteToolStripMenuItem,
-			this.volumeToolStripSeparator,
-			this.volumeBalanceLeftToolStripMenuItem,
-			this.volumeBalanceMiddleToolStripMenuItem,
-			this.volumeBalanceRightToolStripMenuItem,
-			this.toolStripSeparator3,
-			this.volumeBalanceByWindowsPosToolStripMenuItem});
+            this.volumeUpToolStripMenuItem,
+            this.volumeDownToolStripMenuItem,
+            this.muteToolStripMenuItem,
+            this.volumeToolStripSeparator,
+            this.volumeBalanceLeftToolStripMenuItem,
+            this.volumeBalanceMiddleToolStripMenuItem,
+            this.volumeBalanceRightToolStripMenuItem,
+            this.toolStripSeparator3,
+            this.volumeBalanceByWindowsPosToolStripMenuItem});
 			this.volumeToolStripMenuItem.Name = "volumeToolStripMenuItem";
 			this.volumeToolStripMenuItem.Size = new System.Drawing.Size(153, 22);
 			this.volumeToolStripMenuItem.Text = "音量";
