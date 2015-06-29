@@ -206,6 +206,11 @@ namespace PeerstPlayer.Controls.PecaPlayer
 		/// </summary>
 		public bool UsedWMP { get { return moviePlayer is WindowsMediaPlayerControl; } }
 
+		/// <summary>
+		/// ウィンドウ位置に応じて音量バランス変更
+		/// </summary>
+		public bool VolumeBalanceByWindowPos { get; set; }
+
 		//-------------------------------------------------------------
 		// 非公開プロパティ
 		//-------------------------------------------------------------

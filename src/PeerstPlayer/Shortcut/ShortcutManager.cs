@@ -201,6 +201,7 @@ namespace PeerstPlayer.Shortcut
 				{	Commands.VolumeBalanceLeft,		new ShortcutCommand(new VolumeBalanceCommand(pecaPlayer), new VolumeBalanceCommandArgs(VolumeBalanceCommandArgs.BalanceLeft))	}, // 音量バランス：左
 				{	Commands.VolumeBalanceMiddle,	new ShortcutCommand(new VolumeBalanceCommand(pecaPlayer), new VolumeBalanceCommandArgs(VolumeBalanceCommandArgs.BalanceMiddle))	}, // 音量バランス：中央
 				{	Commands.VolumeBalanceRight,	new ShortcutCommand(new VolumeBalanceCommand(pecaPlayer), new VolumeBalanceCommandArgs(VolumeBalanceCommandArgs.BalanceRight))	}, // 音量バランス：右
+				{	Commands.VolumeBalanceByWindowPos,new ShortcutCommand(new VolumeBalanceByWindowPosCommand(pecaPlayer), new CommandArgs())	        }, // 音量バランス：ウィンドウ位置に応じて変更
 				{	Commands.Mute,					new ShortcutCommand(new MuteCommand(pecaPlayer), new CommandArgs())									}, // ミュート切替
 				{	Commands.WindowMinimize,		new ShortcutCommand(new WindowMinimize(form), new CommandArgs())									}, // ウィンドウを最小化
 				{	Commands.WindowMaximize,		new ShortcutCommand(new WindowMaximize(form), new CommandArgs())									}, // ウィンドウを最大化
