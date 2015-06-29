@@ -557,7 +557,7 @@ namespace PeerstPlayer.Forms.Setting
 			volumeBalanceLeftToolStripMenuItem.Click += (sender, e) => shortcut.ExecCommand(Commands.VolumeBalanceLeft);
 			volumeBalanceMiddleToolStripMenuItem.Click += (sender, e) => shortcut.ExecCommand(Commands.VolumeBalanceMiddle);
 			volumeBalanceRightToolStripMenuItem.Click += (sender, e) => shortcut.ExecCommand(Commands.VolumeBalanceRight);
-			volumeBalanceByWindowsPosToolStripMenuItem.Click += (sender, e) => { pecaPlayer.VolumeBalanceByWindowPos = !pecaPlayer.VolumeBalanceByWindowPos; };
+			volumeBalanceByWindowsPosToolStripMenuItem.Click += (sender, e) => shortcut.ExecCommand(Commands.VolumeBalanceByWindowPos);
 			volumeToolStripMenuItem.DropDownOpening += (sender, e) => muteToolStripMenuItem.Checked = pecaPlayer.Mute;
 			volumeToolStripMenuItem.DropDownOpening += (sender, e) => volumeBalanceLeftToolStripMenuItem.Checked = (pecaPlayer.VolumeBalance == VolumeBalanceCommandArgs.BalanceLeft);
 			volumeToolStripMenuItem.DropDownOpening += (sender, e) => volumeBalanceMiddleToolStripMenuItem.Checked = (pecaPlayer.VolumeBalance == VolumeBalanceCommandArgs.BalanceMiddle);
