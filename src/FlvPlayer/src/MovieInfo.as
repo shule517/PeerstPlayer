@@ -53,19 +53,27 @@ package
 		
 		public function get CurrentWidth():Number
 		{
-			if (stageVideo == null) return 0;
-			return Math.floor(stageVideo.viewPort.width);
+			if (netStr == null) return 0;
+			if (stageVideo != null)
+			{
+				return Math.floor(stageVideo.viewPort.width);
+			}
+			else
+			{
+				return video.width;
+			}
 		}
 
 		public function get CurrentHeight():Number
 		{
+			if (netStr == null) return 0;
 			if (stageVideo != null)
 			{
 				return Math.floor(stageVideo.viewPort.height);
 			}
 			else
 			{
-				return video.width;
+				return video.height;
 			}
 		}
 		
