@@ -119,6 +119,8 @@ namespace PeerstPlayer.Forms.Setting
 				// FLV
 				flvGpuCheckBox.Checked = PlayerSettings.Gpu;
 				useRtmpCheckBox.Checked = PlayerSettings.Rtmp;
+				bufferTimeTextBox.Text = PlayerSettings.BufferTime.ToString();
+				bufferTimeMaxTextBox.Text = PlayerSettings.BufferTimeMax.ToString();
 
 				// 動画再生開始時のコマンド
 				movieStartComboBox.Items.Clear();
@@ -432,6 +434,16 @@ namespace PeerstPlayer.Forms.Setting
 			// FLV
 			PlayerSettings.Gpu = flvGpuCheckBox.Checked;
 			PlayerSettings.Rtmp = useRtmpCheckBox.Checked;
+			double bufferTime = 1.0;
+			if (double.TryParse(bufferTimeTextBox.Text, out bufferTime))
+			{
+				PlayerSettings.BufferTime = bufferTime;
+			}
+			double bufferTimeMax = 1.0;
+			if (double.TryParse(bufferTimeMaxTextBox.Text, out bufferTimeMax))
+			{
+				PlayerSettings.BufferTimeMax = bufferTimeMax;
+			}
 
 			// 設定を保存
 			PlayerSettings.Save();

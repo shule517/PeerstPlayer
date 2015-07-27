@@ -35,6 +35,8 @@ package
 		private var protocol:String = null;
 		private var enableGpu:Boolean = true;
 		private var enableRtmp:Boolean = false;
+		private var bufferTime:Number = 0.0;
+		private var bufferTimeMax:Number = 0.0;
 		
 		// 前回の時刻など
 		private var prevTime:Number = 0;
@@ -67,6 +69,18 @@ package
 		public function set EnableRtmp(value:Boolean):void
 		{
 			enableRtmp = value;
+		}
+		
+		public function set BufferTime(value:Number):void
+		{
+			bufferTime = value;
+			if (netStr != null) netStr.bufferTime = value;
+		}
+		
+		public function set BufferTimeMax(value:Number):void
+		{
+			bufferTimeMax = value;
+			if (netStr != null) netStr.bufferTimeMax = value;
 		}
 
 		public function FlvPlayer(stage:Stage)
@@ -345,6 +359,8 @@ package
 					netStr = new NetStream(netConnection);
 					netStr.client = new Object();
 					netStr.client.onMetaData = onMetaData;
+					netStr.bufferTime = bufferTime;
+					netStr.bufferTimeMax = bufferTimeMax;
 					netStr.addEventListener(NetStatusEvent.NET_STATUS, rtmpNetStatusHandler);
 					var split:Array = streamUrl.split("/");
 					var reg:RegExp = /^(\w+)/;

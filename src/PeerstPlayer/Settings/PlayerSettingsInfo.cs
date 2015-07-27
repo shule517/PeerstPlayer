@@ -148,6 +148,16 @@ namespace PeerstPlayer.Settings
 		/// </summary>
 		public bool Rtmp = true;
 
+		/// <summary>
+		/// FLVのバッファリング時間
+		/// </summary>
+		public double BufferTime = 1.0;
+
+		/// <summary>
+		/// FLVの最大バッファリング時間
+		/// </summary>
+		public double BufferTimeMax = 1.0;
+
 		// - ステータスバーフォント : Font
 		// - ステータスバー表示項目 : List
 		// - 終了時位置保存 : boolean

@@ -57,6 +57,8 @@ package
 				ExternalInterface.addCallback("GetBitRate", flashCommand.GetBitRate);
 				ExternalInterface.addCallback("EnableGpu", flashCommand.EnableGpu);
 				ExternalInterface.addCallback("EnableRtmp", flashCommand.EnableRtmp);
+				ExternalInterface.addCallback("SetBufferTime", flashCommand.SetBufferTime);
+				ExternalInterface.addCallback("SetBufferTimeMax", flashCommand.SetBufferTimeMax);
 				ExternalInterface.addCallback("ShowDebug", panel.ShowDebug);
 				ExternalInterface.call("Initialized");
 			}

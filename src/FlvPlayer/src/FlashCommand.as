@@ -109,6 +109,22 @@ package
 			}
 		}
 		
+				// バッファリング時間を設定する
+		public function SetBufferTime(value:String):void
+		{
+			Logger.Trace("SetBufferTime(" + value + ")");
+			var bufferTime:Number = parseFloat(value);
+			flvPlayer.BufferTime = bufferTime;
+		}
+		
+		// 最大バッファリング時間を設定する
+		public function SetBufferTimeMax(value:String):void
+		{
+			Logger.Trace("SetBufferTimeMax(" + value + ")");
+			var bufferTimeMax:Number = parseFloat(value);
+			flvPlayer.BufferTimeMax = bufferTimeMax;
+		}
+		
 		// 動画情報を表示
 		public function ShowDebug():void
 		{
