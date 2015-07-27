@@ -276,7 +276,11 @@ namespace PeerstPlayer.Forms.Player
 		public static bool Rtmp
 		{
 			get { return info.Rtmp; }
-			set { info.Rtmp = value; }
+			set
+			{
+				info.Rtmp = value;
+				RaisePropertyChanged("Rtmp");
+			}
 		}
 
 		/// <summary>
