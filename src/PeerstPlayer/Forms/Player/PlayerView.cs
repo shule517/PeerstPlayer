@@ -495,6 +495,7 @@ namespace PeerstPlayer.Forms.Setting
 			functionToolStripMenuItem.DropDownOpening += (sender, e) => topMostToolStripMenuItem.Checked = TopMost;
 			screenshotToolStripMenuItem.Click += (sender, e) => shortcut.ExecCommand(Commands.Screenshot);
 			openScreenshotFolderToolStripMenuItem.Click += (sender, e) => shortcut.ExecCommand(Commands.OpenScreenshotFolder);
+			retryPlayerToolStripMenuItem.Click += (sender, e) => shortcut.ExecCommand(Commands.RetryPlayer);
 			// ファイルから開く
 			openFromFileToolStripMenuItem.Click += (sender, e) =>
 			{

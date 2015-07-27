@@ -45,6 +45,7 @@ package
 			// 外部インタフェースの追加
 			if (ExternalInterface.available) {
 				ExternalInterface.addCallback("PlayVideo", flashCommand.PlayVideo);
+				ExternalInterface.addCallback("Retry", flashCommand.Retry);
 				ExternalInterface.addCallback("SizeChanged", flashCommand.SizeChanged);
 				ExternalInterface.addCallback("ChangeVolume", flashCommand.ChangeVolume);
 				ExternalInterface.addCallback("ChangePan", flashCommand.ChangePan);

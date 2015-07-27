@@ -12,6 +12,7 @@ namespace PeerstPlayer.Controls.MoviePlayer
 		private AxShockwaveFlash flash;
 
 		private const string PlayVideoMethod = "PlayVideo";
+		private const string RetryMethod = "Retry";
 		private const string ChangeVolumeMethod = "ChangeVolume";
 		private const string ChangePanMethod = "ChangePan";
 		private const string GetVideoWidthMethod = "GetVideoWidth";
@@ -94,6 +95,14 @@ namespace PeerstPlayer.Controls.MoviePlayer
 		public void PlayVideo(string streamUrl)
 		{
 			CallFlashMethod(PlayVideoMethod, streamUrl);
+		}
+
+		/// <summary>
+		/// 再接続
+		/// </summary>
+		public void Retry()
+		{
+			CallFlashMethod(RetryMethod);
 		}
 
 		/// <summary>

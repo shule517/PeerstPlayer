@@ -215,6 +215,7 @@ namespace PeerstPlayer.Shortcut
 				{	Commands.WindowSizeDown,		new ShortcutCommand(new WindowSizeDownCommand(form, pecaPlayer), new CommandArgs())					}, // ウィンドウサイズDOWN
 				{	Commands.DisconnectRelay,		new ShortcutCommand(new DisconnectRelayCommand(form, pecaPlayer), new CommandArgs())				}, // リレー切断
 				{	Commands.Bump,					new ShortcutCommand(new BumpCommand(pecaPlayer), new CommandArgs())									}, // Bump
+				{	Commands.RetryPlayer,			new ShortcutCommand(new RetryPlayerCommand(pecaPlayer), new CommandArgs())							}, // 再接続(プレイヤー)
 				{	Commands.WmpMenu,				new ShortcutCommand(new WmpMenuCommand(pecaPlayer), new CommandArgs())								}, // WMPメニュー表示
 				{	Commands.FitMovieSize,			new ShortcutCommand(new FitMovieSizeCommand(form, pecaPlayer), new CommandArgs())					}, // 黒枠を消す
 				{	Commands.WindowSize160x120,		new ShortcutCommand(new WindowSizeCommand(form, pecaPlayer), new WindowSizeCommandArgs(160, 120))	}, // ウィンドウサイズ指定

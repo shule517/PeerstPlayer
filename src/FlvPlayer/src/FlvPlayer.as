@@ -319,6 +319,12 @@ package
 			urlLoader.load(urlRequest);
 		}
 		
+		// 再接続
+		public function Retry():void
+		{
+			PlayVideo(playlistUrl);
+		}
+		
 		private function playRtmp():void
 		{
 			Logger.Trace("playRtmp()");

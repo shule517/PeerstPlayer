@@ -134,5 +134,10 @@ namespace PeerstPlayer.Controls.MoviePlayer
 		/// </summary>
 		/// <param name="streamUrl">ストリームURL</param>
 		void PlayMoive(string streamUrl);
+
+		/// <summary>
+		/// 再接続
+		/// </summary>
+		void Retry();
 	}
 }

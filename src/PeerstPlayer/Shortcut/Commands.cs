@@ -23,7 +23,8 @@ namespace PeerstPlayer.Shortcut
 		WindowSizeUp,		// ウィンドウサイズUP
 		WindowSizeDown,		// ウィンドウサイズDOWN
 		DisconnectRelay,	// リレー切断
-		Bump,				// Bump
+		Bump,               // Bump
+		RetryPlayer,        // 再接続(プレイヤー)
 		WmpMenu,			// WMPメニュー表示
 		FitMovieSize,		// 動画サイズに合わせる
 		Screenshot,			// スクリーンショット

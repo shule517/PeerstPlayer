@@ -298,5 +298,13 @@ namespace PeerstPlayer.Controls.MoviePlayer
 			axShockwaveFlash.LoadMovie(0, FormUtility.GetExeFolderPath() + "/FlvPlayer.swf");
 			flashManager.PlayVideo(streamUrl);
 		}
+
+		/// <summary>
+		/// 再接続
+		/// </summary>
+		void IMoviePlayer.Retry()
+		{
+			flashManager.Retry();
+		}
 	}
 }

@@ -19,6 +19,12 @@ package
 			flvPlayer.PlayVideo(playlistUrl);
 		}
 		
+		// 再接続
+		public function Retry():void
+		{
+			flvPlayer.Retry();
+		}
+		
 		// サイズ変更イベント
 		public function SizeChanged(width:int, height:int):void
 		{
