@@ -16,26 +16,33 @@ package
 		// 動画再生
 		public function PlayVideo(playlistUrl:String):void
 		{
+			flvPlayer.PlayVideo(playlistUrl);
 		}
 		
 		// サイズ変更イベント
 		public function SizeChanged(width:int, height:int):void
 		{
+			flvPlayer.SizeChanged(width, height);
 		}
 		
 		// 音量変更
 		public function ChangeVolume(volStr:String):void
 		{
+			var volume:Number = parseFloat(volStr);
+			flvPlayer.ChangeVolume(volume);
 		}
 		
 		// 音量バランス変更
 		public function ChangePan(panStr:String):void
 		{
+			var pan:Number = parseFloat(panStr);
+			flvPlayer.ChangePan(pan);
 		}
 		
 		// サイズ変更
 		public function ChangeSize(width:int, height:int):void
 		{
+			flvPlayer.ChangeSize(width, height);
 		}
 		
 		// 動画幅取得
@@ -68,14 +75,38 @@ package
 			return flvPlayer.Info.BitRate;
 		}
 		
+		// 再生時間取得
+		public function GetDurationString():String
+		{
+			return flvPlayer.GetDurationString();
+		}
+		
+		// 今のビットレートを取得
+		public function GetNowBitRate():String
+		{
+			return flvPlayer.GetNowBitRate();
+		}
+		
 		// GPUを使うかどうか
 		public function EnableGpu(value:String):void
 		{
+			Logger.Trace("EnableGpu(" + value + ")");
+			if (value.toLowerCase() == "true") {
+				flvPlayer.EnableGpu = true;
+			} else {
+				flvPlayer.EnableGpu = false;
+			}
 		}
 		
 		// RTMP再生を使うか
 		public function EnableRtmp(value:String):void
 		{
+			Logger.Trace("EnableRtmp(" + value + ")");
+			if (value.toLowerCase() === "true") {
+				flvPlayer.EnableRtmp = true;
+			} else {
+				flvPlayer.EnableRtmp = false;
+			}
 		}
 		
 		// 動画情報を表示

@@ -44,19 +44,19 @@ package
 
 			// 外部インタフェースの追加
 			if (ExternalInterface.available) {
-				ExternalInterface.addCallback("PlayVideo", flvPlayer.PlayVideo);
-				ExternalInterface.addCallback("SizeChanged", flvPlayer.SizeChanged);
-				ExternalInterface.addCallback("ChangeVolume", flvPlayer.ChangeVolume);
-				ExternalInterface.addCallback("ChangePan", flvPlayer.ChangePan);
+				ExternalInterface.addCallback("PlayVideo", flashCommand.PlayVideo);
+				ExternalInterface.addCallback("SizeChanged", flashCommand.SizeChanged);
+				ExternalInterface.addCallback("ChangeVolume", flashCommand.ChangeVolume);
+				ExternalInterface.addCallback("ChangePan", flashCommand.ChangePan);
 				ExternalInterface.addCallback("GetVideoWidth", flashCommand.GetVideoWidth);
 				ExternalInterface.addCallback("GetVideoHeight", flashCommand.GetVideoHeight);
-				ExternalInterface.addCallback("GetDurationString", flvPlayer.GetDurationString);
+				ExternalInterface.addCallback("GetDurationString", flashCommand.GetDurationString);
 				ExternalInterface.addCallback("GetNowFrameRate", flashCommand.GetNowFrameRate);
 				ExternalInterface.addCallback("GetFrameRate", flashCommand.GetFrameRate);
-				ExternalInterface.addCallback("GetNowBitRate", flvPlayer.GetNowBitRate);
+				ExternalInterface.addCallback("GetNowBitRate", flashCommand.GetNowBitRate);
 				ExternalInterface.addCallback("GetBitRate", flashCommand.GetBitRate);
-				ExternalInterface.addCallback("EnableGpu", flvPlayer.EnableGpu);
-				ExternalInterface.addCallback("EnableRtmp", flvPlayer.EnableRtmp);
+				ExternalInterface.addCallback("EnableGpu", flashCommand.EnableGpu);
+				ExternalInterface.addCallback("EnableRtmp", flashCommand.EnableRtmp);
 				ExternalInterface.addCallback("ShowDebug", panel.ShowDebug);
 				ExternalInterface.call("Initialized");
 			}
