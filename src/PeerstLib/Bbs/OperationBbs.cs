@@ -1,22 +1,21 @@
-﻿using System.Globalization;
-using System.Text.RegularExpressions;
-using PeerstLib.Bbs.Data;
+﻿using PeerstLib.Bbs.Data;
 using PeerstLib.Bbs.Strategy;
 using PeerstLib.Util;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Diagnostics;
+using System.Globalization;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Windows.Forms;
 
 namespace PeerstLib.Bbs
 {
-	//-------------------------------------------------------------
-	// 概要：掲示板操作クラス
-	// 詳細：ストラテジの切替を行う
-	//-------------------------------------------------------------
-	public class OperationBbs
+    //-------------------------------------------------------------
+    // 概要：掲示板操作クラス
+    // 詳細：ストラテジの切替を行う
+    //-------------------------------------------------------------
+    public class OperationBbs
 	{
 		/// <summary>
 		/// 掲示板情報
@@ -231,8 +230,6 @@ namespace PeerstLib.Bbs
 		{
 			if (SelectThread.ThreadNo != null)
 			{
-				var sw = new Stopwatch();
-				sw.Start();
 				var openedThreads = new List<string>();
 				Func<bool> f = () =>
 				{
@@ -267,8 +264,6 @@ namespace PeerstLib.Bbs
 					// 埋まっていないスレになったら終わり
 					if (!SelectThread.IsStopThread)
 					{
-						sw.Stop();
-						Console.WriteLine(sw.Elapsed);
 						return true;
 					}
 				}
