@@ -128,6 +128,7 @@ namespace PeerstViewer.ThreadViewer
 				{
 					Location = ViewerSettings.ReturnPosition;
 				}
+				splitContainerWriteField.SplitterDistance = ViewerSettings.WriteFieldDistance;
 			};
 
 			// 終了処理
@@ -149,6 +150,7 @@ namespace PeerstViewer.ThreadViewer
 						placement.normalPosition.bottom - placement.normalPosition.top);
 
 				}
+				ViewerSettings.WriteFieldDistance = splitContainerWriteField.SplitterDistance;
 				ViewerSettings.Save();
 			};
 
@@ -215,6 +217,15 @@ namespace PeerstViewer.ThreadViewer
 			{
 				case "DocumentText":
 					threadViewer.DocumentText = viewModel.DocumentText;
+					threadViewer.DocumentText = viewModel.DocumentText;
+					if (string.IsNullOrEmpty(viewModel.BoardName))
+					{
+						Text = "PeerstViewer";
+					}
+					else
+					{
+						Text = string.Format("{0} - {1} - PeerstViewer", viewModel.BoardName, viewModel.ThreadName);
+					}
 					break;
 				case "ThreadList":
 					threadListView.Items.Clear();

@@ -290,5 +290,13 @@ namespace PeerstPlayer.Controls.MoviePlayer
 				}
 			};
 		}
+
+		/// <summary>
+		/// 再接続(プレイヤー)
+		/// </summary>
+		void IMoviePlayer.Retry()
+		{
+			wmp.URL = wmp.URL;
+		}
 	}
 }

@@ -206,6 +206,14 @@ namespace PeerstPlayer.Controls.WriteField
 					Height = 0;
 				}
 			};
+
+			int enableBalloonTips;
+			// レジストリでバルーン表示が無効になっていたらツールチップで表示する
+			if (Registry.TryGetInt("HKEY_CURRENT_USER", @"Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced",
+				"EnableBalloonTips", out enableBalloonTips) && enableBalloonTips == 0)
+			{
+				newResToolTip.IsBalloon = false;
+			}
 		}
 
 		//-------------------------------------------------------------
@@ -221,7 +229,7 @@ namespace PeerstPlayer.Controls.WriteField
 				if ((operationBbs.ResList.Count - res.i) <= 5)
 				{
 					string text = res.v.Message.Replace("<br>", "\n         ");
-					message += String.Format("{0, 4} : {1}\n", res.v.ResNo, WebUtil.DeleteHtmlTag(text));
+					message += String.Format("{0, 4} : {1}\n", res.v.ResNo, text);
 				}
 			}
 

@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using PeerstLib.Bbs.Data;
 using PeerstLib.Bbs.Util;
 using PeerstLib.Util;
@@ -164,6 +165,12 @@ namespace PeerstLib.Bbs.Strategy
 			// POSTデータ作成
 			byte[] requestData = CreateWriteRequestData(name, mail, message);
 
+			// クッキー作成
+			CookieContainer cookieContainer = new CookieContainer();
+			Uri uri = new Uri(writeUrl);
+			cookieContainer.Add(uri, new Cookie("NAME", name));
+			cookieContainer.Add(uri, new Cookie("MAIL", mail));
+
 			// リクエスト作成
 			HttpWebRequest webRequest = (HttpWebRequest)WebRequest.Create(writeUrl);
 			webRequest.Proxy = null;
@@ -173,6 +180,7 @@ namespace PeerstLib.Bbs.Strategy
 			webRequest.Referer = ThreadUrl;
 			webRequest.Timeout = WriteResTimeOut;
 			webRequest.UserAgent = "Monazilla/1.00";
+			webRequest.CookieContainer = cookieContainer;
 
 			// POST送信
 			Stream requestStream = webRequest.GetRequestStream();

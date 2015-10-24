@@ -35,6 +35,8 @@ namespace PeerstPlayer.Controls.MoviePlayer
 			{
 				flashManager.EnableGpu(PlayerSettings.Gpu);
 				flashManager.EnableRtmp(PlayerSettings.Rtmp);
+				flashManager.SetBufferTime(PlayerSettings.BufferTime);
+				flashManager.SetBufferTimeMax(PlayerSettings.BufferTimeMax);
 			};
             // ステート変更イベント
             flashManager.OpenStateChange += (sender, args) =>
@@ -62,6 +64,12 @@ namespace PeerstPlayer.Controls.MoviePlayer
 					break;
 				case "Rtmp":
 					flashManager.EnableRtmp(PlayerSettings.Rtmp);
+					break;
+				case "BufferTime":
+					flashManager.SetBufferTime(PlayerSettings.BufferTime);
+					break;
+				case "BufferTimeMax":
+					flashManager.SetBufferTimeMax(PlayerSettings.BufferTimeMax);
 					break;
 				}
 			};
@@ -289,6 +297,14 @@ namespace PeerstPlayer.Controls.MoviePlayer
 			isFirstMediaOpen = true;
 			axShockwaveFlash.LoadMovie(0, FormUtility.GetExeFolderPath() + "/FlvPlayer.swf");
 			flashManager.PlayVideo(streamUrl);
+		}
+
+		/// <summary>
+		/// 再接続
+		/// </summary>
+		void IMoviePlayer.Retry()
+		{
+			flashManager.Retry();
 		}
 	}
 }

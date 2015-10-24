@@ -179,7 +179,7 @@ namespace PeerstLib.Bbs.Strategy
 				ThreadInfo threadInfo = new ThreadInfo(BbsInfo)
 				{
 					ThreadNo = threadNo,
-					ThreadTitle = match.Groups["threadTitle"].Value.Trim(),
+					ThreadTitle = HttpUtility.HtmlDecode(match.Groups["threadTitle"].Value.Trim().Replace("&amp", "&")),
 					ResCount = int.Parse(resCount),
 					ThreadSpeed = BbsUtil.GetThreadSpeed(days, resCount),
 					ThreadSince = days
@@ -241,7 +241,7 @@ namespace PeerstLib.Bbs.Strategy
 					Date	= data[(int)DatIndex.Date],
 					Id		= data[(int)DatIndex.Id],
 					Mail	= isHtmlDecode ? HttpUtility.HtmlDecode(mail) : mail,
-					Message = isHtmlDecode ? HttpUtility.HtmlDecode(message) : message,
+					Message = isHtmlDecode ? HttpUtility.HtmlDecode(WebUtil.DeleteUselessTag(message)) : message,
 					Name	= isHtmlDecode ? HttpUtility.HtmlDecode(name) : name,
 				};
 				resList.Add(resInfo);

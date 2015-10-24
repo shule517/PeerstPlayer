@@ -221,7 +221,20 @@ namespace PeerstPlayer.Forms.Setting
 				{
 					// コンタクトURL設定
 					// TODO コンタクトURLが変更されたら、通知後にURL変更
-					statusBar.SelectThreadUrl = info.Url;
+					// コンタクトURLが空の場合、引数からコンタクトURLを取得する
+					if (string.IsNullOrEmpty(info.Url))
+					{
+						var commandLine = Environment.GetCommandLineArgs();
+						if (Environment.GetCommandLineArgs().Length > 4)
+						{
+							var url = commandLine[4];
+							statusBar.SelectThreadUrl = url;
+						}
+					}
+					else
+					{
+						statusBar.SelectThreadUrl = info.Url;
+					}
 					isFirst = false;
 				}
 			};
@@ -495,6 +508,7 @@ namespace PeerstPlayer.Forms.Setting
 			functionToolStripMenuItem.DropDownOpening += (sender, e) => topMostToolStripMenuItem.Checked = TopMost;
 			screenshotToolStripMenuItem.Click += (sender, e) => shortcut.ExecCommand(Commands.Screenshot);
 			openScreenshotFolderToolStripMenuItem.Click += (sender, e) => shortcut.ExecCommand(Commands.OpenScreenshotFolder);
+			retryPlayerToolStripMenuItem.Click += (sender, e) => shortcut.ExecCommand(Commands.RetryPlayer);
 			// ファイルから開く
 			openFromFileToolStripMenuItem.Click += (sender, e) =>
 			{

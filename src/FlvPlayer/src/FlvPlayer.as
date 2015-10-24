@@ -35,6 +35,8 @@ package
 		private var protocol:String = null;
 		private var enableGpu:Boolean = true;
 		private var enableRtmp:Boolean = false;
+		private var bufferTime:Number = 0.0;
+		private var bufferTimeMax:Number = 0.0;
 		
 		// 前回の時刻など
 		private var prevTime:Number = 0;
@@ -57,6 +59,28 @@ package
 		public function get Info():MovieInfo
 		{
 			return new MovieInfo(stageVideo, video, netConnection, netStr, lastNetEvent);
+		}
+		
+		public function set EnableGpu(value:Boolean):void
+		{
+			enableGpu = value;
+		}
+		
+		public function set EnableRtmp(value:Boolean):void
+		{
+			enableRtmp = value;
+		}
+		
+		public function set BufferTime(value:Number):void
+		{
+			bufferTime = value;
+			if (netStr != null) netStr.bufferTime = value;
+		}
+		
+		public function set BufferTimeMax(value:Number):void
+		{
+			bufferTimeMax = value;
+			if (netStr != null) netStr.bufferTimeMax = value;
 		}
 
 		public function FlvPlayer(stage:Stage)
@@ -109,7 +133,7 @@ package
 								break;
 							case VideoStatus.UNAVAILABLE:
 								// StageVideoが利用できない
-								EnableGpu("false");
+								EnableGpu = false;
 								break;
 						}
 					});
@@ -141,13 +165,13 @@ package
 		}
 
 		// 音量変更
-		public function ChangeVolume(volStr:String):void
+		public function ChangeVolume(vol:Number):void
 		{
 			if (netStr == null) {
 				return;
 			}
 			
-			volume = parseFloat(volStr);
+			volume = vol;
 			if (volume <= 0) {
 				volume = 0;
 			} else if (volume >= 1) {
@@ -157,13 +181,13 @@ package
 		}
 		
 		// 音量バランス変更
-		public function ChangePan(panStr:String):void
+		public function ChangePan(pan:Number):void
 		{
 			if (netStr == null) {
 				return;
 			}
 			
-			pan = parseFloat(panStr);
+			this.pan = pan;
 			if (pan <= -1) {
 				pan = -1;
 			} else if (pan >= 1) {
@@ -268,28 +292,6 @@ package
 			}
 		}
 		
-		// GPUを使うかどうか
-		public function EnableGpu(value:String):void
-		{
-			Logger.Trace("EnableGpu(" + value + ")");
-			if (value.toLowerCase() === "true") {
-				enableGpu = true;
-			} else {
-				enableGpu = false;
-			}
-		}
-		
-		// RTMP再生を使うか
-		public function EnableRtmp(value:String):void
-		{
-			Logger.Trace("EnableRtmp(" + value + ")");
-			if (value.toLowerCase() == "true") {
-				enableRtmp = true;
-			} else {
-				enableRtmp = false;
-			}
-		}
-		
 		// 動画再生
 		public function PlayVideo(playlistUrl:String):void
 		{
@@ -315,6 +317,12 @@ package
 				}
 			});
 			urlLoader.load(urlRequest);
+		}
+		
+		// 再接続
+		public function Retry():void
+		{
+			PlayVideo(playlistUrl);
 		}
 		
 		private function playRtmp():void
@@ -357,6 +365,8 @@ package
 					netStr = new NetStream(netConnection);
 					netStr.client = new Object();
 					netStr.client.onMetaData = onMetaData;
+					netStr.bufferTime = bufferTime;
+					netStr.bufferTimeMax = bufferTimeMax;
 					netStr.addEventListener(NetStatusEvent.NET_STATUS, rtmpNetStatusHandler);
 					var split:Array = streamUrl.split("/");
 					var reg:RegExp = /^(\w+)/;
@@ -468,7 +478,7 @@ package
 						
 			// 再接続時に音量が初期化されるので、一度変更済みであればここ変えておく
 			if (volume != -1) {
-				ChangeVolume(volume.toString());
+				ChangeVolume(volume);
 			}
 			CSharpCommand.RaiseOpenStateChange();
 		}

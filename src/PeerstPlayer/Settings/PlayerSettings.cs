@@ -276,7 +276,37 @@ namespace PeerstPlayer.Forms.Player
 		public static bool Rtmp
 		{
 			get { return info.Rtmp; }
-			set { info.Rtmp = value; }
+			set
+			{
+				info.Rtmp = value;
+				RaisePropertyChanged("Rtmp");
+			}
+		}
+
+		/// <summary>
+		/// FLVのバッファリング時間
+		/// </summary>
+		public static double BufferTime
+		{
+			get { return info.BufferTime; }
+			set
+			{
+				info.BufferTime = value;
+				RaisePropertyChanged("BufferTime");
+			}
+		}
+
+		/// <summary>
+		/// FLVの最大バッファリング時間
+		/// </summary>
+		public static double BufferTimeMax
+		{
+			get { return info.BufferTimeMax; }
+			set
+			{
+				info.BufferTimeMax = value;
+				RaisePropertyChanged("BufferTimeMax");
+			}
 		}
 
 		public static event Action<string> Changed;

@@ -69,6 +69,10 @@ namespace PeerstPlayer.Forms.Setting
             this.vlcFolderTextBox = new System.Windows.Forms.TextBox();
             this.vlcFolderLabel = new System.Windows.Forms.Label();
             this.flvGroupBox = new System.Windows.Forms.GroupBox();
+            this.bufferTimeMaxLabel = new System.Windows.Forms.Label();
+            this.bufferTimeMaxTextBox = new System.Windows.Forms.TextBox();
+            this.bufferTimeLabel = new System.Windows.Forms.Label();
+            this.bufferTimeTextBox = new System.Windows.Forms.TextBox();
             this.useRtmpCheckBox = new System.Windows.Forms.CheckBox();
             this.flvGpuCheckBox = new System.Windows.Forms.CheckBox();
             this.threadGroupBox = new System.Windows.Forms.GroupBox();
@@ -510,14 +514,50 @@ namespace PeerstPlayer.Forms.Setting
             // 
             // flvGroupBox
             // 
+            this.flvGroupBox.Controls.Add(this.bufferTimeMaxLabel);
+            this.flvGroupBox.Controls.Add(this.bufferTimeMaxTextBox);
+            this.flvGroupBox.Controls.Add(this.bufferTimeLabel);
+            this.flvGroupBox.Controls.Add(this.bufferTimeTextBox);
             this.flvGroupBox.Controls.Add(this.useRtmpCheckBox);
             this.flvGroupBox.Controls.Add(this.flvGpuCheckBox);
             this.flvGroupBox.Location = new System.Drawing.Point(11, 136);
             this.flvGroupBox.Name = "flvGroupBox";
-            this.flvGroupBox.Size = new System.Drawing.Size(210, 68);
+            this.flvGroupBox.Size = new System.Drawing.Size(210, 113);
             this.flvGroupBox.TabIndex = 2;
             this.flvGroupBox.TabStop = false;
             this.flvGroupBox.Text = "FLV";
+            // 
+            // bufferTimeMaxLabel
+            // 
+            this.bufferTimeMaxLabel.AutoSize = true;
+            this.bufferTimeMaxLabel.Location = new System.Drawing.Point(18, 90);
+            this.bufferTimeMaxLabel.Name = "bufferTimeMaxLabel";
+            this.bufferTimeMaxLabel.Size = new System.Drawing.Size(91, 12);
+            this.bufferTimeMaxLabel.TabIndex = 4;
+            this.bufferTimeMaxLabel.Text = "最大バッファ時間：";
+            // 
+            // bufferTimeMaxTextBox
+            // 
+            this.bufferTimeMaxTextBox.Location = new System.Drawing.Point(148, 87);
+            this.bufferTimeMaxTextBox.Name = "bufferTimeMaxTextBox";
+            this.bufferTimeMaxTextBox.Size = new System.Drawing.Size(35, 19);
+            this.bufferTimeMaxTextBox.TabIndex = 5;
+            // 
+            // bufferTimeLabel
+            // 
+            this.bufferTimeLabel.AutoSize = true;
+            this.bufferTimeLabel.Location = new System.Drawing.Point(18, 65);
+            this.bufferTimeLabel.Name = "bufferTimeLabel";
+            this.bufferTimeLabel.Size = new System.Drawing.Size(67, 12);
+            this.bufferTimeLabel.TabIndex = 2;
+            this.bufferTimeLabel.Text = "バッファ時間：";
+            // 
+            // bufferTimeTextBox
+            // 
+            this.bufferTimeTextBox.Location = new System.Drawing.Point(148, 62);
+            this.bufferTimeTextBox.Name = "bufferTimeTextBox";
+            this.bufferTimeTextBox.Size = new System.Drawing.Size(35, 19);
+            this.bufferTimeTextBox.TabIndex = 3;
             // 
             // useRtmpCheckBox
             // 
@@ -749,55 +789,55 @@ namespace PeerstPlayer.Forms.Setting
             this.secondToolStripMenuItem,
             this.channelNameToolStripMenuItem});
             this.screenshotContextMenuStrip.Name = "screenshotContextMenuStrip";
-            this.screenshotContextMenuStrip.Size = new System.Drawing.Size(149, 180);
+            this.screenshotContextMenuStrip.Size = new System.Drawing.Size(132, 180);
             // 
             // year2ToolStripMenuItem
             // 
             this.year2ToolStripMenuItem.Font = new System.Drawing.Font("MS UI Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
             this.year2ToolStripMenuItem.Name = "year2ToolStripMenuItem";
-            this.year2ToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
+            this.year2ToolStripMenuItem.Size = new System.Drawing.Size(131, 22);
             this.year2ToolStripMenuItem.Text = "年(2桁)";
             // 
             // year4ToolStripMenuItem
             // 
             this.year4ToolStripMenuItem.Name = "year4ToolStripMenuItem";
-            this.year4ToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
+            this.year4ToolStripMenuItem.Size = new System.Drawing.Size(131, 22);
             this.year4ToolStripMenuItem.Text = "年(4桁)";
             // 
             // monthToolStripMenuItem
             // 
             this.monthToolStripMenuItem.Name = "monthToolStripMenuItem";
-            this.monthToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
+            this.monthToolStripMenuItem.Size = new System.Drawing.Size(131, 22);
             this.monthToolStripMenuItem.Text = "月";
             // 
             // dayToolStripMenuItem
             // 
             this.dayToolStripMenuItem.Name = "dayToolStripMenuItem";
-            this.dayToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
+            this.dayToolStripMenuItem.Size = new System.Drawing.Size(131, 22);
             this.dayToolStripMenuItem.Text = "日";
             // 
             // hourToolStripMenuItem
             // 
             this.hourToolStripMenuItem.Name = "hourToolStripMenuItem";
-            this.hourToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
+            this.hourToolStripMenuItem.Size = new System.Drawing.Size(131, 22);
             this.hourToolStripMenuItem.Text = "時間";
             // 
             // minuteToolStripMenuItem
             // 
             this.minuteToolStripMenuItem.Name = "minuteToolStripMenuItem";
-            this.minuteToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
+            this.minuteToolStripMenuItem.Size = new System.Drawing.Size(131, 22);
             this.minuteToolStripMenuItem.Text = "分";
             // 
             // secondToolStripMenuItem
             // 
             this.secondToolStripMenuItem.Name = "secondToolStripMenuItem";
-            this.secondToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
+            this.secondToolStripMenuItem.Size = new System.Drawing.Size(131, 22);
             this.secondToolStripMenuItem.Text = "秒";
             // 
             // channelNameToolStripMenuItem
             // 
             this.channelNameToolStripMenuItem.Name = "channelNameToolStripMenuItem";
-            this.channelNameToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
+            this.channelNameToolStripMenuItem.Size = new System.Drawing.Size(131, 22);
             this.channelNameToolStripMenuItem.Text = "チャンネル名";
             // 
             // PlayerSettingView
@@ -912,5 +952,9 @@ namespace PeerstPlayer.Forms.Setting
 		private System.Windows.Forms.Label vlcFolderLabel;
 		private System.Windows.Forms.CheckBox hideStatusBarOnFullscreenCheckBox;
 		private System.Windows.Forms.CheckBox useRtmpCheckBox;
+		private System.Windows.Forms.Label bufferTimeMaxLabel;
+		private System.Windows.Forms.TextBox bufferTimeMaxTextBox;
+		private System.Windows.Forms.Label bufferTimeLabel;
+		private System.Windows.Forms.TextBox bufferTimeTextBox;
 	}
 }

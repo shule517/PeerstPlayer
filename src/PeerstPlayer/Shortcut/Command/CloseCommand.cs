@@ -1,7 +1,9 @@
-﻿using System.Windows.Forms;
+﻿using System;
+using System.Windows.Forms;
 using PeerstPlayer.Controls.PecaPlayer;
 using PeerstPlayer.Forms.Player;
 using System.Drawing;
+using PeerstLib.Util;
 
 namespace PeerstPlayer.Shortcut.Command
 {
@@ -40,7 +42,15 @@ namespace PeerstPlayer.Shortcut.Command
 			{
 				PlayerSettings.ReturnSize = pecaPlayer.Size;
 			}
-			PlayerSettings.Save();
+
+			try
+			{
+				PlayerSettings.Save();
+			}
+			catch (Exception e)
+			{
+				Logger.Instance.Error(e.Message);
+			}
 
 			Application.Exit();
 		}

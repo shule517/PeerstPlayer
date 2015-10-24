@@ -59,6 +59,14 @@ namespace PeerstLib.Util
 		}
 
 		/// <summary>
+		/// 不要なタグを除去する
+		/// </summary>
+		public static string DeleteUselessTag(string text)
+		{
+			return Regex.Replace(text, @"</?(font|a)(.|\n)*?>", string.Empty);
+		}
+
+		/// <summary>
 		/// コマンド送信
 		/// </summary>
 		public static void SendCommand(string host, int portNo, string url, Encoding encoding)
