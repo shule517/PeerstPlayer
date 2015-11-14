@@ -20,6 +20,7 @@ package
 		{
 			Logger.message = message + "\n" + Logger.message;
 			trace(message);
+			CSharpCommand.OutputLog(message);
 		}
 		
 		public static function GetMessage():String

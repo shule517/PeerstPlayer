@@ -115,7 +115,7 @@ package
 			}
 		}
 		
-				// バッファリング時間を設定する
+		// バッファリング時間を設定する
 		public function SetBufferTime(value:String):void
 		{
 			Logger.Trace("SetBufferTime(" + value + ")");

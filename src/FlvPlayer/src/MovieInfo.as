@@ -93,22 +93,41 @@ package
 			return video.videoHeight.toString();
 		}
 
+		// MetaDataの取得メソッド
+		private function GetMetaData(key:String, defaultValue:String):String
+		{
+			try {
+				if (netStr == null ||
+					netStr.info == null ||
+					netStr.info.metaData == null) {
+					return defaultValue;
+				}
+
+				if (netStr.info.metaData.hasValue[key]) {
+					return netStr.info.metaData[key];
+				} else {
+					return defaultValue;
+				}
+			}
+			catch (error:Error) {
+			}
+			
+			return defaultValue;
+		}
+
 		public function get Width():String
 		{
-			if (netStr == null) return "0";
-			return netStr.info.metaData["width"];
+			return GetMetaData("width", "0");
 		}
 
 		public function get Height():String
 		{
-			if (netStr == null) return "0";
-			return netStr.info.metaData["height"];
+			return GetMetaData("height", "0");
 		}
 		
 		public function get FrameRate():String
 		{
-			if (netStr == null) return "0";
-			return netStr.info.metaData["framerate"];
+			return GetMetaData("framerate", "0");
 		}
 		
 		public function get NowFrameRate():String
@@ -127,50 +146,42 @@ package
 
 		public function get AudioCodecId():String
 		{
-			if (netStr == null) return "0";
-			return netStr.info.metaData["audiocodecid"];
+			return GetMetaData("audiocodecid", "-");
 		}
 
 		public function get AudioDataRate():String
 		{
-			if (netStr == null) return "0";
-			return netStr.info.metaData["audiodatarate"];
+			return GetMetaData("audiodatarate", "0");
 		}
 
 		public function get AudioSampleRate():String
 		{
-			if (netStr == null) return "0";
-			return netStr.info.metaData["audiosamplerate"];
+			return GetMetaData("audiosamplerate", "0");
 		}
 
 		public function get AudioSampleSize():String
 		{
-			if (netStr == null) return "0";
-			return netStr.info.metaData["audiosamplesize"];
+			return GetMetaData("audiosamplesize", "-");
 		}
 
 		public function get AudioChannels():String
 		{
-			if (netStr == null) return "0";
-			return netStr.info.metaData["audiochannels"];
+			return GetMetaData("audiochannels", "-");
 		}
 
 		public function get VideoCodecId():String
 		{
-			if (netStr == null) return "0";
-			return netStr.info.metaData["videocodecid"];
+			return GetMetaData("videocodecid", "-");
 		}
 
 		public function get VideoDataRate():String
 		{
-			if (netStr == null) return "0";
-			return netStr.info.metaData["videodatarate"];
+			return GetMetaData("videodatarate", "-");
 		}
 
 		public function get Encoder():String
 		{
-			if (netStr == null) return "0";
-			return netStr.info.metaData["encoder"];
+			return GetMetaData("encoder", "-");
 		}
 		
 		public function get LastNSEvent():String

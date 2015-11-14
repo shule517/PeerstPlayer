@@ -4,6 +4,8 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Xml;
+using PeerstLib.Util;
+using System.Linq;
 
 namespace PeerstPlayer.Controls.MoviePlayer
 {
@@ -11,6 +13,7 @@ namespace PeerstPlayer.Controls.MoviePlayer
 	{
 		private AxShockwaveFlash flash;
 
+		// Flashのコマンド
 		private const string PlayVideoMethod = "PlayVideo";
 		private const string RetryMethod = "Retry";
 		private const string ChangeVolumeMethod = "ChangeVolume";
@@ -63,6 +66,9 @@ namespace PeerstPlayer.Controls.MoviePlayer
 				case "RequestBump":
 					requestBump(flash, new EventArgs());
 					break;
+				case "OutputLog":
+					outputLog(flash, args.FirstOrDefault());
+					break;
 			}
 		}
 
@@ -86,7 +92,12 @@ namespace PeerstPlayer.Controls.MoviePlayer
 			add { requestBump += value; }
 			remove { requestBump -= value; }
 		}
-		private event EventHandler requestBump = delegate { }; 
+		private event EventHandler requestBump = delegate { };
+
+		private void outputLog(AxShockwaveFlash flash, string message)
+		{
+			Logger.Instance.Debug("[FLASH] - " + message);
+		}
 
 		/// <summary>
 		/// 動画再生
