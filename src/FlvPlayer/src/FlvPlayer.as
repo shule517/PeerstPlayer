@@ -58,7 +58,7 @@ package
 
 		public function get Info():MovieInfo
 		{
-			return new MovieInfo(stageVideo, video, netConnection, netStr, lastNetEvent);
+			return new MovieInfo(stageVideo, video, netConnection, netStr, lastNetEvent, protocol);
 		}
 		
 		public function set EnableGpu(value:Boolean):void

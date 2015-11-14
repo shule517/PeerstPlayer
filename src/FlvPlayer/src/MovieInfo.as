@@ -16,16 +16,23 @@ package
 		private var netConnection:NetConnection = null;
 		private var netStr:NetStream = null;
 		private var lastNSEvent:String = "";
+		private var protocol:String = "";
 
-		public function MovieInfo(stageVideo:StageVideo, video:Video, netConnection:NetConnection, netStr:NetStream, lastNSEvent:String)
+		public function MovieInfo(stageVideo:StageVideo, video:Video, netConnection:NetConnection, netStr:NetStream, lastNSEvent:String, protocol:String)
 		{
 			this.stageVideo = stageVideo;
 			this.video = video;
 			this.netConnection = netConnection;
 			this.netStr = netStr;
 			this.lastNSEvent = lastNSEvent;
+			this.protocol = protocol;
 		}
 		
+		public function get Protocol():String
+		{
+			return this.protocol;
+		}
+
 		public function get CurrentFps():String
 		{
 			if (netStr == null) return "0";

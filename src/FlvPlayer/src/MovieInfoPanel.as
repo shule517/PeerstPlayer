@@ -1,7 +1,9 @@
 package 
 {
+	import flash.desktop.ClipboardFormats;
 	import flash.display.Stage;
 	import flash.events.TimerEvent;
+	import flash.text.TextFormat;
 	import flash.utils.Timer;
 	import flash.text.TextField;
 	import flash.display.Shape;
@@ -28,15 +30,15 @@ package
 			debugTextBack.y = 50;
 			debugTextBack.graphics.beginFill(0x000000, 0.75);
 			debugTextBack.graphics.lineStyle(1, 0xAAAAAA, 1);
-			debugTextBack.graphics.drawRect(0, 0, 240, 180);
+			debugTextBack.graphics.drawRect(0, 0, 260, 160);
 			debugTextBack.graphics.endFill();
 			debugTextBack.visible = false;
 			
 			debugText.multiline = true;
 			debugText.x = 55;
 			debugText.y = 55;
-			debugText.width = 500;
-			debugText.height = 170;
+			debugText.width = 260;
+			debugText.height = 160;
 			debugText.textColor = 0xFFFFFF;
 			debugText.visible = false;
 			stage.addChild(debugTextBack);
@@ -61,17 +63,20 @@ package
 			}
 			
 			var text:String = "";
-			text += "<bold>CurrentFPS</bold>: " + flvPlayer.Info.CurrentFps;
-			text += "\n<bold>Time</bold>: " + flvPlayer.Info.EncodeDuration;
-			text += "\n<bold>BufferLength</bold>: " + flvPlayer.Info.BufferLength;
-			text += "\n<bold>CurrentSize</bold>: " + flvPlayer.Info.CurrentWidth + " x " + flvPlayer.Info.CurrentHeight;
-			text += "\n<bold>VideoSize</bold>: " + flvPlayer.Info.Width + " x " + flvPlayer.Info.Height;
-			text += "\n<bold>FrameRate</bold>: " + flvPlayer.Info.FrameRate;
-			text += "\n<bold>Audio</bold>: " + flvPlayer.Info.AudioCodecId + " " + flvPlayer.Info.AudioDataRate + "kbps"
-			text += "\n<bold>Audio</bold>: " + flvPlayer.Info.AudioSampleRate + "Hz " + flvPlayer.Info.AudioSampleSize + "bit " + flvPlayer.Info.AudioChannels + "ch";
-			text += "\n<bold>Video</bold>: " + flvPlayer.Info.AudioCodecId + " " + flvPlayer.Info.VideoDataRate + "kbps";
-			text += "\n<bold>Encoder</bold>: " + flvPlayer.Info.Encoder;
-			text += "\n<bold>LastNSEvent</bold>: " + flvPlayer.Info.LastNSEvent;
+			text += "<font face=\"ＭＳ ゴシック\">"
+			text +=   "<bold>Protocol    　</bold>: " + flvPlayer.Info.Protocol;
+			text += "\n<bold>CurrentFPS  　</bold>: " + flvPlayer.Info.CurrentFps;
+			text += "\n<bold>Time        　</bold>: " + flvPlayer.Info.EncodeDuration;
+			text += "\n<bold>BufferLength　</bold>: " + flvPlayer.Info.BufferLength;
+			text += "\n<bold>CurrentSize 　</bold>: " + flvPlayer.Info.CurrentWidth + " x " + flvPlayer.Info.CurrentHeight;
+			text += "\n<bold>VideoSize   　</bold>: " + flvPlayer.Info.Width + " x " + flvPlayer.Info.Height;
+			text += "\n<bold>FrameRate   　</bold>: " + flvPlayer.Info.FrameRate;
+			text += "\n<bold>Audio       　</bold>: " + flvPlayer.Info.AudioCodecId + " " + flvPlayer.Info.AudioDataRate + "kbps"
+			text += "\n<bold>Audio       　</bold>: " + flvPlayer.Info.AudioSampleRate + "Hz " + flvPlayer.Info.AudioSampleSize + "bit " + flvPlayer.Info.AudioChannels + "ch";
+			text += "\n<bold>Video       　</bold>: " + flvPlayer.Info.AudioCodecId + " " + flvPlayer.Info.VideoDataRate + "kbps";
+			text += "\n<bold>Encoder     　</bold>: " + flvPlayer.Info.Encoder;
+			text += "\n<bold>LastNSEvent 　</bold>: " + flvPlayer.Info.LastNSEvent;
+			text += "</font>"
 			
 			debugText.htmlText = text;
 		}
