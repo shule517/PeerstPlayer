@@ -230,6 +230,11 @@ namespace PeerstPlayer.Forms.Setting
 							var url = commandLine[4];
 							statusBar.SelectThreadUrl = url;
 						}
+						else
+						{
+							// コンタクトURLが空の場合
+							statusBar.SelectThreadUrl = String.Empty;
+						}
 					}
 					else
 					{
