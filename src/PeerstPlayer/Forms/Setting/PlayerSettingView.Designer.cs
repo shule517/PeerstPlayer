@@ -89,10 +89,6 @@ namespace PeerstPlayer.Forms.Setting
 			this.screenshotFolderLabel = new System.Windows.Forms.Label();
 			this.shortcutPage = new System.Windows.Forms.TabPage();
 			this.keyLabel = new System.Windows.Forms.Label();
-			this.shortcutListView = new PeerstLib.Controls.BufferedListView();
-			this.commandColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-			this.shortcutColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-			this.gestureColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
 			this.saveButton = new System.Windows.Forms.Button();
 			this.cancelButton = new System.Windows.Forms.Button();
 			this.folderBrowserDialog = new System.Windows.Forms.FolderBrowserDialog();
@@ -105,6 +101,10 @@ namespace PeerstPlayer.Forms.Setting
 			this.minuteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.secondToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.channelNameToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.shortcutListView = new PeerstLib.Controls.BufferedListView();
+			this.commandColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+			this.shortcutColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+			this.gestureColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
 			this.tabControl.SuspendLayout();
 			this.settingPage.SuspendLayout();
 			this.volumeChangeGroupBox.SuspendLayout();
@@ -532,9 +532,9 @@ namespace PeerstPlayer.Forms.Setting
 			this.bufferTimeMaxLabel.AutoSize = true;
 			this.bufferTimeMaxLabel.Location = new System.Drawing.Point(18, 90);
 			this.bufferTimeMaxLabel.Name = "bufferTimeMaxLabel";
-			this.bufferTimeMaxLabel.Size = new System.Drawing.Size(91, 12);
+			this.bufferTimeMaxLabel.Size = new System.Drawing.Size(111, 12);
 			this.bufferTimeMaxLabel.TabIndex = 4;
-			this.bufferTimeMaxLabel.Text = "最大バッファ時間：";
+			this.bufferTimeMaxLabel.Text = "最大バッファ時間(秒)：";
 			// 
 			// bufferTimeMaxTextBox
 			// 
@@ -548,9 +548,9 @@ namespace PeerstPlayer.Forms.Setting
 			this.bufferTimeLabel.AutoSize = true;
 			this.bufferTimeLabel.Location = new System.Drawing.Point(18, 65);
 			this.bufferTimeLabel.Name = "bufferTimeLabel";
-			this.bufferTimeLabel.Size = new System.Drawing.Size(67, 12);
+			this.bufferTimeLabel.Size = new System.Drawing.Size(87, 12);
 			this.bufferTimeLabel.TabIndex = 2;
-			this.bufferTimeLabel.Text = "バッファ時間：";
+			this.bufferTimeLabel.Text = "バッファ時間(秒)：";
 			// 
 			// bufferTimeTextBox
 			// 
@@ -721,40 +721,6 @@ namespace PeerstPlayer.Forms.Setting
 			this.keyLabel.Text = "【登録方法】\r\n　ショートカット：コマンドを選択後、キー入力\r\n　マウスジェスチャ：コマンドを選択後、マウスジェスチャ入力\r\n【削除方法】\r\n　ショートカット：削" +
     "除したいショートカットをダブルクリック(左)\r\n　マウスジェスチャ：削除したいジェスチャをダブルクリック(右)";
 			// 
-			// shortcutListView
-			// 
-			this.shortcutListView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-			this.shortcutListView.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.commandColumnHeader,
-            this.shortcutColumnHeader,
-            this.gestureColumnHeader});
-			this.shortcutListView.FullRowSelect = true;
-			this.shortcutListView.GridLines = true;
-			this.shortcutListView.Location = new System.Drawing.Point(8, 6);
-			this.shortcutListView.MultiSelect = false;
-			this.shortcutListView.Name = "shortcutListView";
-			this.shortcutListView.Size = new System.Drawing.Size(434, 252);
-			this.shortcutListView.TabIndex = 0;
-			this.shortcutListView.UseCompatibleStateImageBehavior = false;
-			this.shortcutListView.View = System.Windows.Forms.View.Details;
-			// 
-			// commandColumnHeader
-			// 
-			this.commandColumnHeader.Text = "コマンド";
-			this.commandColumnHeader.Width = 140;
-			// 
-			// shortcutColumnHeader
-			// 
-			this.shortcutColumnHeader.Text = "ショートカット";
-			this.shortcutColumnHeader.Width = 127;
-			// 
-			// gestureColumnHeader
-			// 
-			this.gestureColumnHeader.Text = "マウスジェスチャ";
-			this.gestureColumnHeader.Width = 127;
-			// 
 			// saveButton
 			// 
 			this.saveButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
@@ -839,6 +805,40 @@ namespace PeerstPlayer.Forms.Setting
 			this.channelNameToolStripMenuItem.Name = "channelNameToolStripMenuItem";
 			this.channelNameToolStripMenuItem.Size = new System.Drawing.Size(132, 22);
 			this.channelNameToolStripMenuItem.Text = "チャンネル名";
+			// 
+			// shortcutListView
+			// 
+			this.shortcutListView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.shortcutListView.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.commandColumnHeader,
+            this.shortcutColumnHeader,
+            this.gestureColumnHeader});
+			this.shortcutListView.FullRowSelect = true;
+			this.shortcutListView.GridLines = true;
+			this.shortcutListView.Location = new System.Drawing.Point(8, 6);
+			this.shortcutListView.MultiSelect = false;
+			this.shortcutListView.Name = "shortcutListView";
+			this.shortcutListView.Size = new System.Drawing.Size(434, 252);
+			this.shortcutListView.TabIndex = 0;
+			this.shortcutListView.UseCompatibleStateImageBehavior = false;
+			this.shortcutListView.View = System.Windows.Forms.View.Details;
+			// 
+			// commandColumnHeader
+			// 
+			this.commandColumnHeader.Text = "コマンド";
+			this.commandColumnHeader.Width = 140;
+			// 
+			// shortcutColumnHeader
+			// 
+			this.shortcutColumnHeader.Text = "ショートカット";
+			this.shortcutColumnHeader.Width = 127;
+			// 
+			// gestureColumnHeader
+			// 
+			this.gestureColumnHeader.Text = "マウスジェスチャ";
+			this.gestureColumnHeader.Width = 127;
 			// 
 			// PlayerSettingView
 			// 
