@@ -104,17 +104,11 @@ package
 		private function GetMetaData(key:String, defaultValue:String):String
 		{
 			try {
-				if (netStr == null ||
-					netStr.info == null ||
-					netStr.info.metaData == null) {
+				if (netStr == null) {
 					return defaultValue;
 				}
 
-				if (netStr.info.metaData.hasValue[key]) {
-					return netStr.info.metaData[key];
-				} else {
-					return defaultValue;
-				}
+				return netStr.info.metaData[key];
 			}
 			catch (error:Error) {
 			}

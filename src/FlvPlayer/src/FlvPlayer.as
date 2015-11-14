@@ -329,7 +329,7 @@ package
 		{
 			Logger.Trace("playRtmp()");
 			releaseNet();
-			protocol = "rtmp";
+			protocol = "RTMP";
 			netConnection = new NetConnection();
 			netConnection.client = new Object();
 			netConnection.objectEncoding = ObjectEncoding.AMF0;
@@ -341,7 +341,7 @@ package
 		{
 			Logger.Trace("playHttp()");
 			releaseNet();
-			protocol = "http";
+			protocol = "HTTP";
 			netConnection = new NetConnection();
 			netConnection.connect(null);
 			netStr = new NetStream(netConnection);
@@ -523,7 +523,7 @@ package
 			}
 			retryPrevTime = netStr.time;
 			// Buffer0の状況が続いていればBumpする(謎の黒画面対策)
-			if (!netConnection.connected || (protocol == "http" && netStr.bufferLength == 0)) {
+			if (!netConnection.connected || (protocol == "HTTP" && netStr.bufferLength == 0)) {
 				retryCount++;
 				if (retryCount > 3) {
 					CSharpCommand.RequestBump();

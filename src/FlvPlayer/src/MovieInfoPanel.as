@@ -30,14 +30,14 @@ package
 			debugTextBack.y = 50;
 			debugTextBack.graphics.beginFill(0x000000, 0.75);
 			debugTextBack.graphics.lineStyle(1, 0xAAAAAA, 1);
-			debugTextBack.graphics.drawRect(0, 0, 260, 160);
+			debugTextBack.graphics.drawRect(0, 0, 330, 160);
 			debugTextBack.graphics.endFill();
 			debugTextBack.visible = false;
 			
 			debugText.multiline = true;
 			debugText.x = 55;
 			debugText.y = 55;
-			debugText.width = 260;
+			debugText.width = 330;
 			debugText.height = 160;
 			debugText.textColor = 0xFFFFFF;
 			debugText.visible = false;
