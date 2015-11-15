@@ -38,21 +38,27 @@ namespace PeerstPlayer.Controls.MoviePlayer
 				flashManager.SetBufferTime(PlayerSettings.BufferTime);
 				flashManager.SetBufferTimeMax(PlayerSettings.BufferTimeMax);
 			};
-            // ステート変更イベント
-            flashManager.OpenStateChange += (sender, args) =>
-            {
-                if (isFirstMediaOpen)
-                {
-                    var width = ((IMoviePlayer)this).ImageWidth;
-                    var height = ((IMoviePlayer)this).ImageHeight;
-                    axShockwaveFlash.Width = width;
-                    axShockwaveFlash.Height = height;
-                    movieStart(this, new EventArgs());
-                    isFirstMediaOpen = false;
-                }
-                flashManager.ChangeVolume(volume);
-            };
-            // プレイヤーからBump要求のイベント
+			// ステート変更イベント
+			flashManager.OpenStateChange += (sender, args) =>
+			{
+				if (isFirstMediaOpen)
+				{
+					var width = ((IMoviePlayer)this).ImageWidth;
+					var height = ((IMoviePlayer)this).ImageHeight;
+					axShockwaveFlash.Width = width;
+					axShockwaveFlash.Height = height;
+					movieStart(this, new EventArgs());
+					isFirstMediaOpen = false;
+				}
+
+				// 動画切替時に、ミュートが解除されるための対応
+				((IMoviePlayer)this).Mute = isMute;
+				if (!isMute)
+				{
+					flashManager.ChangeVolume(volume);
+				}
+			};
+			// プレイヤーからBump要求のイベント
 			flashManager.RequestBump += (sender, args) => parent.Bump();
 			// 再生支援を使う設定が変更されたら
 			PlayerSettings.Changed += (s) =>
@@ -92,6 +98,9 @@ namespace PeerstPlayer.Controls.MoviePlayer
 			flashManager.ShowDebug();
 		}
 
+		/// <summary>
+		/// 音量
+		/// </summary>
 		int volume = 0;
 		int IMoviePlayer.Volume
 		{
@@ -112,7 +121,7 @@ namespace PeerstPlayer.Controls.MoviePlayer
 				}
 
 				// 音量変更したらミュートを解除
-				mute = false;
+				isMute = false;
 
 				flashManager.ChangeVolume(volume);
 				volumeChange(this, new EventArgs());
@@ -162,14 +171,17 @@ namespace PeerstPlayer.Controls.MoviePlayer
 		}
 		event EventHandler movieStart = delegate { };
 
-		private bool mute = false;
+		/// <summary>
+		/// ミュート
+		/// </summary>
+		private bool isMute = false;
 		bool IMoviePlayer.Mute
 		{
-			get { return mute; }
+			get { return isMute; }
 			set
 			{
-				mute = value;
-				if (mute)
+				isMute = value;
+				if (isMute)
 				{
 					flashManager.ChangeVolume(0);
 				}

@@ -475,11 +475,7 @@ package
 			prevTime = netStr.time;
 			prevBytesLoaded = netStr.bytesLoaded;
 			prevBitrate = Number(Info.BitRate);
-						
-			// 再接続時に音量が初期化されるので、一度変更済みであればここ変えておく
-			if (volume != -1) {
-				ChangeVolume(volume);
-			}
+
 			CSharpCommand.RaiseOpenStateChange();
 		}
 		
