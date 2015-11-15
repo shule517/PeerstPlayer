@@ -378,6 +378,7 @@ package
 					playHttp();
 					break;
 				case "NetConnection.Connect.Closed":
+				case "NetStream.Buffer.Empty":
 					retrayStop();
 					++rtmpRetryCount;
 					// 短時間でClosedが連発したら、HTTP再生に切り替える
