@@ -189,5 +189,15 @@ package
 		{
 			return lastNSEvent;
 		}
+
+		public function get GPUEnable():String
+		{
+			if ((video.visible == false) && (stageVideo != null))
+			{
+				return "有効";
+			}
+
+			return "無効";
+		}
 	}
 }

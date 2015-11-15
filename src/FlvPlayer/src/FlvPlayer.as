@@ -360,6 +360,7 @@ package
 		
 		private function rtmpNetStatusHandler(event:NetStatusEvent):void
 		{
+			Logger.Trace("rtmpNetStatusHandler:" + event.info.code);
 			switch (event.info.code) {
 				case "NetConnection.Connect.Success":
 					netStr = new NetStream(netConnection);
@@ -377,8 +378,10 @@ package
 					// PeercastがRTMP再生に対応していないと思われるので、HTTPで再生する
 					playHttp();
 					break;
-				case "NetConnection.Connect.Closed":
 				case "NetStream.Buffer.Empty":
+					retrayStart();
+					break;
+				case "NetConnection.Connect.Closed":
 					retrayStop();
 					++rtmpRetryCount;
 					// 短時間でClosedが連発したら、HTTP再生に切り替える
@@ -431,12 +434,12 @@ package
 			}
 			
 			lastNetEvent = event.info.code;
-			Logger.Trace("rtmpNetStatusHandler:" + event.info.code);
 		}
 		
 		// ネットステータス
 		private function httpNetStatusHandler(event:NetStatusEvent):void
 		{
+			Logger.Trace("httpNetStatusHandler:" + event.info.code);
 			switch (event.info.code) {
 				case "NetStream.Buffer.Full":
 					retrayStop();
@@ -468,7 +471,6 @@ package
 					break;
 			}
 			lastNetEvent = event.info.code;
-			Logger.Trace("httpNetStatusHandler:" + event.info.code);
 		}
 		
 		private function onMetaData(obj:Object):void
