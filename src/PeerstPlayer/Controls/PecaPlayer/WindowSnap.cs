@@ -5,6 +5,7 @@ using System;
 using System.Drawing;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
+using PeerstLib.Controls.Glow;
 
 namespace PeerstPlayer.Controls.PecaPlayer
 {
@@ -15,6 +16,7 @@ namespace PeerstPlayer.Controls.PecaPlayer
 	{
 		System.Windows.Forms.Form form;
 		PecaPlayerControl pecaPlayer;
+		bool isGlowForm;
 
 		// スクリーン吸着距離
 		private const int ScreenMagnetDockDist = 20;
@@ -26,6 +28,8 @@ namespace PeerstPlayer.Controls.PecaPlayer
 		{
 			this.form = form;
 			this.pecaPlayer = pecaPlayer;
+
+			isGlowForm = form is GlowForm;
 
 			// サブクラスウィンドウの設定
 			AssignHandle(form.Handle);
@@ -66,24 +70,40 @@ namespace PeerstPlayer.Controls.PecaPlayer
 			if (Math.Abs((mouseX - pecaPlayer.ClickPoint.X) - screen.Left) <= ScreenMagnetDockDist)
 			{
 				left = screen.Left;
+				if (isGlowForm)
+				{
+					++left;
+				}
 			}
 
 			// 上枠
 			if (Math.Abs(mouseY - pecaPlayer.ClickPoint.Y) <= ScreenMagnetDockDist)
 			{
 				top = screen.Top;
+				if (isGlowForm)
+				{
+					++top;
+				}
 			}
 
 			// 右枠
 			if (Math.Abs((mouseX + form.Width) - (pecaPlayer.ClickPoint.X + screen.Width) - screen.X) <= ScreenMagnetDockDist)
 			{
 				left = screen.Right - form.Width;
+				if (isGlowForm)
+				{
+					--left;
+				}
 			}
 
 			// 下枠
 			if (Math.Abs((mouseY + form.Height) - (pecaPlayer.ClickPoint.Y + screen.Height)) <= ScreenMagnetDockDist)
 			{
 				top = screen.Bottom - form.Height;
+				if (isGlowForm)
+				{
+					--top;
+				}
 			}
 
 			Marshal.WriteInt32(m.LParam, 0, left);
@@ -140,6 +160,10 @@ namespace PeerstPlayer.Controls.PecaPlayer
 					if (Math.Abs(mouseX - pecaPlayer.ClickPoint.X - rect.right) <= ScreenMagnetDockDist)
 					{
 						left = rect.right;
+						if (isGlowForm)
+						{
+							++left;
+						}
 					}
 				}
 			}
@@ -155,6 +179,10 @@ namespace PeerstPlayer.Controls.PecaPlayer
 					if (Math.Abs(mouseY - pecaPlayer.ClickPoint.Y - rect.bottom) <= ScreenMagnetDockDist)
 					{
 						top = rect.bottom;
+						if (isGlowForm)
+						{
+							++top;
+						}
 					}
 				}
 			}
@@ -170,10 +198,14 @@ namespace PeerstPlayer.Controls.PecaPlayer
 					if (Math.Abs(mouseX + form.Width - (pecaPlayer.ClickPoint.X + rect.left)) <= ScreenMagnetDockDist)
 					{
 						left = rect.left - form.Width;
+						if (isGlowForm)
+						{
+							--left;
+						}
 					}
 				}
 			}
-	
+
 			// 下
 			if (bottomHandle != IntPtr.Zero)
 			{
@@ -185,6 +217,10 @@ namespace PeerstPlayer.Controls.PecaPlayer
 					if (Math.Abs((mouseY + form.Height) - (pecaPlayer.ClickPoint.Y + rect.top)) <= ScreenMagnetDockDist)
 					{
 						top = rect.top - form.Height;
+						if (isGlowForm)
+						{
+							--top;
+						}
 					}
 				}
 			}
