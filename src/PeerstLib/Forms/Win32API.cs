@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Drawing;
 using System.Runtime.InteropServices;
 using System.Text;
 
@@ -48,6 +49,39 @@ namespace PeerstLib.Controls
 		[DllImport("user32.dll")]
 		public static extern bool GetWindowRect(IntPtr hWnd, out RECT lpRect);
 
+		/// <summary>
+		/// 指定されたウィンドウに関する情報を取得します。
+		/// </summary>
+		/// <param name="hWnd">ウィンドウのハンドル</param>
+		/// <param name="nIndex">取得する値のオフセット</param>
+		/// <returns></returns>
+		[DllImport("user32.dll")]
+		public static extern int GetWindowLong(IntPtr hWnd, GWL nIndex);
+
+		/// <summary>
+		/// 指定されたウィンドウの属性を変更します。
+		/// </summary>
+		/// <param name="hWnd">ウィンドウのハンドル</param>
+		/// <param name="nIndex">設定する値のオフセット</param>
+		/// <param name="dwNewLong">新しい値</param>
+		/// <returns></returns>
+		[DllImport("user32.dll")]
+		public static extern int SetWindowLong(IntPtr hWnd, GWL nIndex, int dwNewLong);
+
+		/// <summary>
+		/// 子ウィンドウ、ポップアップウィンドウ、またはトップレベルウィンドウのサイズ、位置、および Z オーダーを変更します
+		/// </summary>
+		/// <param name="hWnd">ウィンドウのハンドル</param>
+		/// <param name="hWndInsertAfter">配置順序のハンドル</param>
+		/// <param name="x">横方向の位置</param>
+		/// <param name="y">縦方向の位置</param>
+		/// <param name="cx">幅</param>
+		/// <param name="cy">高さ</param>
+		/// <param name="flags">ウィンドウ位置のオプション</param>
+		/// <returns></returns>
+		[DllImport("user32.dll")]
+		public static extern bool SetWindowPos(IntPtr hWnd, IntPtr hWndInsertAfter, int x, int y, int cx, int cy, uint flags);
+
 
 		/// <summary>
 		/// 指定されたウィンドウの表示状態を設定し、そのウィンドウの通常表示のとき、最小化されたとき、および最大化されたときの位置を設定します。
@@ -67,10 +101,50 @@ namespace PeerstLib.Controls
 		[DllImport("user32.dll")]
 		public static extern bool GetWindowPlacement(IntPtr hWnd, out WINDOWPLACEMENT lpwndpl);
 
+		/// <summary>
+		/// レイヤードウィンドウの位置、サイズ、形、内容、透明度を更新します。
+		/// </summary>
+		/// <param name="hWnd">レイヤードウィンドウのハンドル</param>
+		/// <param name="hdcDst">画面のデバイスコンテキストのハンドル</param>
+		/// <param name="pptDst">画面の新しい位置</param>
+		/// <param name="psize">レイヤードウィンドウの新しいサイズ</param>
+		/// <param name="hdcSrc">サーフェスのデバイスコンテキストのハンドル</param>
+		/// <paran name="pptSrc">レイヤの位置</paran>
+		/// <param name="crKey">カラーキー</param>
+		/// <param name="pblend">ブレンド機能</param>
+		/// <param name="dwFlags">フラグ</param>
+		/// <returns></returns>
+		[DllImport("user32.dll")]
+		public static extern int UpdateLayeredWindow(IntPtr hWnd, IntPtr hdcDst,
+			ref POINT pptDst, ref Size psize, IntPtr hdcSrc, ref POINT pptSrc,
+			int crKey, ref BLENDFUNCTION pblend, int dwFlags);
+
 		[DllImport("kernel32.dll")]
 		public static extern int LCMapStringW(int Local, MapFlags dwMapFlags,
 			[MarshalAs(UnmanagedType.LPWStr)]string lpSrcStr, int cchSrc,
 			[MarshalAs(UnmanagedType.LPWStr)]string lpDestStr, int cchDest);
+
+		/// <summary>
+		/// 指定されたデバイスコンテキストで、指定された 1 個のオブジェクトを選択します。
+		/// 新しいオブジェクトは、同じタイプの以前のオブジェクトを置き換えます。
+		/// </summary>
+		/// <param name="hdc">デバイスコンテキストのハンドル</param>
+		/// <param name="hgdiobj">オブジェクトのハンドル</param>
+		/// <returns></returns>
+		[DllImport("gdi32.dll")]
+		public static extern IntPtr SelectObject(IntPtr hdc, IntPtr hgdiobj);
+
+		/// <summary>
+		/// ペン、ブラシ、フォント、ビットマップ、リージョン、パレットのいずれかの論理オブジェクトを削除し、そのオブジェクトに関連付けられていたすべてのシステムリソースを解放します。
+		/// オブジェクトを削除した後は、指定されたハンドルは無効になります。
+		/// </summary>
+		/// <param name="hobject">グラフィックオブジェクトのハンドル</param>
+		/// <returns></returns>
+		[DllImport("gdi32.dll")]
+		public static extern int DeleteObject(IntPtr hobject);
+
+		[DllImport("dwmapi.dll")]
+		public static extern void DwmGetColorizationColor(out int pcrColorization, out bool pfOpaqueBlend);
 	}
 
 	// ウィンドウ枠の当たり判定
@@ -152,6 +226,15 @@ namespace PeerstLib.Controls
 		public RECT normalPosition;
 	}
 
+	[StructLayout(LayoutKind.Sequential, Pack = 1)]
+	public struct BLENDFUNCTION
+	{
+		public byte BlendOp;
+		public byte BlendFlags;
+		public byte SourceConstantAlpha;
+		public byte AlphaFormat;
+	}
+
 	public enum ShowCmd
 	{
 		HIDE = 0,
@@ -165,5 +248,63 @@ namespace PeerstLib.Controls
 		SHOWNA = 8,
 		RESTORE = 9,
 		SHOWDEFAULT = 10,
+	}
+
+	[Flags]
+	public enum SWP
+	{
+		NOSIZE = 0x01,
+		NOMOVE = 0x02,
+		NOZORDER = 0x04,
+		NOREDRAW = 0x08,
+		NOACTIVATE = 0x10,
+		FRAMECHANGED = 0x20,
+		SHOWWINDOW = 0x40,
+		NOOWNERZORDER = 0x0200,
+		NOSENDCHANGING = 0x0400,
+		ASYNCWINDOWPOS = 0x4000,
+	}
+
+	public enum GWL
+	{
+		WNDPROC = -4,
+		HINSTANCE = -6,
+		HWNDPARENT = -8,
+		ID = -12,
+		STYLE = -16,
+		EXSTYLE = -20,
+		USERDATA = -21,
+	}
+
+	[Flags]
+	public enum WSEX
+	{
+		DLGMODALFRAME = 0x00000001,
+		NOPARENTNOTIFY = 0x00000004,
+		TOPMOST = 0x00000008,
+		ACCEPTFILES = 0x00000010,
+		TRANSPARENT = 0x00000020,
+		MDICHILD = 0x00000040,
+		TOOLWINDOW = 0x00000080,
+		WINDOWEDGE = 0x00000100,
+		CLIENTEDGE = 0x00000200,
+		CONTEXTHELP = 0x00000400,
+		RIGHT = 0x00001000,
+		LEFT = 0x00000000,
+		RTLREADING = 0x00002000,
+		LTRREADING = 0x00000000,
+		LEFTSCROLLBAR = 0x00004000,
+		RIGHTSCROLLBAR = 0x00000000,
+		CONTROLPARENT = 0x00010000,
+		STATICEDGE = 0x00020000,
+		APPWINDOW = 0x00040000,
+		OVERLAPPEDWINDOW = WINDOWEDGE | CLIENTEDGE,
+		PALETTEWINDOW = WINDOWEDGE | TOOLWINDOW | TOPMOST,
+		LAYERED = 0x00080000,
+		NOINHERITLAYOUT = 0x00100000,
+		NOREDIRECTIONBITMAP = 0x00200000,
+		LAYOUTRTL = 0x00400000,
+		COMPOSITED = 0x02000000,
+		NOACTIVATE = 0x08000000,
 	}
 }
