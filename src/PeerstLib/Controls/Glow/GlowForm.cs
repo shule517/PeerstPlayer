@@ -43,6 +43,16 @@ namespace PeerstLib.Controls.Glow
 			}
 		}
 
+		protected override void OnVisibleChanged(EventArgs e)
+		{
+			// フォーム非表示にした場合は、Glowも消す
+			base.OnVisibleChanged(e);
+			if (!Visible)
+			{
+				HideGlow();
+			}
+		}
+
 		protected bool IsWindowsTen()
 		{
 			return Environment.OSVersion.Version.Major >= 10;

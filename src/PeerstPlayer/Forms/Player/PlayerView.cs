@@ -74,6 +74,12 @@ namespace PeerstPlayer.Forms.Setting
 			{
 				Logger.Instance.InfoFormat("画面表示 - Shownイベント開始");
 
+				// グローを表示する
+				if (IsWindowsTen() && !PlayerSettings.FrameInvisible)
+				{
+					ShowGlow();
+				}
+
 				// 設定の反映
 				// 書き込み欄の非表示
 				statusBar.WriteFieldVisible = PlayerSettings.WriteFieldVisible;
@@ -114,12 +120,6 @@ namespace PeerstPlayer.Forms.Setting
 				else
 				{
 					showDebugToolStripMenuItem.Visible = false;
-				}
-
-				// グローを表示する
-				if (IsWindowsTen() && !PlayerSettings.FrameInvisible)
-				{
-					ShowGlow();
 				}
 			};
 		}
