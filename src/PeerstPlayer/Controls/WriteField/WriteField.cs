@@ -221,6 +221,19 @@ namespace PeerstPlayer.Controls.WriteField
 		//-------------------------------------------------------------
 		public string ReadNewRes()
 		{
+			if (selectThreadLabel.Text == "読み込み中...")
+			{
+				return "コンタクトURLを取得しています。しばらくお待ちください。";
+			}
+			if (String.IsNullOrEmpty(operationBbs.ThreadUrl))
+			{
+				return "URLが指定されていません。";
+			}
+			if (!operationBbs.ThreadSelected)
+			{
+				return "スレッドが選択されていません。";
+			}
+
 			operationBbs.ReadThread(true);
 
 			string message = "";
