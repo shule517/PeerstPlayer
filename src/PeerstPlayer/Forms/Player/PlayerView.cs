@@ -631,20 +631,16 @@ namespace PeerstPlayer.Forms.Setting
 		}
 
 		/// <summary>
-		/// ウィンドウスタイルの変更
+		/// タイトルバー非表示
 		/// </summary>
 		protected override CreateParams CreateParams
 		{
 			get
 			{
 				const int WS_CAPTION = 0x00C00000;
-				const int WS_SYSMENU = 0x00080000;
-				const int WS_MINIMIZEBOX = 0x00020000;
 				CreateParams param = base.CreateParams;
-				param.Style &= ~WS_CAPTION;			// タイトルバー非表示
-				param.Style |= WS_SYSMENU;			// システムメニューを使えるようにする
-				param.Style |= WS_MINIMIZEBOX;		// 最小化ボタンの使用を許可
-                return param;
+				param.Style &= ~WS_CAPTION; // タイトルバー非表示
+				return param;
 			}
 		}
 	}
