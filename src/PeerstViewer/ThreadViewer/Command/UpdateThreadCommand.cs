@@ -1,11 +1,9 @@
 ﻿using PeerstLib.Bbs;
+using PeerstLib.Controls;
 using PeerstLib.Util;
 using System;
 using System.ComponentModel;
-using System.IO;
-using System.Reflection;
 using System.Windows.Input;
-using PeerstLib.Controls;
 
 namespace PeerstViewer.ThreadViewer.Command
 {
@@ -96,10 +94,15 @@ namespace PeerstViewer.ThreadViewer.Command
 					// スレッドURL変更＋更新
 					if (!worker.IsBusy)
 					{
-						Logger.Instance.Debug("UpdateThreadCommandWorker.CancelAsync");
-						worker.CancelAsync();
-						Logger.Instance.Debug("UpdateThreadCommandWorker.RunWorkerAsync : スレッドURL変更 + 更新");
-						worker.RunWorkerAsync();
+						try
+						{
+							Logger.Instance.Debug("UpdateThreadCommandWorker.RunWorkerAsync : スレッドURL変更 + 更新");
+							worker.RunWorkerAsync();
+						}
+						catch (Exception exception)
+						{
+							Logger.Instance.ErrorFormat("UpdateThreadCommandWorker(ThreadListChange) Error", exception);
+						}
 					}
 				};
 			}
@@ -108,8 +111,15 @@ namespace PeerstViewer.ThreadViewer.Command
 				// 更新のみ
 				if (!worker.IsBusy)
 				{
-					Logger.Instance.Debug("UpdateThreadCommandWorker.RunWorkerAsync : 更新のみ");
-					worker.RunWorkerAsync();
+					try
+					{
+						Logger.Instance.Debug("UpdateThreadCommandWorker.RunWorkerAsync : 更新のみ");
+						worker.RunWorkerAsync();
+					}
+					catch (Exception exception)
+					{
+						Logger.Instance.ErrorFormat("UpdateThreadCommandWorker(更新のみ) Error", exception);
+					}
 				}
 			}
 		}
