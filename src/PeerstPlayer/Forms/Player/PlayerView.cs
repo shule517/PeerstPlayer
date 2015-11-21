@@ -1,4 +1,5 @@
 ﻿using PeerstLib.Controls;
+using PeerstLib.Controls.Glow;
 using PeerstLib.PeerCast.Data;
 using PeerstLib.Util;
 using PeerstPlayer.Controls.PecaPlayer;
@@ -8,6 +9,7 @@ using PeerstPlayer.Shortcut;
 using System;
 using System.Drawing;
 using System.Windows.Forms;
+using PeerstLib.Forms;
 using WMPLib;
 
 namespace PeerstPlayer.Forms.Setting
@@ -15,7 +17,7 @@ namespace PeerstPlayer.Forms.Setting
 	//-------------------------------------------------------------
 	// 概要：動画プレイヤー画面表示クラス
 	//-------------------------------------------------------------
-	public partial class PlayerView : Form
+	public partial class PlayerView : GlowForm
 	{
 		//-------------------------------------------------------------
 		// 非公開プロパティ
@@ -113,6 +115,12 @@ namespace PeerstPlayer.Forms.Setting
 				{
 					showDebugToolStripMenuItem.Visible = false;
 				}
+
+				// グローを表示する
+				if (IsWindowsTen() && !PlayerSettings.FrameInvisible)
+				{
+					ShowGlow();
+				}
 			};
 		}
 
@@ -125,7 +133,7 @@ namespace PeerstPlayer.Forms.Setting
 			PlayerSettings.Load();
 
 			// ウィンドウ枠を消す
-			if (PlayerSettings.FrameInvisible)
+			if (PlayerSettings.FrameInvisible || IsWindowsTen() && !PlayerSettings.FrameInvisible)
 			{
 				FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
 			}
@@ -623,16 +631,20 @@ namespace PeerstPlayer.Forms.Setting
 		}
 
 		/// <summary>
-		/// タイトルバー非表示
+		/// ウィンドウスタイルの変更
 		/// </summary>
 		protected override CreateParams CreateParams
 		{
 			get
 			{
 				const int WS_CAPTION = 0x00C00000;
+				const int WS_SYSMENU = 0x00080000;
+				const int WS_MINIMIZEBOX = 0x00020000;
 				CreateParams param = base.CreateParams;
 				param.Style &= ~WS_CAPTION;			// タイトルバー非表示
-				return param;
+				param.Style |= WS_SYSMENU;			// システムメニューを使えるようにする
+				param.Style |= WS_MINIMIZEBOX;		// 最小化ボタンの使用を許可
+                return param;
 			}
 		}
 	}

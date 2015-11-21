@@ -65,6 +65,27 @@
     <Compile Include="Controls\BufferedListView.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Controls\Glow\GlowBottom.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Controls\Glow\GlowForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Controls\Glow\GlowLeft.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Controls\Glow\GlowParts.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Controls\Glow\GlowParts.Designer.cs">
+      <DependentUpon>GlowParts.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Glow\GlowRight.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Controls\Glow\GlowTop.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Controls\ToolStripEx.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -89,6 +110,11 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Controls\Glow\GlowParts.resx">
+      <DependentUpon>GlowParts.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\nuget.targets" />
