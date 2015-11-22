@@ -45,7 +45,13 @@ namespace PeerstLib.Controls.Glow
 
 		public bool GlowVisible()
 		{
-			return top.Visible;
+			if (IsWindowsTen())
+			{
+				return top.Visible;
+			}
+			{
+				return false;
+			}
 		}
 
 		protected override void OnVisibleChanged(EventArgs e)
