@@ -24,12 +24,12 @@ namespace PeerstPlayer.Controls.PecaPlayer
 		//-------------------------------------------------------------
 		// 概要：コンストラクタ
 		//-------------------------------------------------------------
-		public WindowSnap(System.Windows.Forms.Form form, PecaPlayerControl pecaPlayer)
+		public WindowSnap(GlowForm form, PecaPlayerControl pecaPlayer)
 		{
 			this.form = form;
 			this.pecaPlayer = pecaPlayer;
 
-			isGlowForm = form is GlowForm;
+			isGlowForm = form.GlowVisible();
 
 			// サブクラスウィンドウの設定
 			AssignHandle(form.Handle);

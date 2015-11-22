@@ -43,6 +43,11 @@ namespace PeerstLib.Controls.Glow
 			}
 		}
 
+		public bool GlowVisible()
+		{
+			return top.Visible;
+		}
+
 		protected override void OnVisibleChanged(EventArgs e)
 		{
 			// フォーム非表示にした場合は、Glowも消す
