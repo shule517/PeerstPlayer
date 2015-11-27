@@ -1,14 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using PeerstLib.Forms;
 
 namespace PeerstLib.Controls.Glow
 {
 	public class GlowForm : Form
 	{
 		readonly GlowParts top, bottom, left, right;
+
+		public bool FrameInvisible
+		{
+			get; set;
+		}
 
 		public GlowForm()
 		{
@@ -64,9 +71,53 @@ namespace PeerstLib.Controls.Glow
 			}
 		}
 
-		protected bool IsWindowsTen()
+		public bool IsWindowsTen()
 		{
 			return Environment.OSVersion.Version.Major >= 10;
 		}
+
+		protected override void WndProc(ref Message m)
+		{
+			if (!IsWindowsTen() && !FrameInvisible)
+			{
+				base.WndProc(ref m);
+				return;
+			}
+
+			switch ((WindowsMessage)m.Msg)
+			{
+			case WindowsMessage.WM_NCPAINT:
+				// Win10の時に非クライアント領域の描画を行わない
+				if (IsWindowsTen())
+				{
+					Refresh();
+					return;
+				}
+				break;
+			case WindowsMessage.WM_NCACTIVATE:
+				// モードレスダイアログがアクティブになる時はメッセージを処理する
+				if (m.LParam != IntPtr.Zero && m.LParam != IntPtr.Zero)
+				{
+					base.WndProc(ref m);
+					Refresh();
+					return;
+				}
+
+				if (m.WParam != IntPtr.Zero && m.LParam == IntPtr.Zero)
+				{
+					OnActivated(new EventArgs());
+
+					return;
+				}
+				OnDeactivate(new EventArgs());
+
+				return;
+            case WindowsMessage.WM_NCCALCSIZE:
+				// 非クライアント領域を無しにする
+				return;
+			}
+			base.WndProc(ref m);
+		}
+
 	}
 }

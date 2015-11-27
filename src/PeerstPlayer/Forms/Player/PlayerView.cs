@@ -135,7 +135,7 @@ namespace PeerstPlayer.Forms.Setting
 			// ウィンドウ枠を消す
 			if (PlayerSettings.FrameInvisible || IsWindowsTen() && !PlayerSettings.FrameInvisible)
 			{
-				FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+				FrameInvisible = true;
 			}
 
 			// 起動時にウィンドウサイズを復帰する
@@ -260,7 +260,16 @@ namespace PeerstPlayer.Forms.Setting
 				{
 					return;
 				}
-				this.ClientSize = new Size(ClientSize.Width, (pecaPlayer.Height + statusBar.Height));
+
+				// Formサイズ変更
+				if (FrameInvisible)
+				{
+					Size = new Size(pecaPlayer.Width, pecaPlayer.Height + statusBar.Height);
+				}
+				else
+				{
+					ClientSize = new Size(ClientSize.Width, (pecaPlayer.Height + statusBar.Height));
+				}
 			};
 
 			// ステータスバーのクリックイベント
@@ -297,7 +306,14 @@ namespace PeerstPlayer.Forms.Setting
 			pecaPlayer.MovieSizeChange += (sender, e) =>
 			{
 				// Formサイズ変更
-				ClientSize = new Size(pecaPlayer.Width, pecaPlayer.Height + statusBar.Height);
+				if (FrameInvisible)
+				{
+					Size = new Size(pecaPlayer.Width, pecaPlayer.Height + statusBar.Height);
+				}
+				else
+				{
+					ClientSize = new Size(pecaPlayer.Width, pecaPlayer.Height + statusBar.Height);
+				}
 
 				// 幅
 				statusBar.Width = pecaPlayer.Width;
