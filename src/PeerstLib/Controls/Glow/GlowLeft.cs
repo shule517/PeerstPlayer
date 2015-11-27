@@ -24,7 +24,7 @@ namespace PeerstLib.Controls.Glow
 			{
 				if (isGlowing)
 				{
-					var rect = new Rectangle(0, GlowSize, GlowSize, Height - GlowSize * 2 + 2);
+					var rect = new Rectangle(0, GlowSize, GlowSize, Height - GlowSize * 2);
 					DrawGlowCorner(g);
 					var linearGradientBrush = new LinearGradientBrush(rect, 
 						Color.Transparent, GlowAlphaColor, LinearGradientMode.Horizontal);
@@ -41,8 +41,10 @@ namespace PeerstLib.Controls.Glow
 			using (var graphicsPath = new GraphicsPath())
 			using (var graphicsPath2 = new GraphicsPath())
 			{
-				graphicsPath.AddEllipse(0, 0, GlowSize * 2, GlowSize * 2);
-				graphicsPath2.AddEllipse(0, Owner.Height, GlowSize * 2, GlowSize * 2);
+				var rect = new Rectangle(0, 0, GlowSize * 2, GlowSize * 2);
+				var rect2 = new Rectangle(0, Owner.Height, GlowSize * 2, GlowSize * 2);
+				graphicsPath.AddEllipse(rect);
+				graphicsPath2.AddEllipse(rect2);
 				using (var pathGradientBrush = new PathGradientBrush(graphicsPath))
 				using (var pathGradientBrush2 = new PathGradientBrush(graphicsPath2))
 				{
@@ -50,8 +52,8 @@ namespace PeerstLib.Controls.Glow
 					pathGradientBrush.SurroundColors = new[] { Color.Transparent, Color.Transparent, Color.Transparent, Color.Transparent };
 					pathGradientBrush2.CenterColor = GlowAlphaColor;
 					pathGradientBrush2.SurroundColors = new[] { Color.Transparent, Color.Transparent, Color.Transparent, Color.Transparent };
-					g.FillPie(pathGradientBrush, 0, 0, GlowSize * 2, GlowSize * 2, 180, 90);
-					g.FillPie(pathGradientBrush2, 0, Owner.Height + 2, GlowSize * 2, GlowSize * 2, 90, 90);
+					g.FillPie(pathGradientBrush, rect, 180, 90);
+					g.FillPie(pathGradientBrush2, rect2, 90, 90);
 				}
 			}
 		}

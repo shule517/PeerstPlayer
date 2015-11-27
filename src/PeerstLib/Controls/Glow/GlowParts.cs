@@ -1,13 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.ComponentModel.Design;
-using System.Data;
 using System.Diagnostics;
 using System.Drawing;
-using System.Drawing.Drawing2D;
 using System.Linq;
-using System.Runtime.InteropServices;
 using System.Text;
 using System.Windows.Forms;
 using PeerstLib.Forms;
@@ -154,9 +149,6 @@ namespace PeerstLib.Controls.Glow
 		{
 			switch ((WindowsMessage)m.Msg)
 			{
-			case WindowsMessage.WM_MOUSEACTIVATE:
-				//m.Result = new IntPtr(3);
-				break;
 			case WindowsMessage.WM_LBUTTONDOWN:
 				Win32API.SendMessage(Owner.Handle, (int)WindowsMessage.WM_NCLBUTTONDOWN, (IntPtr)GetHitTest(LParamToPoint(m.LParam), Width, Height), IntPtr.Zero);
 				break;
