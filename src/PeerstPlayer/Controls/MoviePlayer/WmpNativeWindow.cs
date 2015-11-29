@@ -109,6 +109,10 @@ namespace PeerstPlayer.Controls.MoviePlayer
 					}
                     break;
 
+				case WindowsMessage.WM_RBUTTONDOWN:
+					MouseDown(this, new _WMPOCXEvents_MouseDownEvent((short)Keys.RButton, 0, (int)m.LParam & 0xFFFF, (int)m.LParam >> 16));
+					break;
+
 				case WindowsMessage.WM_MOUSEMOVE:
 					// マウスカーソルの更新
 					Cursor.Current = Cursors.Arrow;
