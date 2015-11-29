@@ -113,6 +113,11 @@ namespace PeerstLib.Controls.Glow
 
 				return;
             case WindowsMessage.WM_NCCALCSIZE:
+				// 最大化の時は普通に処理する
+				if (Win32API.IsZoomed(Handle))
+				{
+					break;
+				}
 				// 非クライアント領域を無しにする
 				return;
 			}
