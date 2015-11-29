@@ -1,6 +1,7 @@
 ﻿using PeerstLib.Util;
 using PeerstPlayer.Controls.PecaPlayer;
 using System;
+using System.Runtime.Remoting.Channels;
 using System.Windows.Forms;
 using WMPLib;
 
@@ -21,7 +22,9 @@ namespace PeerstPlayer.Controls.MoviePlayer
 			wmp.enableContextMenu = false;
 
 			// ダブルクリックイベント
-			new WmpNativeWindow(wmp).DoubleClick += (sender, e) => doubleClickEvent(sender, e);
+			var wmpNativeWindow = new WmpNativeWindow(wmp);
+			wmpNativeWindow.DoubleClick += (sender, e) => doubleClickEvent(sender, e);
+			wmpNativeWindow.MouseDown += (sender, e) => mouseDownEvent(sender, e);
 
 			// チャンネル自動リトライ
 			new ChannelAutoRetry(wmp);
@@ -180,9 +183,10 @@ namespace PeerstPlayer.Controls.MoviePlayer
 		/// </summary>
 		event AxWMPLib._WMPOCXEvents_MouseDownEventHandler IMoviePlayer.MouseDownEvent
 		{
-			add { wmp.MouseDownEvent += value; }
-			remove { wmp.MouseDownEvent -= value; }
+			add { mouseDownEvent += value; }
+			remove { mouseDownEvent -= value; }
 		}
+		event AxWMPLib._WMPOCXEvents_MouseDownEventHandler mouseDownEvent = delegate { };
 
 		/// <summary>
 		///  マウスアップイベント

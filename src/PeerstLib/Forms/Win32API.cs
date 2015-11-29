@@ -119,6 +119,14 @@ namespace PeerstLib.Controls
 			ref POINT pptDst, ref Size psize, IntPtr hdcSrc, ref POINT pptSrc,
 			int crKey, ref BLENDFUNCTION pblend, int dwFlags);
 
+		/// <summary>
+		/// 指定されたウィンドウが最大化されているかどうかを調べます。
+		/// </summary>
+		/// <param name="hWnd">調査するウィンドウのハンドルを指定します。</param>
+		/// <returns></returns>
+		[DllImport("user32.dll")]
+		public static extern bool IsZoomed(IntPtr hWnd);
+
 		[DllImport("kernel32.dll")]
 		public static extern int LCMapStringW(int Local, MapFlags dwMapFlags,
 			[MarshalAs(UnmanagedType.LPWStr)]string lpSrcStr, int cchSrc,
