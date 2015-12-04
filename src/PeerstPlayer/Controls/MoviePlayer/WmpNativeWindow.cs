@@ -19,16 +19,14 @@ namespace PeerstPlayer.Controls.MoviePlayer
 		// WMP
 		AxWindowsMediaPlayer wmp;
 
-		public event AxWMPLib._WMPOCXEvents_MouseDownEventHandler MouseDown = delegate { };
-
 		// ダブルクリックイベント
 		public event AxWMPLib._WMPOCXEvents_DoubleClickEventHandler DoubleClick = delegate { };
 
 		// ウィンドウサイズ変更用の枠サイズ
 		private const int frameSize = 15;
 
-		// 最後にクリックした時間
-		private int prevClickTime;
+		private IntPtr videoHandle;
+		private VideoNativeWindow native;
 
 		//-------------------------------------------------------------
 		// 概要：コンストラクタ
@@ -39,6 +37,17 @@ namespace PeerstPlayer.Controls.MoviePlayer
 
 			// サブクラスウィンドウの設定
 			AssignHandle(wmp.Handle);
+
+			wmp.PlayStateChange += (sender, @event) =>
+			{
+				var h = Win32API.FindWindowEx(Handle, IntPtr.Zero, null, null);
+				if (h != IntPtr.Zero && videoHandle != h)
+				{
+					native = new VideoNativeWindow(h);
+					native.DoubleClick += (o, e) => DoubleClick(this, new _WMPOCXEvents_DoubleClickEvent((short)Keys.LButton, 0, e.fX, e.fY));
+					videoHandle = h;
+				}
+			};
 
 			// 枠なし時のサイズ変更処理
 			wmp.MouseMoveEvent += (sender, e) =>
@@ -75,6 +84,22 @@ namespace PeerstPlayer.Controls.MoviePlayer
 						break;
 				}
 			};
+
+			// 枠なし時のサイズ変更処理
+			wmp.MouseDownEvent += (sender, e) =>
+			{
+				// 枠なしのときだけ処理を実行する
+				if (!PlayerSettings.FrameInvisible)
+				{
+					return;
+				}
+
+				HitArea area = FormUtility.GetHitArea(frameSize, e.fX, e.fY, wmp.Width, wmp.Height);
+				if (area != HitArea.HTNONE)
+				{
+					Win32API.SendMessage(wmp.Parent.Parent.Handle, (int)WindowsMessage.WM_NCLBUTTONDOWN, new IntPtr((int)area), new IntPtr(0));
+				}
+			};
 		}
 
 
@@ -86,31 +111,8 @@ namespace PeerstPlayer.Controls.MoviePlayer
 		{
 			switch ((WindowsMessage)m.Msg)
 			{
-				case WindowsMessage.WM_LBUTTONDOWN:
-					// 枠なし時のサイズ変更処理
-					if (PlayerSettings.FrameInvisible)
-					{
-						HitArea area = FormUtility.GetHitArea(frameSize, (int)m.LParam & 0xFFFF, (int)m.LParam >> 16, wmp.Width, wmp.Height);
-						if (area != HitArea.HTNONE)
-						{
-							Win32API.SendMessage(wmp.Parent.Parent.Handle, (int)WindowsMessage.WM_NCLBUTTONDOWN, new IntPtr((int)area), new IntPtr(0));
-							return;
-						}
-					}
-					prevClickTime = Environment.TickCount;
-					MouseDown(this, new _WMPOCXEvents_MouseDownEvent((short)Keys.LButton, 0, (int)m.LParam & 0xFFFF, (int)m.LParam >> 16));
-					break;
-
-				case WindowsMessage.WM_LBUTTONUP:
-					if (prevClickTime + SystemInformation.DoubleClickTime > Environment.TickCount)
-					{
-						prevClickTime = 0;
-						DoubleClick(this, new AxWMPLib._WMPOCXEvents_DoubleClickEvent((short)Keys.LButton, 0, (int)m.LParam & 0xFFFF, (int)m.LParam >> 16));
-					}
-                    break;
-
-				case WindowsMessage.WM_RBUTTONDOWN:
-					MouseDown(this, new _WMPOCXEvents_MouseDownEvent((short)Keys.RButton, 0, (int)m.LParam & 0xFFFF, (int)m.LParam >> 16));
+				case WindowsMessage.WM_LBUTTONDBLCLK:
+					DoubleClick(this, new AxWMPLib._WMPOCXEvents_DoubleClickEvent((short)Keys.LButton, 0, (int)m.LParam & 0xFFFF, (int)m.LParam >> 16));
 					break;
 
 				case WindowsMessage.WM_MOUSEMOVE:
@@ -120,6 +122,27 @@ namespace PeerstPlayer.Controls.MoviePlayer
 
 				default:
 					break;
+			}
+
+			base.WndProc(ref m);
+		}
+	}
+
+	class VideoNativeWindow : NativeWindow
+	{
+		public event _WMPOCXEvents_DoubleClickEventHandler DoubleClick = delegate { };
+
+		public VideoNativeWindow(IntPtr handle)
+		{
+			AssignHandle(handle);
+		}
+
+		protected override void WndProc(ref Message m)
+		{
+			if (m.Msg == (int)WindowsMessage.WM_LBUTTONDBLCLK)
+			{
+				DoubleClick(this, new _WMPOCXEvents_DoubleClickEvent((short)Keys.LButton, 0, (int)m.LParam & 0xFFFF, (int)m.LParam >> 16));
+				return;
 			}
 
 			base.WndProc(ref m);

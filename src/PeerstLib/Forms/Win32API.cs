@@ -28,6 +28,9 @@ namespace PeerstLib.Controls
 		[DllImport("user32.dll")]
 		public static extern IntPtr WindowFromPoint(POINT Point);
 
+		[DllImport("user32.dll")]
+		public static extern IntPtr FindWindowEx(IntPtr hwndParent, IntPtr hwndChildAfter, string lpszClass, string lpszWindow);
+
 		/// <summary>
 		/// 指定したハンドルの祖先のハンドルを取得
 		/// </summary>
