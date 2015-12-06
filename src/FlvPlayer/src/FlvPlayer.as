@@ -405,6 +405,16 @@ package
 					break;
 				case "NetStream.Play.FileNotFound":
 				case "NetConnection.Play.FileNotFound":
+					// タイプを取得してUNKNOWNの場合はBumpする
+					Util.GetPeerCastXml(streamUrl, function(data:String):void {
+						  var xml:XML = XML(data);
+						  var channel:XMLList = xml.channels_found.channel.(@id == Util.GetChannelId(streamUrl));
+						  if (channel.length() >= 1) {
+							  if (channel[0].attribute("type") == "UNKNOWN") {
+								  CSharpCommand.RequestBump();
+							  }
+						  }
+					});
 					// Peercastでチャンネルが再生されていないかもしれないので、つなぎ直し
 					PlayVideo(playlistUrl);
 					break;
