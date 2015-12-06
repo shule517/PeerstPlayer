@@ -33,6 +33,7 @@ package
 		private var playlistUrl:String = null;
 		private var streamUrl:String = null;
 		private var protocol:String = null;
+		private var renderStatus:String = null;
 		private var enableGpu:Boolean = true;
 		private var enableRtmp:Boolean = false;
 		private var bufferTime:Number = 0.0;
@@ -58,7 +59,7 @@ package
 
 		public function get Info():MovieInfo
 		{
-			return new MovieInfo(stageVideo, video, netConnection, netStr, lastNetEvent, protocol);
+			return new MovieInfo(stageVideo, video, netConnection, netStr, lastNetEvent, protocol, renderStatus);
 		}
 		
 		public function set EnableGpu(value:Boolean):void
@@ -130,6 +131,7 @@ package
 				// イベントリスナーをもっていなければ登録する
 				if (!stageVideo.hasEventListener(StageVideoEvent.RENDER_STATE)) {
 					stageVideo.addEventListener(StageVideoEvent.RENDER_STATE, function (e:StageVideoEvent):void {
+						renderStatus = e.status;
 						switch (e.status) {
 							case VideoStatus.ACCELERATED:
 								break;
