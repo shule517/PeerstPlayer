@@ -6,6 +6,7 @@ using System.IO;
 using System.Xml;
 using PeerstLib.Util;
 using System.Linq;
+using System.Runtime.InteropServices;
 
 namespace PeerstPlayer.Controls.MoviePlayer
 {
@@ -274,7 +275,13 @@ namespace PeerstPlayer.Controls.MoviePlayer
 				}
 				request += "</arguments></invoke>";
 
-				return CleanStringTag(flash.CallFunction(request));
+				try
+				{
+					return CleanStringTag(flash.CallFunction(request));
+				}
+				catch (COMException)
+				{
+				}
 			}
 			return "";
 		}
