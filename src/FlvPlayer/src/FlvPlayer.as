@@ -63,7 +63,11 @@ package
 		
 		public function set EnableGpu(value:Boolean):void
 		{
+			if (enableGpu == value) {
+				return;
+			}
 			enableGpu = value;
+			SwitchVideo();
 		}
 		
 		public function set EnableRtmp(value:Boolean):void
