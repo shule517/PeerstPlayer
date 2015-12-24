@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Runtime.InteropServices;
+using System.Threading;
 using System.Windows.Forms;
 using PeerstLib.Controls;
 using AxWMPLib;
@@ -24,9 +26,7 @@ namespace PeerstPlayer.Controls.MoviePlayer
 
 		// ウィンドウサイズ変更用の枠サイズ
 		private const int frameSize = 15;
-
-		private IntPtr videoHandle;
-		private VideoNativeWindow native;
+		private MouseHook mouseHook;
 
 		//-------------------------------------------------------------
 		// 概要：コンストラクタ
@@ -40,12 +40,21 @@ namespace PeerstPlayer.Controls.MoviePlayer
 
 			wmp.PlayStateChange += (sender, @event) =>
 			{
-				var h = Win32API.FindWindowEx(Handle, IntPtr.Zero, null, null);
-				if (h != IntPtr.Zero && videoHandle != h)
+				var handle = Win32API.FindWindowEx(Handle, IntPtr.Zero, null, null);
+				if (handle != IntPtr.Zero)
 				{
-					native = new VideoNativeWindow(h);
-					native.DoubleClick += (o, e) => DoubleClick(this, new _WMPOCXEvents_DoubleClickEvent((short)Keys.LButton, 0, e.fX, e.fY));
-					videoHandle = h;
+					if (mouseHook != null)
+					{
+						mouseHook.Dispose();
+					}
+					mouseHook = new MouseHook(handle);
+					mouseHook.OnMouseHook += (s, args) =>
+					{
+						if (args.WindowsMessage == WindowsMessage.WM_LBUTTONDBLCLK)
+						{
+							DoubleClick(this, new _WMPOCXEvents_DoubleClickEvent((short)Keys.LButton, 0, args.X, args.Y));
+						}
+					};
 				}
 			};
 
@@ -101,8 +110,7 @@ namespace PeerstPlayer.Controls.MoviePlayer
 				}
 			};
 		}
-
-
+		
 		//-------------------------------------------------------------
 		// 概要：ウィンドウプロシージャ
 		// 詳細：ダブルクリック押下のイベント通知
@@ -125,27 +133,6 @@ namespace PeerstPlayer.Controls.MoviePlayer
 			}
 
 			base.WndProc(ref m);
-		}
-	}
-
-	class VideoNativeWindow : NativeWindow
-	{
-		public event _WMPOCXEvents_DoubleClickEventHandler DoubleClick = delegate { };
-
-		public VideoNativeWindow(IntPtr handle)
-		{
-			AssignHandle(handle);
-		}
-
-		protected override void WndProc(ref Message m)
-		{
-			if (m.Msg == (int)WindowsMessage.WM_LBUTTONDBLCLK)
-			{
-				DoubleClick(this, new _WMPOCXEvents_DoubleClickEvent((short)Keys.LButton, 0, (int)m.LParam & 0xFFFF, (int)m.LParam >> 16));
-				return;
-			}
-
-			base.WndProc(ref m);
-		}
+}
 	}
 }
