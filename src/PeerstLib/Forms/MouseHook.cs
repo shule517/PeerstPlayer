@@ -37,7 +37,7 @@ namespace PeerstLib.Forms
 		private readonly IntPtr hook;
 		private readonly HookProcedureDelegate hookDelegate;
 
-		public event EventHandler<MouseHookEventArgs> OnMouseHook = delegate { };
+		public event Func<MouseHookEventArgs, bool> OnMouseHook = delegate(MouseHookEventArgs args) { return false; };
 
 		public MouseHook(IntPtr hwnd)
 		{
@@ -55,7 +55,18 @@ namespace PeerstLib.Forms
 			{
 				var mouseHookStruct = (MOUSEHOOKSTRUCT)Marshal.PtrToStructure(lp, typeof(MOUSEHOOKSTRUCT));
 				var eventArgs = new MouseHookEventArgs(mouseHookStruct.hwnd, (WindowsMessage)wp, mouseHookStruct.pt);
-				OnMouseHook(this, eventArgs);
+				var result = false;
+				foreach (var f in OnMouseHook.GetInvocationList())
+				{
+					if ((bool)f.DynamicInvoke(eventArgs))
+					{
+						result = true;
+					}
+				}
+				if (result)
+				{
+					return new IntPtr(1);
+				}
 			}
 			return Win32API.CallNextHookEx(hook, code, wp, lp);
 		}

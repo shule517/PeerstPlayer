@@ -48,12 +48,14 @@ namespace PeerstPlayer.Controls.MoviePlayer
 						mouseHook.Dispose();
 					}
 					mouseHook = new MouseHook(handle);
-					mouseHook.OnMouseHook += (s, args) =>
+					mouseHook.OnMouseHook += (args) =>
 					{
 						if (args.WindowsMessage == WindowsMessage.WM_LBUTTONDBLCLK)
 						{
 							DoubleClick(this, new _WMPOCXEvents_DoubleClickEvent((short)Keys.LButton, 0, args.X, args.Y));
+							return true;
 						}
+						return false;
 					};
 				}
 			};
