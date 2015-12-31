@@ -120,6 +120,10 @@ namespace PeerstLib.Controls.Glow
 				}
 				// 非クライアント領域を無しにする
 				return;
+			case WindowsMessage.WM_WINDOWPOSCHANGED:
+				DefWndProc(ref m);
+				UpdateBounds();
+				return;
 			}
 			base.WndProc(ref m);
 		}

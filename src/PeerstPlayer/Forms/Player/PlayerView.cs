@@ -481,6 +481,12 @@ namespace PeerstPlayer.Forms.Setting
 				statusBar.Close();
 			};
 
+			// グローウィンドウの弊害で消えなくなっていたので自分で消えるようにする
+			Deactivate += (sender, e) =>
+			{
+				contextMenuStrip.Hide();
+			};
+
 			// 動画再生イベント
 			pecaPlayer.MovieStart += (sender, e) =>
 			{

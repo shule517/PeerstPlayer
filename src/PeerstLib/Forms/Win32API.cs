@@ -28,6 +28,9 @@ namespace PeerstLib.Controls
 		[DllImport("user32.dll")]
 		public static extern IntPtr WindowFromPoint(POINT Point);
 
+		[DllImport("user32.dll")]
+		public static extern IntPtr FindWindowEx(IntPtr hwndParent, IntPtr hwndChildAfter, string lpszClass, string lpszWindow);
+
 		/// <summary>
 		/// 指定したハンドルの祖先のハンドルを取得
 		/// </summary>
@@ -153,6 +156,47 @@ namespace PeerstLib.Controls
 
 		[DllImport("dwmapi.dll")]
 		public static extern void DwmGetColorizationColor(out int pcrColorization, out bool pfOpaqueBlend);
+
+		/// <summary>
+		/// 指定されたウィンドウを作成したスレッドのIDを取得します。
+		/// </summary>
+		/// <param name="hWnd">ウィンドウのハンドル</param>
+		/// <param name="lpdwProcessId">プロセスID</param>
+		/// <returns></returns>
+		[DllImport("user32.dll", SetLastError = true)]
+		public static extern uint GetWindowThreadProcessId(IntPtr hWnd, out uint lpdwProcessId);
+
+		/// <summary>
+		/// フックプロシージャをフックチェーン内にインストールします。
+		/// </summary>
+		/// <param name="idHook">フックタイプ</param>
+		/// <param name="lpfn">フックデリゲート</param>
+		/// <param name="hMod">アプリケーションインスタンスのハンドル</param>
+		/// <param name="dwThreadId">スレッドの識別子</param>
+		/// <returns></returns>
+		[DllImport("user32.dll", SetLastError = true, CallingConvention = CallingConvention.StdCall)]
+		public static extern IntPtr SetWindowsHookEx(HookType idHook,
+			[MarshalAs(UnmanagedType.FunctionPtr)] HookProcedureDelegate lpfn, IntPtr hMod, int dwThreadId);
+
+		/// <summary>
+		/// フックチェーン内にインストールされたフックプロシージャを削除します。
+		/// </summary>
+		/// <param name="idHook"></param>
+		/// <returns></returns>
+		[DllImport("user32.dll", SetLastError = true)]
+		public static extern bool UnhookWindowsHookEx(IntPtr idHook);
+
+		/// <summary>
+		/// 現在のフックチェーン内の次のフックプロシージャにフック情報を渡します。
+		/// </summary>
+		/// <param name="hhk">現在のフックのハンドル</param>
+		/// <param name="nCode">フックプロシージャに渡すフックコード</param>
+		/// <param name="wParam">フックプロシージャに渡す値</param>
+		/// <param name="lParam">フックプロシージャに渡す値</param>
+		/// <returns></returns>
+		[DllImport("user32.dll", SetLastError = true)]
+		public static extern IntPtr CallNextHookEx(IntPtr hhk, int nCode, IntPtr wParam, IntPtr lParam);
+
 	}
 
 	// ウィンドウ枠の当たり判定
@@ -207,6 +251,35 @@ namespace PeerstLib.Controls
 		LCMAP_TRADITIONAL_CHINESE = 0x04000000,
 	}
 
+	// フックタイプ
+	public enum HookType
+	{
+		WH_JOURNALRECORD = 0,
+		WH_JOURNALPLAYBACK = 1,
+		WH_KEYBOARD = 2,
+		WH_GETMESSAGE = 3,
+		WH_CALLWNDPROC = 4,
+		WH_CBT = 5,
+		WH_SYSMSGFILTER = 6,
+		WH_MOUSE = 7,
+		WH_HARDWARE = 8,
+		WH_DEBUG = 9,
+		WH_SHELL = 10,
+		WH_FOREGROUNDIDLE = 11,
+		WH_CALLWNDPROCRET = 12,
+		WH_KEYBOARD_LL = 13,
+		WH_MOUSE_LL = 14,
+	}
+
+	/// <summary>EnumChildWindowsで使用するデリゲート</summary>
+	[UnmanagedFunctionPointer(CallingConvention.StdCall)]
+	public delegate bool EnumWindowsProcDelegate(IntPtr handle, IntPtr lParam);
+
+	/// <summary>SetWindowsHookExで使用するデリゲート</summary>
+	[UnmanagedFunctionPointer(CallingConvention.StdCall)]
+	public delegate IntPtr HookProcedureDelegate(int nCode, IntPtr wParam, IntPtr lParam);
+
+
 	[StructLayout(LayoutKind.Sequential)]
 	public struct POINT
 	{
@@ -241,6 +314,15 @@ namespace PeerstLib.Controls
 		public byte BlendFlags;
 		public byte SourceConstantAlpha;
 		public byte AlphaFormat;
+	}
+
+	[StructLayout(LayoutKind.Sequential)]
+	public class MOUSEHOOKSTRUCT
+	{
+		public POINT pt;
+		public IntPtr hwnd;
+		public uint wHitCodeTest;
+		public IntPtr dwExtraInfo;
 	}
 
 	public enum ShowCmd

@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Runtime.InteropServices;
+using System.Threading;
 using System.Windows.Forms;
 using PeerstLib.Controls;
 using AxWMPLib;
@@ -19,16 +21,12 @@ namespace PeerstPlayer.Controls.MoviePlayer
 		// WMP
 		AxWindowsMediaPlayer wmp;
 
-		public event AxWMPLib._WMPOCXEvents_MouseDownEventHandler MouseDown = delegate { };
-
 		// ダブルクリックイベント
 		public event AxWMPLib._WMPOCXEvents_DoubleClickEventHandler DoubleClick = delegate { };
 
 		// ウィンドウサイズ変更用の枠サイズ
 		private const int frameSize = 15;
-
-		// 最後にクリックした時間
-		private int prevClickTime;
+		private MouseHook mouseHook;
 
 		//-------------------------------------------------------------
 		// 概要：コンストラクタ
@@ -39,6 +37,28 @@ namespace PeerstPlayer.Controls.MoviePlayer
 
 			// サブクラスウィンドウの設定
 			AssignHandle(wmp.Handle);
+
+			wmp.PlayStateChange += (sender, @event) =>
+			{
+				var handle = Win32API.FindWindowEx(Handle, IntPtr.Zero, null, null);
+				if (handle != IntPtr.Zero)
+				{
+					if (mouseHook != null)
+					{
+						mouseHook.Dispose();
+					}
+					mouseHook = new MouseHook(handle);
+					mouseHook.OnMouseHook += (args) =>
+					{
+						if (args.WindowsMessage == WindowsMessage.WM_LBUTTONDBLCLK)
+						{
+							DoubleClick(this, new _WMPOCXEvents_DoubleClickEvent((short)Keys.LButton, 0, args.X, args.Y));
+							return true;
+						}
+						return false;
+					};
+				}
+			};
 
 			// 枠なし時のサイズ変更処理
 			wmp.MouseMoveEvent += (sender, e) =>
@@ -75,9 +95,24 @@ namespace PeerstPlayer.Controls.MoviePlayer
 						break;
 				}
 			};
+
+			// 枠なし時のサイズ変更処理
+			wmp.MouseDownEvent += (sender, e) =>
+			{
+				// 枠なしのときだけ処理を実行する
+				if (!PlayerSettings.FrameInvisible)
+				{
+					return;
+				}
+
+				HitArea area = FormUtility.GetHitArea(frameSize, e.fX, e.fY, wmp.Width, wmp.Height);
+				if (area != HitArea.HTNONE)
+				{
+					Win32API.SendMessage(wmp.Parent.Parent.Handle, (int)WindowsMessage.WM_NCLBUTTONDOWN, new IntPtr((int)area), new IntPtr(0));
+				}
+			};
 		}
-
-
+		
 		//-------------------------------------------------------------
 		// 概要：ウィンドウプロシージャ
 		// 詳細：ダブルクリック押下のイベント通知
@@ -86,31 +121,8 @@ namespace PeerstPlayer.Controls.MoviePlayer
 		{
 			switch ((WindowsMessage)m.Msg)
 			{
-				case WindowsMessage.WM_LBUTTONDOWN:
-					// 枠なし時のサイズ変更処理
-					if (PlayerSettings.FrameInvisible)
-					{
-						HitArea area = FormUtility.GetHitArea(frameSize, (int)m.LParam & 0xFFFF, (int)m.LParam >> 16, wmp.Width, wmp.Height);
-						if (area != HitArea.HTNONE)
-						{
-							Win32API.SendMessage(wmp.Parent.Parent.Handle, (int)WindowsMessage.WM_NCLBUTTONDOWN, new IntPtr((int)area), new IntPtr(0));
-							return;
-						}
-					}
-					prevClickTime = Environment.TickCount;
-					MouseDown(this, new _WMPOCXEvents_MouseDownEvent((short)Keys.LButton, 0, (int)m.LParam & 0xFFFF, (int)m.LParam >> 16));
-					break;
-
-				case WindowsMessage.WM_LBUTTONUP:
-					if (prevClickTime + SystemInformation.DoubleClickTime > Environment.TickCount)
-					{
-						prevClickTime = 0;
-						DoubleClick(this, new AxWMPLib._WMPOCXEvents_DoubleClickEvent((short)Keys.LButton, 0, (int)m.LParam & 0xFFFF, (int)m.LParam >> 16));
-					}
-                    break;
-
-				case WindowsMessage.WM_RBUTTONDOWN:
-					MouseDown(this, new _WMPOCXEvents_MouseDownEvent((short)Keys.RButton, 0, (int)m.LParam & 0xFFFF, (int)m.LParam >> 16));
+				case WindowsMessage.WM_LBUTTONDBLCLK:
+					DoubleClick(this, new AxWMPLib._WMPOCXEvents_DoubleClickEvent((short)Keys.LButton, 0, (int)m.LParam & 0xFFFF, (int)m.LParam >> 16));
 					break;
 
 				case WindowsMessage.WM_MOUSEMOVE:
@@ -123,6 +135,6 @@ namespace PeerstPlayer.Controls.MoviePlayer
 			}
 
 			base.WndProc(ref m);
-		}
+}
 	}
 }

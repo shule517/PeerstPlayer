@@ -24,7 +24,6 @@ namespace PeerstPlayer.Controls.MoviePlayer
 			// ダブルクリックイベント
 			var wmpNativeWindow = new WmpNativeWindow(wmp);
 			wmpNativeWindow.DoubleClick += (sender, e) => doubleClickEvent(sender, e);
-			wmpNativeWindow.MouseDown += (sender, e) => mouseDownEvent(sender, e);
 
 			// チャンネル自動リトライ
 			new ChannelAutoRetry(wmp);
@@ -183,10 +182,9 @@ namespace PeerstPlayer.Controls.MoviePlayer
 		/// </summary>
 		event AxWMPLib._WMPOCXEvents_MouseDownEventHandler IMoviePlayer.MouseDownEvent
 		{
-			add { mouseDownEvent += value; }
-			remove { mouseDownEvent -= value; }
+			add { wmp.MouseDownEvent += value; }
+			remove { wmp.MouseDownEvent -= value; }
 		}
-		event AxWMPLib._WMPOCXEvents_MouseDownEventHandler mouseDownEvent = delegate { };
 
 		/// <summary>
 		///  マウスアップイベント
