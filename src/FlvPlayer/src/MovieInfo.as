@@ -4,6 +4,7 @@ package
 	import flash.media.Video;
 	import flash.net.NetConnection;
 	import flash.net.NetStream;
+	import flash.media.VideoStatus;
 	
 	/**
 	 * ...
@@ -17,8 +18,9 @@ package
 		private var netStr:NetStream = null;
 		private var lastNSEvent:String = "";
 		private var protocol:String = "";
+		private var renderStatus:String = null;
 
-		public function MovieInfo(stageVideo:StageVideo, video:Video, netConnection:NetConnection, netStr:NetStream, lastNSEvent:String, protocol:String)
+		public function MovieInfo(stageVideo:StageVideo, video:Video, netConnection:NetConnection, netStr:NetStream, lastNSEvent:String, protocol:String, renderStatus:String)
 		{
 			this.stageVideo = stageVideo;
 			this.video = video;
@@ -26,6 +28,7 @@ package
 			this.netStr = netStr;
 			this.lastNSEvent = lastNSEvent;
 			this.protocol = protocol;
+			this.renderStatus = renderStatus;
 		}
 		
 		public function get Protocol():String
@@ -194,7 +197,14 @@ package
 		{
 			if ((video.visible == false) && (stageVideo != null))
 			{
-				return "有効";
+				if (renderStatus == VideoStatus.ACCELERATED)
+				{
+					return "有効";
+				}
+				else if (renderStatus == VideoStatus.SOFTWARE)
+				{
+					return "無効(ソフトウェアモード)";
+				}
 			}
 
 			return "無効";

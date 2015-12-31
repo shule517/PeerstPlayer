@@ -33,6 +33,7 @@ package
 		private var playlistUrl:String = null;
 		private var streamUrl:String = null;
 		private var protocol:String = null;
+		private var renderStatus:String = null;
 		private var enableGpu:Boolean = true;
 		private var enableRtmp:Boolean = false;
 		private var bufferTime:Number = 0.0;
@@ -58,12 +59,16 @@ package
 
 		public function get Info():MovieInfo
 		{
-			return new MovieInfo(stageVideo, video, netConnection, netStr, lastNetEvent, protocol);
+			return new MovieInfo(stageVideo, video, netConnection, netStr, lastNetEvent, protocol, renderStatus);
 		}
 		
 		public function set EnableGpu(value:Boolean):void
 		{
+			if (enableGpu == value) {
+				return;
+			}
 			enableGpu = value;
+			SwitchVideo();
 		}
 		
 		public function set EnableRtmp(value:Boolean):void
@@ -126,6 +131,7 @@ package
 				// イベントリスナーをもっていなければ登録する
 				if (!stageVideo.hasEventListener(StageVideoEvent.RENDER_STATE)) {
 					stageVideo.addEventListener(StageVideoEvent.RENDER_STATE, function (e:StageVideoEvent):void {
+						renderStatus = e.status;
 						switch (e.status) {
 							case VideoStatus.ACCELERATED:
 								break;
@@ -399,6 +405,16 @@ package
 					break;
 				case "NetStream.Play.FileNotFound":
 				case "NetConnection.Play.FileNotFound":
+					// タイプを取得してUNKNOWNの場合はBumpする
+					Util.GetPeerCastXml(streamUrl, function(data:String):void {
+						  var xml:XML = XML(data);
+						  var channel:XMLList = xml.channels_found.channel.(@id == Util.GetChannelId(streamUrl));
+						  if (channel.length() >= 1) {
+							  if (channel[0].attribute("type") == "UNKNOWN") {
+								  CSharpCommand.RequestBump();
+							  }
+						  }
+					});
 					// Peercastでチャンネルが再生されていないかもしれないので、つなぎ直し
 					PlayVideo(playlistUrl);
 					break;

@@ -63,19 +63,20 @@ package
 			}
 			
 			var text:String = "";
+			var info:MovieInfo = flvPlayer.Info;
 			text += "<font face=\"ＭＳ ゴシック\">"
-			text +=   "<bold>HTTP/RTMP        </bold>: " + ((flvPlayer.Info.Protocol == null) ? "-" : flvPlayer.Info.Protocol);
-			text += "\n<bold>GPU再生支援      </bold>: " + flvPlayer.Info.GPUEnable;
-			text += "\n<bold>配信時間         </bold>: " + flvPlayer.Info.EncodeDuration;
-			text += "\n<bold>バッファー(秒)   </bold>: " + flvPlayer.Info.BufferLength;
-			text += "\n<bold>ウィンドウサイズ </bold>: " + flvPlayer.Info.CurrentWidth + " x " + flvPlayer.Info.CurrentHeight;
-			text += "\n<bold>動画サイズ       </bold>: " + flvPlayer.Info.Width + " x " + flvPlayer.Info.Height;
-			text += "\n<bold>FPS              </bold>: " + flvPlayer.Info.CurrentFps;
-			text += "\n<bold>Video            </bold>: " + flvPlayer.Info.AudioCodecId + " " + flvPlayer.Info.VideoDataRate + "kbps";
-			text += "\n<bold>Audio            </bold>: " + flvPlayer.Info.AudioCodecId + " " + flvPlayer.Info.AudioDataRate + "kbps"
-			text += "\n<bold>Audio Type       </bold>: " + flvPlayer.Info.AudioSampleRate + "Hz " + flvPlayer.Info.AudioSampleSize + "bit " + flvPlayer.Info.AudioChannels + "ch";
-			text += "\n<bold>Encoder          </bold>: " + flvPlayer.Info.Encoder;
-			text += "\n<bold>LastNSEvent      </bold>: " + flvPlayer.Info.LastNSEvent;
+			text +=   "<bold>HTTP/RTMP        </bold>: " + ((info.Protocol == null) ? "-" : info.Protocol);
+			text += "\n<bold>GPU再生支援      </bold>: " + info.GPUEnable;
+			text += "\n<bold>配信時間         </bold>: " + info.EncodeDuration;
+			text += "\n<bold>バッファー(秒)   </bold>: " + info.BufferLength;
+			text += "\n<bold>ウィンドウサイズ </bold>: " + info.CurrentWidth + " x " + info.CurrentHeight;
+			text += "\n<bold>動画サイズ       </bold>: " + info.Width + " x " + info.Height;
+			text += "\n<bold>FPS              </bold>: " + info.CurrentFps;
+			text += "\n<bold>Video            </bold>: " + info.AudioCodecId + " " + info.VideoDataRate + "kbps";
+			text += "\n<bold>Audio            </bold>: " + info.AudioCodecId + " " + info.AudioDataRate + "kbps"
+			text += "\n<bold>Audio Type       </bold>: " + info.AudioSampleRate + "Hz " + info.AudioSampleSize + "bit " + info.AudioChannels + "ch";
+			text += "\n<bold>Encoder          </bold>: " + info.Encoder;
+			text += "\n<bold>LastNSEvent      </bold>: " + info.LastNSEvent;
 			text += "</font>"
 			
 			debugText.htmlText = text;
