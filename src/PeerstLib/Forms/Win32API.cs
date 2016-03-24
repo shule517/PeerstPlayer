@@ -14,6 +14,9 @@ namespace PeerstLib.Controls
 		[DllImport("user32.dll")]
 		public static extern IntPtr SendMessage(IntPtr hWnd, int msg, IntPtr wp, IntPtr lp);
 
+		[DllImport("user32.dll")]
+		public static extern bool PostMessage(IntPtr hWnd, int msg, IntPtr wp, IntPtr lp);
+
 		[DllImport("user32.dll", EntryPoint = "SetWindowText")]
 		public static extern void SetWindowText(IntPtr hWnd, String text);
 
