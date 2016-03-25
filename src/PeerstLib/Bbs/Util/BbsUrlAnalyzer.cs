@@ -42,12 +42,6 @@ namespace PeerstLib.Bbs.Util
 				Logger.Instance.DebugFormat("掲示板サーバ：したらば [HOST:{0}]", uri.Host);
 				return AnalyzeShitaraba(uri.Host, threadUrl);
 			}
-			// YY
-			else if (uri.Host.StartsWith(YYKakikoBbsStrategy.Domain))
-			{
-				Logger.Instance.DebugFormat("掲示板サーバ：わいわいKakiko [HOST:{0}]", uri.Host);
-				return AnalayzeYY(threadUrl, uri.Host);
-			}
 			// 2ch互換かチェック
 			else
 			{

@@ -21,11 +21,6 @@ namespace PeerstLib.Bbs.Strategy
 		//-------------------------------------------------------------
 
 		/// <summary>
-		/// YYかきこのドメイン
-		/// </summary>
-		public const string Domain = "yy";
-
-		/// <summary>
 		/// スレッドURL
 		/// </summary>
 		public override string ThreadUrl
