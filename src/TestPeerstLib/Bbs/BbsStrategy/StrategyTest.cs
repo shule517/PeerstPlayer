@@ -22,12 +22,6 @@ namespace TestPeerstLib.Bbs.Strategy
 			TestCheckWriteError(false, したらば_ユーザー設定が消失しています);
 			TestCheckWriteError(false, したらば_スレッドストップです);
 
-			// わいわいKakiko
-			TestCheckWriteError(true, わいわいKakiko_書き込みました);
-			TestCheckWriteError(false, わいわいKakiko_たたないと書けません);
-			TestCheckWriteError(false, わいわいKakiko_書き込めないスレッド);
-			TestCheckWriteError(false, わいわいKakiko_本文がありません);
-
 			/*
 			TestCheckWriteError(BbsStrategy.WriteStatus.NothingMessage,		WriteRes本文がありません);
 			TestCheckWriteError(BbsStrategy.WriteStatus.MultiWriteError,	WriteRes多重書き込みです);
@@ -200,58 +194,6 @@ if(document.referrer){ google_page_url = document.referrer }
 </body>
 </html>
 ";
-		#endregion
-
-		#endregion
-
-		#region テストデータ_わいわいKakiko
-
-		#region わいわいKakiko_たたないと書けません
-
-		string わいわいKakiko_たたないと書けません = @"<html><head><title>ＥＲＲＯＲ！</title><meta http-equiv=""Content-Type"" content=""text/html; charset=Shift_JIS""></head>
-<body><!-- 2ch_X:error -->
-ＥＲＲＯＲ - 593 20 sec たたないと書けません。(1回目、4 sec しかたってない) 1
-<br>
-<hr>
-</body>
-</html>
-";
-		#endregion
-
-		#region わいわいKakiko_書き込みました
-
-		string わいわいKakiko_書き込みました = @"<html><head><title>書きこみました。</title><meta http-equiv=""Content-Type"" content=""text/html; charset=Shift_JIS""><META content=5;URL=../bbs2ch/ http-equiv=refresh></head><body>書きこみが終わりました。<br><br>画面を切り替えるまでしばらくお待ち下さい。<br><br></body></html>
-";
-
-		#endregion
-
-		#region わいわいKakiko_書き込めないスレッド
-
-		string わいわいKakiko_書き込めないスレッド = @"<html><head><title>ＥＲＲＯＲ！</title><meta http-equiv=""Content-Type"" content=""text/html; charset=Shift_JIS""></head><body bgcolor=""#FFFFFF""><!-- 2ch_X:error -->
-<font size=+1 color=#FF0000><b>書き込めないスレッド </b></font><ul>
-<br>ホスト<b>softbank126048183010.bbtec.net</b><br>
-<b> </b>
-<br>名前： test
-<br>E-mail： sage
-<br>内容：<br>message
-<br><br></ul>
-</body></html>
-";
-		#endregion
-
-		#region わいわいKakiko_本文がありません
-
-		string わいわいKakiko_本文がありません = @"<html><head><title>ＥＲＲＯＲ！</title><meta http-equiv=""Content-Type"" content=""text/html; charset=Shift_JIS""></head><body bgcolor=""#FFFFFF""><!-- 2ch_X:error -->
-<font size=+1 color=#FF0000><b>本文がありません！ </b></font><ul>
-<br>ホスト<b>softbank126048183010.bbtec.net</b><br>
-<b> </b>
-<br>名前： 
-<br>E-mail： 
-<br>内容：<br>
-<br><br></ul>
-</body></html>
-";
-
 		#endregion
 
 		#endregion

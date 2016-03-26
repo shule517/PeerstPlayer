@@ -58,8 +58,8 @@ namespace PeerstLib.Controls.Glow
 
 		private void Update(object sender, EventArgs e)
 		{
-			isGlowing = ActiveForm != null;
 			UpdatePosition(sender, e);
+			isGlowing = ActiveForm != null && ClientSize.Width != 0 && ClientSize.Height != 0;
 			CreateGlow();
 			SetLayeredWindow(surface);
 		}

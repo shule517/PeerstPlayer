@@ -108,7 +108,7 @@ namespace PeerstPlayer.Controls.MoviePlayer
 				HitArea area = FormUtility.GetHitArea(frameSize, e.fX, e.fY, wmp.Width, wmp.Height);
 				if (area != HitArea.HTNONE)
 				{
-					Win32API.SendMessage(wmp.Parent.Parent.Handle, (int)WindowsMessage.WM_NCLBUTTONDOWN, new IntPtr((int)area), new IntPtr(0));
+					Win32API.PostMessage(wmp.Parent.Parent.Handle, (int)WindowsMessage.WM_NCLBUTTONDOWN, new IntPtr((int)area), new IntPtr(0));
 				}
 			};
 		}

@@ -42,16 +42,6 @@ namespace TestPeerstLib
 			CheckBbsName("http://jbbs.livedoor.jp/bbs/read.cgi/game/45037/1286755510/50-", "シュール・備長炭と愉快な仲間たち");
 			CheckBbsName("http://jbbs.livedoor.jp/bbs/read.cgi/game/45037/1286755510/50n-", "シュール・備長炭と愉快な仲間たち");
 
-			// わいわいKakiko
-			CheckBbsName("http://yy25.60.kg/test/read.cgi/peercastjikkyou/1368534792/", "今からpeercastでゲーム実況配信");
-			CheckBbsName("http://yy25.60.kg/test/read.cgi/peercastjikkyou/1368534792", "今からpeercastでゲーム実況配信");
-			CheckBbsName("http://yy25.60.kg/test/read.cgi/peercastjikkyou/", "今からpeercastでゲーム実況配信");
-			CheckBbsName("http://yy25.60.kg/test/read.cgi/peercastjikkyou", "今からpeercastでゲーム実況配信");
-			CheckBbsName("http://yy25.60.kg/peercastjikkyou/1368534792/", "今からpeercastでゲーム実況配信");
-			CheckBbsName("http://yy25.60.kg/peercastjikkyou/1368534792", "今からpeercastでゲーム実況配信");
-			CheckBbsName("http://yy25.60.kg/peercastjikkyou/", "今からpeercastでゲーム実況配信");
-			CheckBbsName("http://yy25.60.kg/peercastjikkyou", "今からpeercastでゲーム実況配信");
-
 			// 2ch互換
 			//CheckBbsName("http://sepia0330.dyndns.org/eicar/", "これは酷いな避難所BBS");	// TODO 別サーバタイプとする？
 			//CheckBbsName("http://sepia0330.dyndns.org/eicar", "これは酷いな避難所BBS");
@@ -140,23 +130,6 @@ namespace TestPeerstLib
 
 			// 1000レス
 			CheckWrite(false, "http://jbbs.livedoor.jp/bbs/read.cgi/game/45037/1268147268/", "シュール", "sage", "message");
-
-			//-------------------------------------------------------------
-			// わいわいKakiko
-			//-------------------------------------------------------------
-			
-			// 正常書き込み
-			CheckWrite(true, "http://yy22.kakiko.com/test/read.cgi/bbs2ch/1170685385/", "test", "sage", "message");
-
-			// 連投
-			CheckWrite(false, "http://yy22.kakiko.com/test/read.cgi/bbs2ch/1170685385/", "test", "sage", "message");
-
-			// メッセージがありません
-			CheckWrite(false, "http://yy25.60.kg/test/read.cgi/peercastjikkyou/1368534792/",  "test", "sage", "message");
-
-			// メッセージがありません
-			CheckWrite(false, "http://yy25.60.kg/test/read.cgi/peercastjikkyou/1368534792/", "", "", "");
-
 
 			//-------------------------------------------------------------
 			// 2ch互換

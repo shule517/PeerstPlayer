@@ -41,16 +41,6 @@ namespace TestPeerstLib.Bbs
 			CheckStrategy("http://jbbs.livedoor.jp/bbs/read.cgi/game/45037/1286755510/50-", typeof(ShitarabaBbsStrategy));
 			CheckStrategy("http://jbbs.livedoor.jp/bbs/read.cgi/game/45037/1286755510/50n-", typeof(ShitarabaBbsStrategy));
 
-			// わいわいKakiko
-			CheckStrategy("http://yy25.60.kg/test/read.cgi/peercastjikkyou/1368534792/", typeof(YYKakikoBbsStrategy));
-			CheckStrategy("http://yy25.60.kg/test/read.cgi/peercastjikkyou/1368534792", typeof(YYKakikoBbsStrategy));
-			CheckStrategy("http://yy25.60.kg/test/read.cgi/peercastjikkyou/", typeof(YYKakikoBbsStrategy));
-			CheckStrategy("http://yy25.60.kg/test/read.cgi/peercastjikkyou", typeof(YYKakikoBbsStrategy));
-			CheckStrategy("http://yy25.60.kg/peercastjikkyou/1368534792/", typeof(YYKakikoBbsStrategy));
-			CheckStrategy("http://yy25.60.kg/peercastjikkyou/1368534792", typeof(YYKakikoBbsStrategy));
-			CheckStrategy("http://yy25.60.kg/peercastjikkyou/", typeof(YYKakikoBbsStrategy));
-			CheckStrategy("http://yy25.60.kg/peercastjikkyou", typeof(YYKakikoBbsStrategy));
-
 			// 2ch互換
 			//CheckStrategy("http://sepia0330.dyndns.org/eicar/", typeof(YYKakikoBbsStrategy));	// TODO 別サーバタイプとする？
 			//CheckStrategy("http://sepia0330.dyndns.org/eicar", typeof(YYKakikoBbsStrategy));

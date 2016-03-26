@@ -149,6 +149,7 @@ package
 				video.visible = false;
 				video.clear();
 				if (netStr != null) {
+					video.attachNetStream(netStr);
 					stageVideo.attachNetStream(netStr);
 					video.attachNetStream(null);
 				}
