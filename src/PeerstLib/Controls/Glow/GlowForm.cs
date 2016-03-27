@@ -111,6 +111,12 @@ namespace PeerstLib.Controls.Glow
 				}
 				OnDeactivate(new EventArgs());
 
+				// 書き込み入力欄のキャレットが他のウィンドウがアクティブになっても表示される問題を処理する
+				if (ActiveControl != null && ActiveControl.ToString() == "PeerstPlayer.Controls.StatusBar.StatusBarControl")
+				{
+					ActiveControl = null;
+				}
+
 				return;
             case WindowsMessage.WM_NCCALCSIZE:
 				// 最大化の時は普通に処理する
