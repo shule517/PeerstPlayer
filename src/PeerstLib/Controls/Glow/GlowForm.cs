@@ -96,7 +96,7 @@ namespace PeerstLib.Controls.Glow
 				break;
 			case WindowsMessage.WM_NCACTIVATE:
 				// モードレスダイアログがアクティブになる時はメッセージを処理する
-				if (m.LParam != IntPtr.Zero && m.LParam != IntPtr.Zero)
+				if (m.LParam != IntPtr.Zero)
 				{
 					base.WndProc(ref m);
 					Refresh();
