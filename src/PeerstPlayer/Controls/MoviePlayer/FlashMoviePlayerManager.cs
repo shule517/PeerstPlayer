@@ -7,6 +7,7 @@ using System.Xml;
 using PeerstLib.Util;
 using System.Linq;
 using System.Runtime.InteropServices;
+using System.Xml.Linq;
 
 namespace PeerstPlayer.Controls.MoviePlayer
 {
@@ -255,7 +256,21 @@ namespace PeerstPlayer.Controls.MoviePlayer
 		{
 			if (flash.FrameLoaded(0))
 			{
-				flash.CallFunction("<invoke name=\"" + methodName + "\" returntype=\"xml\"><arguments><string>" + param + "</string></arguments></invoke>");
+				var request = new XElement("invoke",
+					new XAttribute("name", methodName),
+					new XAttribute("returntype", "xml"),
+						new XElement("arguments",
+							new XElement("string", param)
+						)
+				);
+
+				try
+				{
+					flash.CallFunction(request.ToString(SaveOptions.DisableFormatting));
+				}
+				catch (COMException)
+				{
+				}
 			}
 		}
 
@@ -268,16 +283,18 @@ namespace PeerstPlayer.Controls.MoviePlayer
 		{
 			if (flash.FrameLoaded(0))
 			{
-				var request = "<invoke name=\"" + methodName + "\" returntype=\"xml\"><arguments>";
-				foreach (var param in parameters)
-				{
-					request += string.Format("<string>{0}</string>", param.ToString());
-				}
-				request += "</arguments></invoke>";
+				var request = new XElement("invoke",
+					new XAttribute("name", methodName),
+					new XAttribute("returntype", "xml"),
+					new XElement("arguments",
+						from param in parameters
+						select new XElement("string", param.ToString())
+					)
+				);
 
 				try
 				{
-					return CleanStringTag(flash.CallFunction(request));
+					return CleanStringTag(flash.CallFunction(request.ToString(SaveOptions.DisableFormatting)));
 				}
 				catch (COMException)
 				{
