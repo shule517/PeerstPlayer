@@ -32,7 +32,6 @@ package
 		private var netStr:NetStream = null;
 		private var playlistUrl:String = null;
 		private var streamUrl:String = null;
-		private var protocol:String = null;
 		private var renderStatus:String = null;
 		private var enableGpu:Boolean = true;
 		private var enableRtmp:Boolean = false;
@@ -73,11 +72,11 @@ package
 		
 		public function set EnableRtmp(value:Boolean):void
 		{
-			if (enableGpu == value) {
+			if (enableRtmp == value) {
 				return;
 			}
 			enableRtmp = value;
-
+			Retry();
 		}
 		
 		public function set BufferTime(value:Number):void
