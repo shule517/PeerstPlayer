@@ -132,7 +132,7 @@ package
 				if (!stageVideo.hasEventListener(StageVideoEvent.RENDER_STATE)) {
 					stageVideo.addEventListener(StageVideoEvent.RENDER_STATE, function (e:StageVideoEvent):void {
 						renderStatus = e.status;
-						switch (e.status) {
+						switch (renderStatus) {
 							case VideoStatus.ACCELERATED:
 								break;
 							case VideoStatus.SOFTWARE:
