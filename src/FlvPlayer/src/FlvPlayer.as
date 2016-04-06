@@ -266,7 +266,7 @@ package
 		// 再生時間取得
 		public function GetDurationString():String
 		{
-			if (netStr == null || netStr.info.metaData == null) {
+			if (netStr == null || netStr.info.metaData == null || playStartTime == null) {
 				return "00:00:00";
 			}
 
@@ -357,6 +357,7 @@ package
 				break;
 			case "NetStream.Buffer.Full":
 				retrayStop();
+				playStartTime = new Date();
 				break;
 			case "NetStream.Buffer.Empty":
 			case "NetStream.Buffer.Flush":
