@@ -3,6 +3,7 @@ package
 	import flash.display.Sprite;
 	import flash.display.StageAlign;
 	import flash.display.StageScaleMode;
+	import flash.display.StageQuality;
 	import flash.events.Event;
 	import flash.external.ExternalInterface;
 
@@ -41,6 +42,8 @@ package
 			stage.scaleMode = StageScaleMode.NO_SCALE;
 			// 表示基準位置を左上に設定
 			stage.align = StageAlign.TOP_LEFT;
+			// ステージの画質を最高に設定
+			stage.quality = StageQuality.BEST;
 
 			// 外部インタフェースの追加
 			if (ExternalInterface.available) {
