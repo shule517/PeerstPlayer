@@ -25,12 +25,6 @@ package
 			flvPlayer.Retry();
 		}
 		
-		// サイズ変更イベント
-		public function SizeChanged(width:int, height:int):void
-		{
-			flvPlayer.SizeChanged(width, height);
-		}
-		
 		// 音量変更
 		public function ChangeVolume(volStr:String):void
 		{

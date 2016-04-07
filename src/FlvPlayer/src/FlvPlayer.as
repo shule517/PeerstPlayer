@@ -101,7 +101,7 @@ package
 			
 			// リサイズされたときに呼び出されるイベント
 			stage.addEventListener(Event.RESIZE, function (e:Event):void{
-				SizeChanged(stage.stageWidth, stage.stageHeight);
+				ChangeSize(stage.stageWidth, stage.stageHeight);
 			});
 			stage.addEventListener(StageVideoAvailabilityEvent.STAGE_VIDEO_AVAILABILITY, function (e:StageVideoAvailabilityEvent):void {
 				SwitchVideo();
@@ -255,12 +255,6 @@ package
 				video.width = changeWidth;
 				video.height = changeHeight;
 			}
-		}
-		
-		public function SizeChanged(width:int, height:int):void
-		{
-			ChangeSize(stage.stageWidth, stage.stageHeight);
-			return;
 		}
 		
 		// 再生時間取得
