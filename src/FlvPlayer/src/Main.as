@@ -42,8 +42,8 @@ package
 			stage.scaleMode = StageScaleMode.NO_SCALE;
 			// 表示基準位置を左上に設定
 			stage.align = StageAlign.TOP_LEFT;
-			// ステージの画質を最高に設定
-			stage.quality = StageQuality.BEST;
+			// ステージの画質を高画質に設定
+			stage.quality = StageQuality.HIGH;
 
 			// 外部インタフェースの追加
 			if (ExternalInterface.available) {
