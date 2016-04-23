@@ -136,36 +136,29 @@ package
 				if (!stageVideo.hasEventListener(StageVideoEvent.RENDER_STATE)) {
 					stageVideo.addEventListener(StageVideoEvent.RENDER_STATE, function (e:StageVideoEvent):void {
 						renderStatus = e.status;
-						switch (renderStatus) {
-							case VideoStatus.ACCELERATED:
-								break;
-							case VideoStatus.SOFTWARE:
-								break;
-							case VideoStatus.UNAVAILABLE:
-								// StageVideoが利用できない
-								EnableGpu = false;
-								break;
-						}
 					});
 				}
 				
 				// Videoを非表示
+				video.attachNetStream(null);
 				video.visible = false;
 				video.clear();
+				
 				if (netStr) {
 					stageVideo.attachNetStream(netStr);
-					video.attachNetStream(null);
 				}
 			} else {
+				renderStatus = null;
+				
 				// StageVideoが動いていれば停止させる
 				if (stageVideo) {
-					if (netStr) {
-						stageVideo.attachNetStream(null);
-					}
+					stageVideo.attachNetStream(null);
 					stageVideo = null;
 				}
+				
 				// Videoを表示
 				video.visible = true;
+				
 				if (netStr) {
 					video.attachNetStream(netStr);
 				}
