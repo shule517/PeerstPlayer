@@ -20,8 +20,7 @@ namespace PeerstPlayer.Shortcut.Command
 
 		public void Execute(CommandArgs commandArgs)
 		{
-			// リレー切断に時間がかかるため非表示にする
-			form.Visible = false;
+			// リレー切断に時間がかかるためミュートにする
 			pecaPlayer.Mute = true;
 
 			// リレー切断＆終了

@@ -23,8 +23,7 @@ namespace PeerstPlayer.Shortcut.Command
 
 		public void Execute(CommandArgs commandArgs)
 		{
-			// 非表示ミュート
-			form.Visible = false;
+			// ミュート
 			pecaPlayer.Mute = true;
 
 			// 終了時のリレー切断
