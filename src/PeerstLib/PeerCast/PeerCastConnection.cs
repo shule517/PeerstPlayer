@@ -63,7 +63,15 @@ namespace PeerstLib.PeerCast
 		public void Bump()
 		{
 			string url = string.Format("/admin?cmd=bump&id={0}", urlInfo.StreamId);
-			WebUtil.SendCommand(urlInfo.Host, int.Parse(urlInfo.PortNo), url, Encoding.GetEncoding("Shift_JIS"));
+			try
+			{
+				WebUtil.SendCommand(urlInfo.Host, int.Parse(urlInfo.PortNo), url, Encoding.GetEncoding("Shift_JIS"));
+			}
+			catch
+			{
+				Logger.Instance.Debug("Bumpに失敗");
+				return;
+			}
 		}
 
 		/// <summary>
@@ -110,7 +118,15 @@ namespace PeerstLib.PeerCast
 		public void RelayKeep()
 		{
 			string url = string.Format("/admin?cmd=keep&id={0}", urlInfo.StreamId);
-			WebUtil.SendCommand(urlInfo.Host, int.Parse(urlInfo.PortNo), url, Encoding.GetEncoding("Shift_JIS"));
+			try
+			{
+				WebUtil.SendCommand(urlInfo.Host, int.Parse(urlInfo.PortNo), url, Encoding.GetEncoding("Shift_JIS"));
+			}
+			catch
+			{
+				Logger.Instance.Debug("リレーキープに失敗");
+				return;
+			}
 		}
 	}
 }
