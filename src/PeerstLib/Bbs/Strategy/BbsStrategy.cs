@@ -8,6 +8,7 @@ using System.IO;
 using System.Net;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Web;
 
 namespace PeerstLib.Bbs.Strategy
 {
@@ -145,7 +146,7 @@ namespace PeerstLib.Bbs.Strategy
 			// 取得成功
 			if (match.Groups.Count > 1)
 			{
-				BbsInfo.BbsName = match.Groups[1].Value;
+				BbsInfo.BbsName = HttpUtility.HtmlDecode(match.Groups[1].Value);
 				Logger.Instance.DebugFormat("掲示板名取得:正常 [掲示板名:{0}]", BbsInfo.BbsName);
 				return;
 			}
