@@ -32,7 +32,6 @@ package
 		private var netStr:NetStream = null;
 		private var playlistUrl:String = null;
 		private var streamUrl:String = null;
-		private var protocol:String = null;
 		private var renderStatus:String = null;
 		private var enableGpu:Boolean = true;
 		private var enableRtmp:Boolean = false;
@@ -59,7 +58,7 @@ package
 
 		public function get Info():MovieInfo
 		{
-			return new MovieInfo(stageVideo, video, netConnection, netStr, lastNetEvent, protocol, renderStatus);
+			return new MovieInfo(stageVideo, video, netConnection, netStr, lastNetEvent, (enableRtmp ? "RTMP" : "HTTP"), renderStatus);
 		}
 		
 		public function set EnableGpu(value:Boolean):void
@@ -73,7 +72,11 @@ package
 		
 		public function set EnableRtmp(value:Boolean):void
 		{
+			if (enableRtmp == value) {
+				return;
+			}
 			enableRtmp = value;
+			Retry();
 		}
 		
 		public function set BufferTime(value:Number):void
@@ -93,9 +96,12 @@ package
 			Logger.Trace("FlvPlayer()");
 			this.stage = stage;
 			
+			video.smoothing = true;
+			stage.addChildAt(video, 0);
+			
 			// リサイズされたときに呼び出されるイベント
 			stage.addEventListener(Event.RESIZE, function (e:Event):void{
-				SizeChanged(stage.stageWidth, stage.stageHeight);
+				ChangeSize(stage.stageWidth, stage.stageHeight);
 			});
 			stage.addEventListener(StageVideoAvailabilityEvent.STAGE_VIDEO_AVAILABILITY, function (e:StageVideoAvailabilityEvent):void {
 				SwitchVideo();
@@ -107,15 +113,13 @@ package
 		
 		private function releaseNet():void
 		{
-			if (netStr != null) {
-				netStr.removeEventListener(NetStatusEvent.NET_STATUS, rtmpNetStatusHandler);
-				netStr.removeEventListener(NetStatusEvent.NET_STATUS, httpNetStatusHandler);
+			if (netStr) {
+				netStr.removeEventListener(NetStatusEvent.NET_STATUS, netStatusHandler);
 				netStr.close();
 				netStr = null;
 			}
-			if (netConnection != null) {
-				netConnection.removeEventListener(NetStatusEvent.NET_STATUS, rtmpNetStatusHandler);
-				netConnection.removeEventListener(NetStatusEvent.NET_STATUS, httpNetStatusHandler);
+			if (netConnection) {
+				netConnection.removeEventListener(NetStatusEvent.NET_STATUS, netStatusHandler);
 				netConnection.close();
 				netConnection = null;
 			}
@@ -132,37 +136,29 @@ package
 				if (!stageVideo.hasEventListener(StageVideoEvent.RENDER_STATE)) {
 					stageVideo.addEventListener(StageVideoEvent.RENDER_STATE, function (e:StageVideoEvent):void {
 						renderStatus = e.status;
-						switch (e.status) {
-							case VideoStatus.ACCELERATED:
-								break;
-							case VideoStatus.SOFTWARE:
-								break;
-							case VideoStatus.UNAVAILABLE:
-								// StageVideoが利用できない
-								EnableGpu = false;
-								break;
-						}
 					});
 				}
 				
 				// Videoを非表示
+				video.attachNetStream(null);
 				video.visible = false;
 				video.clear();
-				if (netStr != null) {
-					video.attachNetStream(netStr);
+				
+				if (netStr) {
 					stageVideo.attachNetStream(netStr);
-					video.attachNetStream(null);
 				}
 			} else {
+				renderStatus = null;
+				
 				// StageVideoが動いていれば停止させる
-				if (stageVideo != null) {
-					if (netStr != null) {
-						stageVideo.attachNetStream(null);
-					}
+				if (stageVideo) {
+					stageVideo.attachNetStream(null);
 					stageVideo = null;
 				}
+				
 				// Videoを表示
 				video.visible = true;
+				
 				if (netStr) {
 					video.attachNetStream(netStr);
 				}
@@ -254,16 +250,10 @@ package
 			}
 		}
 		
-		public function SizeChanged(width:int, height:int):void
-		{
-			ChangeSize(stage.stageWidth, stage.stageHeight);
-			return;
-		}
-		
 		// 再生時間取得
 		public function GetDurationString():String
 		{
-			if (netStr == null || netStr.info.metaData == null) {
+			if (netStr == null || netStr.info.metaData == null || playStartTime == null) {
 				return "00:00:00";
 			}
 
@@ -316,12 +306,7 @@ package
 				streamUrl = urlLoader.data;
 				Logger.Trace("urlLoader(Event.COMPLETE) streamUrl:" + streamUrl);
 
-				if (enableRtmp) {
-					rtmpRetryCount = 0;
-					playRtmp();
-				} else {
-					playHttp();
-				}
+				play();
 			});
 			urlLoader.load(urlRequest);
 		}
@@ -329,165 +314,90 @@ package
 		// 再接続
 		public function Retry():void
 		{
+			Logger.Trace("Retry()");
+			retryTimer.stop();
+			releaseNet();
 			PlayVideo(playlistUrl);
 		}
 		
-		private function playRtmp():void
+		private function play():void
 		{
-			Logger.Trace("playRtmp()");
+			Logger.Trace("play()");
 			releaseNet();
-			protocol = "RTMP";
 			netConnection = new NetConnection();
 			netConnection.client = new Object();
-			netConnection.objectEncoding = ObjectEncoding.AMF0;
-			netConnection.addEventListener(NetStatusEvent.NET_STATUS, rtmpNetStatusHandler);
-			netConnection.connect(streamUrl.replace("http", "rtmp"));
+			netConnection.addEventListener(NetStatusEvent.NET_STATUS, netStatusHandler);
+			if (enableRtmp) {
+				netConnection.connect(streamUrl.replace("http", "rtmp"));
+			} else {
+				netConnection.connect(null);
+			}
 		}
-		
-		private function playHttp():void
-		{
-			Logger.Trace("playHttp()");
-			releaseNet();
-			protocol = "HTTP";
-			netConnection = new NetConnection();
-			netConnection.connect(null);
-			netStr = new NetStream(netConnection);
-			netStr.addEventListener(NetStatusEvent.NET_STATUS, httpNetStatusHandler);
-			// 非アクティブかつプレイヤーが他のウィンドウの裏に隠れている場合に
-			// 短時間バッファが	発生して再生が遅れていく現象が緩和できるかも
-			netStr.bufferTime = 0.2;
 
-			netStr.client = new Object;
-			// メタ情報を取得した時の処理
-			netStr.client.onMetaData = onMetaData;
-			// 動画を再生
-			netStr.play(streamUrl + "?" + new Date().getTime());
-			playStartTime = new Date();
-		}
-		
-		private function rtmpNetStatusHandler(event:NetStatusEvent):void
+		private function netStatusHandler(event:NetStatusEvent):void
 		{
-			Logger.Trace("rtmpNetStatusHandler:" + event.info.code);
+			Logger.Trace("netStatusHandler:" + event.info.code);
+
 			switch (event.info.code) {
-				case "NetConnection.Connect.Success":
-					netStr = new NetStream(netConnection);
-					netStr.client = new Object();
-					netStr.client.onMetaData = onMetaData;
-					netStr.bufferTime = bufferTime;
-					netStr.bufferTimeMax = bufferTimeMax;
-					netStr.addEventListener(NetStatusEvent.NET_STATUS, rtmpNetStatusHandler);
-					var split:Array = streamUrl.split("/");
-					var reg:RegExp = /^(\w+)/;
-					var result:Object = reg.exec(split[4]);
-					netStr.play(result[1]);
-					break;
-				case "NetConnection.Connect.Failed":
-					// PeercastがRTMP再生に対応していないと思われるので、HTTPで再生する
-					playHttp();
-					break;
-				case "NetStream.Buffer.Empty":
-					retrayStart();
-					break;
-				case "NetConnection.Connect.Closed":
-					retrayStop();
-					++rtmpRetryCount;
+			case "NetConnection.Connect.Success":
+				connect();
+				break;
+			case "NetStream.Buffer.Full":
+				retrayStop();
+				playStartTime = new Date();
+				break;
+			case "NetStream.Buffer.Empty":
+			case "NetStream.Buffer.Flush":
+				retrayStart();
+				break;
+			case "NetConnection.Connect.Closed":
+				if (enableRtmp) {
+					rtmpRetryCount++;
 					// 短時間でClosedが連発したら、HTTP再生に切り替える
-					if (rtmpRetryCount >= 5) {
+					if (rtmpRetryCount >= 4) {
 						Logger.Trace("Change RTMP->HTTP");
-						setTimeout(function():void {
-							playHttp();
-						}, 1);		
-					} else {
-						clearInterval(rtmpTimeoutHandle);
-						setTimeout(function():void {
-							playRtmp();
-						}, 1);						
-					}
-					break;
-				case "NetStream.Play.FileNotFound":
-				case "NetConnection.Play.FileNotFound":
-					// タイプを取得してUNKNOWNの場合はBumpする
-					Util.GetPeerCastXml(streamUrl, function(data:String):void {
-						  var xml:XML = XML(data);
-						  var channel:XMLList = xml.channels_found.channel.(@id == Util.GetChannelId(streamUrl));
-						  if (channel.length() >= 1) {
-							  if (channel[0].attribute("type") == "UNKNOWN") {
-								  CSharpCommand.RequestBump();
-							  }
-						  }
-					});
-					// Peercastでチャンネルが再生されていないかもしれないので、つなぎ直し
-					PlayVideo(playlistUrl);
-					break;
-				case "NetStream.Play.Start":
-					playStartTime = new Date();
-					// smoothingを有効にする
-					video.smoothing = true;
-					// videoをステージに追加
-					if (video.parent == null){
-						stage.addChildAt(video, 0);
-					}
-					// 再生支援が使えたら使う
-					if (stageVideo != null){
-						stageVideo.attachNetStream(netStr);
-						video.visible = false;
-					} else {
-						video.attachNetStream(netStr);
-						video.visible = true;
-					}
-					// Videoのサイズを変更する
-					ChangeSize(stage.stageWidth, stage.stageHeight);
-					// 10秒再生できていれば再接続カウントをリセットする
-					rtmpTimeoutHandle = setTimeout(function():void {
 						rtmpRetryCount = 0;
-					}, 10000);
-					break;
-				case "NetStream.Play.Stop":
-					break;
-				case "NetStream.Play.StreamNotFound":
+						enableRtmp = false;
+						Retry();
+					} else {
+						Retry();
+					}
+				}
+				break;
+			case "NetStream.Play.FileNotFound":
+				if (enableRtmp) {
+					Logger.Trace("Change RTMP->HTTP");
 					enableRtmp = false;
-					playHttp();
-					break;
+					Retry();
+				}
+				break;
+			default:
+				break;
 			}
-			
 			lastNetEvent = event.info.code;
 		}
 		
-		// ネットステータス
-		private function httpNetStatusHandler(event:NetStatusEvent):void
+		private function connect():void
 		{
-			Logger.Trace("httpNetStatusHandler:" + event.info.code);
-			switch (event.info.code) {
-				case "NetStream.Buffer.Full":
-					retrayStop();
-					break;
-				case "NetStream.Buffer.Empty":
-					// 再生時間をリセット
-					playStartTime = new Date();
-					retrayStart();
-					break;
-				case "NetStream.Buffer.Flush":
-					break;
-				case "NetStream.Play.Start":
-					// smoothingを有効にする
-					video.smoothing = true;
-					// videoをステージに追加
-					if (video.parent == null){
-						stage.addChildAt(video, 0);
-					}
-					// 再生支援が使えたら使う
-					if (stageVideo != null){
-						stageVideo.attachNetStream(netStr);
-						video.visible = false;
-					} else {
-						video.attachNetStream(netStr);
-						video.visible = true;
-					}
-					// Videoのサイズを変更する
-					ChangeSize(stage.stageWidth, stage.stageHeight);
-					break;
+			Logger.Trace("connect()");
+
+			netStr = new NetStream(netConnection);
+			netStr.client = new Object();
+			netStr.client.onMetaData = onMetaData;
+			netStr.addEventListener(NetStatusEvent.NET_STATUS, netStatusHandler);
+			
+			netStr.bufferTime = bufferTime;
+			netStr.bufferTimeMax = bufferTimeMax;
+
+			if (enableRtmp) {
+				var split:Array = streamUrl.split("/");
+				var reg:RegExp = /^(\w+)/;
+				var result:Object = reg.exec(split[4]);
+				netStr.play(result[1]);
+			} else {
+				netStr.play(streamUrl);
 			}
-			lastNetEvent = event.info.code;
+			SwitchVideo();
 		}
 		
 		private function onMetaData(obj:Object):void
@@ -497,15 +407,6 @@ package
 			prevBitrate = Number(Info.BitRate);
 
 			CSharpCommand.RaiseOpenStateChange();
-		}
-		
-		// 動画再生リトライ
-		private function retry():void
-		{
-			Logger.Trace("retry");
-			releaseNet();
-			PlayVideo(playlistUrl);
-			retryTimer.stop();
 		}
 		
 		// リトライ停止
@@ -527,29 +428,17 @@ package
 		// タイマー
 		private function retryTimerHandler(event:TimerEvent):void
 		{
-			Logger.Trace("retryTimerHandler()")
+			Logger.Trace("retryTimerHandler()");
 			if (netStr == null) {	
-				retry();
+				Retry();
 				return;
 			}
 			// NetStream.Buffer.Empty発動時からタイムが進んでいなければリコネクト
 			if (retryPrevTime == netStr.time) {
-				retry();
+				Retry();
 				return;
 			}
 			retryPrevTime = netStr.time;
-			// Buffer0の状況が続いていればBumpする(謎の黒画面対策)
-			if (!netConnection.connected || (protocol == "HTTP" && netStr.bufferLength == 0)) {
-				retryCount++;
-				if (retryCount > 3) {
-					CSharpCommand.RequestBump();
-					retry();
-					retryCount = 0;
-				}
-				Logger.Trace("retryCount++");
-				return;
-			}
-			retryCount = 0;
 		}
 	}
 }

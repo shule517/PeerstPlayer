@@ -96,7 +96,7 @@ namespace PeerstLib.Controls.Glow
 				break;
 			case WindowsMessage.WM_NCACTIVATE:
 				// モードレスダイアログがアクティブになる時はメッセージを処理する
-				if (m.LParam != IntPtr.Zero && m.LParam != IntPtr.Zero)
+				if (m.LParam != IntPtr.Zero)
 				{
 					base.WndProc(ref m);
 					Refresh();
@@ -110,6 +110,12 @@ namespace PeerstLib.Controls.Glow
 					return;
 				}
 				OnDeactivate(new EventArgs());
+
+				// 書き込み入力欄のキャレットが他のウィンドウがアクティブになっても表示される問題を処理する
+				if (ActiveControl != null && ActiveControl.ToString() == "PeerstPlayer.Controls.StatusBar.StatusBarControl")
+				{
+					ActiveControl = null;
+				}
 
 				return;
             case WindowsMessage.WM_NCCALCSIZE:

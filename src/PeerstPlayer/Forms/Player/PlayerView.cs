@@ -475,7 +475,6 @@ namespace PeerstPlayer.Forms.Setting
 			// 終了処理
 			FormClosed += (sender, e) =>
 			{
-				Visible = false;
 				Logger.Instance.Debug("FormClosed");
 				pecaPlayer.Close();
 				statusBar.Close();

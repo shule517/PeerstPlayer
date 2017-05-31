@@ -3,6 +3,7 @@ package
 	import flash.display.Sprite;
 	import flash.display.StageAlign;
 	import flash.display.StageScaleMode;
+	import flash.display.StageQuality;
 	import flash.events.Event;
 	import flash.external.ExternalInterface;
 
@@ -41,12 +42,13 @@ package
 			stage.scaleMode = StageScaleMode.NO_SCALE;
 			// 表示基準位置を左上に設定
 			stage.align = StageAlign.TOP_LEFT;
+			// ステージの画質を高画質に設定
+			stage.quality = StageQuality.HIGH;
 
 			// 外部インタフェースの追加
 			if (ExternalInterface.available) {
 				ExternalInterface.addCallback("PlayVideo", flashCommand.PlayVideo);
 				ExternalInterface.addCallback("Retry", flashCommand.Retry);
-				ExternalInterface.addCallback("SizeChanged", flashCommand.SizeChanged);
 				ExternalInterface.addCallback("ChangeVolume", flashCommand.ChangeVolume);
 				ExternalInterface.addCallback("ChangePan", flashCommand.ChangePan);
 				ExternalInterface.addCallback("GetVideoWidth", flashCommand.GetVideoWidth);
