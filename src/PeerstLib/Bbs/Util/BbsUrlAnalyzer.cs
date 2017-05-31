@@ -24,6 +24,7 @@ namespace PeerstLib.Bbs.Util
 			Uri uri = null;
 			try
 			{
+				threadUrl = threadUrl.Replace("jbbs.livedoor.jp", "jbbs.shitaraba.net");
 				uri = new Uri(threadUrl);
 			}
 			catch
