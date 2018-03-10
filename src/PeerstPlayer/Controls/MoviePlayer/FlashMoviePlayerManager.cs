@@ -255,7 +255,13 @@ namespace PeerstPlayer.Controls.MoviePlayer
 		{
 			if (flash.FrameLoaded(0))
 			{
-				flash.CallFunction("<invoke name=\"" + methodName + "\" returntype=\"xml\"><arguments><string>" + param + "</string></arguments></invoke>");
+				try
+				{
+					flash.CallFunction("<invoke name=\"" + methodName + "\" returntype=\"xml\"><arguments><string>" + param + "</string></arguments></invoke>");
+				}
+				catch (COMException)
+				{
+				}
 			}
 		}
 
