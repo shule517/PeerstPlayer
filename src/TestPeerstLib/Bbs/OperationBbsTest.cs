@@ -15,32 +15,38 @@ namespace TestPeerstLib
 		public void OperationBbs_UpdateBbsName()
 		{
 			// 新したらば
-			CheckBbsName("http://jbbs.shitaraba.net/game/45037/", "シュール・備長炭と愉快な仲間たち");
-			CheckBbsName("http://jbbs.shitaraba.net/game/45037", "シュール・備長炭と愉快な仲間たち");
-			CheckBbsName("http://jbbs.shitaraba.net/game/45037/1286755510/", "シュール・備長炭と愉快な仲間たち");
-			CheckBbsName("http://jbbs.shitaraba.net/game/45037/1286755510", "シュール・備長炭と愉快な仲間たち");
-			CheckBbsName("http://jbbs.shitaraba.net/bbs/read.cgi/game/45037/", "シュール・備長炭と愉快な仲間たち");
-			CheckBbsName("http://jbbs.shitaraba.net/bbs/read.cgi/game/45037", "シュール・備長炭と愉快な仲間たち");
-			CheckBbsName("http://jbbs.shitaraba.net/bbs/read.cgi/game/45037/1286755510/", "シュール・備長炭と愉快な仲間たち");
-			CheckBbsName("http://jbbs.shitaraba.net/bbs/read.cgi/game/45037/1286755510", "シュール・備長炭と愉快な仲間たち");
-			CheckBbsName("http://jbbs.shitaraba.net/bbs/read.cgi/game/45037/1286755510/l50", "シュール・備長炭と愉快な仲間たち");
-			CheckBbsName("http://jbbs.shitaraba.net/bbs/read.cgi/game/45037/1286755510/50", "シュール・備長炭と愉快な仲間たち");
-			CheckBbsName("http://jbbs.shitaraba.net/bbs/read.cgi/game/45037/1286755510/50-", "シュール・備長炭と愉快な仲間たち");
-			CheckBbsName("http://jbbs.shitaraba.net/bbs/read.cgi/game/45037/1286755510/50n-", "シュール・備長炭と愉快な仲間たち");
+			CheckBbsName("http://jbbs.shitaraba.net/game/45037/", "シュール・備長炭・毒と愉快な仲間たち？");
+			CheckBbsName("http://jbbs.shitaraba.net/game/45037", "シュール・備長炭・毒と愉快な仲間たち？");
+			CheckBbsName("http://jbbs.shitaraba.net/game/45037/1286755510/", "シュール・備長炭・毒と愉快な仲間たち？");
+			CheckBbsName("http://jbbs.shitaraba.net/game/45037/1286755510", "シュール・備長炭・毒と愉快な仲間たち？");
+			CheckBbsName("http://jbbs.shitaraba.net/bbs/read.cgi/game/45037/", "シュール・備長炭・毒と愉快な仲間たち？");
+			CheckBbsName("http://jbbs.shitaraba.net/bbs/read.cgi/game/45037", "シュール・備長炭・毒と愉快な仲間たち？");
+			CheckBbsName("http://jbbs.shitaraba.net/bbs/read.cgi/game/45037/1286755510/", "シュール・備長炭・毒と愉快な仲間たち？");
+			CheckBbsName("http://jbbs.shitaraba.net/bbs/read.cgi/game/45037/1286755510", "シュール・備長炭・毒と愉快な仲間たち？");
+			CheckBbsName("http://jbbs.shitaraba.net/bbs/read.cgi/game/45037/1286755510/l50", "シュール・備長炭・毒と愉快な仲間たち？");
+			CheckBbsName("http://jbbs.shitaraba.net/bbs/read.cgi/game/45037/1286755510/50", "シュール・備長炭・毒と愉快な仲間たち？");
+			CheckBbsName("http://jbbs.shitaraba.net/bbs/read.cgi/game/45037/1286755510/50-", "シュール・備長炭・毒と愉快な仲間たち？");
+			CheckBbsName("http://jbbs.shitaraba.net/bbs/read.cgi/game/45037/1286755510/50n-", "シュール・備長炭・毒と愉快な仲間たち？");
+			CheckBbsName("https://jbbs.shitaraba.net/game/45037/", "シュール・備長炭・毒と愉快な仲間たち？");
+			CheckBbsName("https://jbbs.shitaraba.net/game/45037/1286755510/", "シュール・備長炭・毒と愉快な仲間たち？");
+			CheckBbsName("https://jbbs.shitaraba.net/bbs/read.cgi/game/45037/1286755510/", "シュール・備長炭・毒と愉快な仲間たち？");
+			CheckBbsName("https://jbbs.shitaraba.net/bbs/read.cgi/game/45037/1286755510/l50", "シュール・備長炭・毒と愉快な仲間たち？");
+
 
 			// 旧したらば
-			CheckBbsName("http://jbbs.livedoor.jp/game/45037/", "シュール・備長炭と愉快な仲間たち");
-			CheckBbsName("http://jbbs.livedoor.jp/game/45037", "シュール・備長炭と愉快な仲間たち");
-			CheckBbsName("http://jbbs.livedoor.jp/game/45037/1286755510/", "シュール・備長炭と愉快な仲間たち");
-			CheckBbsName("http://jbbs.livedoor.jp/game/45037/1286755510", "シュール・備長炭と愉快な仲間たち");
-			CheckBbsName("http://jbbs.livedoor.jp/bbs/read.cgi/game/45037/", "シュール・備長炭と愉快な仲間たち");
-			CheckBbsName("http://jbbs.livedoor.jp/bbs/read.cgi/game/45037", "シュール・備長炭と愉快な仲間たち");
-			CheckBbsName("http://jbbs.livedoor.jp/bbs/read.cgi/game/45037/1286755510/", "シュール・備長炭と愉快な仲間たち");
-			CheckBbsName("http://jbbs.livedoor.jp/bbs/read.cgi/game/45037/1286755510", "シュール・備長炭と愉快な仲間たち");
-			CheckBbsName("http://jbbs.livedoor.jp/bbs/read.cgi/game/45037/1286755510/l50", "シュール・備長炭と愉快な仲間たち");
-			CheckBbsName("http://jbbs.livedoor.jp/bbs/read.cgi/game/45037/1286755510/50", "シュール・備長炭と愉快な仲間たち");
-			CheckBbsName("http://jbbs.livedoor.jp/bbs/read.cgi/game/45037/1286755510/50-", "シュール・備長炭と愉快な仲間たち");
-			CheckBbsName("http://jbbs.livedoor.jp/bbs/read.cgi/game/45037/1286755510/50n-", "シュール・備長炭と愉快な仲間たち");
+			CheckBbsName("http://jbbs.livedoor.jp/game/45037/", "シュール・備長炭・毒と愉快な仲間たち？");
+			CheckBbsName("http://jbbs.livedoor.jp/game/45037", "シュール・備長炭・毒と愉快な仲間たち？");
+			CheckBbsName("http://jbbs.livedoor.jp/game/45037/1286755510/", "シュール・備長炭・毒と愉快な仲間たち？");
+			CheckBbsName("http://jbbs.livedoor.jp/game/45037/1286755510", "シュール・備長炭・毒と愉快な仲間たち？");
+			CheckBbsName("http://jbbs.livedoor.jp/bbs/read.cgi/game/45037/", "シュール・備長炭・毒と愉快な仲間たち？");
+			CheckBbsName("http://jbbs.livedoor.jp/bbs/read.cgi/game/45037", "シュール・備長炭・毒と愉快な仲間たち？");
+			CheckBbsName("http://jbbs.livedoor.jp/bbs/read.cgi/game/45037/1286755510/", "シュール・備長炭・毒と愉快な仲間たち？");
+			CheckBbsName("http://jbbs.livedoor.jp/bbs/read.cgi/game/45037/1286755510", "シュール・備長炭・毒と愉快な仲間たち？");
+			CheckBbsName("http://jbbs.livedoor.jp/bbs/read.cgi/game/45037/1286755510/l50", "シュール・備長炭・毒と愉快な仲間たち？");
+			CheckBbsName("http://jbbs.livedoor.jp/bbs/read.cgi/game/45037/1286755510/50", "シュール・備長炭・毒と愉快な仲間たち？");
+			CheckBbsName("http://jbbs.livedoor.jp/bbs/read.cgi/game/45037/1286755510/50-", "シュール・備長炭・毒と愉快な仲間たち？");
+			CheckBbsName("http://jbbs.livedoor.jp/bbs/read.cgi/game/45037/1286755510/50n-", "シュール・備長炭・毒と愉快な仲間たち？");
+
 
 			// 2ch互換
 			//CheckBbsName("http://sepia0330.dyndns.org/eicar/", "これは酷いな避難所BBS");	// TODO 別サーバタイプとする？
