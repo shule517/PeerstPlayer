@@ -110,34 +110,6 @@ namespace TestPeerstLib
 			CheckWrite(false, "http://jbbs.shitaraba.net/bbs/read.cgi/game/45037/1268147268/", "シュール", "sage", "message");
 
 			//-------------------------------------------------------------
-			// 旧したらば
-			//-------------------------------------------------------------
-
-			// 正常書き込み
-			CheckWrite(true, "http://jbbs.livedoor.jp/bbs/read.cgi/game/45037/1310263750/", "シュール", "sage", "message");
-
-			// 時間制限
-			CheckWrite(false, "http://jbbs.livedoor.jp/bbs/read.cgi/game/45037/1310263750/", "シュール", "sage", "message");
-
-			// 本文なし
-			CheckWrite(false, "http://jbbs.livedoor.jp/bbs/read.cgi/game/45037/1310263750/", "", "", "");
-
-			// 過去ログ
-			CheckWrite(false, "http://jbbs.livedoor.jp/game/43934/1232972032/", "シュール", "sage", "message");
-
-			// 掲示板番号が不正
-			CheckWrite(false, "http://jbbs.livedoor.jp/bbs/read.cgi/game/99999/1268147268/", "シュール", "sage", "message");
-
-			// スレッド番号が不正（パラメータ間違い）
-			CheckWrite(false, "http://jbbs.livedoor.jp/bbs/read.cgi/game/45037/126814727/", "シュール", "sage", "message");
-
-			// 該当するスレッドは存在しない
-			CheckWrite(false, "http://jbbs.livedoor.jp/bbs/read.cgi/game/45037/9999999999/", "シュール", "sage", "message");
-
-			// 1000レス
-			CheckWrite(false, "http://jbbs.livedoor.jp/bbs/read.cgi/game/45037/1268147268/", "シュール", "sage", "message");
-
-			//-------------------------------------------------------------
 			// 2ch互換
 			//-------------------------------------------------------------
 			/*
