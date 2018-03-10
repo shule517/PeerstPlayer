@@ -47,7 +47,7 @@ namespace PeerstLib.Bbs.Util
 			else
 			{
 				// スレッド一覧ページが存在するかで2ch互換かチェック
-				BbsInfo info = AnalayzeYY(threadUrl, uri.Host);
+				BbsInfo info = AnalayzeYY(threadUrl, uri.Authority);
 				string subjectUrl = string.Format("{0}://{1}/{2}/subject.txt", info.Scheme, info.BoardGenre, info.BoardNo);
 				string html = WebUtil.GetHtml(subjectUrl, Encoding.GetEncoding("Shift_JIS"));
 
