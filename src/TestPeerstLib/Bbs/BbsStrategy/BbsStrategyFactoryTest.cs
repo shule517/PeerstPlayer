@@ -26,6 +26,10 @@ namespace TestPeerstLib.Bbs
 			CheckStrategy("http://jbbs.shitaraba.net/bbs/read.cgi/game/45037/1286755510/50", typeof(ShitarabaBbsStrategy));
 			CheckStrategy("http://jbbs.shitaraba.net/bbs/read.cgi/game/45037/1286755510/50-", typeof(ShitarabaBbsStrategy));
 			CheckStrategy("http://jbbs.shitaraba.net/bbs/read.cgi/game/45037/1286755510/50n-", typeof(ShitarabaBbsStrategy));
+			CheckStrategy("https://jbbs.shitaraba.net/game/45037/", typeof(ShitarabaBbsStrategy));
+			CheckStrategy("https://jbbs.shitaraba.net/game/45037/1286755510/", typeof(ShitarabaBbsStrategy));
+			CheckStrategy("https://jbbs.shitaraba.net/bbs/read.cgi/game/45037/1286755510/", typeof(ShitarabaBbsStrategy));
+			CheckStrategy("https://jbbs.shitaraba.net/bbs/read.cgi/game/45037/1286755510/50-", typeof(ShitarabaBbsStrategy));
 
 			// 旧したらば
 			CheckStrategy("http://jbbs.livedoor.jp/game/45037/", typeof(ShitarabaBbsStrategy));

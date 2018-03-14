@@ -122,12 +122,39 @@ namespace TestPeerstLib.Bbs
 					ThreadNo = "1286755510",
 					BbsServer = BbsServer.Shitaraba,
 				});
+			CheckBbsInfo("https://jbbs.shitaraba.net/game/45037/",
+				new BbsInfo
+				{
+					Url = "https://jbbs.shitaraba.net/game/45037/",
+					BoardGenre = "game",
+					BoardNo = "45037",
+					ThreadNo = null,
+					BbsServer = BbsServer.Shitaraba,
+				});
+			CheckBbsInfo("https://jbbs.shitaraba.net/bbs/read.cgi/game/45037/1286755510/",
+				new BbsInfo
+				{
+					Url = "https://jbbs.shitaraba.net/bbs/read.cgi/game/45037/1286755510/",
+					BoardGenre = "game",
+					BoardNo = "45037",
+					ThreadNo = "1286755510",
+					BbsServer = BbsServer.Shitaraba,
+				});
+			CheckBbsInfo("https://jbbs.shitaraba.net/bbs/read.cgi/game/45037/1286755510/l50",
+				new BbsInfo
+				{
+					Url = "https://jbbs.shitaraba.net/bbs/read.cgi/game/45037/1286755510/",
+					BoardGenre = "game",
+					BoardNo = "45037",
+					ThreadNo = "1286755510",
+					BbsServer = BbsServer.Shitaraba,
+				});
 
 			// 旧したらば
 			CheckBbsInfo("http://jbbs.livedoor.jp/game/45037/",
 				new BbsInfo
 				{
-					Url = "http://jbbs.livedoor.jp/game/45037/",
+					Url = "http://jbbs.shitaraba.net/game/45037/",
 					BoardGenre = "game",
 					BoardNo = "45037",
 					ThreadNo = null,
@@ -136,7 +163,7 @@ namespace TestPeerstLib.Bbs
 			CheckBbsInfo("http://jbbs.livedoor.jp/game/45037",
 				new BbsInfo
 				{
-					Url = "http://jbbs.livedoor.jp/game/45037/",
+					Url = "http://jbbs.shitaraba.net/game/45037/",
 					BoardGenre = "game",
 					BoardNo = "45037",
 					ThreadNo = null,
@@ -145,7 +172,7 @@ namespace TestPeerstLib.Bbs
 			CheckBbsInfo("http://jbbs.livedoor.jp/game/45037/1286755510/",
 				new BbsInfo
 				{
-					Url = "http://jbbs.livedoor.jp/game/45037/1286755510/",
+					Url = "http://jbbs.shitaraba.net/game/45037/1286755510/",
 					BoardGenre = "game",
 					BoardNo = "45037",
 					ThreadNo = "1286755510",
@@ -154,7 +181,7 @@ namespace TestPeerstLib.Bbs
 			CheckBbsInfo("http://jbbs.livedoor.jp/game/45037/1286755510",
 				new BbsInfo
 				{
-					Url = "http://jbbs.livedoor.jp/game/45037/1286755510/",
+					Url = "http://jbbs.shitaraba.net/game/45037/1286755510/",
 					BoardGenre = "game",
 					BoardNo = "45037",
 					ThreadNo = "1286755510",
@@ -163,7 +190,7 @@ namespace TestPeerstLib.Bbs
 			CheckBbsInfo("http://jbbs.livedoor.jp/bbs/read.cgi/game/45037/",
 				new BbsInfo
 				{
-					Url = "http://jbbs.livedoor.jp/bbs/read.cgi/game/45037/",
+					Url = "http://jbbs.shitaraba.net/bbs/read.cgi/game/45037/",
 					BoardGenre = "game",
 					BoardNo = "45037",
 					ThreadNo = null,
@@ -172,7 +199,7 @@ namespace TestPeerstLib.Bbs
 			CheckBbsInfo("http://jbbs.livedoor.jp/bbs/read.cgi/game/45037",
 				new BbsInfo
 				{
-					Url = "http://jbbs.livedoor.jp/bbs/read.cgi/game/45037/",
+					Url = "http://jbbs.shitaraba.net/bbs/read.cgi/game/45037/",
 					BoardGenre = "game",
 					BoardNo = "45037",
 					ThreadNo = null,
@@ -181,7 +208,7 @@ namespace TestPeerstLib.Bbs
 			CheckBbsInfo("http://jbbs.livedoor.jp/bbs/read.cgi/game/45037/1286755510/",
 				new BbsInfo
 				{
-					Url = "http://jbbs.livedoor.jp/bbs/read.cgi/game/45037/1286755510/",
+					Url = "http://jbbs.shitaraba.net/bbs/read.cgi/game/45037/1286755510/",
 					BoardGenre = "game",
 					BoardNo = "45037",
 					ThreadNo = "1286755510",
@@ -190,7 +217,7 @@ namespace TestPeerstLib.Bbs
 			CheckBbsInfo("http://jbbs.livedoor.jp/bbs/read.cgi/game/45037/1286755510",
 				new BbsInfo
 				{
-					Url = "http://jbbs.livedoor.jp/bbs/read.cgi/game/45037/1286755510/",
+					Url = "http://jbbs.shitaraba.net/bbs/read.cgi/game/45037/1286755510/",
 					BoardGenre = "game",
 					BoardNo = "45037",
 					ThreadNo = "1286755510",
@@ -199,7 +226,7 @@ namespace TestPeerstLib.Bbs
 			CheckBbsInfo("http://jbbs.livedoor.jp/bbs/read.cgi/game/45037/1286755510/l50",
 				new BbsInfo
 				{
-					Url = "http://jbbs.livedoor.jp/bbs/read.cgi/game/45037/1286755510/",
+					Url = "http://jbbs.shitaraba.net/bbs/read.cgi/game/45037/1286755510/",
 					BoardGenre = "game",
 					BoardNo = "45037",
 					ThreadNo = "1286755510",
@@ -208,7 +235,7 @@ namespace TestPeerstLib.Bbs
 			CheckBbsInfo("http://jbbs.livedoor.jp/bbs/read.cgi/game/45037/1286755510/50",
 				new BbsInfo
 				{
-					Url = "http://jbbs.livedoor.jp/bbs/read.cgi/game/45037/1286755510/",
+					Url = "http://jbbs.shitaraba.net/bbs/read.cgi/game/45037/1286755510/",
 					BoardGenre = "game",
 					BoardNo = "45037",
 					ThreadNo = "1286755510",
@@ -217,7 +244,7 @@ namespace TestPeerstLib.Bbs
 			CheckBbsInfo("http://jbbs.livedoor.jp/bbs/read.cgi/game/45037/1286755510/50-",
 				new BbsInfo
 				{
-					Url = "http://jbbs.livedoor.jp/bbs/read.cgi/game/45037/1286755510/",
+					Url = "http://jbbs.shitaraba.net/bbs/read.cgi/game/45037/1286755510/",
 					BoardGenre = "game",
 					BoardNo = "45037",
 					ThreadNo = "1286755510",
@@ -226,7 +253,7 @@ namespace TestPeerstLib.Bbs
 			CheckBbsInfo("http://jbbs.livedoor.jp/bbs/read.cgi/game/45037/1286755510/50n-",
 				new BbsInfo
 				{
-					Url = "http://jbbs.livedoor.jp/bbs/read.cgi/game/45037/1286755510/",
+					Url = "http://jbbs.shitaraba.net/bbs/read.cgi/game/45037/1286755510/",
 					BoardGenre = "game",
 					BoardNo = "45037",
 					ThreadNo = "1286755510",

@@ -39,11 +39,11 @@ namespace PeerstLib.Bbs.Strategy
 			{
 				if (ThreadSelected)
 				{
-					return String.Format("http://{0}/bbs/read.cgi/{1}/{2}/{3}/", BbsInfo.Host, BbsInfo.BoardGenre, BbsInfo.BoardNo, BbsInfo.ThreadNo);
+					return String.Format("{0}://{1}/bbs/read.cgi/{2}/{3}/{4}/", BbsInfo.Scheme, BbsInfo.Host, BbsInfo.BoardGenre, BbsInfo.BoardNo, BbsInfo.ThreadNo);
 				}
 				else
 				{
-					return String.Format("http://{0}/{1}/{2}/", BbsInfo.Host, BbsInfo.BoardGenre, BbsInfo.BoardNo);
+					return String.Format("{0}://{1}/{2}/{3}/", BbsInfo.Scheme, BbsInfo.Host, BbsInfo.BoardGenre, BbsInfo.BoardNo);
 				}
 			}
 		}
@@ -53,7 +53,7 @@ namespace PeerstLib.Bbs.Strategy
 		/// </summary>
 		public override string BoardUrl
 		{
-			get { return String.Format("http://{0}/{1}/{2}/", BbsInfo.Host, BbsInfo.BoardGenre, BbsInfo.BoardNo); }
+			get { return String.Format("{0}://{1}/{2}/{3}/", BbsInfo.Scheme, BbsInfo.Host, BbsInfo.BoardGenre, BbsInfo.BoardNo); }
 		}
 
 		//-------------------------------------------------------------
@@ -70,7 +70,7 @@ namespace PeerstLib.Bbs.Strategy
 		/// </summary>
 		protected override string settingUrl
 		{
-			get { return string.Format("http://{0}/bbs/api/setting.cgi/{1}/{2}/", BbsInfo.Host, BbsInfo.BoardGenre, BbsInfo.BoardNo);}
+			get { return string.Format("{0}://{1}/bbs/api/setting.cgi/{2}/{3}/", BbsInfo.Scheme, BbsInfo.Host, BbsInfo.BoardGenre, BbsInfo.BoardNo);}
 		}
 
 		/// <summary>
@@ -78,7 +78,7 @@ namespace PeerstLib.Bbs.Strategy
 		/// </summary>
 		protected override string subjectUrl
 		{
-			get { return String.Format("http://{0}/{1}/{2}/subject.txt", BbsInfo.Host, BbsInfo.BoardGenre, BbsInfo.BoardNo); }
+			get { return String.Format("{0}://{1}/{2}/{3}/subject.txt", BbsInfo.Scheme, BbsInfo.Host, BbsInfo.BoardGenre, BbsInfo.BoardNo); }
 		}
 
 		/// <summary>
@@ -86,7 +86,7 @@ namespace PeerstLib.Bbs.Strategy
 		/// </summary>
 		protected override string datUrl
 		{
-			get { return String.Format("http://{0}/bbs/rawmode.cgi/{1}/{2}/{3}/", BbsInfo.Host, BbsInfo.BoardGenre, BbsInfo.BoardNo, BbsInfo.ThreadNo); }
+			get { return String.Format("{0}://{1}/bbs/rawmode.cgi/{2}/{3}/{4}/", BbsInfo.Scheme, BbsInfo.Host, BbsInfo.BoardGenre, BbsInfo.BoardNo, BbsInfo.ThreadNo); }
 		}
 
 		/// <summary>
@@ -94,7 +94,7 @@ namespace PeerstLib.Bbs.Strategy
 		/// </summary>
 		protected override string boardUrl
 		{
-			get { return String.Format("http://{0}/{1}/{2}/", BbsInfo.Host, BbsInfo.BoardGenre, BbsInfo.BoardNo); }
+			get { return String.Format("{0}://{1}/{2}/{3}/", BbsInfo.Scheme, BbsInfo.Host, BbsInfo.BoardGenre, BbsInfo.BoardNo); }
 		}
 
 		/// <summary>
@@ -102,7 +102,7 @@ namespace PeerstLib.Bbs.Strategy
 		/// </summary>
 		protected override string writeUrl
 		{
-			get { return String.Format("http://{0}/bbs/write.cgi", Host); }
+			get { return String.Format("{0}://{1}/bbs/write.cgi", BbsInfo.Scheme, Host); }
 		}
 
 		//-------------------------------------------------------------

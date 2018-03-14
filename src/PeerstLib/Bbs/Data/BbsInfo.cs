@@ -13,6 +13,11 @@ namespace PeerstLib.Bbs.Data
 		//-------------------------------------------------------------
 
 		/// <summary>
+		/// URIスキーム
+		/// </summary>
+		public string Scheme { get; set; }
+
+		/// <summary>
 		/// 掲示板サーバのホスト
 		/// </summary>
 		public string Host { get; set; }

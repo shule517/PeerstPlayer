@@ -47,8 +47,8 @@ namespace PeerstLib.Bbs.Util
 			else
 			{
 				// スレッド一覧ページが存在するかで2ch互換かチェック
-				BbsInfo info = AnalayzeYY(threadUrl, uri.Host);
-				string subjectUrl = string.Format("http://{0}/{1}/subject.txt", info.BoardGenre, info.BoardNo);
+				BbsInfo info = AnalayzeYY(threadUrl, uri.Authority);
+				string subjectUrl = string.Format("{0}://{1}/{2}/subject.txt", info.Scheme, info.BoardGenre, info.BoardNo);
 				string html = WebUtil.GetHtml(subjectUrl, Encoding.GetEncoding("Shift_JIS"));
 
 				if ((html.Length > 16) && (html.Substring(10, 6) == ".dat<>"))
@@ -80,7 +80,8 @@ namespace PeerstLib.Bbs.Util
 			const int boardNoIndex = 3;
 			const int threadNoIndex = 4;
 
-			Regex regex = new Regex(String.Format(@"http://{0}(/bbs/read.cgi)?/(\w*)/(\w*)/?(\w*)?/?", host));
+			Uri uri = new Uri(url);
+			Regex regex = new Regex(String.Format(@"https?://{0}(/bbs/read.cgi)?/(\w*)/(\w*)/?(\w*)?/?", host));
 			Match match = regex.Match(url);
 
 			string threadUrl = match.Groups[threadUrlIndex].Value;
@@ -89,6 +90,7 @@ namespace PeerstLib.Bbs.Util
 			string threadNo = match.Groups[threadNoIndex].Value;
 			return new BbsInfo
 			{
+				Scheme = uri.Scheme,
 				Host = host,
 				Url = (threadUrl.EndsWith("/") ? threadUrl : String.Format("{0}/", threadUrl)),
 				BoardGenre = String.IsNullOrEmpty(genre) ? null : genre,
@@ -131,6 +133,7 @@ namespace PeerstLib.Bbs.Util
 				}
 				return new BbsInfo
 				{
+					Scheme = uri.Scheme,
 					Host = String.IsNullOrEmpty(host) ? null : host,
 					Url = (threadUrl.EndsWith("/") ? threadUrl : String.Format("{0}/", threadUrl)),
 					BoardGenre = String.IsNullOrEmpty(host) ? null : host,
@@ -159,6 +162,7 @@ namespace PeerstLib.Bbs.Util
 				}
 				return new BbsInfo
 				{
+					Scheme = uri.Scheme,
 					Host = String.IsNullOrEmpty(host) ? null : host,
 					Url = (threadUrl.EndsWith("/") ? threadUrl : String.Format("{0}/", threadUrl)),
 					BoardGenre = String.IsNullOrEmpty(host) ? null : host,

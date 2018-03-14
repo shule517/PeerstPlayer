@@ -29,11 +29,11 @@ namespace PeerstLib.Bbs.Strategy
 			{
 				if (ThreadSelected)
 				{
-					return String.Format("http://{0}/test/read.cgi/{1}/{2}/", BbsInfo.BoardGenre, BbsInfo.BoardNo, BbsInfo.ThreadNo);
+					return String.Format("{0}://{1}/test/read.cgi/{2}/{3}/", BbsInfo.Scheme, BbsInfo.BoardGenre, BbsInfo.BoardNo, BbsInfo.ThreadNo);
 				}
 				else
 				{
-					return String.Format("http://{0}/{1}/", BbsInfo.BoardGenre, BbsInfo.BoardNo);
+					return String.Format("{0}://{1}/{2}/", BbsInfo.Scheme, BbsInfo.BoardGenre, BbsInfo.BoardNo);
 				}
 			}
 		}
@@ -43,7 +43,7 @@ namespace PeerstLib.Bbs.Strategy
 		/// </summary>
 		public override string BoardUrl
 		{
-			get { return String.Format("http://{0}/{1}/", BbsInfo.BoardGenre, BbsInfo.BoardNo); }
+			get { return String.Format("{0}://{1}/{2}/", BbsInfo.Scheme, BbsInfo.BoardGenre, BbsInfo.BoardNo); }
 		}
 
 		//-------------------------------------------------------------
@@ -63,7 +63,7 @@ namespace PeerstLib.Bbs.Strategy
 		/// </summary>
 		protected override string settingUrl
 		{
-			get { return string.Format("http://{0}/{1}/SETTING.txt", BbsInfo.BoardGenre, BbsInfo.BoardNo); }
+			get { return string.Format("{0}://{1}/{2}/SETTING.txt", BbsInfo.Scheme, BbsInfo.BoardGenre, BbsInfo.BoardNo); }
 		}
 
 		/// <summary>
@@ -71,7 +71,7 @@ namespace PeerstLib.Bbs.Strategy
 		/// </summary>
 		protected override string subjectUrl
 		{
-			get { return String.Format("http://{0}/{1}/subject.txt", BbsInfo.BoardGenre, BbsInfo.BoardNo); }
+			get { return String.Format("{0}://{1}/{2}/subject.txt", BbsInfo.Scheme, BbsInfo.BoardGenre, BbsInfo.BoardNo); }
 		}
 
 		/// <summary>
@@ -79,7 +79,7 @@ namespace PeerstLib.Bbs.Strategy
 		/// </summary>
 		protected override string datUrl
 		{
-			get { return String.Format("http://{0}/{1}/dat/{2}.dat", BbsInfo.BoardGenre, BbsInfo.BoardNo, BbsInfo.ThreadNo); }
+			get { return String.Format("{0}://{1}/{2}/dat/{3}.dat", BbsInfo.Scheme, BbsInfo.BoardGenre, BbsInfo.BoardNo, BbsInfo.ThreadNo); }
 		}
 
 		/// <summary>
@@ -87,7 +87,7 @@ namespace PeerstLib.Bbs.Strategy
 		/// </summary>
 		protected override string boardUrl
 		{
-			get { return String.Format("http://{0}/{1}/", BbsInfo.BoardGenre, BbsInfo.BoardNo); }
+			get { return String.Format("{0}://{1}/{2}/", BbsInfo.Scheme, BbsInfo.BoardGenre, BbsInfo.BoardNo); }
 		}
 
 		/// <summary>
@@ -95,7 +95,7 @@ namespace PeerstLib.Bbs.Strategy
 		/// </summary>
 		protected override string writeUrl
 		{
-			get { return "http://" + BbsInfo.BoardGenre + "/test/bbs.cgi"; }
+			get { return BbsInfo.Scheme + "://" + BbsInfo.BoardGenre + "/test/bbs.cgi"; }
 		}
 
 		//-------------------------------------------------------------
