@@ -1,4 +1,4 @@
 PeerstPlayer
 ============
 
-PeerstPlayer(PeerCast実況用プレイヤー) http://peerst.jp/
+PeerstPlayer(PeerCast実況用プレイヤー) http://peerst.ddo.jp/
